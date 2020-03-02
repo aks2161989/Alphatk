@@ -1,0 +1,66 @@
+!! This file : HtmlToAccents.flt 
+!! Convert HTML codes to accented letters.
+!! To be used with the Filters Menu in Alpha.
+!! Last modification : 8 avril 2000 - 16:17:38
+!! (c) Copyright : Bernard Desgraupes 2000
+
+
+&aacute;		á	0
+&acirc;		â	0
+&aelig;		æ	0
+&agrave;		à	0
+&aring;		å	0
+&atilde;		ã	0
+&auml;		ä	0
+&ccedil;		ç	0
+&eacute;		é	0
+&ecirc;		ê	0
+&egrave;		è	0
+&euml;		ë	0
+&iacute;		í	0
+&icirc;		î	0
+&igrave;		ì	0
+&iuml;		ï	0
+&ntilde;		ñ	0
+&oacute;		ó	0
+&ocirc;		ô	0
+&ograve;		ò	0
+&oslash;		ø	0
+&otilde;		õ	0
+&ouml;		ö	0
+&szlig;		ß	0
+&uacute;		ú	0
+&ucirc;		û	0
+&ugrave;		ù	0
+&uuml;		ü	0
+&yuml;		ÿ	0
+&AElig;		Æ	0
+&Aacute;		Á	0
+&Acirc;		Â	0
+&Agrave;		À	0
+&Aring;		Å	0
+&Atilde;		Ã	0
+&Auml;		Ä	0
+&Ccedil;		Ç	0
+&Eacute;		É	0
+&Ecirc;		Ê	0
+&Egrave;		È	0
+&Euml;		Ë	0
+&Iacute;		Í	0
+&Icirc;		Î	0
+&Igrave;		Ì	0
+&Iuml;		Ï	0
+&Ntilde;		Ñ	0
+&Oacute;		Ó	0
+&Ocirc;		Ô	0
+&Ograve;		Ò	0
+&Oslash;		Ø	0
+&Otilde;		Õ	0
+&Ouml;		Ö	0
+&Uacute;		Ú	0
+&Ucirc;		Û	0
+&Ugrave;		Ù	0
+&Uuml;		Ü	0
+&#338;		Œ	0
+&#339;		œ	0
+&#376;		Ÿ	0

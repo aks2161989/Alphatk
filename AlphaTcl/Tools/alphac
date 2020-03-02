@@ -1,0 +1,417 @@
+#!/bin/sh
+# restart using tclsh \
+exec tclsh "$0" "$@"
+# Next line is the first line seen by tclsh
+## -*-Tcl-*-
+ # ###################################################################
+ # 
+ #  FILE: "alphac"
+ #                                    created: 2003-09-10 14:03:48 
+ #                                last update: 2005-12-10 16:23:03 
+ #  Author: Frédéric Boulanger
+ #  E-mail: Frederic.Boulanger@supelec.fr
+ #    mail: Supélec - Service Informatique
+ #          3 rue Joliot-Curie, Plateau de Moulon
+ #     www: http://wwwsi.supelec.fr/fb/
+ #  
+ #  Description: 
+ #  
+ #  This file is a Tcl script that can be used on Mac OS X to make AlphaX
+ #  edit files.  It relies on the AlphaServer package to communicate with
+ #  AlphaX.  If it cannot connect to AlphaServer, it will attempt to use 
+ #  another /usr/bin/osascript to communicate with AlphaX through 
+ #  AppleScript.
+ #  
+ #  alphac may be used to edit TeX files by setting TEXEDIT to:
+ #    alphac +%d %s
+ #  
+ #  The usage of alphac is:
+ #  
+ #    - edit file(s):
+ #        alphac <file> [<file>+]
+ #      
+ #    - edit file, select text from line1, col1 to line2, col2:
+ #        alphac [+<line1>[.<col1>][,<line2>[.<col2>]]] <file>
+ #      
+ #    - create new window, with initial contents from string(s):
+ #        alphac -c <window_name> [<string>+]
+ #      
+ #    - create new window, read initial contents from standard input:
+ #        alphac -c <window_name> [-]
+ #      
+ #    - edit file(s), even with names like "-c", "+2.3,4.9", or even "--":
+ #        alphac -- <file> [<file>+]
+ #  
+ #    - edit or create file(s), but wait until all edited/created windows
+ #      have been closed:
+ #        alphac -wait <any argument list as seen above>
+ #  
+ #  In less compact form:
+ #  
+ #    - To edit a file or a list of files, use:
+ #        alphac file other_file ...
+ #  
+ #    - To edit a file at a given line, use:
+ #        alphac +line file
+ #  
+ #    - To edit a file and have a range of lines selected, use:
+ #        alphac +line1,line2 file
+ #  
+ #    - To make the selection start at a given column on line1 and stop at 
+ #      a given column on line2, use:
+ #        alphac +line1.col1,line2.col2 file
+ #      If ".col1" is omitted, the selection will start at the beginning of line1.
+ #      If ".col2" is omitted, the selection will stop after the end of line2.
+ #  
+ #    - To create a new window in AlphaX, use:
+ #        alphac -c name
+ #  
+ #      The initial contents of the window can be the concatenation of strings:
+ #        alphac -c name string1 string2 ...
+ #      or it can be read from standard input with:
+ #        alphac -c name -
+ #  
+ #    - If you want to edit files which have names that may be confused with
+ #      alphac options, use:
+ #        alphac -- file other_file
+ #  
+ #    - If you want alphac to return only when all the windows you create/edit
+ #      have been closed, use:
+ #        alphac -wait
+ #        
+ #  History
+ # 
+ #  modified   by  rev reason
+ #  ---------- --- --- -----------
+ #  2003-09-10 FBO 1.0 original
+ #  2003-10-15 FBO 2.0 accept parameters a la AlphaTk, use basic Alpha commands
+ #  2003-11-17 FBO 3.0 allow '-wait' to make alphac wait for the edited/created
+ #                     windows to be closed (suggested by J. Guyer).
+ #  2005-10-19  JK 4.0 Internal changes -- no changes in the command line.  
+ #                     Send instructions as single commands (a list) instead of 
+ #                     sending long scripts.  Use "-wait" as first entry in the 
+ #                     list to instruct Alpha Server to keep the channel open 
+ #                     until all involved window are closed.
+ # ###################################################################
+ ##
+
+# ======================================================================
+# Part 1: define two procs: [serverPortFileName] and [sendToAlphaServer]
+# ======================================================================
+
+# Figure out where the file containing the port number is:
+proc serverPortFileName {userName} {
+    # Find a place for the file which contains the port number of 
+    # the server so that other processes can know it.
+    switch -- $::tcl_platform(platform) {
+	"macintosh" {
+	    return ""
+	}
+	"unix" {
+	    set tmpdir "/tmp"
+	}
+	"windows" {
+	    if {[info exists ::env(TEMP)] && [file isdirectory $::env(TEMP)]} {
+		set tmpdir $::env(TEMP)
+	    } elseif {[info exists ::env(TMP)] && [file isdirectory $::env(TMP)]} {
+		set tmpdir $::env(TMP)
+	    } elseif {[info exists ::env(USERPROFILE)] \
+	      && [file isdirectory [file join $::env(USERPROFILE) Temp]]} {
+		set tmpdir [file join $::env(USERPROFILE) Temp]
+	    } else {
+		return ""
+	    }
+	}
+	"default" {
+	    return ""
+	}
+    }
+    return [file join $tmpdir ${userName}-AlphaServerPort]
+}
+
+# General proc for sending a command to AlphaServer
+# 
+# For security reasons, the AlphaServer executes commands in a safe
+# interpreter, and will only accept commands listed in the variable
+# alphaServer::authorizedCommands.  By default, the only three commands are
+# [file::openWithSelection], [file::editAnyNumberOfFiles], and [newWindow].
+proc sendToAlphaServer { command {wait 0} } {
+    global env
+    global userName
+    global progName
+    # The port number of the Alpha server is in ALPHASERVERPORT
+    if { ![info exists env(ALPHASERVERPORT)] } {
+	# If not found, try to read it from /tmp/$USER-AlphaServerPort
+	set alphaServerFile [serverPortFileName $userName]
+	if { [file readable $alphaServerFile] } {
+	    set f [open $alphaServerFile r]
+	    gets $f portNum
+	    close $f
+	    set portNum [string trim $portNum]
+	    if { [string is integer -strict $portNum] } {
+		set env(ALPHASERVERPORT) $portNum
+	    }
+	}
+    }
+    
+    # First we try to use the AlphaServer.  This should work in most cases.
+    if { [info exists env(ALPHASERVERPORT)] } {
+	# Open a connection to the server
+	if {![catch {set sock [socket localhost $env(ALPHASERVERPORT)]}]} {
+	    # In this case the AlphaServer communication is working.  If
+	    # we are going to wait, we need to tell the Alpha Server
+	    # using the magic flag "-wait" (first entry in the list of
+	    # commands):
+	    if { $wait } {
+		set command [linsert $command 0 "-wait"]
+	    }
+	    # Write the Tcl commands:
+	    puts -nonewline $sock $command
+	    # write a control character to end the command
+	    puts $sock "\004"
+	    # be sure everything has been sent
+	    flush $sock
+	    if { $wait } {
+		# If we must wait for the end of the editing session, make a 
+		# blocking read from the socket.
+		fconfigure $sock -blocking 1
+		puts stdout  [read -nonewline $sock]
+	    }
+	    close $sock
+	    return 0 ; # this is the exitcode
+	}
+    }
+    
+    # At this point the communication with the Alpha Server has failed.
+    # We are going to try with AppleScript, but in this case the -wait
+    # flag will not work.  Rather than fooling the caller or just issuing
+    # a warning, let us be honest and clear:
+    if { $wait } {
+	puts stderr "$progName error: cannot find Alpha server port."
+	puts stderr "(osascript alternative does not work with the -wait flag.)"
+	return 1 ; # exitcode
+    }
+    
+    # If no server can be found, try to use AppleScript with /usr/bin/osascript.
+    if { [file executable /usr/bin/osascript] } {
+	puts stderr \
+	  "$progName warning: cannot find Alpha server port, using AppleScript."
+	
+	foreach ALPHA [list "AlphaX" "AlphaX_D"] {
+	    
+	    set as \
+	      "
+		tell application \"$ALPHA\"
+		  activate
+		  DoScript \"$command\"
+		end tell
+	      "
+	    
+	    # Debug stuff
+	    #     puts stderr "/usr/bin/osascript -l AppleScript -e $as"
+	    # Other debug stuff
+	    #     set asfile [open "/tmp/alphaServerAppleScript" "w"]
+	    #     puts $asfile $as
+	    #     close $asfile
+	    
+	    if {![catch {exec /usr/bin/osascript -l AppleScript -e $as} errMsg]} {
+		return 0 ; # exitcode
+	    } 
+	    puts $errMsg
+	    # Try the next name in the list...
+	}
+    }
+    
+    # None of the above worked...
+    puts stderr "$progName error: cannot find Alpha server port nor osascript."
+    return 1 ; # exitcode
+}
+
+# ======================================================================
+# Part 2: The script itself, parsing arguments, and building commands 
+# ======================================================================
+
+global env
+
+set progName [file tail $argv0]
+
+if {$argc == 0} {
+    puts stderr "Usage is one of the following:"
+    puts stderr "  - edit file(s):"
+    puts stderr "    $progName file \[file+\]"
+    puts stderr "  - edit file, select text from line1, col1 to line2, col2:"
+    puts stderr "    $progName \[+line1\[.col1\]\[,line2\[.col2\]\]\] file"
+    puts stderr "  - create new window, with initial contents from string(s):"
+    puts stderr "    $progName -c window \[string+\]"
+    puts stderr "  - create new window, read initial contents from standard input:"
+    puts stderr "    $progName -c window \[-\]"
+    puts stderr "  - edit file(s), even with names like \"-c\", \"+2.3,4.9\", or \"--\":"
+    puts stderr "    $progName -- file \[file+\]"
+    puts stderr "  - edit file(s)/create window and wait until they are closed:"
+    puts stderr "    $progName -wait <argument list>"
+    exit 1
+}
+
+set argIdx 0
+set arg [lindex $argv $argIdx]
+
+set debugArgsParsing 0
+if {$arg eq "-debugArgsParsing"} {
+    set debugArgsParsing 1
+    incr argIdx
+    set arg [lindex $argv $argIdx]
+}
+
+set syncEditing 0
+if {$arg eq "-wait"} {
+      set syncEditing 1
+      incr argIdx
+      set arg [lindex $argv $argIdx]
+}
+    
+if {[info exists ::env(USER)]} {
+    set userName $::env(USER)
+} elseif {[info exists ::env(USERNAME)]} {
+    set userName $::env(USERNAME)
+} elseif {[info exists ::tcl_platform(user)]} {
+    set userName $::tcl_platform(user)
+} else {
+    set userName ""
+}
+
+if {$arg eq "-u"} {
+    incr argIdx
+    if {$argc <= $argIdx} {
+	puts stderr "$progName error: missing user name after -u"
+	exit 1
+    }
+    set userName [lindex $argv $argIdx]
+    incr argIdx
+    if {$argIdx < $argc} {
+	set arg [lindex $argv $argIdx]
+    }
+}
+
+# There are three cases: one is with the -c flag, in which case we open a
+# new window, not associated to a file on disk.  This is handled by the
+# AlphaTcl proc [newWindow].  The second case is without the -c
+# flag, but with a single file argument and a linespec.  That case is
+# handled by the AlphaTcl proc [file::openWithSelection].  Finally there
+# might be neither -c nor linespec.  In that case there can be any number
+# of files to edit.  This is handled by [file::editAnyNumberOfFiles].
+
+if {$arg == "-c"} {
+    incr argIdx
+    if {$argc <= $argIdx} {
+	puts stderr "$progName error: missing window name after -c"
+	exit 1
+    }
+    set winName [lindex $argv $argIdx]
+    incr argIdx
+    
+    set winContents ""
+    if {$argIdx < $argc} {
+	set arg [lindex $argv $argIdx]
+	if {$arg == "-"} {
+	    set lineslist [list]
+	    while { ![eof stdin] } {
+		gets stdin line
+		lappend lineslist $line
+	    }
+	    append winContents [join $lineslist \n]
+	} else {
+	    set winContents $arg
+	    incr argIdx
+	    while {$argIdx < $argc} {
+		set arg [lindex $argv $argIdx]
+		append winContents $arg
+		incr argIdx
+	    }
+	}
+    }
+    
+    set command [list newWindow $winName $winContents]
+
+# Second case: one existing file with a linespec
+# ----------------------------------------------
+} elseif {[string index $arg 0] == "+"} {
+    set ok [regexp -- {\+([0-9]+)(\.([0-9]+))?([-,]([0-9]+)(\.([0-9]+))?)?} $arg \
+      dummy line1 dummy col1 dummy line2 dummy col2]
+    if {!$ok} {
+	puts stderr "$progName error: $arg is not a valid selection spec"
+	puts stderr "  $progName \[+line\[.col\]\[,line\[.col\]\]\] file"
+	exit 1
+    }
+    incr argIdx
+    if {$argc <= $argIdx} {
+	puts stderr "$progName error: missing file name after selection spec"
+	exit 1
+    }
+    set arg [lindex $argv $argIdx]
+    set fileName [file normalize $arg]
+    if {![file readable $fileName]} {
+	puts stderr "$progName error: file \"$arg\" is not readable"
+	exit 1
+    }
+    
+    incr argIdx
+    if {$argIdx < $argc} {
+	puts stderr "$progName error: extraneous parameter after \"$arg\""
+	exit 1
+    }
+    if {$col1 == ""} {
+	set col1 0
+    }
+    if {$line2 == ""} {
+	set line2 [expr $line1 + 1]
+	set col2 0
+    }
+    if {$col2 == ""} {
+	incr line2
+	set col2 0
+    }
+    
+    set command [list file::openWithSelection $fileName $line1 $col1 $line2 $col2]
+} else {
+    # Case 3: any number of files, but without linespecs
+    set specialSkipped 0
+    set command [list]
+    while 1 {
+	if {!$specialSkipped && ($arg == "--")} {
+	    set specialSkipped 1
+	} else {
+	    set f [file normalize $arg]
+	    if {![file readable $f]} {
+		puts stderr "$progName error: file \"$arg\" is not readable"
+		exit 1
+	    } else {
+		lappend command $f
+	    }
+	}
+	incr argIdx
+	if {$argc <= $argIdx} {
+	    break
+	}
+	set arg [lindex $argv $argIdx]
+    }
+    if { ![llength $command] } {
+	puts stderr "$progName error: missing file name"
+	exit 1
+    }
+    set command [linsert $command 0 "file::editAnyNumberOfFiles"]
+}
+
+if { $debugArgsParsing } {
+    if { $syncEditing } {
+	set command [linsert $command 0 "-wait"]
+    }
+    puts "COMMAND: $command"
+    exit
+}
+
+
+set exitcode [sendToAlphaServer $command $syncEditing]
+exit $exitcode
+
+# This script should be put in Alpha's $HOME/Tools/ directory so that
+# it can be used by alphaServer as the TEXEDIT program.

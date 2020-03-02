@@ -1,0 +1,12 @@
+# Tcl autoload index file, version 2.0
+set auto_index(::alphadebug::startDebug) [list source [file join $dir debugWithAlpha.tcl]]
+set auto_index(::alphadebug::startDebugServer) [list source [file join $dir debugWithAlpha.tcl]]
+set auto_index(::alphadebug::isDebuggerRunning) [list source [file join $dir debugWithAlpha.tcl]]
+set auto_index(::alphadebug::test) [list source [file join $dir debugWithAlpha.tcl]]
+set auto_index(::alphadebug::buildExtensions) [list source [file join $dir debugWithAlpha.tcl]]
+set auto_index(::alphadebug::convertTclProTree) [list source [file join $dir debugWithAlpha.tcl]]
+set auto_index(::alphadebug::copyTclProTree) [list source [file join $dir debugWithAlpha.tcl]]
+set auto_index(parse) [list source [file join $dir startDebugger.tcl]]
+set auto_index(exit) [list source [file join $dir startDebugger.tcl]]
+set auto_index(exit) [list source [file join $dir startDebugger.tcl]]
+set auto_index(TclProAboutBox) [list source [file join $dir startup.tcl]]

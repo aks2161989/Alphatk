@@ -1,0 +1,68 @@
+!! This file : LatexAccToHtml.flt
+!! Convert accented letters in a TeX source file to HTML code.
+!! To be used with the Filters Menu in Alpha.
+!! Last modification : 8 avril 2000 - 18:37:03 
+!! (c) Copyright : Bernard Desgraupes 2000
+
+
+\"{A}	&Auml;
+\"{E}	&Euml;
+\"{I}	&Iuml;
+\"{O}	&Ouml;
+\"{U}	&Uuml;
+\"{\i}	&iuml;
+\"{a}	&auml;
+\"{e}	&euml;
+\"{i}	&iuml;
+\"{o}	&ouml;
+\"{u}	&uuml;
+\"{y}	&yuml;
+\'{A}	&Aacute;
+\'{E}	&Eacute;
+\'{I}	&Iacute;
+\'{O}	&Oacute;
+\'{U}	&Uacute;
+\'{Y}	&Yacute;
+\'{a}	&aacute;
+\'{e}	&eacute;
+\'{i}	&iacute;
+\'{o}	&oacute;
+\'{u}	&uacute;
+\'{y}	&yacute;
+\AE 	&AElig;
+\^{A}	&Acirc;
+\^{E}	&Ecirc;
+\^{I}	&Icirc;
+\^{O}	&Ocirc;
+\^{U}	&Ucirc;
+\^{\i}	&icirc;
+\^{a}	&acirc;
+\^{a}	&aring;
+\^{e}	&ecirc;
+\^{i}	&icirc;
+\^{o}	&ocirc;
+\^{u}	&ucirc;
+\`{A}	&Agrave;
+\`{E}	&Egrave;
+\`{I}	&Igrave;
+\`{O}	&Ograve;
+\`{U}	&Ugrave;
+\`{\i}	&acute;
+\`{\i}	&igrave;
+\`{a}	&agrave;
+\`{e}	&egrave;
+\`{i}	&igrave;
+\`{o}	&ograve;
+\`{u}	&ugrave;
+\ae 	&aelig;
+\c{C}	&Ccedil;
+\c{c}	&ccedil;
+\s{s} 	&szlig;
+\~{A}	&Atilde;
+\~{N}	&Ntilde;
+\~{O}	&Otilde;
+\~{a}	&atilde;
+\~{n}	&ntilde;
+\~{o}	&otilde;
+\oe 	oe
+\OE 	OE

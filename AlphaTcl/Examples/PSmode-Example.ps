@@ -1,0 +1,79 @@
+% This is a sample file for the PostScript mode with Alpha. 
+% If you have a  working  gs  (ghostscript)  program  on  your
+% installation, for instance the CMacTeX  distrbution,  choose
+% "Process the Buffer" in the PS menu. Try also the  "Send  To
+% Viewer", "Send To Printer" and "Convert Ps To Pdf" items.
+% Author : Bernard Desgraupes <berdesg@easynet.fr>
+
+% Fractal
+% =======
+/prof 0 def
+/profmax 9 def
+/bas { /prof prof 1 add def } def
+/haut { /prof prof 1 sub def } def
+
+/traceligne {
+0 144 rlineto currentpoint 
+stroke translate 0 0 moveto } def
+
+/fractal 
+{ 
+gsave .9 .6 scale
+% gsave .7 .7 scale
+10 setlinewidth 
+bas traceligne
+prof profmax le 
+{135 rotate fractal
+-270 rotate fractal } if
+haut grestore } def
+
+300 360 moveto
+fractal
+stroke 
+
+% Alphas
+% ======
+% Margins
+/topm 780 def /botm 480 def /leftm 0 def /rightm 612 def
+
+% Procedures
+/nextli    % next line
+{ currentpoint 18 sub
+exch pop leftm exch moveto } def
+
+/testeol { 
+currentpoint pop rightm gt
+{nextli} if } def
+
+/finished {
+currentpoint exch pop botm lt } def
+
+/fillpage {
+    /chaine exch def 
+    { 
+	{ pop pop testeol } chaine kshow
+	finished { exit } if
+    } loop
+} def    % arg : a string
+
+% Script
+/Times-Bold findfont 19 scalefont setfont
+leftm rightm moveto
+.5 setgray 
+(alpha  ) fillpage
+
+% Overprint
+/Times-Roman findfont 50 scalefont setfont
+rightm leftm sub
+/alpha (Alpha is great) def
+alpha stringwidth pop sub
+2 div 530 moveto
+0 setgray
+
+/goldsection 1 5 sqrt add 2 div def
+1 goldsection scale
+alpha show
+
+showpage
+
+

@@ -1,0 +1,501 @@
+================================================================================
+= Mail Menu change log                                  
+================================================================================
+
+The "Mail Menu" is an extension package for AlphaTcl that allows e-mails to be
+composed in Alpha and sent via several different "mail handler" services.
+
+Original author: Pete Keheler
+
+Copyright (c) 1996-2006 Vince Darley, Pete Keheler, Juan Falguaras,
+                        Jon Guyer, Craig Barton Upright
+All rights reserved.
+
+See "License Information" at the end of this file.
+
+================================================================================
+
+For more information about e-mail and mime formats, see
+
+"RFC 822 - Standard for the format of ARPA Internet text messages"
+
+    <http://www.faqs.org/rfcs/rfc822.html>
+
+"RFC 2045 - Multipurpose Internet Mail Extensions (MIME)"
+
+    <http://www.faqs.org/rfcs/rfc2045.html>
+
+================================================================================
+= To Do List
+================================================================================
+
+• Take the folders (those not ending in " Folder") from the Eudora Folder
+  (recursively) to build the list of current MailBoxes, i.e. don't ask for them
+  from Eudora via AE.
+
+Note: I (Craig) am unlikely to do anything more with the Eudora Mail Handler.
+I'll continue to make minor improvements as they relate to the main Mail Menu
+and other handlers, but I don't intend any new features and really don't want to
+be responsible for fixing things that I didn't break.  (i.e. bug# 1142.)
+
+• Make use of Joachim's "console" package, now in AlphaTcl SystemCode.
+  
+================================================================================
+= Version History
+================================================================================
+
+(slightly abridged for versions earlier than 1.0)
+
+Changes include those for Mail Mode, Mail Menu, and all of the Mail Handler
+packages that are included in the standard distribution.
+
+================================================================================
+= 2.0 released                             last update: 01/09/2006 {02:14:38 PM}
+================================================================================
+
+• Mail Menu v 2.0
+• Code appears stable enough to consider "final".
+
+================================================================================
+= 2.0fc3 released                          last update: 04/06/2005 {11:18:47 AM}
+================================================================================
+
+• Mail Menu v 2.0b1
+• Split "mailMenu.tcl" into several different files:
+  "Changes - Mail Menu"
+  "mailEudora.tcl"
+  "mailMenu.tcl"
+  "mailMode.tcl"
+  "mailParsing.tcl"
+  "mailSystem.tcl"
+  "mailTcllib.tcl"
+  "mailWindows.tcl"
+• Each "mail handler" service is defined in an [alpha::library] package, and
+  defines a "Mail::<handler>" namespace.
+• Revived [Mail::handlerChanged] procedure.
+• Each service defines a [Mail::<handler>::handlerChanged] procedure which takes
+  a boolean value.  When the "mailHandler" is changed we first undo any action
+  taken by the previous handler, unset the "menu::additions(mailMenu)" array
+  item so that we start with a clean slate, and then register any hooks, add new
+  preferences and menu items for the new handler.
+• [Mail::handleAction] now checks to see if the namespace proc has been defined.
+• The default "Mail Menu > Reply (To All)" menu shortcut has been changed to
+  "Shift-Command-R" and uses a dynamic preference name: "reply/ReplyToAll". 
+  Since Eudora is only available in MacOS we know that the pair is dynamic.
+• The default "Mail Menu > Send" shortcut is now "Shift-Command-S".
+• New "Mail Menu > Mail Menu Help" submenu, with [Mail::handlerHelp] procedure
+  and support in [alpha::library] files.
+• Mail Menu v 2.0b2
+• New "rememberRecipientEmail" preference will automatically adjust the list of
+  addresses in the "Mail Menu > New Message To" menu.
+• The "Mail Menu > New Message To" menu now allows the user to specify an actual
+  item name for the menu, not just the e-mail address that is used.
+• Changed some of the Tcl-lib server preference names to make it clear that
+  these are for the SMTP server.  They are now listed in the Mail Mode Prefs
+  dialog in the "Server Information" pane.
+• Changed the name of the "Tcl - smtp" Mail Handler to "Alpha" to make it less
+  intimidating for users.
+• Mail Menu v 2.0b3
+• Added new "Alpha" Mail Handler capabilities to download messages from the
+  Inbox of a remote server for browsing/viewing, using Tcl-lib "pop3" package.
+  Downloaded message can also be deleted from the server.
+• If the server accepts [::pop3::top] calls, then we don't download the entire
+  message contents in [Mail::tcllib::openMailbox], just the headers.  In this
+  case we must download the entire message in [Mail::goToMatch].
+• Removed the [Mail::killMailboxWindow] procedure -- we now attempt to replace
+  any current "* MAILBOX '$folder'" window with new contents.
+• New "mailbrowse" minor-mode for MAILBOX windows.  These have the same bindings
+  as "Brws" windows, plus those of Mail mode, with the Mail menu but no colors.
+• New "Mail > Forward" command.
+• Fancier "On <date>, <from> wrote:" in Reply To e-mail window bodies.
+• Better error handling in [Mail::tcllib::QueueToSend] to inform the user if and
+  why a message was not sent to a particular recipient.
+• New preference to only ask for password information once.
+• New [Mail::tcllib::closeHook] to explicitly close the socket channel when the
+  Inbox window has been killed.  This should help ensure that trashed messages
+  are properly deleted from the server.
+• The "Start/Stop Notifying" routines have been removed from the "Tell Eudora"
+  menu.  The code has been archived, but there are no plans to revive it.
+• Better handling of the open socket channel in the Alpha handler, with a new
+  [Mail::tcllib::closeSocket] procedure.
+• Multiple account "identities" are supported in the Alpha handler.
+• Better password management in the Alpha handler, never saved between editing 
+  sessions but always saved during the current one.
+• Alpha handler creates "File > New > New E-mail Inbox" menu item.
+• Menu build procs are defined (and the [menu::buildSome] is called) when Mail 
+  mode is sourced, in [Mail::initializeMode].
+• Minor display changes for View Mail windows.
+• Common menu preferences are defined in "mailMode.tcl".
+• Mail Menu v 2.0b4
+• Minor menu re-organization.
+• [Mail::createFromWindow] now takes an "args" list which is turned into an
+  array to determine proper field names and values.
+• New "MAIL" windows replace any earlier ones.  We might relax this in the
+  future, perhaps to give each window a unique title that contains a portion of
+  the "Subject:" line.
+• New [Mail::colorizeMailWindow] procedure takes care of colorizing header
+  fields and creating hyperlinks.  We now hyperlink all urls and "mailto:" links
+  that appear in the window.
+• New "mailview" minor-mode which doesn't have any default colors.  This gives
+  us greater control over what we color (and what we don't) without running into
+  long-standing Alpha8/X core issues where [text::color] and [regModeKeywords]
+  don't play well together.  (The main issue here is the conflict with the
+  [regModeKeywords] "-c" flag for coloring comments that appears to confuse
+  ending color breaks.)
+• New "Mail Menu > View Full Header" command for the Alpha handler.  (Useful for
+  debugging this package!)
+• [Mail::createFromWindow] will attempt to parse html formatted text.
+• New Mail mode "Electric Semicolon" will allow ";" to toggle amongst MAILBOX
+  and MAIL windows.  (Currently hard-wired using [Bind] -- need to figure out
+  how to make this work with minor modes.)
+• New "renderHtmlFormattedText" preference.
+• New "alwaysBccTo" preference.
+• New [Mail::getFieldValue] procedure to simplify replying/forwarding.
+• Separate beg/endIndex values for each pop3Server Inbox. (Multiple Identities.)
+• New preferences for mail window geometry.  If "rememberWindowGeometry" is
+  turned on, any re-sizing will reset the default browse/view window parameters.
+• Support for "Reply-To:" fields; used in [Mail::replyToEmail] (finally.)
+• [Mail::createEmailWindow] now accepts an arbitrary number of header fields in
+  an "args" list rather than a pre-ordered set.
+• First support for Quoted-Printable Content-Transfer-Encoding.
+• [Mail::createFromWindow] renamed to [Mail::createViewWindow].
+• Moved some general Mail Window utility procedures to "mailMode.tcl".
+• New [Mail::parseContents] procedure handles the manipulation of the "contents"
+  text string, including the translation of "quoted-printable" elements and the
+  rendering of any html formatted text.
+• Mail Menu v 2.0b5
+• Moved all parsing/colorizing procedures for view windows to "mailParsing.tcl".
+• Better handling of multi-part mime contents, using [Mail::parseContents]
+  helper procedures.  Attachments are presented as a one-line statement, but are
+  no longer included in the message.  See [Mail::parseExtra].
+• Support for the mime content-type "multipart/digest" in [Mail::parseMulti].
+• User control over default font/fontsize in Mail viewing windows.
+• Support for "Mail Menu > Prev/Next Message" commands.  At present we have to
+  explicitly bring the Mailbox browsing window to the front to do this.
+• The default Mail Handler is now "Alpha".
+• All default shortcuts now use "Shift-Control" as default modifiers.
+• [Mail::requireMailWindow] now uses "viewer" argument instead of "from".
+• New [Mail::OptionTitlebar] procedure lists all current Mail mode windows.
+• New [Mail::MarkFile] procedure, based on the window type.
+• New "autoFloatMailboxWindowMarks" for Mailbox windows.
+• New "colorNewMailQuotedText" pref toggles comment colors in New Mail windows.
+• The "Mail Windows" pref pane is now hidden by default.  It is up to each Mail
+  Handler to make it visible if browsing/viewing windows are supported.
+• [Mail::colorizeWindow] attempts to color/hyper html formatted text.
+• Updated "quoted-printable" character set.
+• [Mail::tcllib::viewFullHeader] adds divider line.
+• The default Mail Handler has been changed back to "OS Mailer".  This handler
+  is the most basic, with no menu changes, and cannot be uninstalled by the
+  user.  An explicit change to "Alpha" also saves the handler preference so that
+  during startup the "File > New > Open Inbox" item will be presented.
+• ":" is no longer recognized as a comment character in [Mail::colorizeWindow].
+• New [Mail::findBrowserWindow] procedure to locate Mailbox window.
+• New [Mail::floatMailboxMessages] procedure used to create floating pallete.
+  Preferred to [floatNamedMarks] because selecting an item opens the e-mail.
+• Added "-exact" flag to all [lsearch] calls.  (I thought this was the default.)
+• Added "openHook" registration, workaround for bug# 1722.
+• Better "MailmodeVars(wordBreak)" default value to highlight e-mail addresses.
+• The "rememberWindowGeometry" pref is obsolete, geometry is always remembered.
+• If the "renderHtmlFormattedText" pref is turned on, we attempt to ignore any
+  plain text message parts if html formatted text has also been offered.
+• Mail Menu v 2.0b6
+• New Contextual Menu modules for "Mail Window" and "New Message To" menus.
+• New "mailWindows.tcl" file for all window management procedures.
+• New [Mail::getWindowType] procedure.  This makes the code much cleaner,
+  avoiding all of those [catch {Mail::requireMailWindow ...}] calls.
+• New [Mail::findViewerWindow] procedure.
+• Better "(prev/next)Message" identification when active window is a viewer.
+  (We don't assume that the browsing window position is for viewer window.)
+• New [Mail::DblClick] piggybacks on [Tcl::DblClick] when appropriate.
+• New [Mail::parseMessage] to handle "content-type: message/rfc822" mime parts.
+• New [Mail::setFillColumn] used to break lines in [Mail::parseText].
+• [Mail::colorizeMailWindow] renamed to [Mail::colorizeWindow].
+• New "warnWhenMessageExceeds" pref for the Alpha handler to ensure that we
+  don't start downloading a 2 MByte e-mail message.
+• Ensure that WWW mode is loaded to use its color/style pref values.
+• New "Mail Menu > Html Colors & Styles" menu item for the Alpha handler.
+• If we're ignoring some "multipart/alternative" message part, we still cache it
+  (html or text) in case it turns out to be the only one that was available.
+• Improved [Mail::DblClick] checking for AlphaTcl e-mails.
+• [Mail::getFieldValue] fix for "New Mail" windows.
+• "Add Cc/Bcc" are dynamic items, actually work now, and along with "Forward"
+  offer the user the list of saved e-mail addresses.
+• Better "X-Mailer" value for the Alpha handler.
+• Improved internal variable handling in the Alpha handler.
+• New [Mail::tcllib::checkMessageSize] and [Mail::tcllib::calculateSize] procs.
+• Message size checked if we have to use [::pop3::retrieve] to open Inbox.
+• Mailbox browsing windows include each message's index number.
+• New [Mail::parseEmailField] properly quotes "real names" in header fields.
+• [Mail::replyToEmail] breaks long lines with leading prefix string.
+• Improved status bar messages, indicating index number of mail message.
+• New [Mail::tcllib::getEnvelope] takes care of [::pop3::top] failure.
+• Alpha handler message envelopes and contents stored in arrays, not flat lists.
+  This also allows us to avoid re-downloading messages we've already seen.
+• "View Full Header" windows are now unique to the message's index number.
+  Again, we no longer need to re-download messages we've already seen.
+• New [Mail::parseHeaderField] converts quoted-printable subject lines.
+• [Mail::tcllib::checkMessageSize] only accepts a single index argument.
+• Mailbox browsing window auto-adjusts e-mail column width.
+• "Mail Menu > Add (Bcc|Cc)" properly positions the addition on a new line,
+  and properly delimits items with a comma.
+• Mail Menu v 2.0b7
+• New [Mail::nextPrevMessage] and [Mail::addField] procs in "mailWindows.tcl".
+• New "newerMessagesListedFirst" pref reverses Mailbox browsing window items.
+• New "Sent" and "Drafts" folders for saving composed e-mails.
+• New "saveCopyOfSentMail" preference to auto-save sent e-mails.
+• The "killWindowAfterSend" preference is now "1" since we save e-mails.
+• If a New Mail window has not been sent, we offer to save it on close.
+• New "Mail Menu > Open Saved Draft" menu item to display all drafts.
+• New "Mail Menu > Sent Mail" submenu with toggleable pref and display items.
+• New [Mail::rebuildMenu] procedure handles hook calling when necessary.
+• Minor [activateHook] cleanup for various window types.
+• Fix to Eudora menu insertion/building for "addCc…" vs "<E<SaddCc…".
+• Toggleable prefs removed from "Eudora Options" menu, they're in "Sent Mail".
+• [Mail::requireMailWindow] can accept multiple window type arguments.
+• Sent message windows can be forwarded.
+• The "Mail Menu > Forward" item is standard, handlers do not add it.
+• New "multipleMailViewWindows" preference, put subject lines in window titles.
+• Each window registers a "windowType" entry when it is created.
+• [Mail::selectNextField] works in Mailbox browsing windows.
+• Fix to [Mail::tcllib::flushPasswords] so that it actually works.
+• Add "Help" buttons to most of the dialogs in all files.
+• Each identity can set a unique "Reply-To" e-mail address (Alpha handler.)
+• Each identity now has "Email Address" and "Real Name" fields.
+• Real names added to "From" field in [Mail::tcllib::PrepareToSend].
+• Better parsing of "User Account" name from Email Address.
+• Better parsing of header fields in [Mail::sendCreatedMsg].
+• Saved e-mails entries can now include Real Names and Comments.
+• Minor variable cleanup, annotation.  (This update is almost complete.)
+  Mail Menu v 2.0fc1
+• New 'quotedTextShouldBe' preference: plain, colorized, italicized, both.
+• New menu binding preference for "Mail Menu > Save As Draft".
+• [Mail::selectNextField] respects "Special Keys" binding in New Mail windows.
+• [Mail::rebuildMenu] is no longer necessary, thanks to SystemCode menu changes.
+• New "menuBuild" hooks registered to properly dim/enable items in "mailMenu".
+• The "winName" arguement in all activateHook procedures is now optional, the
+  name of the active window is used if none is supplied.
+• New "confirmBeforeSending" preference.
+• Removed "openHook" registration workarounds for bug# 1722.
+• Fixed "$from$tag" bug which wasn't incrementing the tag for browsing windows.
+• Mail Menu v 2.0fc2
+• "Mail" mode no longer exists.  All windows are in Text mode, with minor-modes.
+• We make sure that [Mail::initializeMode] is always called before other code.
+  (It might be possible to relax this with some minor re-organization, but for
+  now this is the safest route.)
+• Mail Menu v 2.0fc3
+• Removed obsolete code tagged for removal.
+• Port numbers can be set for the Alpha mail handler.
+• New "autoFloatMessageMarks" preference for Mail View windows.
+• "Fill Column" workarounds for bugs 1783, 1788 (Alpha8/X, [getTextDimensions]).
+• Port numbers are parsed from server names, no longer a separate field to set.
+• "text/enriched" MIME content-type field values handled like "text/html".
+
+================================================================================
+= 1.3 released                             last update: 12/24/2004 {08:52:44 PM}
+================================================================================
+
+• New "Mail > New Message To" menu.
+• New [Mail::createMailboxWindow], to generalize the listing routine in
+  preparation for pop3 handling.
+
+================================================================================
+= 1.2 released                             last update: 12/23/2004 {10:37:12 AM}
+================================================================================
+
+• New [Mail::updatePreferences] procedure.
+• Menu dimming hooks.
+• Minor variable name changes.
+• User-defined keyboard shortcuts for Mail menu.
+• New [Mail::initializeMode] procedure ensures that all variables are properly
+  defined after file is sourced.
+• Streamlined menu procedures.
+• Cleaned up the mail window creation routines.
+• Improved hooks for proper dimming of menu items.
+• Removed obsolete procedures.
+• Finally added "tcllib" service with "smtp" package.
+• At present, we can only send, not retrieve.
+• Renamed "tcllib" to "Tcl - smtp".
+• Renamed "simple" to "OS Mailer"
+• Each mail handler now has its own prefs pane.
+
+================================================================================
+= 1.1 released                             last update: 12/21/2004 {01:41:55 PM}
+================================================================================
+
+• Transitioning to Tcl 8.0 namespace/variable handling.
+• Preferences overhaul, new [Mail::modePrefsDialog].
+• We hide the Eudora prefs when that is not the handler.
+• More preference refinements. "mailHandler" is now in the "MailmodeVars" array,
+  is not a global pref.
+• Moved a lot of items from the mode's init script to the main body of the file
+  -- easier to make changes.
+• Moved some global variables into the Mail namespace. (Some might go into the
+  "eudora" namespace later.)
+• Moved some global variables into the Mail namespace.
+• Major re-organization, all procedures are now in proper namespaces.
+• Cleaned up menu creation procedures.
+
+================================================================================
+= 1.0 released                             last update: 12/21/2004 {02:45:25 PM}
+================================================================================
+
+• More support for user defined prefix string.
+• More support for user defined colors.
+• "set newDocTypes..." defined in "mailMenu.tcl" instead of "newDocuments.tcl."
+• New "Mail > Select New Field" menu item, replacing the hard-wired Tab shortcut
+  to [mailTab].
+
+================================================================================
+= 0.2 released                             last update: 03/09/2001 {10:53:14 AM}
+================================================================================
+
+• There are now three possible plug-ins: eudora (works as before with
+  apple-events), tclmail (not really implemented, but can use the smtp library
+  from tcllib to send mail directly), and 'system', which simply uses your
+  system configuration for 'mailto:' urls to send mail.
+
+================================================================================
+= 0.1 released                             last update: 12/08/2000 {11:44:26 AM}
+================================================================================
+
+• Eudora Menu 1.2 became Mail Mode (w/ Mail Menu) 0.1
+• Jon updated various apple-events issues, Vince fixed some problems for
+  Alphatk.
+
+Previous version history notes:   
+
+modified by  rev    reason
+-------- --- ------ -----------
+08/07/98 JF  1.1    Added eudoraNicknamesFolder pref var to hold the path
+                      to the Eudora "Nicknames Folder" and added this
+                      folder in the scanning for "euNicknames" array
+                      (look for # JF)
+08/21/98 JF  1.2    Rewrite of finishNickname with 'prompt::statusLineComplete'
+                      and deleting substituteNickname
+
+================================================================================
+= Eudora e-mail specification information :
+================================================================================
+
+Class message:  A message
+Elements:      field by name
+Properties:
+
+"body" <string> --
+
+    the body of the message
+
+"priority" <integer> -- 
+
+    the priority
+
+"label" <integer> --
+
+    the index of the label
+
+"status" <unread/already read/replied/forwarded/redirected/
+          not sendable/sendable/queued/sent/never sent> --
+
+    the message status
+
+"sender" <string> --
+
+    the sender as appearing in the message summary
+
+"date" <string [r/o]> --
+
+    the date as appearing in the message summary
+
+"subject" <string> --
+
+    the subject as appearing in the message summary
+
+"size" <integer [r/o]> --
+
+    the size of the message
+
+"outgoing" <boolean [r/o]> -- 
+
+    is the message is outgoing?
+
+"signature" <none/standard/alternate> --
+
+    which signature the message should have
+
+"QP" <boolean> --
+
+    is Eudora allowed to encode text?
+
+"return receipt" <boolean> --
+
+    is a return receipt is requested?
+
+"wrap" <boolean> --
+
+    should the text be wrapped when sent?
+
+"tab expansion" <boolean> --
+
+    should tabs get expanded to spaces?
+
+"keep copy" <boolean> --
+
+    should a copy should be kept after message is sent?
+
+"preserve macintosh info" <boolean> --
+
+    should Macintosh information always be sent with attachments?
+
+"attachment encoding" <AppleDouble/AppleSingle/BinHex/uuencode> --
+
+    the type of encoding to use for attachments
+
+"show all headers" <boolean> --
+
+    should all headers be visible?
+
+"transliteration table" <integer> --
+
+    the resource id of the transliteration
+                                        table
+"will be fetched" <boolean> --
+
+    will the message be [re]fetched on next check?
+
+"will be deleted" <boolean> --
+
+    will the message be deleted from server on next check?
+
+================================================================================
+= License Information
+================================================================================
+
+Distributed under a Tcl-style license.
+
+Redistribution and use in source and binary forms, with or without modification,
+are permitted provided that the following conditions are met:
+
+• Redistributions of source code must retain the above copyright notice, this
+  list of conditions and the following disclaimer.
+
+• Redistributions in binary form must reproduce the above copyright notice, this
+  list of conditions and the following disclaimer in the documentation and/or
+  other materials provided with the distribution.
+
+• Neither the name of Alpha/Alphatk nor the names of its contributors may be
+  used to endorse or promote products derived from this software without
+  specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE FOR ANY
+DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+================================================================================ 
+.

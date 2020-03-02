@@ -1,0 +1,146 @@
+-- AppleScript-Example.script
+-- 
+-- Included in the Alpha distribution as an example of the Scrp mode
+
+-- This applescript is included in the standard Macintosh Operating System,
+-- and can be found in the system folder, at
+--
+-- System Folder:Help:Mac Help:fp:shrd:SetKeyboardSwitching
+--
+-- It allows the user to switch the key-binding for the "Application Switcher", 
+-- which some Alpha users find indispensable.
+--
+-- (Alpha has traditionally used command-tab for electric completions.)
+
+
+-- Turn keyboard switching on or off and set the keyboard shortcut.
+-- By James Rodden, © Apple Computer, Inc, 1998
+
+-- setting up localizable dialog strings
+set dialog1Text to "Would you like to use a keyboard shortcut to switch applications?  A keyboard shortcut is currently "
+set dialog2Text to "Which modifier key would you like to use?"
+set dialog3Text to "Would you like to change the keyboard shortcut?"
+set dialog4Text to "Enter the key that you would like to use to switch applications " & Â
+	"(any single character or \\t for Tab)."
+
+set enabledText to "turned on."
+set disabledText to "turned off."
+
+set keyboardShortcutPrefix to "The current keyboard shortcut is "
+set errorString to "Changing the keyboard shortcut was unsuccessful."
+set bookPath to "Help:Mac Help:"
+set shrdPath to "shrd:"
+set ErrorDialogLibName to "ErrDialogLib"
+-- end localized text strings
+
+set systemPath to path to system folder as string
+set ErrDialogLibPath to (systemPath & bookPath & shrdPath & ErrorDialogLibName)
+set ErrDialogLib to ""
+
+global cmdKeyText, cntrlKeyText, optionKeyText, tabKeyText
+
+set tabKeyText to "Tab"
+set cmdKeyText to "Command"
+set cntrlKeyText to "Control"
+set optionKeyText to "Option"
+
+set cancelBtnText to "Cancel"
+set yesBtnText to "Yes"
+set noBtnText to "No"
+set okBtnText to "OK"
+
+---------------------------------------
+-- Enable/Disable keyboard switching?
+try
+	tell application "Application Switcher"
+		if (keyboard cycling active) then
+			set dialog1Text to dialog1Text & enabledText
+		else
+			set dialog1Text to dialog1Text & disabledText
+		end if
+	end tell
+on error errMsg number errNum
+	if ErrDialogLib = "" then set ErrDialogLib to load script file ErrDialogLibPath
+	tell ErrDialogLib to displayError(errMsg, errNum)
+	return
+end try
+
+set response1 to display dialog dialog1Text Â
+	buttons {cancelBtnText, noBtnText, yesBtnText} default button yesBtnText
+
+try
+	if (the button returned of response1 is yesBtnText) then
+		-- Make keyboard cycling active
+		tell application "Application Switcher"
+			set the keyboard cycling active to true
+		end tell
+		
+		-- Change keyboard shortcut?
+		set response2 to display dialog Â
+			(dialog3Text & return & keyboardShortcutPrefix & GetKeystrokeAsString() & ".") Â
+				buttons {noBtnText, yesBtnText} default button yesBtnText
+		
+		if (the button returned of response2 is yesBtnText) then
+			-- Select modifier key
+			set modifierKey to display dialog dialog2Text Â
+				buttons {cmdKeyText, cntrlKeyText, optionKeyText}
+			
+			-- Select activation key
+			set theString to the text returned of Â
+				(display dialog dialog4Text default answer "")
+			
+			tell application "Application Switcher"
+				set theKey to character 1 of theString
+				if (theKey is "\\") and (the number of characters of theString > 1) and Â
+					(character 2 of theString is "t") then set theKey to tab key
+				
+				if the button returned of modifierKey is cmdKeyText then
+					set modifierKey to command down
+				else if the button returned of modifierKey is cntrlKeyText then
+					set modifierKey to control down
+				else if the button returned of modifierKey is optionKeyText then
+					set modifierKey to option down
+				end if
+				
+				set the cycling keystroke to {key:theKey, modifiers:modifierKey}
+			end tell
+			
+			-- Report results
+			display dialog (keyboardShortcutPrefix & GetKeystrokeAsString() & ".") Â
+				buttons {okBtnText} default button okBtnText
+		end if
+	else if (the button returned of response1 is noBtnText) then
+		-- Make keyboard cycling inactive
+		tell application "Application Switcher" to set the keyboard cycling active to false
+	end if
+on error
+	display dialog errorString buttons {okBtnText} default button okBtnText with icon 0
+end try
+
+on GetKeystrokeAsString()
+	set keystrokeString to ""
+	
+	tell application "Application Switcher"
+		set theKeystroke to the cycling keystroke
+		
+		set prefixString to ""
+		if (the modifiers of theKeystroke contains command down) then
+			set keystrokeString to keystrokeString & prefixString & cmdKeyText
+			set prefixString to "-"
+		end if
+		if (the modifiers of theKeystroke contains control down) then
+			set keystrokeString to keystrokeString & prefixString & cntrlKeyText
+			set prefixString to "-"
+		end if
+		if (the modifiers of theKeystroke contains option down) then
+			set keystrokeString to keystrokeString & prefixString & optionKeyText
+			set prefixString to "-"
+		end if
+		
+		set theKey to the key of theKeystroke
+		if (theKey is tab key) then set theKey to tabKeyText
+		set keystrokeString to keystrokeString & prefixString & theKey
+	end tell
+	
+	return keystrokeString
+end GetKeystrokeAsString

@@ -1,0 +1,609 @@
+
+Alpha-Bugzilla Help
+
+                                            version: 1.7.2
+                                            created: 01/11/2001 {12:37:11 AM}
+                                        last update: 01/26/2006 {01:41:16 PM}
+
+
+	  	Abstract
+
+The "Report A Bug" package provides support for Alpha-Bugzilla, Alpha's
+on-line database of reported bugs.  See the "Known Bugs" help for more
+information about known bugs as of this release, and for further tips on what
+steps you should take before deciding to submit a new bug report to the
+Alpha-Bugzilla database.  The "Debugging Help" file provides additional
+information about steps you can take to help discover what is going wrong
+with a given operation.
+
+
+	  	Table Of Contents
+
+"# What is Bugzilla?"
+"# Bugzilla Registration"
+
+"# Report A Bug"
+"#   Products"
+"#   Components and Version Numbers"
+"#   Basic Information"
+"#   Action That Caused Bug"
+"#   Details"
+"#   Possible Solution"
+"#   Additional Fields"
+"#   Keywords"
+"#   The Report Window"
+"# Report A Crash"
+"# Make A Suggestion"
+"# Sending The Report"
+"#   What Happens Next?"
+"#   Creating Attachments"
+"# Bugzilla Preferences"
+
+"# Alpha Bugzilla Menu"
+
+"# Credits, Copyright"
+
+<<floatNamedMarks>>
+
+
+	  	What is Bugzilla?
+
+"Alpha-Bugzilla" (or simply "Bugzilla") is an on-line database of all of the
+bugs that have been reported for various Alpha "# Products".  Bugs can be
+reported by any user, and if accepted by an Alpha/AlphaTcl developer then
+they will be addressed as soon as an appropriate fix for the problem can be
+discovered and properly implemented.  Some bugs that have an obvious solution
+will be fixed on the same day that they are reported.  Others, which cannot
+be easily replicated or require a more thorough examination to discover the
+underlying cause of the problem, might retain a "NEW" or "UNCONFIRMED" status
+for quite a while.  Some bugs have been waiting years for a proper fix -- but
+so long as they are properly entered into the database they are never truly
+forgotten.
+  
+Bugzilla's home page can be found here:
+
+<http://www.purl.org/net/alpha/bugzilla/>
+
+Bugs can be entered using the appropriate hyperlinks in your browser, or you
+can use the "Help > Report A Bug" menu item to generate a report with the
+necessary information that can be sent internally to Bugzilla.
+
+
+	  	Bugzilla Registration
+
+Many web-based Bugzilla interactions require that you register a valid e-mail
+before the action can be performed.  You can create one by going to this url:
+
+<http://www.purl.org/net/alpha/bugzilla/createaccount.cgi>
+
+You can register additional e-mail addresses as needed, and individually
+adjust the "notification/e-mail" settings for each one.
+
+
+
+	====================================================================
+
+
+	  	Report A Bug
+
+The "Help > Report A Bug" menu item will open a series of dialogs asking you
+for some information about the bug you've experienced.  At any point you can
+cancel the report if you need to gather more details.  When you select the
+menu item again most of the information that you've already entered will be
+retained as the defaults in the dialogs.  In most cases, the dialog will
+include a "Help" button that will postpone the bug reporter and open this
+window to the appropriate section.
+
+The end result is a new window containing all of the information you have
+provided, plus some additional details specific to your OS, your current
+installation of Alpha, version numbers, etc.  Once you have created the bug
+report, you can e-mail it directly to Bugzilla, or to one of the mailing
+lists -- see the "# Sending The Report" section below for more information.
+
+You can click here <<reportABug>> to see what some of these dialogs look like
+-- no report will be sent without some explicit action on your part, so you
+can continue the process until the new window is opened that gives you a
+final chance to add/amend any information.  The introductory dialog also
+includes some buttons to open the help file "Known Bugs", or to open the
+Bugzilla home page directly in your local browser.
+
+The following sections describe some of the dialogs that you'll see.  Each
+one begins with a hyperlink that will display the actual dialog that is
+created as you're reporting the bug.
+
+Before you start to write up a bug report, please see this url
+
+<http://www.purl.org/net/alpha/bugzilla/bugwritinghelp.html>
+
+for some information about how to increase the likelihood that your bug will
+be properly addressed.  Simply put, the more effectively you report a bug,
+the more likely an AlphaTcl developer will actually fix it.
+
+
+	  	 	Products
+
+<<bugzilla::bugProduct>>
+
+The first page will ask you to select a product for which you want to report
+the bug you've run across.  If you're not sure which product is responsible,
+choose "AlphaTcl" -- if a developer determines that a different product is
+responsible for the problem this can easily be changed later.  
+
+This dialog also has a checkbox for "Advanced Options" that is used by the
+rest of the Bug Reporter -- most users will do not need to use any advanced
+options to properly describe and file a report.  The sections below indicate
+what will be available if this option is set.
+
+The current products include
+
+	Alpha
+
+The Alpha7/8/X executables that run in the MacOS. Note that there is not a
+separate product for Alpha8 or AlphaX.
+
+	Alpha-Bugzilla: 
+
+The Alpha Cabal's bug system.  Use this products for bugs & suggestions about
+the bug tracking system itself.
+
+	AlphaTcl
+
+The Alpha Tcl code - the library of modes, features, system code etc.  in
+which most of Alpha's functionality resides.
+
+	AlphaTk
+
+An implementation of Alpha written entirely in Tcl/Tk (as opposed to C),
+which can run on Windows/Unix/OSX platforms.  Both Alpha and AlphaTk use the
+same set of library code: AlphaTcl (all of Alpha's SystemCode, Modes, Menus
+etc), TclAE etc.
+
+	Online-Tools
+
+Alpha related online tools such as the sourceforge cvs, the wiki, the AIDA
+document project etc.
+
+	TclAE
+
+AppleEvent handlers for Tcl, which enable Tcl applications on the Macintosh
+to use AppleEvents for communication with other programs and for the
+AppleEvent Manager to communicate with Tcl applications such as
+Alpha/Alphatk.
+
+See the "TclAE Help" file for more information.
+
+	  	 	Components and Version Numbers
+
+<<bugzilla::bugComponent>>
+
+Each product has one or more components associated with it.  For example, the
+AlphaTcl product might have the following components:
+
+	BibTeX
+	C
+	Dialogs
+	Documentation
+	Electrics
+	FTP
+	Filesets
+	Frontier
+	HTML & CSS
+	Key Bindings
+	JavaScript
+	LaTeX
+	Perl
+	Search
+	SystemCode
+	Tcl
+	WWW
+	Other
+
+If your problem is clearly associated with one of these components, then
+select the obvious choice.  Otherwise, don't bother changing the default
+component -- if a developer decides that the component should be changed this
+can be easily done later.  If you want descriptions about what these
+components mean, check this url:
+
+<http://www.purl.org/net/alpha/bugzilla/describecomponents.cgi>
+
+Each product also has a version number associated with it.  In most cases the
+default version number is extracted from various packages recognized by your
+Alpha application, and it is not necessary to change this value.  If you are
+relatively sure that this value is not correct, you should make a note of
+this in the actual bug report.
+
+Note that when generating the report from Alpha8/X, the version number of any
+Alphatk binary installed on your disk is not available, and vice versa.  In
+these cases, you will need to manually change this particular field once the
+report window has been generated.
+
+	  	 	Basic Information
+
+<<bugzilla::bugSummary>>
+
+The next dialog that appears asks for a brief description of the bug.  This
+should be a string of 80 characters or less, and allow other users who are
+looking at previously reported bugs to easily determine if this bug reflects
+the problem that they are seeing.
+
+There is also a checkbox for "I can reproduce this bug" -- if the bug cannot
+be replicated, it is very unlikely that it will ever be fixed, and you will
+be encouraged to find a specific set of circumstances or conditions so that
+others can see the bug as well.
+
+At the bottom of this dialog there is a pop-up menu that offers a set of
+possible actions that caused the bug.  Depending on what option you select,
+you will then be asked to further describe the ...
+
+	  	 	Action That Caused Bug
+
+<<bugzilla::keyPress>>
+<<bugzilla::menuSelection>>
+<<bugzilla::otherAction>>
+
+This dialog will vary depending on the action that you selected in the
+previous dialog.  You might be asked to describe the exact key binding that
+caused the bug, the menu item that led to the bug, or "other".  Again, this
+information will help the developer to replicate the bug, so please be as
+specific as possible.
+
+If "Advanced Options" was checked, then you can also locate a specific
+procedure that is causing the problem <<bugzilla::selectProc>> and optionally
+perform a "Stack Trace" on this proc.  For more information, see the help
+file "Debugging Help # Tracing Procedures".
+
+	  	 	Details
+
+<<bugzilla::bugDetails>>
+
+In this dialog you should give a fuller description of the actual bug that
+you observed.  Explain what you were expecting to happen, as well as what
+actually occurred.  Saying "this didn't work" is generally worse than saying
+nothing at all, so please be as specific as possible, including any notes
+that were displayed in alert dialogs or in the status message bar.  You will
+have an opportunity to add/amend any of this text after the report window has
+been generated, before you actually submit the bug report.
+
+	  	 	Possible Solution
+
+<<bugzilla::bugSolution>>
+
+This dialog is only presented if "Advanced Options" was checked.
+
+If you have a possible fix for this problem, include that information in this
+dialog.  Otherwise, leave it blank and move on.
+
+	  	 	Additional Fields
+
+<<bugzilla::bugFields>>
+
+This dialog is only presented if "Advanced Options" was checked.
+
+This dialog includes several other possible Bugzilla data fields that you can
+change, including your OS, the severity of the bug, etc.  In most cases it is
+not necessary to change any of this information, and once the report has been
+filed any of these fields can be changed to further refine the report.
+
+	  	 	Keywords
+
+<<bugzilla::bugKeywords>>
+
+This dialog is only presented if "Advanced Options" was checked.
+
+Bugzilla has a pre-defined set of keywords that can be attached to any bug
+report.  In most cases it is not necessary to add any keywords when the
+report is first filed -- keywords are generally added by developers after the
+bug has been accepted to to help them further categorize them, or to create
+lists of bugs that are similar in some respect.
+
+For a fuller explanation of what the different keywords mean, go to
+
+<http://www.purl.org/net/alpha/bugzilla/describekeywords.cgi>
+
+
+	  	 	The Report Window
+
+<<bugzilla::createBugWindow>>
+
+After you have dealt with all of these dialogs, a new window will be opened
+that contains all of information formatted in a way that the report can be
+e-mailed to Bugzilla.  A "floating" menu palette will also be created, with
+further options for interacting with the on-line database, described in the
+"# Alpha Bugzilla Menu" below.
+
+
+	  	Report A Crash
+
+
+In MacOSX, if Alpha crashed during your last editing session you will be
+asked during the startup sequence if you want to report it.  Crash reports
+are sent to and are maintained in Alpha-Bugzilla just like regular bug
+reports, but are flagged to receive special attention from the developers.
+
+The sequence of dialogs is similar to the "# Report A Bug" routine, with the
+exception of fewer field values to set and the addition of a query to add the
+last crash entry from the MacOSX "Crash Reporter" program log.
+
+The "# Alpha Bugzilla Menu" also includes a "Report A Crash" command that
+can be called at any time during your editing session.
+
+	  	Make A Suggestion
+
+In addition to keeping track of bugs associated with Alpha, Bugzilla is also
+a convenient repository for "Requests For Enhancement" (RFEs), which have
+been submitted by both users and developers.  It isn't necessary to provide a
+method for implementing the request.
+
+The advantage to filing such an RFE in Bugzilla (as opposed to one of the
+mailing lists) is that the request will stay in the database until somebody
+decides that it is either worthy of further consideration or will never be
+implemented.  Any additional comments to the report will be automatically
+cc'd to the e-mail address that originated it.
+
+To file an RFE, simply use the "Help > Make A Suggestion" menu item.  You
+will be guided through a brief series of dialogs, at the end of which a new
+window will be opened containing the relevant information.  Click on this
+<<makeASuggestion>> hyperlink for an example.
+
+
+	  	Sending The Report
+
+The new window will contain a hyperlink for "Send This Report", and this item
+is also available in the "Alpha Bugzilla" menu.  When you click on it, the
+contents of this window will be scanned to obtain any changes that you might
+have made, and it will be submitted to Bugzilla.  As of this writing, you
+must have an account in Bugzilla in order to submit new bugs, see the section
+on "# Bugzilla Registration" above.
+
+If the preference for "Submit Bugs Internally" is turned on, the report will
+be sent from Alpha directly to the the database.  
+
+Otherwise, a new "Enter Bug" web page will be opened in your browser, and all
+of the field values if the form will be filled in for you, but you'll have to
+paste in the "comments" section yourself.  choice.  The report will not be
+sent, however, until you explicitly decide to do so by clicking the "Commit"
+button in the web form.
+
+	  	 	What Happens Next?
+
+After you have submitted your report, you will receive a response from
+Bugzilla in a browser window that will (hopefully) tell you that the bug has
+successfully been filed.  If there was a syntax error with one of the blue
+fields (such as an incorrect version number or an missing value), the
+response will give some hints as to how to fix the problem, and you'll have
+to re-send an amended report.
+
+Once the report has been successfully filed, it will be reviewed by the
+members of the AlphaTcl development team.  They might need to change some of
+the initial fields related to product or component, or change the summary
+line to make it easier to identify the bug.  You might be contacted to
+provide further information if necessary.
+
+Hopefully somebody will step forward to look into the issues further.  Please
+keep in mind that all of the AlphaTcl developers are volunteers, and some
+bugs cannot be easily addressed.  Filing the bug ensures that it won't get
+lost, although it might take a while before the proper solution can be found.
+
+	  	 	Creating Attachments
+
+Once the report has been filed, you can add attachments to it so that others
+might download them later.  Attachments might be image files that demonstrate
+visually what is taking place on your screen, or they might be 'trace' files
+or proposed patches.  (See the "Debugging Help # Tracing Procedures" help
+file for more information about tracing.)
+
+"Attachment" hyperlinks are found in all of the web-based bugzilla reports.
+You can also select the "AlphaDev > Alpha Bugzilla > Create Attachment" menu
+command, or click here <<bugzilla::createAttachment>> to open a web page in
+your local browser and then follow the instructions there.
+
+Important: trace files can be very large, and should be compressed before
+they are added to the Alpha-Bugzilla database.  This will decrease the
+bandwidth required to retrieve them, and save some space on the remote server
+that houses Alpha-Bugzilla.  If your proposed patch has any 'high-bit'
+characters such as ellipses, diacritics, bullets, etc.  then attaching an
+archived version will help preserve them as they travel across platforms.
+
+
+	  	Bugzilla Preferences
+
+This package has a few preferences that determine how bugs are sent to
+Alpha-Bugzilla.  This menu item will open a preferences dialog.
+
+<<bugzilla::menuProc "" "bugzillaPrefs">>
+
+If the "Submit Bugs Internally" preference is turned on, bugs will be sent
+internally from Alpha.  Otherwise, the information in the report is compiled
+and sent to an "Enter Bug" web page with the values filled in.
+
+The "Account Name" and "Account Password" are required in order to send bugs
+internally from Alpha.
+
+
+	====================================================================
+
+
+	  	Alpha Bugzilla Menu
+
+<<floatBugzillaMenu>>
+
+This package creates a new "AlphaDev > Alpha Bugzilla" submenu.  This is
+generally only available if the package: alphaDeveloperMenu has been
+activated either globally or for the mode of the current window.
+
+Preferences: Menus
+Preferences: Mode-Menus
+
+This menu is also presented as a "floating palette" whenever a new bug report
+has been generated.
+
+The menu items include:
+
+	Report A Bug
+
+<<bugzilla::menuProc "" "reportABug">>
+
+Begins the series of dialogs described above in the "# Report A Bug" section,
+similar to the "Help > Report A Bug" menu item.
+
+	Report A Crash
+
+<<bugzilla::menuProc "" "reportACrash">>
+
+Begins a series of dialogs similar to "Report A Bug" with some of the fields
+pre-set, and with an option to include the last "Crash Log" created by the
+MacOSX "CrashReporter" program.
+
+	Make A Suggestion
+
+<<bugzilla::menuProc "" "makeASuggestion">>
+
+Begins a series of dialogs similar to "Report A Bug" with some of the fields
+pre-set to offer a suggestion for Alpha or AlphaTcl.
+
+	Mark Window
+
+<<bugzilla::menuProc "" "markWindow">>
+
+Creates a set of Marks for the active Report Window for easy navigation using
+the Marks Menu.  The "BUGZILLA FIELDS," "DETAILS," etc.  sections will be
+marked, and the window will be properly colorized.  This is done for you
+automatically when the Report Window is first created, but some editing
+actions might mess them up or remove them entirely.
+
+	Send This Report
+
+<<bugzilla::menuProc "" "sendThisReport">>
+
+If the current window is a bug report generated by the <<reportABug>> menu
+item, this item is identical to clicking on the hyperlink that should appear
+at the top of the bug report.  This will compile the information from the bug
+report and open an "Enter Bug" window in your desired browser.  See the above
+section on "# Sending The Report".
+
+	Review Crash Log
+
+<<bugzilla::menuProc "" "reviewCrashLog">>
+
+(MacOSX only)
+
+Opens the "CrashReporter Crash Log" specific to Alpha, positioning the cursor
+at the start of the most recent crash.
+
+	Insert Last Crash Info
+
+<<bugzilla::menuProc "" "insertLastCrashInfo">>
+
+(MacOSX only)
+
+Parses the "CrashReporter Crash Log" specific to Alpha to obtain the
+information for the most recent crash, and inserts it into the active window.
+Most of this information might seem rather cryptic, but it is often
+invaluable to developers who are trying to determine the cause of a crashing
+bug.
+
+	Delete Crash Log
+
+<<bugzilla::menuProc "" "deleteCrashLog">>
+
+(MacOSX only)
+
+Remove the "CrashReporter Crash Log" specific to Alpha.  The next time that
+the program crashes, a new log file will be created.
+
+
+	Bugzilla Home
+
+<<bugzilla::menuProc "" "bugzillaHome">>
+
+Opens the Bugzilla home page in your local browser.
+
+	Create Account
+
+<<bugzilla::menuProc "" "createAccount">>
+
+Opens the Bugzilla page to create a new account.
+
+	Query Page
+    
+<<bugzilla::menuProc "" "queryPage">>
+
+Opens the Bugzilla query page in your local browser, in which you can search
+for currently filed bugs using a variety of parameters.  This item is
+generally useful only for developers attempting to generate a list of bugs
+that are related in some fashion.
+
+	Search Bugs For
+
+<<bugzilla::menuProc "" "searchBugsFor">>
+
+Opens a dialog allowing you to specify various parameters for bugs that have
+already been filed in the database.  Searches are performed for the actual
+content of the bug reports, including the "Brief Description" of each bug.
+The search results will be displayed by Bugzilla in your local browser.
+
+	Summary Bug Lists
+
+<<bugzilla::menuProc "" "summaryBugLists">>
+
+Opens a dialog allowing you to specify various parameters for bugs that have
+already been file in the database.  Searches are performed for the database
+fields, but not the actual content of the bug reports.  The search results
+will be displayed by Bugzilla in your local browser.
+
+	Go To Bug
+
+<<bugzilla::menuProc "" "goToBug">>
+
+Opens a dialog asking for the id# of a bug that has already been filed.  The
+given bug report will be displayed in your local browser.
+
+	Create Attachment
+
+<<bugzilla::menuProc "" "createAttachment">>
+
+Prompts for the number of a previously filed bug, and then opens a web page
+in your local browser so that you can attach a file to the report.  Attached
+files might include images, proposed patches, or 'stack trace' logs.  Please
+compress any large files before submitting them to the Bugzilla database.
+
+	Create New Trace
+
+<<bugzilla::menuProc "" "createNewTrace">>
+
+After a report has been filed, you might be asked to create a "stack trace"
+of a particular AlphaTcl procedure.  This command starts that process.  See
+the "Debugging Help # Tracing Procedures" help window for more information.
+
+	Bugzilla Prefs
+
+<<bugzilla::menuProc "" "bugzillaPrefs">>
+
+Opens the dialog to change the "# Bugzilla Preferences"
+
+	Bugzilla Help
+
+Opens this window.
+
+	====================================================================
+
+	  	Credits, Copyright
+
+Thanks for using the Bug Reporter!  Any feedback on this package or the user
+interface it provides is always welcome.
+
+This document has been placed in the public domain.
+
+The "reportABug.tcl" file is distributed under a Tcl style license.  
+
+Copyright (c) 2001-2004 Vince Darley, Craig Barton Upright, Jon Guyer
+All rights reserved.
+
+    Author: Vince Darley
+    E-mail: <vince [at] santafe [dot] edu>
+       www: <http://www.santafe.edu/~vince/>
+
+Maintainer: Craig Barton Upright
+    E-mail: <cupright [at] princeton [dot] edu>
+       www: <http://www.princeton.edu/~cupright/>
+

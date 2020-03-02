@@ -1,0 +1,471 @@
+
+Keyboard Shortcuts
+
+                                               version: 8.1a1
+                                               created: 03/08/1994 {02:47:04 pm}
+                                           last update: 05/31/2005 {11:45:34 AM}
+
+
+This help file describes some of the default keyboard shortcuts (also referred
+to as "key bindings" in some of Alpha's documentation) with this installation
+of Alpha, how to determine what certain keys are bound to, and how to create
+your own custom shortcuts.
+
+
+	  	Table Of Contents
+
+
+"# Table Of Contents"
+"# Introduction"
+"# Mac OS X notes"
+
+"# Global Key Bindings"
+"#   Help"
+"#   Moving the Cursor"
+"#   Selecting Text"
+"#   Deleting Text"
+"#   Twiddle, Shifting Text"
+"#   The Numeric Keypad"
+"#   The Return key"
+"#   Other Special Keys"
+
+"# Mode Specific Bindings"
+
+"# User Defined Key bindings"
+"#   Bindings to accented characters"
+"#   What to bind to?"
+
+<<floatNamedMarks>>
+
+
+	  	Introduction
+
+
+There are basically three different ways editor functions can be invoked:
+
+    ¥ Directly via Alpha menus.
+    ¥ Through menu equivalent key bindings
+    ¥ Through key combinations other than menu equivalents. These 
+      combinations include function keys and the numeric keypad.
+
+It is the last two options that we are concerned with in this document.  By
+default, Alpha has well over 300 different key bindings, far more than you
+would ever want to memorize.  However, the bindings are there only for your
+convenience.  You don't need to use any of them, but many people find that
+using the mouse for common editing functions seriously slows them down.
+
+To quickly find out what a specific key is bound to, use the menu command
+"Config > Describe Binding", and then press the key combination in question.
+If you look closer at the "Config" menu, you'll also see that F7 is bound to
+this menu item.  For example, type
+
+	F7
+	<command>-S
+
+(Command is the "Apple" key on the Macintosh, by the way, and "Alt" on a PC)
+and you'll see that Command-S is bound to
+
+	{menu::fileProc "File" "save"}
+
+Sometimes the information given by F7 will seem somewhat cryptic, because
+these are the actual Tcl commands, but in general it is easy to decipher what
+is going on.
+
+If you take a look at the "File" menu, you'll see that "Save" also gives the
+key binding information -- if you find yourself using the same menu commands
+over and over again, learning a few of these bindings can save a lot of time
+and travel of the mouse.
+
+The "Config > List All Bindings" menu item will list all current key bindings,
+or you could just click here --> <<global::listAllBindings>>.  If you want
+more information regarding what an item does, command double-click on the
+listed Tcl procedure to open the file containing its definition.
+
+
+	  	Mac OS X notes
+
+
+In Mac OS X 10.2 and above, some OS keyboard shortcuts conflict with those
+which Alpha has used for many years.  Command-Option-D is one example --
+while this has been mapped to "Text > Uncomment Line" in Alpha, Mac OS X 10.3
+took over this keyboard shortcut to toggle hiding the Dock.  Another example
+is Command-`, which in many keyboards is an OS mapping to "Rotate Windows."
+
+These conflicts are known issues, and have been reported in Bug# 1202 -- the
+AlphaTcl development team will be exploring how to update Alpha's shortcuts
+to be compliant with 10.3 and above and the necessary changes should be in
+the next release.
+
+In the meantime, you have three options.
+
+(1) Dive into AlphaTcl source files and manually change some of Alpha's menu
+shortcuts yourself -- not recommended for the faint-hearted.
+
+(2) Follow the instructions below in the "# User Defined Key bindings"
+section to create new shortcuts using the core commands [Bind] or [ascii],
+saving the new bindings in a "prefs.tcl" file.  Tip: If you first select
+"Config > List All Bindings", you will open a new window containing keyboard
+shortcut "recipes" that you can use for your own bindings.
+
+(3) Disable these OS shortcuts for all applications, including Alpha.  Select
+"Apple > System Preferences > Keyboard & Mouse", click on the tab named
+'Keyboard Shortcuts', and turn off those items that are in conflict with the
+Alpha shortcuts that you need in order to perform your basic editing tasks.
+
+
+One more tip: Here are some [Bind] scripts that you might find useful to add
+to your "prefs.tcl" file.  The first set,
+
+	Bind '`' <z>  {twiddle}
+	Bind '`' <zo> {twiddleWords}
+
+create Control-(Option)-` shortcuts for "Text > Twiddle (Words)" so that you
+have this function available even if the OS uses Command-` to rotate windows.
+
+This one
+
+	Bind 'd' <cz> {comment::undoLine}
+
+allows you to use Command-Control-D for "Text > Uncomment Line" so that you
+have still use Command-Option-D to hide/show the Dock.
+
+These [Bind] scripts will be evaluated each time you restart Alpha.
+
+
+	======================================================================
+
+
+	  	Global Key Bindings
+
+
+The following is a list of some of the most commonly used key bindings in
+Alpha's default setup, those that are generally not listed in any menus:
+
+Emacs user will also be happy to know that many of the basic keyboard
+shortcuts used in Emacs are supported by Alpha.  However, this requires that
+you switch on the Emacs package.  Read more in the file "Emacs Help".
+
+	  	 	Help
+
+'Help'									open the "Alpha Manual" help file
+
+
+	  	 	Moving the Cursor
+
+
+Left-Arrow                              backward character
+Right-Arrow                             forward character
+Up-Arrow                                previous-line
+Down-Arrow                              next-line
+
+Option-Left-Arrow                       backward one word
+Option-Right-Arrow                      forward one word
+
+Command-Left-Arrow                      beginning of line
+Command-Right-Arrow                     end of line
+Command-Up-Arrow     or  'Home'         beginning of window
+Command-Down-Arrow   or  'End'          end of window
+
+'PageUp'                                move one page backward
+'PageDown'                              move one page forward
+
+
+	  	 	Selecting Text
+
+
+Shift-Left-Arrow                        extend selection one char left
+Shift-Right-Arrow                       extend selection one char right
+
+Shift-Up-Arrow                          extend selection one line up
+Shift-Down-Arrow                        extend selection one line down
+
+Shift-Option-Left-Arrow                 extend selection one word left
+Shift-Option-Right-Arrow                extend selection one word right
+
+Control-H                               select next word
+
+Shift-Command-Left-Arrow                select to beginning of line
+Shift-Command-Right-Arrow               select to end of line
+
+
+	  	 	Deleting Text
+
+
+'Del'      or  Control-D        delete forward char
+'Delete'                        delete backward char
+Option-D                        delete forward word
+Option-H   or  Option-Delete    delete backward word
+Control-K                       delete to end of line
+
+(Control-D, Option-D, Option-H, Option-Delete and Control-K are only available
+after the package: emacs has been turned on.)
+
+
+	  	 	Twiddle, Shifting Text
+
+
+The following functions are found in the Text menu.  The keyboard shortcuts 
+to these functions are dependent on your particular keyboard layout.
+
+Preferences: International
+
+Twiddle                              Exchange characters bracketing 
+                                       the selection point.
+Twiddle Words                        Exchange words bracketing the 
+                                       selection point.
+
+Shift Left                           Shift selection left one tab.
+Shift Left Space                     Shift selection left one space.
+Shift Right                          Shift selection right one tab.
+Shift Right Space                    Shift selection right one space.
+
+
+	  	 	The Numeric Keypad
+
+
+Alpha is able to use numeric keypad as a navigation tool.  Press Shift-Clear
+(or Shift-Numlock) to turn on this feature.  The current status of Alpha's
+internal "numLock" variable is indicated by the "NLCK" button in the status
+bar menu.  Clicking on this button also toggles "numLock" on and off.  Click
+on this hyperlink <<toggleNumLock>> to locate it.
+
+As of this writing, Alphatk has no control over the functions that are bound
+to the numeric keypad keys.
+
+When Alpha takes over the keypad, the following functions are available:
+
+0   Scroll back one page 
+1   Jump to the start of the nearest function above the current position * 
+2   Selects region between cursor and Window Pin, i.e
+    "Search > The Pin > Hilite To Pin"
+3   Jump to the start of the nearest function below the current position * 
+4   Move to beginning of current word 
+5   Sets Window Pin to cursor location and moves cursor to previous Pin, i.e.
+    "Search > The Pin > Exchange Point And Pin"
+
+Note: This is extremely useful for navigating across text chunks.  Try
+'paste'-ing a large chunk of text, and then immediately hit Keypad 5.
+
+Try 'put cursor at top/bottom of document' (Keypad 0 or .), and then
+immediately hit Keypad 5.  After a few minutes, you won't be able to live
+without Keypad 5...
+
+6   Move to end of current word 
+7   Delete all characters from current insertion point to beginning of word 
+8   Put cursor at top of document (new in 7.4.x) 
+9   Delete all characters from current insertion point to end of word 
+
+.   Put cursor at bottom of document 
++   Cycles between the two topmost windows 
+-   Makes the previous window topmost 
+
+Shift-Clear   Turns Num-Lock off, allowing you to use the keypad for numbers
+Clear         Move the current line to the top of the window
+Enter         Page forward 
+
+* Note: in modes where no function specifying pattern exist, 1 and 3 just look
+for parenthesis (e.g. text mode).  Also, in Tcl trace dumps these keys help
+follow Tcl calls and returned values (advanced stuff)
+
+The =, /, * keys function normally.
+
+To turn off these special navigation functions, turn on the Num-Lock (using
+Shift-Clear).
+
+Turning the Num-Lock off will recover the navigation features of the numeric
+keypad.
+
+
+	  	 	The Return key
+
+
+Many modes have defined sophisticated indentation routines that is often
+specific to the context surrounding the cursor position.  When this is the
+case, the mode will have an "Indent On Return" preference that can be turned
+on and off.  When it is turned on, pressing Return will automatically indent
+the new line that is created.
+
+Preferences: Mode
+
+Even if this preference is turned off, you can always indent the current line
+using the "Text > Indent Line/Selection" menu commands.  In addition, pressing
+Command-Return will always indent the new line, while Control-Return will
+always insert a new line without indentation.
+
+
+	  	 	Other Special Keys
+
+
+The menu item "Config > Special Keys" will open a dialog allow you to define
+global keyboard shortcuts to particular functions.  For more information, see
+the "Electrics Help # Electric Bindings" help file.
+
+
+	======================================================================
+
+
+	  	Mode Specific Bindings
+
+
+Be aware that each file has a "mode" associated with it that may define
+additional key bindings.  The "Config > Mode Prefs > Describe Mode" menu item
+will list mode-specific key bindings (for the mode of the current window).
+
+LaTeX specific key bindings can also be found in "latexKeys.tcl".
+
+
+	======================================================================
+
+
+	  	User Defined Key bindings
+        
+
+Any Tcl command can be bound to any single keystroke.  One way to bind a
+function is with a statement such as:
+  
+	Bind 'c' <modifier string> {funcName or Tcl script} [<mode>]
+          
+where c is a character, <modifier string> is an optional string containing one
+or more of:
+
+      c   - Command modifier
+      o   - Option modifier
+      s   - Shift modifier
+      z   - Control modifier
+      e   - Escape modifier      
+
+'mode' is an optional parameter that specifies, when present, that the binding
+is only active in a given mode.  Note that given a general binding (no mode
+specification) and a binding specific to the current mode, the last binding to
+have been created is the one found first.
+
+For example, the following line binds cmd-shift-f to the function
+'forwardChar':
+
+	Bind 'f' <cs> forwardChar
+
+and
+
+	Bind 'f' <cs> {alertnote "You just pressed cmd-shift-f"}
+
+binds 'Command-Shift-F' to tell the user what they pressed.  Notice how if the
+script you are binding contains spaces (or characters like '[]') you must
+surround it with curly braces.  If there are no spaces, it is still okay to
+use '{}', so the first of the above examples could have used '{forwardChar}'.
+
+Additionally, the modifier string can contain a capital letter specifying that
+the binding is only activated if preceded by control and the lowercase version
+of that letter.  This feature allows multiple-key combinations a la Emacs.
+This requires that Control-<the character> is bound to the function
+'prefixChar'.  By default Control-C, Control-Q, and Control-X are bound to
+'prefixChar'.  The next line would bind 'forwardChar' to Control-X Control-F:
+
+	Bind 'f' <cX> forwardChar 
+
+Additionally, most keyboards have keypads and/or function keys.  These keys
+can be bound using case-insensitive numeric labels using the same bind command
+as above, with the label replacing the character.  For example, to bind F1 to
+function 'funcName', the following would work:
+
+	Bind F1 funcName
+
+As above, the binding can include a modifier string.  The following labels are
+defined:
+
+  Esc F1 F2 F3 F4 F5 F6 F7 F8 F9 F10 F11 F12 F13 F14 F15 Help Home Pgup Del 
+  End Pgdn Left Right Up Down Clear Kpad0 Kpad1 Kpad2 Kpad3 Kpad4 Kpad5
+  Kpad6 Kpad7 Kpad8 Kpad9 Kpad= Kpad/ Kpad* Kpad- Kpad+ Enter Kpad.
+
+The above labels may not be sufficient for all keyboards (attention
+international users).  In particular there are some problems when binding to
+accented characters (more about that below).  If a hex number is used instead
+of a character inside the single quotes, the binding is done to key codes
+instead of ascii values.  The following is a key code version of the same
+binding:
+
+	Bind 0x03 <cs> forwardChar
+
+The key code for any given key can be obtained by selecting the menu item
+"Utils > Ascii Etc > Key Code" and then typing the key.  Alpha then types the
+key code.
+
+Also, there is an alternate form that allows the specification of an ascii
+code directly:
+
+	ascii 0x20 <z> setMark
+    
+Binds control-space to 'setMark'.  The ascii code for any given key can be
+obtained by selecting the menu item "Utils > Ascii Etc > Key Ascii" and then
+typing the key.  Alpha then types the ascii code.
+
+Note that menu item command equivalents take precedence over bindings, and
+that the 'Bind' command does not affect the command equivalents displayed in
+the menus.  Also note that key code bindings take precedence over ascii
+bindings.
+
+Finally, there are 'unBind' and 'unascii' functions, with identical arguments
+to their counterparts.
+
+
+	  	 	Bindings to accented characters
+
+
+To bind to an accented character is not always as straight forward as binding
+to an un-accented one.
+
+Accented characters which can be typed directly without using a dead key, you
+can bind to them as long as they have a modifier different from <s>.  As an
+example with a French keyboard
+
+	Bind 'Ž' <c> ...
+	Bind 'Ž' <z> ...
+    
+works fine, but
+
+	Bind 'Ž' ...
+	Bind 'Ž' <s> ...
+    
+does not. In the latter case the key code has to be used instead:
+
+	Bind 0x13 ...
+	Bind 0x13 <s> ...
+
+Accented characters which are obtained using a dead key has to be bound using
+ascii, e.g '“' on a French keyboard:
+
+	ascii 0x93 ...
+
+
+	  	 	What to bind to?
+
+
+When you want to define a new key binding you obviously want to use a key
+combination which is not already in use.  There are two different ways to find
+if a key combination is free.
+
+First, the menu item "Config > List All Bindings" will list all of the
+bindings currently in effect.
+
+Second, you can use "Config > Describe Binding" to find what a certain key
+combination is bound to.  Select "Config > Describe Binding" and then hit the
+key combination you are interested in.  Alpha will then display a dialog
+saying which function the key combination is bound to, or "Key combination
+unbound."  if it is not bound to anything.
+
+There is one thing to note about bindings involving the Shift modifier.  If
+there is nothing bound to a key combination including the Shift key, typing
+this key combination will have the same effect as the one wihout the Shift
+key.  A specific example to clarify this: Command-P is bound to "print", but
+there is no binding defined for Command-Shift-P. Still hitting Command-Shift-P
+has the same effect as hitting Command-P. But if you now define a new binding
+for Command-Shift-P, then Command-P and Command-Shift-P will have different
+functionality.
+
+
+	======================================================================
+
+
+"Keyboard Shortcuts" author: Pete Keleher
+
+Updated by Craig Barton Upright, Donavan Hall.
+

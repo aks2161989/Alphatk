@@ -1,0 +1,495 @@
+% -*-Omg-*-
+
+% Omega-Example.opl
+% 
+% This is a sample file for the Omega mode with Alpha. 
+% 
+% The features which are herein described will work only if Omega Mode
+% has been properly installed.
+% 
+% - the first line of this file says 
+% 
+% -*-Omg-*- 
+% 
+% It is a magic syntax to establish the Omega mode in your file (otherwise
+% it would normally be in TeX mode since the file would have a .tex
+% extension).  It is inserted with the 'Set Omega Mode' menu item.
+% 
+% - syntax coloring : the usual TeX/LaTeX commands are colored in blue. 
+% The typical Omega commands are in magenta.
+% 
+% - the 'M' pop-up menu contains the list of the various packages, ocp's
+% and ocplists used in this file.
+% 
+% - the '{}' pop-up menu works like with TeX mode.
+% 
+% - if you option-click on the title bar, a list of all the .tex, .otp and
+% .log files in the current directory (if any) will show up.
+% 
+% - toggle TeX and Omega mode with the following key combinations :
+% escape-t and escapte-o.
+% 
+% - there is also a sophisticated system of completions and abbreviations
+% in Omega Mode (please read the Omega Help File).  For instance, if the
+% 'elecCompletion' package is activated, typing 'rbo' and hitting the 'F1'
+% key will result in \removebeforeocplist.  Very handy for these long
+% commands.  Typing 'rem' and the 'F1' key will complete to '\remove' ;
+% hitting the F1 key again will bring a list of various possibilities to
+% complete the word : removeafter, removeafterocplist, removebeforeocplist. 
+% It is not necessary to type the backslash : Omega Mode will insert it
+% automatically when completing.  See the doc for more.
+% 
+% Please see the Otp-Example.otp and Opl-Example.opl sections (below) for
+% more examples about Omega Mode.
+% 
+% Omega Mode is under development (as is Omega itself).  
+% Please check for the latest version of Omega Mode at :
+% 
+% <http://perso.easynet.fr/~berdesg/omega.html>
+% 
+
+% This example comes in three parts.  The first is an excerpt of the
+% torture.tex file written by Yannis Haralambous and John Plaice and
+% provided with the Omega distribution.
+
+
+\documentclass[a4paper,11pt]{article}
+\usepackage{amsmath}
+\usepackage{omega}
+
+\def\shortarab#1{{\pushocplist\ArabicOCP\fontfamily{omarb}\selectfont#1\popocplist}}
+\def\shortberber#1{{\pushocplist\ArabicBerberOCP\fontfamily{omarb}\selectfont#1\popocplist}}
+\def\shortgreek#1{{\pushocplist\GreekOCP\fontfamily{omlgc}\selectfont#1\popocplist}}
+\def\shortlatberber#1{{\pushocplist\LatinBerberOCP\fontfamily{omlgc}\selectfont#1\popocplist}}
+\def\shorttifi#1{{\pushocplist\TifinaghOCP\fontfamily{omlgc}\selectfont#1\popocplist}}
+\def\shortpashto#1{{\pushocplist\AfghaPashtoOCP\fontfamily{omarb}\selectfont#1\popocplist}}
+
+[snip] 
+
+\begin{document}
+\title{Multilingual Typesetting with \OMEGA, a Case Study: Arabic}
+\date{}
+\maketitle
+
+[snip] 
+
+
+\section{Overview of the \OMEGA{} Arabic Script Package}
+
+Typesetting with \OMEGA{} is a process similar to typesetting with
+\TeX: the user prepares a ``source'' file, containing the text of
+\hisher{} document and a certain number of macro-commands for
+attribute changes of the text (font characteristics, language, case,
+etc.), references to figures (included in graphical format files on
+disk) and other material included in or accompanying the text.
+
+Once this source file prepared, \OMEGA{} is launched: it reads the
+file, expands the commands and typesets the text accordingly. To
+perform this task, \OMEGA{} loads and executes several \OTP{}s
+(\OMEGA{} Translation Processes), which take care of low level
+properties of the document (contextual analysis of the script, case
+switching according to script and language, etc.). It also uses
+different fonts, most of which are \emph{virtual}, in the sense that
+they themselves call other fonts. On a higher level, such a document
+uses \LaTeX{} packages, some of them modified to take advantage of the
+additional features of \OMEGA{} vs.\ \TeX.
+
+[snip] 
+
+{\pardir TRT\textdir TRT\pushocplist\ArabicOCP\fontfamily{omarb}\selectfont
+\begin{center}\begin{tabular}{|c|c|}\hline
+{\textdir TRT HayA"t} & {\textdir TRT mayyit}\\\hline
+{\mathdir TLT$\displaystyle\int_{\text{\textdir TRT Sif<>r}}^{\hbox dir TRT{\textdir TRT ghyr maH<>duUd}}f(x)\,dx$} & {\textdir TRT 'aanA}\\\hline
+\end{tabular}\end{center}
+\popocplist}
+ 
+There are two key aspects to Arabic script typesetting,
+unfortunately of unequal complexity: the first one is contextual
+analysis, that is the fact that Arabic letters change shape according
+to their position in a word, or according to the fact that they are
+part of an abbreviation, etc. This aspect can be handled easily and
+efficiently by \OTP{}s.  The second aspect is more global: it is the
+fact that Arabic script is written from right to left.
+
+
+[snip] 
+
+
+\section{Parts of the \OMEGA{} Arabic Script Package}
+
+This package consists of the following elements:
+
+
+[snip] 
+
+
+\section{Installation of the \OMEGA{} Arabic Script Package}
+
+To use the \OMEGA{} Arabic Script Package you must have \OMEGA{}
+version 1.45 or higher installed on your machine. Place OFM, OVF, TFM
+and OCP files where the system expects to find them (if in doubt,
+consult the \texttt{texmf.conf} file). Keep the \texttt{arabic.sty}
+file somewhere where it can be found by \OMEGA{}. Finally add the
+following few lines to the \texttt{psfonts.map} configuration file of
+\texttt{odvips}etc.
+
+
+[snip] 
+
+
+\section{Basic Macros}
+
+
+[snip] 
+
+
+{\pardir TRT\textdir TRT
+\begin{center}
+\begin{arab}
+\Huge
+'aahlAaN wa sahlAaN!
+\end{arab}
+\end{center}
+}
+
+\noindent
+Example of vowelized Arabic:\\[8pt]
+
+{\pardir TRT\textdir TRT
+\begin{quote}
+\pushocplist\ArabicOCP\fontfamily{omarb}\selectfont\LARGE li'aannahaA
+"Al<>'Ana laA tufakkiru fiI naf<>sihaA, walakinnahaA tufakkiru fiI
+'aakhaway<>haA wafiI "Al<>khaTari "AlladhiI laHiqahumaA.  \popocplist
+\end{quote}
+}
+
+
+[snip] 
+
+
+\subsubsection{Berber Transcription}
+
+
+[snip] 
+
+
+\noindent
+Example: 
+
+{\pardir TRT\textdir TRT
+\begin{quote}
+\pushocplist\ArabicBerberOCP\fontfamily{omarb}\selectfont Tifinagh,
+d--tira timezwura n .imazighen.  Llant di tmurt--nnegh dat tira n
+ta.erabt d--tla.tinit. Nnulfant--edd dat .imir n ugellid
+Masinisen. .Imazighen n .imir--en, ttarun--tent ghefi.zra, degg
+.ifran, ghef .igduren, maca tiggti ghef i.zekwan~: ttarun fell--asen
+.isem n umettin, d wi--t--ilan, d wayen yexdem di tudert--is akken ur
+t ttettun .ina.tfaren.  \popocplist
+\end{quote}}
+
+
+[snip] 
+
+
+\section{Writing Your Own Transcription}\label{writingOTPs}
+
+We have developed and presented in this paper a certain number of
+Arabic alphabet language transcriptions for two reasons: first, to
+show the possibilities and power of \OMEGA, and second, to give a
+starting point for the user to create \hisher{} own transcriptions.
+
+[snip] 
+
+
+\begin{verbatim}
+\ocp\ArabUni=7arb2uni
+\ocp\UniCUni=uni2cuni
+\ocp\CUniArab=cuni2oar
+\ocplist\ArabicOCP=
+\addbeforeocplist 100 \ArabUni
+\addbeforeocplist 200 \UniCUni
+\addbeforeocplist 300 \CUniArab
+\nullocplist
+\pushocplist\ArabicOCP
+\end{verbatim}
+
+\noindent is sufficient to load all \OTP{}s necessary for typesetting
+in the Arabic language.
+
+\section{Availability and Further Information}
+
+
+[snip] 
+
+
+\newpage
+\pagedir TRT
+\bodydir TRT
+\pardir TRT
+\textdir TRT
+\def\latinit#1{{\fontfamily{omlgc}\selectfont\pushocplist\BasicLatinOCP%
+\textdir TLT #1\popocplist}}
+\def\rmdefault{omarb}
+\fontfamily{omarb}\selectfont
+\pushocplist\ArabicOCP
+
+
+\subsection{'aTfAl AlghAb"t}
+
+kAn l'aHd AlmlUk AlqdmA|| 'akht t`ysh m`h fI qSrh, b`d 'an mAt-t
+zUjt-h, wtrkt lh mn Al'awlAd thlAth"t: 'amyryn w'amyr"t. wqd AzdAd Hbb
+Almlk l'awlAd-h, b`d wfA"t wAldt-hm Almlk"t, w'aHbbhm HbbA kthyrA;
+ly`wwDhm mA fqdUh mn `Tf 'ammhm wHbbhA lhm, wtfkyr hA fyhm; fkAn ys'al
+`nhm kllmA HDr, wyfkkr fyhm kllmA dkhl, wywSI bhm kllmA khrj, wyTlbhm
+kllmA jls ltnAwl T`Am Al'ifTAr 'aU AlghdA|| 'aU AlshshAI 'aU Al`shA||.
+
+
+[snip] 
+
+\popocplist
+
+\pushocplist\ArabicBerberOCP
+
+\subsection{Allal i useqdc n y.drisn \OMEGA\ d-tamazight}
+
+A dd nessken s wayes yif useqdec n \OMEGA\ i tira s tutlayt tamazight,
+ama s tifinagh, ama s isekkilen ila.taniyen. Newwi-dd tamazight am,
+tutlayt yeddren (yettwarun s tifinagh tiynayin)~: izmer umdan ad
+iseddu yall tighura n usuddes n tira, i waraten ussnanen, itekniken
+negh i wid n tsikkla, am wid ssexdamen i usemsaru n tfransist.
+
+
+[snip] 
+
+\popocplist
+
+\pushocplist\SindhiOCP
+\subsection{ktyn kr mU.ryA j.=d-hn}
+
+tn-hn kry AsAn khy pn-hnjy =z-hnn khy sjA=g rkh'nU pUndU ||eN pn-hnjy
+jdUj-hd meN .=dA-hp pydA kr'ny. AhU b/ m`lUm kr'nU pUndU t/ sndh meN
+hr 'A'yy wqt chA chA thy r-hyU 'Ahy ||eN dshmn AsAn jy ||eN AsAn jy
+jdUj-hd jy khlAf k-h.rA k-h.rA g-hA.t g-h.ry r-hyU 'Ahy.
+
+[snip] 
+
+\popocplist
+
+\end{document} 
+
+
+% Omega-Example.opl
+% 
+% This is a sample (not real life) opl file for the Omega mode with Alpha. It
+% is an excerpt of ucvtt10.opl. The features which are herein described  will
+% work only if omegaMode has been properly installed.
+% 
+% - the Omega mode is established automatically thanks to the .opl  extension
+% in the file's name.
+% 
+% - syntax coloring : the typical Property List keywords are  in  green.  See
+% the mode preferences to customize this.
+% 
+% - the 'M' pop-up menu helps you to navigate in the file : it lists all  the
+% FONTDIMEN, LIGTABLE and all the characters.
+% 
+% Please see the OmegaSample.tex and OplSample.opl files  for  more  examples
+% about Omega Mode.
+
+
+(OFMLEVEL H 0)
+(FONTDIR TL)
+(FAMILY OMEGA SERIF)
+(FACE F MRR)
+(CODINGSCHEME OMEGA-LGC)
+(DESIGNSIZE R 10.0)
+(COMMENT DESIGNSIZE IS IN POINTS)
+(COMMENT OTHER SIZES ARE MULTIPLES OF DESIGNSIZE)
+(CHECKSUM H 956D535D)
+(SEVENBITSAFEFLAG FALSE)
+(FONTDIMEN
+   (SLANT R 0.0)
+   (SPACE R 0.3)
+   (STRETCH R 0.15)
+   (SHRINK R 0.1)
+   (XHEIGHT R 0.459)
+   (QUAD R 1.0)
+   (EXTRASPACE R 0.111112)
+   )
+(LIGTABLE
+   (LABEL H 41)
+   (KRN H 43 R -0.02917)
+   (KRN H 47 R -0.02917)
+   (KRN H 4F R -0.02917)
+   (KRN H 51 R -0.02917)
+   (KRN H 54 R -0.0875)
+   (KRN H 55 R -0.02917)
+   (KRN H 56 R -0.11667)
+   (KRN H 57 R -0.11667)
+   (KRN H 59 R -0.0875)
+   (KRN H 74 R -0.02917)
+   (KRN H D8 R -0.02917)
+   (KRN H 152 R -0.02917)
+   (STOP)
+   (LABEL H 44)
+   (KRN H 41 R -0.02917)
+   (KRN H 56 R -0.02917)
+   (KRN H 57 R -0.02917)
+   (KRN H 58 R -0.02917)
+   (KRN H 59 R -0.02917)
+   (KRN H C6 R -0.02917)
+   (STOP)
+
+[snip] 
+
+
+   )
+(CHARACTER H 21
+   (CHARWD R 0.29167)
+   (CHARHT R 0.622)
+   )
+(CHARACTER H 22
+   (CHARWD R 0.525)
+   (CHARHT R 0.611)
+   (CHARDP R 0.368)
+   )
+(CHARACTER H 23
+   (CHARWD R 0.875)
+   (CHARHT R 0.611)
+   )
+
+[snip] 
+
+
+(CHARACTER H 41
+   (CHARWD R 0.75833)
+   (CHARHT R 0.623)
+   (COMMENT
+      (KRN H 43 R -0.02917)
+      (KRN H 47 R -0.02917)
+      (KRN H 4F R -0.02917)
+      (KRN H 51 R -0.02917)
+      (KRN H 54 R -0.0875)
+      (KRN H 55 R -0.02917)
+      (KRN H 56 R -0.11667)
+      (KRN H 57 R -0.11667)
+      (KRN H 59 R -0.0875)
+      (KRN H 74 R -0.02917)
+      (KRN H D8 R -0.02917)
+      (KRN H 152 R -0.02917)
+      )
+   )
+(CHARACTER H 42
+   (CHARWD R 0.72917)
+   (CHARHT R 0.611)
+   )
+
+[snip] 
+
+
+(CHARACTER H 1018
+   (CHARWD R 0.29167)
+   (CHARHT R 0.611)
+   (CHARDP R 0.368)
+   )
+(CHARACTER H 1019
+   (CHARWD R 0.29167)
+   (CHARHT R 0.611)
+   (CHARDP R 0.368)
+   (COMMENT
+      (KRN H 21 R 0.11667)
+      (KRN H 3F R 0.11667)
+      )
+   )
+
+
+% Omega-Example.otp
+% 
+% Omega Translation Process File
+%
+% This is a sample (not real life) file for the Omega mode with Alpha.  The
+% features which are herein described will work only if omegaMode has been
+% properly installed.
+% 
+% - the Omega mode is established automatically thanks to the .otp
+% extension in the file's name.  See the Otp Syntax submenu of Omega Menu
+% and try the various items.
+% 
+% - syntax coloring : the typical Omega keywords are in magenta.  Tables
+% are in red.  See the mode preferences to customize them.
+% 
+% - the Numbering submenu lets you choose the format for integer values
+% (dec, oct or hex)
+% 
+% - the 'M' pop-up menu helps you to navigate in the file : it lists all
+% the keywords and tables.
+% 
+
+input: 1;
+
+output: 2;
+
+tables:
+sampTbl_1[@"28] ={
+@"044C, @"044B, @"0437, @"0448, @"044D, @"0449, @"0447, @"044A,
+@"042E, @"0410, @"0411, @"0426, @"0414, @"0415, @"0424, @"0413,
+@"0425, @"0418, @"0419, @"041A, @"041B, @"041C, @"041D, @"041E,
+@"041F, @"042F, @"0420, @"0421, @"0422, @"0423, @"0416, @"0412,
+@"042C, @"042B, @"0417, @"0428, @"042D, @"0429, @"0427, @"042A
+};
+
+
+sampTbl_2[@"111] ={
+@"003d, @"223c, @"2229, @"222a, @"22a5, @"2220, @"221f, @"22bf,
+@"33d2, @"33d1, @"222b, @"222e, @"2235, @"2234, @"2640, @"2642,
+@"2641, @"2609, @"2191, @"2193, @"2192, @"2190, @"2196, @"2197,
+@"2199, @"2198, @"2016, @"002c, @"ff0f, @"ff3c, @"002f, @"005c,
+@"ff04, @"00a5, @"3012, @"00a2, @"00a3, @"ff05, @"ff20, @"2103,
+@"2109, @"0024, @"0025, @"0040, @"33d5, @"339c, @"339d, @"339e,
+@"33ce, @"33a1, @"338e, @"338f, @"33c4, @"00b0, @"5159, @"515b,
+@"515e, @"515d, @"5161, @"5163, @"55e7, @"74e9, @"7cce, @"2581,
+@"2582, @"2583, @"2584, @"2585, @"2586, @"2587, @"2588, @"258f,
+@"258e, @"258d, @"258c, @"258b, @"258a, @"2589, @"253c, @"2534,
+@"252c, @"2524, @"251c, @"2594, @"2500, @"2502, @"2595, @"250c,
+@"2510, @"2514, @"2518, @"256d, @"256e, @"2570, @"256f, @"2550,
+@"255e, @"256a, @"2561, @"25e2, @"25e3, @"25e5, @"25e4, @"2571,
+@"2572, @"2573, @"ff10, @"ff11, @"ff12, @"ff13, @"ff14, @"ff15,
+@"ff16, @"ff17, @"ff18, @"ff19, @"2160, @"2161, @"2162, @"2163,
+@"2164, @"2165, @"2166, @"2167, @"2168, @"2169, @"3021, @"3022,
+@"3023, @"3024, @"3025, @"3026, @"3027, @"3028, @"3029, @"fffd,
+@"5344, @"fffd, @"ff21, @"ff22, @"ff23, @"ff24, @"ff25, @"ff26,
+@"ff27, @"ff28, @"ff29, @"ff2a, @"ff2b, @"ff2c, @"ff2d, @"ff2e,
+@"ff2f, @"ff30, @"ff31, @"ff32, @"ff33, @"ff34, @"ff35, @"ff36,
+@"ff37, @"ff38, @"ff39, @"ff3a, @"ff41, @"ff42, @"ff43, @"ff44,
+@"ff45, @"ff46, @"ff47, @"ff48, @"ff49, @"ff4a, @"ff4b, @"ff4c,
+@"ff4d, @"ff4e, @"ff4f, @"ff50, @"ff51, @"ff52, @"ff53, @"ff54,
+@"ff55, @"ff56, @"ff57, @"ff58, @"ff59, @"ff5a, @"0391, @"0392,
+@"0393, @"0394, @"0395, @"0396, @"0397, @"0398, @"0399, @"039a,
+@"039b, @"039c, @"039d, @"039e, @"039f, @"03a0, @"03a1, @"03a3,
+@"03a4, @"03a5, @"03a6, @"03a7, @"03a8, @"03a9, @"03b1, @"03b2,
+@"03b3, @"03b4, @"03b5, @"03b6, @"03b7, @"03b8, @"03b9, @"03ba,
+@"03bb, @"03bc, @"03bd, @"03be, @"03bf, @"03c0, @"03c1, @"03c3,
+@"03c4, @"03c5, @"03c6, @"03c7, @"03c8, @"03c9, @"3105, @"3106,
+@"3107, @"3108, @"3109, @"310a, @"310b, @"310c, @"310d, @"310e,
+@"310f, @"3110, @"3111, @"3112, @"3113, @"3114, @"3115, @"3116,
+@"3117, @"3118, @"3119, @"311a, @"311b, @"311c, @"311d, @"311e,
+@"311f, @"3120, @"3121, @"3122, @"3123, @"3124, @"3125, @"3126,
+};
+
+
+states: MEDIAL,NUMERAL;
+
+aliases:
+UNIFORM		  = (@"0621 | @"0674 | @"066E | @"066F | @"06EF | @"063F);
+SPECIAL           = (@"FDF2) ;
+BIFORM		  = (@"0622-@"0625 | @"0627 | @"0629 | @"062F-@"0632 | @"0648 | 
+		     @"0649 | @"065D | @"065E | 
+		     @"0671-@"0673 | @"0675-@"0677 | @"0688-@"069A |
+		     @"06BA | @"06C0-@"06CB | @"06CD | @"06D2 | @"06D3 |
+		     @"06FF);
+
+expressions:
+
+@"00-@"7F	=> \1;
+@"C0-@"FF	=> #(sampTbl_1[\1-@"C0]);
+.		=> @"FFFD;

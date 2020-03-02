@@ -1,0 +1,38 @@
+#!/usr/local/bin/perl
+#
+#  Keep only acceptable mail header fields
+#
+
+@ok = split(/^/,<<END) ;
+From
+To
+Date
+Subject
+Cc
+END
+
+$header = 0 ;
+foreach $key (@ok) { chop($key) ; $acceptable{$key} = 1 ; }
+
+#foreach $key (@ok) {
+#	print STDOUT $key," :  ",$acceptable{$key},"\n" ; }
+
+line: while (<>) {
+	study;
+	
+	if (/^(Received:|Path:|Message-Ii][Dd]:|X\w+:|BABYL OPTIONS:|\037)/) { $header = 1; next line ; }
+#	if (/^Path:/) { $header = 1; next line ; }
+#	if (/^Message-[Ii][Dd]:/) { $header = 1; next line ; }
+
+	if ($header) {
+		if (/^\s*$/) { $header = 0 ; }
+		if (/^([-A-Za-z]+): /) { 
+			$keyword = $1 ; 
+		} else {
+			$keyword = "Received" ;
+		}
+#		print $keyword," :  ",$acceptable{$keyword},"\n" ;
+	}
+			
+	print STDOUT $_ unless ($header && ! $acceptable{$keyword}) ;
+}

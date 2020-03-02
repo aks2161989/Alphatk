@@ -1,0 +1,217 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+
+<HTML>
+
+<HEAD>
+
+<TITLE>Tables</TITLE>
+
+<LINK HREF="../Style%20Sheet/manual.css" REL="stylesheet" TYPE="text/css">
+
+
+</HEAD>
+
+<BODY>
+
+<!-- #INCLUDE INCLPATH="maintop.html" -->
+
+<SCRIPT TYPE="text/javascript">
+<!--
+if (document.body.clientHeight) {
+	height = document.body.clientHeight - 50;
+} else {
+	height = window.innerHeight - 50 ;
+}
+document.write('<div class="main" style="height: ' + height + 'px;">');
+// -->
+</SCRIPT>
+
+
+<!-- /#INCLUDE -->
+
+
+<H1>Table utilities</H1>
+<P>
+<IMG SRC="../bilder/tablesmenu.png" ALT="Tables menu" WIDTH="207" HEIGHT="104"
+CLASS="rightpic">
+The menu <SPAN CLASS="menu">Tables</SPAN> contains some 
+functions for manipulating tables in addition to menu items for inserting 
+table related HTML elements. This page describes the more advanced 
+functions.
+</P>
+
+
+<div CLASS="item">Table 
+Template...</div>
+<DIV CLASS="indent">
+A function to easily build a table if it does 
+not have too complicated a structure.
+
+<P>
+<img src="../bilder/tabletemplate.png" alt="Table template" width="254"
+height="306">
+</P>
+
+<P>
+You are presented with a dialog box, as shown above, where you can specify:
+</P>
+
+<UL>
+	<LI>the number of rows and columns you want.
+	<LI>whether you want table headers (TH) in the first row and/or the 
+	first column.  The rest will be table cells (TD).
+	<LI>whether or not you want TABLE tags.  Skip the table tags if you 
+	want to insert new rows in an existing table.
+	<LI>attributes for TABLE.
+	<LI>attributes for TR. These attributes will be the same for every row.
+</UL>
+
+<P>
+You cannot use this function to build more complicated tables which 
+requires attributes such as ROWSPAN and COLSPAN.
+</P>
+
+<P>
+As an example, if you choose to create a table template with two rows and 
+two columns, Alpha would insert
+</P>
+
+<PRE CLASS="code">
+<SPAN CLASS="htmlcode">&lt;TABLE&gt;
+    
+    &lt;TR&gt;
+        &lt;TD&gt;</SPAN>|<SPAN CLASS="htmlcode">&lt;/TD&gt;</SPAN>
+        <SPAN CLASS="htmlcode">&lt;TD&gt;</SPAN>&#8226;<SPAN CLASS="htmlcode">&lt;/TD&gt;
+    &lt;/TR&gt;
+    
+    &lt;TR&gt;
+        &lt;TD&gt;</SPAN>&#8226;<SPAN CLASS="htmlcode">&lt;/TD&gt;
+        &lt;TD&gt;</SPAN>&#8226;<SPAN CLASS="htmlcode">&lt;/TD&gt;
+    &lt;/TR&gt;
+            
+&lt;/TABLE&gt;</SPAN>&#8226;
+</PRE>
+
+</DIV>
+
+
+<div CLASS="item">Tabs to Rows...</div>
+<DIV CLASS="indent">Takes 
+a tab-delimited table and makes HTML table rows.  To use this function, first select 
+the text to make table rows of before you choose <SPAN CLASS="item">Tabs to Rows</SPAN> from the 
+menu.
+
+<P>
+<img src="../bilder/tabstorows.png" alt="Tabs to rows" width="254"
+height="276">
+</P>
+
+<P>
+When you use this function a dialog box is first opened, as shown 
+above, where you can specify:
+</P>
+
+<UL>
+	<LI>Whether you want table headers (TH) in the first row and/or the 
+	first column.  The rest will be table cells (TD).
+	<LI>Whether or not you want TABLE tags.  Skip the table tags if you 
+	want to insert new rows in an existing table.
+	<LI>Whether several tabs after each other shall be treated as a single 
+	tab or not. You can put extra tabs between the cell to obtain straight columns 
+	and then check this option to get the HTML table you want.
+	<LI>Attributes for TABLE.
+	<LI>Attributes for TR. These attributes will be the same for every row.
+</UL>
+<P>
+Example: If you have the lines
+</P>
+
+<PRE CLASS="code">
+a   b   c
+d   e   f
+</PRE>
+
+<P>
+in your document, "Tabs to Rows" will transform them into
+</P>
+
+<PRE CLASS="code">
+<SPAN CLASS="htmlcode">&lt;TABLE&gt;
+    
+    &lt;TR&gt;
+        &lt;TD&gt;</SPAN>a<SPAN CLASS="htmlcode">&lt;/TD&gt;
+        &lt;TD&gt;</SPAN>b<SPAN CLASS="htmlcode">&lt;/TD&gt;
+        &lt;TD&gt;</SPAN>c<SPAN CLASS="htmlcode">&lt;/TD&gt;
+    &lt;/TR&gt;
+    
+    &lt;TR&gt;
+        &lt;TD&gt;</SPAN>d<SPAN CLASS="htmlcode">&lt;/TD&gt;
+        &lt;TD&gt;</SPAN>e<SPAN CLASS="htmlcode">&lt;/TD&gt;
+        &lt;TD&gt;</SPAN>f<SPAN CLASS="htmlcode">&lt;/TD&gt;
+    &lt;/TR&gt;
+    
+&lt;/TABLE&gt;</SPAN>
+</PRE>
+</DIV>
+
+
+<div CLASS="item">Rows to Tabs</div>
+
+<DIV CLASS="indent">
+Converts table rows in a selection to a tab-delimited format.  (This is 
+"Tabs to Rows" backwards.)  To use this, first select the table rows you 
+want to convert.  This function will remove the elements TR, TH and TD, and 
+put one tab between each table cell.  Everything in each table row will be 
+put on one line.  If the table contains cells of varying length you may 
+have to change the tab size for the table to look pretty.  This function 
+does not remove the surrounding TABLE tags.
+</DIV>
+
+
+<div CLASS="itempara">Import Table...</div> 
+
+<DIV CLASS="indent">
+Function to import a tab delimited table from a file.  This works just like 
+<SPAN CLASS="item">Tabs to Rows</SPAN> except that the table is read from a 
+file rather than being selected in the document.
+</DIV>
+
+<!-- #INCLUDE INCLPATH="mainbottom.html" -->
+
+<DIV STYLE="height: 50px">
+</DIV>
+
+<SCRIPT TYPE="text/javascript">
+<!--
+document.write('<\/DIV>');
+// -->
+</SCRIPT>
+
+
+<!-- /#INCLUDE -->
+
+
+<!-- #INCLUDE INCLPATH="navigation.html" PREV="[manualPrevPage lists.html]" 
+NEXT="[manualNextPage imagemaps.html]" -->
+
+<P>
+<script type="text/javascript">
+<!--
+document.write('<div class="navigation" style="top: ' + height + 'px; height: 50px">');
+// -->
+</script>
+<A HREF="lists.html">Previous page</A>
+<A HREF="imagemaps.html">Next page</A>
+<SCRIPT TYPE="text/javascript">
+<!--
+document.write('<\/DIV>');
+// -->
+</SCRIPT>
+</P>
+
+<!-- /#INCLUDE -->
+
+
+</BODY>
+
+</HTML>

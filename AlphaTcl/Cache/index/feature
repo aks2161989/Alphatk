@@ -1,0 +1,1940 @@
+# -*-Tcl-*- (nowrap)
+# Cache v1.2 created on 06/02/2006 {11:06:59 PM}
+set feature(filesetIndentationPreference) {0.2.1 always-on -1}
+set feature(changeLogHelper) {0.1 global-only 0 {} {
+    newPref binding putChangesInLog "<U<O/L" global "" 1
+    alpha::addToPreferencePage Packages putChangesInLog
+} {} {}}
+set feature(thinkRefMenu) {1.1 {C C++ Java Pasc} 1 {ensureset thinkRefMenu •265
+
+    # Initialization script.
+    thinkRefMenu
+    # Build the menu now.
+    menu::buildProc "thinkRefMenu" {thinkRef::buildMenu}
+    menu::buildSome "thinkRefMenu"
+} {
+    # Activation script.
+    hook::register requireOpenWindowsHook  [list $thinkRefMenu "insertTrapTemplate…"] 1
+} {
+    # Deactivation script.
+    hook::deregister requireOpenWindowsHook  [list $thinkRefMenu "insertTrapTemplate…"] 1
+} {}}
+set feature(electricMenu) {1.3.7 global 1 {ensureset electricMenu •280
+
+    # so we don't use the standard proc to build this menu.
+    menu::buildProc elec "#"
+    namespace eval elec {}
+} { 
+    elec::rebuildElectricMenu 
+} {
+} {}}
+set feature(openDocument) {1.2.1 global-only 0 {
+    # Initialization script.  We don't put much in here in case some code is
+    # calling [file::openDocument] without this package being activated.
+    openDocument.tcl
+} {
+    # Activation script.
+    openDocument::activatePackage 1
+} {
+    # De-activation script.
+    openDocument::activatePackage 0
+} {}}
+set feature(compareWindows) {1.0 global-only 0 {} {
+    namespace eval compare {}
+    menu::insert Utils submenu 0 compare
+    menu::insert "compare" items end (-) windowsInPlace
+    hook::register requireOpenWindowsHook [list compare windowsInPlace] 2
+    # Start a forwards search of the frontmost two windows, from the
+    # current cursor position, for the first difference between their
+    # contents
+    newPref binding findDifference "/`«X»"  compareWindows "" compare::windowsInPlace
+    # Start a forwards search of the frontmost two windows, from the
+    # current cursor position, for the first difference between their
+    # contents, ignoring any difference in whitespace
+    newPref binding findDifferenceIgnoringSpace "/1«X»"  compareWindows "" compareOpt
+    # Find the next text difference
+    newPref binding findNextDifference "<U/`«X»"  compareWindows "" compareNext
+    # Find the next text difference, ignoring any difference in
+    # whitespace
+    newPref binding findNextDifferenceIgnoringSpace "<U/1«X»"  compareWindows "" compareOptNext
+    package::addPrefsDialog compareWindows
+} {} {}}
+set feature(aeom) {1.3 global-only 0 {} {
+    tclAE::installEventHandler aevt oapp aeom::handleOpenApp
+    tclAE::installEventHandler aevt rapp aeom::handleOpenApp
+    tclAE::installEventHandler aevt odoc aeom::handleOpen
+    tclAE::installEventHandler aevt pdoc aeom::handlePrint
+    tclAE::installEventHandler aevt quit aeom::handleQuit
+    
+    tclAE::installEventHandler misc dosc aeom::handleDoScript
+    
+    tclAE::installEventHandler core save aeom::handleSave
+    
+    tclAE::aete::register aeom::constructAETE
+    
+    # QA1070
+    # OSAXen are not automatically available in OS X unless
+    # you preload them with this AppleEvent (which always
+    # returns a -1708 error, even when ScriptEditor does it).
+    # There's no harm in sending this event in OS 9.
+    catch {tclAE::send -r -s ascr gdut}
+    
+    # When Alpha is reopened (launched again when already running)
+    # and has no documents open already, create a new untitled document.
+    # This is required by the HIG but can be irritating.
+    newPref flag forceDocumentOnReopen 0 global
+    alpha::addToPreferencePage Window forceDocumentOnReopen
+    
+    aeom::accessor::registerAll
+} {} {}}
+set feature(InSh) {1.3.6 always-on -1}
+set feature(javadocComment) {0.1 Java 0 {
+} {
+    menu::insert javaMenu items end "/'<BjavadocComment"
+} {
+    menu::removeFrom javaMenu items end "/'<BjavadocComment"
+} {}}
+set feature(bibToHtml) {3.0 Bib 0 {
+    # Initialization script.
+    # We require Bib 3.6b1 for new 'bibConversions' submenu.
+    alpha::package require -loose Bib 3.6b1
+} {
+    # Activation script.
+    # Insert the menu items into the 'bibConversions' submenu
+    menu::insert bibtexConversions items end "bibToHtml…"
+    menu::insert bibtexConversions items end "bblToHtml…"
+} {
+    # Deactivation script.
+    # Could uninsert the menu items, but then they won't be in the menu
+    # if the BibTeX menu is global but this package is not.
+} {}}
+set feature(mailTcllib) {2.0 always-on -1}
+set feature(elecCompletions) {9.1.3 global-only 0 {
+    # Create the "Electric Completions" menu
+    menu::buildProc electricCompletions menu::buildCompletionsMenu
+    proc menu::buildCompletionsMenu {} {
+	set menuList [list  "viewGlobalCompletions…"       "addGlobalCompletions…"        "editGlobalCompletions…"       "removeGlobalCompletions…"     "(-"                           "completionsHelp"              ]
+	return [list build $menuList completion::menuProc {} electricCompletions]
+    }
+} {
+    # Insert the menu into "Config > Packages".  
+    menu::insert preferences submenu "(-)" electricCompletions
+    # Insert items into the Mode Prefs menu.
+    menu::insert mode items end "completionsTutorial" "editCompletions" 
+    # load completion code for a mode the first time that mode is used
+    hook::register mode::init completion::load "*"
+    namespace eval completion {}
+    completion::initialise
+} {
+    # De-activation script
+    menu::uninsert preferences submenu "(-)" electricCompletions
+    menu::uninsert mode items end "completionsTutorial" "editCompletions"
+    hook::deregister mode::init completion::load "*"
+} {}}
+set feature(backup) {0.2.0 global 2 {
+    # Make a backup every time a file is saved, in either the active file's
+    # folder or a specified "Backup Folder" location newPref flag backup 0
+    # Folder in which to store backups.  A null value tells Alpha to use
+    # the file's current directory.
+    newPref var backupFolder ""
+    # Extension to add to files when backing them up
+    newPref var backupExtension "~"
+    # If the previous backup is more recent than this number of hours,
+    # then don't make a new backup.  If greater than zero, this means the 
+    # backups Alpha has tend to be significantly different to the current file.
+    newPref var backupAgeRequirementInHours 0.0
+    # If a file is larger than this number of kilobytes, do not save
+    # a backup copy.  This allows you to avoid creating backups for
+    # extremely large files.  If this setting takes the value 0 it is
+    # ignored.
+    newPref var maximumBackupFileSize 0
+    set backup 0
+    lunion flagPrefs(Backups) backup
+    lunion varPrefs(Backups) backupFolder backupExtension backupAgeRequirementInHours maximumBackupFileSize
+} {
+    set backup 1
+    menu::replaceWith File "revertToSaved" items "<E<SrevertToSaved" "<S<IrevertToBackup…"
+    hook::register saveHook backupOnSave
+    hook::register requireOpenWindowsHook [list File revertToBackup…] 1
+    hook::register activateHook activateBackup
+} {
+    set backup 0
+    menu::removeFrom File "revertToSaved" items "<E<SrevertToSaved" "<S<IrevertToBackup…"
+    hook::deregister saveHook backupOnSave
+    hook::deregister requireOpenWindowsHook [list File revertToBackup…] 1
+    hook::deregister activateHook activateBackup
+} { 
+    # off
+}}
+set feature(helpMenu) {1.8.4 always-on -1}
+set feature(germanUmlaute) {0.2.1 {TeX Bib} 0 {
+    # Initialization script
+} {
+    # Activation script
+    TeX::bindGermanUmlautKeys
+} {
+    # Deactivation script.
+    TeX::bindGermanUmlautKeys "unBind"
+} {}}
+set feature(internationalMenus) {0.4.1 global-only 0 {} {
+    # Menu-replacements (all western keyboards)
+    hook::register keyboard intlMenu::standard "Australian"
+    hook::register keyboard intlMenu::brasil "Brasil"
+    hook::register keyboard intlMenu::standard "British"
+    hook::register keyboard intlMenu::canadian_csa "Canadian - CSA"
+    hook::register keyboard intlMenu::canadian_iso "Canadian - ISO"
+    hook::register keyboard intlMenu::canadian_french "Canadian - French"
+    hook::register keyboard intlMenu::danish "Danish"
+    hook::register keyboard intlMenu::standard "Dutch"
+    hook::register keyboard intlMenu::euro_one "Español - ISO"
+    hook::register keyboard intlMenu::euro_one "Finnish"
+    hook::register keyboard intlMenu::euro_two "Flemish"
+    hook::register keyboard intlMenu::euro_two "French"
+    hook::register keyboard intlMenu::euro_two "French - numerical"
+    hook::register keyboard intlMenu::euro_one "German"
+    hook::register keyboard intlMenu::euro_two "Italian"
+    hook::register keyboard intlMenu::euro_one "Norwegian"
+    hook::register keyboard intlMenu::roman_jis "Roman - JIS"
+    hook::register keyboard intlMenu::spanish "Spanish"
+    hook::register keyboard intlMenu::euro_one "Swedish"
+    hook::register keyboard intlMenu::swiss "Swiss French"
+    hook::register keyboard intlMenu::swiss "Swiss German"
+    hook::register keyboard intlMenu::slovencrotian "Slovenian"
+    hook::register keyboard intlMenu::slovencrotian "Croatian"
+    hook::register keyboard intlMenu::standard "U.S."
+    hook::register keyboard intlMenu::italian_pro "Italian - Pro"
+    # Adjust a few menu items so that we can use their key-bindings on
+    # systems with no Meta/Option key (e.g. Windows).  This used to
+    # be a preference, but is now fixed.
+    set removeOptionKeyFromMenus [expr {$::tcl_platform(platform) eq "windows"}]
+    if {$removeOptionKeyFromMenus} {
+	intlMenu::standard
+    }
+} {} {}}
+set feature(statusPopupMenus) {1.1 always-on -1}
+set feature(emacs) {0.3.3 global-only 0 {} {
+    # To add a menu of emacs related actions to the Edit menu, click this box.||
+    # To remove the emacs menu from the Edit menu (once you've learnt all the
+    # shortcuts), click this box.
+    newPref f useEmacsMenu 1 global emacsToggle
+    # To make the capitalisation commands effect the previous word if the
+    # cursor is at its end, click this box.||To leave capitalisation commands
+    # unaltered, click this box.
+    newPref f emacLastWordIfTouching 0 global effectLastToggle
+
+    if {$tcl_platform(platform) == "windows"} {
+	# If you prefer windows bindings (particularly ctrl-v for paste)
+	# instead of emacs bindings (ctrl-v for page-down), then set this
+	# preference.  You will need to restart for this to take effect.
+	newPref f windowsBindingsPreferredToEmacs 1 global
+    }
+    menu::buildProc emacs emacsBindings
+    emacsToggle
+    effectLastToggle
+    alpha::addToPreferencePage Packages emacLastWordIfTouching useEmacsMenu
+} {} {}}
+set feature(rememberWindows) {0.4.0 global 0 {
+    namespace eval rememberWindows {}
+    prefs::updateHome rememberWindows::memory name
+    newPref flag rememberMode 1 rememberWindows
+    newPref flag rememberTabSize 1 rememberWindows
+    newPref flag rememberWindowPosition 0 rememberWindows
+    newPref flag rememberColorsAndHypers 0 rememberWindows
+    newPref flag rememberFoldedSections 1 rememberWindows
+    newPref flag rememberUseOfMarginLineNumbers 1 rememberWindows
+    package::addPrefsDialog rememberWindows
+} {
+    hook::register preCloseHook rememberWindows::Close
+    hook::register openHook rememberWindows::Open
+    hook::register winChangedNameHook rememberWindows::NameChanged
+} {
+    hook::deregister preCloseHook rememberWindows::Close
+    hook::deregister openHook rememberWindows::Open
+    hook::deregister winChangedNameHook rememberWindows::NameChanged
+} {}}
+set feature(identities) {0.3 always-on -1}
+set feature(openWindowsMenu) {1.0 global 1 {ensureset openWindowsMenu •263
+
+    # Initialization script.
+    win::initializeMenu
+} {
+    # Activation script.
+    win::activateMenu 1
+} {
+    # Deactivation script.
+    win::activateMenu 0
+} {}}
+set feature(calculator) {1.0 global-only 0 {
+    # Initialization script.
+} {
+    # Activation script.
+    # Add a "Utils > Calculator" menu item.
+    menu::insert   Utils items "wordCount" "/Y<U<Ocalculator"
+} {
+    # Deactivation script.
+    menu::uninsert Utils items "wordCount" "/Y<U<Ocalculator"
+} {}}
+set feature(vfsFileset) {0.3.7 global-only 0 {} {
+    if {[::package require vfs] == 1.2} {
+	# Fix one bug in 1.2 which will hit us
+	catch {
+	    ::vfs::autoMountExtension "" ::vfs::mk4::Mount vfs::mk4
+	    ::vfs::autoMountExtension .bin ::vfs::mk4::Mount vfs::mk4
+	    ::vfs::autoMountExtension .kit ::vfs::mk4::Mount vfs::mk4
+	    ::vfs::autoMountExtension .tar ::vfs::tar::Mount vfs::tar
+	    ::vfs::autoMountExtension .zip ::vfs::zip::Mount vfs::zip
+	    ::vfs::autoMountUrl ftp ::vfs::ftp::Mount vfs::ftp
+	    ::vfs::autoMountUrl file ::vfs::fileUrlMount vfs
+	    ::vfs::autoMountUrl tclns ::vfs::tclprocMount vfs::ns
+	}
+    }
+    hook::register editHook fileset::vfs::autoMount .exe .zip .kit .tar
+    hook::register unixModeHook fileset::vfs::scripdocMount tclkit
+    hook::register unixModeHook fileset::vfs::scripdocMount tclkitsh
+    if {![info exists unixMode(tclkit)]} {
+	set unixMode(tclkit) Tcl
+    }
+    if {![info exists unixMode(tclkitsh)]} {
+	set unixMode(tclkitsh) Tcl
+    }
+    catch {::vfs::autoMountExtension .kit ::vfs::mk4::Mount vfs::mk4}
+    catch {::vfs::autoMountExtension .exe ::vfs::mk4::Mount vfs::mk4}
+} {} {}}
+set feature(reportABug) {1.7.4 always-on -1}
+set feature(makeMenu) {0.2 {C C++ Java Pasc} 1 {ensureset makeMenu Make
+
+} {
+    makeMenu
+} {
+} {}}
+set feature(colorMenu) {1.2.3 global 1 {ensureset colorMenu •137
+
+    # Initialization script.
+    # Source this file.
+    colorMenu.tcl
+    # Define and then build the Color menu.
+    menu::buildProc colorMenu {colors::buildColorsMenu}
+    menu::buildSome colorMenu
+    # Add a pane to the Config preferences dialog.
+    package::addPrefsDialog ColorMenu
+    hook::register   requireOpenWindowsHook [list $colorMenu ""] 1
+} {
+    # Activation script.
+} {
+    # Deactivation script.
+} {}}
+set feature(macros) {2.0.1 global-only 0 {
+    # Initialization script.
+    macro::initializePackage
+} {
+    # Activation script: insert the menus.
+    macro::activatePackage 1
+} {
+    # Deactivation script: remove the menus.
+    macro::activatePackage 0
+} {}}
+set feature(tkhtmlViewer) {0.2 always-on -1}
+set feature(marks) {1.0.1 global-only -1}
+set feature(versionControl) {0.3.1 global-only 0 {
+    # Initialization script.
+    # Call any support package procs.
+    hook::callAll vcsSupportPackages
+    namespace eval vcs {
+	variable system
+	variable vcSystems [concat [list "None" "-"]  [lremove [lsort -dictionary [array names system]] "None"]]
+    }
+    # We are moving this preference out of the 'vcsmodeVars' array, and no
+    # longer present it to the user to change.  If the current window is not
+    # part of a fileset, the vcs tool will be 'None'.  The main reason for
+    # defining the pref at all is so that it can be used as a prototype for
+    # the fileset information.
+    prefs::renameOld vcsmodeVars(versionControlSystem) vcSystems
+    # The current version control system.
+    newPref var vcSystems "None" "global" "" $::vcs::vcSystems
+    # To always include the name of the version control system associated
+    # with the current window in the pop-up menu, turn this item on||To
+    # never include the name of the version control system associated with
+    # the current window in the pop-up menu, turn this item off
+    newPref flag addNameOfSystemToPopup 1 vcs
+    # Includes items related to the Version Control status of the active
+    # window; ; this is a duplicate of the VCS pop-up menu that appears at
+    # the top of each window's scrollbar
+    newPref f vcsMenu 0 contextualMenu
+    namespace eval contextualMenu {
+	variable menuSections
+	# This is set of items potentially appearing at the bottom of the CM.
+	lappend menuSections(4) "vcsMenu"
+    }
+    # Define menu build procs.
+    menu::buildProc "vcs"       {vcs::buildVcsCMenu} {vcs::postBuildCM}
+    menu::buildProc "vcsMenu"   {vcs::buildVcsMenu}
+    # Add a version control prefs page, mapped to the 'vcs' storage
+    package::addPrefsDialog versionControl vcs
+    # This allows us to attach version control information to any fileset
+    fileset::attachNewInformation *  {prefItemType vcSystems} "Version Control System"  None "The version control system under which these files are placed" vcs::vcsSystemModified
+} {
+    # Activation script.
+    # (Alphatk) Called when the user ctrl/cmd-clicks on the lock icon
+    hook::register   unlockHook vcs::manualUnlock *
+    hook::register   lockHook   vcs::manualLock   *
+} {
+    # Deactivation script.
+    hook::deregister unlockHook vcs::manualUnlock *
+    hook::deregister lockHook   vcs::manualLock   *
+} {}}
+set feature(compare) {0.1 always-on -1}
+set feature(speech) {1.3.2 global-only 0 {
+    # Initialization script.
+    speak::initializePackage
+} {
+    # Activation script.
+    speak::activatePackage 1
+} {
+    # Deactivation script.
+    speak::activatePackage 0
+} {}}
+set feature(mailSystem) {2.0 always-on -1}
+set feature(incrementalSearch) {1.2.1 global-only 0 {} {
+    menu::insert Search items [list after "/R<S<O<I<BreplaceInFileset…"]  "(- "  "/S<E<S<BquickFind"  "/S<S<B<IquickFindRegexp"  "/R<E<BreverseQuickFind"
+    hook::register requireOpenWindowsHook [list Search quickFind] 1
+    hook::register requireOpenWindowsHook [list Search quickFindRegexp] 1
+    hook::register requireOpenWindowsHook [list Search reverseQuickFind] 1
+} {} {}}
+set feature(newDocument) {1.0.3 global-only 0 {
+    # Initialization script.  We don't put much in here in case some code is
+    # calling [file::newDocument] without this package being activated.
+    newDocument.tcl
+    package::addPrefsDialog newDocument
+    menu::buildProc "New" {newDocument::buildMenu "0"}
+} {
+    # Activation script.
+    menu::replaceWith File "/Nnew" submenu "New"
+    newDocument::registerOWH 1
+} {
+    # De-activation script.
+    menu::removeFrom  File "/Nnew" submenu "New"
+    newDocument::registerOWH 0
+} {}}
+set feature(elecExpansions) {9.1.3 global-only 0 {
+    lunion flagPrefs(Completions) listPickIfMultExpds
+    # This is similar to the flag for completions.
+    newPref flag listPickIfMultExpds 0
+    # Create the "Electric Expansions" menu
+    menu::buildProc electricExpansions menu::buildExpansionsMenu
+    proc menu::buildExpansionsMenu {} {
+	set menuList [list  "viewGlobalExpansions…"	 "addGlobalExpansions…"	 "editGlobalExpansions…"	 "removeGlobalExpansions…"	 "(-"				 "expansionsHelp" 		 ]
+	return [list build $menuList expansion::menuProc {} electricExpansions]
+    }
+} { 
+    # Insert the menu into "Config --> Packages".
+    menu::insert preferences submenu "(-)" electricExpansions
+} {
+    # De-activation script
+    menu::uninsert preferences submenu "(-)" electricExpansions
+} {}}
+set feature(toolboxRefMenu) {1.1 {C C++} 1 {ensureset toolboxRefMenu •400
+
+    # Initialization script.
+    toolboxRefMenu
+    # Build the menu now.
+    menu::buildProc "toolboxRefMenu" {toolboxRef::buildMenu}
+    menu::buildSome "toolboxRefMenu"
+} {
+    # Activation script.
+    hook::register requireOpenWindowsHook  [list $toolboxRefMenu "insertTrapTemplate…"] 1
+} {
+    # Deactivation script.
+    hook::deregister requireOpenWindowsHook  [list $toolboxRefMenu "insertTrapTemplate…"] 1
+} {}}
+set feature(wikiMenu) {1.2b8 global 1 {ensureset wikiMenu •302
+
+    # Initialization script.
+    Wiki::initializeMenu
+} {
+    # Activation script.
+    Wiki::activateMenu 1
+} {
+    # Deactivation script.
+    Wiki::activateMenu 0
+} {}}
+set feature(filesetMenu) {2.1.6 global 1 {ensureset filesetMenu •131
+
+    # We need this core code.
+    alpha::package require filesets
+    
+    # A type can have the option of being unsorted (e.g. tex-filesets)
+    newPref flag sortFilesetItems 0 "fileset"
+    # Visual formatting may be of relevance to some types
+    newPref flag indentFilesetItems 0 "fileset"
+    # Use the variable 'filesetSortOrder' to determine the visual
+    # structure of the fileset menu
+    newPref flag sortFilesetsByType 0 "fileset" filesetMenu::rebuildSome
+    # When a file is selected from the menu, do we try and keep
+    # 'currFileSet' accurate?
+    newPref flag autoAdjustFileset 1 "fileset"
+
+    # The filesets not to show in the menu
+    ensureset filesetsNotInMenu "Help"
+    ensureset fsMenuDeletions [list]
+    
+    namespace eval filesetMenu {}
+    set filesetMenu::haveSubMenus 0
+    # This will autoload this file and then run this procedure
+    filesetMenu::build
+    # Make sure any deleted items in the main menu are removed at
+    # startup.  We have to do this with a hook, because in Alpha
+    # (but not Alphatk), 'deleteMenuItem' only works for menu items
+    # which have already been inserted into the menu bar.
+    hook::register startupHook [join $fsMenuDeletions "\n"]
+} {
+    # insert just before 'open remote' item
+    menu::insert File items "<E<B<O/OopenRemote…" "<S<I<O/OopenViaFileset…"
+    hook::register fileset-delete filesetMenu::fsetDeleted *
+    hook::register fileset-update filesetMenu::fsetUpdated *
+    hook::register fileset-new filesetMenu::fsetNew *
+    hook::register fileset-current filesetMenu::changeCurrent *
+    hook::register fileset-uncache filesetMenu::fsetUncache *
+} {
+    menu::uninsert File items "<E<B<O/OopenRemote…" "<S<I<O/OopenViaFileset…"
+    hook::deregister fileset-delete filesetMenu::fsetDeleted *
+    hook::deregister fileset-update filesetMenu::fsetUpdated *
+    hook::deregister fileset-new filesetMenu::fsetNew *
+    hook::deregister fileset-current filesetMenu::changeCurrent *
+    hook::deregister fileset-uncache filesetMenu::fsetUncache *
+} {}}
+set feature(filesetRemoteMirror) {0.4.0 always-on -1}
+set feature(copyRing) {1.7.4 global-only 0 {
+    # Initialization script.
+    namespace eval copyRing {
+	# We're not actually activated yet.
+	variable activated   -1
+	variable initialized 0
+    }
+    # This will force the sourcing of this file.
+    copyRing::initializePackage
+    # Register a quit hook to save/delete the Clipboard history cache.
+    hook::register quitHook {copyRing::saveCacheFile}
+} {
+    # Activation script.
+    hook::procRename ::cut   ::copyRing::cut
+    hook::procRename ::copy  ::copyRing::copy
+    hook::procRename ::paste ::copyRing::paste
+    set copyRing::activated 1
+    # Insert the menus.
+    copyRing::insertEditMenuItems
+    # Add the current Clipboard contents.
+    copyRing::pushCRScrap
+    copyRing::pushPRScrap
+    # Register all hooks.
+    hook::register   resumeHook   copyRing::resumeHook
+    hook::register   activateHook copyRing::activateHook
+} {
+    # Deactivation script.
+    hook::procRevert ::copyRing::cut
+    hook::procRevert ::copyRing::copy
+    hook::procRevert ::copyRing::paste
+    set copyRing::activated 0
+    # Disable the menus.
+    copyRing::insertEditMenuItems
+    # Deregister all hooks.
+    hook::deregister resumeHook   copyRing::resumeHook
+    hook::deregister activateHook copyRing::activateHook
+} {}}
+set feature(voodooMenu) {2.0.2 global 1 {ensureset voodooMenu •500
+
+    if {!${alpha::macos}} {
+	error "The 'VooDoo Menu' is only useful on MacOS"
+    }
+
+    alpha::package require version 2.0
+    
+    hook::register quitHook voodoo::disconnect
+    
+    # <command> <shift> <control>
+    set voodoo(menuKeys) "<O<U<B"
+    set voodoo(projects) {}
+    set voodoo(actual) ""
+	    
+    trace variable voodoo(projects) w voodoo::enableConnectMenu
+    trace variable voodooCurrent w voodoo::enableConnectMenu
+    
+    trace variable voodooProject w voodoo::synchronize
+    trace variable voodooProject(alis) w voodoo::enableMainMenu
+    
+    voodoo::try voodoo::modernizeProjects
+
+    menu::buildProc voodooMenu voodoo::buildMenu
+    
+    newPref var voodooCurrent "" "global" voodoo::changeProjectProc  voodoo(projects) "varitem"
+      
+    menu::buildProc "Connect" {
+        menu::buildFlagMenu "Connect" list voodooCurrent ""  voodoo::projectProc {"Choose…" "Remove From List…" "Rename…"} 
+    }
+    
+    menu::buildSome voodooMenu
+
+    # this next call can be very slow
+    voodoo::defaultSettings
+    set voodoo(projects) [voodoo::projects]
+	
+    tclAE::installCoercionHandler "enum" "TEXT" voodoo::coerce::enum>TEXT
+} voodooMenu {} {}}
+set feature(recentFiles) {1.3 global-only 0 {
+    # Initialization script.
+    recentmulti::initializePackage
+} {
+    # Activation script.
+    recentmulti::activatePackage 1
+} { 
+    # Deactivation script.
+    recentmulti::activatePackage 0
+} {}}
+set feature(ODBEditor) {1.0b3 global-only 0 {} {
+    hook::register aevtodocHook odb::aevtodocHook 
+    hook::register savePostHook odb::modifiedHook
+    hook::register winChangedNameHook odb::winChangedNameHook
+    hook::register closeHook odb::closeHook
+} {
+    hook::deregister aevtodocHook odb::aevtodocHook 
+    hook::deregister savePostHook odb::modifiedHook
+    hook::deregister winChangedNameHook odb::winChangedNameHook
+    hook::deregister closeHook odb::closeHook
+} {}}
+set feature(elecCorrections) {1.1b2 global-only 0 {
+    # Create the "Electric Corrections" menu.
+    menu::buildProc electricCorrections correction::buildCorrectionsMenu
+    namespace eval correction {
+	variable correctTypos 0
+	variable correctI     0
+	correction::initialize
+    }
+} {
+    # Insert the menu into "Config > Packages".
+    menu::insert   preferences submenu "(-)" electricCorrections
+    # Bind space, return keys to spell correct check.
+    ascii   0x20 {correction::correctTypo "\ "}
+    Bind    '\r' {correction::correctTypo "\r"}
+    hook::register   changeMode {correction::resetVariables}
+} {
+    # Deactivation script.
+    menu::uninsert preferences submenu "(-)" electricCorrections
+    # unBind space, return keys from spell correct check.
+    unascii 0x20 {correction::correctTypo "\ "}
+    ascii   0x20 {spaceBar}
+    unBind  '\r' {correction::correctTypo "\r"}
+    Bind    '\r' {bind::CarriageReturn}
+    hook::deregister changeMode {correction::resetVariables}
+} {}}
+set feature(supportFolders) {1.0b2 always-on -1}
+set feature(windowZoom) {1.0.1 global-only 0 {
+    # Initialization script
+} {
+    # Activation script
+    winZoom::setBindings "Bind"
+} {
+    # Deactivation script
+    winZoom::setBindings "unBind"
+} {}}
+set feature(autoSaveOnSwitch) {0.1.1 global-only 2 {
+    # Initialization script.
+    
+    # To automatically save all open windows which exists as local files
+    # (i.e. not new buffers) whenever switching from Alpha to another
+    # program, turn this item on||To disable the automatic saving of all
+    # open windows when switching from Alpha to another program, turn this
+    # item off  newPref flag autoSaveOnSwitch 0
+    set autoSaveOnSwitch 0
+    lunion flagPrefs(Backups) autoSaveOnSwitch
+    set flagPrefs(Backups) [lsort -dictionary $flagPrefs(Backups)]
+} {
+    # Activation script.
+    set autoSaveOnSwitch 1
+    hook::register   suspendHook {autoSave::saveOnSwitch}
+} {
+    # Deactivation script.
+    set autoSaveOnSwitch 0
+    hook::deregister suspendHook {autoSave::saveOnSwitch}
+} { 
+    # off
+}}
+set feature(filesets) {2.1b1 global-only 0 {} {
+    # Ensure this file is sourced, and that our defaults and preferences are 
+    # properly defined.
+    fileset::initializeFilesets
+} {} {}}
+set feature(tags) {0.3.1 global-only 0 {} {
+    # File to use for Tag searches.
+    newPref io-file tagFile [file join $HOME cTAGS] tags
+    # The parenthesised regexp block to use for the func name
+    newPref variable funcPar 1 tags
+    # Change tag files without asking the user.
+    newPref flag autoSwitchTagFile 1 tags
+
+    package::addPrefsDialog tags
+
+    hook::register fileset-current tags::fileChanged
+    
+    set "filesetUtils(/T<E<I<OfindTag)" [list * ::tags::find]
+    set "filesetUtils(createTagFile)" [list * tags::createFile]
+} {} {}}
+set feature(ftpMenu) {1.1.3 global 1 {ensureset ftpMenu •141
+
+    # Initialization script.
+    
+    ftp::buildMenu
+    
+    set {newDocTypes(New Ftp Connection)} file::openRemote
+} {
+    # Activation script.
+    ftpMenu
+} {
+    # Deactivation script.
+} {}}
+set feature(recentDirsMenu) {1.3.8 global-only 0 {
+    # Initialization script.
+    # Register build procs for each menu.
+    menu::buildProc recentDirs         {recent::buildDirsMenu}
+    menu::buildProc saveACopyIn        {recent::buildDirsMenu}
+    menu::buildProc saveIn             {recent::buildDirsMenu}
+    menu::buildProc showDirInFinder    {recent::buildDirsMenu}
+} {
+    # Activation script.
+    hook::register openHook            {recent::pushDir}
+    hook::register winChangedNameHook  {recent::pushDir}
+    hook::register resumeHook          {recent::verifyDirsList}
+    # Insert the menus, and add the dirs of any open windows.
+    recent::insertDirsMenus "all" "insert"
+    foreach f [winNames -f] {
+	recent::pushDir $f
+    }
+    unset -nocomplain f
+    # Add the pref dialog panes.
+    package::addPrefsDialog "recentDirsMenu"
+    package::addPrefsDialog "recentDirsBindings"
+} {
+    # De-activation script.
+    hook::deregister openHook           {recent::pushDir}
+    hook::deregister winChangedNameHook {recent::pushDir}
+    hook::deregister resumeHook         {recent::verifyDirsList}
+    # Remove the menus.
+    recent::insertDirsMenus "all" "uninsert"
+    # Remove the pref dialog panes.
+    package::removePrefsDialog "recentDirsMenu"
+    package::removePrefsDialog "recentDirsBindings"
+} {}}
+set feature(f2cMenu) {2.0 Fort 1 {ensureset f2cMenu •329
+
+    # One-time initialisation script 
+
+    namespace eval f2c {}
+
+    newPref sig f2cSig F2Ci
+    newPref var f2c::project "" Fort f2c::switchToProject f2c::projects array
+    set f2c::projectFiles [list]
+    set f2c::otherFiles [list]
+    
+    menu::buildProc f2cMenu f2c::buildMenu
+    # Build the project switch list
+    menu::buildProc fToCProject {
+	menu::buildFlagMenu fToCProject list f2c::project FortmodeVars  f2c::doProject [list "Open…" "Get" "Remove From List…"]
+    }
+    menu::buildProc otherFToCFiles f2c::buildOtherFilesMenu
+    menu::buildProc projectFToCFiles f2c::buildProjectFilesMenu
+    
+    # No idea what this is for.  The user should have control
+    # over what menus to use when...  In particular, this simply
+    # forces the current mode (whatever that happens to be) to
+    # use the codewarrior menu.  Bad! Bad!
+    #catch {mode::adjustFeatures codewarriorMenu}
+    
+    menu::buildSome f2cMenu
+    
+    enableMenuItem "$f2cMenu" run off
+    enableMenuItem "$f2cMenu" make off
+    enableMenuItem "$f2cMenu" addFile off
+    enableMenuItem "$f2cMenu" removeFile off
+    enableMenuItem "$f2cMenu" otherFToCFiles off
+    enableMenuItem "$f2cMenu" projectFToCFiles off
+    enableMenuItem "$f2cMenu" fToC&AddFiles… off
+    enableMenuItem "$f2cMenu" removeFiles… off
+    
+} {
+    # Activation script
+} {
+    # Deactivation script
+} {}}
+set feature(filesetFtpMirror) {0.3.1 always-on -1}
+set feature(shells) {0.2 always-on -1}
+set feature(terminal) {1.5.1 always-on -1}
+set feature(smartPaste) {0.7.4 global 0 {
+    namespace eval smartPaste {}
+} {
+    # Turn on -- take over from core 'paste'
+    hook::procRename ::paste ::smartPaste::paste
+} {
+    # Turn off -- revert.
+    hook::procRevert ::smartPaste::paste
+} {}}
+set feature(latexSizes) {1.0 {"TeX"} 0 {
+    # Initialization script.
+    prefs::renameOld TeXmodeVars(makeSmaller) TeXmodeVars(cycleLeft) 
+    prefs::renameOld TeXmodeVars(makeLarger)  TeXmodeVars(cycleRight)
+    if {[set tcl_platform(platform)] == "windows"} {
+	# The Cycle Left/Right bindings allow you to change the current
+	# closest LaTeX command to another related item.
+	newPref binding cycleLeft  "<O<B/," TeX "" "TeX::cycleList -1"
+	newPref binding cycleRight "<O<B/." TeX "" "TeX::cycleList  1"
+    } else {
+	newPref binding cycleLeft  "<U<I/," TeX "" "TeX::cycleList -1"
+	newPref binding cycleRight "<U<I/." TeX "" "TeX::cycleList  1"
+    }
+} {
+    # Activation script.
+    set TeX::DoLaTeXCycle 1
+} {
+    # Deactivation script.
+    set TeX::DoLaTeXCycle 0
+} {}}
+set feature(contextualMenu) {1.2.1 global-only 0 {
+    # Initialization script.
+    # Add the user interface dialog to "Config > Packages".
+    namespace eval contextualMenu {}
+    menu::buildProc "contextualMenuUtils" {contextualMenu::buildCMUtils}
+    ;proc contextualMenu::buildCMUtils {} {
+	set menuList [list  "Contextual Menu Prefs…" "Contextual Menu Help"]
+	return [list build $menuList {contextualMenu::cMUtils -m} {}]
+    }
+    menu::insert preferences submenu "(-)" "contextualMenuUtils"
+} {
+    # Activiation script.
+    hook::register   contextualMenuHook      contextualMenu::contextualMenu
+    hook::register   contextualPostBuildHook contextualMenu::postBuild
+} {
+    # Deactivation script.
+    hook::deregister contextualMenuHook      contextualMenu::contextualMenu
+    hook::deregister contextualPostBuildHook contextualMenu::postBuild
+} {}}
+set feature(prompts) {0.1.4 global-only -1}
+set feature(supersearch) {1.8.8 global-only 0 {
+    set supersearchOn 0
+    # supersearch array elements:
+    # 
+    # f - 1 = search from current pos, 0 = from start of window
+    # i - case insensitive?
+    # m - word match?
+    # r - regexp?
+    # linestop -
+    # lineanchor - 
+    # b - batch?
+    # multi - more than one file?
+    array set supersearch {
+	f 1 i 1 m 0 r 0 linestop 1 lineanchor 1 b 0 multi 0 
+	multifsets "" ismultifset 0 inselection 0 pattern "" 
+	ignorespace 0 casereplace 0 notInComments 0 exclude 0
+    }
+    # This setting is persistent - saved in user's prefs
+    if {![info exists supersearch(circular)]} {
+	set supersearch(circular) 1 
+    }
+    namespace eval supersearch {}
+} {
+    set supersearchOn 1
+    supersearch::onoff
+} {
+    set supersearchOn 0
+    supersearch::onoff
+} {}}
+set feature(prettyComments) {0.1 global -1}
+set feature(vcVoodoo) {0.2 always-on -1}
+set feature(vcPerforce) {0.3 always-on -1}
+set feature(scriptRunner) {0.1.2 global-only -1}
+set feature(embrace) {1.1.6 global-only 0 {
+    # Initialization script
+    embrace.tcl
+} {
+    # Activation script
+    
+    # The letter B such that Ctrl-B triggers the embrace functions
+    newPref var  ::embrace::trigger  b
+    set ::embrace::previousTrigger $::embrace::trigger
+    trace add variable ::embrace::trigger write ::embrace::reBind
+    ::embrace::setBindings Bind $::embrace::trigger
+} {
+    # Deactivation script
+    ::embrace::setBindings unBind $::embrace::trigger
+} {}}
+set feature(mailMenu) {2.0 {global Mail} 1 {ensureset mailMenu •138
+
+    # Initialization script.
+    Mail::initializeMode
+} {
+    # Activation script.
+    Mail::registerHooks "1"
+} {
+    # Deactivation script.
+    Mail::registerHooks "0"
+} {}}
+set feature(xserv) {2.0.2 global-only 0 {} {
+  hook::register quitHook ::xserv::saveToPrefs
+  ::xserv::fixExecSearchPath
+  # Internal services
+  ::xserv::declareInternal catPipe {Open a pipe through the 'cat' program}
+  ::xserv::register catPipe catPipe -mode Alpha -driver {
+    return [open "|$params(xserv-cat)" RDWR]
+  } -progs {cat}
+  # preferences
+  ::xserv::readPrefs
+} {} {}}
+set feature(sourceforgeMenu) {0.3.5 global 1 {ensureset sourceforgeMenu SF
+
+    
+} {
+    sourceforgeMenu
+} {
+    
+} {}}
+set feature(clipboardPreferences) {1.3 global-only 0 {
+    # This used to be defined in "copyRing.tcl"
+    prefs::renameOld smartCutPaste cutPasteWhitespace
+    # To use the Window Pin for the default region when cutting and pasting
+    # should there be no current selection, turn this item on||To only peform
+    # [cut] and [copy] operations when there is a selection in the window, turn
+    # this item off
+    newPref flag cutAndCopyUsingPin 0 global
+    # To adjust the whitespace when cutting or pasting a word in the current
+    # window, turn this item on||To disable the adjustment of whitespace when
+    # cutting or pasting a word in the current window, turn this item off
+    newPref flag cutPasteWhitespace 0 global
+    # After pasting with, the region that was just inserted can be
+    # highlighted.
+    newPref var  selectAfterPaste   0 global ""  [list "Never" "Only if pasting over selection" "Always"] index
+    # Includes items to Cut, Copy, and Paste into the active window
+    newPref flag clipboardMenu 0 contextualMenu
+    menu::buildProc "clipboard" {cutCopyPaste::buildClipboardCM}
+} {
+    # Activation script.
+    # 
+    # We redefine [cut|copy|paste] using [hook::procRename], ensuring that
+    # our versions will get used.  This allows us to modify and reload the
+    # 'core' versions without affecting any of the [hook::procRename] actions
+    # that might take place following other package activations.
+    foreach ccpItem [list cut copy paste] {
+	hook::procRename ::$ccpItem ::cutCopyPaste::${ccpItem}
+    }
+    unset ccpItem
+    # Add the preferences to "global" dialog panes.
+    lunion flagPrefs(Text) cutAndCopyUsingPin cutPasteWhitespace
+    lunion varPrefs(Text)  selectAfterPaste
+} {
+    # Deactivation script.
+    foreach ccpItem [list cut copy paste] {
+	hook::procRevert ::cutCopyPaste::${ccpItem}
+    }
+    unset ccpItem
+    # Remove the preferences to "global" dialog panes.
+    set flagPrefs(Text) [lremove $flagPrefs(Text) [list  "cutAndCopyUsingPin" "cutPasteWhitespace"]]
+    set varPrefs(Text) [lremove $varPrefs(Text) [list "selectAfterPaste"]]
+} {}}
+set feature(latexMathbb) {1.3.2 {TeX Bib} 0 {
+    # Initialization script.
+    namespace eval TeX {}
+    set TeX::UseMathbb 0
+    newPref var blackboardBoldSymbols "QZRN" TeX {TeX::Mathbb::adjustBindings}
+} {
+    # Activation script.
+    TeX::Mathbb::turnOnOff 1
+} {
+    # Deactivation script.
+    TeX::Mathbb::turnOnOff 0
+} {}}
+set feature(tclproUtils) {0.4.0 Tcl 0 {
+} {
+    # Location of TclPro checker or ActiveState TclDevKit checker.
+    newPref sig procheckSig ""
+    menu::insert tclProUtils items end tclProCheck tclProCheckDir…
+} {
+} {}}
+set feature(betterTemplates) {9.3.1 global 0 {
+    # Initialization script.
+    namespace eval ring {
+	# We're not actually activated yet.
+	variable betterTemplatesActivated -1
+	# Define prefs, etc.  We include call the proc below because we know
+	# that we're going to source this file anyway, and this makes it
+	# easier to make changes without having to rebuild package indices.
+	initialize
+    }
+} {
+    # Activation script.
+    namespace eval ring {
+	variable betterTemplatesActivated 1
+    }
+    # Call on close to clear the stop ring.
+    hook::register   closeHook        ring::unsetBTWindowVars
+    # Make sure we reset messsage if the special keys change.
+    hook::register   electricBindings ring::setTemplateMessage
+} {
+    # Deactivation script.
+    namespace eval ring {
+	variable betterTemplatesActivated 0
+    }
+    hook::deregister closeHook        ring::unsetBTWindowVars
+    hook::deregister electricBindings ring::setTemplateMessage
+} {}}
+set feature(bibConvert) {2.0.2 Bib 0 {
+    # Initialization script.
+    alpha::package require -loose Bib 3.6b1
+} {
+    # Activation script.
+    menu::insert bibtexConversions items end "convertToBib…"
+    # Conflict with emacs binding -- probably should pick a new binding.
+    Bind 'b' <z> bibConvert Bib
+} {
+    # Deactivation script.
+    menu::uninsert bibtexConversions "convertToBib…"
+    unBind 'b' <z> bibConvert Bib
+} {}}
+set feature(searchPaths) {1.2.6 global-only 0 {} {
+    menu::insert mode items end  "(-" "viewSearchPath" "appendSearchPaths…" "removeSearchPaths…"
+    # key-binding to find and open file with selected name
+    newPref binding openSelection "<O<B/H" searchPaths
+    # key-binding to toggle from source to header file (or vice-versa)
+    newPref binding sourceHeaderToggle "<O/f" searchPaths
+    menu::insert winUtils items end  "[menu::bind searchPathsmodeVars(sourceHeaderToggle) -]"  "[menu::bind searchPathsmodeVars(openSelection) -]"
+    package::addPrefsDialog searchPaths
+    # make sure we've loaded the old version of this proc
+    auto_load file::tryToOpen
+
+    # ◊◊◊◊ Try to open the given name or selection ◊◊◊◊ #
+    proc file::tryToOpen {{fname ""}} {
+	if {$fname == ""} {set fname [getSelect]}
+	if {![catch {file::_tryToOpen $fname ""}]} {
+	    return
+	}
+	global headerSuffices sourceSuffices
+	if { [file extension ${fname}] == "" } {
+	    if {![catch {file::_tryToOpen $fname $headerSuffices}]} {
+		return
+	    }
+	    if {![catch {file::_tryToOpen $fname $sourceSuffices}]} {
+		return
+	    }
+	}
+	if {[askyesno "'$fname' can not be found, do you wish to add an include path?"]} {
+	    mode::appendSearchPath [get_directory]
+	    mode::modifySearchPath
+	    return [file::tryToOpen $fname]
+	}
+	error "Couldn't find anything"
+    }
+} {} {}}
+set feature(Alpha) {8.5a1 {} 0 {
+    switch -- [tk windowingsystem] {
+	"classic" {
+	    set multiColumnMenusEveryNItems 2000
+	    set useGlobalMenuBarOnly 1
+
+	    set "flagPrefs(Platform Specific)" ""
+	    set "varPrefs(Platform Specific)" ""
+	}
+	"aqua" {
+	    set multiColumnMenusEveryNItems 2000
+	    set useGlobalMenuBarOnly 1
+
+	    set "flagPrefs(Platform Specific)" ""
+	    lappend "varPrefs(Platform Specific)" "nonInteractiveApps"
+
+	    # Alpha tries to capture stdout/stderr when it spawns off processes.  For
+	    # some processes this isn't really useful, and it's best if Alpha just sets
+	    # the thing running and then ignores it.  Set this variable to a list of
+	    # those items in the helpers dialog which Alpha should ignore in this way
+	    newPref var nonInteractiveApps [list "viewDVI" "viewPS" "viewPDF"]
+	}
+	"win32" - "windows" {
+	    # If your platform doesn't handle scrolling menus, then your menus need
+	    # to be multi-column.  Set this variable to the number of items per column.
+	    set multiColumnMenusEveryNItems [expr {([winfo screenheight .] - 30)/[default::size menuitemheight]}]
+
+	    lappend "flagPrefs(Platform Specific)" useGlobalMenuBarOnly
+	    lappend "varPrefs(Platform Specific)" nonInteractiveApps showFileInExplorer
+	    lappend varPrefs(Window) windowIcons
+
+	    # Alpha tries to capture stdout/stderr when it spawns off processes.  For
+	    # some processes this isn't really useful, and it's best if Alpha just sets
+	    # the thing running and then ignores it.  Set this variable to a list of
+	    # those items in the helpers dialog which Alpha should ignore in this way
+	    newPref var nonInteractiveApps [list "viewDVI" "viewPS" "viewPDF"]
+	    # To remove the menu bar from each separate text window, and use only a
+	    # global menu bar, and speed up opening of new windows (Tk is particularly 
+	    # slow with respect to 'cloning' menus, which it has to
+	    # do if you want a separate menu bar in each editing window), click this box.||
+	    # To place a menu bar in each editing window, and probably make the opening of
+	    # new windows rather slow, click this box.
+	    newPref flag useGlobalMenuBarOnly 1
+	    # The icons that Alphatk uses for each Window can be either file-specific, or
+	    # use the same icon for all windows.  This preference only affects new windows.
+	    newPref variable windowIcons 0 global "" [list "Use Each File's Own Icon" "Use Alphatk Icon For All Files"] index
+	    # When Alphatk opens an explorer window for a given file or folder, should
+	    # that be a standard 'Folder View' or an 'Explorer Window'.
+	    newPref variable showFileInExplorer 0 global "" [list "With Explorer View" "With Folder View"] index
+	}
+	"unix" - "x11" - 
+	default {
+	    # If your platform doesn't handle scrolling menus, then your menus need
+	    # to be multi-column.  Set this variable to the number of items per column.
+	    set multiColumnMenusEveryNItems [expr {([winfo screenheight .] - 30)/[default::size menuitemheight]}]
+
+	    lappend "flagPrefs(Platform Specific)" "useGlobalMenuBarOnly"
+	    lappend "varPrefs(Platform Specific)" "nonInteractiveApps"
+
+	    # Alpha tries to capture stdout/stderr when it spawns off processes.  For
+	    # some processes this isn't really useful, and it's best if Alpha just sets
+	    # the thing running and then ignores it.  Set this variable to a list of
+	    # those items in the helpers dialog which Alpha should ignore in this way
+	    newPref var nonInteractiveApps [list "viewDVI" "viewPS" "viewPDF"]
+	    # To remove the menu bar from each separate text window, and use only a
+	    # global menu bar, and speed up opening of new windows (Tk is particularly 
+	    # slow with respect to 'cloning' menus, which it has to
+	    # do if you want a separate menu bar in each editing window), click this box.||
+	    # To place a menu bar in each editing window, and probably make the opening of
+	    # new windows rather slow, click this box.
+	    newPref flag useGlobalMenuBarOnly 1
+	}
+    }
+    
+    lappend varPrefs(International) "localisation"
+
+    # To use complete path names as the titles of windows, click
+    # this box.||To use just the file name for window titles,
+    # click this box.
+    newPref flag showFullPathsInWindowTitles 0
+    # To hide the status bar when Alphatk is not the foreground
+    # application, click
+    # this box.||To show the status bar at all times, click this box.
+    newPref flag hideStatusBarWhenInBackground 0
+    lappend flagPrefs(Window) showFullPathsInWindowTitles  hideStatusBarWhenInBackground
+
+   
+} {} {} {}}
+set feature(smarterSource) {1.0 global-only 0 {
+    # Pref was renamed in Oct 2003
+    if {[info exists tclExtensionsFolder]} {
+	prefs::renameOld tclExtensionsFolder smarterSourceFolder
+    }
+    # one-off init script
+    lunion varPrefs(Files) smarterSourceFolder
+    # location in which smarterSource looks for extension files
+    newPref earlyfolder smarterSourceFolder $PREFS "global"  {smarterSource::folderChanged}
+    prefs::updateHome smarterSourceFolder
+    if {($smarterSourceFolder ne $PREFS)} {
+	if {![file exists $smarterSourceFolder]} {
+	    set y "Continue"
+	    set n "Open Prefs Dialog"
+	    set msg "The 'Smarter Source Folder' \"$smarterSourceFolder\" you set for the Smarter Source extension doesn't appear to exist. You should set this in the 'Input-Output Preferences > Files' preferences page."
+	    if {![dialog::yesno -y $y -n $n $msg]} {
+		catch {prefs::dialogs::globalPrefs "Files"}
+	    }
+	    unset y n msg
+	}
+	if {$alpha::macos} {
+	    # In Alpha 8/X, since encodings aren't really supported, the user
+	    # will be editing all files in macRoman, which means we must
+	    # force AlphaTcl to source them in macRoman too.  In Alphatk
+	    # there's no need to force macRoman on the user, but some users
+	    # want to share their smarter source folder between Alpha X/tk,
+	    # so we force this there as well.
+	    alpha::registerEncodingFor $smarterSourceFolder macRoman
+	}
+    }
+    namespace eval smarterSource {}
+    # This is the "trace proc" called when the user has changed the location 
+    # of the "smarterSourceFolder" preference.
+    ;proc smarterSource::folderChanged {args} {
+	set q "When you change your Smarter Source folder, you should rebuild package indices.  Would you like more information?"
+	if {[askyesno $q]} {
+	    catch {menu::packagesProc "Packages" "rebuildPackageIndices"}
+	}
+	return
+    }
+    # Smarter Source version of [alpha::useFilesFor].  This should _never_
+    # throw an error.  "args" is included only for future back compatibility
+    # purposes, in case we decide to include additional arguments.
+    ;proc smarterSource::useFilesFor {filename args} {
+	global smarterSourceFolder HOME SUPPORT
+	
+	if {([file tail $filename] eq "tclIndex")} {
+	    # We don't want to over-ride these files.
+	    set keepLooking 0
+	} elseif {[file::pathStartsWith $filename  [file join $HOME Tcl] relName]} {
+	    # File is in the standard AlphaTcl hierarchy.
+	    set keepLooking 1
+	} elseif {($SUPPORT(local) ne "") && [file isdir $SUPPORT(local)]  && [file::pathStartsWith $filename  [file join $SUPPORT(local) AlphaTcl Tcl] relName]} {
+	    # The $SUPPORT(local) directory contains a version of this file.
+	    set keepLooking 1
+	} elseif {($SUPPORT(user) ne "") && [file isdir $SUPPORT(user)]  && [file::pathStartsWith $filename  [file join $SUPPORT(user) AlphaTcl Tcl] relName]} {
+	    # The $SUPPORT(user) directory contains a version of this file.
+	    set keepLooking 1
+	} else {
+	    set keepLooking 0
+	}
+	if {!$keepLooking} {
+	    return [hook::procOriginal "::smarterSource::useFilesFor" $filename]
+	}
+	# Now we set "filename" to be the path found by the default version
+	# of [alpha::useFilesFor] so that any user or sysadmin modifications
+	# will still be in affect if we don't find a suitable over-ride.  We
+	# could, however, comment this out if we wanted Smarter Source
+	# activation to also mean that we explicitly ignore any of these
+	# SUPPORT files.
+	set filename [lindex  [hook::procOriginal "::smarterSource::useFilesFor" $filename] 0]
+	set relName [file join "Tcl" $relName]
+	# Now wish to scan from $smart/file.tcl to $smart/dir/file.tcl to
+	# $smart/Tcl/Modes/.../file.tcl in order.  We also look for +*.tcl
+	# files.  The first time we find something, we stop.  If we haven't
+	# found a synonym of the original file we must then of course use the
+	# original file (and any + files found).
+	set fileList [list]
+	set hasSynonym 0
+	set elements [file split $relName]
+	for {set i 0} {$i < [llength $elements]} {incr i} {
+	    set overrideFile [eval [list file join $smarterSourceFolder]  [lrange $elements end-$i end]]
+
+	    if {[file exists $overrideFile] && [file readable $overrideFile]} {
+		lappend fileList $overrideFile
+		set hasSynonym 1
+	    }
+	    set rootName [file root $overrideFile]+
+	    set pattern  "*[file extension $relName]"
+	    foreach extraFile [glob -nocomplain -path $rootName $pattern] {
+		if {[file readable $extraFile]} {
+		    lappend fileList $extraFile
+		}
+	    }
+	    if {[llength $fileList]} {
+		break
+	    }
+	}
+	if {!$hasSynonym} {
+	    set fileList [linsert $fileList 0 $filename]
+	}
+	return $fileList
+    }
+} {
+    # Activation script.
+    hook::procRename "::alpha::useFilesFor" "::smarterSource::useFilesFor"
+    # Alerts other code as to our current status.
+    set smarterSourceStatus 1
+} {
+    # De-activation script.
+    hook::procRevert "::smarterSource::useFilesFor"
+    set smarterSourceStatus 0
+} {}}
+set feature(colorPrefs) {0.1.1 global-only 0 {
+    # Initialization script.
+
+    # Define the standard colours.
+    ensureset colorInds(foreground)	"0 0 0"
+    ensureset colorInds(background)	"65535 65535 65535"
+    ensureset colorInds(blue)       "0 0 65535"
+    ensureset colorInds(cyan)       "0 65535 65535"
+    ensureset colorInds(green)      "1151 33551 8297"
+    ensureset colorInds(magenta)    "44790 1591 51333"
+    ensureset colorInds(red)        "65535 0 0"
+    ensureset colorInds(white)      "65535 65535 65535"
+    ensureset colorInds(yellow)     "61834 64156 12512"
+
+    colors::makeList
+    menu::buildProc redefineColors colors::buildMenu
+} {
+    menu::insert Config submenu end redefineColors
+} {
+    menu::uninsert Config submenu end redefineColors
+} {}}
+set feature(latexColors) {0.5 TeX 0 {
+    # Initialization script.
+    alpha::package require -loose TeX 5.0
+    # These items will be available in the pop-up menus in the "LaTeX
+    # Utilities > Color Window" menu command.
+    newPref var colorizableItems  [list "begin|end" "(no)?cite.*" "emph"  "footnote" "ref" "textbf" "textit" "text.*"]  TeX
+    # This keyboard shortcut will update all "LaTeX Colors" in the active
+    # window.
+    newPref binding refreshLaTeXColors "<B<I/L" TeX ""  {TeX::colors::refreshWindow 0}
+    # This keyboard shortcut will update all "LaTeX Colors" in the active
+    # window, and center the window on the cursor location.
+    newPref binding refreshLaTeXColorsCenter "<B/L" TeX ""  {TeX::colors::refreshWindow 1}
+} {
+    # Activation script.
+    menu::insert   {LaTeX Utilities} items end  "(-)" {Color Window…} {Remove Colors}
+    TeX::colors::registerHooks "register"
+} {
+    # Deactivation script.
+    menu::uninsert {LaTeX Utilities} items end  "(-)" {Color Window…} {Remove Colors}
+    TeX::colors::registerHooks "deregister"
+} {}}
+set feature(iconifyOnSwitch) {0.2 global 2 {
+    # This code is only ever evaluated once
+    lappend flagPrefs(Window) iconifyOnSwitch
+} {
+    # This code is evaluated when we turn on the flag
+    hook::register suspendHook iconifyOnSwitch
+    hook::register resumeHook deIconifyOnResume
+} {
+    # This code is evaluated when we turn off the flag
+    hook::deregister suspendHook iconifyOnSwitch
+    hook::deregister resumeHook deIconifyOnResume
+} { 
+    # off
+}}
+set feature(documentProjects) {2.0.2 global-only 0 {
+    # Initialization script.
+    docProj::initializePackage
+} {
+    # Activation script.
+    docProj::activatePackage 1
+} {
+    # Deactivation script.
+    docProj::activatePackage 0
+} {}}
+set feature(autoWrapComments) {0.1 {
+    global
+} 2 {set autoWrapComments 0 ; lappend flagPrefs(Electrics) autoWrapComments} {set autoWrapComments 1} {set autoWrapComments 0} {}}
+set feature(htmlUtilities) {0.1 global-only -1}
+set feature(wwwServices) {1.0 always-on -1}
+set feature(licenseTemplates) {0.3 always-on -1}
+set feature(mailEudora) {2.0 always-on -1}
+set feature(projectBuilderMenu) {0.1 {C C++ Objc Java Pasc Fort HTML} 1 {ensureset projectBuilderMenu PB
+
+
+} {
+    tclAE::installEventHandler "KAHL" "MOD " projectBuilder::getModified
+    menu::buildProc projectBuilderMenu projectBuilder::buildMenu
+    menu::buildSome projectBuilderMenu
+} {
+    tclAE::removeEventHandler "KAHL" "MOD " projectBuilder::getModified
+} {}}
+set feature(vcCvs) {0.4.1 always-on -1}
+set feature(alphaServer) {3.0 global-only 0 {
+    # Initialization script.
+} {
+    # Activation script.
+    ::alphaServer::start
+} {
+    # Deactivation script.
+    ::alphaServer::stop
+} {}}
+set feature(bibDelimited) {1.0 Bib 0 {
+    # Initialization script.
+    # We require Bib v 4.3 for 'Bib::nextEntryStart'.
+    alpha::package require -loose Bib 4.3
+} {
+    # Activation script.
+    menu::insert   bibtexConversions items end "bibToDelimited…"
+    menu::insert   bibtexConversions items end "delimitedToBib…"
+} {
+    # Deactivation script.
+    # Could uninsert the menu items, but then they won't be in the menu
+    # if the BibTeX menu is global but this package is not.
+} {}}
+set feature(filtersMenu) {2.1 global 1 {ensureset filtersMenu •301
+
+    # Initialization script.
+    set flt_p(ext) ".flt"
+    addMode [list Fltr Filter] filtersMenuTcl [list *$flt_p(ext) "\\* Temporary Filter \\*" ] {}
+    alpha::internalModes "Fltr" "Filter"
+    package::addPrefsDialog filtersMenu
+    alpha::package require Alpha 8.0b12
+} {
+    filtersMenuTcl
+    set names [list applyFilterToSelection applyFilterToWindow applyMultiToSelection  applyMultiToWindow applyTempToSelection applyTempToWindow]
+    foreach i $names {
+	hook::register requireOpenWindowsHook [list "•301" $i] 1
+    }
+    unset i names
+    hook::register requireOpenWindowsHook [list filtersUtilities checkSyntax] 1
+} {
+    set names [list applyFilterToSelection applyFilterToWindow applyMultiToSelection  applyMultiToWindow applyTempToSelection applyTempToWindow]
+    foreach i $names {
+	hook::deregister requireOpenWindowsHook [list "•301" $i] 1
+    }
+    unset i names
+    hook::deregister requireOpenWindowsHook [list filtersUtilities checkSyntax] 1
+} {}}
+set feature(specialIndentForCaseLabel) {0.1 {
+    global
+} 2 {set specialIndentForCaseLabel 0 ; lappend flagPrefs(Electrics) specialIndentForCaseLabel} {set specialIndentForCaseLabel 1} {set specialIndentForCaseLabel 0} {}}
+set feature(latexAccents) {1.3.0 {TeX Bib} 0 {
+    # Initialization script
+    namespace eval TeX {}
+    alpha::package require -loose TeX 5.0
+    
+    TeX::Accents::turnOn
+    
+    menu::insert {LaTeX Utilities} items 5  "(-" {Convert Accents to LaTeX} {Convert LaTeX to Accents}
+    
+    proc TeX::ConvertAccentstoLaTeX {} {TeX::Accents::replace 1}
+    proc TeX::ConvertLaTeXtoAccents {} {TeX::Accents::replace 0}
+} {
+    # Activation script.
+    TeX::Accents::activate
+} {
+    # Deactivation script.
+    TeX::Accents::deactivate
+} {
+    # Off script
+    TeX::Accents::turnOff
+
+    menu::uninsert {LaTeX Utilities} items 5  "(-" {Convert Accents to LaTeX} {Convert LaTeX to Accents}
+
+}}
+set feature(favoritesMenu) {1.0.1 global-only 0 {
+    # Initialization script.
+    menu::buildProc "favorites" {favorites::buildMenu} {favorites::postBuildMenu}
+    # Includes all of your current Favorite items, allowing them to open 
+    # them using the methods specified by the Favorites Menu feature
+    newPref flag "favoritesMenu" 0 contextualMenu
+    # Place this item in the first section.
+    ;namespace eval contextualMenu {
+	variable menuSections
+	lappend menuSections(1) "favoritesMenu"
+    }
+} {
+    # Activation script.
+    menu::insert   File submenu "<E<S/Wclose" "favorites"
+    favorites::bindBindings 1
+} {
+    # Deactivation script.
+    menu::uninsert File submenu "<E<S/Wclose" "favorites"
+    favorites::bindBindings 0
+} {}}
+set feature(addressBook) {1.1 global-only 0 {
+    # Initialization script.
+    namespace eval AddressBook {}
+    namespace eval addressBook {
+	# This is the name of the current address book.
+	variable Current
+	ensureset Current "Default"
+	# These are the default fields used to create entries.
+	variable DefaultEntryFields [list  "Full Name"  "Organization"  "Address Line 1" "Address Line 2" "Address Line 3"  "Phone Number" "Email" "Home Page"]
+	# Make sure that the Default book has some default fields.
+	variable EntryFields
+	ensureset EntryFields(Default) $DefaultEntryFields
+    }
+    # This not only returns the current address book, it automatically makes
+    # some of the common address book vars global, and creates several local
+    # variable for use in the current procedure.
+    proc addressBook::current {{newCurrent ""}} {
+	variable Current
+	variable EntryFields
+	# Set a new current addressBook if desired.
+	if {[string length $newCurrent]} {set Current $newCurrent} 
+	# Set these local variables.
+	variable current $Current
+	variable book    ::AddressBook::$current
+	variable books   [array names EntryFields]
+	variable books   [concat "Default" [lremove $books "Default"]]
+	variable entries [array names $book]
+	variable fields  $EntryFields($current)
+	ensureset EntryFields($current) [list ]
+	# Uplevel some local variables.
+	uplevel 1 {
+	    variable Current
+	    variable EntryFields
+	    variable current 
+	    variable book    
+	    variable books   
+	    variable books   
+	    variable entries 
+	    variable fields  
+	}
+    }
+    # Register a build proc for the menu.
+    menu::buildProc addressBook addressBook::buildMenu addressBook::postBuildMenu
+    proc addressBook::buildMenu {} {
+	current
+	set currentList [linsert $books 1 "(-)"]
+	if {[llength $currentList] > 2} {lappend currentList "(-)"}
+	lappend currentList "New Address Book…" "Rename Address Book…"  "Copy Address Book…" "Remove Address Book…"
+	set cProc "addressBook::currentProc"
+	set menuList [list  eMail… insertMailingLabel… createMailingList…  (-)  searchEntries… searchFields… displayAllEntries  [list Menu -m -n currentAddressBook -p $cProc $currentList] (-)  addEntry… editEntry… renameEntry… removeEntry…   collectAllEmails… updateMailElectrics (-)  addEntryField… removeEntryField… arrangeEntryFields…  addressBookPrefs… addressBookHelp]
+	return [list build $menuList addressBook::menuProc]
+    }
+    proc addressBook::postBuildMenu {args} {
+	current
+	set dim1 [expr {[llength $entries]} ? 1 : 0]
+	set menuItems [list  eMail… insertMailingLabel… createMailingList…  searchEntries… searchFields…  displayAllEntries editEntry… renameEntry… removeEntry…  updateMailElectrics ]
+	foreach item $menuItems {
+	    enableMenuItem addressBook $item $dim1
+	}
+	set dim2 [expr {[llength $fields] > 0} ? 1 : 0]
+	set dim3 [expr {[llength $fields] > 1} ? 1 : 0]
+	enableMenuItem addressBook removeEntryField…   $dim2
+	enableMenuItem addressBook arrangeEntryFields… $dim3
+	# Mark the current book in the 'Current Address Book' menu.
+	foreach book $books {
+	    set mark [expr {$book == $current} ? 1 : 0]
+	    markMenuItem -m currentAddressBook $book $mark √
+	}
+	set dim4 [expr {[llength $books] > 1} ? 1 : 0]
+	enableMenuItem -m currentAddressBook "Remove Address Book…" $dim4
+    }
+    # Register a new entry for the 'New Documents' menu item.
+    set {newDocTypes(New Address Book Entry)} addressBook::addEntry
+} {
+    # Activation script.
+    menu::insert   Utils items 0 "(-)"
+    menu::insert   Utils submenu "(-)" "addressBook"
+    # To include all entry names as Mail Menu electrics, turn this item on.
+    # This will only create electrics for entry names which are a single word,
+    # i.e. no spaces||To never use entry names as Mail Menu electrics, turn
+    # this item off
+    newPref flag autoUpdateMailElectrics 0 Mail
+    if {$MailmodeVars(autoUpdateMailElectrics)} {
+	addressBook::updateMailElectrics "" 1
+    } 
+    # Register open windows hook.
+    foreach item [list insertMailingLabel… collectAllEmails…] {
+	hook::register   requireOpenWindowsHook [list addressBook $item] 1
+    }
+} {
+    # De-activation script.
+    menu::uninsert Utils submenu "(-)" "addressBook"
+    # Register open windows hook.
+    foreach item [list insertMailingLabel… collectAllEmails…] {
+	hook::deregister requireOpenWindowsHook [list addressBook $item] 1
+    }
+    prefs::removeObsolete MailmodeVars(autoUpdateMailElectrics)
+} {}}
+set feature(autoContinueComment) {0.1 {
+    global
+} 2 {set autoContinueComment 0 ; lappend flagPrefs(Electrics) autoContinueComment} {set autoContinueComment 1} {set autoContinueComment 0} {}}
+set feature(AlphaTcl) {8.1a5 global-only -1}
+set feature(fileCompression) {0.4.1 global-only 0 {
+    # Initialization script.
+    menu::buildProc "compress" {compress::buildCompressMenu}  {compress::postBuildMenu "compress"}
+    menu::buildProc "fileCompression" {compress::buildPrefsMenu}
+    compress::initializePackage
+} {
+    # Activation script.
+    menu::insert   Utils submenu "(-" "compress"
+    menu::insert   preferences submenu "(-)" fileCompression
+    compress::registerHooks "register"
+} {
+    # Deactivation script.
+    menu::uninsert Utils submenu "(-" "compress"
+    menu::uninsert preferences submenu "(-)" fileCompression
+    compress::registerHooks "deregister"
+} {}}
+set feature(wwwDictionary) {1.0.1 global-only 0 {
+    # Initialization script.
+    # Call this special initialization script.
+    dictionary::www::initializePackage
+} {
+    # Activation script.
+    menu::insert   Utils items 0 "(-)"
+    menu::insert   Utils submenu "(-)" "wwwDictionary"
+} {
+    # De-activation script.
+    menu::uninsert Utils submenu "(-)" "wwwDictionary"
+} {}}
+set feature(tcl/TkExtendedC) {0.2 {C C++ Objc} 0 {
+    # Initialization script.
+    C::tcltk::initialize
+} {
+    # Activation script.
+} {
+    # Deactivation script.
+} {}}
+set feature(teXServices) {1.0 always-on -1}
+set feature(dictionary) {2.3.5 global-only 0 {
+    # Startup script
+} {
+    # Activation script, create namespace and run a proc
+    namespace eval Dico {
+	loadFeature
+    }
+} {
+    # De-activation script.
+    ::Dico::removeFeature
+} {}}
+set feature(macMenu) {2.3 global 1 {ensureset macMenu •303
+
+    if {${alpha::macos} != 2} {
+	error "The 'Mac Menu' is only useful on MacOSX"
+    }
+    package::addPrefsDialog macMenu
+} macMenuTcl {} {}}
+set feature(spellcheck) {0.3 global-only 0 {
+    # Initialization script.
+    ::xserv::declareBundle "Spellcheck" "Spellcheck services"  SpellcheckFile SpellcheckWindow SpellcheckSelection
+
+    ::xserv::declare SpellcheckFile "Spellcheck a file"  filename
+    ::xserv::declare SpellcheckWindow "Spellcheck a window"  window
+    ::xserv::declare SpellcheckSelection "Spellcheck the selection"  window from to
+
+    # =======================================================================
+    # Excalibur is the only Mac spell-checker we know of which will handle
+    # LaTeX as well as ordinary text.
+
+    ::xserv::register "SpellcheckFile" Excalibur  -sig "XCLB"  -driver {
+	sendOpenEvent noReply 'XCLB' $params(filename)
+    }
+
+    ::xserv::register "SpellcheckWindow" Excalibur  -sig "XCLB"  -driver {
+	set w $params(window)
+	# If the file is dirty, we offer to save it first.  
+	if {[win::getInfo $w dirty]} {
+	    if {[dialog::yesno -c "Save '[win::Tail $w]'?"]} {
+		save $w
+	    }
+	}
+	# We make sure that the window actually exists on disk, i.e. that
+	# the file is not a new window that has not been saved yet.
+	if {![win::IsFile $w filename]} {
+	    error "Cancelled -- the window must exist as a local file."
+	}
+	::xserv::invoke SpellcheckFile -filename $filename
+	hook::register resumeModifiedHook spellcheckResume $w
+    }
+
+    ::xserv::register "SpellcheckSelection" Excalibur  -sig "XCLB"  -driver {
+	set w $params(window)
+	set tmpFile [temp::path spellCheck "'[win::Tail $w]' region"]
+	file::writeAll $tmpFile [getText -w $w $params(from) $params(to)] 1
+	# Note: Excalibur (OSX) won't accept our AE unless the file is of
+	# type TEXT.
+	catch {setFileInfo $tmpFile type "TEXT"}
+	::xserv::invoke SpellcheckFile -filename $tmpFile
+	hook::register resumeHook [list spellcheckRegionResume $w $tmpFile]
+    }
+
+    ::xserv::register "SpellcheckFile" Aspell  -progs "aspell"  -driver {
+	::xserv::invoke SpellcheckWindow -window [edit $params(filename)]
+    }
+
+    ::xserv::register "SpellcheckWindow" Aspell -progs "aspell"  -driver {
+	spell::checkWindow $params(window) $params(xserv-aspell)
+    }
+
+    ::xserv::register "SpellcheckSelection" Aspell  -progs "aspell"  -driver {
+	set first [lindex [pos::toRowChar $params(from)] 0]
+	incr first -1
+	set last [lindex [pos::toRowChar $params(to)] 0]
+	spell::checkWindow $params(window) $params(xserv-aspell) $first $last
+    }
+} {
+    menu::insert Utils items "wordCount"  "/L<E<S<O<IspellcheckWindow…" "/L<S<O<I<BspellcheckSelection…"
+    hook::register requireOpenWindowsHook  [list Utils "spellcheckWindow…"] 1
+    hook::register requireOpenWindowsHook  [list Utils "spellcheckSelection…"] 1
+    if {$tcl_platform(platform) != "macintosh"} {
+	menu::insert Utils items "wordCount"  "spellcheck…"
+	hook::register requireOpenWindowsHook  [list Utils "spellcheck…"] 1
+    }
+} {
+    menu::uninsert Utils items "wordCount"  "/L<E<S<O<IspellcheckWindow…" "/L<S<O<I<BspellcheckSelection…"
+    hook::deregister requireOpenWindowsHook  [list Utils "spellcheckWindow…"] 1
+    hook::deregister requireOpenWindowsHook  [list Utils "spellcheckSelection…"] 1
+    if {$tcl_platform(platform) != "macintosh"} {
+	menu::uninsert Utils items "wordCount"  "spellcheck…"
+	hook::deregister requireOpenWindowsHook  [list Utils "spellcheck…"] 1
+    }
+} {}}
+set feature(frontierMenu) {2.2.1 global 1 {ensureset frontierMenu •142
+} {
+	frontierMenu
+} {
+	catch {removeMenu $frontierScriptMenu}
+} {}}
+set feature(printerChoicesMenu) {0.2.1 global-only 0 {} {
+    menu::buildProc print setupPrintMenu
+    menu::replaceWith File [list "/P<Eprint…" "/P<S<I<OprintAll"] submenu print
+} {} {}}
+set feature(terminalPuts) {1.5.1 global-only 0 {
+   package::addPrefsDialog terminal
+   # To have the terminal package handle [puts stdout] and
+   # [puts stderr], click this box. || To restore the default
+   # definition of [puts stdout] and [puts stderr], click this box.
+   newPref flag takeOverPuts [expr {[info tclversion]<8.0}] terminal  terminal::manage_puts
+} {
+   terminal::manage_puts "Activation---the magic word is ON."
+} {
+   terminal::manage_puts "Deactivation---the magic word is OFF."
+} {}}
+set feature(bibtexLogHelper) {1.8.8 always-on -1}
+set feature(specialCharacters) {1.0.1 global-only 0 {
+    # Initialization script.
+    # Register a build proc for the menu.
+    menu::buildProc "specialCharacters" {specialChars::buildMenu}
+} {
+    # Activation script.
+    menu::insert     Edit items end "(-) "
+    menu::insert     Edit submenu end "specialCharacters"
+    hook::register   requireOpenWindowsHook [list "Edit" "specialCharacters"] 1
+} {
+    # De-activation script.
+    menu::uninsert   Edit submenu end "specialCharacters"
+    hook::deregister requireOpenWindowsHook [list "Edit" "specialCharacters"] 1
+} {}}
+set feature(notes) {1.1 global-only 0 {
+    # Initialization script.
+    notes::initializePackage
+} {
+    # Activation script.
+    notes::activatePackage 1
+} {
+    # Deactivation script.
+    notes::activatePackage 0
+} {}}
+set feature(alphaDeveloperMenu) {1.3 {global Chng Tcl Inst} 1 {ensureset alphaDeveloperMenu •1005
+
+    # Initialization script.
+    alphadev::initializePackage
+} {
+    # Activation script.
+    alphadev::activatePackage 1
+} {
+    # Deactivation script.
+    alphadev::activatePackage 0
+} {}}
+set feature(indentUsingSpacesOnly) {0.1 {
+    global TeX
+} 2 {set indentUsingSpacesOnly 0 ; lappend flagPrefs(Electrics) indentUsingSpacesOnly} {set indentUsingSpacesOnly 1} {set indentUsingSpacesOnly 0} {}}
+set feature(filesetEncodingPreference) {0.3 always-on -1}
+set feature(wwwMenu) {2.5.1 {global WWW HTML} 1 {ensureset wwwMenu •286
+
+    # Initialization script.
+    WWW::initializeMenu
+} {
+    # Activation script.
+    WWW::activateMenu 1
+} {
+    # Deactivation script.
+    WWW::activateMenu 0
+} {}}
+set feature(isoTime) {1.8 global-only 0 {} {
+  # Time-stamps are in ISO or a shorter, more readable format.
+  newPref variable timeStampStyle short global "" "short iso relaxed"
+  lunion varPrefs(International) timeStampStyle
+  namespace eval ISOTime {}
+  if {[info command ISOTime::__mtime] == ""} {
+    rename mtime ISOTime::__mtime
+    proc mtime {when {format "short"} {epoch ""}} {
+      switch -- $format {
+	relaxed {ISOTime::ISODateAndTimeRelaxed $when $epoch}
+	iso     {ISOTime::ISODateAndTime $when $epoch}
+	zone    -
+	year    -
+	month   -
+	day     -
+	hour    -
+	minutes -
+	seconds {
+	  ISOTime::brokenDate $when bdate $epoch
+	  return $bdate($format)
+	}
+	default {
+	  switch -- $when {
+	    now {set when [now]}
+	    utc {set when [expr [now] - [ISOTime::ZoneOffset]]}
+            default {
+              set when [ISOTime::toEpoch $epoch $when]
+            }
+	  }
+	  ISOTime::__mtime $when $format
+	}
+      }
+    }
+  }
+} {} {}}
+set feature(commentsArentSpecialWhenIndenting) {0.1 {
+    global TeX
+} 2 {set commentsArentSpecialWhenIndenting 0 ; lappend flagPrefs(Electrics) commentsArentSpecialWhenIndenting} {set commentsArentSpecialWhenIndenting 1} {set commentsArentSpecialWhenIndenting 0} {}}
+set feature(vcLocal) {0.2 always-on -1}
+set feature(functionComments) {0.1.5 global-only 0 {} {
+    if {[package::active electricMenu]} {
+	menu::insert elec items end  {Menu -n FunctionComments -p menu::generalProc {
+	    "/eusual"	
+	    "/e<Isimple" 
+	    "/e<OwithAuthor" 
+	    "/e<Uupdate" 
+	}}
+	hook::register requireOpenWindowsHook [list -m $electricMenu FunctionComments] 1
+    } else {
+	menu::insert winUtils items end  {Menu -n FunctionComments -p menu::generalProc {
+	    "/eusual"	
+	    "/e<Isimple" 
+	    "/e<OwithAuthor" 
+	    "/e<Uupdate" 
+	}}
+	hook::register requireOpenWindowsHook [list winUtils FunctionComments] 1
+    }
+} {} {}}
+set feature(windowUtilities) {1.3.2 global-only 0 {
+    # Initialization script.
+    # This just makes it easier to change this list without having to
+    # duplicate it in both the activation/deactivation scripts.
+    namespace eval win {
+	variable winUtilsMenuItems [list  "insertModeLine…"  "(-)"  {Menu -n windowLines -p win::windowLinesMenuProc {
+	    "numberLines"
+	    "countDuplicateLines"  "findUniqueLines"  "findDuplicateLines"  "findFirstDuplicateLines"  "removeDuplicateLines"  "(-)"  "windowLinesHelp"  }}  "<E<SwindowTabsTo4"  "<S<IwindowTabsTo8"  "<E<SsortWords"  "<S<IreverseSortWords"  ]
+    }
+} {
+    # Activation script.
+    eval [list menu::insert   winUtils items end] $::win::winUtilsMenuItems
+} {
+    # Deactivation script.
+    eval [list menu::uninsert winUtils items end] $::win::winUtilsMenuItems
+} {}}
+set feature(bibToRefer) {1.3 Bib 0 {
+    # Initialization script.
+    alpha::package require -loose Bib 4.3
+} {
+    # Activation script.
+    menu::insert bibtexConversions items end "bibToRefer…"
+} {
+    # Deactivation script.
+    # Could uninsert the menu items, but then they won't be in the menu
+    # if the BibTeX menu is global but this package is not.
+} {}}
+set feature(userMenu) {0.7 global 1 {ensureset userMenu •401
+
+    ensureset userMenuItems ""
+    package::addPrefsDialog userMenu
+} userMenu {
+    unset -nocomplain usr_params usr_procs usr_bindings
+} {}}
+set feature(fileServices) {1.0 always-on -1}
+set feature(internetConfigMenu) {1.1 global 1 {ensureset internetConfigMenu •139
+
+    # Initialization script.
+    internetConfigMenu
+} {
+    # Activation script.
+    hook::register   requireOpenWindowsHook [list $internetConfigMenu windowToBrowser] 1
+} {
+    # Deactivation script.
+    hook::deregister requireOpenWindowsHook [list $internetConfigMenu windowToBrowser] 1
+} {}}
+set feature(latexBbToViewport) {0.1.1 TeX 0 {
+    # Initialization script.
+    alpha::package require -loose TeX 5.0
+} {
+    # Activation script.
+    menu::insert   {LaTeX Utilities} items 5 {Convert Bb To Viewport}
+} {
+    # Deactivation script.
+    menu::uninsert {LaTeX Utilities} items 5 {Convert Bb To Viewport}
+} {}}
+set feature(version) {2.0.4 global-only -1}
+set feature(manipCols) {1.2.2 global-only 0 {} {
+    menu::buildProc Columns menu::buildcolumnsMenu
+    menu::buildProc ColumnsUtilities menu::buildColsUtilsMenu
+    menu::buildProc ColumnsSorting menu::buildColsSortingMenu
+    menu::buildProc ColumnsFormatting menu::buildColsFormatMenu
+    menu::insert Text items 0 "(-)"
+    menu::insert Text submenu "(-)" Columns
+    package::addPrefsDialog manipCols
+    hook::register requireOpenWindowsHook [list Text Columns] 1
+} {
+    menu::uninsert Text submenu end Columns
+    menu::uninsert Text items end "(-"
+    if {[info exists cols_params]} {
+        unset cols_params
+    } 
+} {}}
+set feature(codewarriorMenu) {3.1 {C C++ Objc C# Java} 1 {ensureset codewarriorMenu •268
+
+	alpha::package require searchPaths 1.0
+
+	# # Global prefs
+	# Building options
+	newPref flag buildBeforeRunning 1 cw cw::setFlagInProject
+	newPref flag playSoundAfterUpdt&Make 0 cw cw::setFlagInProject
+	newPref flag useExternalEditor 0 cw cw::setFlagInProject
+	newPref flag saveOpenFilesBeforeBuild 1 cw cw::setFlagInProject
+	
+	# # Target-specific prefs
+	# Compiling options
+	newPref flag activateBrowser 1 cw cw::setFlagInProject
+	newPref flag forceC++Compilation 0 cw cw::setFlagInProject
+	newPref flag enableC++Exceptions 0 cw cw::setFlagInProject
+	newPref flag enableObjectiveC 0 cw cw::setFlagInProject
+	newPref flag enableRunTimeTypeInfo 0 cw cw::setFlagInProject
+	newPref flag treatWarningsAsErrors 0 cw cw::setFlagInProject
+	# Linking options
+	newPref flag generateLinkMap 0 cw cw::setFlagInProject
+	newPref flag generateSymFile 1 cw cw::setFlagInProject
+	
+	# CWmenu-specific prefs
+	newPref flag switchWhenCompiling 1 cw
+	newPref flag touchWhenSaving 1 cw
+	newPref sig CWCompilerSig CWIE
+	newPref sig CWDebuggerSig MWDB
+	newPref color winkyColor red cw
+	
+	# Now build the menu
+	menu::buildProc codewarriorMenu cw::buildMenu
+	menu::buildProc werksFlags {
+		menu::buildFlagMenu werksFlags array cwmodeVars
+	}
+	
+	menu::buildSome codewarriorMenu
+	
+	hook::register savePostHook cw::modified "C" "C++" "Objc" "C#" "Java"
+
+} codewarriorMenu {} {}}
+set feature(comments) {1.0.1 global-only -1}
+set feature(globalM2Bindings) {1.1.1 global-only 0 {
+    #no global init script
+} {
+    #####activation script####
+    if {[info exists M2modeVars(globalM2Bindings)]} {
+	# feature was previously activated and M2 mode is in cooperative state
+	if {!$M2modeVars(globalM2Bindings)} {
+	    set M2modeVars(globalM2Bindings) "1"
+	    prefs::modified M2modeVars(globalM2Bindings)
+	}
+	M2::setGlobalBindings
+    } else {
+	# feature is activated the very first time and M2 mode needs to be made cooperative
+	set neededM2Mode 3.8.2
+	if {![alpha::package exists M2] | ( [alpha::package versions M2] < ${neededM2Mode} ) } {
+	    # M2 mode can't cooperate
+	    set msg "Feature globalM2Bindings needs M2 mode >= v${neededM2Mode}. "
+	    set msg "${msg} It appears this M2 mode is currently not installed."
+	    set msg "${msg} Please reinstall it first before trying to activate this feature again."
+	    alertnote "$msg"
+	} else {
+	    # Put M2 mode into cooperative state 
+	    set M2firstInitForBindings 1
+	    prefs::modified M2firstInitForBindings
+	    set M2modeVars(globalM2Bindings) "1"
+	    prefs::modified M2modeVars(globalM2Bindings)
+	    # Use M2 mode to activate bindings 
+	    M2::setGlobalBindings
+	}
+    }
+} {
+    ####deactivation script####
+    if {[info exists M2modeVars(globalM2Bindings)]} {
+	# feature was previously activated and M2 mode is in cooperative state
+	if {$M2modeVars(globalM2Bindings)} {
+	    set M2modeVars(globalM2Bindings) "0"
+	    prefs::modified M2modeVars(globalM2Bindings)
+	}
+	M2::unsetGlobalBindings 
+    } else {
+	# M2 mode is not in cooperative state, force deactivation
+	unBind '0'  <z> M2::openWorkFiles
+	unBind '1'  <z> launchShellAndSimulate
+	unBind '2'  <z> launchShell
+    }
+} {}}
+set feature(eeMenu) {0.3.1 global 1 {ensureset eeMenu EE
+
+   auto_load eemenu::main
+} {
+   eemenu::init_bindings
+   eemenu::build_menu
+} {
+   eval eemenu::deactivate [array names eemenu::cmdA]
+} {}}

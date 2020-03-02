@@ -1,0 +1,640 @@
+# -*-Tcl-*- (nowrap)
+# Cache v1.2 created on 06/02/2006 {11:06:59 PM}
+set description(filesetIndentationPreference) {0.2.1 {
+    This "Fileset Information" preference will ensure a given fileset is
+    opened with a particular indentation amount, tab size and/or spaces-only
+    setting, regardless of your global defaults
+}}
+set description(changeLogHelper) {0.1 {
+    This package provides a keyboard shortcut which allows you to edit a
+    standard ChangeLog window
+}}
+set description(thinkRefMenu) {1.1 {
+    Provides access to the Think Reference (MacClassic) application
+}}
+set description(electricMenu) {1.3.7 {
+    Inserts context specific text templates
+}}
+set description(openDocument) {1.2.1 {
+    Offers a variety of 'Open Document' options for window creation
+}}
+set description(compareWindows) {1.0 {
+    This package allows for a quick comparison of two windows
+}}
+set description(aeom) {1.3 {
+    Implements Alpha's "AppleEvent Object Model"
+}}
+set description(InSh) {1.3.6 {
+    Provides internal support for [In]teractive [Sh]ell windows in Alpha
+}}
+set description(javadocComment) {0.1 {
+    This features creates a new "Java > Javadoc Comment" menu item for quick
+    entry of javadoc info in Java comments
+}}
+set description(C) {1.4.5 {
+    Supports the editing of C programming files
+}}
+set description(Stta) {2.3b1 {
+    Supports the editing of Stata statistical "do" files
+}}
+set description(MPW) {0.6.1 {
+    Supports the editing of Macintosh Programmers Workshop files
+}}
+set description(mailTcllib) {2.0 {
+    Enables the sending of messages with ÇALPHAÈ's package: mailMenu using
+    the Tcl-lib "smtp" and "pop3" packages
+}}
+set description(backup) {0.2.0 {
+    Makes copies of old versions of saved files (appending a tilde to the name)
+}}
+set description(helpMenu) {1.8.4 {
+    Creates the menubar Help menu, and provides utilities for opening and
+    marking AlphaTcl help windows
+}}
+set description(germanUmlaute) {0.2.1 {
+    This feature supports the German keyboard in TeX and Bib modes
+}}
+set description(VB) {0.1 {
+    Supports the editing of Microsoft Visual Basic programming files
+}}
+set description(internationalMenus) {0.4.1 {
+    Changes incompatible menu Keyboard Shortcuts to keys which are useable on
+    any (western) international keyboard
+}}
+set description(statusPopupMenus) {1.1 {
+    Creates the pop-up menus that appear in the status bar
+}}
+set description(emacs) {0.3.3 {
+    Adds keyboard navigation shortcuts familiar to Emacs users
+}}
+set description(m4) {0.1 {
+    Supports the editing of "m4" files.
+}}
+set description(rememberWindows) {0.4.0 {
+    This feature will record and restore information on tabsize, cursor
+    position, etc about windows when they are opened/closed.
+}}
+set description(identities) {0.3 {
+    Allows you to enter personal information used by other packages to create
+    better templates
+}}
+set description(openWindowsMenu) {1.0 {
+    Keeps track of all current open windows, and provides utilities to adjust
+    the shape or arrangement of existing windows
+}}
+set description(calculator) {1.0 {
+    Adds a "Utils > Calculator" menu item which creates an internal RPN stack
+    calculator for use while editing in ÇALPHAÈ.  See the "Calculator Help"
+    window for more information
+}}
+set description(vfsFileset) {0.3.7 {
+    Mount VFS filesets and edit their contents from Alphatk
+}}
+set description(makeMenu) {0.2 {
+    Supports attempts to 'make' the current window (provided a makefile can
+    be found), including utilities to compile, check syntax, and more
+}}
+set description(Scil) {1.0 {
+    Supports the editing of Scilab programming files
+}}
+set description(reportABug) {1.7.4 {
+    Provides support for interacting with Alpha-Bugzilla, the on-line
+    database of reports for the occasional bug discovered in Alpha8/X/tk and
+    their supporting AlphaTcl library files
+}}
+set description(colorMenu) {1.2.3 {
+    Provides functions to add colors and hyperlinks to Alpha files
+}}
+set description(macros) {2.0.1 {
+    Adds the ability to record and execute keyboard macros
+}}
+set description(tkhtmlViewer) {0.2 {
+    Allows viewing of html files (for example, some of Alphatk's help
+    pages) in Alphatk, by launching a Tkhtml widget in a separate 
+    interpreter
+}}
+set description(marks) {1.0.1 {
+    Helps create, navigate marks within windows
+}}
+set description(Clan) {1.1 {
+    Supports the editing of Child Language Data Exchange System transcripts
+}}
+set description(versionControl) {0.3.1 {
+    Creates a "Version Control" pop-up menu in the sidebar of each window, so
+    that you to use Alpha to open, check out, check in, diff, merge,...
+    files with respect to some local or remote file repository
+}}
+set description(speech) {1.3.2 {
+    Provides the ability to speak text using the Mac OS X speech facilities
+}}
+set description(mailSystem) {2.0 {
+    Enables the sending of messages with ÇALPHAÈ's package: mailMenu using
+    the default OS e-mail client
+}}
+set description(incrementalSearch) {1.2.1 {
+    Implements incremental searching in Alpha windows
+}}
+set description(newDocument) {1.0.3 {
+    Offers a variety of 'New Document' options for window creation
+}}
+set description(elecExpansions) {9.1.3 {
+    This package provides a different kind of word completion than Electric
+    Completions.  To expand word-combinations, type the word's 'acronym' and
+    invoke an expansion instead by using the 'expansion' key
+}}
+set description(toolboxRefMenu) {1.1 {
+    Provides access to the QuickView Toolbox Assistant
+}}
+set description(filesetMenu) {2.1.6 {
+    Provides utilities to create, rename, etc.  groups of files known as
+    "filesets" and to open their contents in Alpha for editing
+}}
+set description(wikiMenu) {1.2b8 {
+    Provides support for editing and posting remote Wiki web pages
+}}
+set description(Igor) {1.1.1 {
+    Supports the editing of Igor programming files
+}}
+set description(filesetRemoteMirror) {0.4.0 {
+    This "Fileset Information" preference allows you to mirror a given
+    fileset onto a remote site
+}}
+set description(copyRing) {1.7.4 {
+    This package allows you to retain a history of the previous items placed
+    in the Clipboard so that they can be inserted later
+}}
+set description(voodooMenu) {2.0.2 {
+    Integrates Alpha with the VOODOO (Versions Of Outdated Documents
+    Organized Orthogonally) version management package
+}}
+set description(S) {2.3 {
+    Supports the editing of S+ and R statistical batch files
+}}
+set description(recentFiles) {1.3 {
+    Lists recently accessed files in the "File > Open Recent" menu
+}}
+set description(ODBEditor) {1.0b3 {
+    This package allows Alpha to act as an external editor for
+    applications that support Bare Bones' ODB Editor suite
+}}
+set description(elecCorrections) {1.1b2 {
+    This package helps check for and correct spelling mistakes or typos as
+    you type
+}}
+set description(man) {0.1.5 {
+    Supports the editing of unix-style manual pages
+}}
+set description(windowZoom) {1.0.1 {
+    This package provides an easily remembered set of key bindings for
+    manipulating the current font, geometry, etc of the active window
+}}
+set description(Text) {0.1.6 {
+    Provides a default text editing mode for Alpha
+}}
+set description(Pyth) {1.0.3 {
+    Supports the editing of Python programming files
+}}
+set description(MATL) {2.0.8 {
+    Supports the editing of MATLAB programming files
+}}
+set description(Objc) {1.4.2 {
+    Supports the editing of Objective-C programming files
+}}
+set description(autoSaveOnSwitch) {0.1.1 {
+    This feature instructs ÇALPHAÈ to always save open windows when you
+    switch to another application
+}}
+set description(ftpMenu) {1.1.3 {
+    Accesses files from a remote ftp server for editing
+}}
+set description(filesets) {2.1b1 {
+    Provides the internal "filesets" support used by other packages
+}}
+set description(tags) {0.3.1 {
+    Inserts "Fileset Menu > Utilities" items which support the use of tags
+    to find function declarations
+}}
+set description(recentDirsMenu) {1.3.8 {
+    This package inserts a 'Recent Dirs' submenu in the File menu,
+    which keeps track of all recently used directories
+}}
+set description(f2cMenu) {2.0 {
+    Integrates Fortran mode with "Mac F2C" and the Codewarrior IDE
+}}
+set description(filesetFtpMirror) {0.3.1 {
+    This "Fileset Information" preference allows you to mirror a given
+    fileset onto an ftp site
+}}
+set description(Diff) {4.1 {
+    Provides internal support for displaying "diff" result windows
+}}
+set description(Mf) {2.1 {
+    Supports the editing of Metafont files
+}}
+set description(shells) {0.2 {
+    Provides support for shell windows created by other AlphaTcl packages
+}}
+set description(terminal) {1.5.1 {
+   Provides output-only terminal windows in Alpha or a generic tclsh.
+}}
+set description(smartPaste) {0.7.4 {
+    Re-indents code as you cut and paste
+}}
+set description(latexSizes) {1.0 {
+    Cycle through lists of related LaTeX commands using shift-opt-<>
+}}
+set description(dtd) {0.4.2 {
+    Provides support for Alpha's "xml" mode
+}}
+set description(Setx) {2.6b1 {
+    Supports the editing of [S]tructure [E]nhanced [Text] (Setext) formatted files
+}}
+set description(contextualMenu) {1.2.1 {
+    Creates Contextual Menus specific to the text surrounding the Cursor --
+    the CM is invoked by pressing Control and the mouse button
+    simultaneously, or (in Windows) by pressing the right mouse button
+}}
+set description(HTML) {3.2b1 {
+	Supports the editing of [H]yper[T]ext [M]arkup [L]anguage files
+}}
+set description(prompts) {0.1.4 {
+    Provides general purpose status-line completion procedures for use by
+    other AlphaTcl code
+}}
+set description(supersearch) {1.8.8 {
+    Implements search and replace commands in the Search menu
+}}
+set description(prettyComments) {0.1 {
+    Currently unimplemented, this package could provide additional support
+    for the package: comments
+}}
+set description(vcVoodoo) {0.2 {
+    Support for Voodoo personal version control
+}}
+set description(vcPerforce) {0.3 {
+    Perforce version control
+}}
+set description(embrace) {1.1.6 {
+    A suite of keybindings for setting and removing all sorts of braces and
+    quotes around the word under (behind) the cursor.
+}}
+set description(SAS) {2.3 {
+    Supports the editing of SAS statistical batch files
+}}
+set description(bat) {0.2 {
+    Supports the editing of Microsoft Windows and DOS batch files
+}}
+set description(mailMenu) {2.0 {
+    Send and manage email from within ÇALPHAÈ -- works with Eudora (MacOS),
+    your default OS e-mail client, and internal Tcl library packages
+}}
+set description(Scrp) {2.3 {
+    Supports the editing of AppleScript programming files
+}}
+set description(Vlog) {0.2.1 {
+    Supports the editing of Verilog language files
+}}
+set description(Lisp) {2.3 {
+    Supports the editing of [LIS]t [P]rocessing (Lisp) programming files
+}}
+set description(xserv) {2.0.2 {
+    Defines a new AlphaTcl interface to services that are provided by
+    external applications
+}}
+set description(sourceforgeMenu) {0.3.5 {
+    Interacts with the on-line "SourceForge" open source repository
+}}
+set description(C++) {1.4.5 {
+    Supports the editing of C++ programming files
+}}
+set description(clipboardPreferences) {1.3 {
+    This package provides preferences for additional Clipboard Utilities
+}}
+set description(PS) {0.6.3 {
+    Supports the viewing and processing of PostScript files
+}}
+set description(latexMathbb) {1.3.2 {
+    Turns 'ZZ' into $\mathbb{Z}$ (e.g) on the fly
+}}
+set description(Wiki) {{for wikiMenu menu} {
+    Provides support for editing and posting remote Wiki web pages
+}}
+set description(tclproUtils) {0.4.0 {
+    Interact with Tcl Pro
+}}
+set description(betterTemplates) {9.3.1 {
+    This package enhances default electric key behavior, including all
+    'ring' procedures
+}}
+set description(Mp) {2.2 {
+    Supports the editing of Metapost files
+}}
+set description(bibConvert) {2.0.2 {
+    Converts several different bibliography formats to BibTeX entries
+}}
+set description(searchPaths) {1.2.6 {
+    This package over-rides the default "Option Title-Bar Click" routines,
+    allowing them to search more widely, and provides general procedures to
+    find files from mode-specific lists of paths
+}}
+set description(Brws) {14.1.4 {
+    Provides support for displaying batch search result windows
+}}
+set description(smarterSource) {1.0 {
+    This package helps you alter ÇALPHAÈ's behavior without directly
+    modifying AlphaTcl source code files.  It provides a more sophisticated
+    and installation-specific version of the Support Folders "Smart Source"
+    functionality
+}}
+set description(M2) {4.2.1 {
+Ê Ê ÊSupports the editing of source files programed in Modula-2
+}}
+set description(colorPrefs) {0.1.1 {
+    Defines the initial "foreground" "background" "blue" "cyan" etc.  colors
+    used in all Alpha windows, especially for syntax coloring, and creates
+    the "Config > Redefine Colors" menu
+}}
+set description(latexColors) {0.5 {
+    This package provides additional color support for TeX mode
+}}
+set description(iconifyOnSwitch) {0.2 {
+    Iconify/minimize all windows when you switch to another application (and
+    remap them when returning to Alpha)
+}}
+set description(SQL) {1.1.3 {
+    Supports the editing of SQL programming files
+}}
+set description(PHP) {0.1.2 {
+    Supports the editing of PHP programming files
+}}
+set description(documentProjects) {2.0.2 {
+    Automatically creates document header templates, and updates information
+    in them when files are saved
+}}
+set description(SPSS) {2.3 {
+    Supports the editing of SPSS and PSPP statistical batch files
+}}
+set description(autoWrapComments) {0.1 {
+    Automatically wraps comments as you type, ignoring the current "Wrap"
+    preference for the active window
+}}
+set description(htmlUtilities) {0.1 {
+    Provides utilities for parsing html strings, used by other AlphaTcl code
+}}
+set description(wwwServices) {1.0 {
+    Declares all "WWW (Internet)" services for viewing urls, fetching remote
+    files, etc.
+}}
+set description(licenseTemplates) {0.3 {
+    Creates license templates for insertion into document windows
+}}
+set description(JScr) {1.1.4 {
+    Supports the editing of JavaScript programming files
+}}
+set description(mailEudora) {2.0 {
+    Enables Alpha interaction with the MacOS e-mail client Eudora, including
+    the viewing of previously downloaded e-mails, replying to these messages,
+    and instructing Eudora to check for new messages
+}}
+set description(projectBuilderMenu) {0.1 {
+    Uses Alpha as an external editor for Apple's Project Builder IDE
+}}
+set description(Scm) {2.2 {
+    Supports the editing of Scheme programming files
+}}
+set description(coq) {0.1 {
+    Coq is is a proof assistant for computer assisted verification of
+    mathematical proofs.  Proofs are written in the special-purpose
+    lambda-calculus-like language 'gallina'.
+}}
+set description(Fort) {2.0 {
+    Supports the editing of Fortran77 (fixed-format) programming files
+}}
+set description(vcCvs) {0.4.1 {
+    Support for CVS version control
+}}
+set description(alphaServer) {3.0 {
+    This package makes Alpha act as a server that executes Tcl commands
+}}
+set description(WWW) {{for wwwMenu menu} {
+    Provides internal support for the WWW menu
+}}
+set description(bibDelimited) {1.0 {
+    Conversion of BibTeX files to/from delimited windows
+}}
+set description(filtersMenu) {2.1 {
+    Performs successive <Search And Replace> operations
+}}
+set description(specialIndentForCaseLabel) {0.1 {
+    Instructs Alpha to indent "case foo:" and "foo:" by only half an ordinary
+    indentation unit, useful in C, C++, Java, and Jscr modes
+}}
+set description(Inst) {0.2 {
+    Provides internal support for AlphaTcl installation scripts
+}}
+set description(latexAccents) {1.3.0 {
+    Provides keyboard support and LaTeX Menu items to convert between
+    "international" symbols (diacritics) and LaTeX codes in TeX and/or Bib
+    mode windows
+}}
+set description(xsl) {0.4.2 {
+    Provides support for Alpha's "xml" mode
+}}
+set description(Pasc) {1.0.7 {
+    Supports the editing of Pascal programming files
+}}
+set description(favoritesMenu) {1.0.1 {
+    This package allows you to open Favorite Files, Folders and Applications
+    from within Alpha using custom Keyboard Shortcuts
+}}
+set description(addressBook) {1.1 {
+    This package inserts an 'Address Book' submenu in the Utils menu,
+    allowing for the management of a user modified address book which
+    can be used to create customized mailing lists
+}}
+set description(CSS) {2.2b1 {
+	Supports the editing of [C]ascading [S]tyle [S]heet files
+}}
+set description(autoContinueComment) {0.1 {
+    Automatically comments new lines created by pressing Return if the
+    current line is already in a comment block
+}}
+set description(Ruby) {0.1 {
+    Supports the editing of Ruby programming files
+}}
+set description(mapl) {1.1.5 {
+    Supports the editing of Maple programming files
+}}
+set description(Java) {1.23 {
+    Supports the editing of Java programming files
+}}
+set description(fileCompression) {0.4.1 {
+    Creates a "Utils > Compress" submenu which supports the archiving of
+    windows, files, and folders from within Alpha
+}}
+set description(wwwDictionary) {1.0.1 {
+    This package creates a new "Utils > Www Dictionary" submenu, which
+    allows words to be looked up in on-line resources
+}}
+set description(Perl) {3.7b1 {
+    Supports the editing of Perl programming files
+}}
+set description(sh) {2.0 {
+    Supports the editing of sh, tcsh, etc. script files
+}}
+set description(tcl/TkExtendedC) {0.2 {
+    This feature provides support for editing Tcl/Tk extended C files
+}}
+set description(teXServices) {1.0 {
+    Declares all "TeX" services for typesetting (etc.) .tex files
+}}
+set description(Bib) {4.4.1 {
+    Supports the editing of LaTeX bibliography (.bib) files
+}}
+set description(TIP) {0.4.4 {
+    Provides support for writing Tcl Improvement Proposals
+}}
+set description(dictionary) {2.3.5 {
+    This feature allows you to consult local plain text dictionaries via a
+    menu item inserted in the Utils Menus, and the key binding Control-O
+}}
+set description(macMenu) {2.3 {
+    Accesses and manipulates your Mac's filesystem
+}}
+set description(frontierMenu) {2.2.1 {
+	Interacts with the Frontier application for .html file suites
+}}
+set description(spellcheck) {0.3 {
+    Integrates ÇALPHAÈ with Excalibur, Aspell, Ispell, CocoAspell
+}}
+set description(Ada) {1.0.4 {
+    Supports the editing of Ada programming files
+}}
+set description(printerChoicesMenu) {0.2.1 {
+    This package replaces the basic "File > Print' menu item into a submenu
+    from which you can select a variety of printing methods
+}}
+set description(f90) {2.0 {
+    Supports the editing of Fortran90 (free-format) programming files
+}}
+set description(terminalPuts) {1.5.1 {
+   Redirects 'puts stdout' to a separate Alpha terminal window.
+}}
+set description(bibtexLogHelper) {1.8.8 {
+    When you command double-click on warnings, errors and filenames in
+    any BibTeX log window, that generates a message which allows Alpha
+    to interpret the error, warning or information you have clicked on
+    and jump directly to the relevant text, automatically placing you in
+    a situation to add a new bibliography entry, fix an error, add a
+    .bib file, etc.
+}}
+set description(Chng) {0.2 {
+    Provides support for displaying Alpha "Changes" files
+}}
+set description(specialCharacters) {1.0.1 {
+    Creates an "Edit > Special Characters" menu for inserting international
+    letters (diacritics) and other symbols into the active window
+}}
+set description(notes) {1.1 {
+    This package inserts a new "File > Notes" submenu which allows you to
+    manage a set a notes retained in your Support folder
+}}
+set description(alphaDeveloperMenu) {1.3 {
+    Provides utilities for developing Tcl code for use with Alpha and Alphatk
+}}
+set description(TeX) {6.0a2 {
+    Supports the editing of LaTeX files
+}}
+set description(xml) {0.5.0 {
+    Supports the editing of XML files
+}}
+set description(indentUsingSpacesOnly) {0.1 {
+    Indents without inserting any Tab characters, only Space strings
+}}
+set description(filesetEncodingPreference) {0.3 {
+    This "Fileset Information" preference will ensure a given fileset is
+    opened with a particular default encoding, different to that set as a
+    global default
+}}
+set description(wwwMenu) {2.5.1 {
+    Render text-only web pages inside Alpha (like 'lynx')
+}}
+set description(isoTime) {1.8 {
+    Adds new options for the second parameter (format) of the [mtime] command
+}}
+set description(Tcl) {3.1.1 {
+    Supports the editing and running of Tcl and Tk programming files
+}}
+set description(commentsArentSpecialWhenIndenting) {0.1 {
+    Ignores previous commented text when searching backwards for the proper
+    level of indentation to use for the current line
+}}
+set description(vcLocal) {0.2 {
+    Support for a simple local version control
+}}
+set description(functionComments) {0.1.5 {
+    This package provides capability to insert nice comments for any given
+    function definition
+}}
+set description(windowUtilities) {1.3.2 {
+    Adds more "Utils > Win Utils" menu items, including commands to sort
+    words, and to find matching/duplicate/unique lines in the active window
+}}
+set description(bibToRefer) {1.3 {
+    Inserts a new "BibTeX Menu > BibTeX Conversions" menu item that converts
+    BibTeX windows/files to Refer (Endnote compatible)
+}}
+set description(userMenu) {0.7 {
+    Allows you to invoke personal AlphaTcl procedures directly from the menu
+    or pressing user-defined Keyboard Shortcuts
+}}
+set description(internetConfigMenu) {1.1 {
+    Provides easy access to your OS Internet applications
+}}
+set description(fileServices) {1.0 {
+    Declares various application services for viewing .pdf or .ps files, and
+    compressed archives
+}}
+set description(latexBbToViewport) {0.1.1 {
+    Converts \\includegraphics bb= to viewport= so your file will work ok
+    with both latex and pdflatex
+}}
+set description(Caml) {1.0.2 {
+    Supports the editing of Caml programming files
+}}
+set description(version) {2.0.4 {
+    Provides utilities to obtain and format the 'vers' resource code of the
+    specified file
+}}
+set description(codewarriorMenu) {3.1 {
+    Interacts with the Metrowerks CodeWarrior program so that you can develop
+    your C/C++ project and control CodeWarrior actions from within Alpha
+}}
+set description(globalM2Bindings) {1.1.1 {
+Ê Ê ÊCreates global keyboard shortcuts (Control-0, Control-1, Control-2) which
+Ê Ê Êopen work files in the Modula-2 (M2) mode
+}}
+set description(make) {0.2 {
+    Supports the editing of "make" files
+}}
+set description(comments) {1.0.1 {
+    Provides a set of generalized routines for commenting text in windows,
+    used by the Text menu items
+}}
+set description(C#) {0.1.1 {
+    Supports the editing of Microsoft C-Sharp files
+}}
+set description(eeMenu) {0.3.1 {
+    The EE menu provides commands for sending small pieces of code
+    from a source file window to various interpreters. It can handle
+    multiple languages and multiple source file formats.
+}}
+set description(Plc) {1.0.4 {
+    Supports the editing of Property List Compiler files
+}}
+set description(dot) {0.2 {
+    Supports the editing of "dot" language files and Graphvix interaction
+}}
+set description(GPLT) {2.1.3 {
+    Supports the editing of Gnuplot programming files
+}}

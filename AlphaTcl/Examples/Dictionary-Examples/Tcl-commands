@@ -1,0 +1,208 @@
+# -*-tcl-*- nowrap
+
+This is one of four example files for the Dictionary Package for Alpha.
+The other three files are
+   man
+   Country-codes
+   Whisky-distillers
+
+A dictionary file ideally has three sectors: The first sector is a header
+with a description for human beings --- this is what you are reading now. 
+The third sector is the main one: it is the raw data in alphabetical order. 
+The second sector is a description for the Dictionary Programme, referred
+to as the boot sector.  Here the programme learns how the file is
+structured: how the alphabetical order is defined, and how the result 
+should be presented on the screen.  As illustrated by the example 
+'Whisky-distillers', the two first sectors are not mandatory, if just 
+the file is in standard alphabetical order.  (In this case fallback 
+definitions stand in.  These are defined in the file dictionary.tcl)
+
+This example (which constitutes a dictionary of Tcl commands) illustrates
+the use of an index file.  The main data file is 'Tcl 8.4 Commands.txt'
+located in Help folder.  The file you are reading now is the index file:
+every entry in the main sector has as its value a pair of integers, the
+first being the position of the Tcl command in the data file, the second
+being the number of bytes this entry occupies.  In this way the Dictionary
+programme uses alphabetical order in this file to find the offset, and then
+the format proc (which usually is meant just for formatting the return of
+the lookup programme) takes a 'second round' reading the actual data from
+the main file.  The advantage of using index file is that it can be faster
+and more economical (no need to create a whole data file if the data
+already exists elsewhere).  The disadvantage is that each time the main
+data file changes, the index file must be recompiled.  (For this particular
+case there is actually a mechanism which rebuilds the index if the data
+file is newer.  The new index is placed in the Cache folder inside your
+AlphaPrefs folder.
+
+Another feature of this particular dictionary is that it specifies
+proprietary window geometry for the dictionary console.  (Every dictionary
+has its own consoleGeometry variable: you can save the current geometry in
+the menu...)
+
+
+<!-- BEGIN TCL
+
+# This proc takes the first word of the input string
+# strips all accents,
+# and then removes all non-alpha letters
+proc normalForm { chunk } {
+  #just take the first word:
+  regexp {[^ \t]+} $chunk chunk
+  
+  regsub -all {[‡çˆË‰å‹ÌŒ]} $chunk {a} chunk
+  regsub -all {[‚]} $chunk {c} chunk
+  regsub -all {[Žƒéæ‘è]} $chunk {e} chunk
+  regsub -all {[’ê“í”ë•ì]} $chunk {i} chunk
+  regsub -all {[–„]} $chunk {n} chunk
+  regsub -all {[—î˜ñ™ï›Í¿¯š…]} $chunk {o} chunk
+  regsub -all {[œòôžóŸ†]} $chunk {u} chunk
+  regsub -all {[ØÙ]} $chunk {y} chunk
+  regsub -all {[¾®Š€]} $chunk {ae} chunk
+  regsub -all {[ÎÏ]} $chunk {oe} chunk
+
+  regsub -all {[^A-Za-z_]} $chunk {} chunk
+  return [string tolower $chunk]
+}
+
+# The raw output from the lookup proc consists in a command name,
+# an offset and a size.  So go to the tcl-commands file and get this
+# chunk:
+proc formatOutput { linje } {
+  global HOME
+  if { ![regexp {([a-z_]+) (\d+) (\d+)$} $linje dummy headword offset size] } {
+      return ""
+  }
+  variable currentHeadword $headword
+  set ordstrom [open [file join $HOME Help "Tcl 8.4 Commands.txt"] r]
+  seek $ordstrom $offset
+  set res [read $ordstrom $size]
+  close $ordstrom
+  regsub -all "\n" $res "\r" res
+  return $res
+}
+
+
+# Since the output format (given in "Tcl 8.4 Commands.txt") is a long 
+# and narrow column, this dictionary has chosen to specify a matching
+# window format.  It is computed from the screen dimensions.
+# 
+# Note: the name of the dictionary (which is chosen by the user, not by
+# this file!) is always equal to the namespace tail of the dictionary,
+# and when the boot sector is sourced we are in that namespace.  Hence
+# we know:
+set nameOfThisDictionary [namespace tail [namespace current]]
+set consoleWidth 428
+set consoleHeight [expr {$::screenHeight - 44}]
+set leftOffset [expr {$::screenWidth - $consoleWidth}]
+global tcl_platform
+if { $tcl_platform(platform) == "macintosh" } {
+    # Correct for window borders:
+    incr consoleHeight -6
+    incr leftOffset -7
+}  
+set topOffset 59
+# (Here we assume statusbar at bottom.  When we actually open the
+# window we check where the statusbar is and adjust correspondingly...)
+
+global DicomodeVars
+::console::create "* $nameOfThisDictionary *" -mode Text -minormode "dictionary" \
+  -font Monaco -fontsize $DicomodeVars(fontSize) \
+  -g $leftOffset $topOffset $consoleWidth $consoleHeight
+
+unset consoleWidth
+unset consoleHeight
+unset leftOffset
+unset topOffset
+unset nameOfThisDictionary
+
+END TCL -->
+  
+after 112 4635
+append 4815 621
+array 5504 6936
+bgerror 12508 3464
+binary 16040 25723
+break 41831 761
+catch 42660 2025
+cd 44753 385
+clock 45206 12419
+close 57693 2115
+concat 59876 843
+continue 60787 780
+encoding 61635 3089
+eof 64792 666
+error 65526 1977
+eval 67571 726
+exec 68367 17760
+exit 86195 341
+expr 86604 17461
+fblocked 104133 977
+fconfigure 105178 24643
+fcopy 129889 5536
+file 135493 22106
+fileevent 157667 5511
+filename 163246 11125
+flush 174439 1037
+for 175544 2005
+foreach 177617 2753
+format 180438 9871
+gets 190377 1909
+glob 192354 9256
+global 201678 704
+history 202450 4431
+http 206949 25014
+if 232031 1341
+incr 233440 637
+info 234145 10234
+interp 244447 35451
+join 279966 527
+lappend 280561 918
+lindex 281547 3109
+linsert 284724 868
+list 285660 1117
+llength 286845 366
+load 287279 5835
+lrange 293182 1060
+lreplace 294310 1553
+lsearch 295931 4608
+lset 300607 3772
+lsort 304448 6757
+msgcat 311273 12702
+namespace 324043 25850
+open 349961 12097
+package 362126 10356
+pid 372550 779
+pkg_mkIndex 373398 12119
+proc 385585 3276
+puts 388929 2817
+pwd 391814 256
+re_syntax 392138 27921
+read 420127 3008
+regexp 423203 7173
+registry 430447 6950
+regsub 437468 5122
+rename 442658 675
+resource 443401 8015
+return 451484 3125
+Safe 454677 17583
+scan 472328 10215
+seek 482611 2156
+set 484835 1608
+socket 486511 6422
+source 493001 1911
+split 494980 1061
+string 496109 16538
+subst 512715 5089
+switch 517872 3901
+Tcl 521841 32591
+tell 554500 932
+time 555500 580
+trace 556148 22524
+unknown 578740 3228
+unset 582036 1391
+update 583495 1702
+uplevel 585265 3014
+upvar 588347 4891
+variable 593306 2204
+vwait 595578 1237
+while 596883 1757

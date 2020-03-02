@@ -1,0 +1,137 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+
+<HTML>
+
+<HEAD>
+
+<TITLE>Moving and renaming files</TITLE>
+
+<LINK HREF="../Style%20Sheet/manual.css" REL="stylesheet" TYPE="text/css">
+
+
+</HEAD>
+
+<BODY>
+
+<!-- #INCLUDE INCLPATH="maintop.html" -->
+
+<SCRIPT TYPE="text/javascript">
+<!--
+if (document.body.clientHeight) {
+	height = document.body.clientHeight - 50;
+} else {
+	height = window.innerHeight - 50 ;
+}
+document.write('<div class="main" style="height: ' + height + 'px;">');
+// -->
+</SCRIPT>
+
+
+<!-- /#INCLUDE -->
+
+
+<H1>Moving and renaming files and folders</H1>
+
+<P>
+<IMG SRC="../bilder/moving.png" ALT="Moving" WIDTH="215" HEIGHT="78"
+CLASS="rightpic"> In the HTML Utilities menu there are three functions to move 
+and rename files and folders and automatically update all links in the 
+files.
+</P>
+
+<P>
+<SPAN CLASS="item">Move Files...</SPAN> lets you move a set of files from 
+one folder to another within a home page folder or within an include 
+folder. 
+</P>
+
+<P>
+When moving files you are
+</P>
+
+<UL>
+	<LI>First asked to select the folder which contains the files 
+	you want to move.
+	<LI>Then you are asked to select the files you want to move from this 
+	folder.
+	<LI>And finally you are asked to select the destination folder.
+</UL>
+
+<P>
+<SPAN CLASS="item">Rename File...</SPAN> lets you rename and move a single 
+file within a home page folder or within an include 
+folder.
+</P>
+
+<P>
+<SPAN CLASS="item">Rename Folder...</SPAN> lets you rename and move a 
+folder within a home page folder or within an include folder.
+</P>
+
+<P>
+When renaming a file or folder you are 
+</P>
+
+<UL>
+	<LI>First asked to select the file or folder to rename and move.
+	<LI>Then you are asked to select a new name and its destination folder.
+</UL>
+
+<P>
+Alpha then makes the move and then asks you if you want to update all 
+links (this is the whole point of this function, so a 'yes' should be 
+appropriate, but it gives you a chance to abort the update if you have 
+moved the wrong files).
+</P>
+
+<P>
+Alpha now updates all HTML links, HREF, SRC, etc. as well as CSS links 
+url("...") and all include links &lt;!-- #INCLUDE ... --&gt; to make sure 
+that they point at the same files as before. This update is done in all 
+files both in the home page folder and the include folder.
+</P>
+
+<P>
+Updating links may take a little while if you have very many files but 
+should in most cases be a lot faster than to make the changes manually.
+</P>
+
+<!-- #INCLUDE INCLPATH="mainbottom.html" -->
+
+<DIV STYLE="height: 50px">
+</DIV>
+
+<SCRIPT TYPE="text/javascript">
+<!--
+document.write('<\/DIV>');
+// -->
+</SCRIPT>
+
+
+<!-- /#INCLUDE -->
+
+
+<!-- #INCLUDE INCLPATH="navigation.html" PREV="[manualPrevPage extend.html]" 
+NEXT="[manualNextPage docutils.html]" -->
+
+<P>
+<script type="text/javascript">
+<!--
+document.write('<div class="navigation" style="top: ' + height + 'px; height: 50px">');
+// -->
+</script>
+<A HREF="extend.html">Previous page</A>
+<A HREF="docutils.html">Next page</A>
+<SCRIPT TYPE="text/javascript">
+<!--
+document.write('<\/DIV>');
+// -->
+</SCRIPT>
+</P>
+
+<!-- /#INCLUDE -->
+
+
+</BODY>
+
+</HTML>

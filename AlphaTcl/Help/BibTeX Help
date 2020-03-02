@@ -1,0 +1,1902 @@
+-*-Help-*-
+
+BibTeX Help
+
+
+                                       help version: 4.4.1
+                                            created: 08/17/1994 {02:18:07 PM}
+                                        last update: 03/07/2006 {01:00:47 PM}
+
+	  	Abstract
+
+This document describes features of BibTeX mode and the BibTeX menu, written
+to simplify the use and maintenance of BibTeX citation database files.
+
+
+	  	Table Of Contents
+
+
+"# Introduction"
+"#   Activating BibTeX mode"
+"#   Recent Changes"
+
+"# BibTeX Mode Uses"
+"# BibTeX menu"
+"#   BibTeX File List"
+"#   Template insertion"
+"#     Entries"
+"#     Fields"
+"#   Entry Navigation, etc."
+"#   Formatting, Validating"
+"#   Searching"
+"#   Cite Key Lists"
+"#   Sorting, Marking"
+"#   String Conversions"
+"#   BibTeX File Conversions"
+"#   Setting BibTeX Mode Options"
+"#   Indices and Databases"
+
+"# Mode Preferences"
+"#   BibTeX Menu Options"
+"#   Entries, Fields"
+"#   Electrics"
+"#   Entry Formatting"
+"#   Auto Cap"
+"#   Entry Validating"
+"#   Sorting"
+"#   Marking"
+"#   BibTeX Files"
+"#   Keyword Colorizing"
+
+"# Key Bindings, Completions"
+"# Auto Capitalization"
+"#   User Defined Exceptions"
+"#   Default Exceptions"
+"# Command Double-Clicking"
+"# Adding New Entries"
+
+"# Conversions"
+"#   BibTeX To Html"
+"#   BibTeX To Refer (EndNote)"
+"#   BibTeX Convert"
+"#   BibTeX Delimited"
+
+"# BibTeX Application"
+"# BibTeX Mode History"
+"# Future Directions"
+"# License and Disclaimer"
+
+<<floatNamedMarks>>
+
+
+	  	Introduction
+
+
+A "BibTeX Example.bib" file is available for exploring the features of the
+mode and menu.  You can modify this file as much as you like, reformat,
+experiment with completions, etc.  The "Bib Tutorial.bib" file also
+interactively explains electrics and formatting in more detail.
+
+Note that throughout this Help file the term "Current Entry" refers to the
+entry surrounding the cursor, or (if there is a region highlighted) the entry
+surrounding the start of the selection.  Many operations described below will
+only function as described if the cursor is within or touching a valid entry.
+
+
+	  	 	Activating BibTeX mode
+
+BibTeX mode is entered when you open a file with a '.bib' suffix, or when you
+select the mode explicitly from the modes menu.  In BibTeX mode,
+
+
+  ¥ A BibTeX menu is added to the menubar.  Menu items summarized below.
+
+  ¥ Selecting Mark File in the Marks menu (M on the sidebar), will
+    add an index mark for the Cite-Key of each entry in the bib file.
+    Marks can be presented in order of appearance or alphabetically.
+
+  ¥ Keywords in BibTeX files are automatically colorized.
+
+  ¥ Double-Clicking on an abbreviation string with the Command modifier held
+    down (Command-Double-Clicking) will move the cursor to the definition
+    of that abbreviation.
+
+  ¥ Command-Double-Clicking on the Cite-Key of a crossref field will
+    move the cursor to the referenced entry.
+
+
+There are a number of additional features in AlphaTcl that provide different 
+functions for BibTeX mode.
+
+Preferences: Mode-Features-BibTeX
+
+Some of the "# Conversions" features are turned on by default.  In addition 
+to these, the package: latexAccents makes the insertion of "international" 
+characters into .bib files much easier.
+
+
+	  	 	Recent Changes
+
+The most recent changes to the mode include
+
+  ¥ Colors can now be changed through Mode Preferences dialog.
+  ¥ Comment menu items are enabled.
+  ¥ Smart quotes, dots from TeX mode now available as optional preference.
+  ¥ Field insertion now available as an electric completion.
+  ¥ Colorization and Completion support for select LaTeX commands.
+  ¥ User defined acronyms can be expanded using the Expansion shortcut.
+  ¥ Completions Tutorial is now available under "Config > Mode Prefs".
+  ¥ .bib conversion packages now available under the Conversions menu.
+
+  ¥ BibTeX menu can be long or grouped into hierarchical submenus.
+  ¥ Validation is now possible for single entries or an entire file.
+    Validating will report missing required and "non-standard" fields.
+  ¥ During formatting and validation, malformed entries will explicitly
+    throw an informative error.
+  ¥ Duplicate cite-keys can be found in the active window and across files.
+  ¥ Default entry fields can now be defined through BibTeX menu.
+  ¥ The list of all recognized bibliography files can be reviewed.
+  ¥ One can rapidly search for text in any field in these files.
+  ¥ Added support for indices and databases through the Bibtex menu.
+
+  ¥ All '@string' strings can be converted for individual entries or the
+    entire file.  (Useful when using 'BibTeX Conversions' items.)
+  ¥ Upper/lower case preferences available for templates, formatting.
+  ¥ Automatic capitalization of words in user-specified fields.
+  ¥ Support for entry folding (Alphatk only).
+  ¥ Contextual Menu modules added.
+  ¥ 'Smart Escape' now piggy-backs on TeX mode code so that packages
+    that define smart character escapes work in both modes.
+  ¥ Field Value completions for fields that might have repeating 
+    information (author, journal, etc).  See "# Key Bindings, Completions".
+
+
+	======================================================================
+
+
+	  	BibTeX Mode Uses
+
+
+Alpha's BibTeX mode has been designed with three major tasks in mind.  First,
+the mode helps you create .bib files.  Its entry templates are completely
+customizable, and (by using electric completions) can generally be inserted
+with only three or four keystrokes.  Commonly used strings (such as
+addresses, publishers, etc) can be defined as BibTeX mode specific acronyms
+and expanded using Alpha's "expansion" keyboard shortcut.
+
+The Navigation menu items allow you to easily move through a document, and the
+Marks menu and "Index This Window" menu item provide concise summaries of the
+entries in the active window.  The Formatting menu includes items that clean
+up the active window and validate entries to ensure that they include the
+required fields.  The Cite Key Lists menu contains some items that help ensure
+that you do not have duplicate cite-keys in the file.
+
+The package: bibConvert can convert different bibliography formats (i.e. MARC,
+OCLC, Ovid (WebSPIRS), ISI (Web Of Science/Knowledge), Refer) to BibTeX
+format, and integrates well with BibTeX mode.
+
+Second, BibTeX mode complements Alpha's TeX mode for inserting citation keys
+from a .bib file into a LaTeX document.  By creating a bibliographic Index or
+Database, citations can be entered as electric completions.
+
+Command-Double-Clicking on a citation within a LaTeX document will take you to
+its original entry -- opening the .bib file if necessary.
+
+Finally, the mode allows your collection of .bib files to be used as a
+searchable database.  Searches can be limited to the active window, or
+expanded to include all of the .bib files recognized by Alpha.  Searches can
+be limited to specific fields, or to entire entries.  The results of a search
+can be optionally appended to previous search windows, and these search
+windows themselves can be searched to narrow the results.  In any "Search
+Results" window, Command Double-Clicking on an entry will take you to its
+original definition.  All searches support regular expressions as well as
+alpha-numeric text.
+
+Any .bib file can also be converted to other formats, such as HTML, Refer
+(EndNote compatible), or tab delimited using the "Bibtex Conversions" submenu.
+See the "# Conversions" section below for more information.
+
+
+	  	BibTeX menu
+
+
+Here's a description of the commands available from the BibTeX menu.  Note
+that the menu can be made hierarchical (for those with smaller monitors) by
+toggling the "Hierarchical Menu" item in the "BibTeX Mode Options" menu.
+Otherwise some items are dynamic, only available by pressing the Command
+modifier while accessing the menu.
+
+
+	BibTeX Application
+
+Switch to the BibTeX application (launching it if necessary).
+
+
+	BibTeX Home Page
+
+Open the "Home Page" url set in the "Config > Mode Prefs > Preferences"
+dialog.  The default setting is to Vince Darley's Macintosh port of the BibTeX
+application, but this url can be set to any page that you find you use a lot
+when editing .bib files.  (For example, as a sociologist I often find myself
+using a Social Sciences Citation Index web site to lift article or book
+abstracts.)
+
+
+	  	 	BibTeX File List
+
+
+This menu contains a list of all of the .bib files currently recognized by
+BibTeX mode.  Selecting any file name will open it in a new window.  The
+preferences described below in the "# BibTeX Files" section determine how
+this list is built.  Note that unlike the filesets menu, this list can be
+rebuilt every time Alpha is restarted, and should only contain files that
+actually exist.  (If you find yourself editing a lot of .bib files when you
+use Alpha, you could make this a global menu and have access to these files
+every time that Alpha is launched.)
+
+When the BibTeX menu is first built, the file list will always be empty
+unless the preference for "Build Files On Start" is set, but it can be easily
+rebuilt using the "BibTeX File List > Rebuild File List" menu item.  This
+item will also recreate the menu should you find it necessary, but unless you
+have deleted files during your editing session it should be remain accurate.
+This is also the list that would be used in Index and Database creation,
+described in more detail below.
+
+If the "Full Pathnames" preference is not set, then only the file names
+(without their parent directories) appear in the menu and in most list-pick
+dialogs.
+
+TIP: Holding down any modifier key while selecting an file name in this list
+will open the file's location in the system Finder.
+
+TIP: Pressing the "Option" modifier while clicking on the title bar will
+present you with a list of all currently recognized BibTeX files, as well as
+all currently open windows.  Selecting any of these files or windows will
+bring them to the front, opening them if necessary.  In Mac OS 8.0 and above,
+Option-Clicking on the sides of the active window will present this list as
+well, which means that you can simply move the mouse to the far left of your
+screen and Option or Command Click to pop up the menu.
+
+	Open All Bib Files
+
+Opens all of the files currently listed in the menu.  (It might be a good idea
+to "List All Files" before using this to be sure that the list is up to date.)
+This can be a handy way to create an actual file set for all of your
+bibliographies, using the "Create fileset from open windows" option.
+
+	Close All Bib Files
+
+Closes all of the .bib files currently listed in the menu.  If any of these
+files have unsaved changes, you will be prompted to save them first.
+
+
+	  	 	Template insertion
+
+
+	  	 	 	Entries
+
+Insert a template for any of the various BibTeX bibliography entry types (as
+in Tex mode).  By default, only the required fields an the entry are
+included.  The BibTeX mode prefs "Upper Case Entries/Fields" determines the
+case that will be used for entry and field names.
+
+If there is a selection highlighted when you select an entry type, each line
+will be used as a default field value in the template.  For example, if the
+following selection is highlighted:
+
+	Paul J. DiMaggio
+	Cultural Entrepreneurship in Nineteenth--Century Boston
+	Media, Culture and Society
+	1982
+
+selecting the "Entries > Article" menu item will delete that text and insert
+the following in its place:
+
+	@article{¥,
+	   author   = {Paul J. DiMaggio},
+	   title    = {Cultural Entrepreneurship in Nineteenth--Century Boston},
+	   journal  = {Media, Culture and Society},
+	   year     = 1982,
+	}
+
+TIP: Hold down any modifier key while selecting an entry menu item to edit its
+default fields, or use the "Default Entry Fields > Entry Name" menu items.
+
+Choosing "Custom Entry" lets you pick the fields to be included from a list
+of all fields -- you will also be given the option to save this as a default
+entry, which will then appear in the menu and become available as an electric
+completion.  Custom entries defined using this menu item CANNOT, however, be
+properly validated.  See the "Adding New Entries" section below for
+instructions on teaching BibTeX mode new entries for field validation.
+
+IMPORTANT: This note applies more generally to using BibTeX applications
+rather than Alpha's BibTeX mode, but since I seem to forget it every six
+months I thought I'd mention it here.  While '%' is used as a comment
+character, and while any comments could be placed in a '@comment' entry, the
+general rule is that any text that is NOT within a valid entry will be
+ignored when bibtexing a file.
+
+However, this also means that the '@' character should NEVER appear outside a
+valid entry, including in comment lines preceded by '%'.  This crops up as an
+issue if you include header comments that include e-mail addresses, such as
+those inserted by Alpha's package: documentProjects ...  This sort of thing
+
+	%   email: <cupright@alumni.princeton.edu>
+
+has caused BibTeX to throw me many an error ...
+
+You should also note that any comments included following the first valid
+entry will be deleted by BibTeX mode sorting procedures.
+
+
+	  	 	 	Fields
+
+
+Insert a template for any of the various BibTeX bibliography data fields
+within the Current Entry.  If any selection is highlighted, that text will be
+deleted and used as the default field value.  The "Upper Case Fields"
+preference determines the case that will be used for the field name.
+
+TIP: Hold down any modifier key while selecting a field menu item to edit the
+"Add Fields" preference.
+
+Choosing Custom Field allows you to define your own field, which can then be
+saved and inserted into the menu, and be made available as an electric
+completion.
+
+Choosing Multiple Fields lets you pick a number of fields to be included at
+once.
+
+
+	  	 	Entry Navigation, etc.
+
+
+	Next Entry
+
+Jump to the top of the next entry.
+
+	Prev Entry
+
+Jump to the top of the previous entry.
+
+These items are also bound to Control-Shift-Arrow keys.  The up and down
+arrows will simply move the cursor to the start of the next/prev entry.  Right
+and left arrows will also place this entry at the top of the window.
+
+These items are also bound to 1 and 3 on the keypad when numlock is turned
+off.  These keyboard shortcuts will place the next/prev entry in the center of
+the window.  The numlock in Alpha is toggled by pressing the Shift modifier
+when pressing "Num-Lock" on the keypad.
+
+If any text is currently highlighted, all of these navigation items will
+extend the current selection to the next/previous entry.
+
+	Select Entry
+
+Highlight the Current Entry (in which the cursor sits), allowing the entry to
+be easily moved, copied or deleted.
+
+	Select Fields
+
+Highlight all of the fields in the Current Entry.
+
+	Copy Cite Key
+
+Copy the Cite-Key for the Current Entry to the clipboard.
+
+	Fold Entry
+
+(Alphatk only)  Folds the entry to appear in the window like
+
+	@book{DiMaggio2001,
+	-----------------------------------------------------
+	}
+
+to temporarily 'hide' the entry.  Selecting 'Fold Entry' again will unfold the
+entry, as will formatting the entry (or all entries in the window).
+
+
+	  	 	Formatting, Validating
+
+
+	Format Entry
+
+Reformat the Current Entry in a standard form, with data fields indented and
+aligned, and data-field delimiters made uniform.  Afterwards, Alpha jumps
+forward to the next entry, so you can keep pressing Control-Shift-L to
+reformat a number of entries in a row.  The "Upper Case Entries/Fields"
+preferences will determine what case the entry/field names should be used, and
+will change the cases if necessary.  The values of all fields listed in the
+"Auto Cap Fields" preference will be properly capitalized, see the section
+below on "# Auto Capitalization".
+
+The format may be customized via the Mode Preferences, such as aligning equals
+signs, zapping empty fields, the style of braces to use ...  These items are
+also available as toggleable menu items in the submenu "BibTeX Mode Options",
+and described in the "# Entry Formatting" section below.
+
+Fields that consist solely of defined strings, valid crossrefs, and standard
+abbreviations (defined via the "Config > Mode Prefs" dialog) will not be
+surrounded by any delimiter during reformatting.
+
+By default, the order in which the fields are found is retained.  However, if
+you use the "Bibtex Menu > Default Entry Fields" submenu to define a 'Custom
+<Entry>' preference, that order will be used preferentially, and any 'extra'
+fields will be placed at the end of the entry.
+
+TIP: Command Double-Click on any valid field to format the entire entry.
+This will place that entry at the top of the file, and your mouse should 
+now be located somewhere within the next set of fields to format the next 
+entry.
+
+	Format Remaining
+
+(A dynamic menu item available by pressing the Command modifier.)
+
+Reformat the Current Entry and all subsequent entries to end of the file.  You
+must go to the top of the window first to truly format "all" entries.  If any
+entry cannot be formatted, results will be displayed in a new window.  Note
+that any comments found in the file following the first entry will be removed
+permanently.
+
+You can interrupt this by pressing Command-Period.
+
+	Format All Entries
+
+(A dynamic menu item available by pressing the Command and Option modifiers.)
+
+Format all entries contained in the file.
+
+You can interrupt this by pressing Command-Period.
+
+	Validate Entry
+
+Evaluate the fields of the Current Entry to check for required fields, as well
+as non-standard fields.  Any required fields that are included but have empty
+values will also be reported.
+
+Note that only the "default" entries defined by BibTeX mode have information
+regarding required versus optional fields.  Entries created using the "Custom
+Entry" menu item cannot be validated.  To teach BibTeX mode new entries for
+validation purposes, see the "# Adding New Entries" section below.
+
+To ignore any "non-standard" fields contained in entries, i.e. those that are
+neither required nor optional, toggle the "Ignore Extra Fields" preference in
+the BibTeX Mode Options menu.
+
+TIP: Command-Double-Click on any valid entry name to validate the entire
+entry.  This will place that entry at the top of the file, and your mouse
+should now be located somewhere near the name of the next entry to validate
+it.
+
+	Validate Remaining
+
+(A dynamic menu item available by pressing the Command modifier.)
+
+Evaluate the fields for Current Entry and all subsequent entries to end of the
+file, and check for duplicate cite-keys.  You must go to the top of the window
+first to truly validate "all" entries.  Results will be displayed in a new
+window if there were any missing fields, duplicate cite-keys, unrecognized
+entries, or (optionally) any "non-standard" fields present.  Because this
+"results" window can get quite busy, all entries that simply have missing
+fields will be listed in the marks menu.
+
+You can interrupt this by pressing Command-Period.
+
+	Validate All Entries
+
+(A dynamic menu item available by pressing the Command and Option modifiers.)
+
+Validate all entries contained in the file.
+
+You can interrupt this by pressing Command-Period.
+
+
+	  	 	Searching
+
+
+BibTeX mode offers several different ways to search the entries contained not
+only in the active window but also within all of the files recognized by
+Alpha as .bib files.
+
+The first three items, searching Entries, Fields, and BibTeX Files, will
+display their results in a "Search Results" window, with all unique cite-keys
+listed in the Marks menu.  Command-Double-Clicking on any Cite-Key will jump
+to its original entry, opening the file if necessary.  Additional searches
+can be appended to any current results window, or displayed in a new one.
+Results windows can be saved as files as well.
+
+If a search of "All BibTeX Files" results in multiple files identified, you
+will be given the option to insert the results of any listed file into the
+results window.  Alternatively, you could list all matches in a "browser"
+window, from which you can jump to any given match.
+
+Note that "Search Results" windows themselves can be searched, to narrow the
+selections.  (When doing so be sure to save the original window, because this
+will be the only one containing the names of the source files.)  Search
+windows can also be validated, checked for duplicate cite-keys, or the entries
+could be counted, or the window could be sorted and indexed ...
+
+All of these searches can take regular expressions.
+
+	Search Entries
+
+Search for entries that contain a given alpha-numeric text string (i.e. no
+dashes or other special symbols) or a regular expression.  Search strings are
+not case-sensitive.
+
+An example: Open the "BibTeX Example.bib" file.  Select "Search Entries", and
+enter the search string "unix".  The results will be displayed in a new window
+-- Command-Double-Clicking on any Cite-Key will send you to its original
+location.  Now search for the string "C\+\+" -- the backslashes are necessary
+because -'s and +'s are special regular expression symbols.
+
+TIP: pressing the Control modifier while Command Double-Clicking on any text
+will start a search for that text across all fields in the active window.
+
+	Search Fields
+
+(A dynamic menu item available by pressing the Command modifier.)
+
+Search for entries in which a particular field matches alpha-numeric text
+(i.e. no dashes or other special symbols) or a regular expression.  Search
+strings are not case-sensitive.
+
+An example: Open the "BibTeX Example.bib" file.  Select "Search Fields", and
+choose the "author" field.  Now enter the search string "Knuth".  The results
+will be displayed in a new window -- Command-Double-Clicking on any Cite-Key
+will send you to its original location.  Now search for the string "Tcl|Tk" in
+the "titles" field to locate all entries with either Tcl or Tk in their title.
+
+TIP: pressing the Shift modifier while Command-Double-Clicking on any text
+will start a search for that text in the field in which it is contained in the
+active window.
+
+	Search All Bib Files
+
+Search for a given string within all possible bibliographies.  This item uses
+the list of bibliographies specified by the "Use ...  Path" preferences
+available (as toggleable menu items) in the "BibTeX Files" menu.  Use the menu
+Command "BibTeX Files > List All Bibliographies" menu item described below to
+find out which .bib files will actually be searched.  Searches can be limited
+to specific fields, including cite-keys, or include the entire file (by
+specifying "all fields").
+
+Unlike "Search Entries" and "Search Fields", strings are case-sensitive.
+
+If searching for cite-keys, only a portion has to be entered, such as
+
+    DiMagg
+
+This search also supports of regular expressions, such as
+
+    Marx|Engels
+
+to locate bibliographies with citekeys including either "Marx" or "Engels". 
+Or one could enter
+
+    DiMag.+198
+
+to find all of the bibliographies with 1980's DiMaggio entries (assuming that
+you include the full century year in your citations.)  Or
+
+    186[0-9]
+
+to find all of bibliographies that contain 1860's citations.
+
+If only one file is identified, the results of the search will be inserted
+automatically into a "Search Results" window.  If multiple files were found,
+you will be given the option to list all of the search results in a "browser"
+window (from which you can open any file), or to include only the files that
+you specify.
+
+You can interrupt this by pressing Command-Period.
+
+	Quick Find Citation
+
+(This is also bound to Control-Shift-Q for Alphatk users.)
+
+Search the Index incrementally by Cite-Key.  Requires that an index be
+created, and if none exists you will be prompted to create one (based upon the
+"Bib Auto Index" preference.)  The "List All Bibliographies" menu item allows
+you to preview the files that will be indexed.  Indices and Databases are
+described in more detail below.
+
+Assuming that an index exists ...
+
+The status bar window will prompt you for the first letter of the citation
+that you want to find.  After typing it, you will be presented with a list of
+all potential completions.  Pressing Tab will extend the list.  At this point
+you could either type the number of the item in list (as in typing 2 for the
+second item you see presented) or press another letter to reduce the options.
+Once you have narrowed the selection to a single unambiguous entry, you will
+jump to the citation you've chosen, opening the file in which it is contained
+if necessary.
+
+
+	  	 	Cite Key Lists
+
+
+This menu helps you manage lists of cite-keys in both the open window and
+across multiple files.
+
+	Count Entries
+
+Report the total number of entries in the active window, as well the number
+of entries of each type.
+
+	Find Duplicates
+
+Searches for duplicate cite-keys in the active window.  If any duplicates are
+found, results will be displayed in a new window -- Command-Double-Clicking on
+any Cite-Key will take you to its original definition.
+
+Following a duplicate search, the cite-keys are saved by Alpha.  If you
+perform subsequent duplicate Cite-Key searches on other windows, you will be
+asked if you also want to compare these cite-keys to those of the previous
+window.  (The file names of windows previously searched appears at the bottom
+of this menu.)  If so, the cite-keys of this second window will be added as
+well.  If not, the Cite-Key list will first be cleared.
+
+TIP: Pressing the Shift modifier while Command Double-Clicking on any Cite-Key
+will perform a rapid search for duplicates in the active window.
+
+	List Cite Keys
+
+This will create a new window that contains only the citation keys and the
+"title" field of entries for easy scanning of the .bib files contents.
+Command-Double-Clicking on any Cite-Key will return you to its original entry.
+Important: this is NOT the index used in "Quick Find Citation" or for electric
+completions.  See the "Indices and Databases" section below.
+
+Indexing a "Search Results" window will give you a concise list of the entries
+that you have identified -- one possible use is to retrieve the list of
+entries found in the Marks menu.
+
+	Count All Entries
+
+(A dynamic menu item available by pressing the Command modifier.)
+
+Report the total number of entries in multiple files specified through a
+list-pick dialog.
+
+	Find All Duplicates
+
+(A dynamic menu item available by pressing the Command modifier.)
+
+This item allows you to easily compare the cite-keys of several files at once.
+After choosing a list of files, the cite-keys of each one will be
+progressively added to the list and compared to those that are already there.
+Results will be displayed in a new window.
+
+Note that in both of these menu items the term "duplicate" is an exact one --
+after one match has been found, Alpha records the pair and moves on to the
+next Cite-Key.  If a Cite-Key appears in three different files, it will be
+noted as a duplicate for files 2 and 1, and then again (later in the report)
+for files 3 and 1.  Before searching for duplicates across files, it is a good
+idea to check first for duplicates only within files.
+
+	List All Cite Keys
+
+(A dynamic menu item available by pressing the Command modifier.)
+
+Displays a list of all currently recognized cite-keys in a new window.  This
+can be a slower procedure.  Command-Double-Clicking on any listed Cite-Key
+will take you to its original definition, opening the file if necessary.  If
+no Cite-Key list currently exists, you will be prompted to first create one.
+
+	Create Cite Key List
+
+Allows you to choose the files to include in the current Cite-Key list.  If
+you only want to compare the active window against a list of others, first
+create a list of the others.  (The files that are currently included in the
+list appear at the bottom of this menu.  Selecting any of them will create an
+"List Cite Keys" window using the menu item described above.)
+
+Now select the "Find Duplicates" menu item.  When asked if you want to use the
+current list, choose "yes" and the cite-keys of the active window will be
+compared to the other files listed.
+
+	Clear Cite Key List
+
+Removes all current cite-keys from Alpha's memory.
+
+
+	  	 	Sorting, Marking
+
+
+	Sort by É
+	---------
+
+Sorts the active window by one of various criteria ...
+
+The Overwrite Buffer preference controls whether the sorted database is
+written back to the original buffer or into a new one.
+
+	Cite Key
+
+Sorts by the citation key
+
+	First Author, Year
+
+Sorts by first author, and secondarily by year
+
+	Last Author, Year
+
+Sorts by last author, and secondarily by year
+
+	Year, First Author
+
+Sorts by year, and secondarily by first author
+
+	Year, Last Author
+
+Sorts by year, and secondarily by last author
+
+
+	Sort Marks É
+	------------
+
+Sorts the Marks either ...
+
+	Alphabetically
+
+Sorts the index marks on the marks menu alphabetically.
+
+	By Position
+
+Sorts the index marks by the position of the entry.
+
+The {} "Parse Funcs" menu item will return only every 10th entry in the active
+window, useful if you want to navigate a .bib file that has several hundred
+entries ...
+
+
+	  	 	String Conversions
+
+
+BibTeX allows 'string' abbreviations to be defined within a file, so that you
+can include strings like this:
+
+	@string{asd         = "Advanced Software Development Series"}
+	@string{att-bl-tj   = "AT{\&}T Bell Laboratories Technical Journal"}
+
+and then use the shortcuts within other entries, as in
+
+	@book{aho1983a,
+	   author    = {Alfred V. Aho and John E. Hopcroft and Jeffrey D. Ullman},
+	   title     = {Data Structures and Algorithms},
+	   publisher = asd,
+	   year      = 1983,
+	   series    = att-bl-tj,
+	}
+
+While you are constructing a .bib file, you might not realize that you're
+going to use the same 'string' until you have built several entries, and
+defining a string and then performing a global search and replace can get
+rather tedious.  If you DO have a file with a lot of '@string' entries and you
+want to convert them all back to their original expansion, the task is even
+more daunting, though sometimes essential if you are converting the .bib file
+to a different format.
+
+The following items will first scan the current file to create a list of valid
+strings and expansions defined within the active window, to allow you to
+manipulate their use for individual entries or the entire window.
+
+	Stringify Entry
+
+Scan the Current Entry for all valid '@string' definitions, perform a search
+for the expansions and replace them with the defined strings.
+
+IMPORTANT: Fields that contain carriage returns within the value might not be
+recognized as the expansion that should be shortened.  This is a known bug
+and might be corrected in future versions ...  In the meantime, you can unset
+the formatting preference for 'Wrapped Fields', reformat the entry (or the
+entire file), convert the strings, reset the 'Wrapped Fields' preference, and
+then reformat once again.
+
+	Unstringify Entry
+
+Scan the Current Entry for all valid '@string' definitions, perform a search
+for the strings and replace them with the expansions.
+
+	Stringify Window
+
+Scan the active window for all valid '@string' definitions, perform a global
+search for the expansions and replace them with the defined strings.
+
+	Unstringify Window
+
+Scan the active window for all valid '@string' definitions, perform a global
+search for the strings and replace them with the expansions.
+
+
+IMPORTANT: Suppose that you have the two strings defined above, for 'asd' and
+'att-bl-tj', and you include an entry field value like this:
+
+	series = asd # "/" # att-bl-tj,
+
+This is a perfectly reasonable construction, a shortcut for
+
+	series = {Advanced Software Development Series / "AT{\&}T Bell 
+			  Laboratories Technical Journal},
+
+and you can BibTeX this file with no errors.  Using the string conversion menu
+items just described, you can successfully 'unstring' this example but you
+won't be able to go back -- to 'string' a field value in the entry, the
+original value must be an exact match of a single string.
+
+
+	  	 	BibTeX File Conversions
+
+
+A few conversion packages have been written for Alpha's BibTeX mode, to turn
+a .bib file into a nicely formatted .html file, etc., or to convert different
+formats into BibTeX files.  See the "# Conversions" section below for more
+information.
+
+
+	  	 	Setting BibTeX Mode Options
+
+
+This section contains four submenus that help you to configure BibTeX mode's
+various preferences and behavior.
+
+
+	Default Entry Fields
+	--------------------
+
+This menu contains all of the entries in the "Entries" submenu.  By default,
+only the required fields are included when a new bib entry is created.  You
+can modify this behavior by selecting any one of these entries -- a dialog box
+will present you with the current list.  Fields will appear in the specified
+order, and when reformatting an entry this order will be used to unshuffle the
+deck if necessary.
+
+These changes will be saved as a mode preference, and will remain in place in
+future sessions of Alpha.
+
+	Restore Default Preferences 
+
+Allows you to restore any of the default entry preferences that you have
+changed.
+
+	Remove Custom Entry É
+
+Allows you to remove any entries defined using the "Custom Entry" menu item in
+the Entries menu.
+
+	Edit Custom Fields É
+
+Presents you with the option to add all of the "extra" fields found in the
+active window to the "Add Fields" preference, inserting them into the
+"Fields" menu and making them available for electric completions.  If this
+option is not selected, you are presented with a list of the current "Add
+Fields" preference, which you can then edit.
+
+
+	BibTeX Mode Options
+	-------------------
+
+All of BibTeX mode's "flag" preferences can be turned on/off using the
+toggled menu items.  These preferences are explained in more detail below in
+the section for "# Mode Preferences".
+
+TIP: Press any modifier key while selecting a mode option menu item to obtain
+a brief description of the preference.
+
+	BibTeX Mode Help
+
+Opens this file ...
+
+
+	Bib Mode Acronyms
+	-----------------
+
+BibTeX mode allows you to create acronyms for electric completion /
+expansion.  Take the "Bib Tutorial.bib" completions tutorial for more
+information, or see the section below on "Key Bindings and Completions".
+
+This menu allows you to view, add, and remove the acronyms recognized by
+BibTeX mode.  In addition, you can "unset" the list of acronym expansions
+that are supplied by default.
+
+	Check Keywords
+
+If you are considering defining your own custom entry, field, or acronym, it
+might be useful to first make sure that the keyword is not already assigned in
+one of the mode's lists.
+
+	Bib Mode Tutorial
+
+Opens the "Bib Tutorial.bib" completions tutorial.
+
+
+	Bib Mode Files
+	--------------
+
+This menu helps you set the behavior of Alpha regarding the creation of the
+"bibliography file list".  This list, which is created "on the fly" when
+needed by certain menu items or procedures, is used to create the indices and
+databases described below, and for the "Search All Bib Files" menu item.
+
+	List All Bibliographies
+
+Opens a dialog box, listing all of the bibliographies that would currently be
+used to create a database or an index.  Double-Clicking on any of these files
+will open them in a new window.
+
+	________________
+
+The next items are toggleable preferences that help determine how this list
+is created.  (These are the same preferences that can be set by selecting the
+"Config > Mode Prefs" dialog.)
+
+	Full Pathnames
+
+Include the full pathnames in list-pick dialogs and in the "BibTeX Files"
+menu.  Note that BibTeX mode is generally happier if no .bib files have the
+same filename -- if you have both
+
+    :paper1/myfile.bib   and
+    :paper2/myfile.bib
+
+then Command Double-Clicking in "Search Results" windows could get funky...
+
+	Use Current Path
+
+Look in the file folder of the active window for any valid .bib files.
+
+	Use Open Windows
+
+Include any open windows in the bibliography list, provided that they are
+valid .bib files.
+
+	Use Search Paths
+
+Look in folders associated with both BibTeX or TeX modes, as set using the
+"Set Search Paths" menu item.  Search paths (which are mode specific) only
+have to be set for BibTeX or TeX modes -- when listing bibliographies BibTeX
+mode will use both.
+
+	Use Tex Paths
+
+Look in the Tex-inputs folder or .aux file to list all bibliographies.  This
+only applies if you are prompted to rebuild an index or database in a LaTeX
+document after failing to either complete a citation electrically, or find a
+citation by Command-Double-Clicking on it .
+
+The "TeX Path" is dependent on the .aux file of the current LaTeX document,
+which cannot be accessed unless the "rebuild database" procedure is being
+called by TeX mode.  These bibliographies could be included, however, via the
+other preferences ...
+
+	Use Kpsewhich
+
+(Not available in MacClassic)
+
+Look in the folders specified by "kpsewhich --show-path bib" to list all
+bibliographies.  "kpsewhich" is available for those using "teTeX" as their
+TeX helper, and is used as a standalone front-end of the "kpathsea" library
+to examine variables and find files.
+
+See these urls
+
+<http://gd.tuwien.ac.at/linuxcommand.org/man_pages/kpsewhich1.html> 
+<http://www.tug.org/kpathsea/>
+
+for more information about "kpsewhich" and "kpathsea".
+
+	________________
+
+The last section of this submenu allow one to set the "Search Paths" specific
+to BibTeX mode.  These make use of the package: searchPaths, which allows
+multiple folders to be designated for any mode.  (These menu items are
+normally only available in the "Config > Mode Prefs" menu, but are reproduced
+here for convenience.  Activating the "Search Paths" package is not
+necessary.)
+
+If the "Use Search Paths" preference is turned off, these items will be dimmed
+-- just a little reminder that you need to set the preference AND the search
+paths !
+
+
+	  	 	Indices and Databases
+
+
+The remaining items update (or create) the indices and databases used in
+searching for and inserting BibTeX entries.  See the section above regarding
+"BibTeX Files" to determine which files will be used in index or database
+creation.
+
+Indices and Databases support citation completions when editing LaTeX files.
+The term "database" properly suggests that this is a complete list of the
+citation keys that you have instructed Alpha to keep track of.
+
+For example, open a .bib file.  Select "Add Win to Database".  This indexes
+all of the citation keys and titles in the current file and adds its path to
+the search list.  Now open a .tex file.  Type
+
+	\cite{<something>|
+
+where <something> is the beginning of a reference key in .bib file you just
+added to the citation database and attempt to complete it.
+
+(To find out what your completion keyboard shortcut is, and to change it if
+desired, use the "Config > Special Keys" menu item.)
+
+If the completion hint exists within the database, you should be prompted with
+a list of completions (if the hint was ambiguous), or Alpha will simply insert
+the citation key straight from the index or database.  Command Double Clicking
+on the item will then open up the .bib file in which it is contained.  If no
+completion can be found, you will be presented with a list of various options
+-- including rebuilding the index or database.
+
+BibTeX Indices and Databases are very handy !!
+
+
+	Build/Rebuild Index/Database
+
+Builds (or rebuilds) the index/database, using the bibliographies file set by
+the "Use ...  Paths" preferences.
+
+The "bibIndex" and "bibDatabase" files are stored in your prefs folder.
+
+IMPORTANT: An Index only contains the cite keys, while a Database also
+contains the titles.  TeX mode includes "Show Titles" preference that
+determines what appears in the list-pick dialog when your attempted completion
+is ambiguous -- just the citation keys (stored in a "bibIndex" file), or both
+the keys and the titles (stored in a "bibDatabase" file.)  The index is also
+used for the "Quick Find Citation" menu item.
+
+
+Rebuilding either the index or database will remove all previous contents.  In
+practice, it's a good idea to rebuild both the index and the database at the
+same time.
+
+	Review Index/Database
+
+(A dynamic menu item available by pressing the Command modifier.)
+
+Opens the "bibIndex/Database" file located in your preferences folder.  
+
+	Remove Index/Database
+
+(A dynamic menu item available by pressing the Control modifier.)
+
+Removes the "bibIndex/Database" file located in your preferences folder.
+	
+
+	Add Win To Index/Database
+
+Adds the active window to the bibliography index/database.  If the active
+window is not a .bib file, you will have the option to choose amongst all
+current open .bib windows.
+
+Note that if this file had been previously added to the index/database, the
+old entries are not removed.  You may do so yourself (manually) by reviewing
+the index/database, unlocking it, and deleting the old entries.
+
+	Add Files To Index/Database
+
+(A dynamic menu item available by pressing the Command modifier.)
+
+Opens a list-pick dialog, allowing you to select files that will be added to
+the bibliography index/database.  Only those files designated by the "Use...
+Path" preferences are available.
+
+Note that if these files had been previously added to the index/database, the
+old entries are not removed.  You may do so yourself (manually) by reviewing
+the index/database, unlocking it, and deleting the old entries.
+
+
+	======================================================================
+
+
+	  	Mode Preferences
+
+
+The behavior of the Bibtex menu may be controlled using by setting the various
+preferences through the "Config > Mode Prefs > Preferences" dialog.  Many of
+these can also be set using the "BibTeX Mode Options" menu.
+
+Preferences: Mode-BibTeX
+
+
+	  	 	BibTeX Menu Options
+
+
+	Hierarchical Menu
+
+The appearance of the main BibTeX menu can be controlled by setting this
+preference.  Turning it off will place the Navigation, Searching, Formatting
+and Database items in the main menu.
+
+	Home Page
+
+The url used by the "BibTeX Home Page" menu item.
+
+
+	  	 	Entries, Fields
+
+
+	Entry Braces
+
+Use curly braces to delimit entries (otherwise parentheses are used).
+
+	Field Braces
+
+Use curly braces to delimit field values (otherwise quotation marks are
+used).
+
+	Upper Case Entries
+
+Use UPPER CASE when inserting entry templates, or when reformatting.
+
+	Upper Case Fields
+
+Use UPPER CASE when inserting field templates, or when reformatting.
+
+
+	  	 	Electrics
+
+
+	Field Completions
+
+Allows fields to be completed when using electric routines.
+
+	LaTeX Completions
+
+Allows select LaTeX commands to be completed when using electric routines.
+
+	Smart Dots
+
+Turns '...'  into '\ldots' automatically as you type
+
+	Smart Quotes
+
+Turns ' or " into ` or `` or ' or '' automatically as you type, depending upon
+the context.
+
+	Unset Acronyms List
+
+Allows you to remove the list of "default" acronyms provided by the mode.  See
+the section below on "Key Bindings and Completions" for more information.
+
+
+	  	 	Entry Formatting
+
+
+	Align Equals
+
+Line up the = signs for all fields when reformatting.
+
+	Wrapped Fields
+
+Fills all field values using the 'Fill Column' preference below when
+reformatting, otherwise all field values will be on one line.
+
+	Fill Column
+
+The maximum width of each line in the field value.
+
+	Indent String
+
+Define the indentation string for field names.  The default is three spaces.
+
+	Std Abbrevs
+
+Define standard abbreviations (that we avoid surrounding with delimiters)
+that do not appear in @string entries.
+
+By default, three-letter English month names are included.
+
+	Zap Empty Fields
+
+Remove optional fields if they're empty.  All fields for entries defined using
+the "Custom Entry" menu item are considered to be optional.  If this is unset,
+all optional "Custom Entry" fields will be included, with empty values if the
+field could not be found.
+
+
+	  	 	Auto Cap
+
+
+Some Alpha users are lazy typists.  BibTeX mode allows your to type most of
+your titles in lower case and then have the appropriate words capitalized in
+one fell swoop, such as when you reformat the entry.
+
+These preferences affect the "# Auto Capitalization" routines described below.
+During the formatting of an entry, specific fields can be capitalized in a
+canonical way so that this:
+
+	The production of scientific change: Richard Peterson and the 
+	institutional turn in cultural sociology
+
+will be substituted with
+
+	The Production of Scientific Change: Richard Peterson and the 
+	Institutional Turn in Cultural Sociology
+
+All that you need to do is define a list of words that shouldn't be
+capitalized unless they start a line or immediately follow a ';' or ':', and
+you're set.  The menu item "BibTeX Mode Options > Auto Capitalization" opens
+a dialog that allows you to edit the default (English) set of words that
+should be forced to lower case.  This <<Bib::autoCapitalization>> dialog will
+also allow you to set the fields for which auto capitalization should take
+place.  If you don't like this feature, then simply turn it off for all
+fields.
+
+Note that only lower case words will be affected by this routine.
+
+Note that the "BibTeX Mode Options > Auto Capitalization" menu item will
+present a dialog that looks like <<Bib::autoCapitalization>> allowing all of
+these prefs to be set at once.
+
+
+The preferences include:
+
+	Auto Cap Fields
+
+These are the field names for which auto capitalization will take place.  Note
+that the 'title' and 'booktitle' fields are not included by default, since
+some users might find this behavior disconcerting.  To turn off auto
+capitalization entirely, make this preference an empty list (null string).
+
+	Auto Cap Lower Case
+
+This list of words will be forced to lower case during capitalization, unless
+they appear at the start of field value, or immediately following a ";" or ":"
+character (and empty space).
+
+	Auto Cap Special Patterns
+
+You can teach BibTeX mode special patterns to properly capitalize strings
+like "DiMaggio" or "McGiver".  See "# Auto Capitalization" below for more
+information.
+
+
+	  	 	Entry Validating
+
+
+	Ignore Extra Fields
+
+Only report the missing required fields when validating entries.  Otherwise,
+all "non-standard" fields will be reported as well.
+
+
+	  	 	Sorting
+
+
+	Descending Years
+
+Sort by year in descending order (most recent to oldest).
+
+	Overwrite Buffer
+
+Allow sorts to replace the original window contents -- otherwise they are
+written to a new window.
+
+	Segregate Strings
+
+Collect all @string definitions together at the top of the file in sorts.
+(Otherwise sort alphabetically)
+
+
+	  	 	Marking
+
+
+	Auto Mark
+
+Automatically mark the .bib file when it is first opened, and following any
+sorting routine.
+
+	Mark Strings
+
+Include @string definitions in the marks menu.
+
+
+
+	  	 	BibTeX Files
+
+
+These items determine how the "bibliography list" is created, and are
+described above in the "Indices and Databases" section.
+
+	Full Pathnames
+
+Include the full pathnames, not just the tail, in menus and dialogs.
+
+	Build Files On Start
+
+Automatically create the list of recognized .bib files when the BibTeX menu
+is first created.
+
+
+	Use Current Path
+
+Look in the file folder of the active window for any valid .bib files.
+
+	Use Open Windows
+
+Include any open windows in the bibliography list, provided that they are
+valid .bib files.
+
+	Use Search Paths
+
+Look in folders associated with BibTeX or TeX mode, depending on the mode of
+the procedure that needs to create the list.
+
+	Use Tex Paths
+
+Look in the Tex-inputs folder or .aux file to list all bibliographies.  This
+only applies if you are prompted to rebuild the database while editing a LaTeX
+document.
+
+	Use Kpsewhich
+
+(Not available in MacClassic)
+
+Look in the folders specified by "kpsewhich --show-path bib" to list all
+bibliographies.  "kpsewhich" is available for those using "teTeX" as their
+TeX helper, and is used as a standalone front-end of the "kpathsea" library
+to examine variables and find files.
+
+See these urls
+
+<http://gd.tuwien.ac.at/linuxcommand.org/man_pages/kpsewhich1.html> 
+<http://www.tug.org/kpathsea/>
+
+for more information about "kpsewhich" and "kpathsea".
+
+	Bib Auto Index
+
+When certain procedures determine that the Index / Database either doesn't
+exist or is out of date, they will attempt to rebuild them.  This preference
+allows you to be prompted before doing so.
+
+
+	  	 	Keyword Colorizing
+
+
+Colors can be defined for comments, strings, entries, and fields.  Special
+LaTeX symbols ($ ^ _ ~ # and &) can also be colorized, useful when they are
+contained in fields and must be preceded with a backslash.
+
+Additional fields to be colorized can be included in the "Add Fields"
+preference.
+
+BibTeX mode supports colorizing and keyword completion of a limited number of
+LaTeX commands, including all of those in the "LaTeX > Text Style" menu item.
+Additional commands can be added in the "Add TeX Commands" preference.  These
+will all use the Entry Color.
+
+
+	======================================================================
+
+
+	  	Key Bindings, Completions
+
+
+Most of these functions (except template insertion) are also bound to
+keystrokes.  The standard bindings are listed in the menu -- the usual binding
+involves both Control and Shift.  Navigation menu items are also bound to
+Control-Shift-Arrow keys.
+
+Although the TeX-mode keyboard shortcuts aren't available in BibTeX mode, the
+LaTeX menu can easily be inserted in the menubar.  This may be useful for
+inserting the various text-style codes that are recognized in BibTeX fields.
+These are also available as electric completions; see the "Bib Tutorial.bib"
+completions tutorial for more information.
+
+While there are no keyboard shortcuts for entry template insertion (such as
+@book, @article, etc), BibTeX mode has a built Electric Completion
+capabilities.
+
+After typing in a portion of an entry, such as
+
+	@art|
+
+pressing your electric completion key will build the entry for you, including
+your custom fields as you have defined them, such as
+
+	@article{|,
+	   author =   {¥},
+	   title =    {¥},
+	   journal =  {¥},
+	   volume =   ¥,
+	   number =   ¥,
+	   pages =    {¥},
+	   year =     ¥,
+	   abstract = {¥},
+	}
+
+Note that the completions are case sensitive, respecting the BibTeX mode
+preferences for "Upper Case Entry/Fields", so if either is set only the proper
+case of the 'hint' will be used for a completion.
+
+All defined fields, including those defined by the user, as well as defined
+LaTeX commands can also be included in the completion routines, simply by
+toggling the "Field / LaTeX Completions" menu items in the BibTeX Mode Options
+menu.
+
+User defined acronyms can also be completed or expanded.  For example, after
+typing
+
+	ad|
+
+and expanding it to
+
+	address = {|},
+
+one could type
+
+	address = {ny|},
+
+and expand it to
+
+	address = {New York},
+
+which means that all that you actually typed was
+
+	ad|ny|
+
+to insert the field.  Very efficient !!  BibTeX mode comes with a very small
+demonstration set of acronyms, contained in "BibCompletions.tcl".  The menu
+item "Bib Mode Acronyms > Add Acronyms" allows you to create your own.
+
+The Completions Tutorial ("Bib Tutorial.bib") contains more information
+regarding completions and expansions.  This is available via the menu item
+"Bib Mode Acronyms > Bib Mode Tutorial" menu item.
+
+The "Config > Special Keys" menu item both tells you your electric completion
+key and allows you to modify it.  For more information concerning "electric"
+behavior, you could consult the "Alpha Manual" or the more advanced "Electrics
+Help" file.
+
+There is another advanced electric completion feature available, for fields
+that potentially have information repeated in the file.  In the fields
+
+	address author city editor howpublished institution journal
+	organization publisher school series
+
+pressing the completion key will scan the active window for all fields that
+might have similar information, and a listpick dialog will appear presenting
+all of the possible field values with that completion.  For example,
+completing
+
+	author = {Pa|},
+
+could complete
+
+	author = {Paul J. DiMaggio},
+
+or 
+
+	author = {Paul DiMaggio and Walter W. Powell},
+
+Other fields will only offer the potential 'address' (e.g.) completions.
+
+
+	  	Auto Capitalization
+
+
+This feature of BibTeX mode was contributed by a lazy typist who would rather
+type strings of text in lower case and then later have Alpha properly convert
+the string to Capitalized words as appropriate.
+
+During the formatting of an entry, specific fields can be capitalized in a
+canonical way so that this:
+
+	the production of scientific change: richard peterson and the 
+	institutional turn in cultural sociology
+
+will be substituted with
+
+	The Production of Scientific Change: Richard Peterson and the 
+	Institutional Turn in Cultural Sociology
+
+The menu item "BibTeX Mode Options > Auto Capitalization" opens a dialog that
+looks like this <<Bib::autoCapitalization>> allowing you to set the fields
+for which auto capitalization should take place.  If you don't like this
+feature, then simply turn it off for all fields.
+
+This dialog includes a text field in which you can define a list of words
+that shouldn't be capitalized unless they start a line or immediately follow
+a ';' or ':'.  (These are stored in the "Auto Cap Force Lower" BibTeX mode
+preference.).  Otherwise, these words that are forced to lower case.
+
+This dialog also allows you to create exceptions to the basic routine
+(adjusting the "Auto Cap Special Patterns" BibTeX mode preference) , so that
+
+	mcdonald's, l'enfant terrible in france, reigns supreme in the usa
+	
+	paul dimaggio
+
+can be properly capitalized to
+
+	McDonald's, l'Enfant Terrible in France, Reigns Supreme in the {USA}
+	
+	Paul DiMaggio
+
+	  	 	User Defined Exceptions
+
+These exceptions follow regexp rules -- each rule comes as a pair, surrounded
+by braces, specifying the search and substitution patterns.  Here's an
+explanation of the rules used to properly capitalize the examples above:
+
+(1) Word 'start' conversions
+
+	{dimaggio DiMaggio}
+	
+	dimaggio      DiMaggio
+	dimaggio's    DiMaggio's
+	dimaggiorino  DiMaggiorino
+	dimaga        Dimaga
+
+This is the simplest example.  Any string that starts with "dimaggio" will be
+converted to "DiMaggio", plus any remaining portion of the string.
+
+(2) Exact word conversions
+
+	{usa$ \{USA\}}
+	
+	usa           {USA}
+	usable        Usable
+	us            Us
+	Usa           Usa
+
+This example illustrates two features.  First, by including the "$" character
+at the end of the search string will force the capitalization to find an exact
+match of "usa".  Second, because we want to 'protect' the string so that
+BibTeX won't turn it into "Usa", we surround it with braces.
+
+(3) Regular expression conversions
+
+	{m(a?)cC M\\1cC}
+	{m(a?)cd M\\1cD}
+	{m(a?)cw M\\1cW}
+	
+	mccoy        McCoy	
+	mcdonald's   McDonald's
+	Mcdonald     Mcdonald
+	macdowell    MacDowell
+	macworld     MacWorld
+
+Here the substitution 'remembers' the expression found in the (), and uses it
+to create the substitution.  The "?"  means that the preceding "a" might
+appear exactly once, but might not.  See the "Regular Expressions" help file
+for more options for setting regexp patterns.
+
+The preservation of "Mcdonald" occurs because auto-capitalization only
+affects those words that are initially in lower case.
+
+	  	 	Default Exceptions
+
+Note that in general only lower case words will be affected by this routine,
+although "And" etc.  will be forced to lower case.  Three exceptions include:
+
+(4) Protection of ALL CAP words
+
+	ABC          {ABC}
+	UN           {UN}
+
+ALL CAP words will be 'protected', i.e. surrounded by {} so that BibTex won't
+mess with them.
+
+(6) Acronyms
+
+All strings that look like
+
+	a.c.r.o.n.y.m.s.
+
+will be converted automatically to upper case
+
+	A.C.R.O.N.Y.M.S.
+
+(5) l'Words
+
+	l'enfant     l'Enfant 
+
+This special case (as well as those in (4) and (5)) comes for free -- no need
+to define a special pattern.
+
+
+	  	Command Double-Clicking
+
+
+In BibTeX mode, Command-Double-Clicking does different things depending on
+the active window type and on the context of the text being selected.  (Note
+that in this section "Clicking" is means Command-Double-Clicking.)  In all
+Alpha modes, Command-Double-Clicking is also bound to the F6 key.
+
+	In .bib files ...
+
+Clicking on cross-references and strings will move the cursor to the location
+of their original entry.  Clicking on defined abbreviations will confirm that
+they exist as a mode preference.  (Strings, cross-references and abbreviations
+are not surrounded by delimiters during reformatting.)
+
+Clicking on an entry name (such as "article", "book", etc) will perform a
+quick validation check of required fields, displaying the results in the
+status bar window.
+
+Clicking on a field name will format the entire entry.
+
+Holding down the Control modifier while Command Double-Clicking on any text
+with a field will perform a search of that term across the entire window,
+displaying the results in a new window.
+
+Similarly, pressing the Shift modifier while Clicking will search for that
+term across the entire window, but limited to the field in which that term is
+currently contained.  (For example, Shift-Clicking on "DiMaggio" in the author
+field will display all entries where he is listed as an author.
+
+	In Results windows ...
+
+Clicking on cite-keys will bring the file in which they were defined to the
+front, opening the file if necessary.  (If the file is closed, Alpha relies on
+the "BibTeX Files" list to find it.)
+
+	In View BibTeX Acronyms windows ...
+
+Clicking on an acronym allows you to re-define it.
+
+
+	  	Adding New Entries
+
+
+Entries can be added to BibTeX mode's menu in two ways.  The first is to
+simply use the "Entries > Custom Entry" menu item.  This will prompt you for
+the default fields for your new entry, and make it available as an electric
+completion.  Use the "Default Entry Fields" menu to edit (or remove) any
+custom entries.
+
+Using this method will not, however, make the entry available for validation,
+because none of its fields have been designated as either "required" or
+"optional".  To teach BibTeX mode a new entry for validation purposes, it
+should instead be defined in a "BibPrefs.tcl" file.  It should include the
+following Tcl code:
+
+	set   rqdFld(myEntry) "field1 field2 etc"
+	set   optFld(myEntry) "field3 field4 etc"
+	
+	Bib::updateMyFld
+
+Each line is important, and should be written exactly as it appears above.
+Here's an example:
+
+	set   rqdFld(webPage) "author url date"
+	set   optFld(webPage) "organization"
+	
+	Bib::updateMyFld
+
+In this case you would probably also want to add "url" and "date" to the "Add
+Fields" preference.  Important: this means that "myEntry" should NOT be
+defined using the "Custom Entry" menu item !!!  If it has already been defined
+this way, the "Default Entry Fields > Remove Custom Entry" menu item will
+allow you to delete it.
+
+After adding this code to the BibPrefs.tcl file, load the file using the menu
+item "Mode Prefs > Load Prefs File".  Your custom entry should then be listed
+in the "Entries" menu, available as an electric completion, and subject to
+field validation.  This file will be sourced automatically upon every
+subsequent restart of Alpha.
+
+(If you think that an additional entry should be included in the next BibTeX
+mode distribution, be sure to send it to the mode's maintainer !)
+
+
+	======================================================================
+
+
+	  	Conversions
+
+
+Alpha has a few BibTeX file conversion functions available in the BibTeX menu,
+which are turned on by default.
+
+Preferences: Mode-Features-BibTeX
+
+They include:
+
+
+	  	 	BibTeX To Html
+
+
+Pierre Basso    <basso@lim.univ-mrs.fr>
+
+package: bibToHtml
+
+BibTeX To Html will convert either an entire bib file or only a selected
+(highlighted) portion.  All the bib entries will be analyzed and converted in
+a html bibliographic reference.  This package uses your BibTeX application to
+create a temporary file, and will prompt you for a bibliography style.
+
+When BibTeX To Html ends, it prompts the user to direct send the html file to
+the browser, else it displays this file as a front window.  You may improve
+this html file, in adding titles, figures or any fancies, for example, before
+sending it to the browser.
+
+IMPORTANT: This procedure requires working on correct bib files, i.e. devoid
+of any syntactical bibtex error.
+
+
+	  	 	BibTeX To Refer (EndNote)
+
+
+Peter Blattner    <peter.blattner@imt.unine.ch>
+
+package: bibToRefer
+
+Conversion of BibTeX to Refer (Endnote compatible).  If there are several
+authors, each author has its own tag %A.
+
+It might be necessary to run the "Convert LaTeX to Accent" utility first, and
+eventually the "Format All Entries" menu item.
+
+
+	  	 	BibTeX Convert
+
+
+Vince Darley    <vince@santafe.edu>
+
+package: bibConvert
+
+Parses records from various formats (i.e. ISI, MARC, OCLC (FirstSearch), Ovid
+(WebSPIRS), Refer, etc.)  into BibTeX entries.  This menu item works either on
+the entire contents of the active window, or on any highlighted selection.
+Results can be placed in a new window, or in the active window, possibly
+replacing the current selection.
+
+Open a '.marc' or '.ovid' etc.  file and Alpha automatically switches to
+BibTeX mode.  Select the "Bibtex Conversions > Convert To Bib" menu item,
+also bound to the key combination Control-B, and Alpha converts the open
+window, saving it in a new file (with extension '.bib'), which it then opens
+for you to examine!
+
+The package's help file includes hyperlinks to several different examples.
+
+
+	  	 	BibTeX Delimited
+
+Craig Barton Upright <cupright@alumni.princeton.edu>
+
+package: bibDelimited
+
+This package will convert .bib files to/from delimited windows, such as those
+used by spreadsheet programs.  It assumes that all entries are of the same
+'type', i.e. Article, Book, etc.
+
+
+	======================================================================
+
+
+	  	BibTeX Application
+
+
+You'll probably want either Vince's Macintosh port of BibTeX (available with
+OzTeX, or at <http://www.santafe.edu/~vince>) that allows a lot of cool
+Command-Clicking in a log window to leap to errors/warnings in your .bib
+files, or you may want to use the version with CMacTeX (shareware).
+
+The original Unix version is by Oren Patashnik: BibTeX 0.99c .
+
+
+If you are using a Macintosh BibTeX application, then you should take
+advantage of the package: bibtexEngine, a global feature.
+
+As Vince describes it:
+
+When you Command Click on warnings, errors and filenames in the BibTeX log
+window, BibTeX sends a particular kind of apple-event to your 'bibresult'
+helper application.  This file contains procedures for the editor Alpha that
+allows it to receive and interpret those messages in a useful way.  It's a
+huge time-saver, I guarantee!
+
+To use this feature, you must also open Internet Config, select 'helpers' and
+add a helper for 'bibresult', and select as helper the application 'Alpha'.
+
+For the technically minded: I use Internet Config to do the dirty work of
+sending apple-events for me.  One day I'll write my own code, but this hack
+works quite well for the moment.)
+
+
+	  	BibTeX Mode History
+
+
+This package was inspired by LaTeX support package (latex.tcl), written by
+
+    Tom Scavo          <trscavo@syr.edu>  , and (originally),
+    Richard T. Austin  <austin@eecs.umich.edu>
+
+The BibTeX mode was originally written by Tom Pollard in 1994.  Vince Darley
+reworked the mode from 1997 to 1999.  Further suggestions were incorporated
+by Craig Barton Upright in 2000 -- Vince said that the mode was currently
+homeless, and Craig offered to be the mode's maintainer until someone else
+steps forward.
+
+The "bibVersionHistory.tcl" file contains a more complete version history.
+
+
+	  	Future Directions
+
+
+Bug reports, complaints and suggestions are very welcome.  Most of the
+improvements and bug fixes made since the last major release (2.0) were the
+result of reports and suggestions from users.
+
+Version 3.6 introduced a lot of changes, and there are sure to be a few bugs
+somewhere.  Reports should be directed to the current maintainer:
+
+         Craig Barton Upright  <cupright@alumni.princeton.edu>
+
+or submitted to the mailing lists described in the "Readme" file.
+
+These are some of the ideas that Vince is considering for future enhancements
+to the BibTeX support package (roughly in the order they are likely to be
+addressed).  We welcome any comments or additional ideas people may have.
+
+1.  Speed up entry reformatting.  (Not as troubling with the newer Macs,
+    and should be considerably faster in Alpha 8.)  Formatting entire
+    windows has been speeded up by saving all of the information in a cache
+    and then doing a single replace at the end.
+
+2.  Allowing more complicated searches.  Logical 'AND' searches can be
+    done now by doing additional searches on the results of previous ones.
+    It would be nice to allow logical 'OR' searches by concatenating the
+    results of successive searches to a database in the same buffer.  Ideas
+    for simple, intuitive ways to control this would be welcome.
+
+    (Note -- I've changed the behavior of "Search Results"  since Vince
+    wrote this.  Do the current options meet users' needs ??  -- cbu )
+
+3.  Since the code parses BibTeX entries already, it would be easy to
+    export .bib files to other formats beyond Refer and Html, but I'm not
+    sure if it's a good idea to start burdening Alpha with that sort of
+    thing.  Writing Perl scripts for file conversions is probably a better
+    idea.  See, for instance, the CC to BibTeX Perl script (included in the
+    :Tcl:Packages:Text Filters folder), which converts citations from the
+    on-line Current Contents database (the one at UC Berkeley, anyway) to
+    BibTeX format.
+
+Craig's list:
+
+1.  It would be nice to somehow recognize remote files in the BibTeX Files
+    list.  I can imagine a preference for "Use Remote Paths", and then some
+    menu items similar to mode search paths to select them.  This should
+    probably be incorporated into the package: modeSearchPaths, rather than
+    being specific BibTeX mode procedures.  If this were added, I would
+    probably set the preference to "0" every time the mode is initially
+    loaded so that we don't call the ftp helper unless we make a conscious
+    decision.  
+
+    (Selecting the preference in the "BibTeX Mode Files" menu would then call
+    the helper, and rebuild the list -- the actual paths would be saved
+    between sessions.)
+
+2.  The current manipulation and storage of Cite-Key lists probably isn't
+    so very efficient, and perhaps they should simply be stored in a cache
+    somewhere.  The current solutions work, but slow down considerably
+    when the list gets very large (say more than 750 entries or so.)
+
+
+	  	License and Disclaimer
+
+
+See the file "license.terms" for information on usage and redistribution of
+this package, and for a DISCLAIMER OF ALL WARRANTIES.
+
+This mode is free.  Alpha is shareware ! <<register>>
+
+cheers,
+
+-- Craig
+
+Help Authors:  Tom Pollard, Vince Darley, Craig Barton Upright
+
+Maintainer: Craig Barton Upright
+    E-mail: <cupright@alumni.princeton.edu>
+       www: <http://www.purl.org/net/cbu>
+
+This document has been placed in the public domain.

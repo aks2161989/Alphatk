@@ -1,0 +1,326 @@
+
+Frontier Help
+              
+                                            version: 2.2
+                                            created: 03/18/1991 {10:22:14 AM}
+                                        last update: 10/06/2003 {01:05:39 PM}
+
+This document explains how to use Alpha as Frontier's external editor.
+
+For help how to use Alpha as an HTML editor see "HTML Help", the manual for
+HTML mode.
+
+Please see the HTML mode home page, <http://go.to/alpha_www_tools> for the
+latest version of HTML mode and Frontier menu.  There you can also download
+the HTML mode manual if you haven't got it already.
+
+The code has been tested with Frontier 9.0.
+
+Johan Linde, <alpha_www_tools@go.to>
+
+
+	  	Table Of Contents
+
+
+"# Acknowledgments"
+"# Installation and configuring"
+"# Upgrading from an earlier version of Frontier menu"
+"# Inserting the Frontier menu in the menu bar"
+"# Opening a Frontier text window in Alpha"
+"# Frontier menu"
+"# Scripts menu"
+"# Frontier database browser"
+"# Frontier shell"
+"# Option-Click in titlebar"
+"# Version history"
+
+<<floatNamedMarks>>
+
+
+	  	Acknowledgments
+
+Almost immediately after I had released Frontier menu 1.0 I got to know that
+Danis Georgiadis <dmg@hyper.gr> also had written some code to integrate Alpha
+and Frontier.  He generously gave me his code to freely use together with
+mine.  In this version I have taken the parts from his code which could easily
+be integrated with mine and which worked without problems.  The Frontier
+database browser and the Scripts menu are both made by him.  When I made the
+Frontier shell I used some of Danis' code and some from Matlab mode by Stephen
+Merkowitz <merk@lnf.infn.it>.
+
+	  	Installation and configuring
+
+	Installing verbs into Frontier
+
+The two files
+
+	system.verbs.apps.Alpha
+	user.Alpha
+
+must be imported into Frontier.  You find these in the folder Frontier verbs.
+Just double-click the files to import them.  Frontier will ask for a name of
+the imported objects.  Use the ones suggested.
+
+	Configure Frontier to use Alpha as its external editor
+
+Change the value of suites.odbEditor.editors.Text.apps to {'ALFA'} and delete
+user.odbEditors.TextEditor in the Frontier database.
+
+
+	  	Upgrading from an earlier version of Frontier menu
+
+The file 
+
+	system.verbs.apps.Alpha
+
+has been updated since the previous version of Frontier menu, and has to be
+imported again, while
+
+	user.Alpha
+
+is unmodified and doesn't need to be imported again.
+
+The verbs
+
+	system.startup.clearAlphaFiles
+	shutdown.closeAlphaWindows
+	user.html.editors.Alpha
+
+are no longer needed (and will probably not work).  Delete them in your
+Frontier database.
+
+The modification of the verb suites.odbEditor.editors.Text.edit in the
+Frontier databasem, which was required for earlier versions of Alpha's
+Frontier menu, has to be reverted.  The last lines of
+suites.odbEditor.editors.Text.edit should read
+
+	bundle «send an Apple Event to the editor to open the temp file
+	       «use an open protocol that's implemented by BBEdit 4.0 and greater
+	       «the extra parameter to the odoc event is Frontier's app id
+	appleEvent (ideditorapp, 'aevt', 'odoc', '----', alias (tempfile), 'FSnd', Frontier.id)
+ 
+
+	  	Inserting the Frontier menu in the menu bar
+
+The Frontier menu doesn't automatically appear in the menu bar.  To insert it
+in the menu bar select Frontier menu "Config > Global Setup > Menus" dialog.
+
+Preferences: Menus
+
+
+	  	Opening a Frontier text window in Alpha
+
+Text windows in Frontier can be opened in Alpha using 'Edit with App' in
+Frontier's Main menu.  Whenever you save changes the Frontier database is
+automatically updated.  If you use 'Save as...'  in Alpha the new file is
+disconnected from the Frontier database.
+
+You can also use the Frontier database browser, see below.
+
+
+	  	Frontier menu
+
+	Switch to Frontier 
+
+Launches Frontier or brings it to front if already running.
+
+	Preview Page    
+
+Makes Frontier render the page and sends it to the browser for previewing.
+This is the same as 'Preview Page' in Frontier's Web menu (or 'View in
+Browser' in Frontier 4.2.3).  This should only be used for files opened from
+Frontier.  Other HTML files are sent to the browser using 'Send File to
+Browser' in the HTML menu.
+				  
+	Publish Page   
+
+Makes Frontier render the page and publish it.  This is the same as 'Publish
+Page' in Frontier's Web menu.  (This function only works together with
+Frontier 5 or later.)
+
+	Frontier Shell 
+
+Opens a shell window where you can run Frontier scripts, see below.
+				  
+	Browse 
+
+Opens a Frontier browser at different points in the database.  Use Add… and
+Remove… to edit this menu.
+
+	Open 
+
+Opens a Frontier window in Frontier.  Use Add… and Remove… to edit this menu.
+
+	Scripts Menu 
+
+Rebuilds the Scripts menu and loads the script corresponding to the menu
+items.
+
+	Preferences… 
+
+To set your preferences for Frontier.  Currently you can choose if you want to
+automatically launch Frontier when you launch Alpha.  This is not done by
+default.
+
+
+	  	Scripts menu
+
+The Scripts menu is a menu which you define inside Frontier in the same way as
+you define shared menus for other applications.  (The Scripts menu has the
+cowboy menu icon like the Frontier scripts in the Finder.)  The menu
+definition must be in user.Alpha.menubar.  Alpha does not support menu
+sharing.  Therefore there are a few things which differ from how shared menu
+work.  In particular:
+
+• If you launch Frontier after Alpha the menu it not automatically inserted in
+the menubar.  You have to use 'Rebuild Scripts Menu' to insert it.
+
+• Whenever you modify the menu you have to use 'Rebuild Scripts Menu' to
+rebuild it.  Note!  This has also to be done when you modify a script
+belonging to a menu item.
+
+• Keybindings for the menu items must be defined the way Alpha defines
+keybindings.  Alpha uses certain meta characters to define menu items.  See
+the section 'Menu Creation Syntax' in "Extending Alpha".
+
+
+	  	Frontier database browser
+
+The Frontier database browser lets you navigate through Frontier's database
+without leaving Alpha.  You can also open Frontier windows in Alpha without
+leaving Alpha.  In the browser windows, tables are red, text windows are
+green, and everything else is blue.  To navigate the windows you can use key
+shortcuts similar to those used to navigate Finder windows.
+
+	UpArrow
+
+move up one line
+
+	DownArrow 
+
+move down one line
+
+	RightArrow 
+
+Right-Arrow on a table displays the content of the table.
+
+	LeftArrow 
+
+LeftArrow on a table hides the content of the table.
+
+	Command-UpArrow
+
+Opens the parent table in a new window.
+
+	Command-Option-UpArrow 
+
+opens the parent table in a new window and closes the current window.
+
+	Command-DownArrow 
+
+Command-DownArrow on a table opens a new window with the content of that table.
+
+	Command-Option-DownArrow 
+
+Command-Option-DownArrow on a table opens a new window with the content of
+that table and closes the current window.
+
+	Return 
+
+opens the selected object for editing.  Text objects are opened in Alpha, and
+most other things are opened in Frontier.
+
+
+	  	Frontier shell
+
+The Frontier shell is an alternative to the Frontier Quick Script window for
+those who like a command history.  Type a command and hit return to have it
+executed in Frontier.  The return value is then displayed on the next line.
+
+You move up and down the command history using Control-UpArrow and
+Control-DownArrow.
+
+Control-U erases the current line.
+
+WARNING! Don't send commands which will make Frontier open an alert window,
+like e.g. dialog.notify.  If this window is hidden behind your other windows
+it will freeze your machine with command-option-escape as the only way out.
+
+
+	  	Option-Click in titlebar
+
+Option-Clicking in the titlebar of the Frontier shell window pops up a menu
+with the command history.  Selecting an item from this menu inserts the text
+in the window.  If the Option key is held down while you select the menu item
+the command is immediately evaluated, otherwise it is only inserted so that
+you can edit it before evaluating it.
+
+
+	  	Version history
+
+	2.2, 1 August 2003
+
+• Compatibility update for Alpha 8/X.
+• Frontier menu now relies on the ODBEditor package.
+
+	2.1.6, 9 June 2001
+
+• Compatibility update for Alpha 8.
+
+	2.1.5, 30 April 1999
+
+• In Alpha 7.2 windows with names containing brackets were not saved in 
+Frontier. Fixed!
+
+	2.1.4, 25 April 1998
+
+• Fixed a startup problem. Alpha wouldn't launch completely when being 
+launched by dropping a file on it while Frontier was running, or by using 
+Edit with App in Frontier. 
+
+	2.1.3, 1 March 1998
+
+• Compatibility fix for Alpha 7.1.
+
+	2.1.2, 7 February 1998
+
+• Made 'View in Browser' compatible with Frontier 5, and renamed the menu 
+item to 'Preview Page', which it's called in Frontier 5.
+• Added 'Publish Page'. This only works with Frontier 5.
+• Improved error handling. In some cases Alpha would previously show 
+incorrect error messages.
+• Option-click in title bar of Frontier shell window pops up a menu with 
+the command history.
+• 'Save as…' now disconnects the window from the database, which is more 
+logical than the previous setup.
+• Some small bug fixes.
+
+	2.1.1, 3 November 1997 [update of version 2.0.1]
+
+• The same as version 2.1 but for Alpha 7.0.
+
+	2.1, 3 November 1997 [update of version 2.0]
+
+• A startup and a shutdown script to be imported into Frontier have been 
+added. Together they solve a problem which sometimes prevented the windows to 
+be saved into Frontier's database. The shutdown script closes all open 
+Frontier windows in Alpha. Thanks to Mike Carney <mike_carney@mediaone.net> 
+for ideas and some code snippets.
+• Various problems for windows with names containing brackets have been 
+fixed.
+
+	2.0.1, 19 October 1997
+
+• Updated to be compatible with Alpha 7.0.
+
+	2.0, 17 August 1997
+
+• Added a Frontier shell.
+• Added database browser and a Browse submenu.
+• Added the Open submenu.
+• Added Scripts menu, which is defined in Frontier as with other apps.
+• 'Save as...' works now.
+
+	1.0, 20 July 1997
+
+First public release.

@@ -1,0 +1,371 @@
+# -*-Tcl-*- (nowrap)
+# Cache v1.2 created on 06/02/2006 {11:06:59 PM}
+set preinit(speech) {1.3.2 {
+    if {$::alpha::macos} {
+	# Use Mac OS speech facilities to speak the current selection
+	newPref flag "speech Menu" 0 contextualMenu
+	menu::buildProc "speech " {speak::buildCMenu}  {speak::postBuildMenu "speech "}
+    }
+}}
+set preinit(filesetIndentationPreference) {0.2.1 {
+    # Make sure that this is no longer in the user's "global::features" list.
+    if {([lsearch ${global::features} "filesetIndentationPreference"] > -1)} {
+	set tempIdx [lsearch ${global::features} "filesetIndentationPreference"]
+	set global::features [lreplace ${global::features} $tempIdx $tempIdx]
+	prefs::modified "global::features"
+	unset tempIdx
+    } 
+    # Attach three preferences to each fileset
+    fileset::attachNewInformation "" variable "Indentation Amount" ""  "If you enter anything here, it is used as the default indentation size for any files opened which are in this fileset.  The default may be overridden by other considerations."
+    fileset::attachNewInformation "" variable "Tab Size" ""  "If you enter anything here, it is used as the default tab size for any files opened which are in this fileset.  The default may be overridden by other considerations."
+    fileset::attachNewInformation "" flag "Indent Using Spaces Only" ""  "If you set this anything here, it is used to override the indentation preference for files which are in this fileset. The default may be overridden by other considerations."
+    hook::register fileset-file-opening fileset::checkIndentationPreference
+}}
+set preinit(mailSystem) {2.0 {
+    namespace eval Mail {
+	variable handlers
+	set "handlers(OS Mailer)" "Mail::system"
+    }
+}}
+set preinit(mailMenu) {2.0 {
+    # Additional global option for handling e-mail urls and such.
+    array set eMailer [list "Mail Menu" {Mail::newEmailWindow}]
+    # Insert a new option in the 'New Document' prompt.
+    array set newDocTypes [list "New E-mail Message" {Mail::createEmailWindow}]
+    # Not sure how to handle this anymore.
+    #set unixMode(rmail) {Mail}
+}}
+set preinit(openDocument) {1.2.1 {
+    # Contextual Menu module.  Doesn't require this package to be formally
+    # turned on by the user.
+    
+    # Includes all "Open Document" items registered by other AlphaTcl 
+    # packages, as well as utilities to quickly search directories and 
+    # pre-defined filesets to locate a file for editing
+    newPref flag openDocumentMenu 0 contextualMenu
+    menu::buildProc "openDocument" {openDocument::buildMenu "1"}  {openDocument::postBuildMenu "1"}
+    # Place this item in the first section.
+    ;namespace eval contextualMenu {
+	variable menuSections
+	lappend menuSections(1) "openDocumentMenu"
+    }
+}}
+set preinit(newDocument) {1.0.3 {
+    # Contextual Menu module.  Doesn't require this package to be formally
+    # turned on by the user.
+    
+    # Includes all of the options provided by the "File > New Document" menu,
+    # i.e. those new document options defined by other AlphaTcl packages to 
+    # create new windows with specific templates
+    newPref flag newDocumentMenu 0 contextualMenu
+    menu::buildProc "newDocument" {newDocument::buildMenu "1"}
+    # Place this item in the first section.
+    ;namespace eval contextualMenu {
+	variable menuSections
+	lappend menuSections(1) "newDocumentMenu"
+    }
+}}
+set preinit(fileCompression) {0.4.1 {
+    # Includes items to archive the active window or its parent directory
+    newPref flag "compress Menu" 0 contextualMenu
+    menu::buildProc "compress " {compress::buildCompressCMenu}  {compress::postBuildMenu "compress "}
+    # This inserts a very basic "File > File Utils > Archive File" menu comand.
+    menu::insert "fileUtils" items end "archiveFileÉ"
+}}
+set preinit(InSh) {1.3.6 {
+  # Initialization script.
+  alpha::internalModes "InSh"
+}}
+set preinit(wwwDictionary) {1.0.1 {
+    # Contextual Menu module.  Placed here so that it can be turned on even
+    # if this package isn't formally activated.
+
+    # Includes items to look up words in a variety of web-based dictionaries,
+    # displaying them either in ÇALPHAÈ or your local browser as specified by
+    # your "View Html" preference
+    newPref f "wwwDictionary Menu" 0 contextualMenu
+    menu::buildProc "wwwDictionary " {dictionary::www::buildMenu "contextual"}  {dictionary::www::postMenuBuild}
+}}
+set preinit(filesetRemoteMirror) {0.4.0 {
+    # Add the preferences as a group to filesets which want them
+    fileset::attachNewInformationGroup "Fileset Remote Mirror" ""  "Allows you to mirror a given fileset onto a remote site"  [list url "Remote location" "" "Server to upload files to."]
+    
+    set "filesetUtils(updateFilesetMirrorÉ)" [list * fileset::updateRemoteMirror]
+}}
+set preinit(supportFolders) {1.0b2 {
+    # Define the "Config > Support Folders" menu.
+    menu::buildProc "supportFolders" {alphadev::support::buildMenu}  {alphadev::support::postBuildMenu}
+    # Insert this menu.
+    menu::insert "Config" submenu "\(-" "supportFolders"
+}}
+set preinit(mailTcllib) {2.0 {
+    namespace eval Mail {
+	variable handlers
+	set handlers($::alpha::application) "Mail::tcllib"
+	if {[info exists ::MailmodeVars(mailHandler)]  && ($::MailmodeVars(mailHandler) eq $::alpha::application)} {
+	    array set ::newDocTypes [list  "New E-mail Inbox" {Mail::tcllib::newInbox}]
+	} 
+    }
+}}
+set preinit(teXServices) {1.0 {
+    # Initialization script: source this file so that all TeX Services will
+    # be properly registered.
+    texServices.tcl
+}}
+set preinit(macMenu) {2.3 {
+    if {${alpha::macos} != 2} {
+		# Includes items to display and/or change information about 
+		# the active window or its file resources
+		newPref flag macWindowMenu 0 contextualMenu
+		# Includes items to display and/or change information about
+		# your System's file structure, including locking, trashing,
+		# renaming, copying (etc.) files and directories
+		newPref flag macSystemMenu 0 contextualMenu
+		menu::buildProc macWindow {mac::buildCMWindow}
+		menu::buildProc macSystem {mac::buildCMSystem}
+		hook::register contextualPostBuildHook {mac::postBuildCMWindow}
+    }
+}}
+set preinit(helpMenu) {1.8.4 {
+    help::initializePackage
+}}
+set preinit(ftpMenu) {1.1.3 {
+    fileset::registerNewType ftp "list"
+}}
+set preinit(bibtexLogHelper) {1.8.8 {
+    if {$alpha::macos} {
+	tclAE::installEventHandler GURL GURL GURL_AEHandler
+    }
+}}
+set preinit(statusPopupMenus) {1.1 {
+    # Initialization script.
+    status::initializePopups
+}}
+set preinit(specialCharacters) {1.0.1 {
+    # Contextual Menu module.
+
+    # Declare a build proc for the Special Characters menu.  We add a
+    # space after the menu name to distinguish it from the 'normal'
+    # menu added in the menubar 'Text' menu -- the main difference is
+    # determining where the character should be added wrt cursor,
+    # highlighted selection, CM click position.
+    menu::buildProc "specialCharacters " {specialChars::buildMenu "contextual"}
+    # Allows you to international letters (diacritics) and other symbols into
+    # the active window
+    newPref f "specialCharacters Menu" 0 contextualMenu
+}}
+set preinit(notes) {1.1 {
+    # Contextual Menu module.
+    # Declare a build proc for the Notes menu.
+    menu::buildProc notes notes::buildMenu
+    # Includes all of the files in your Notes folder; selecting an item will
+    # open it in ÇALPHAÈ for editing
+    newPref f notesMenu 0 contextualMenu
+}}
+set preinit(filesetFtpMirror) {0.3.1 {
+    # Make sure that this is no longer in the user's "global::features" list.
+    if {([lsearch ${global::features} "filesetFtpMirror"] > -1)} {
+	set tempIdx [lsearch ${global::features} "filesetFtpMirror"]
+	set global::features [lreplace ${global::features} $tempIdx $tempIdx]
+	prefs::modified "global::features"
+	unset tempIdx
+    } 
+    # Add the preferences as a group to filesets which want them
+    fileset::attachNewInformationGroup "Fileset Ftp Mirror" ""  "Allows you to mirror a given fileset onto an ftp site"  [list variable "Ftp server" "" "Server to upload files to."]  [list variable "User ID" "" "User name with access to above server."]  [list password "Password" "" "Password for above user name."]  [list variable "Directory" "" "Directory on the server."]
+   
+   set "filesetUtils(updateFilesetFtpMirrorÉ)" [list * fileset::updateMirror]
+}}
+set preinit(wwwServices) {1.0 {
+    # Initialization script: source this file so that all Internet Services
+    # will be properly registered.
+    www.tcl
+}}
+set preinit(licenseTemplates) {0.3 {
+    license::initializePackage
+}}
+set preinit(filesetEncodingPreference) {0.3 {
+    # Make sure that this is no longer in the user's "global::features" list.
+    if {([lsearch ${global::features} "filesetEncodingPreference"] > -1)} {
+        set tempIdx [lsearch ${global::features} "filesetEncodingPreference"]
+	set global::features [lreplace ${global::features} $tempIdx $tempIdx]
+	prefs::modified "global::features"
+	unset tempIdx
+    } 
+    # Attach 'encoding' preference to each fileset
+    fileset::attachNewInformation "" variable "Encoding" ""  "If you enter anything here, it is used as the default encoding for any files opened which are in this fileset.  The default may be overridden by other considerations."
+    hook::register fileset-file-opening fileset::checkEncodingPreference
+}}
+set preinit(wwwMenu) {2.5.1 {
+    # 'Pre-init' script, called when Alpha is first started.  We use the
+    # [array set] syntax here to ensure that any [trace]s that are applied to
+    # the arrays, as in
+    # 
+    #     trace add variable newDocTypes {array write unset}
+    # 
+    # are properly taken into account.
+    array set newDocTypes [list "New WWW Browser"           {WWW::renderUrl}]
+    array set htmlViewer  [list "Text-only parser" 	    {WWW::renderFile}]
+    array set urlViewer   [list "Internal text-only viewer" {WWW::renderUrl}]
+}}
+set preinit(identities) {0.3 {
+    userInfo::initializePackage
+}}
+set preinit(calculator) {1.0 {
+    # Inserts a "Calculator" menu item that allows you to perform 
+    # calculations from within ÇALPHAÈ
+    newPref flag "calculatorItem" 0 contextualMenu
+    namespace eval contextualMenu {
+	;proc calculator {} {::calculator}
+    }
+}}
+set preinit(vfsFileset) {0.3.7 {
+    # Strictly speaking we don't quite use the same format as 'fromHierarchy'
+    # filesets, but it's similar enough that it will mostly work, and save a
+    # lot of coding here.
+    # 
+    # We'll eventually write the proper fileset type, which will avoid the
+    # few glitches with current approach (e.g. a saved fileset won't work on
+    # restart unless it is rebuilt because the vfs hasn't been mounted).
+    fileset::registerNewType vfs "fromHierarchy"
+}}
+set preinit(mailEudora) {2.0 {
+    namespace eval Mail {
+	variable handlers
+	set handlers(Eudora) "Mail::eudora"
+    }
+}}
+set preinit(makeMenu) {0.2 { 
+    fileset::attachNewInformation "" file "Makefile location" ""  "Use this file as the makefile for any 'make' operations on files in this fileset."
+}}
+set preinit(reportABug) {1.7.4 {
+    # This is how we register the "Alpha Bugzilla" menu build proc without
+    # having a formal init script.  This is used by the AlphaDev menu, as
+    # well as [bugzilla::floatBugzillaMenu] below.
+    menu::buildProc "Alpha Bugzilla" {bugzilla::buildMenu}
+    # Register this so that previous crashes can be reported.
+    hook::register "startupHook" {bugzilla::checkPriorCrash}
+}}
+set preinit(shells) {0.2 {
+    namespace eval Shel {
+	variable startPrompt "Ç"
+	variable endPrompt   "È"
+    }
+}}
+set preinit(vcLocal) {0.2 {
+    hook::register vcsSupportPackages {vcs::localSupport}
+    namespace eval vcs {
+	variable system
+	set system(Local) vclocal
+    }
+    ;proc vcs::localSupport {args} {
+	hook::register vcsSystemModified Local vclocal::attachToFileset
+	fileset::attachAdditionalInformation "Version Control System"  Local folder "Local Repository"
+    }
+}}
+set preinit(terminal) {1.5.1 {
+   if {[catch {package present terminal}]} then {
+      package ifneeded terminal 1.5 {terminal::cleanup}
+      # status::msg "Had to supply \[package ifneeded\] script for #   terminal package."
+   }
+   # The default maximal line width (in characters). Programs
+   # using the terminal are allowed to override this value.
+   newPref variable maxPrintLine 79 terminal terminal::do_max_print_line
+   # The default geometry (bounding rectangle) of the terminal
+   # window.
+   newPref geometry windowGeometry "" terminal ; #terminal::do_window
+   proc TermmodifyFlags {} {prefs::dialogs::packagePrefs terminal}
+}}
+set preinit(latexSizes) {1.0 {
+    # Includes items that are related to the current LaTeX command, allowing
+    # you to replace the current command
+    newPref flag relatedTeXCommandsMenu 1 contextualMenuTeX
+    # Includes items that are related to the current LaTeX command, allowing
+    # you to replace the current command
+    newPref flag relatedTeXCommandsMenu 0 contextualMenuBib
+    menu::buildProc relatedTeXCommands TeX::buildRelatedCM
+}}
+set preinit(internetConfigMenu) {1.1 {
+    # Contextual Menu module.  Placed here so that it can be turned on even
+    # if this package isn't formally activated.
+    
+    # Includes items to perform internet searches, sending the current 
+    # selected text to a search engine using your local browser
+    newPref f "wwwSearch Menu" 0 contextualMenu
+    menu::buildProc "wwwSearch " {ic::buildSearchMenu "contextual"}
+}}
+set preinit(colorMenu) {1.2.3 {
+    # Includes items to create hyperlinks (i.e. for urls and e-mails) in the
+    # active window
+    newPref flag "createHyperlinkMenu" 0 contextualMenu
+    menu::buildProc "createHyperlink" {colors::buildHyperlinkCMenu}
+    # Includes items to colorize text strings in the active window
+    newPref flag "colorStyleTextMenu" 0 contextualMenu
+    menu::buildProc "colorStyleText" {colors::buildColorStyleCMenu}  {colors::postBuildCMColorStyle}
+}}
+set preinit(fileServices) {1.0 {
+    # Initialization script: source this file so that all services defined by
+    # this package will be properly registered.  (We could define all of
+    # these here in this script if we wanted to avoid sourcing this file.)
+    appPaths.tcl
+}}
+set preinit(vcCvs) {0.4.1 {
+    hook::register vcsSupportPackages {vcs::cvsSupport}
+    namespace eval vcs {
+	variable system
+	set system(Cvs) cvs
+    }
+    ;proc vcs::cvsSupport {args} {
+	# Any flags you wish to pass the CVS application, which are
+	# valid for any cvs action.
+	newPref var cvsGlobalFlags "" vcs
+	# If we're using the MacOS, we can add fileset information for
+	# MacCVS Pro session files.
+	if {$::alpha::macos} {
+	    fileset::attachNewInformation "" file  "MacCvs Pro Session File" ""  "The CVS session file used by MacCvs Pro for this fileset"
+	}
+    }
+}}
+set preinit(tkhtmlViewer) {0.2 {
+    # Make sure that this is no longer in the user's "global::features" list.
+    if {([lsearch ${global::features} "tkhtmlViewer"] > -1)} {
+	set tempIdx [lsearch ${global::features} "tkhtmlViewer"]
+	set global::features [lreplace ${global::features} $tempIdx $tempIdx]
+	prefs::modified "global::features"
+	unset tempIdx
+    } 
+    if {$alpha::platform eq "tk"} {
+	set "htmlViewer(Internal tkhtml widget)" viewInTkhtml
+    }
+}}
+set preinit(codewarriorMenu) {3.1 {
+    if {$alpha::macos} {
+		fileset::registerNewType codewarrior "list"
+    }
+}}
+set preinit(vcVoodoo) {0.2 {
+    if {$::alpha::macos} {
+	namespace eval vcs {
+	    variable system
+	    set system(Voodoo) Vodo
+	}
+    }
+}}
+set preinit(vcPerforce) {0.3 {
+    namespace eval vcs {
+	variable system
+	set system(Perforce) perforce
+    }
+}}
+set preinit(compare) {0.1 {
+    namespace eval compare {}
+    diffDrivers.tcl
+    if { ![string length [xserv::getCurrentImplementationsFor Compare]] } {
+	xserv::chooseImplementationFor Compare  [list -name "AlphaTcl's internal Diff Mode"]
+    }
+    menu::insert Utils submenu 0 compare
+    menu::insert compare items end (-)  "<E<Swindows" "<S<IwindowsWordByWord"  "<E<Sselections" "<S<IselectionsWordByWord"  "filesÉ"  "directoriesÉ" "(-" [menu::itemWithIcon "diffPrefsÉ" 84] "diffHelp"
+    hook::register requireOpenWindowsHook [list compare windows] 2
+    hook::register requireOpenWindowsHook [list compare selections] 2
+    hook::register requireOpenWindowsHook [list compare windowsWordByWord] 2
+    hook::register requireOpenWindowsHook [list compare selectionsWordByWord] 2
+}}

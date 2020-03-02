@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN">
+
+Title:                   HTML Electrics
+Author:                  Johan Linde <alpha_www_tools@go.to>
+
+	created: 01-11-02 18.59.03
+last update: 01-11-02 21.41.28
+
+
+	  	<!-- Table Of Contents -->
+
+"# Abstract "
+"# Introduction "
+"# Completing Elements "
+"# Completing Attributes "
+"# Completing Attribute Values "
+
+	======================================================================
+
+
+		<!-- Abstract -->
+
+This document provides examples of HTML mode electric completions.
+
+		<!-- Introduction -->
+
+This file contains examples of "electric completions".  Completions are
+ways in which Alpha attempts to complete what you're typing in a mode
+specific way (here we are considering the HTML specific way).
+
+The " Config --> Special Keys ... " menu item will display your current
+completion key-binding (default is ctrl-tab), and will give you the option
+to change it if you desire.
+
+In this tutorial, you can use the back-quote key ( ` ) to jump to the next
+completion example. (Hit ` and then space if ` is a dead key on your
+keyboard.) Once at the correct position, imagine that you had just typed
+the preceding text.
+
+Then hit the completion invoking key (default is ctrl-tab). Alpha attempts
+to complete what you typed -- eliminating a lot of keystrokes.
+
+		<!-- Completing Elements -->
+
+Alpha will try to complete the beginning of an opening tag to a complete
+HTML element, as well as completing the beginning of a closing tag. Try the
+ones below.
+
+	<ta×
+	<par×
+	<fr×
+	</blo×
+
+There are three preferences which determine how Alpha behaves when you make
+the completions. 
+
+On page 2 in the General HTML mode preference dialog box there is an option
+"Open attribute dialog after completing an element". If this is active,
+Alpha will open the attribute dialog if there are any attributes to ask
+about. Clicking Cancel in the attribute dialog leaves the insertion point
+inside the opening tag, while clicking OK moves the insertion point to the
+template stop between the tags.
+
+On the same page there is an option "Adjust current line indentation when
+inserting a template". If this is active, Alpha adjusts the indentation of
+the current line when inserting a template at the beginning of the line.
+		
+The third preference which changes Alpha's behavior is the option "List
+Pick If Mult Cmps", which you find in the dialog box
+"Config:Preferences:Completions". If this is active, Alpha will open a
+list dialog box if the completion is not unique.
+
+Change these preferences and try the same completions again.
+
+	<ta×
+	<par×
+	<fr×
+	</blo×
+
+		<!-- Completing Attributes -->
+
+Alpha can also complete the attribute names. Try the following examples.
+
+	<p al×>
+	<td row×>
+	<select mul×>
+	<table cell×>
+
+Also in this case the option "List Pick If Mult Cmps" will determine if
+Alpha will open a list dialog box, when the completion is not unique.
+
+	<!-- Completing Attribute Values -->
+
+Alpha can also complete the attribute names, e.g. if the attribute can take
+values in a list of predefined values, or the attribute is a color or a
+URL. Try the following examples.
+
+	<p align="c×">
+	<link type="t×">
+	<body bgcolor="ye×">
+	<a href="×">
+	

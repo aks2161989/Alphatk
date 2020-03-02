@@ -1,0 +1,570 @@
+# -*-Tcl-*- (nowrap)
+# Cache v1.2 created on 06/02/2006 {11:06:59 PM}
+set mode(C) {1.4.5 dummyC {*.c *.C *.r *.rc} {
+} {
+    # Script to execute at Alpha startup
+}}
+set mode(TeXC) {0.1.2 tetexComm.tcl {} {
+    texMenu
+} {
+    # Initialization script.
+    alpha::internalModes "TeXC" "TeX Console"
+    # Place this here otherwise the binding won't be seen
+    # since this file is never sourced.
+    Bind 'r' <cs> {TeX::tetexComm::typeset} "TeX"
+}}
+set mode(MPW) {0.6.1 mpwMenu *.mpw {
+    mpwMenu
+} {
+    # Script to execute at Alpha startup
+    alpha::internalModes "MPW"
+    addMenu mpwMenu "¥146" [list "MPW" "Fort" "f90"]
+}}
+set mode(Stta) {2.3b1 stataMode.tcl {*.do *.ado} {
+    stataMenu
+} {
+    # Script to execute at Alpha startup
+    addMenu stataMenu "¥155" Stta
+    set unixMode(stata) {Stta}
+    set modeCreator(S5x8) {Stta}
+}}
+set mode(VB) {0.1 {source [file join $HOME "Tcl/Modes/VBMode.tcl"]} {*.bas *.frm *.cls *.vbs *.asp *.inc} {
+} {
+    # Script to execute at Alpha startup
+}}
+set mode(m4) {0.1 {source [file join $HOME "Tcl/Modes/m4Mode.tcl"]} {*.m4 *.ac *.am} {} {
+    # Script to execute at Alpha startup
+}}
+set mode(Scil) {1.0 scilabMenu {*.sci *.dem} {
+    scilabMenu
+} {
+    # Script to execute at Alpha startup
+    addMenu scilabMenu "¥283"
+}}
+set mode(Clan) {1.1 clanMenu *.cha {
+    clanMenu
+} {
+    # Script to execute at Alpha startup
+    addMenu clanMenu "Clan"
+}}
+set mode(Igor) {1.1.1 igorMenu {*.igor *.ipf} {
+    igorMenu
+} {
+    # Script to execute at Alpha startup
+    addMenu igorMenu "¥284"
+    set modeCreator(IGR0) Igor
+}}
+set mode(S) {2.3 sMode.tcl {*.s *.S *.R} {
+    sMenu
+} {
+    # Script to execute at Alpha startup
+    addMenu sMenu "S+/R" S
+    set unixMode(splus) {S}
+}}
+set mode(man) {0.1.5 {source [file join $HOME "Tcl/Modes/manMode.tcl"]} {*.n *.3 *.1 *.tmac} {} {
+    # Script to execute at Alpha startup
+}}
+set mode(Pyth) {1.0.3 {source [file join $HOME "Tcl/Modes/pythonMode.tcl"]} *.py {
+} {
+    # Script to execute at Alpha startup
+}}
+set mode(Text) {0.1.6 {
+    # This script will be evaluated just once.
+
+    newPref v leftFillColumn {0} Text
+    newPref v suffixString {} Text
+    newPref v prefixString {> } Text
+    newPref v fillColumn {75} Text
+    newPref var lineWrap {1} Text
+    newPref v wordBreak {\w+} Text
+    #newPref v wrapBreak {[\w_]+} Text
+    #newPref v wrapBreakPreface {([^\w_])} Text
+    
+    newPref f autoMark 0 Text
+    # To automatically indent the new line produced by pressing <return>, turn
+    # this item on.  The indentation amount is determined by the context||To
+    # have the <return> key produce a new line without indentation, turn this
+    # item off
+    newPref flag indentOnReturn 0 Text
+    newPref v commentsContinuation 1 Text ""  [list "only at line start" "spaces allowed" "anywhere"] index
+    ;proc Text::DblClick {args} {
+	eval Tcl::DblClick $args
+    }
+    set Text::startPara {^[ \t]*(>|$)}
+    set Text::endPara {^[ \t]*(>|$)}
+    set Text::commentCharacters(General) [list ">"]
+    set Text::commentCharacters(Paragraph) [list "!! " " !!" " ! "]
+    set Text::commentCharacters(Box) [list "!" 1 "!" 1 "!" 3]
+
+    ;proc Text::MarkFile {args} {
+	win::parseArgs w {markDividers 1}
+	status::msg "Marking \"[win::Tail $w]\" É"
+	set pos [minPos -w $w]
+	if {$markDividers} {
+	    set pat {^((\t  \t)|([\t ]*=+[\t ]*$))}
+	} else {
+	    set pat {^((\t  \t))}
+	}
+	set count 0
+	while {![catch {search -w $w -f 1 -r 1 -s $pat $pos} match]} {
+	    set pos0  [lindex $match 0]
+	    set pos1  [lindex $match 1]
+	    set pos   [pos::nextLineStart -w $w $pos1]
+	    if {$markDividers &&  [regexp {^[\t ]*=+$} [string trim [getText -w $w $pos0 $pos]]]} {
+		set label "-"
+	    } elseif {![string length [string trim [getText -w $w $pos1 $pos]]]} {
+		continue
+	    } else {
+		regsub -all "\t" [string trimright [getText -w $w $pos1 $pos]]  " " label
+	    }
+	    set ok 1
+	    while {[lcontains labels $label]} {
+		append label " "
+		if {[string length $label] > 31} {
+		    # Probably a problem with the file containing
+		    # things like lots of lines with '===='
+		    # We remove all marks and start again, this
+		    # time we don't mark dividers.
+		    if {[string trim $label] == "-"} {
+			removeAllMarks
+			return [Text::MarkFile -w $w 0]
+		    }
+		    set ok 0
+		    break
+		}
+	    }
+	    if {$ok} {
+		lappend labels $label
+		set pos2 [pos::lineStart -w $w  [pos::math -w $w [pos::lineStart -w $w $pos1] - 1]]
+		setNamedMark -w $w $label $pos2 $pos0 $pos0
+		incr count
+	    }
+	}
+	set msg "The window \"[win::Tail $w]\" contains $count mark"
+	append msg [expr {($count == 1) ? "." : "s."}]
+	status::msg $msg
+	return
+    }
+} default {} {
+}}
+set mode(MATL) {2.0.8 dummyMATL {*.m *.M} {
+    MATLMenu
+} {
+    # Script to execute at Alpha startup
+    addMenu MATLMenu "¥405" MATL
+    set unixMode(matlab) MATL
+}}
+set mode(Objc) {1.4.2 dummyObjc {*.m *.i} {
+} {
+    # Script to execute at Alpha startup
+}}
+set mode(Diff) {4.1 diffMenu {*.diff *.patch} diffMenu {
+    alpha::internalModes "Diff"
+    # Up/Down arrows both scroll the diff window and synchronise the viewed
+    # portion of text in the document windows
+    newPref f synchroniseMoveAndView 1 Diff
+    # Treat all files as text and compare them line-by-line, even if they 
+    # don't seem to be text
+    newPref f treatAllFilesAsText 1 Diff
+    # Default lines of context to generate when asking Diff to do its magic
+    newPref var linesOfContext 3 Diff
+    if { $alpha::macos == 2 } {
+	# Other diff flags you want to send to the Diff application, -B -q -r etc.
+	newPref var diffFlags {--exclude=.DS_Store} Diff
+    } else {
+	newPref var diffFlags {} Diff
+    }
+    # Ignore changes in case; consider upper- and lowercase letters equivalent
+    newPref f ignoreCase 0 Diff
+    # Ignore changes that just insert or delete blank lines
+    newPref f ignoreBlankLines 0 Diff
+    # Ignore changes in amount of white space
+    newPref f ignoreSpaceChanges 0 Diff
+    # Ignore all white space when comparing lines
+    newPref f ignoreWhiteSpace 0 Diff
+    # When comparing directories, recursively compare any subdirectories found
+    newPref f compareDirectoriesRecursively 0 Diff
+    # If you've imported a diff file from a Unix/Windows system and wish
+    # to view or use it on MacOS Classic, this option allows you to use
+    # it with Alpha on MacOS Classic too.  It also works the other way
+    # round (import a diff file from MacOS onto Unix/Windows system).
+    newPref f translatePathDelimiters 1 Diff
+    # If you've imported a diff file from a different directory structure,
+    # you may need to remove a given prefix so Alpha can find your files
+    # correctly.
+    newPref v removeFilePrefix "" Diff
+    # If the document windows were not already open before the diff, automatically
+    # close them when finished.
+    newPref f killWindowsWhenDone 1 Diff
+    # Adjust each document window's geometry to original size when 
+    # closing the diff window.
+    newPref f resizeWindowsWhenDone 0 Diff
+    addMenu diffMenu ¥288 Diff
+}}
+set mode(Mf) {2.1 mfMenu {*.mf *.vpl} mfMenu {
+    # Script to execute at Alpha startup
+    addMenu mfMenu "Mf" Mf
+    set unixMode(mf) Mf
+}}
+set mode(Setx) {2.6b1 setextMode.tcl {*.stx *.etx} {
+    setextMenu
+} {
+    # Script to execute at Alpha startup
+    addMenu setextMenu "¥314" {Setx Text}
+    # Insert a new option in the 'New Document' prompt.
+    ;proc newSetextWindow {} {Setx::setextTemplates "" "newSetextWindow"}
+    set {newDocTypes(New Setext Doc)} {newSetextWindow}
+}}
+set mode(dtd) {0.4.2 {source [file join $HOME "Tcl/Modes/xmlMode.tcl"]} *.dtd {
+    xmlMenu
+} {
+    # Script to execute at Alpha startup.
+}}
+set mode(HTML) {3.2b1 htmlMenu {*.html *.htm *.shtml} {
+	cssMenu htmlMenu htmlUtilsMenu
+} {
+	addMenu htmlMenu
+	addMenu htmlUtilsMenu
+	hook::register keyboard {Bind '.' <o> {html::electricGreater} HTML} "Canadian - CSA"
+	hook::register removekeyboard {unBind '.' <o> {} HTML} "Canadian - CSA"
+	hook::register keyboard {Bind '.' <o> {html::electricGreater} HTML} "Canadian - ISO"
+	hook::register removekeyboard {unBind '.' <o> {} HTML} "Canadian - ISO"
+	# Add more options to the 'New Document' prompt
+	;proc newHTMLDoc {} {htmlMenu; html::NewDocument}
+	;proc newHTMLDocWithContent {} {htmlMenu; html::NewwithContent}
+	;proc newHTMLDocWithFrames {} {htmlMenu; html::NewDoc.withFrames}
+	set {newDocTypes(New HTML Doc)} newHTMLDoc
+	set {newDocTypes(New HTML Doc With Content)} newHTMLDocWithContent
+	set {newDocTypes(New HTML Doc With Frames)} newHTMLDocWithFrames
+	set {newDocTypesRequire(New HTML Doc With Content)} 1
+}}
+set mode(bat) {0.2 {source [file join $HOME "Tcl/Modes/batMode.tcl"]} {*.cmd *.bat *.sys} {
+    batchMenu
+} {
+    # Script to execute at Alpha startup
+    addMenu batchMenu "Bat"
+}}
+set mode(SAS) {2.3 sasMenu *.sas {
+    sasMenu
+} {
+    # Script to execute at Alpha startup
+    addMenu sasMenu "SAS" SAS
+    set unixMode(sas) {SAS}
+    set modeCreator(SaS6) {SAS}
+}}
+set mode(Scrp) {2.3 appleScriptMenu {*.script *.scr *.scpt *.ascr} {
+    appleScriptMenu
+} {
+    addMenu appleScriptMenu "¥331" Scrp
+    set modeCreator(ToyS) Scrp  ;# AppleScript Editor
+    set modeCreator(SLAB) Scrp  ;# ScriptLab
+}}
+set mode(Lisp) {2.3 lispMenu {*.el *.elc *.lisp *.lsp} {
+    lispMenu
+} {
+    # Script to execute at Alpha startup
+    addMenu lispMenu "Lisp" Lisp
+    set modeCreator(ROSA)   Lisp
+    set modeCreator(xlsp)   Lisp
+}}
+set mode(Vlog) {0.2.1 {source [file join $HOME "Tcl/Modes/VlogMode.tcl"]} {*.v *.vmd} {} {
+    # Script to execute at Alpha startup
+}}
+set mode(C++) {1.4.5 dummyC++ {*.H *.h *.hpp *.cc *.cp *.cpp *.CPP *.pch *.pch++ *.icc *.exp *.c++} {
+} {
+    # Script to execute at Alpha startup
+}}
+set mode(PS) {0.6.3 psMenu {*.ps *.eps *.epsf *.afm *.pfa *.pfb *.pdf} {
+    psMenu
+} {
+    # Script to execute at Alpha startup
+    addMenu psMenu "PS" PS
+}}
+set mode(Wiki) {{for wikiMenu menu} Wiki::initializeMode *.wiki {
+    wikiMenu
+} {
+    # Initialization script.  Called when Alpha is first started.
+    hook::register "wwwMenuInit" {WWW::defineEditUrls}
+}}
+set mode(Mp) {2.2 mpMenu {*.mp *.mpx} mpMenu {
+    # Script to execute at Alpha startup
+    addMenu mpMenu "Mp" Mp
+    set unixMode(mp) Mp
+}}
+set mode(Brws) {14.1.4 dummyBrws {} {
+} {
+    # Initialization script.
+    alpha::internalModes "Brws" "Browser"
+    # Define these variables here so they can be used elsewhere before
+    # the mode is loaded
+    namespace eval browse {
+	variable separator [string repeat "-" 200]
+	if {$::alpha::macos} {
+	    variable char \u221e
+	} else {
+	    variable char \u00a9
+	}
+	variable jumpTo "[string repeat \t 30]$char"
+    }
+}}
+set mode(M2) {4.2.1 {
+    # activation script, only when we first activate the mode
+    M2::enterM2Mode
+} {*.mod *.MOD *.def *.DEF *.prj *.PRJ *.DTF *.MOD.MSTR *.m2 *.M2} {
+    m2Menu indentUsingSpacesOnly
+} {
+    # This block will be automatically evaluated when Alpha starts
+    # up, irrespective of whether M2 mode is ever used.
+    if {${alpha::macos}} {
+	# The following allows to force the activation of M2 mode
+	# such as this file is scanned and mode can receive anytime
+	# a message to open M2 working files
+	if {[set alpha::version] >= "8.0"} {
+	    namespace eval M2 {}
+	    tclAE::installEventHandler oM2f comp M2::EventHandlerAlpha8
+	    # proc M2::dummyHandler {arg1 arg2} {eval M2::EventHandlerAlpha8 "$arg1" "$arg2"}
+	} else {
+	    eventHandler oM2f comp M2::m2EventHandler
+	}
+    }
+    
+    # Do final configuration checking to ensure preconditions
+    # for M2 mode if M2 is actually activated first time
+    hook::register mode::init M2::initializeM2 M2
+    set unixMode(Modula2) {M2}
+    # Ramses shell uses creator 'RAMS' for 'TEXT' and 'MoTx'
+    # (MDP - Model Definition Programs) files
+    set modeCreator(RAMS) M2
+
+    addMenu m2Menu "¥145" "M2"
+}}
+set mode(PHP) {0.1.2 dummyPHP *.php {
+} {
+    # Script to execute at Alpha startup
+}}
+set mode(SQL) {1.1.3 dummySQL {*.sql *.pkg} {
+} {
+}}
+set mode(SPSS) {2.3 spssMode.tcl {*.sps *.spss *.spp} {
+    spssMenu
+} {
+    # Script to execute at Alpha startup
+    addMenu spssMenu "SPSS" SPSS
+    set unixMode(spss) {SPSS}
+    set modeCreator(SPSS) {SPSS}
+}}
+set mode(JScr) {1.1.4 JScrDummy *.js {
+    specialIndentForCaseLabel
+} {
+    # Script to execute at Alpha startup
+}}
+set mode(coq) {0.1 {source [file join $HOME "Tcl/Modes/coqMode.tcl"]} {*.v *.v8} coqMenu {
+    # Script to execute at Alpha startup
+    addMenu coqMenu "Coq"
+}}
+set mode(Fort) {2.0 Fort::initializeMode {*.f *.inc *.fcm *.for *.hpf} {
+    fortranMenu indentUsingSpacesOnly -smartPaste
+} {
+    # Script to execute at Alpha startup
+    set unixMode(fortran) {Fort}
+    addMenu fortranMenu "Fortran" [list "Fort"]
+}}
+set mode(Scm) {2.2 schemeMode.tcl *.scm {
+    schemeMenu
+} {
+    # Script to execute at Alpha startup
+    addMenu schemeMenu "Scheme" Scm
+    set modeCreator(MrEd) Scm
+    set modeCreator(MrSt) Scm
+    set modeCreator(MzSt) Scm
+}}
+set mode(WWW) {{for wwwMenu menu} wwwMode.tcl *.www {
+    wwwMenu
+} {
+    # Initialization script.  Called when Alpha is first started.
+    alpha::internalModes "WWW"
+}}
+set mode(Inst) {0.2 {source [file join $HOME "Tcl/Modes/installMode.tcl"]} {*Install *INSTALL} {
+    installMenu
+} {
+    # Initialization script.
+    alpha::internalModes "Inst" "Install"
+    addMenu installMenu "Install"
+    hook::register openHook install::openHook Inst
+    hook::register editHook install::editHook .install
+}}
+set mode(Pasc) {1.0.7 dummyPascal *.p {
+    thinkRefMenu toolboxRefMenu
+} {
+    set unixMode(pascal) {Pasc} 
+}}
+set mode(xsl) {0.4.2 {source [file join $HOME "Tcl/Modes/xmlMode.tcl"]} {*.xsl *.xslt} {
+    xmlMenu
+} {
+    # Script to execute at Alpha startup.
+}}
+set mode(CSS) {2.2b1 cssMode *.css {
+	cssMenu
+} {
+	addMenu cssMenu ¥150
+}}
+set mode(Java) {1.23 javaMenu {*.java *.j} {
+    javaMenu
+} {
+    # Script to execute at Alpha startup
+    addMenu javaMenu "¥140" Java
+}}
+set mode(mapl) {1.1.5 mapleMenu *.maple {
+    mapleMenu
+} {
+    # Script to execute at Alpha startup
+    addMenu mapleMenu "¥508" mapl
+    set unixMode(maple)       {mapl}
+    set unixMode(maple4)      {mapl}
+    set unixMode(maple6)      {mapl}
+    set unixMode(maplev-4.0a) {mapl}
+    set unixMode(maple7)      {mapl}
+    set modeCreator(REL4)     {mapl}
+    set modeCreator(Mnt4)     {mapl}
+}}
+set mode(Ruby) {0.1 {source [file join $HOME "Tcl/Modes/rubyMode.tcl"]} *.rb RubyMenu {
+    # Script to execute at Alpha startup
+    addMenu RubyMenu Ruby
+    ensureset rubySig {}
+}}
+set mode(Perl) {3.7b1 perlMenu {*.pl *.ph *.pm} {
+    perlMenu
+} {
+    # Script to execute at Alpha startup
+    addMenu perlMenu "¥132"
+    set modeCreator(McPL) Perl
+    set unixMode(perl)    Perl
+    # Make sure that we have a 'Perl::PrevScript' variable.
+    ensureset Perl::PrevScript {*startup*}
+    # Make sure that we have a 'PerlSearchPath' variable.
+    ensureset PerlSearchPath ""
+}}
+set mode(sh) {2.0 shScriptsMode.tcl {*.csh *.tcsh *.sh} {
+    shScriptsMenu
+} {
+    # Script to execute at Alpha startup
+    addMenu shScriptsMenu "sh" sh
+    set unixMode(csh)  {sh}
+    set unixMode(tcsh) {sh}
+    set unixMode(sh)   {sh}
+}}
+set mode(Bib) {4.4.1 bibtexMode.tcl {*.bib *.inspec *.hollis *.isi *.marc *.oclc *.ovid *.refer} { 
+    bibtexMenu indentUsingSpacesOnly
+    bibToHtml bibToRefer bibConvert bibDelimited
+} {
+    # Mode initialization script, evaluated during Alpha's startup.
+    addMenu bibtexMenu "¥282" Bib
+}}
+set mode(TIP) {0.4.4 {source [file join $HOME "Tcl/Modes/tipMode.tcl"]} *.tip {TIPMenu indentUsingSpacesOnly} {
+    # Script to execute at Alpha startup
+    addMenu TIPMenu TIP TIP
+    # Register a specific action for editing remote TIPs.
+    set WWW::UrlActionhttp(.*/tip/edit/\[0-9\]+\$) TIP::editRemoteTIP
+}}
+set mode(Ada) {1.0.4 dummyAda {*.ada *.ads *.adb *_.a *.a} {
+} {
+    # Script to execute at Alpha startup
+}}
+set mode(f90) {2.0 f90::initializeMode {*.f9 *.f90} {
+    fortran90Menu indentUsingSpacesOnly
+} {
+    # Script to execute at Alpha startup
+    set unixMode(fortran) {Fort}
+    addMenu fortran90Menu "F90" [list "f90"]
+}}
+set mode(Chng) {0.2 {source [file join $HOME "Tcl/Modes/changeLogMode.tcl"]} Change* {
+} {
+}}
+set mode(TeX) {6.0a2 latex.tcl {*.tex *.ltx *.dtx *.sty *.cls *.clo *.ini *.ins *.aux *.bbl *.blg *.bst *.def *.drv *.fd *.fdd *.glo *.gls *.idx *.ilg *.ind *.lof *.log *.lot *.toc} {
+    texMenu
+} {
+    # Initialization script.  Called when Alpha is first started.
+    addMenu texMenu "¥270" [list "TeX" "Bib"]
+    set unixMode(latex) {TeX}
+    # Reset the search path so it will be rebuilt the next time it's needed:
+    set AllTeXSearchPaths {}
+
+    # To add a new fileset type, all we have to do is this:
+    fileset::registerNewType tex tex
+    # When a tex-fileset changes, call this proc
+    hook::register fileset-update {TeX::rebuildMenu filesetUpdate} "tex"
+    # Add more options to the 'New Document' prompt
+    set {newDocTypes(New LaTeX Doc)} TeX::newLaTeXDocument
+
+    # Placed these here so BibTeX mode can definitely access them.
+    set texParaCommands {\[|\]|begin|end|(protect\\)?label|(sub)*section\*?|subfigure|paragraph|centerline|centering|caption|chapter|item|bibitem|intertext|(protect\\)?newline|includegraphics\*?}
+    namespace eval TeX {}
+    set TeX::startPara {^[ \t]*$|\\\\[ \t]*$|(^|[^\\])%|\\h+line[ \t]*$|\$\$[ \t]*$|^[ \t]*(\\(}
+    append TeX::startPara $texParaCommands {)(\[.*\]|\{.*\}|¥)*[ \t]*)+$}
+    set TeX::endPara {^[ \t]*$|(^|[^\\])%|\$\$[ \t]*$|^[ \t]*(\\(}
+    append TeX::endPara $texParaCommands {)(\[.*\]|\{.*\}|¥)*[ \t]*)+$}
+}}
+set mode(xml) {0.5.0 {source [file join $HOME "Tcl/Modes/xmlMode.tcl"]} {*.plist *.xml *.manifest *.svg *.xsd *.psf} {
+    xmlMenu
+} {
+    # Script to execute at Alpha startup.
+    addMenu xmlMenu XML xml
+}}
+set mode(Tcl) {3.1.1 {
+    tclMode.tcl
+    tclMenu
+} {*.tcl *.itcl *.itk *.decls *.msg *.tbc tclIndex* {\* Trace '*' \*} *.bench *.test} {
+    tclMenu
+} {
+    addMenu tclMenu "¥269" "Tcl" "Tcl menu\r\rfor dealing with Tcl, Tk"
+    array set unixMode {
+        wish Tcl
+        tclsh Tcl
+        itclsh Tcl
+        itkwish Tcl
+        prowish Tcl
+        protclsh Tcl
+        tclkit Tcl
+        tclkitsh Tcl
+    }
+    
+    menu::buildProc tclMenu Tcl::buildMenu
+    # Colorizing routines.
+    lappend tclCmdColourings Tcl::colorTclKeywords Tcl::colorTkKeywords  Tcl::colorTclXKeywords Tcl::colorItclKeywords Tcl::colorPseudoTclKeywords
+    lappend tclExtraColourings Tcl::colorSymbols Tcl::colorVariables
+    menu::insert Utils items "wordCount" "/Y<E<OtclShell"
+}}
+set mode(Caml) {1.0.2 dummyCaml {*.ml *.mli} {
+    camlMenu
+} {
+    # Script to execute at Alpha startup
+    addMenu camlMenu "¥321" Caml
+    set modeCreator(Caml) Caml
+    set unixMode(caml) {Caml}
+}}
+set mode(C#) {0.1.1 csharpMenu *.cs {
+    csharpMenu
+} {
+    addMenu csharpMenu "C#" C#
+}}
+set mode(make) {0.2 {source [file join $HOME "Tcl/Modes/makeMode.tcl"]} {Makefile makefile makefile.vc GNUmakefile configure} makeMenu {
+    # Script to execute at Alpha startup
+}}
+set mode(dot) {0.2 {source [file join $HOME "Tcl/Modes/dotMode.tcl"]} *.dot dotMenu {
+    # Script to execute at Alpha startup
+    addMenu dotMenu " ¥ "
+}}
+set mode(GPLT) {2.1.3 gnuplotMenu {*.gp *.gnu *.gnp *.gplt} {
+    gnuplotMenu
+} {
+    # Script to execute at Alpha startup
+    addMenu gnuplotMenu "¥415" GPLT
+    set modeCreator(GPLT) GPLT
+    set modeCreator(GPSE) GPLT
+    if {$alpha::macos} {
+	# This mode's communication relies entirely on apple-events,
+	# so this sig just isn't relevant to Windows/Unix.
+	newPref sig GnuplotSig GPLT
+    }
+}}
+set mode(Plc) {1.0.4 dummyPlc {*.plc *.ploc} {} {}}

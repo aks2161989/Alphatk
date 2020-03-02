@@ -1,0 +1,1679 @@
+================================================================================ 
+= Alphatk change log						
+================================================================================ 
+
+Please note that a large part of Alphatk's functionality is implemented
+in the 'AlphaTcl' core libraries.  For changes to that code, please see
+the help file "Changes - AlphaTcl".  Usually AlphaTcl changes at a
+faster rate than the Alphatk core.
+
+-----------------------------------------------------------------
+
+8.5a1 under development  	   last update: 04/10/2006 {11:57:08 PM}
+
+¥ update to latest Tcl, Tk 8.5 and require those versions
+¥ lots of improvements to theme support and native look and feel,
+  particularly on MacOS X
+¥ correct support for documents in arbitrary encodings on MacOS X
+¥ improved balloon help on MacOS X
+¥ upgrade to AlphaTcl 8.1 latest code
+¥ added support for 'block cursor' preference
+¥ corrected help sequencing in dialogs
+¥ fix to window proxy icons in OS X
+¥ better mousewheel scrolling in dialogs
+¥ added support for proxy icons and window titlebar menus
+¥ small fix to 'execute' implementation
+
+8.4a2 under development  	   last update: 2005-10-17 13:50:03
+
+¥ upgrade to AlphaTcl 8.1 latest code
+¥ added support for Tk 8.5 'wordprocessor' tabs
+¥ better use of 'tile' package
+¥ standalone alphatk.exe version for Windows now uses Tk 8.5a4.
+¥ allow width, height to be specified in listpicks.
+¥ ensures current selection is shown in large listpick dialogs
+
+8.4a1 released  	   last update: 2005-05-25 18:31:56
+
+¥ added '<', '>' support to matchIt (required by latest xml mode)
+¥ use tabs in search dialog to make it cleaner
+¥ made killWindow more robust and added tests for it.
+¥ more tests and robustness around window hooks.  Better behaviour
+  when windows are iconified/hidden.
+¥ improved window handling, and adjustment of status bar and mode 
+  as windows are opened/closed/iconified.
+¥ improved bringToFront, allowing all current tests to pass.
+¥ fix to macro recording and '\' (thanks to John Burt for the report).
+¥ resolved new colouring vs opening vs status::msg conflict
+¥ upgrade to AlphaTcl 8.1a1 (lots of cleanup and improvements underway).
+¥ macro recording using typeText, not insertText.
+¥ better handling of '!' sequences in Menu commands (e.g. calculator menu)
+¥ overall improvements to modes, minor modes handling.
+¥ better handling of tabbed windows, using Tile toolkit.
+¥ implemented 'insertAscii' (very rarely used function).
+¥ better handling of tick-marked menu items.
+¥ improved handling of colouring, focus, activation with tabbed windows.
+¥ better checkbutton metrics
+¥ improved hypertext handling, fixing a few bugs.
+¥ better code folding, much more robust, but Tk8.5a3 required for
+  optimal handling of folded code
+¥ better handling of folding, line numbers in windows when opening
+  a window
+¥ corrected calling of deactivateHook on window closing.
+¥ improved 'page forward', 'page back'.
+¥ added '-geometryvariable' support to 'dialog'
+¥ separation of Alphatk core from AlphaTcl.
+¥ reorganization of distribution structure.
+¥ more robust listpick
+¥ fix to syntax colouring of xml comments
+¥ fix to syntax colouring of xml windows on opening
+
+8.3.3 released 	   	   last update: 12/10/2004 {02:44:48 PM}
+
+¥ fix to 'tab' in dialogs problem on MacOS X.
+¥ upgrade to AlphaTcl 8.0 final release (lots of fixes!)
+¥ corrected 'winNames' during closeHook call (and added tests to 
+  developer code)
+¥ fix to backSpace at beginning of document.
+
+8.3.2 released 	   	   last update: 12/03/2004 {03:30:50 PM}
+
+¥ various cosmetic dialog improvements (thanks Craig)
+¥ search dialogs accepts cmd-i/r to toggle checkboxes
+¥ corrected selected-text-background colour 
+¥ made win-xp theme the default on Windows XP.
+¥ improved tabbing in dialogs
+¥ fix to 'getTextDimensions'
+¥ upgrade to latest AlphaTcl.
+¥ added colour-saving to the rememberWindows package
+¥ fixed some rare dialog problems
+
+8.3.1 released 	   	   last update: 11/29/2004 {01:28:26 PM}
+
+¥ some dialogs fixes
+¥ statusPrompt throws Cancelled error on <Escape>
+¥ fix to handling of some aspects of the main menu names
+¥ upgrade to latest AlphaTcl - lots of fixes.
+¥ fix to cmd-key shortcuts in dialogs
+¥ better line-numbers in margin (Cmd/Alt-F11)
+
+8.3 released 	   	   last update: 11/16/2004 {02:48:52 PM}
+
+¥ clean up of some preferences
+¥ fix to small dialogs problem
+¥ fix to errors in 'gotoLine' dialog.
+¥ added support for '-separator' to the 'dialog' command
+¥ improved menu/feature help handling, which makes for faster prefs
+  dialogs.
+¥ more infrastructure for upcoming full tile/theming support
+
+8.3fc11 released 	   	   last update: 11/08/2004 {08:01:21 PM}
+
+¥ support enhanced 'prefixChar' to provide a message in the status bar.
+¥ various improvements to getGeometry/moveWin/sizeWin to better cope
+  with differences between X11 and Windows and MacOS X.
+¥ ensured Alphatk works under Cygwin/X11 on Windows.
+¥ implemented 'mousePos'
+¥ fix to bug with '^' in TeX mode (thanks Werner)
+¥ provided reasonable support for -listitem with -action and -multipane
+  and -in and -groupBox in dialogs
+¥ don't update position indicator when changes are in non-frontmost window.
+¥ removed '-pager' flag from core dialog routine.  Everything can be
+  implemented with -action more transparently.
+¥ added support for '-popupGroupBox', '-checkGroupBox' in dialogs.
+¥ added support for '-default' flag to buttons.
+¥ fixes to two reported Alphatk supersearch problems.
+¥ fixes to dialog pagers with strange names
+¥ added '-indices' to listpick
+¥ fix to javascript function parsing
+¥ fix to double-click in split windows.
+¥ fix to key-board dialog shortcut conflict with text entry
+¥ small fix to up/down cursor keys with no windows open
+¥ small contextual menu fix
+¥ fix to rare situation where closing the last window which leads to
+  saving a dirty window under a new name which throws an error.
+¥ preliminary support for text 'peers' using latest Tk 8.5 release.
+  This allows split windows without any memory overhead.
+¥ important fix to case-sensitivity in 'file::pathStartsWith'
+¥ fix to startup problems with multiple monitors
+¥ fix to occasional problem with dialog button -action scripts.
+¥ improvements to lock-clicking and saving with read-only filesystems
+¥ further support for 'tile' native look and feel (win-xp)
+¥ fix to rare problem in hierarchial menus with names similar except
+  for a dot, which can cause infinite loops.
+¥ fix to tcl index rebuilding issue with latest Tcl8.5a2
+¥ removed some rather unhelpful balloon-help preferences
+¥ made upcase/downcaseWord mutually consistent
+
+8.3fc10 released 	   	   last update: 05/10/2004 {09:01:47 PM}
+
+¥ workaround for TkAqua bug in menu destruction/recreation, resolving
+  problem with, say, the HTML mode 'Browser' menu.
+¥ update to latest AlphaTcl -- many fixes and improvements
+¥ minor tabbed window fix
+¥ fix to building menus with dimmed items, under some circumstances
+¥ added support for creating hidden or minimized windows
+¥ fix to dialog-in-place setting in some circumstances
+¥ small improvement to macro recording (don't record 'insertText {}')
+¥ fix to zapNonPrintables (it also zapped tabs!)
+
+8.3fc9 released 	   	   last update: 04/22/2004 {09:55:02 PM}
+
+¥ update to latest AlphaTcl
+¥ better getTextDimensions implementation
+¥ implemented zapNonPrintables
+¥ fit to 'mtime' implementation
+¥ found a good workaround for tkdnd problems with unmapped widgets to
+  make for prettier dialog creation on Windows
+
+8.3fc8 released 	   	   last update: 04/17/2004 {11:26:09 AM}
+
+¥ update to latest AlphaTcl
+¥ on MacOS X executable, update to Tcl/Tk 8.5a2. 
+¥ on Windows executable, update to TclKit 8.4.6.
+¥ added support for list/tab-selected multi-page preference dialogs
+¥ fix to rare multi-page dialog problem
+¥ fix to mode-specific 'wrap' handling bug introduced in 8.3fc7
+¥ ensure column indicator is updated when deleting
+
+8.3fc7 released 	   	   last update: 04/07/2004 {05:54:27 PM}
+
+¥ fixed distribution builder to ensure C# mode is included
+¥ cleaned up handling of status-bar popups
+¥ moving up/down vertically preserves horizontal position
+¥ better core-AlphaTcl wordWrap separation - each window now has a
+  'wrap' setting which can be set through 'setWinInfo wrap <val>'
+¥ cleanup of obsolete commands
+¥ better handling of case-(in)sensitivity in keyword colouring
+¥ update to latest AlphaTcl
+¥ more robust regModeKeywords for case-insensitivity
+¥ fix to colouring on last time in shell-style windows, under some
+  circumstances.
+¥ cleaner handling of wrap, mode, encoding, platform popups
+¥ 'saveAs -f name' now automatically uses the destination encoding
+¥ fix to popup menus in dialogs on MacOS X.
+
+8.3fc6 released 	   	   last update: 03/24/2004 {05:47:28 PM}
+
+¥ update to latest AlphaTcl, major cleanup of preferences dialogs
+  underway, and simplification of help menu.
+¥ fix to 'dialog ... -m ... -n {}' for empty page names.
+¥ better statusPrompt handling
+¥ improvements to 'alert' and 'buttonAlert'
+
+8.3fc5 released 	   	   last update: 03/23/2004 {10:46:21 AM}
+
+¥ update to latest AlphaTcl, many hooks/window-attribute related improvements.
+¥ improved colouring robustness
+¥ more consistent search dialog.
+¥ 'mode' and 'wordbreak' are now 100% window-specific, which fixes some
+  rare cosmetic glitches.
+¥ 'mode' split into bindtags and colortags for each window.
+¥ added ability to time Alphatk startup for future optimisation.
+¥ bindtags, colortags are both lists.
+¥ added support for multiple sets of tag-based colouring keywords for
+  any window.
+¥ text::color, text::hyper etc all take optional '-w <win>'
+¥ more robust colouring of multi-line comments.
+¥ implemented 'deleteModeBindings'
+¥ added support for 'bindingList $tag'
+¥ added further key-bindings (: _ @ etc), fixing a problem on X11 - 
+  thanks for the bug report
+¥ further fixes to default window geometry setting.
+¥ small fix to 'wrapText' at end of window.
+¥ added experimental support for modeless dialogs with results callbacks
+¥ improved undo/redo of 'replace' operations (window scrolls to show 
+  position)
+¥ fixed a bunch more key-bindings
+¥ better status-bar content management (when trying to display very
+  long pieces of information).
+¥ improved 'select' to take multiple from-to argument pairs to allow
+  rectangular selection.
+¥ fix to colouring in split windows ('wordbreak' error)
+
+8.3fc4 released 	   	   last update: 02/02/2004 {10:01:01 AM}
+
+¥ update to latest AlphaTcl, should be very robust.
+¥ fixed 'distanceToScreen' bug reported (thanks)
+¥ on MacOS X, more text widget improvements and font rendering improvements.
+  Alphatk should now properly support rendering and editing (as opposed to 
+  just loading/saving) a much broader range of encodings and charsets.
+¥ more robust handling of status-bar popup menus
+¥ added optional number argument to 'lookAt'
+¥ added support for dndWinHook and dropping of files into Alphatk windows
+  (when using tkdnd -- only currently available on Win/Unix).
+¥ simplified dnd, using unified interface for all types.
+¥ drag'n'drop editing now routes through smartPaste (or other paste-override
+  packages) as appropriate.
+¥ correct getGeometry -s implementation, and fixes to moveWin, sizeWin
+  to act accordingly.
+¥ fix to edit/new problem with window name starting with '-'.
+¥ better window geometry handling.
+¥ more moveWin/sizeWin cleanup.
+¥ made checkbox geometry handling auto-sizing - should result in a few
+  of the global dialogs being nicer.
+¥ 'dialog' can now handle multiple multi-page/pane elements in a single
+  dialog.
+¥ overhaul of editing-window<->AlphaTcl interactions, particularly during
+  window creation.  Much better separation between core and AlphaTcl.
+¥ no longer assume '~' exists, fixing reported bug.
+
+8.3fc3 released 	   	   last update: 11/16/2003 {04:38:19 PM}
+
+¥ fix to rare problem with interactions between dialogs, focus and new
+  windows.
+¥ update to latest AlphaTcl
+¥ better tclpro/tcldevkit support
+¥ on MacOS X lots of improvements to the text widget (from Tk 8.5a0),
+  including smooth scrolling and correct handling of tab stops in some
+  strange cases.
+¥ fix to multiple page up/down not always returning to same place in window.
+¥ on MacOS X fixes to scrollbars (correct size, better interaction).
+
+8.3fc2 released 	   	   last update: 11/03/2003 {02:55:01 PM}
+
+¥ updated to latest AlphaTcl
+¥ added transparency information to version control gifs.
+¥ small fix to 'print' on MacOS X.
+¥ drag-and-drop fixes with split panes.
+¥ better font and metric handling in 'dialog'
+¥ better getTextDimensions and getThemeMetrics implementations.
+¥ 'remember windows' package can be configured to remember the position and
+  size of each window
+¥ corrected MouseWheel bindings in listboxes (thanks Craig)
+¥ corrected MouseWheel bindings in text widget.
+¥ fix to 'setFontsTabs'
+¥ dialog in-place setting fixes (abbreviation)
+
+8.3fc1 released 	   	   last update: 10/28/2003 {10:18:36 AM}
+
+¥ updated to latest AlphaTcl
+¥ added support for 'TM' char to stop menu form conversion.
+¥ added modes for VB, Verilog, and Windows Batch files.
+¥ 'dialog' fixes to allow forward looking -tags
+¥ added icons to version control popup (thanks Bernard)
+¥ fix to contextual menus in split panes.
+¥ added '-listitem' to the 'dialog' command, and the ability to make
+  a multi-page dialog controlled by a listitem.
+¥ some minor fixes to menu construction in rare cases.
+
+8.3b4 released 	   	   last update: 10/10/2003 {04:42:49 PM}
+
+¥ Update to latest version of AlphaTcl, fixing various bugs
+¥ some colouring improvements
+¥ better re-using of the package cache.
+¥ improvements to 'replace' as an atomic operation, including better
+  handling in colouring, undo, redo etc.
+¥ better 'revert' implementation.
+¥ fix to 'pos::fromRowCol'
+
+8.3b3 released 	   	   last update: 09/18/2003 {07:26:48 PM}
+
+¥ improved macro recording, and binding reporting (thanks Craig).
+¥ when only status window is present on MacOS X, don't use sheets for
+  dialogs.
+¥ fix to 'close' so doesn't quit Alphatk when there are no windows.
+¥ added preliminary scaling support for higher-resolution displays (e.g. 120dpi)
+¥ made proper distinction between user-applied colours (text::color) and
+  syntax-colouring.
+¥ better font style support added to Alphatk.
+¥ fix to binding specification overlaps between Bind and Menu.
+¥ some refactoring of syntax-colouring and other window-view code so they
+  do not depend on implementation details of the text widget.
+¥ fix to potential global variable pollution caused by flag-menus
+¥ fix to colouring of windows after, e.g., 'revert'.
+¥ 'wordBreakPreface' preferences are now irrelevant to Alphatk.  It does
+  not need them.
+¥ fix to 'paste' under certain error conditions.
+¥ better 'display' and 'insertToTop' implementations.
+
+8.3b2 under development 	   	   last update: 08/22/2003 {09:05:49 AM}
+
+¥ clean up to certain dialog code, enabling 'Escape' to cancel more
+  dialogs.
+¥ substantial AlphaTcl upgrade with large number of Alphatk-specific
+  issues resolved.
+¥ small 'replaceText' fix to problem introduced in 8.3b1
+¥ fix to command-key error in dialogs like 'Report A Bug'
+¥ made 'select' behaviour closer to Alpha 8/X's.
+¥ inverted 'M' and '{}' to accord more closely with Alpha.
+¥ fix to titlebar-popup menu (alt-right-click on Windows)
+¥ better font, tab handling, particularly with split windows.
+
+8.3b1 under development 	   	   last update: 08/18/2003 {07:50:32 PM}
+
+¥ more robust startup, particularly on Windows/Unix.
+¥ better float handling
+¥ beginning of update-in-place for Win/Unix builds.
+¥ updated to latest AlphaTcl, fixing many small bugs, adding XHTML support.
+¥ better handling of 'catSig'
+¥ further refinement to tabbed-window implementation
+¥ added 'soft' as a further word-wrap option
+¥ cleaner paragraph filling
+¥ better 'characterInsertedHook' implementation to cope with hard and soft
+  wrapping.
+¥ added support for short window names to all '-w <win>' flags.  This is
+  slightly slower, though.
+¥ fix to bug with split-windows are focus-restoration, which particularly
+  affected incremental searches.
+¥ fixed bug in dialog return values with '-l' for embedded listpicks
+¥ automatic copying of marks etc when splitting a window.
+¥ added synchronicity capabilities to TeX mode when interacting with
+  Yap or Xdvi.  This works in both directions, and is also known as
+  'forward' and 'inverse' search between the source (.tex) and destination
+  (.dvi) file.
+¥ fix to error when editing files on MacOS X on non-HFS/HFS+ volumes.
+¥ better paragraph::fill and replaceText implementations to avoid
+  unnecessary window scrolling.
+¥ fixes to some rare problems with positions in searching and paragraph
+  filling
+¥ fixes to macro-recording (thanks Craig).
+
+8.3d7 under development 	   	   last update: 07/16/2003 {04:37:21 PM}
+
+¥ partial revamp of window-handling code, paving the way for more
+  flexible windowing concept (e.g. tabbed windows).
+¥ better closeFloat dimming
+¥ NoteBook fix to bwidgets extension which is distributed with Alphatk.
+¥ added first implementation of tabbed windows.  Use the 'File --> Use
+  Tabbed Window...' menu item to explore this.
+¥ much better torn-off menu positioning (thanks to tips on comp.lang.tcl)
+
+8.3d6 under development 	   	   last update: 07/01/2003 {06:23:11 PM}
+
+¥ better handling of split-windows (esp. scrolling, lock-clicking etc)
+¥ added preliminary support for highlighting during incremental searches
+¥ on MacOS X fixed some focus problems when using the status bar
+¥ workaround a TkAqua bug with checked menu items.
+¥ ensure status bar isn't hidden when it has grabbed the focus (even
+  if 'hide status bar when in background' is set).
+¥ upgrade to latest AlphaTcl fixes, and latest Tcl, Tk where appropriate.
+¥ handle status bar hiding in background when status bar is under menus
+  on Windows/Unix.
+¥ better handling of tear-off menus (and 'floatShowHide'), particularly
+  mode-dependent ones.
+¥ removed support for '-copyto' from 'dialog' command, since it is handled
+  more generally by '-action'.
+¥ much cleaner implementation of -action, -dnd.
+¥ double-click followed by selection will select words not characters.
+¥ 'Return' in a large entry field in a dialog will not trigger the default
+  button.
+¥ fix to downcase region (thanks Gilles)
+¥ colour fix for labelframes in TkAqua.
+
+8.3d5 released 	   	   last update: 06/01/2003 {11:51:30 PM}
+
+¥ improved command-line support: e.g. 'alphatk +10 file.txt' will
+  open 'file.txt' in alphatk and go to the tenth line.
+¥ upgrade to latest AlphaTcl, fixing a large number of small problems,
+  and providing support for Alphatk based installers.
+¥ fixes to drag-n-drop and 'set...' dialog interactions
+¥ better file type/creator manipulation on MacOS X.
+¥ changed default from 'Discard Changes' to 'Save' when closing a dirtied
+  window
+¥ added somewhat better support for torn-off main menus and their
+  deletion with 'Close Float'
+¥ fix to url::execute
+¥ better handling of apple-events and use of 'AlTk' creator code in the
+  AlphaTcl library.
+¥ ability to specify a small font for popup menus on MacOS X.
+¥ on MacOS X, upgraded to very latest Tcl/Tk for a variety of fixes,
+  some quite important.
+¥ fix to opening of files with file::openAny on MacOS X
+¥ when used on the command-line, directly throws an error if a file 
+  doesn't exist.
+¥ fixed a bug in the latest Tk 8.5a0, which caused significant memory
+  leaks in Alphatk when rebuilding any menus (menu clones were never
+  cleaned up).
+
+8.3d4 released 	   	   last update: 05/15/2003 {07:11:33 AM}
+
+¥ added ability to query for all monospaced fonts 
+¥ added '?-w win?' to more commands, including saveAs 
+¥ cleaner updating of packages file
+¥ upgrade to latest AlphaTcl.
+¥ fix to split window problem (with select and copy).
+¥ better implementation of 'float' and 'unfloat', and more consistent
+  with Alpha 8/X.
+¥ fix to setting file type/creator for new files on MacOS X
+¥ enhanced 'dialog' command to allow popup menu selection to adjust
+  other dialog entries.  Makes the search dialog 'pattern' handling
+  rather simpler.
+¥ upgrade to tcllib 1.4
+¥ further fix and streamlining of code to set type/creator/permissions
+  in a platform/filesystem specific way
+¥ fix to rare problem in save/saveAs when the underlying file had disappeared
+  and Alphatk was told to save again with the same name.
+¥ removed some obsolete (Tcl < 8.4) code, since we now require that version.
+¥ added better ability to use Alphatk as a command-line tool --- see the
+  "Alpha Manual" -> "# The Command Line" section of documentation.
+¥ fix to starkit and starpack distributions of Alphatk (which were broken since
+  version 8.3d3).  Starkits and Starpacks should not contain another copy
+  of the mk4tcl extension -- if it is loaded, everything breaks.
+
+8.3d3 under development 	   	   last update: 03/31/2003 {11:55:30 PM}
+
+¥ 'switchTo' works correctly (thanks Daniel) so that, e.g., when 
+  typesetting, the foreground/background options work as desired.
+¥ workaround TkAqua bug with balloon help
+¥ various AlphaTcl fixes.
+¥ fix to one more 'Enter' keybinding issue.
+¥ added '?-w win?' support to many more commands, and refactored various
+  pieces of Alphatk's core.
+¥ fixes to errors thrown with 'Bind LaTeX accents' in TeX mode.
+¥ 'pos::math' can accept no extra arguments, for agreement with Alpha 8/X
+¥ added Mk4tcl to Alphatk distribution.
+¥ added rudimentary support for setting 'enscript' command line flags
+  when running on Unix (use 'Page Setup').
+¥ updated [version] string for better Alpha 8/X agreement.
+
+8.3d2 released 	   	   last update: 03/03/2003 {05:40:38 PM}
+
+¥ fix to 'Enter' keybinding issues.
+¥ on MacOS X dropping of files onto Alphatk at startup and while running
+  should now work for one or multiple files.
+¥ correct handling of dead-keys on MacOS X (for typing accented chars)
+¥ added 'hideStatusBarWhenInBackground' preference (Windows pref dialog) -
+  this is useful on MacOS X, but less so on Windows, Unix, since there
+  one can drag'n'drop files on the status bar to open them.
+
+8.3d1 released 	   	   last update: 02/25/2003 {02:13:00 PM}
+
+¥ Tcl/Tk 8.4 now required.
+¥ upgrade AlphaTcl to version 8.0d1
+¥ improved syntax colouring of /* ... */ comments further.
+¥ improvements to tkcon interaction.
+¥ added simple 'xml' mode, including interaction with the 'starDOM' viewer.
+  If you have 'tdom' installed, this includes parsing of your xml to
+  generate keywords for colouring and completions as well.
+¥ C# mode added.
+¥ fix to binding problem with '{' '}' on X11.
+¥ large number of fixes to AlphaTcl
+¥ correct handling of mode-specific font-sizes, and of openHooks
+  on new windows.
+¥ fix to startup bgerror confusion if the user pressed cursor 
+  keys too early
+¥ wrapParagraph/wrapRegion fix (thanks Ralph).
+¥ fixed some contextual menu problems introduced with another fix.
+¥ variety of OS X-specific fixes to TkAqua.
+
+8.2 released 	   	   last update: 01/29/2003 {05:22:16 PM}
+
+¥ fortran mode improvements (both colouring and file marking)
+¥ better syntax colouring of multi-line comments.
+¥ added tkcon support by default.
+¥ better Java/C++/C mode indentation
+
+8.2fc7 released 	   	   last update: 01/29/2003 {01:29:04 PM}
+
+¥ upgrade to latest tcllib and AlphaTcl libraries, including large number
+  of minor bugs reported over the last few weeks.
+¥ fix to display of line-numbers in the margin when a window is shown
+  with wrapped text.
+¥ further fixes to AlphaTcl library
+¥ cosmetic improvements
+¥ fix to 'breakIntoLines' which fixes certain wrapping problems in HTML mode.
+¥ fix to setting tabs of newly opened windows when tabSize preference is
+  anything other than 8.  Thanks to Jean-Eric Pin for the report.
+¥ upgrade to latest Tcl/Tk bug fixes in standalone executables.
+¥ updated Readme
+¥ added support for "Page Setup" and "Print" dialogs under Windows, which
+  allow much more control over printing.
+¥ extended 'Remember Windows' package to remember the mode and tab size
+  of windows for which they are manually adjusted.  This can be turned
+  off in the Remember Windows preferences page.
+¥ added ability to print current selection only (again Windows only).
+  (NB: Colour printing is not yet supported)
+¥ show/hide status bar as Alphatk is used and not.
+¥ fix to some problems with split windows and new tabsize/drag code.
+¥ some refactoring of text widget component of Alphatk to improve
+  robustness.
+¥ added .tar support to vfs code
+¥ fix to Tcl tracing code, and fixes to core Tcl.
+¥ upgrade to latest AlphaTcl (7.6)
+¥ fix to syntax colouring related to deleting comments 
+
+8.2fc6 released 	   	   last update: 12/24/2002 {12:03:54 PM}
+
+¥ smoother startup sequence, and more responsive updating of gui
+¥ slight improvements to drag'n'drop on Windows.
+¥ better handling of startup splash screen and user-interaction
+¥ small improvements to hyper text handling
+¥ drag'n'drop inside and between windows now works well with both
+  'move' and 'copy' actions (use Control key to copy). (Windows/Unix
+  only)
+¥ 'display -w' and 'select -w' no longer force a 'raise' of the window.
+  This only really impacts Diff mode, which should be improved as a
+  result.
+¥ added '-labelframe' switch to dialogs.  Used by some preferences.
+¥ better handling of bindings and the status bar, especially when the
+  status bar gets the focus
+¥ moving status bar from bottom of screen to menubar works properly
+  when the user has saved a modified menubar geometry.
+¥ better binding lists
+¥ upgrade to latest AlphaTcl.
+¥ 'bindingList' goes inside prefixChar bindings.
+¥ small fix to drag'n'drop code (Windows/Unix only)
+¥ stop focus getting lost on status bar (so keybindings work better).
+¥ better handling of the 'iconify on switch' setting, although whether
+  this works well is extremely window-manager dependent.
+¥ removed 'Enter' menu-keybindings on MacOS, since Tk doesn't currently
+  support them.
+
+8.2fc4 released 	   	   last update: 12/17/2002 {01:10:48 PM}
+
+¥ much better functionality as a standalone executable on Windows
+  (dropping of files onto the icon, etc) -- it really works well now!
+¥ various AlphaTcl fixes and improvements - upgrade to AlphaTcl 7.6b1
+¥ Tk.framework distributed with Alphatk supports icons in the menubar
+  on MacOS X 10.2 only.
+¥ support for drag'n'drop of text into and out of editing windows on 
+  Windows (and possibly also on Unix, since it uses the same tkdnd
+  library).  Currently only 'drag as copy' is available (as opposed to
+  dragging text to move/cut it).
+¥ more robustness in certain code areas.
+
+8.2fc3 released 	   	   last update: 12/05/2002 {10:25:56 AM}
+
+¥ Put preferences in $env(HOME)/Library/Preferences on Mac OS X
+  (instead of in $env(HOME)/.Alphatk-v8 as previously)
+¥ some minor fixes to operations as an executable under Windows.
+¥ update to latest AlphaTcl library
+¥ better colour scheme recognition on Windows.
+¥ several cosmetic improvements to Alphatk on Windows.
+¥ more robust handling of menu bindings
+¥ Alphatk behaves better as a starkit/standalone executable.
+¥ fix to building certain complex menus (particularly TeX mode).
+
+8.2fc2 released 	   	   last update: 11/26/2002 {04:27:27 PM}
+
+¥ various keybinding fixes, for foreign keyboards, particularly in
+  latex mode.
+¥ fix to right-click-drag scrolling of windows: colouring is now
+  updated and line-number margins are also scrolled (note: on
+  Windows/Unix this requires you to hold down shift as well) - thanks
+  for the bug report.
+¥ better handling of international keyboards which should avoid all
+  the annoying keybinding errors we see.  May still need a few tweaks,
+  but the basic problem is solved in a much more satisfactory way.
+¥ added optional arguments -w -font -fontsize -tabsize to 'setFontsTabs'
+¥ fixed handling of regexp-sensitive quote characters and syntax colouring, 
+  so you can, for example, use '$' as a quote character in latex mode, 
+  with:
+  regModeKeywords -a -s green -q \$ \$ TeX {}
+¥ updated tclAE, vfs, Memchan extensions for MacOS X.
+¥ MacOS X.  On Jaguar, the enclosed Tk.framework contains Unicode font
+  handling/rendering (thanks Benny) and a native alert dialog (thanks
+  Mats), and multiline text widget search routes (from me!). These 
+  changes will eventually propagate to the official Tk distributions.
+¥ routed bgerrors through AlphaTcl's error handling mechanisms.
+¥ changed killWindow syntax to ?-w win? to agree with Alpha 8/X.
+¥ some fixes to operations (so they have no effect) when no window is open
+¥ Alphatk on Windows now has more standard keyboard bindings,
+  particularly for cut, copy, paste, etc.  The emacs-emulation has been
+  moved to alt-x, alt-c.
+
+8.2fc1 released 	   	   last update: 11/15/2002 {11:16:42 AM}
+
+¥ approx 20% speed up in syntax colouring (and more may still be
+  possible)
+¥ fixed a number of key-binding problems with some of the newer
+  modes/menus.
+¥ fix to horizontal scrollbar overlapping last line of text in a
+  window.
+¥ added support for '-tab' argument to 'dialog', for example:
+  dialog -b OK 220 260 280 280 -tab {meeny meeny miney moe} 2 10 298 240 \
+    -w 300 -h 300 \
+    -n meeny -b "button on meeny" 20 20 200 40 \
+    -n miney -b "button on miney" 20 20 200 40 \
+    -n moe -b "button on moe" 20 20 200 40 
+  (this requires that you have Iwidgets available to Alphatk).
+¥ cleaned up some of dialogs code
+¥ further colouring cleanup and enhancement
+¥ added support for preliminary tip113 implementation to speed up
+  searching in windows (at least 5x faster than before at marking
+  large files), added '-all' flag to 'search', but will throw an
+  error on older Tcl/Tk.
+¥ double-clicking on braces/parentheses/quotes now selects the text
+  to the matching pair (or for quotes the nearest other quote).
+
+8.2b13 released 	   	   last update: 10/25/2002 {03:41:36 PM}
+
+¥ fix to rare problem in backwards searches near end of window, as
+  shown up by 'New With Content' in HTML mode.
+¥ small balloon help fix on Windows.
+¥ upgrade to latest AlphaTcl.
+¥ some support for single-quote colouring.  Example added to matlab
+  mode (regModeKeywords -a -q ' ' green MATL {})
+¥ improvements to colouring code, which should be somewhat faster now.
+¥ better hooks implementation which fixes some problems with recursive 
+  calling of hooks, particularly regarding the Open Windows menu.
+¥ MacOS X: correct keybindings in electric menu (and others).
+¥ fix to some small Tkaqua issues.
+¥ fix to rare problem with interactions between different modes tabSize
+  preferences.
+¥ small fixes for MacOS X.
+¥ core Tk fixes for MacOS X for standalone release there (dead keys,
+  key bindings in menus in particular).
+
+8.2b12 released 	   	   last update: 09/19/2002 {02:56:49 PM}
+
+¥ fix to describeBinding for keys 1,2,3 etc, under some rare circumstances.
+¥ fix to some rare keybindings in a few modes.
+¥ upgrade to latest AlphaTcl, fixing a variety of encoding problems,
+  and adding improved encoding support on a mode-dependent basis.
+¥ various version control improvements
+¥ MacOS X: some fixes to TkAqua.
+¥ better handling of hooks for AlphaTcl popups of all kinds.
+¥ updated Alphatk for new titlebar hooks.
+¥ added support for TclPro debugger, which is now included with
+  Alphatk.  This should work out of the box on Windows.  On Unix or
+  other platforms you will need to have the 'parser' package compiled
+  and available.
+¥ better handling of multiple interpreters and 'grabs' in dialogs.
+¥ fix to 'delete' with rectangular selection present.
+¥ actually include TclPro debugger code in .zip (previously only in .kit
+  or .tar.gz due to archiving problems).
+¥ better balloon help for popup menus on MacOS X.
+
+8.2b11 released 	   	   last update: 09/09/2002 {03:26:03 PM}
+
+¥ replaced uses of tcl_platform(windowingsystem) by
+  alpha::windowingsystem to accord with recent changes to Tk.
+¥ upgrade to AlphaTcl 7.6d7 (big updates to TeX, Bib modes)
+¥ various osx-specific fixes.
+¥ add tkdnd to Windows distribution.
+¥ fix to runalpha.bat, runalpha.tcl on Windows (thanks Ted)
+¥ fix to error being thrown when clicking on red-dot to save a window
+  which hasn't previously been saved (thanks Holger)
+¥ bunch of small fixes to various platforms
+¥ contextual menus and command-double-clicking work on OS X.
+¥ variety of key-binding improvements (esp for key pads)
+¥ better control over encodings popup menu, and better documentation
+  of encodings.
+¥ balloon help now works properly on MacOS X.
+¥ option-left/right and various other key-bindings now work on OS X.
+¥ removing some flickering dialogs and other problems on Linux.
+
+8.2b10 released 	   	   last update: 09/02/2002 {01:30:40 PM}
+
+¥ use 'Option' for rectangular selection on MacOS X.
+¥ upgrade to AlphaTcl 7.6d6
+¥ added 'winNames -fnocount'
+¥ can now drop files on Alphatk, etc, on MacOS X.
+¥ open file dialogs in home directory, if no window is currently open.
+¥ some fixes to launching of applications and app::isRunning on OS X.
+¥ removed empty eventHandler and specFromPathName definitions.
+¥ small fix to using cursor keys to abort a status-line search.
+¥ implement 'switchTo' for MacOS X.
+¥ added 'permissions' and 'executable' switch to the file-info popup
+¥ on unix, when saving files, permissions are retained.
+¥ entire vertical scrollbar shown on split windows on MacOSX.
+¥ better selection colouring (foreground and background) on MacOSX.
+¥ better handling of application and help menus on MacOSX.
+¥ small fix to 'describeBinding'
+¥ fix to unusual interaction between status prompts and querying of
+  current selection.
+¥ 'aspell' spellcheck support added for unix/win/macosx.
+  
+8.2b8 released 	   	   last update: 08/13/2002 {09:50:58 AM}
+
+¥ fix to http hyperlinks (and url::execute) on MacOS X.
+¥ fix to 'float'
+¥ added support for 'platform' menu in status bar.  Sets the eol of
+  the current window.
+¥ background and foreground colours are remembered and used for new
+  windows.
+¥ saveAs -f forces deletion of any pre-existing file.
+¥ smoother status bar handling of popups.
+
+8.2b7 released 	   	   last update: 08/06/2002 {02:37:33 PM}
+
+¥ autoSave only saves windows which exist on disk.
+¥ status-bar location fixes for MacOS X
+¥ key-capture fixes for MacOS X
+¥ proper nameFromAppl implementation for MacOS X (many thanks to
+  Bernard, Daniel and Jon for this and associated file type/creator
+  and launch functionality).
+¥ some fixes to Aqua-tk (tk::PlaceWindow, key-event processing) for
+  better operation on MacOS X.
+¥ fix to 'upcaseWord'
+¥ improved coreKeyPrompt and status::prompt, allowing use of
+  navigation keys.
+
+8.2b6 released 	   	   last update: 08/01/2002 {10:34:44 AM}
+
+¥ lots of MacOS X fixes, and some streamlining of application-selection
+¥ workaround for Tk slowdown-problem with scrolling
+¥ MacOS X: recompile allowing large numbers of menus.
+¥ upgrades to AlphaTcl library.
+  
+8.2b5 released 	   	   last update: 07/23/2002 {04:44:05 PM}
+
+¥ fix to startup 'splash screen infinite loop' issue on MacOS X.
+¥ allow user-configurability of window icons on Windows OS
+  (see 'Windows' prefs dialog).
+¥ added a 'wrap' popup menu in the status bar: you can now set
+  mode-dependent wrap preferences of none (no wrapping), 'wrap'
+  (automatically insert newlines as you type), 'soft-char' (visually
+  wrap long lines for display, but don't actually insert newlines in
+  the text), 'soft-word' (like soft-char, but only visually wrap at
+  word-breaks).
+¥ shortened menu name to AlphaDev (not Alpha Developer).
+¥ fix to broken contextual menu in last couple of releases.
+¥ fix to focus handling with nested dialogs.
+¥ updated getFileInfo for MacOS X.
+¥ bunch of improvements for better interoperability on OS-X, and some
+  Windows minor fixes too.
+
+8.2b2-b4 released 	   	   last update: 07/22/2002 {10:05:31 AM}
+
+¥ added special corner elements to windows on Windows OS.
+¥ changed tearoff flag value to 0 by default.
+¥ better support for international keyboards.
+¥ changed style of torn-off marks menu.
+¥ updated to AlphaTcl 7.6d5
+¥ various small fixes and improvements for Mac OS X.
+¥ more MacOS X fixes (you can now capture output from TeX runs, etc).
+¥ small fix to setFontsTabs dialog.
+¥ added support for 'tk::mac::OpenDocument' for odoc events on OS X.
+¥ more MacOS X fixes.
+
+8.2b1 released 	   	   last update: 06/11/2002 {04:42:34 PM}
+
+¥ code folding extended to Java, TeX modes, in addition to C, C++, Tcl.
+¥ fix to rare problem in 'edit' when duplicates exist, but original
+  doesn't.
+¥ cleanup of colouring code -- all colouring information is now stored
+  away in ::tw::${mode}::
+¥ pairs of hyperlinks which overlap/touch are now handled correctly.
+¥ upgraded to AlphaTcl 7.6d3
+¥ more independence for enhancedTextWidget.
+¥ further enhancements to code folding.
+¥ cleanup of syntax colouring and separation of interface.  Fixed a new
+  problem with 'saveAs' setting the mode information incorrectly for
+  colouring of a window.
+¥ fix to 'setFontTabs' dialog, and 'chooseFontTab'
+¥ lots of AlphaTcl improvements, including much better Web browsing in
+  WWW menu (can handle frames now).
+  
+8.2d2 released 	   	   last update: 05/20/2002 {10:33:43 AM}
+
+¥ printing fix (blank lines)
+¥ further improvement to 'text_cmd' and 'text_cmds' so they apply to
+  the correct windows, even when new windows are in the process of
+  being created.  This means that all the 'pos' related commands
+  will return correct values at all times (and fixes a very rare
+  infinite loop when performing batch searches).
+¥ 'oneSpace' fix which fixes problem with electric left brace.
+¥ fix bug with '#' bindings on Unix.
+¥ much, much better handling of hypertext links.
+¥ wiki mode and uploading of Wiki pages much better.
+¥ better colouring of \"
+¥ added basic 'TAGS' support.
+¥ better status bar handling when not visible.
+¥ added '-mode' option to 'edit'.
+¥ editing of TIPs now works.
+¥ Alphatk needs Tcl 8.1.1 (8.1 is not enough).  This has been true
+  for some time, but now Alphatk explicitly throws a startup error if
+  Tcl is too old.
+¥ added '-w' to lineStart, nextLineStart, posToRowCol, etc.
+¥ moved some code to new file "alpha_positions.tcl"
+¥ further pos:: improvements
+¥ added 'Memchan' to the distribution for use by vfs.
+¥ small fix to 'Menu' with multiple columns and duplicate items.
+¥ overhauled handling of encodings for greater robustness (fixes
+  at least one known bug in which the Windows menu could become
+  corrupted).
+¥ small 'rectangular selection' fix.
+¥ fix to 'bindingsList' (which fixes a problem with dialog::getAKey).
+¥ fix to possible infinite loop in fill paragraph.
+¥ exposed 'ctrl-alt-w' as 'fold' in the edit menu.  Only works in Tcl,
+  C and C++ modes at the moment.  If you have feedback on how folding 
+  should work, please send it to me (or discuss on the alphatcl-developer 
+  mailing list).
+¥ added versions of icOpen and icGetPref from Craig.
+¥ enhanced getWinInfo to agree with Alpha 8.
+¥ don't bother trying to colour extremely long lines properly.
+¥ activateHook can't be called recursively any more. Makes for saner
+  behaviour in some strange circumstances.
+¥ overhaul to AlphaTcl startup sequence, unifying some differences 
+  between Alphatk and Alpha 8/X.
+
+8.2d1 released 	   	   last update: 04/10/2002 {12:03:39 PM}
+
+¥ added support for 'the mark' -- yank, exchange point and mark etc.
+  (thanks Craig, Mark).
+¥ provided user-control over balloon help delays (see Prefs->Help).
+¥ first implementation of rectangular selection.  This work using
+  the mouse only, when holding down the 'Alt' key.  Note that the
+  procedure 'selectLimits' returns just the first and last selected
+  position.  Use 'selectSegments' to get a list of all selected
+  segments.
+¥ fix to bug on MacOS X with setting of platform key-bindings.
+¥ removed bad duplicate killLine
+¥ better handling of split windows and 'text_cmd'
+¥ much more consistent handling of Text vs AlphaStyle bindings,
+  which also means better wrapping of long lines.  Enhanced text
+  windows no longer use 'Text' bindings at all.
+¥ fix to 'otherPane'
+¥ update of text_cmds along line of 'text_cmd' change already used.
+¥ fix to problem when deleting to 'maxPos', which could show up
+  as bugs in 'comment::Line' on the last line, amongst other procedures
+  (reported by Joachim -- thanks).
+¥ balloon help more robust to strange registrations.  Also force the
+  highlightthickness to be zero.
+¥ lots of small changes which should make things run better on MacOS 
+  X.
+¥ fix to problem with update and moving of status bar on the fly.
+¥ early prefs (e.g. status bar position) now saved in a more
+  consistent fashion.  A side-effect is a temporary loss of the old
+  value of these preferences (just set them again and all will be
+  fine).
+¥ contextual menus now supported.  Right-click now mapped to
+  contextual menu and Alt-right-click is the path popup (which used
+  to be accessed with right-click).
+¥ fixed some odd line-ending issues, and the root cause of the
+  problem in supersearch.
+¥ better indentation in C, C++, Java modes.
+¥ fix to saveAs of read-only windows not properly enabling the
+  window.
+¥ suspendHook is called at appropriate times -- this should work
+  pretty well, except when native dialogs are brought up, when Tk
+  can't capture the fact that it hasn't lost the focus.
+¥ allow balloon help to be turned off completely.
+¥ various improvements primarily for MacOS X.
+¥ added 'TclAE2.0' distribution for use on MacOS X.
+¥ improved positioning of cursor after 'undo'
+¥ built in dialogs respond to alt/cmd-keypresses.
+¥ better 'select' and 'getPos'
+¥ fix bug in 'Menu' wrt submenus which use an icon (e.g. the new
+  AppleScript menu).
+
+8.1 released 	   	   	   last update: 02/11/2002 {10:14:28 AM}
+
+¥ removed stdout messages during startup
+¥ added better Unix installation instructions
+¥ fix to bad split window problem just introduced.
+¥ exposed automatic wrapping to AlphaTcl, and improved it (this is
+  now in the proc 'characterInsertedHook').
+¥ added check for another copy of Alphatk running (on Windows anyway)
+  and an alert to the user. 
+¥ row/col updated when switching windows.
+¥ fix to 'replaceText' to agree with Alpha
+¥ correct positioning after 'characterInsertedHook'.
+¥ split window and getWinInfo 'split' fix
+¥ tk divert hooks work with split windows
+¥ various minor fixes, updated to AlphaTcl 7.5 (final)
+¥ fixes to a variety of seldom-used editing functions (thanks Craig)
+¥ fix to dimmed menu items with shortcuts
+¥ fixed 'other pane' functionality.
+
+8.1fc1 - released	   	   	   last update: 01/16/2002 {4:07:56 PM}
+
+¥ fix to minor problem with backwards matching of quotes
+¥ better updating of row/col indicator in status bar.
+¥ updated to AlphaTcl 7.5fc2
+¥ small fix to mismatched quote error messages.
+¥ click on the 'row column' indicator to use 'goto line' dialog
+¥ next/prevLine have better behaviour with selection.
+¥ further separation between core alphatk and the enhanced text widget
+¥ various dialogs etc improved by Craig.
+¥ better handling of when status indicators are visible.
+¥ small fixes to popups and some more cleanup.  Also fix dup window
+  bug introduced a few days ago.
+¥ fix to problem with windows with empty mode.
+¥ 'getChar' improvement
+
+8.1b3 - released 	   	   	   last update: 11/22/2001 {13:45:50 PM}
+
+¥ some fixes with vfs and filesets.
+¥ 'rememberWindows' package only remembers info for file windows,
+  and also ignores trailing <2> etc for duplicates.
+¥ now colour portions of windows revealed due to resizing.
+¥ better colouring when deleting large blocks of text.
+¥ refactored colouring code so it is more robust, easier to understand
+  and copes better with multi-line comments.
+¥ optimised some of the colouring code so it's at least 10% faster.
+¥ much better, cleaner implementation of matchIt and various searching
+  routines for balanced braces etc.
+¥ 'undo' returns cursor to correct position (off by 1 in recent releases)
+¥ overhaul of window splitting.  No more functionality right now, but
+  much easier to extend in the future.
+¥ somewhat better drag and drop.
+¥ fix to minor bug in initial brace finding for 'balance'
+¥ fix to broken electrics stuff due to 'mark names' not working.
+¥ minor fix to 'undo' positioning.
+¥ better drag'n'drop onto the status bar.
+¥ updated to AlphaTcl 7.5fc1
+¥ fix to certain <cr> at bottom of screen not scrolling the window.
+¥ fix to 'search' messing with old \w strings.
+¥ removed 'trace' button from status bar, since we have the alpha dev 
+  menu.
+¥ added ability to access tkcon from Alphatk.
+
+8.1b2 - released 	   	   	   last update: 11/02/2001 {15:37:15 PM}
+
+¥ updates to AlphaTcl library (7.5b3 now).
+¥ better handling of mode-specific vs global bindings, particularly
+  for mode-menus which are made global and would previously perhaps
+  not have correct bindings because they were setup too early.
+¥ improved balloon help to deal with nested subwindows properly.
+¥ uninstall is more thorough.
+¥ fixes to regModeKeywords and colouring for more flexibility
+¥ fix to setRGB
+¥ much better handling of recolouring when triggered by, e.g., the
+  Tcl mode prefs dialog.
+¥ colours are now completely defined in AlphaTcl.
+¥ further colouring improvements (thanks Craig).  Colouring should now
+  be both more accurate and faster.
+¥ menus created with '-c' don't strip any ellipsis when passing the
+  selected item name to the menu proc.
+
+8.1b1 - released 	   	   	   last update: 10/23/2001 {14:30:58 PM}
+
+¥ first beta release of Alphatk 8.1
+¥ colouring improvements to split windows.
+¥ updated to AlphaTcl 7.5b2.  Numerous small improvements.
+¥ fix to insertText so 'insertText -w' isn't wrongly interpreted.
+¥ 'undo/redo' move the cursor and ensure the changed region is
+  displayed.
+¥ some improvements from Craig (thanks!)
+¥ fix for mode bindings vs more-specific global bindings difference to
+  Alpha.
+¥ fix to problem in regModeKeyords when a mark contains spaces, and to
+  ensure proper recolouring of the window.
+¥ some improvements to dialog, listpick dealing with selection and
+  key-bindings.  You can now use 'return/tab/shift-tab' as expected
+  in a dialog.  If you want literal return/tab to be entered, then
+  add the 'control' key.
+¥ added alt-x/c/v bindings in dialogs.
+¥ vcs, marks, funcs menus are now both built and controlled entirely 
+  from AlphaTcl.
+¥ use hooks for mode menu so it is controlled from AlphaTcl.
+¥ dimmed menu item creation fix (bug#360)
+¥ most encoding menu support moved to AlphaTcl.
+¥ Alphatk should startup ok even if stdout/stderr don't exist.
+¥ alpha_procs.tcl no longer necessary.
+¥ moved more encoding stuff to AlphaTcl.
+
+8.1d2 - released 	   	   	   last update: 10/08/2001 {15:54:12 PM}
+
+¥ main features of Alphatk 8.1 are now at least partly implemented.
+  Will now focus on getting those features complete.  These include:
+  line numbers in windows, keyboard macros, drag'n'drop support 
+  (using the tkdnd extension) in dialogs, better encoding support.
+¥ improved text::color
+¥ the newly updated WWW menu provides excellent 'lynx-like' web
+  browsing within Alphatk (thanks Craig!).
+¥ fix to v. rare colouring problem which could particularly occur in
+  latex mode.
+¥ colouring will work more effectively for non-frontmost windows.
+¥ improved storage of hypers in window so they are correctly
+  cleaned up (also required change to getColors)
+¥ fix to v. rare menu problem for any menu entry which was purely
+  numeric (fixes problem in www menu for certain page titles).
+¥ fix for some subtleties around colouring and hiliteWord and
+  backwardWord
+¥ fix to startup lock on some wm's on unix (thanks Daniel)
+¥ more robust fix to menu index issue.  Should resolve a few minor
+  menu glitches in Alphatk
+¥ all new windows now have an encoding, at the least the system
+  encoding.
+¥ alphatk can now operate under a general encoding.  The distribution
+  will soon shift away from a macRoman encoding.
+¥ better balloon help on MacOS (thanks Daniel)
+¥ reversed encoding decision.  New windows now do not have an
+  encoding.  This means their encoding will only be set when they
+  are saved.  This is a much more reasonable approach.
+¥ 'revert' is much better now; it doesn't try to recolour the
+  entire buffer any more.
+¥ page back/forward obey 'move insertion' pref (thanks Craig)
+¥ more robust startup, updated to AlphaTcl 7.5a4
+¥ much better focus handling when dialogs and status bar interaction
+  are over.
+¥ you can set the useFtpEolType preference to change eol types when
+  uploading files.
+¥ added support for '-compound' option in menus and therefore
+  images/icons in menus as used in AlphaTcl (assuming very recent
+  version of Tk).
+¥ better page up/down implementation in listboxes.
+¥ 'saveAs' behaves better when saving files across locations which
+  have different default encodings.
+¥ modified url::execute on Windows so it works with urls containing
+  ampersands.
+¥ added 'sourceforge' menu for interacting with sourceforge.
+¥ better behaviour of 'select' with very large ranges (won't scroll
+  the window if both ends of range are offscreen).
+¥ better workaround for win dnd problem.
+¥ better colouring of split windows.
+
+8.1d1 - released 	   	   	   last update: 09/14/2001 {11:07:24 AM}
+
+¥ updates to AlphaTcl library 
+¥ beginnings of support for keyboard macros (only a handful of
+  commands are recorded at present, however).
+¥ to make way for improvements in the editing window, split
+  that code into two pieces, and made better separation between
+  'generic editing code' and alphatk specific code.
+¥ 'select' tries to ensure the entire selection is visible.  This
+  means multi-line browse windows work much better, but could potentially
+  have some negative side-effects.
+¥ greater sharing of standard AlphaTcl key bindings.
+¥ killWindow now does an 'update' if it needs to bring another window
+  to the front, which fixes a rare problem with switching, killing and
+  saveAs'ing windows.
+¥ Alt F11 (or Windows menu) now toggles a new margin display of line
+  numbers.  In the future this margin may be used interactively
+  (e.g. to set breakpoints, etc).
+¥ better display of line/column information in status bar.
+¥ partial implementation of icGetPref on windows.
+¥ better colouring of last line in window
+¥ bit of a directory reorganisation
+¥ updates to tkdiffControl, etc, and removed tkdiff.exe, since
+  the standalone script works fine.
+¥ using Tcl 8.4a3 and the vfs package, Alphatk can now start up from
+  a .zip archive of all the AlphaTcl libraries.
+¥ lots of AlphaTcl changes, many to improve Alphatk.
+¥ fixed case insensitivity issue so startup is improved from a vfs.
+¥ on MacTk, with Tk 8.4a3 we need to update our use of unsupported1
+¥ macros improvements
+¥ when a window changes mode we update bindtags list.
+¥ fix to statusConfigure broken in recent release.
+¥ better floating menu handling
+¥ reversed the 'open a duplicate/go to existing' dialog.
+¥ better menu column wrapping in 'Menu'
+¥ ftp package now distributed with Alphatk.
+¥ fixed rare bug in 'prompt' (thanks)
+¥ dialog offsets can be positive.
+¥ better drag'n'drop (using tkdnd) and significant AlphaTcl
+  improvements.
+¥ dialog command more robust.
+¥ work around dnd bugs in multi-page dialogs.
+¥ reversed priority of Alpha vs AlphaStyle bindings.  Fixes one
+  common problem, but must check whether it introduces others.
+¥ note that various ctrl-z/x/c etc bindings have gone in this 
+  release.  alt-z/x/c are the defaults on that front.
+¥ better handling of encodings, especially wrt installers etc.
+¥ re-enabled ctrl-z/x/c/v for standard operations on Windows.
+  (although note that Alphatk supports alt-z/x/c/v as an alternative
+  which does not conflict with emacs-emulation).
+¥ better interaction with MikTeX.  Use:
+    C:\Apps\Alphatk\runalpha.bat "%f" -line %l
+  as your YAP command line, and set the additional tex flags to
+  '--src' for this to work.  You may also need to edit the
+  runalpha.bat file.
+¥ slightly better dnd workaround in dialogs code.
+¥ fixed bug in dialogs with password entry side-effects
+
+8.0 - released 	   	   	   last update: 05/16/2001 {17:01:02 PM}
+
+¥ added preliminary support to dialogs for dropping items onto 
+  relevant fields (e.g. drop a file onto a search path, etc.)
+¥ fix to rare saveAs bug with duplicate window names.
+¥ updated AlphaTcl to 7.5d14, which fixes a variety of problems
+  specific to Alphatk.
+¥ fix to very obscure bug in 'deleteText'
+¥ toned down the 'green' colour, which was rather bright.
+¥ updated vfsFileset to handle latest vfs implementation
+¥ made Alphatk robust to 'file attributes -longname' not functioning
+  on Windows (required for good vfs support).
+
+8.0fc4 - released 	   	   	   last update: 04/27/2001 {12:12:35 PM}
+
+¥ float and unfloat are implemented. (try shift-alt-F)
+¥ fix to Menu when it contains an item called Menu which isn't
+  actually a sub menu.
+¥ getfile takes the new -types flag.
+¥ added '-l' flag to dialog for list items.
+¥ updated AlphaTcl to 7.5d11
+
+8.0fc3 - released	   	   	   last update: 04/11/2001 {15:51:01 PM}
+
+¥ cut and copy when selected in the Edit menu now work (thanks for the
+  bug report!).
+¥ also made 'paste' independent of Tk's core tcl routines.
+¥ improved application dialogs again, up to AlphaTcl7.5d6
+¥ fix to rare problem in 'saveAs'
+¥ implemented 'other pane'
+¥ getGeometry, sizeWin, moveWin can now take window short names.
+¥ console named more usefully, various AlphaTcl fixes.
+¥ windows menu and submenus are more useful.
+¥ 'edit' actions external to Alphatk have their encodings checked, 
+  which should now allow files with non-ascii character-names to be sent to
+  Alphatk.
+¥ AlphaTcl up to 7.5d8, including all fixes from 7.4.2
+¥ HTML, CSS modes and documentation up to version 3.1
+¥ quit works better if extremely early in startup process.
+¥ long menus should wrap better.
+
+8.0fc2 - released 	   	   	   last update: 03/28/2001 {09:39:43 AM}
+
+¥ better application selection dialog
+¥ now up to AlphaTcl 7.5d4; various fixes over 7.4.1.
+¥ fix of rare infinite loop in HTML mode.
+¥ fix for 'describe binding' with shift vs non-shift keys
+  (e.g. '>' in html mode).
+¥ small improvement to 'prompt' dialogs.
+¥ implemented wrapText.
+
+8.0fc1 - released 	   	   	   last update: 03/20/2001 {20:19:26 PM}
+
+¥ added unicode and encodings help file.
+¥ simplified some dialogs code, beginnings of support for tabbed
+  dialogs.
+¥ slightly better dnd support (dragging a file onto the status bar or
+  menu bar should work on windows and unix).  Note that most of the
+  menu bar is a native-menu on windows, and therefore won't accept
+  these kinds of drags.  All of this requires 'tkdnd'.
+¥ AlphaTcl up to 7.4.1 (final release).
+¥ beginnings of support for a control-bar in the left margin
+  (allowing things like line-numbers, debugger breakpoints etc. to
+  be displayed).
+¥ added row/col display to status bar
+¥ ordinary clicking in the red 'modified' status indicator saves the
+  window (as well as ctrl-clicking which worked before).
+¥ better implementation of the popup mode/encoding menus and the
+  position indicator
+
+8.0b3 - released 	   	   	   last update: 01/29/2001 {18:59:37 PM}
+
+¥ usual host of AlphaTcl improvements (now at 7.4fc5 release of that
+  library).
+¥ better browser support on unix.
+¥ more meta keys removed from menus on Windows.
+¥ fix small bug in markMenuItem
+¥ printing on Windows works for windows which have not been saved.
+¥ can now save position, size of menubar, and resizing of menubar
+  should work on Windows and Unix.
+¥ added some support for 'tkdnd' extension and dropping of files onto
+  the menubar or status window to open them, but it doesn't work yet.
+¥ small fix to getfile
+¥ added proper support for Unicode files.  We can now automatically
+  recognise, read in and understand unicode files, in both big- and
+  little-Endian formats.  Saving is less well tested, but appears to
+  work.
+
+8.0b2 - released 	   	   	   last update: 11/28/2000 {12:14:36 PM}
+
+¥ right-click in text page menu works correctly for files being edited
+  remotely (via the ftp menu).
+¥ addition of python mode, with modifications to work in Alphatk.
+¥ fix for 'edit -c -w' (rare case)
+¥ added some support for making Alphatk into a scripted document
+  (as in TclKit)
+¥ the tmp-file safe saving works around potential issues of the old
+  file still existing
+¥ added vfsFileset.tcl which allows Alphatk to mount any virtual file
+  system supported by the 'vfs' package and edit files with it (of
+  course you also need the 'vfs' package).
+¥ saving handles weird situations like a directory with the same name
+  as the file trying to be saved, and properly aborts attempted saves
+  which fail for any reason (previously the user would receive a msg
+  that the file hadn't been saved, but the 'dirty' flag would be
+  cleared, etc).
+¥ better colouring (the rememberWindows package showed up
+  a small bug in window colouring).
+¥ made default position of status bar under menus -- it's more obvious
+  and useful for the newcomer to Alphatk.
+¥ better handling of mailto urls.
+¥ better watchCursor implementation.
+¥ moved default pwd up one level so we're not inside Alphatk
+¥ updated for latest 8.4 wm iconbitmap patch syntax on Windows.
+¥ can now create program manager groups on startup on windows.
+¥ added some dde commands so things like file::showInFinder work
+  on Windows.
+¥ better mailto support on Unix.
+¥ if you have Tkhtml package installed, you can activate the
+  tkhtmlViewer package to view .html files in that package from
+  within Alphatk.
+¥ added some support for embedding Alphatk's windows wherever we
+  want.
+¥ better colouring with multi-line comments.
+¥ small fix to undo/redo code in case of inserting nothing.
+
+8.0b1 - released 	   	   	   last update: 10/27/2000 {15:15:02 PM}
+
+¥ marks menu handles separators better
+¥ added support for patched Tk 8.4 with 'winico' support in core WinTk
+¥ dde/exec opening of files under Windows is more sophisticated.
+¥ some menu separators failed to be separators, now fixed
+¥ beginnings of conversion of eudoraMenu into general purpose mailMenu
+¥ minor changes for first beta release.
+
+8.0d4 - released 	   	   	   last update: 10/19/2000 {12:57:34 PM}
+
+¥ fix for '\n' bug in Bind -- now an error is thrown for bad input.
+¥ 'keyCode', 'keyAscii' mostly implemented.
+¥ better colouring with large delete/undo operations.
+¥ cosmetic fix to menus (combination of /<! special chars in, e.g.,
+  latex menus)
+¥ fix to keysym translation problem on unix in latex menu.
+¥ better support for status-window embedded in menubar.
+¥ changes to startup process, allowing for status-window embedding
+  in menubar.  See Preferences->Window to adjust that.
+¥ fix to saveAs to ignore illegal characters in file names
+  (works around buglet in Tk)
+¥ made pixel offset of status bar an early preference, so it doesn't
+  jump on startup.
+¥ balloon help for status window.
+¥ slightly simpler startup process for status window.
+¥ fix for IMPORTANT colouring in help files.
+¥ licensing fix.
+
+8.0d3 - released 	   	   	   last update: 10/04/2000 {18:57:10 PM}
+
+¥ beginning of support for placing the status bar under the menu bar.
+¥ better positioning and sizing of balloon help windows.
+¥ multi-line edit widgets now look the same as normal entry widgets.
+¥ Added 'remember windows' package which, if you activate it, will
+  allow Alphatk to remember position, selection etc of windows even
+  after they are closed.
+¥ better support for 640x480 screens.  Fixed multi-column bug in helpMenu 
+  and occasionally other menus which could crop up on small screens.
+  The splash screen is still a little too large for such screens, but
+  that is only a minor cosmetic problem.
+¥ 'revert' now re-colours window properly afterwards.
+¥ workaround for problem with Gnome on Linux at startup.
+¥ don't leave last visible line uncoloured
+¥ fix problem with focus being lost, at least under Windows, when 
+  using the status bar and moving to another application and then
+  back to Alphatk.
+¥ added 'update' to alertnote so the alert disappears before Alphatk
+  proceeds with subsequent actions.
+¥ killing a dialog window is now equivalent to 'Cancel', if the dialog
+  contains a cancel button.
+¥ fixed problem that moving directly from one hypertext label to another 
+  would fail to update the message in the status bar.
+¥ popup encoding and mode menu are removed when all windows are
+  closed.
+¥ status prompt fixes in some cases.
+¥ fix for convertChars problem in file marking
+¥ improved robustness of marks/file/funcs menus
+
+8.0d2 - released 	   	   	   last update: 09/07/2000 {23:32:37 PM}
+
+¥ since Alphatk is now pretty stable, I upped the major version number
+  to make progress on more significant changes.  Alphatk 7.3 is by and
+  large a superset of the MacOS Alpha 7.3/7.4 (a superset in the sense
+  that it does everything 7.3/7.4 do, and adds a lot of what is in the
+  unreleased Alpha8.0).
+¥ old preferences should be copied over when you upgrade.
+¥ moved from FTP to ftp package (in tcllib)
+¥ status window is now higher by default, can be moved in 'Windows'
+  preferences dialog.  (e.g. if you have your windoze-taskbar
+  auto-hiding like me, you'll want to adjust that 'Pixel offset from
+  bottom of window' preference to 0 to restore the old behaviour).
+¥ after undo makes a window unmodified, redo will still work.
+¥ minor updates to various Readme/Installation files.
+¥ mark-stack works better
+¥ mtime problem fixed (now timezone independent).
+¥ support for encodings of windows - you may use the popup encoding
+  menu to change a file's encoding on the fly.  Files are
+  automatically saved in their current encoding.  There is currently
+  no facility to remember a file's encoding between edits.  This will
+  be added soon.
+¥ avoid long startup-pause when loading gdi/printer extensions on
+  Windows and no printer/network is currently available.
+¥ alpha::inAlphaHierarchy fixed for case-insensitive windows weirdness
+  (use file attributes -longname to get a file's real name)
+¥ right-click in a text window is equivalent to Alpha's
+  window-title-click, bringing up a popup menu of the window's path
+  (Tk is amazing: this only required 12 lines of code!)
+¥ numerous small changes for better robustness on Windoze when
+  directory names have their case changed without any other
+  alterations.
+¥ can set a file's encoding via (encoding:enc-name) in the first line
+¥ reasonable testing on Linux, so it should run much better under
+  that OS now (many annoying/cosmetic problems have been fixed).
+
+7.3 - released 	   	   	   last update: 08/08/2000 {14:39:08 PM}
+
+¥ -f flag to status::prompt/statusPrompt properly implemented.
+¥ better status::prompt; code is cleaner now
+¥ on MacOS, source -rsrc will work still.
+¥ using popup to change mode changes Alphatk's mode bindings too.
+¥ updated HTML mode
+¥ fixed multisearch bug which sometimes arose in TeX mode.
+¥ much better help file marking and hyperlinking.
+¥ better command/alt-double-click support.
+¥ updated HTML mode (again -- thanks Johan).
+¥ better browser invoking on MacOS and Windows.
+¥ hundreds of improvements to AlphaTcl library.
+¥ comment characters which are regexp senstitive are quoted.
+¥ set alphatk icon for dialogs/listpicks (e.g. WinTk 8.4 now
+  has full size titlebars even for transient windows).
+
+7.3b18 - released 	   	   	   last update: 06/05/2000 {10:33:57 AM}
+
+¥ The status window hides/appears in sync with the menubar.
+¥ version control popup better.  Partial implementation for cvs and
+  perforce so far.  Comments, suggestions, code much appreciated.
+¥ minor fix to moveWin to cope with Tk peculiarity.
+¥ diff mode working again.
+¥ auto-loading of images in 'Images' directory.
+¥ status-window prompting has better handling of modifier keys.
+¥ 'revert' handles duplicate window marks <2> etc.
+¥ better handling of colouring of multi-line quoted text.
+¥ auto marking/colouring of help files.
+¥ better killLine, insertToTop
+¥ fix to disabled status of vc popup commands
+¥ better balloon help (won't ever be off right edge of screen).
+¥ better version of 'display', in accord with insertToTop
+¥ associate type with Alphatk works better on Windows.
+¥ lines half off bottom of window are coloured now
+¥ some dialog improvements (disabled items in popup menus)
+¥ implemented dummy removeColorEscapes
+¥ updated HTML, CSS modes (many thanks Johan)
+¥ added -f to statusPrompt (although ignored).
+¥ better keymap support
+¥ tab usable in status::prompt now (bad interaction with focusNext
+  previously!)
+¥ fix to encoding issues on some linux systems (this may require you
+  to go to your PREFS directory and manually delete the old cache/
+  filesetMenuCache, _snippet_ etc).
+¥ button size on mac/unix with default ring should look ok now.
+¥ fixed problem with unsaved-changes -> cancel (was removing all 
+  bindings from window too early).
+
+7.3b17 - released
+
+¥ Syntax colouring finally handles multi-line comments /*....*/ etc.
+  On average I think this addition increases the speed of syntax
+  colouring, plus Java, C++ finally look great!
+¥ Slightly better implementation of regModeKeywords
+¥ Keyboard matching in some dialogs (popup menus, listboxes), so you
+  can type an entry and have it selected on the fly (no need to use
+  the mouse)
+¥ basic use of 'status::prompt' works again (it was inadvertently
+  broken by the more advanced use in 7.3b15).
+¥ Syntax colouring of multi-line quotes, and better colouring of
+  quotes and multi-line comments while the user is typing them in.
+¥ I now have an automated upload script, so releases take less of
+  my time.
+
+7.3b16 - released
+
+¥ added 'viewable/transient' code to dialog/listpick so we can't ever
+  hang the application under some window managers.
+¥ minor fix to 'Menu' for items deduced to be checkbuttons because
+  of their attached flag.
+¥ fix to possible startup menu-bar placement problem under some
+  versions of WinTk.
+¥ we now use core tclIndex files and formats, and hence do not need
+  our own 'unknown'.  We do need to override auto_mkindex/auto_reset
+¥ better handling of winico package to work around Tk problems on 
+  windows (e.g. wm resizable . 0 0 will reset the icon!).
+¥ better handling of syntax-colouring-changes on the fly.
+¥ addition of version control popup to each window.  Doesn't actually
+  integrate with version control yet...  Added balloon help to various
+  popups.
+¥ errors are shown in red in the status bar now.
+  
+7.3b15 - released
+
+¥ better user interaction in the status bar -- in particular
+  interactive searches (ctrl-s/r) are much better.
+¥ better regModeKeywords so we support new tcl/setext modes, and
+  can update on the fly.  Also '-m' better supported.
+¥ startup changes so menubar appears earlier, avoiding apparent
+  hang when a dialog posting is attempted.
+¥ size of '.' window computed via different method, to avoid issues
+  with its height being set incorrectly (is menubar part of height
+  or not? This varies by platform/window manager).
+
+7.3b14 - released
+
+¥ better dialogs on MacOS
+¥ ftpMenu works properly on windows now.  You can use it (or 'Open
+  Remote..') to edit files within Alphatk which actually reside on
+  a remote ftp site.  They are automatically down/uploaded as 
+  appropriate, when you open/save them.
+¥ preliminary support for collapsed functions: ctrl-alt/cmd-w will
+  collapse/expand a procedure in Tcl mode.
+¥ the HOME variable is always set to correct, case-dependent value
+  on Windows (other platforms should be ok anyway).
+¥ problems with 'focus' with Tk8.3 and Windows fixed. It seems the
+  behaviour of 'raise' has changed.  For example 
+    'raise .w ; focus .w.text'
+  will NOT necessarily set the focus to .w.text.  We now need to separate 
+  those two commands with 'update idletasks'.  However things aren't quite
+  as simple as that, since a test case seems to work in 8.3, yet
+  Alphatk definitely requires the 'update'...
+¥ added package require Tk to startup files
+
+7.3b13 - released
+
+¥ Better handling of '{}' funcs menu, to avoid strange glitch in which
+¥ fix for supersearch basicBatchSearch for Alphatk
+¥ Somewhat better colour/size handling to follow defaults in system
+  when it starts up.  Tk doesn't have any events to tell us when the
+  system-wide colour scheme changes, so we can't handle that...
+
+7.3b12 - released
+
+¥ Better handling of '{}' funcs menu, to avoid strange glitch in which
+  Alphatk thinks the menu has been created, but it somehow hasn't, and
+  therefore nothing is posted.
+¥ 'Evaluate' handled as in Alpha, so we can now create procs in any
+  namespace by 'load enclosing proc' - (alt-ctrl-l on windows).
+¥ Fancy new about box and startup splash screen.  Many thanks to 
+  flip phillips (one of the Alpha 8 Cabal working on the original Alpha
+  on MacOS) for the graphic design.
+¥ supersearch package forced to be on (since it's the only way we
+  provide search capability in alphatk).
+¥ Enter replace string is now keyboard accessible on windows as 
+  ctrl-alt-e.
+
+7.3b11 - released
+
+Allow save to pretend to be 'save as' when the window as never been
+saved before.
+Message when files are saved...
+Replacement version of 'tkTextInsert' which doesn't use 'catch'
+'balance' (cmd/alt-b) completely implemented now.
+The 'funcs' menu {} in C/C++ modes now works nicely (there was a
+regexp difference between Alpha 7.x and Tcl 8.x).  The marks menu
+still doesn't quite work for these modes.
+
+7.3b10 - released
+
+WWW menu actually works properly now.  You can browse simple web pages
+from within Alphatk.  Of course since www menu was created for Alpha,
+it provides only limited web page display capabilities.  Using one of
+the existing html-widgets for Tk would be much better.
+Delimiter matching now checks for unmatched delimiters in all cases,
+and throws an appropriate error (should avoid all possible infinite
+loops).
+Better handling of windows created with strange names (including 
+directory delimiters etc.).
+Added few more keysyms to those known from MacOS and converted to Tk.
+
+7.3b9 - released
+
+AlphaTcl improvements as ever
+Workaround for windoze titlebar fonts not containing ellipsis
+Implemented autoSave/changesLim.
+Fix to silly problem with submenus whose name contains '.'
+Better error reporting when trying to use commands which require
+an open window when there isn't an open window.
+More robust handling of original icon names for toplevel menus
+to avoid possible name clashes with internal submenus.  Avoids
+potential infinite loops.
+Better beginningOfLine, endOfLine, beginningOfBuffer, endOfBuffer.
+Alpha can occasionally get into very long (and perhaps infinite?)
+loops searching for matching braces/parentheses etc.  You should
+now be able to stop these with Alt-. (Mod1-.).  Actually it doesn't
+quite work, because these loops never let the event loop in...
+Diff mode handles win pathnames and window movement a little better.
+The core .tcl and Help files (which are stored in macRoman encoding),
+are now transparently converted to/from that encoding when editing
+them using Alphatk.  (They always were decoded when using 'source').
+This will form the beginning of encoding support for arbitrary files,
+so you can edit any encoding from within Alphatk.
+Better compatibility with Alpha w.r.t. 'goto' and stuff like that.
+The electric templates stuff should now work very well (before it 
+worked ok-ish, with various "quirks").
+Cmd-keys now match in dialogs: the first button or checkbutton which
+begins with the key pressed is activated (e.g. Alt-S matches the first 
+button starting with 'S' on windows).
+www menu almost working in Alphatk
+
+7.3b8 - released
+
+I noticed a problem with preferences saving -- it could be possible
+for preferences to be saved in two forms, both with and without the
+leading '::'.  This could only occur for array element preferences
+(e.g. your Current Project if document projects package is on).
+To fix this, open your 'arrdefs.tcl' preferences file, and globally
+replace '(::' by '('.  The problem should not reoccur.  Alternatively,
+simply remove the entire file if you don't mind losing the saved
+items.
+Improvements to multisearch code (e.g. quick find backwards works).
+Better windows-specific file opening code.
+Added command in fileUtils menu to associate a given file type with
+Alpha (so you can double click on files to open them).  This only
+works on Windows right now.  The menu command will associate the
+extension of the currently open window with Alphatk.
+
+7.3b7 - released
+
+Exit is ultimately via 'destroy .' not 'exit'.  This works around
+a bug in MacTk (it seems), and is perhaps a better way to go all
+round.
+New options to 'dialog' command to avoid destruction/recreation
+of the entire dialog for each 'Set...' button pressed.  Works
+for most items now (all except 'SearchPath' prefs, I believe).
+'dialog' is also now re-entrant, which makes such hierarchical
+dialogs more useful.
+Fixed confusion between nativename/not of files after 'saveAs'.
+Made listpick dialog scroll to display the selected item.
+Windows whose associated files have been modified behind Alphatk's
+back now receive a green icon in the top right.
+saveAs now defaults to directory of second from top window if top
+window hasn't ever been saved.
+Learnt some focus/dialog/parent interaction from comp.lang.tcl,
+so fixed various dialogs so they have proper parents, and avoids
+problems with focus always going to '.'
+
+7.3b6 - released
+
+Better multiline searching, including better handling of patterns
+which can match the empty string, even if only in certain locations
+(e.g. ^...*$ which can match empty lines of text only).
+
+Further fixes to searching, and colouring: now always uses singleline
+searching which means it's fast even if the multiline feature is 
+turned on.
+
+7.3b5 - released
+
+Colouring is now much improved (the process has gone through several
+iterations in the last few days), so that it's about fast enough to
+turn on (on my machine, anyway), and is more accurate than before. 
+Text is now coloured when inserted/deleted/undone/scrolled/...  If 
+you notice a problem, please report a bug!
+Colouring is now on by default.  
+'Default' button in dialogs now has -default active in most
+cases.  
+Some minor tweaks to look and work better on MacOS.
+Removed some old code for Tcl8.0 hackery.
+Some fixes to code which broke with the mutliline search routines
+on. There are probably more problems here.  
+
+7.3b4 - released.
+
+Various improvements to interaction with FTP, browsers etc.
+HTML mode works better.
+Update to AlphaTcl 7.3
+
+7.3b3 - released.
+
+goto fix for problem introduced in b2
+newer metafont mode
+keypad bindings now possible
+quit now no longer asks for each window whether to save or not
+newer HTML mode, which should work better.
+better balloon help code
+Update to AlphaTcl 7.2.3
+
+7.3b2 - released.
+
+More AlphaTcl changes.
+displayMode fix
+Fix for strange popup page-names in dialogs
+Fixes to Bind, colorTriple, dialog
+Radiobutton-type menu items work as expected (e.g. Fileset->Utils->Choose)
+Better 'word match' searching (i.e. actually works now)
+All text windows now closed on exit before calling quitHook, so any last minute
+recent files etc are properly updated.  This also works around a bug
+in Tk.
+Note new 'useMultilineSearchRoutines' flag in the Windows preferences 
+dialog.  For the moment this is off by default, until a final,
+quick-as-possible solution is found.  HTML mode, amongst others,
+requires it.
+
+7.3b1 - released.
+
+Working HTML mode (thanks to Johan)
+More AlphaTcl changes.
+Radiobutton support in dialogs
+
+7.3a8 - released.
+
+Many AlphaTcl changes (see "Changes" file).
+Better handling of split windows.
+Startup fix for unusual alphatk installations (file readlink...)
+Bunch of simplifications in internal code.
+Fixed for tcl8.2.1 balloon help on Windows (behaviour changed
+slightly so update idletasks is needed)
+'revert' fixed for windows paths, so multi file batch replacements
+will automatically update open windows.  Also revertHook fix.
+Colouring is by default off (for reasons of speed).
+
+7.3a7 - released.
+
+Many AlphaTcl changes (see "Changes" file).
+Fixes when pasting into read-only window.
+Better handling of windows native paths etc in compilation and other
+communication with external applications.
+Unicode handling much improved.  Alphatk now requires Tcl/Tk 8.1 or
+newer.  
+
+7.3a6 - released.
+
+Better handling of native and non-native paths on Windows.
+Much better forward/backward word functionality (using Mode-dependent
+definitions of words as in Alpha on MacOS).  Syntax colouring of
+windows now works pretty perfectly, apart from the speed.
+Better window splitting (including via mouse), and more robust
+cleanup of Window information after manual destruction (destroy rather
+than using Alphatk's menus or gui).  killWindow now only ever called
+once per window.  Flag showFullPathsInWindowTitles now available
+in Window prefs dialog.  Use native colours more effectively now.
+Much better double-click word selection in window.  Better support
+for password dialogs.
+
+7.3a5 - released.
+
+Some fixes for Unix.  Focus changes seem to have caused some
+minor problems on windows in Tk 8.2.0 which I've fixed. 
+regModeKeywords works with -a and other colours too.
+spacesToTabs and vice-versa implemented.
+Other minor fixes.
+
+7.3a4 - released.
+
+Minimisation/maximisation of menubar does same to all other windows.
+Various minor fixes.
+
+7.3a3 - released.
+
+Startup of runalpha.tcl with relative path name of file to edit now
+works.
+
+7.3a2 - released.
+
+Many minor bugfixes.
+
+7.3a1 - first public release

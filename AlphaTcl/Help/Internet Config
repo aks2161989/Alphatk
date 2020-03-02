@@ -1,0 +1,568 @@
+
+Internet Config Help
+
+                                               version: 1.1
+                                               created: 12/27/1995 {11:56:24 am}
+                                           last update: 11/26/2003 {06:46:32 PM}
+
+
+This help files describes the "Internet Config Menu", and also includes
+documentation (however outdated) for the IC application/control panel.
+
+
+	  	Table Of Contents
+
+
+"# Introduction"
+"# Activating the Internet Config menu"
+"#   URLs submenu"
+"#   Main Internet Config menu"
+
+"# Internet Config User Documentation"
+"#   Introduction "
+"# Getting Started"
+"#   System Requirements"
+"#   Quick Start"
+"# Parts of the System"
+"# Internet Configuration Application Reference"
+"# Menus"
+"# Windows"
+"# Credits"
+"# Release Notes"
+"# License and Disclaimer"
+
+<<floatNamedMarks>>
+
+
+	  	Introduction
+
+
+Internet Config is a freeware utility that holds system-wide Internet
+preferences, especially preferences that might be accessed by more than one
+application.  For example, Internet Config stores pointers to helpers for web
+services, ftp, etc.
+
+Alpha supports Internet Config in the following ways:
+
+¥ Command-clicking on any text causes Alpha to try find a URL anywhere near
+  where you click.  If Alpha finds one it sends it to Internet Config which
+  passes it to the right helper application.  Unfortunately, this feature is
+  rather buggy.  Whenever there is a colon nearby where you click Alpha
+  usually thinks there is a URL, although there is not, and sends it to
+  Internet Config.  This bug prevents command-double-clicking to work
+  properly.
+
+¥ The Internet Config menu allows either Internet Config itself, or several
+  of it's internet helpers, to be started.
+
+¥ Alpha can get the helper application for http and ftp from Internet
+  Config.  Checking the box 'Synchronize with Internet Config' in the
+  preferences dialog "Config > Preferences > Input-OutputPrefs > WWW" will
+  make Alpha get the helper for http and ftp from Internet Config every time
+  Alpha is launched.
+
+  Preferences: WWW
+
+
+	  	Activating the Internet Config menu
+
+
+The menu is activated in the "Config > Preferences > Menus" dialog.  Check
+the checkbox 'Internet Config Menu' among the global menus.
+
+Preferences: Menus
+
+	  	 	URLs submenu
+
+The 'URLs' submenu allows you to store a few commonly used URLs and to launch
+them, regardless of what helper they are directed to.  You add a URL to the
+menu by using 'Add' and specifying a name and the URL.
+
+Some examples:
+
+Alpha's home page                   http://www.kelehers.org/alpha/
+Alpha's ftp                         ftp://ftp.ucsd.edu/pub/alpha/
+Ftp requiring userid and password   ftp://userid:passwd@some.site.edu/path/
+Mail to someone                     mailto:somebody@somewhere.net
+
+"View" opens a window with a list of all URLs in the menu, so you can see how
+they are defined.
+
+"Remove" lets you remove a URL from the menu.
+
+
+	  	 	Main Internet Config menu
+
+
+	Pick Url            
+
+To pick a URL from the URL submenu.
+
+	Go To               
+
+Launches Internet Config
+
+	Help                
+
+Opens this file
+
+	Web Browser         
+
+Launches the web browser specified as your http helper in Internet Config
+
+	News Client         
+
+Launches the news reader specified as your news helper in Internet Config
+
+	Mail Client         
+
+Launches the mail program specified as your mailto helper in Internet
+Config
+
+	Ftp Client          
+
+Launches the ftp client specified as your ftp helper in Internet Config
+
+	Gopher Client       
+
+Launches the gopher client specified as your gopher helper in Internet
+Config
+
+	Telnet Client       
+
+Launches the telnet client specified as your telnet helper in Internet
+Config
+
+	Finger              
+
+To finger someone using Peter Lewis's 'Finger' program.  Specify who to
+finger and the result from Finger will be display in a window in Alpha.
+
+	Telnet              
+
+To open a telnet connection.  This function works with NSCA Telnet, Better
+Telnet, and Nifty Telnet.
+
+	Resolve Url         
+
+Sends the selected text to Internet Config trying to resolve the selection
+and send it to the appropriate helper.  View Html File
+
+Sends the current window to your web browser.  (This is the same function
+as 'Send File to Browser' in the HTML menu.)
+
+Below is the documentation for using the Internet Config application.
+
+	  	
+	====================================================================
+
+
+	  	Internet Config User Documentation
+
+
+Created by <ic@stairways.com>
+
+
+	  	 	Introduction
+
+The Internet Configuration System was designed to make your life easier by
+reducing the number of times which you need to enter your Internet
+preferences into the various preferences windows of all your Internet
+applications.
+
+For example, currently you need to enter your email address into many common
+Macintosh Internet applications, for example Claris Emailer, NewsWatcher and
+Anarchie.  The goal of the system was to get each of these applications to
+get this information from one common place and to give you a tool to edit
+these common preferences.
+
+It is important to realize that applications will have to be modified to take
+advantage of the Internet Configuration System.  It will take some time for
+all applications to be revised and until then you will have to enter your
+preferences in those applications in the traditional manner.
+
+
+	  	Getting Started
+
+	  	 	System Requirements
+
+The Internet Configuration system requires System 7 or later, and Component
+Manager.
+
+If you've never heard of Component Manager, that's OK. It's installed as part
+of System 7.1 and above, and as part of QuickTime.  So chances are that it's
+already on your computer.  You can just run IC and it will tell you if you
+don't have it installed.
+
+If you do not have System 7 or Component Manager installed, you can not use
+this version of IC. IC 1.4 and below do not have these requirement.  You can
+FTP old versions of IC from the IC home site.
+
+IC does not require MacTCP or Open Transport, and it makes sense to install it
+even if you're not directly connected to the Internet.
+
+
+	  	 	Quick Start
+
+
+Run the Internet Config application.  If it asks you whether you want to
+install the Internet Config Extension, say that you do.  Click on each button
+in the Main window in turn, enter appropriate preferences.  [If you don't
+understand an item, turn on Balloon Help or look it up in the reference
+section at the end of this document.]  Save and quit.
+
+It is important to realize that you don't have to set every preference.  For
+example, if you don't use WAIS, there's no need to set your WAIS Gateway
+preference.  The preferences that you most probably want to set (grouped by
+window) are:
+
+   ¥ Personal
+        o Real Name, eg "Santa Claus"
+        o Organization, eg "Happy Holidays, Inc"
+        o Signature, to be appended to email and news messages that you
+          send.
+   ¥ Email
+        o Email Address, eg "santa@north-pole.org"
+        o Email Account, , eg "santa@pop.north-pole.org"
+        o Email Password, the password for the above account
+        o SMTP Host, eg "mail.north-pole.org"
+   ¥ News
+        o NNTP Host, eg "nntp.north-pole.org"
+   ¥ WWW
+        o Home Page, eg "http://www.north-pole.org/MyHomePage.html"
+        o Search Page, eg "www.alta-vista.digital.com"
+   ¥ File Transfer
+        o Download Folder
+   ¥ Helpers
+        o Set the "http", "https", and "file" helper to your preferred web
+          browser.
+        o Set the "ftp" helper to your preferred FTP client.
+        o Set the "mailto" helper to your preferred email application.
+
+
+	  	Parts of the System
+
+
+The system contains 3 important parts:
+
+   ¥ Internet Config application
+   ¥ Internet Config Extension
+   ¥ the Internet Preferences preferences file
+
+The most important is the Internet Config application.  When you run this
+application it creates and installs the Internet Config Extension (in the
+Extensions folder) and creates a default Internet Preferences file (in the
+Preferences folder).
+
+For programmers there is a separate distribution that contains all the files
+needed to make an Internet Config aware program.
+
+
+	  	Internet Configuration Application Reference
+
+
+The Internet Configuration application works much like any other Macintosh
+application.  The basic document for the application is an Internet
+Preferences preference file.
+
+Unlike most Macintosh applications, when you launch the Internet
+Configuration application it does not create a new untitled document. 
+Instead it opens the Internet Preferences file in your Preferences folder
+(creating it if it isn't there).  This is useful because, unless you're doing
+something strange, you need never use the standard document features (New,
+Open, Save, etc).  Instead all you need to do is launch the application,
+modify your preferences and then quit with saving.
+
+
+	  	Menus
+
+
+The following commands are available on the Apple menu:
+
+About Internet Config
+
+This opens the about box.  Do not bother looking for magical Easter Eggs; we
+were much too busy to mess with that sort of thing.  You can, however, click
+on the blue underlined text to view the latest IC FAQ or mail the Internet
+Config support address.
+
+The following commands are available on the File menu:
+
+   ¥ New
+   ¥ Open
+   ¥ Open Internet Preferences
+   ¥ Close
+   ¥ Save
+   ¥ Save as
+   ¥ Quit
+
+These commands work as you would expect in a normal Macintosh application,
+with one exception.  The application can only have one preferences file open
+at any point in time, so when you open a new preferences file, by Open or New
+, the previous one is automatically closed.  The Open Internet Preferences
+command opens the default set of Internet Preferences (in your Preferences
+folder), which is useful if you accidentally close the window.
+
+The Edit menu is used for editing text.
+
+The Sets menu allows you to create multiple independent sets of preferences
+for different users of the computer, or different Internet personalities of
+the same user.  The Sets menu contains the following commands:
+
+   ¥ Duplicate
+   ¥ Rename
+   ¥ Delete
+
+The Duplicate command allows you to create a new set by duplicating the
+current set.  The Rename command allows you to give a new name to the current
+set.  The Delete command lets you delete the current set.  The remaining items
+on the Sets menu allow you to switch between sets.
+
+The Extension menu lets you install the Internet Config Extension in your
+Extensions folder.  As IC does this when you first launch it, there is rarely
+any point to this.  It also allows you to save a copy of the extension without
+installing it.
+
+The Window menu allows you to open or bring to front any of the configuration
+windows.
+
+The Help menu (under Mac OS 7.6.1 and earlier, this is on the right side of
+the menu bar with a question mark icon) lets you turn on Balloon Help.  The
+application has full Balloon Help support.
+
+
+	  	Windows
+
+
+The Main window is opened whenever you open a preferences file.  It has 10
+buttons (with cutesy colour icons) that let you open the other windows.
+
+The Personal window lets you edit all sorts of preferences related to your
+person.  These include:
+
+   ¥ Real Name -- your real name, as used by news and mail
+   ¥ Organization -- the company etc that you work for, as used by news
+   ¥ Quote String -- the string used to precede quoted text, as used by news
+     and mail
+   ¥ Signature -- a short piece of pithy text added to the end of your mail
+     messages and news posting, as used by news and mail
+   ¥ Plan -- as used by finger servers
+
+The Email window lets you edit preferences related to email. These include:
+
+   ¥ Email Address -- address to which you want replies to your mail sent
+   ¥ Mail Account -- account from which you wish your mail to be fetched
+   ¥ Mail Password -- password for the above
+   ¥ Mail Host -- host to which to forward mail (normally the same machine
+     as the one that has your mail account)
+   ¥ Mail Headers -- any extra headers you want inserted in your outgoing
+     mail
+   ¥ On New Mail -- a group of preferences that specify what happens when
+     new mail arrives
+
+The News window lets you edit preferences related to News. These include:
+
+   ¥ News Username -- most systems let you read news without one
+   ¥ News Password -- most systems let you read news without one
+   ¥ NNTP Host -- machine from which to fetch news
+   ¥ News Headers -- any extra headers you want inserted in your news
+     postings
+
+The World Wide Web window lets you edit preferences related to the World
+Wide Web. These include:
+
+   ¥ WWW Home Page -- a URL for the page you want your web browser to open
+     first
+   ¥ WWW Search Page -- a URL for the page you want your web browser to use
+     as its search page
+   ¥ Colour -- various options to configure the default colours for your web
+     pages
+
+The File Transfer window lets you edit preferences related to the transfer of
+files (except file types, which have their own window).  These include:
+
+   ¥ Archie Server -- your preferred Archie server
+   ¥ Info-Mac Server -- your preferred Info-Mac mirror
+   ¥ UMich Server -- your preferred UMich mirror
+   ¥ Download Folder -- the place where you want new files to appear
+
+Archie is a protocol for searching archive sites looking for files.  There are
+a number of Archie servers around the world.  In theory these should all be
+the same but sometimes it's useful to use one in preference to another.
+
+Info-Mac and UMich are two big archives of Macintosh software.  They are often
+very busy and won't let you on.  To get around this you can get files from
+other machines that mirror these archives.  Some software will use the
+preferences here to automatically route requests to your preferred mirror.
+
+The Other Services window is a collection of preferences that didn't fit in
+anywhere else.  These include:
+
+   ¥ Ph Host -- your preferred Ph server (a standard machine name)
+   ¥ Finger Host -- your default finger server
+   ¥ Whois Host -- your default whois server
+   ¥ Telnet Host -- the default machine for telnet connections
+   ¥ FTP Host -- the default machine for FTP connections
+   ¥ Gopher Host -- your 'root' gopher server (a standard machine name)
+   ¥ WAIS Gateway -- your WAIS gateway (a standard machine name)
+   ¥ LDAP -- Stuff related to X.500, see your X.500 docs for more details
+
+The Fonts window lets you set your preferred List, Screen and Printer font.
+The List font is used in summary listings, such as mailbox summaries or FTP
+directory listings.  The Screen font is used to display monospaced text, such
+as the body of mail or news messages.  The Printer font is used to print
+monospaced text.
+
+The File Mappings window lets you view and edit the table that is used to set
+the Macintosh file type and creator of incoming files based on their
+extension.  If you don't understand this window then please don't worry.
+We've done our best to set up appropriate defaults.  If you have any problems
+with file transfers, then resetting to factory defaults will probably help.
+
+The Helpers window lets you view and edit the table that is used to determine
+which application to run when a specific URL is accessed.  For example, ICeTEe
+uses this table to determine what application to run when you command click a
+URL.
+
+The Firewalls window lets you configure firewall information.  Most commercial
+organizations on the Internet have firewalls that prevent unauthorized access
+to the organization's network from outside.  Sometimes these firewalls require
+you to specially configure your Internet applications.  Internet Config
+maintains a central copy of this special configuration for all applications to
+use.
+
+
+	  	Credits
+
+If you find a bug in Internet Config then please forward details to the
+official support address for Internet Config.  Please read the Internet Config
+FAQ before sending messages to this address.  If you want to discuss Internet
+Config in general then we suggest you host that discussion on the
+comp.sys.mac.comm newsgroup.
+
+The Internet Configuration System was written by Quinn "The Eskimo" and Peter
+N Lewis over a period of way too many late nights and weekends.  Certain
+important chunks of code were contributed by Marcus Jager and Stuart Cheshire.
+Craig Richmond provided a lot of help sorting out the default MIME mappings.
+Much of the extension to type mapping information was gleaned from Robin D H
+Walker's Extension-to-Type mappings file.  Eric Kidd maintains the Internet
+Config web site and also gave invaluable insight into the problems of override
+components.  John Norstad graciously contributed the resource fork sanity
+checking code from his legendary Disinfectant anti-virus utility.
+
+We would like to thank all of those on the Internet Config mailing list and
+all of the developers who have adopted the system.
+
+The entire Internet Config system is public domain and can be redistributed
+without restriction.
+
+The latest version of Internet Config can be FTPed from the home sites in
+Australia and the USA.
+
+	  	Release Notes
+
+This section contains information about the various released versions of
+Internet Config, in reverse order:
+
+IC 2.0 (Feb 1998)
+
+   ¥ Internet Config now requires System 7.0 or later, and Component
+     Manager.
+   ¥ The system now supports multiple separate preferences sets. Multiple
+     users can now share the same machine with consummate ease. Existing
+     preference files are automatically converted to a new file with a
+     single set, "My Settings".
+   ¥ User kit now includes a Control Strip module and Location Manager
+     module for quickly switching between preference sets.
+   ¥ Fixed cosmetic programs under Mac OS 8.0 and later.
+   ¥ Added APIs to allow external file systems to access the IC extension
+     mapping database.
+   ¥ Reworked the programming environment. See the Programming Kit for
+     details.
+   ¥ Bug fixes and new preference defaults.
+
+IC 1.4 (Mar 1997)
+
+   ¥ The IC application now supports GURL AppleEvents, routing them to the
+     appropriate helper application. This eliminates the need for an IC
+     scripting addition for this trivial task.
+   ¥ If you do not have a specific helper set for "https" and "file" URLs,
+     IC will now map them to the "http" helper.
+   ¥ The extension now holds the default preferences, so you get default
+     preferences regardless of which application first uses IC.
+   ¥ The extension now sanity checks preference files before opening them.
+     It also keeps a copy of the most recent preferences in the data fork of
+     the preference file, so it can revert to that backup. If that fails, it
+     reverts to default preferences.
+   ¥ You can now copy the IC FAQ URL out of the about box. This feature lets
+     me answer IC support mail quicker.
+   ¥ Removed "Internet Config RandomSignature" from the distribution --
+     while the old version should still work, I don't have time to update
+     and test it for this release.
+   ¥ Removed "Eudora GURL Handler" from the distribution. The latest version
+     of Eudora has support for GURL AppleEvents.
+   ¥ Updated and extended the File Mappings database.
+   ¥ Pasting into password text fields now works.
+   ¥ Fixed a memory leak in the extension when you open a URL with the
+     helper application not already running.
+   ¥ Fixed a tiny memory leak in the extension when you delete a preference.
+   ¥ Fixed a bunch of other minor bugs in the application that I found while
+     doing a code review. As far as I know, no one has encountered these
+     problems but me.
+   ¥ Did extensive work on the internals of the extension and the
+     application, cleaning up and commenting the code in preparation for
+     large functional changes in the future. Removed Think Pascal from the
+     build system.
+   ¥ IC 1.3 broke System 6 support but IC 1.4 again supports it.
+
+IC 1.3 (Aug 1996)
+
+   ¥ Fixed a bug where the File Transfer would crash if the preference file
+     wasn't originally created by the Internet Config application.
+   ¥ Added the Firewalls window. These preferences are used by Cyberdog and
+     Fetch, and will hopefully be adopted by many other applications.
+   ¥ Added the World Wide Web window. Although it has very few preferences
+     at the moment, I expect that to change soon.
+   ¥ Added mail notification preferences to the Email window.
+   ¥ Improved the error display code.
+   ¥ Improved the URL parsing code. IC (and any application that uses it to
+     parse URLs) will now recognize URLs surrounded by parentheses, square
+     brackets, and quotes.
+
+IC 1.2 (Dec 1995)
+
+
+   ¥ Added the sort and default buttons in the File Mappings window.
+   ¥ Made the about box hot.
+   ¥ Switched the documentation to HTML format.
+   ¥ Added a bunch of new API routines to support Cyberdog, and any other
+     application that wants to act like the Internet Config application.
+   ¥ Added the ICFindPrefHandle routine, which supplants ICGetPrefHandle and
+     provides better semantics.
+
+IC 1.1 (May 1995)
+
+   ¥ This version was released to correct a number of minor problems with
+     1.0, including the System 6 support and the popup menu CDEF crashing
+     with lots of fonts installed.
+   ¥ Added the List Font preference.
+   ¥ Shipped with ICeTEe and Internet Config RandomSignature in the Goodies
+     folder.
+   ¥ Added API routines to support parsing and launching URLs.
+   ¥ Added API routines to support the file type mapping preference.
+
+IC 1.0 (Dec 1994)
+
+   ¥ The first released version.
+
+
+	------------------------------------------------------------------------
+
+
+	  	License and Disclaimer
+
+
+This document is Public Domain (really, we mean it!). No Rights Reserved
+
+Comments: <ic@stairways.com>
+

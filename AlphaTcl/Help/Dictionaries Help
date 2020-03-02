@@ -1,0 +1,251 @@
+
+Dictionaries Help
+
+
+					    version: 2.3.0
+					    created: 02/12/2003 {11:46:49 AM}
+					last update: 15/02/2004 {01:57:43 PM}
+
+
+This Help file describes the AlphaTcl "Dictionary" package.
+
+The Dictionary package is a programme for consulting plain-text dictionaries.
+So you need at least one such dictionary to have any use of this package.  You
+can download Dictionaries from the internet.  There are also some small
+example dictionaries included in the package.
+
+NB: There is another dictionary facility in Alpha, the package: wwwDictionary,
+which looks up words in online dictionaries.
+
+Preferences: Features
+
+
+		Table Of Contents
+
+
+"# The Dictionary Console"
+"# Invoking the Dictionary Console"
+"# Changing dictionary"
+"# Managing consoles"
+"# Installing new dictionaries"
+"#   Primitive installation"
+"#   Fine tuning"
+"#   Advanced installation"
+"# Getting dictionaries"
+"# Copyright"
+
+<<floatNamedMarks>>
+
+
+	====================================================================
+
+
+		The Dictionary Console
+
+
+The interface to each Dictionary is a small window (Console) with two text
+fields: a one-line input field and a big output field.  Type a word in the
+input field and press Return (or Enter) and the corresponding entry of the
+dictionary is shown in the output field.  The 'Corresponding Entry' is the
+first entry in the dictionary which is greater than or equal to the word,
+according to the criterion specific to the dictionary.
+
+Instead of typing words and pressing Return, with this feature you have the
+following possibilities, quite standard in dictionary programmes --- these
+functions are bound to keys as follows:
+
+Command-Up    See the preceding article in the dictionary
+Command-Down  See the following article
+
+Command-Left  Go Back (to the previous word you looked up)
+Command-Right Go Forward (to the word you looked up after the actual one
+	      (this makes sense only if you have previously used the Back
+	      function)).  
+	     
+These two Right/Left functions are meant to work like Back and Forward in a
+web browser.
+		    
+With Arrow keys (unmodified) you can navigate through the output field,
+jumping from word to word.  The output field is completely hyperised: whenever
+you press Return (or Command-Double-Click), the word under the cursor is
+looked up.
+
+Command-Control-Option-Shift-O will open the data file of the dictionary if
+you want to have a closer look.
+
+
+		Invoking the Dictionary Console
+
+
+Turning this package on wil insert a new "Utils > Local Dictionaries" submenu
+which contains some self-explantory menu items, like 'Consult Dictionary' and
+'Change Dictionary'.  But the recommended usage is to use the key binding
+Control-O which does the same as 'Consult Dictionary': it brings the Console
+to front (for the Current Dictionary), and at the same time looking up the
+word that happens to be under the cursor at that time (i.e. selected text if
+any; otherwise the word preceding the cursor in the text).  Pressing Control-O
+again sends you back to the spot in the window from where you invoked the
+Dictionary.  (So the whole lookup sequence consists of two keystrokes based on
+the "O" key...)
+
+
+		Changing dictionary
+
+
+The programme manages an arbitrary number of Dictionaries, which are loaded as
+needed.  Each has its own Console, and its own History List etc.  One of the
+Dictionaries is 'Default' or 'Current'.  This is the one invoked by Control-O.
+To change the Current Dictionary, hit Control-Shift-O and choose from the
+available Dictionaries in the list dialogue.  This brings the Console of the
+new Dictionary to front, with the word under the cursor already looked up.
+This new Dictionary is now 'Current'.
+
+
+		Managing consoles
+
+
+This package creates two preferences which can be set by selecting the menu
+item "Config > Preferences > Package Preferences > Miscellaneous Packages",
+named 'Common Console' and 'Background Console'.
+
+ - if "Common Console" is checked, then there is only one Console shared by
+all Dictionaries.  This can be practical to avoid window clutter, but then
+you cannot have more than one Dictionary open at the time.
+
+- if "Background Console" is checked then when you invoke Control-O (or select
+"Utils > Local Dictionaries > Consult Dictionary"), the word is looked up in
+the background, i.e., the Console does not come to front.  This is only
+practical if you have a large screen so that the Console goes free of your
+main window.  In this case it is very seemless to look up a word: you don't
+even leave your main window!
+
+When a Dictionary Console (either common or dictionary specific) first opens,
+it places itself at a default position somewhere near the right-hand side of
+your screen.  Of course you can just drag the window around, and if you find a
+good place where you want to have it permanently, you can select the menu item
+"Utils > Local Dictionaries > Save Dict Console Geometry".  As long as the
+preferences for "Common Console" is turned off, each Dictionary can have its
+own default position.  When "Common Console" is turned on the saving applies
+to the position of the Common Console.
+
+
+		Installing new dictionaries
+
+
+			Primitive installation
+
+
+1) You need a Dictionary file in plain text, with one entry per line (line
+termination \r).  Place the file anywhere you want.
+
+2) Choose "Utils > Local Dictionaries > Install Dictionary" In the
+Open-dialogue box, locate the Dictionary file; in the ensuing dialogue box,
+give a name to the new Dictionary.  Unless the Dictionary was prepared
+specifically for this package, there will be a warning that no Tcl code was
+found.  Don't worry --- or read the instructions below for advanced
+installation.
+
+3) The Dictionary is now ready to use.
+
+
+			Fine tuning
+
+
+It may happen that the Dictionary is not consistently sorted, or that its sort
+criterion is slightly different from the one assumed by the programme.  This
+can sometimes imply that a word is not immediately found when you look it up.
+(Usually you can find it manually by Arrowing Up and Down a little bit).
+
+You can always check the sorting of the Dictionary by selecting the menu item
+"Utils > Local Dictionaries > Some Tools > Check Sorting".  A list of all
+words which defy the order will appear as output on the screen.  If there are
+many, it is better to sort the file.  This can be done by selecting the
+command "Utils > Local Dictionaries > Some Tools > Sort Dictionary File": this
+will produce a new file with the extension ".sorted" added to the original
+filename.  This new file must then be installed separately (and perhaps you
+would like first to uninstall the old file, by selecting the menu command
+"Utils > Local Dictionaries > Some Tools > Uninstall").
+
+
+
+			Advanced installation
+
+
+1) In addition to the steps described above, the advanced part consists in
+writing a couple of simple procs to fine-tune the performance:
+
+The proc: normalForm performs typically at least these reductions: strip all
+accents (according to usage in the source language of the Dictionary) and
+downcase.  If the Dictionary file contains markup, like <hw> </hw> surrounding
+the headword, this should also be accounted for.  As long as this proc is not
+written specifically for the Dictionary in question, a fallback proc defined
+in "dictionary.tcl" stands in.  You can use this proc as starting point for
+writing a better one.
+
+The proc: formatOutput performs the rendering of the output, specially needed
+if the Dictionary file is marked up.  So this proc consists mainly of some
+regsubs like
+
+	regsub -all {(<b>|</b>)} $output "" output
+
+etc.  (One day, colourised output should find its way into the procs, along
+with italics, boldface...)
+
+To see the syntax and get an idea of what needs to be done, look first in the
+example dictionary 'Country-codes' in 
+
+	$HOME/Examples/Dictionary-examples
+
+2) Insert this code in the beginning of the Dictionary file you are working
+on.  More instructions are in the file "dictionary-formats".  Adjust the
+offset...
+
+
+		Getting dictionaries
+
+
+There are three ways:
+ 
+1) find one on the internet, 
+2) prepare one yourself, or
+3) copy from somebody who has one.  
+
+There are some good plain text dictionaries available for download, for
+example:
+
+- the famous '1913 Webster's Unabridged' (40Mb), available from several
+  places and in different formats.  
+
+The one at
+ 
+    <http://www.cirget.uqam.ca/~kock/alpha-tcl/Webster-1913.gz>
+
+has been prepared specifically for use in Alpha.
+
+- the excellent Danish-English and English-Danish from Gyldendal.
+
+These are at <http://plab.ku.dk/dk/dict/>
+
+- a good collection of middle-sized English-OtherLanguage dictionaries from
+Babylon (popular dictionary programme for Windows).  These files are in a
+binary format, but it is possible to extract plain text.  See special
+instructions in the folder
+
+	$HOME/Examples/Dictionary-examples/extras/babylon
+
+The most interesting way of getting dictionaries is to distill them from
+commercial programmes (but beware of copyrights).  Most such programmes
+sport the two functions needed to do this: a 'Next' function, and a 'Copy'
+function.  Now it is possible to write a macro which looks up all the words
+of the Dictionary one by one and copies them into a text file in Alpha.
+(This can take many nights, of course.)  (Under System 9, the best
+possibility is perhaps the macro utility KeyQuencer.  Under OSX, it is
+possible to write the script in Tcl and run it from Alpha --- pressing
+the buttons of the external dictionary programme can be done with 
+AppleScripts sent to System Events 1.2 or newer...)
+
+Any plain text file with one entry per line will do --- if sorted consistently
+(some tools are provided to help with this).  But in case the file is marked
+up, you will also need to write a little proc for rendering, i.e. telling the
+lookup function to interpret the markup and how to display the result
+(instructions are included).

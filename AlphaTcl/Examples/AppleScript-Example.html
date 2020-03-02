@@ -1,0 +1,292 @@
+<HTML>
+<HEAD>
+<TITLE>AppleScript-Example</TITLE>
+<META NAME=GENERATOR CONTENT="Aida Mode">
+</HEAD>
+<BODY>
+
+<P><HR>
+<UL>
+<LI><A HREF="#anchor1">AppleScript mode Tutorial</A>
+<UL><LI><A HREF="#anchor2">First example: creating a script file</A></UL>
+<UL><LI><A HREF="#anchor3">Second example: compiling a script</A></UL>
+<UL><LI><A HREF="#anchor4">Third example: adding a comment</A></UL>
+<UL><LI><A HREF="#anchor5">Fourth example: evaluating a compiled script in a Tcl proc</A></UL>
+<UL><LI><A HREF="#anchor6">Fifth example: evaluating a script on the fly</A></UL>
+<LI><A HREF="#anchor7">Advanced matters</A>
+<UL><LI><A HREF="#anchor8">Compiling a context script</A></UL>
+<UL><LI><A HREF="#anchor9">Running a script in a context</A></UL>
+<UL><LI><A HREF="#anchor10">Inheriting from a parent context</A></UL>
+<UL><LI><A HREF="#anchor11">Augmenting a context</A></UL>
+<UL><LI><A HREF="#anchor12">Getting the scripting terminology of an application</A></UL>
+<LI><A HREF="#anchor13">AppleScript mode Key Bindings</A>
+</UL>
+<HR><P><H2><A NAME="anchor1"></A> AppleScript mode Tutorial</H2><P>This is a tutorial that demonstrates the "AppleScript  mode".  It  requires
+Alpha8 or greater and won't work with  Alpha7  because  it  relies  on  the
+Tclapplescript.shlb shared library which needs Tcl 8.0 or greater.
+For Alpha7 a minimal set of functionalities is implemented though:  editing
+scripts, syntax coloring, running a compiled script.<P>AppleScript mode lets you use Alpha as the  front  end  editor  to  create,
+manipulate and execute your AppleScripts and take advantage of its powerful 
+editing capacities.<P>In order to use AppleScript mode in Alpha,  you  must  first  activate  the
+AppleScript menu. This can be done in different manners :
+<UL>
+	<LI> - selecting the menu item "Config --&gt; Preferences  --&gt;  Menus..."  and
+choosing 'AppleScript Menu' (checking the corresponding checkbox)
+	<LI> - editing a file in this mode: open a new file and  select  "Scrp"  in
+the right most popup window on the status bar. Note that the mode  will  be
+triggered automatically if the file has one of  the  following  extensions:
+".script", ".scr", ".scpt" or ".ascr". When a file is in AppleScript  mode,
+the AppleScript menu is automatically displayed in the menu bar.
+	<LI> - opening with Alpha a source file  which  has  been  created  by  the
+application "AppleScript Editor" will also  edit  it  in  AppleScript  mode
+automatically. <P></UL><P>AppleScript mode is identified by the four-letters code "Scrp" in the  mode
+pop-up at the right of the status bar. <P>The AppleScript mode allows you to achieve  with  maximum  flexibility  all
+kinds of operations concerning scripts written in the AppleScript language,
+such as editing, compiling, decompiling, executing and processing. Advanced
+features include compilation of context  files,  execution  of  scripts  in
+contexts etc.<P>Note that the AppleScript Editor application does not have to  be  launched
+or even present on your computer for this mode to work. It  relies  on  the
+Tclapplescript.shlb shared library which interacts directly with the  MacOS
+Open Scripting Architecture. This shared library must be present and should
+be located (itself or an alias) in the "Tool Command Language" subfolder of
+the "Extensions" folder inside the System folder.<P>This Tutorial, when opened from the  Help  menu  in  Alpha,  is  a  "shell"
+window. None of the changes you make will affect the actual  file.  If  you
+close the window and then click on the hyperlink again, you will start with
+the same example as before. Note that "Undo"  is  not  available  in  shell
+windows. <P>The AppleScript mode menu can also be invoked while you are working in  any
+mode in Alpha. You could have AppleScripts related  to  various  tasks  and
+trigger them when necessary.<P><H3><A NAME="anchor2"></A> First example: creating a script file</H3><P>To create a new script, choose "New Script" from the AppleScript menu: this
+simply opens in Alpha, directly in AppleScript mode, a new editing  window.
+You are asked to provide a name: name it for instance "Weekday.scpt".<P>Type in the following instructions:
+<PRE>
+ tell application "Finder"
+         weekday of (current date) as text
+ end tell
+</PRE>
+Then choose "Execute" from the AppleScript menu. This  compiles  internally
+the contents of your window and executes the compiled script. The result is
+displayed in a second window called "* AppleScript Results *". All the data
+resulting from the execution of various scripts will be  appended  to  this
+window which you can save if necessary. In our case, the  result should  be
+the name of the current day. For example :
+<PRE>
+ "Thursday"
+</PRE><P><H3><A NAME="anchor3"></A> Second example: compiling a script</H3><P>You can make a compiled version of your script  using  the  "Compile"  item
+from the AppleScript menu. This will allow you later to execute the  script
+by just choosing it in the "Scripts"  submenu.  The  "Weekday.scpt"  script
+will be compiled with the name "Weekday".
+When a script is compiled, if the window does not correspond yet to a  file
+on disk (newly created script using the "New Script"  item),  the  compiled
+script will be written  in  the  AppleScripts  folder  in  Alpha's  folder.
+Otherwise the compiled script will be in the same folder as the text  file.
+You can execute any of the scripts stored in this folder by just  selecting
+them in the "Scripts" submenu of the AppleScript menu.<P>If you want to re-edit a compiled script, choose the "Open Script" item  in
+the AppleScript menu or, alternatively, open the  "Scripts"  submenu  while
+holding the option key down. In this case all  the  items  become  editable
+instead of executable: for example, if the option key is pressed  the  item
+"Weekday" changes to "&#8226;edit&#8226; Weekday".<P>You can also run any compiled script located on  your  computer  using  the
+"Run..." item in the AppleScript menu. A dialog window lets you browse in the
+files hierarchy to select the compiled script you want to run.<P><H3><A NAME="anchor4"></A> Third example: adding a comment</H3><P>A descriptive comment can be stored in the compiled script  to  explain  to
+the users how the script works or what it does. AppleScript mode is able to
+deal with these comments. You must check the  "Include  Description"  check
+box in the AppleScript mode preferences: to do this, open the "Preferences"
+item of the "Scrp Prefs" submenu of the "Config" menu (you must already  be
+in AppleScript mode).<P>When the "Include Description" preference is  set,  AppleScript  mode  will
+display the comment (if there is one) when it edits a script.  The  comment
+will be displayed at the beginning of the script like this:
+<PRE>
+ (* Description
+ 	    Text of the comment here
+ *)
+</PRE>
+You can also create a comment yourself using the same syntax.  Try  to  add
+the following to the previous example (choose the "Add Comment" item in the
+menu to insert a template automatically):
+<PRE>
+ (* Description
+    This script finds the name of the current day.
+ *)
+</PRE>
+Make sure that the "Include Description" preference is on and  compile  the
+script. Next time you edit the script, your comment will be there. You  can
+also open your script with the AppleScript Editor instead of Alpha and  see
+that the comment is there in the  description  field  at  the  top  of  the
+editing window.<P> 
+<H3><A NAME="anchor5"></A> Fourth example: evaluating a compiled script in a Tcl proc</H3><P>You can run an already existing compiled script from a Tcl procedure or any
+piece of Tcl code with the Scrp::doRun procedure like this:
+<PRE>
+ global HOME
+ set file [file join $HOME AppleScripts Weekday]
+ Scrp::doRun $file
+</PRE><P>You pass the full path name of your script as the first argument. This proc
+returns the result of the execution of the script.<P><H3><A NAME="anchor6"></A> Fifth example: evaluating a script on the fly</H3><P>The procedures defined in the AppleScript Mode files can be used  in  other
+Tcl scripts and allow you to evaluate AppleScript scripts on the fly inside
+a Tcl script. This way some variables can be evaluated at run time.<P>Here is a simple example.  It  defines  a  Tcl  proc  which  will  add  the
+currently opened file to the Favorites menu of the MacOS Finder.
+<PRE>
+ proc addToFavorites {} {
+     set currfile [win::Current]
+     if {[file exists $currfile]} {
+ 	set scripttext "tell application \"Finder\"
+ 	add to favorites \{file \"$currfile\"\}
+ 	end tell"
+ 	Scrp::doExecute $scripttext
+ 	message "Added '[file tail $currfile]' to favorites"
+     } 
+ }
+</PRE>
+Make sure you escape  the  quotes  and  braces  with  a  backslash  in  the
+definition of the text string.<P>So there  are  basically  two  ways  of  using  the  AppleScript  scripting
+component from Alpha:
+<UL>
+	<LI> you can have predefined compiled scripts in the AppleScripts folder or
+anywhere on your computer and execute them with Scrp::doRun
+	<LI> you can build a text script and have it executed on the fly,  like  in
+the previous example, with Scrp::doExecute.<P></UL><P><H2><A NAME="anchor7"></A> Advanced matters</H2>
+AppleScript Mode allows you to compile scripts in specific contexts and not
+only in the global context. A context, in AppleScript parlance, is  like  a
+namespace : it is an environment in which some  variables,  functions  (aka
+handlers) etc. are defined and are accessible to all the scripts  you  want
+to run in this context. Thanks to the contexts different scripts can  share
+variables and data.<P><H3><A NAME="anchor8"></A> Compiling a context script</H3>
+To compile a script as a context, just select the flag  "Make  Context"  in
+the Apple Script Flags submenu. The compiled script will be refered to as a
+context script.
+<P> For instance, let's create a new script called VarContext.scpt with the
+following instruction :
+<PRE>
+ set theSig to "ALFA"
+</PRE>
+and compile it as a context. We obtain a compiled script called VarContext 
+which will be added to the Scripts submenu.<P><H3><A NAME="anchor9"></A> Running a script in a context</H3>
+To run a script in a context, you must: 
+<OL>
+	<LI> set the flag "Run in context" in the Apple Script Flags submenu.
+	<LI> select a context. This is done by opening the  Scripts  submenu  while
+pressing the Control key down and selecting an  item.  This  item  will  be
+marked with a bullet showing that it is the current context.<P></OL>
+Here is an example. Let's create a script called NameFromSig.scpt with  the
+following instructions  asking  the  Finder  to  return  the  name  of  the
+application whose signature is the value of the variable theSig:
+<PRE>
+ tell application "Finder"
+  	name of application file id theSig
+ end tell
+</PRE>
+Note that theSig is a variable and that it is NOT defined in  this  script.
+You can compile this script normally. This will result in a compiled script
+called NameFromSig. If you run this  script  (with  the  Run  item  in  the
+AppleScript menu), you will have an  error  message  because  the  variable
+theSig is not defined.  Now  run  the  script  in  the  context  VarContext
+previously defined : set the flag "Run in  context"  in  the  Apple  Script
+Flags submenu, open the Scripts submenu with the Control key down to select
+VarContext then run NameFromSig (NameFromSig.scpt is  still  the  frontmost
+window). This time no error and the result is written  in  the  AppleScript
+Results window like this :
+<PRE>
+ "Alpha8"
+</PRE><P><H3><A NAME="anchor10"></A> Inheriting from a parent context</H3>
+A context script can inherit the properties, data, variables, handlers etc.
+defined in another (already compiled) context. This  context  is  called  a
+parent context: the new context will contain all the  data  it  defines  as
+well as all the data defined in its parent. To compile a  context  and  let
+him inherit from a parent context you must:
+<OL>
+	<LI> set the flag "Inherit from parent" in the Apple Script Flags submenu.
+	<LI> select a parent context. This is done by opening the  Scripts  submenu
+while pressing the Shift key down and selecting an item. This item will  be
+marked with a diamond showing that it is the current parent.<P></OL>
+Example: let's make a context called Inherit.scpt with the following 
+instruction:
+<PRE>
+ tell application "Finder"
+     set theFolder to {container of application file id theSig}
+ end tell
+</PRE>
+This instruction defines a variable theFolder which designates  the  folder
+containing the application whose creator type is theSig. Once again  theSig
+is not defined in this file but we are going to  compile  it  and  let  him
+inherit from the VarContext script which defines  theSig  :  set  the  flag
+"Inherit from parent" in the Apple Script Flags submenu, open  the  Scripts
+submenu with the Shift key down to select VarContext, then compile.
+<P> The resulting Inherit script can be tested like this. Suppose you  have
+a file called "HD:Dissertation:Conclusion.tcl" that  we  want  to  copy  to
+Alpha's folder. Let's make  a  script  called  CopyToFolder.scpt  with  the
+following instructions:
+<PRE>
+ set thefile to "HD:Dissertation:Conclusion.tcl"
+ tell application "Finder" to duplicate file thefile to theFolder
+</PRE>
+Now compile this script normally, then run it in  the  VarContext  context:
+the variable theFolder is defined in this context. Its definition uses  the
+variable theSig which was defined  initially  in  the  parent  context  and
+transmitted to the VarContext context.<P><H3><A NAME="anchor11"></A> Augmenting a context</H3>
+If a script has been compiled as a context and its instructions  have  been
+modified, there are two possibilities when you recompile  the  script:  the
+new instructions can replace the previous ones or they can be added to what
+was previously defined. This is controlled by the flag "Augment Context" in
+the Apple Script Flags submenu.
+<P> Example: let's  define  a  script  Variables.scpt  with  the  following
+instruction: 
+<PRE>
+ set theSig1 "ALFA"
+</PRE>
+and compile it as a context script. Then replace the  instruction  by  this
+one (i-e delete the preceding instruction):
+<PRE>
+ set theSig2 "MOSS"
+</PRE>
+and recompile the script with the flag "Augment Context" set. The resulting
+context script Variables will  make  both  variables  theSig1  and  theSig2
+available. <P><H3><A NAME="anchor12"></A> Getting the scripting terminology of an application</H3>
+To drive an application with an AppleScript, one must know which terms this
+application understands.  Each  application  defines  its  own  terminology
+depending on the kind of service it provides. The terminology can be stored
+in different ways:
+<UL>
+	<LI> in a static way. It is stored in the resource fork of the  application
+(systems prior to OSX) in resources of type 'aete'. Static  terminology  is
+the most current situation.
+	<LI> in a dynamic way. The application accepts an event called  "Get  AETE"
+and  returns  all  the  terminology  to  the  caller.  It  concerns  mainly
+applications who support plugins and extensions. All the plugins  can  have
+their own dictionary and the application is responsible for  gathering  the
+terminology for all of them. This can't be done in the static way since you
+don't know in advance which plugins are currently available or loaded.<P></UL>
+Alpha8 has dynamic terminology and  Alpha7  has  static  terminology.  With
+dynamic terminology, the application must be running to be able to  receive
+the "Get AETE" request and to reply: if it is not running, it will have  to
+be launched, which in some cases can take time. With static terminology,the
+application does not have to be running,  nor  launched.  AppleScript  Mode
+takes care of launching the application when  necessary.  Usually,  dynamic
+terminology includes the static terminology.
+<P> AppleScript Mode has a flag called "Launch To  Get  Terminology"  which
+lets you decide if you accept that the application be launched to  retreive
+its dictionary. Setting this flag or not is a blind guess  because  you  do
+not know in advance if the application has dynamic terminology but,  if  it
+does and if the flag  is  not  on,  AppleScript  Mode  will  let  you  know
+immediately and offer the choice of putting the flag on. If the application
+does not have dynamic terminology and the flag is on, AppleScript Mode will
+look for static terminology anyway.<P><H2><A NAME="anchor13"></A> AppleScript mode Key Bindings</H2><P>Most of the actions can be triggered from the keyboard instead  of  opening
+AppleScript menu. All of them are obtained by typing 'ctrl-a' followed by a
+letter to specify which command you are interested in.
+Here is the meaning of the different letters you can use with 'ctrl-a':
+<P><TABLE BORDER=0 CELLPADDING=1 WIDTH="100%">
+<TR><TD>'ctrl-a b'</TD><TD>to display the info about bindings</TD></TR>
+<TR><TD>'ctrl-a c'</TD><TD>to compile the current window or selection</TD></TR>
+<TR><TD>'ctrl-a d'</TD><TD>to get a scripting dictionary</TD></TR>
+<TR><TD>'ctrl-a e'</TD><TD>to execute (compile and run) the current window</TD></TR>
+<TR><TD>'ctrl-a f'</TD><TD>to free compiled scripts stored in memory</TD></TR>
+<TR><TD>'ctrl-a l'</TD><TD>to insert the line continuation symbol (&#172;)</TD></TR>
+<TR><TD>'ctrl-a m'</TD><TD>to dump memory info</TD></TR>
+<TR><TD>'ctrl-a n'</TD><TD>to create a new script</TD></TR>
+<TR><TD>'ctrl-a o'</TD><TD>to decompile and open a script</TD></TR>
+<TR><TD>'ctrl-a r'</TD><TD>to select and run a script</TD></TR>
+<TR><TD>'ctrl-a s'</TD><TD>to check the syntax of the current window</TD></TR>
+</TABLE></P><P><!--  End of Tutorial. -->
+<!--  Last modification : 2002-10-11 09:21:53 -->
+Please e-mail any problem or bug you encounter : <A HREF="mailto:bdesgraupes@easyconnect.fr">bdesgraupes@easyconnect.fr</A><P>Go to the "Alpha utilities" page :
+<P> <A HREF="http://webperso.easyconnect.fr/bdesgraupes/alpha.html">http://webperso.easyconnect.fr/bdesgraupes/alpha.html</A>
+
+</BODY>
+</HTML>

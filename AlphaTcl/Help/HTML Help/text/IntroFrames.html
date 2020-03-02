@@ -1,0 +1,298 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+
+<HTML>
+
+<HEAD>
+<LINK HREF="../Style%20Sheet/manual.css" REL="stylesheet"
+TYPE="text/css">
+
+<TITLE>HTML manual</TITLE>
+
+<style type="text/css">
+<!--
+.big {
+	font-size: large;
+}
+
+.bigger {
+	font-size: x-large;
+}
+	
+-->
+</style>
+
+</HEAD>
+
+<BODY>
+
+<!-- #INCLUDE INCLPATH="maintop.html" -->
+
+<SCRIPT TYPE="text/javascript">
+<!--
+if (document.body.clientHeight) {
+	height = document.body.clientHeight - 50;
+} else {
+	height = window.innerHeight - 50 ;
+}
+document.write('<div class="main" style="height: ' + height + 'px;">');
+// -->
+</SCRIPT>
+
+
+<!-- /#INCLUDE -->
+
+
+<H1>Alpha's HTML mode 3.2b1</H1>
+
+<H3 class="center">CSS mode 2.2b1 and JavaScript mode 1.1.4</H3>
+
+<P CLASS="center">
+<span class="bigger">C</span><span class="big">opyright 1996-2003 by</span><span
+class="bigger">J</span><span class="big">ohan</span> <span class="bigger">L</span><span
+class="big">inde</span><BR>
+<A HREF="http://go.to/alpha_www_tools" TARGET="_top">http://go.to/alpha_www_tools</A><BR>
+<A HREF="&#109;&#97;&#105;&#108;&#116;&#111;:&#106;&#108;&#105;&#110;&#100;&#101;&#64;&#104;&#101;&#109;&#46;&#117;&#116;&#102;&#111;&#114;&#115;&#46;&#115;&#101;">&lt;&#106;&#108;&#105;&#110;&#100;&#101;&#64;&#104;&#101;&#109;&#46;&#117;&#116;&#102;&#111;&#114;&#115;&#46;&#115;&#101;&gt;</A> (try this 
+first)<BR>
+<A HREF="&#109;&#97;&#105;&#108;&#116;&#111;:&#97;&#108;&#112;&#104;&#97;&#95;&#119;&#119;&#119;&#95;&#116;&#111;&#111;&#108;&#115;&#64;&#103;&#111;&#46;&#116;&#111;">&lt;&#97;&#108;&#112;&#104;&#97;&#95;&#119;&#119;&#119;&#95;&#116;&#111;&#111;&#108;&#115;&#64;&#103;&#111;&#46;&#116;&#111;&gt;</A>
+</P>
+
+<P CLASS="center">
+<B>July 2003</B>
+</P>
+
+<H2>Introduction</H2>
+
+<P>
+This manual describes three of Alpha's many modes, HTML, CSS, and 
+JavaScript modes. 
+
+<H2>HTML mode</H2>
+
+<P>
+<B>HTML mode</B> is for editing HyperText Markup Language (HTML) 
+documents and Extensible HyperText Markup Language (XHTML) documents
+(suffix <B>.html</B>, <B>.htm</B> or <B>.shtml</B>).  Whenever 
+you open or save a file with a name with any of these suffixes, Alpha 
+switches to HTML mode and inserts three menus in the menu bar. The first 
+one <IMG SRC="../bilder/cssmenuicon.png" ALT="CSS menu icon" WIDTH="30"
+HEIGHT="22" CLASS="iconpic"> is called the <B>CSS menu</B> and contains 
+functions for editing Cascading Style Sheets (CSS). The second one <IMG
+SRC="../bilder/htmlmenuicon.png" ALT="HTML menu icon" WIDTH="31" HEIGHT="22"
+CLASS="iconpic"> is called the <B>HTML menu</B> and the last one <IMG
+SRC="../bilder/htmlutilsmenuicon.png" ALT="HTML Utilities menu icon"
+WIDTH="31" HEIGHT="22" CLASS="iconpic"> the <B>HTML Utilities menu</B>.
+<IMG SRC="../bilder/modesmeny.png" ALT="Modes menu" WIDTH="213" HEIGHT="61"
+CLASS="rightpic">
+</P>
+
+
+<P>
+You can always manually switch to HTML mode with the popup mode menu in the 
+status bar in the lower right corner of your screen, see the picture to the 
+right. Alpha has many different modes giving you different features 
+depending on which type of document you are editing. When you edit HTML 
+documents, make sure you are using HTML mode.
+</P>
+
+<P>
+The basic idea with this HTML environment is to save you time while typing, 
+by providing powerful tools for editing HTML code. HTML mode can help you 
+to learn HTML, but it requires that you have some basic knowledge of HTML 
+to be useful. However, you don't have to be an HTML expert and know every 
+single element and every single attribute.
+</P>
+
+<P>
+This manual is only a manual for Alpha's HTML, JavaScript, and CSS modes. 
+It does not describe any of the many other modes Alpha has, and not any of 
+Alpha's many other features. They are documented elsewhere. You can open 
+many different help files under the system help menu. If you haven't used 
+Alpha at all before I recommend that you at least read the Quick Start 
+before reading this manual.
+</P>
+
+<H3>JavaScript and CSS modes</H3>
+
+<P>
+In HTML mode there is support for editing of both JavaScript and CSS within
+HTML documents. There are also a separate <B>JavaScript mode</B> for editing
+JavaScript documents (suffix <B>.js</B>) and a <B>CSS mode</B> for editing
+CSS documents (suffix <B>.css</B>). When Alpha switches to CSS mode it
+inserts the CSS menu <IMG SRC="../bilder/cssmenuicon.png"
+ALT="CSS menu icon" WIDTH="30" HEIGHT="22" CLASS="iconpic"> in the menu bar.
+JavaScript mode does not have its own menu.
+</P>
+
+<P>
+<B>Note</B> that within HTML mode the coloring of JavaScript and CSS 
+keywords is not enabled by default. This is because it's more convenient to 
+have it disabled if you are not using JavaScript or CSS. Read the 
+<A HREF="coloring.html">Coloring</A> section of this manual to see what to do to enable coloring 
+of JavaScript and CSS keywords.
+</P>
+
+<H3>HTML mode features</H3>
+
+<UL CLASS="features">
+	<LI>HTML mode knows HTML 4.0, XHTML 1.0 and 1.1, and some of Netscape's and Microsoft's 
+	extensions to HTML.
+	<LI>Tools to easily and quickly insert HTML elements and give them 
+	attributes.
+	<LI>Many smart shortcuts for quick editing of HTML code.
+	<LI>A clever word completion feature to save you time while typing.
+	<LI>Customizable indentation of the code and a feature to reformat 
+	messy code to make it more readable.
+	<LI>You can open windows with lists of files from where you can easily 
+	copy and paste to make links.
+	<LI>Validation of the HTML code.
+	<LI>Tools for building lists and tables.
+	<LI>You can check that all links between your files are OK.
+	<LI>You can move files between folders and automatically update all 
+	links between and in them.
+	<LI>Support for dynamically included files.
+	<LI>Conversion of NCSA and CERN image map files to client side image 
+	maps.
+	<LI>Support for editing of JavaScript.
+	<LI>Support for editing of Cascading Style Sheets level 2.
+	<LI>Uploading of complete sites with FTP.
+	<LI>Files are sent to your browser with one key stroke.
+	<LI>Any menu item can be bound to any single key stroke.
+	<LI>You can define new HTML elements. Therefore you don't have to wait 
+	for Alpha to be updated to use it for new HTML.
+	<LI>etc. etc.
+</UL>
+
+<H3><A NAME="acknowledgment">Acknowledgments</A></H3>
+
+<P>
+First of all, I would like to thank Pete Keleher for writing Alpha, the 
+best editor in the world, without which my Tcl code would be pretty 
+useless. Many thanks to all other Alpha Tcl authors, in particular Vince 
+Darley, who is currently leading the development of Alpha's core Tcl 
+features.  I am also indebted to Scott Brim who wrote the first version of 
+Alpha's HTML mode.  Some original ideas and tcl code were taken by him from 
+html.el for GNU Emacs and latex.tcl for Alpha.  Fran&ccedil;ois Pottier 
+gave me lots of help with the code which makes Alpha talk to Big Brother. 
+The algorithm for extracting the width and height of JPEG images were 
+written by Alex Knowles and Andrew Tong.  Many thanks to Michael O'Henly 
+for making the wonderful <A 
+HREF="http://hem.fyristorg.com/alpha_www_tools/intro/" TARGET="_top">Alpha 
+HTML mode intro site</A>.  He has also sent me a list with corrections of 
+the language in an earlier version of this manual. (But his correction are 
+gone by now as the manual is completely rewritten. :-)  And thanks to 
+everybody who has sent me suggestions and bug reports.  You know who you 
+are.
+</P>
+
+<H3><A NAME="feedback">Feedback</A></H3>
+
+<P>
+All comments on HTML mode are welcome. Many features in HTML mode were 
+suggested by HTML mode users. Don't hesitate to send me your ideas. Please 
+tell me if you find a bug which annoys you. If you tell me about it I'll do 
+my best to fix it. If you don't tell me about it I may not discover it 
+myself.
+</P>
+
+
+<H3><A NAME="Legal">Legal stuff</A></H3>
+
+<P>
+All Tcl code I've written for Alpha is distributed under the <A
+HREF="http://www.gnu.org/copyleft/gpl.html">GNU public 
+licence</A>.
+</P>
+
+
+<P>
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+</P>
+
+<P>
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+</P>
+
+<P>
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+</P>
+
+<P>
+However, Alpha itself is not free. It's shareware.
+</P>
+
+<H3>A postcard, please...</H3>
+
+<P>
+Writing HTML mode has taken a considerable amount of time.  Therefore, if 
+you like HTML mode and use it a lot, I would very much appreciate it if you 
+send me a colorful postcard and tell me that.  It would give me new energy 
+to add new features to HTML mode.  Note that emails don't count as 
+postcards.  Emails are not pretty enough to put on the wall. My address is
+</P>
+
+<P>
+Johan Linde<BR>
+N&auml;ckrosv&auml;gen 27<BR>
+SE-169 37 SOLNA<BR>
+SWEDEN<BR>
+</P>
+
+<H2><A NAME="Language">Language</A></H2>
+
+<P>
+My mother tongue is Swedish.  Therefore you will, no doubt, find 
+grammatical and other errors in this manual and in HTML mode.
+</P>
+
+<P>
+But before you complain, I must tell you that I know that "color" is spelt 
+"colour".  :-)
+</P>
+
+<!-- #INCLUDE INCLPATH="mainbottom.html" -->
+
+<DIV STYLE="height: 50px">
+</DIV>
+
+<SCRIPT TYPE="text/javascript">
+<!--
+document.write('<\/DIV>');
+// -->
+</SCRIPT>
+
+
+<!-- /#INCLUDE -->
+
+<!-- #INCLUDE INCLPATH="navigation.html" PREV="" NEXT="[manualNextPageFirst history.html]" -->
+
+<P>
+<script type="text/javascript">
+<!--
+document.write('<div class="navigation" style="top: ' + height + 'px; height: 50px">');
+// -->
+</script>
+
+<A HREF="history.html" STYLE="float: right; margin-right: 2em;">Next page</A>
+<SCRIPT TYPE="text/javascript">
+<!--
+document.write('<\/DIV>');
+// -->
+</SCRIPT>
+</P>
+
+<!-- /#INCLUDE -->
+
+
+
+</BODY>
+
+</HTML>

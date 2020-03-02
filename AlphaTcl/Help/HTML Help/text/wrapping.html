@@ -1,0 +1,98 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+
+<HTML>
+
+<HEAD>
+
+<TITLE>Text wrapping</TITLE>
+
+<LINK HREF="../Style%20Sheet/manual.css" REL="stylesheet" TYPE="text/css">
+
+
+</HEAD>
+
+<BODY>
+
+<!-- #INCLUDE INCLPATH="maintop.html" -->
+
+<SCRIPT TYPE="text/javascript">
+<!--
+if (document.body.clientHeight) {
+	height = document.body.clientHeight - 50;
+} else {
+	height = window.innerHeight - 50 ;
+}
+document.write('<div class="main" style="height: ' + height + 'px;">');
+// -->
+</SCRIPT>
+
+
+<!-- /#INCLUDE -->
+
+
+<H1>Text wrapping</H1>
+
+<P>
+It is very easy to insert an HTML element in an existing text.  For 
+example, suppose that in some text there is the word "important" which you 
+want in boldface. First select the word.
+</P>
+
+<P CLASS="code">
+<SPAN CLASS="selectedcode">important</SPAN>
+</P>
+
+<P>
+Then choose "Bold" from the menu (or type the equivalent key binding) and 
+"important" will be wrapped by the HTML tags to give
+</P>
+
+<P CLASS="code">
+<SPAN CLASS="htmlcode">&lt;B&gt;</SPAN>important<SPAN CLASS="htmlcode">&lt;/B&gt;</SPAN>
+</P>
+
+<P>
+This behavior is the same for all elements which are containers.  Inserting 
+an HTML element never deletes a selection.
+</P>
+
+<!-- #INCLUDE INCLPATH="mainbottom.html" -->
+
+<DIV STYLE="height: 50px">
+</DIV>
+
+<SCRIPT TYPE="text/javascript">
+<!--
+document.write('<\/DIV>');
+// -->
+</SCRIPT>
+
+
+<!-- /#INCLUDE -->
+
+
+<!-- #INCLUDE INCLPATH="navigation.html" PREV="[manualPrevPage templatestops.html]" 
+NEXT="[manualNextPage contextmenu.html]" -->
+
+<P>
+<script type="text/javascript">
+<!--
+document.write('<div class="navigation" style="top: ' + height + 'px; height: 50px">');
+// -->
+</script>
+<A HREF="templatestops.html">Previous page</A>
+<A HREF="contextmenu.html">Next page</A>
+<SCRIPT TYPE="text/javascript">
+<!--
+document.write('<\/DIV>');
+// -->
+</SCRIPT>
+</P>
+
+<!-- /#INCLUDE -->
+
+
+
+</BODY>
+
+</HTML>

@@ -1,0 +1,342 @@
+-*-Help-*-
+
+Lisp Mode Help
+
+
+                                          help version: 2.3
+                                               created: 03/07/2000 {01:10:49 am}
+                                           last update: 03/07/2006 {12:48:42 PM}
+
+
+This document describes the Lisp mode for the software Alpha.  Most of the
+functionality for Scheme mode and the Scheme menu follows the same logic.
+
+
+	  	Table Of Contents
+
+
+"# Description of files"
+"# General Notes About Lisp Mode"
+
+"# Specific Notes About Lisp Mode"
+"#   Keywords"
+"#   Command-Double-Click"
+"#   Carriage Returns"
+"#   File Marking"
+"#   Navigation"
+"#   Adding a Lisp Prefs file"
+
+"# Future Versions"
+"# License and Disclaimer"
+
+<<floatNamedMarks>>
+
+
+	  	Description of files
+
+
+This package includes four files for the Lisp mode:
+
+    "lispMode.tcl"        (version 2.2)
+    "LispCompletions.tcl"
+    "Lisp Tutorial.el"
+
+and
+
+	Lisp Mode Help (this file)
+
+It also includes an update for the Scheme mode, 
+
+    "schemeMode.tcl"       (version 2.1.2)
+    "ScmCompletions.tcl"
+
+
+A Macintosh version of "PowerLisp" can be found at
+
+    <http://www.cormanlisp.com/PowerLisp.html>
+
+Other Lisp applications can be found at
+
+    <http://www.lisp.org/>
+
+
+	  	General Notes About Lisp Mode
+
+
+(1)  Lisp mode serves primarily primarily to make it easier to read and
+     write Lisp files -- it colorizes keywords, and sets some
+     indentation, electric, word break, and commenting preferences.
+     
+	 Lisp mode includes its own menu, which mainly includes Help and
+	 navigation items, and can allow Alpha to serve as a front end for a
+	 local Lisp application.  This menu is also be used in Scheme mode.
+
+(2)  Lisp mode contains a full set of electric completions, as well as a 
+     Completions Tutorial via the  "Config > Mode Prefs"  menu item.
+
+(3)  An example syntax file is available via the "Examples Help" file. 
+     If you open an example syntax file through the provided hyperlinks, it
+     will open in a "shell" window.  After you close the window, clicking
+     on the hyperlink will return the unblemished original.
+
+(4)  Both Lisp and Scheme modes allow for user customization of keyword
+	 dictionaries via the "Config > Mode Prefs > Preferences" dialog. 
+	 New keywords and color changes will take effect immediately, without
+	 the need for a restart or changing windows.
+     
+(5)  Instructions for editing a LispPrefs.tcl file are given below.  
+     Any keywords added will not only be colorized, but included
+     in the completions routines as well.
+
+(6)  Lisp mode has Mark File [M] and Parse Function {} capabilities.
+
+(7)  Finally, on-line help is available for the Lisp mode through 
+     Command-Double-Clicking.  The URL to which the keywords are sent 
+     can be configured in the Mode Preferences dialog.
+
+
+	======================================================================
+
+
+	  	Specific Notes About Lisp Mode
+
+
+
+	  	 	Keywords
+
+
+Keyword dictionaries are in "lispMode.tcl", including the lists of:
+
+	Accessors
+	Classes
+	Condition Types
+	Constant Variables
+	Declarations
+	Functions
+	Macros
+	Restarts
+	Specials
+	Standard Generic Functions
+	Symbols 
+	System Classes 
+	Types
+	Type Specifiers
+	Variables
+
+Keyword dictionaries for Scheme are in "schemeMode.tcl".
+
+Both Lisp and Scheme modes have a sophisticated indentation procedure, based
+upon unmatched parantheses, ignoring parans that appear in comments or which
+are embedded in double quotes.  Each mode also has a full set of electric
+completions.
+
+Example syntax file:  "Lisp Example.el"
+
+Example syntax file:  "Scheme Example.scm"
+
+Completions Tutorial: "Lisp Tutorial.el"
+
+
+	  	 	Command-Double-Click
+
+
+On-line help is available for Lisp commands through Command-Double-Clicking.
+The URL to which the keywords are sent can be changed through the Mode
+Preferences dialog.  If the current text is a macro defined within the current
+window, rather than a Stata keyword, Command-Double-Clicking on it will find
+its definition.
+
+Any available syntax information is also available by pressing the Control key
+while Command-Double-Clicking.  This information will appear in the status bar
+window.  In some cases, this information is too long to be read in its
+entirety.  Pressing the Shift key instead of the Control key will insert this
+syntax information as commented text into your active window.
+
+NOTE: These Control-Command and Shift-Command Double-Click features have not
+been fully implemented.  See the "LispCompletions.tcl" file for additional
+information.
+
+
+	  	 	Carriage Returns
+
+
+Lisp mode has its own indentation scheme, based upon unbalanced braces, and
+uses the Indent On Return mode preference.  Each time that you start a new
+line with the Return key, the previous non-commented line is evaluated for
+unmatched ( and ) -- ignoring any braces that appear within double quotes or
+after valid comment characters.
+
+Lines that begin with ) will have their indentation reduced by one level to
+match the line with the matching (, as in
+
+	(defun R-mode  (&optional proc-name) 
+	    "Major mode for editing R source.  See S-mode for more help."
+	    (interactive)
+	    (setq S-proc-prefix "R"
+		    ;; S-set-style "GNU"
+		    S-default-style 'GNU
+	    )
+	    (S-mode proc-name)
+	)
+
+In some cases, as when you are continuing a command, you might want to
+over-ride this behavior.  For example, if you type
+
+	defv|
+
+and press the completion key, the command completes to
+
+	(defvar |)ее
+
+Typing "cond" and pressing the completion key again turns the line into
+
+	(defvar (cond |)ее)ее
+
+If you now press Return, the next line will automatically indent to
+
+	(defvar (cond 
+	    |)ее)ее
+
+with only one level of indentation.  This would be fine if this line actually
+terminated the command, but you might want to continue the command.  To
+over-ride this behavior, which in this case would increase the level of
+indentation for the next line to 2, press Shift-Return instead:
+
+	(defvar (cond 
+	        |)ее)ее
+
+Entire commands can also be reformatted (aligning indentation) with
+Control-Command-I.
+
+The "Full Indent" mode preference determines if continued commands are
+indented to Alpha's full "Indentation Amount" (which can be set using the
+"Config > Preferences > Interface Preferences > Electrics" menu item), or just
+half of this value.
+
+To enter a carriage return with no indentation whatsoever, press
+Control-Return.
+
+
+	  	 	File Marking
+
+
+Lisp file marking searches the active window for all commands that begin in
+column 1 of any given row.  The first 35 characters of a command that begins a
+new line will be marked.  Section and subsection headings will be returned as
+well.
+
+
+	The File                    The Mark
+	________                    ________
+
+    ;;*;; Section Heading       е Section Heading
+    ;;;*;;; Subsection Heading  * Subsection Heading
+    (command arguments etc        (command arguments etc
+
+
+Function parsing {} will return only the command names, in alphabetical order.
+
+
+	  	 	Navigation
+
+
+Lisp mode has command navigation capabilities, available with the key bindings
+Control-Shift-N/P. These items are also bound to Control-Shift-Arrow keys, and
+to 1 and 3 on the keypad when the Num-Lock is turned off.  Entire commands can
+also be highlighted with Control-Shift-S, or reformatted (aligning
+indentation) with Control-Command-I.
+
+Control-Shift Up and Down will find the prev/next command.  The Right and
+Left Arrow keys not only find prev/next commands, but will also place the
+cursor at the top of the window.
+
+Entire commands can also be highlighted with Control-Shift-S.
+
+
+	  	 	Adding a Lisp Prefs file
+
+
+To add additional commands or arguments in a "LispPrefs.tcl" file, select
+"Config > Mode Prefs > Edit Prefs File", and add these lines:
+
+
+	set LispUserCommands {
+		blah bladdity
+	}
+	
+	set LispUserArguments {
+		blah2 bladdity2
+	}
+	
+	Lisp::colorizeLisp
+
+
+To add additional commands or arguments in a "ScmPrefs.tcl" file, select
+"Config > Mode Prefs > Edit Prefs File", and add these lines:
+
+
+	set ScmUserCommands {
+		blah bladdity
+	}
+	
+	set ScmUserArguments {
+		blah2 bladdity2
+	}
+	
+	Scm::colorizeScm
+
+
+Include as many keywords as desired within the braces, separating each keyword
+by at least one space or carriage return.  Alpha will automatically load this
+preferences file the first that the Lisp/Scheme mode is invoked.
+
+Any keywords contained in these categories will not only be colorized, but
+will also be included as electric completions.  Don't repeat commands or
+arguments that have already been defined.
+
+	  	
+	======================================================================
+
+
+	  	Future Versions
+
+
+The Lisp mode was written as a side-project, by someone who doesn't actually
+write Lisp files.  (I was hoping that being able to decipher files in the
+Emacs Speaks Statistics package would help me write the Statistical modes.)
+
+I submit this mode to the Alpha community with the hopes that (i) somebody
+else will find it useful, (ii) any errors or updates will be reported to me,
+and (iii) I might inspire somebody to take it even further.  I will continue
+to maintain it and post updates as necessary, but any contributions are
+certainly welcome.
+
+
+
+	  	License and Disclaimer
+
+
+AlphaTcl's Lisp mode:
+
+Copyright (c) 2000-2006 Craig Barton Upright
+All rights reserved.
+
+AlphaTcl's Scheme mode:
+
+Copyright (c) 1996-2006 Oleg Kiselyov and Craig Barton Upright
+All rights reserved.
+
+See the file "license.terms" for information on usage and redistribution of
+these packages, and for a DISCLAIMER OF ALL WARRANTIES.
+
+These modes are free.  Alpha is shareware !   <<register>>
+
+cheers,
+
+-- Craig
+
+Author: Craig Barton Upright
+E-mail: <cupright@alumni.princeton.edu>
+   www: <http://www.purl.org/net/cbu>
+
+This document has been placed in the public domain.

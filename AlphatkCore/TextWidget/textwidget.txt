@@ -1,0 +1,25 @@
+The Enhanced Text Widget
+------------------------
+
+Main external interfaces:
+
+tw::Hook (well defined)
+tw::Colour (less well defined)
+tw::MakeWindow (well defined)
+tw::Toolbar (well defined)
+tw::Set (well defined)
+tw::GetColorTags (well defined)
+
+Also the '$colouring' variable is used as a global flag.
+
+$alpha::modifier_keys is used to determine appropriate bindings.
+
+Also: alpha::haveDnd
+
+----
+
+Beyond the above issues, the enhanced text widget is completely independent
+of the rest of Alphatk.  But please note that this code is not free.  Any
+use outside of the Alphatk package is not permitted at present --- but if
+you'd like to be able to embed this inside something else, please ask me.
+

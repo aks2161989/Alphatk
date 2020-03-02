@@ -1,0 +1,53 @@
+! ------------------------------------------------------------------------------
+!  es.rc
+!  This file is part of Unifix BWidget Toolkit
+!  Definition of spanish resources
+!  daniel@rawbyte.com
+! ------------------------------------------------------------------------------
+
+
+! --- symbolic names of buttons ------------------------------------------------
+
+*abortName:    A&bortar
+*retryName:    &Reintentar
+*ignoreName:   &Ignorar
+*okName:       &OK
+*cancelName:   &Anular
+*yesName:      &S’ 
+*noName:       &No
+
+! --- symbolic names of label of SelectFont dialog ----------------------------
+
+*boldName:       &Negrita
+*italicName:     &Cursiva
+*underlineName:  &Subrayado
+*overstrikeName: &Tachado
+*fontName:       &Fuente
+*sizeName:       &Tama–o
+*styleName:      &Estilo
+
+
+! --- symbolic names of label of PasswdDlg dialog -----------------------------
+
+*loginName:    Nombre de &usuario
+*passwordName: &Contrase–a 
+
+! --- resource for SelectFont dialog ------------------------------------------
+
+*SelectFont.title:        Selecci—n de fuente
+*SelectFont.sampletext:   Texto de Ejemplo
+
+
+! --- resource for MessageDlg dialog ------------------------------------------
+
+*MessageDlg.noneTitle:      Indicaci—n
+*MessageDlg.infoTitle:      Informaci—n
+*MessageDlg.questionTitle:  Pregunta
+*MessageDlg.warningTitle:   Atenci—n
+*MessageDlg.errorTitle:     Error
+
+
+! --- resource for PasswdDlg dialog -------------------------------------------
+
+*PasswdDlg.title:  Introduzca su nombre de usuario y contrase–a
+

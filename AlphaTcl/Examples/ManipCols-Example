@@ -1,0 +1,344 @@
+-*-Setx-*-
+
+
+# Manipulate Columns Tutorial
+=============================
+
+This is a tutorial that demonstrates the "manipCols" feature. In  order  to
+use it, you must first activate the feature  by  going  to  the  menu  item
+"Config --> Preferences --> Features" and selecting  'Manip  Cols'  in  the
+features list by checking the corresponding checkbox.
+
+The 'manipCols' package is  a  feature  which  allows  one  to  do  various
+manipulations with the columns of any tabulated material, i.e. a series  of
+lines in which items are separated by a tabulation or by any other specific
+character (like & or a tabulation or a colon, a comma, an  endash  etc.  or
+even the space character). Once it is installed and activated,  it  adds  a
+submenu called "Columns" to the "Text" menu in Alpha.  The  items  of  this
+submenu are explained below. Basic manipulations  are  copying,  inserting,
+appending, twiddling,  deleting,  sorting,  numbering  and  (un/)equalizing
+columns, formating text in columns.
+
+This Tutorial, when opened through a hyperlink, is a "shell"  window.  None
+of the changes you make will affect the  actual  file.  If  you  close  the
+window and then click on the hyperlink again, you will start with the  same
+example as before.  Note that "Undo" is not available in shell windows.
+
+This tutorial is in Setx mode to take advantage of some  file  marking  and
+colorizing procedures. The manipCols feature can work in any mode.
+
+
+# Columns selection
+===================
+
+
+To select one or several columns, put the cursor anywhere in  the  text  of
+the top left item (or "cell") you want to select, press  the  mouse  button
+and,  without releasing the button, go to the text of the bottom right item
+you want to select.
+
+This will hilite a region which is much more than what  you  want  but  the
+package will consider only the columns located between the top  and  bottom
+positions.
+
+Here is an example (from Romeo and Juliet). We suppose here that each  word
+is separated by a tabulation (any single  character  can  be  chosen  as  a
+separator, even the space character; see below) :
+
+Gallop	apace,	you	fiery footed	steeds,
+Towards	Phoebus'	lodging;	such	a	waggoner
+As	Phaethon	would	whip	you	to	the	west,
+And	bring	in	cloudy	night	immediately.
+
+Put the cursor in the word 'you' (first row, third word), press  the  mouse
+button and, without releasing it, go to the word 'whip' in the  third  row,
+then release. Now use the "Text --> Columns --> Copy  Columns"  menu  item.
+Now paste it here:
+
+
+
+
+you should have selected the following region
+
+you	fiery footed
+lodging;	such
+would	whip
+
+even though all the words from 'you' to 'whip' are hilited.  We  have  thus
+selected columns 3-4 and rows 1-3.
+
+
+# Columns Colorizing
+--------------------
+
+
+It is sometimes difficult to be sure what has been selected because columns
+are not aligned vertically so ou can check this using the menu item
+"Text --> Colorize Columns" : only the selected columns will be colorized.  
+Highlight the region again, and then use this menu item.
+
+Gallop	apace,	you	fiery footed	steeds,
+Towards	Phoebus'	lodging;	such	a	waggoner
+As	Phaethon	would	whip	you	to	the	west,
+And	bring	in	cloudy	night	immediately.
+
+So dragging the mouse from position (a,b) in a table to position (c,d) 
+selects columns 'a' to 'c' and rows 'b' to 'd'.
+
+
+# Equalizing Columns
+--------------------
+
+
+If you want to have a better vertical alignment of your columns you can use
+the "Equalize Columns" menu item. Select the region as above (or the entire
+selection) and select "Equalize Columns" in the "Text --> Columns" menu.
+
+Gallop	apace,	you	fiery footed	steeds,
+Towards	Phoebus'	lodging;	such	a	waggoner
+As	Phaethon	would	whip	you	to	the	west,
+And	bring	in	cloudy	night	immediately.
+
+The result should be :
+
+Gallop 	apace,  	you     	fiery footed	steeds,
+Towards	Phoebus'	lodging;	such        	a      	waggoner    
+As     	Phaethon	would   	whip        	you    	to          	the	west,
+And    	bring   	in      	cloudy      	night  	immediately.
+
+By the way, equalizing makes it very easy to  use  rectangular  hiliting  :
+now try to select a region with the mouse holding the option key down.
+
+
+# Notes regarding column selection
+-------------------------------------
+
+¥ the cursor can be positioned anywhere in a "cell"  :  the  entire  column
+will always be selected.
+
+¥ you do not have necessarily to colorize the selected region. This is just
+handy for visualisation. BEWARE  that  this  procedure  removes  all  other
+colors in your document (this proc might be improved later).
+
+¥ columns are numbered from 1 to n (see the messages in the status bar).
+
+¥ hiliting must still be there if you want to  apply  a  manipulation  like
+copying, inserting, appending, twiddling, deleting columns.
+
+¥ note that (since version 0.5b) you DO NOT have anymore to escape (i-e put
+a backslash before) the special characters like 'backslash' \ or 'dollar' $
+or 'circumflex' ^ or 'endash'  -  etc.  The  package  takes  care  of  this
+internally. The tabulation character though is represented by '\t'.
+
+¥ all the actions are  undoable  (with  cmd-Z),  except  in  this  tutorial
+"shell" window.
+
+
+# Column Selection Key Bindings
+------------------------
+
+All of the menu items that you have just used are  also  available  through
+key bindings. All the key bindings will use 'ctrl-c' (c for columns !).
+
+Hit 'ctrl-c', release, then hit one of the following letters :
+
+	<ctrl-c c>    to <c>opy columns
+	<ctrl-c d>    to <d>elete columns
+	<ctrl-c i>    to <i>nsert columns
+	<ctrl-c k>    to <k>olorize <k>olumns
+	<ctrl-c x>    to cut columns (e<x>tract them and copy in system scrap)
+
+
+The menu item "Text --> Columns -> Columns Bindings" will  display  all  of
+the key bindings available.
+
+
+# Columns separator
+-------------------
+
+The Columns separator must NECESSARILY be a SINGLE character. 
+
+The default is the tabulation character <\t>. Changing the separator can be
+done using the "Columns Separator" menu item, which is bound to <ctrl-c s>.
+This separator will remain changed throughout the remainder of  your  Alpha
+session. The "Config --> Packages --> Manip Cols Prefs" menu item  includes
+a preference for the default separator.
+
+With Latex you might want to choose '&' as a separator for \array or \table
+environments:
+
+    \begin{tabular}{|c|c|c|}
+	\hline
+    you & fiery-footed \\
+    lodging; & such \\
+    would & whip \\
+	\hline
+    \end{tabular}
+
+You can even use  the  'space'  character  as  a  separator.  
+
+
+# Text columnizing
+==================
+
+
+There are tools to format text in vertical  justified  columns  (single  or
+multiple). This will be very handy to prepare nice looking  documentations,
+help files, etc. All the paragraphs in the present file have been justified
+with this tool. Everything  is  parametrizable:  number  of  columns,  left
+margin, text width.
+
+Highlight this entire selection, and then use the  "Columnize  Text"  item.
+(This is also bound to <ctrl-c j>.)
+
+Gallop	apace,	you	fiery footed	steeds,
+Towards	Phoebus'	lodging;	such	a	waggoner
+As	Phaethon	would	whip	you	to	the	west,
+And	bring	in	cloudy	night	immediately.
+
+
+You should end up with something like this:
+
+
+Gallop apace, you fiery footed steeds, Towards  Phoebus'  lodging;  such  a
+waggoner As Phaethon would whip you to the west, And bring in cloudy  night
+immediately. 
+
+
+Here an example of multicolumnizing :
+
+Gallop  apace,        you	to the west, and bring in	That runaways'  eyes  may
+fiery-footed      steeds,	cloudy night immediately.	wink, and Romeo  leap  to
+towards Phoebus' lodging;	Spread thy close curtain,	these arms,  untalk'd-of,
+such  a    waggoner    as	love performing    night!	and unseen !
+Phaethon would  whip  you
+
+
+Highlight this region, select "Multi Columnize Text" (a dynamic menu  item,
+which appears when holding down the control key in the  Columns  menu),  and
+the status bar window will ask you how many columns you would like. Try it!
+
+
+Gallop apace, you fiery-footed steeds, towards Phoebus' lodging; such a
+waggoner as Phaethon would whip you to the west, and bring in cloudy night
+immediately.  Spread thy close curtain, love performing night!  That
+runaways' eyes may wink, and Romeo leap to these arms, untalk'd-of, and
+unseen !
+
+
+A "Uncolumnize Text" menu item is available by pressing the option key,  or
+with the key binding <ctrl-c z>. Try to uncolumnize this text:
+
+
+Gallop apace,  you	Phaethon     would	Spread  thy  close	Romeo   leap    to
+fiery-footed      	whip  you  to  the	curtain,      love	these        arms,
+steeds,    towards	west, and bring in	performing  night!	untalk'd-of,   and
+Phoebus'  lodging;	cloudy       night	That     runaways'	unseen !
+such a waggoner as	immediately.      	eyes may wink, and
+
+
+Use the "Text --> Fill Paragraph" menu item to then make it "normal", 
+using the left fill column preference of the current mode.
+
+
+# More examples
+===============
+
+
+You can now select a region and experiment : here are some examples applied
+to our now favorite passage:
+
+Gallop	apace,	you	fiery footed	steeds,
+Towards	Phoebus'	lodging;	such	a	waggoner
+As	Phaethon	would	whip	you	to	the	west,
+And	bring	in	cloudy	night	immediately.
+
+
+#	'Deleting'
+
+Gallop 	apace,  	steeds, 
+Towards	Phoebus'	a       	waggoner    
+As     	Phaethon	you     	to          	the    	west,       
+And    	bring   	in      	cloudy      	night  	immediately.
+
+#	'Copying, selecting the first two lines and appending'
+
+Gallop 	apace,  	you     	fiery-footed	steeds,	you         	fiery-footed
+Towards	Phoebus'	lodging;	such        	a      	waggoner    	lodging;    	such        
+As     	Phaethon	would   	whip        	you    	to          	the         	west,       
+And    	bring   	in      	cloudy      	night  	immediately.
+
+#	'Copying, selecting the second column and inserting'
+
+Gallop 	you     	fiery-footed	apace,  	you     	fiery-footed	steeds,
+Towards	lodging;	such        	Phoebus'	lodging;	such        	a      	waggoner    
+As     	would   	whip        	Phaethon	would   	whip        	you    	to          	the	west,
+And    	bring   	in      	cloudy      	night  	immediately.
+
+#	'Twiddling'
+
+Gallop 	apace,  	fiery-footed	you     	steeds,
+Towards	Phoebus'	such        	lodging;	a      	waggoner    
+As     	Phaethon	whip        	would   	you    	to          	the	west,
+And    	bring   	in      	cloudy      	night  	immediately.
+
+#	'Sorting Columns'
+
+Gallop 	apace,  	lodging;	such        	steeds,
+Towards	Phoebus'	would   	whip        	a      	waggoner    
+As     	Phaethon	you     	fiery-footed	you    	to          	the	west,
+And    	bring   	in      	cloudy      	night  	immediately.
+
+#	'Selecting the first two lines and reverse sorting rows'
+
+you         	steeds, 	apace,      	Gallop      	fiery-footed
+waggoner    	Towards 	such        	Phoebus'    	lodging;    	a           
+As          	Phaethon	would       	whip        	you         	to          	the	west,
+And         	bring   	in          	cloudy      	night       	immediately.
+
+#	'Selecting all four lines and inserting rows numbers'
+
+1	Gallop 	apace,  	you     	fiery-footed	steeds,
+2	Towards	Phoebus'	lodging;	such        	a      	waggoner    
+3	As     	Phaethon	would   	whip        	you    	to          	the	west,
+4	And    	bring   	in      	cloudy      	night  	immediately.
+
+etc. etc.
+
+	  	
+	----------------------------------------------------------------------
+
+
+# Key Bindings
+==============
+
+All the key bindings will use 'ctrl-c' (c for columns !). 
+
+Hit 'ctrl-c', release, then hit one of the following letters :
+
+	<ctrl-c a>    to <a>ppend columns
+	<ctrl-c b>    to show info about <b>indings
+	<ctrl-c c>    to <c>opy columns
+	<ctrl-c d>    to <d>elete columns
+	<ctrl-c e>    to <e>qualize columns
+	<ctrl-c i>    to <i>nsert columns
+	<ctrl-c j>    to <j>ustify text
+	<ctrl-c k>    to <k>olorize <k>olumns
+	<ctrl-c m>    to put text in <m>ulticolumns
+	<ctrl-c n>    to <i>nsert rows numbers
+	<ctrl-c o>    to sort each row in increasing <o>rder
+	<ctrl-c p>    to com<p>lete rows
+	<ctrl-c r>    to sort each row in <r>everse order
+	<ctrl-c s>    to change the columns <s>eparator
+	<ctrl-c t>    to <t>widdle columns
+	<ctrl-c u>    to <u>nequalize columns
+	<ctrl-c v>    to set the margin <v>alues for columnizing
+	<ctrl-c x>    to cut columns (e<x>tract them and copy in system scrap)
+	<ctrl-c z>    to uncolumni<z>
+
+
+The menu item "Text --> Columns -> Columns Bindings", bound to <ctrl-c  b>,
+will display all of the key bindings available.
+
+
+# End of Tutorial.

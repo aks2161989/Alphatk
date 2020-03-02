@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE doc SYSTEM "xml-Example.dtd">
+
+<doc>
+<title>This is a Document</title>
+<chapter>
+<title>Here is a chapter</title>
+<section>
+<title>Section Title</title>
+<para>This is a test.</para>
+<note>This is a note.</note>
+</section>
+<section>
+<title>Another Section Title</title>
+<para>This is <emph>another</emph> test.</para>
+<note>This is another note.</note>
+</section>
+</chapter>
+</doc>

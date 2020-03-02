@@ -1,0 +1,66 @@
+!! This file : RtfToAccents.flt 
+!! Convert Rtf codes to accented letters.
+!! To be used with the Filters Menu in Alpha.
+!! Last modification : 8 avril 2000 - 19:21:38
+!! (c) Copyright : Bernard Desgraupes 2000
+
+
+\'87	á
+\'89	â
+\'be	æ
+\'88	à
+\'8c	å
+\'8b	ã
+\'8a	ä
+\'8d	ç
+\'8e	é
+\'90	ê
+\'8f	è
+\'91	ë
+\'92	í
+\'94	î
+\'93	ì
+\'95	ï
+\'96	ñ
+\'97	ó
+\'99	ô
+\'98	ò
+\'bf	ø
+\'9b	õ
+\'9a	ö
+\'a7	ß
+\'9c	ú
+\'9e	û
+\'9d	ù
+\'9f	ü
+\'d8	ÿ
+\'ae	Æ
+\'e7	Á
+\'e5	Â
+\'cb	À
+\'81	Å
+\'cc	Ã
+\'80	Ä
+\'82	Ç
+\'83	É
+\'e6	Ê
+\'e9	È
+\'e8	Ë
+\'ea	Í
+\'eb	Î
+\'ed	Ì
+\'ec	Ï
+\'84	Ñ
+\'ee	Ó
+\'ef	Ô
+\'f1	Ò
+\'af	Ø
+\'cd	Õ
+\'85	Ö
+\'f2	Ú
+\'f3	Û
+\'f4	Ù
+\'86	Ü
+\'ce	Œ
+\'cf	œ
+\'d9	Ÿ

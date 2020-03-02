@@ -1,0 +1,185 @@
+
+Bib To Html Help
+
+
+                                           help version: 3.0
+                                                created: 07/02/2001 {09:40:07 pm}
+                                            last update: 07/16/2003 {01:00:29 AM}
+
+
+This help file describes the package "Bib To Html"
+
+
+	  	Table Of Contents
+
+
+"# Introduction"
+"# Bib To Html"
+"# Bbl To Html"
+"# License and Disclaimer"
+"# Copyright"
+
+<<floatNamedMarks>>
+
+
+	  	Introduction
+			 
+			 
+This is a new version of the converter BibToHtml.  Activating this package
+will add two different menu items to the BibTeX Menu's 'BibTeX Conversion'
+submenu -- "Bib To Html" and "Bbl To Html".
+
+Preferences: Mode-Features-Bib
+
+The current version works differently by allowing you to create an .html
+bibliography file with your preferred bib (.bst) style.  (The older version
+converted a selection of bib entries into html directly, analyzing each of
+these entries, searching for the various fields and translating the content
+of these ones into html code.  In this way, "BibToHtml" had been obliged to
+create its own bib style.)
+
+The current version works with BibTeX to create and translate a .bbl file
+as described below.
+
+
+	  	Bib To Html
+
+
+As in the previous release, you use this command to convert either the
+entire contents of a the current .bib window or only a part.  If there is
+no highlighted selection, the entire .bib file is selected.  If the current
+window is not a .bib file, you are prompted to locate one to convert.
+ 
+(1) The selection is put in a temporary bib file, and you are prompted for
+a bib style and other settings using a dialog that will look like this:
+
+  <<Bib::ToHtml::conversionDialog "dummy" 1>>
+
+All settings are saved for the next round, and between editing session. 
+The 'labels' checkbox concerns the labels of bibliographic references as
+[2], [4], [Bas], [Vin], etc -- these will be added during the conversion
+process if requested.
+
+An .aux temporary file is then created including the following commands:
+
+	\bibstyle{your bib style}
+	\citation{*}
+	\bibdata{tmp<count>}
+
+"tmp<count>" is the name of the temporary bib file.  All of these temporary
+files are created in the same temporary folder in your Alpha Prefs file, and 
+the 'count' is incremented with each new use of the menu item.
+
+(3) "Bib To Html" then launches BibTeX which deals this temporary .aux file
+and converts the temporary .bib file in a .bbl file.  Your BibTeX
+application must be able to find the defined .bst style file -- if it can 
+be found in the same directory as the .bib file it should work fine, as a 
+copy of it will be placed in the temporary folder.  Otherwise, see the 
+documentation that came with your BibTeX application.
+ 
+IMPORTANT: When BibTeX is launched, Alpha doesn't know when the process of
+bibtexing the file is complete.  Attempting to continue before the .bbl is
+actually created will cause serious problems.  In order to avoid this
+mistake "Bib To Html" issues alert dialog asking "Is BibTeX Finished?"  --
+do NOT click on the OK button until you're sure that BibTeX is done !!
+ 
+When BibTeX stops (it should beep or somehow let you know) you can switch
+back to Alpha if necessary, answer OK to this message and the conversion
+continues.  Finally, "Bib To Html" converts this .bbl file using ...
+
+
+NEW FEATURES: This new release, BibToHtml 3.0, includes some important new features.
+
+ 1) Dialog windows have been improved by Craig B. Upright.
+ 
+ 2) BibtoHtml now works with many standard bibstyles:
+    abbrv, abstract, acm, alpha, amsalpha, amsplain, annotate, annotation, apa, 
+	apalike, apalike2, astron, authordate 1-4, fralpha, frplain, named, 
+	namunsrt, nature, newapa, plain, plainyr.
+
+ 3) If a field, created by one of these styles, is written in small caps 
+    characters, the converter takes in account this font and simulates it in html.
+ 
+ 4) It is now possible to provide a starting index for bib styles including
+    numeric labels, plain for example, so that you may start the numeration
+	by any number: 5, 10, 25, ...
+	
+ 5) In the same way you may prefix the labels with any characters string 
+    of your choice, for example: a string BAS with plain will provide 
+    labels as [BAS1], [BAS2], ..... If you simultaneously prefix a numeric 
+    label and you select a starting number you could get, for example:
+	[BAS10], [BAS11], .....
+	
+
+
+	  	Bbl To Html
+
+
+Craig added a new command "Bbl To Html" in the "BibTeX Conversions" sub-menu.
+When called directly from the menu, you are offered a dialog asking you to 
+select a .bbl file that you have already created.  This dialog looks like
+
+  <<Bib::ToHtml::conversionDialog>>
+
+In this case you must have already called BibTeX on a .tex file, so the bib 
+style has already been declared elsewhere.
+
+When called indirectly from "Bib To Html", you've already seen this dialog
+and the temporary .bbl file already created is used.
+
+"Bbl To Html" then processes the .bbl file, converting it into an .html
+file.  This html file can then be directly sent to your local browser, or
+you can open it in "HTML" mode for editing.  You may improve this html
+file, in adding titles or any fancies, for example, before sending to the
+browser.
+ 
+IMPORTANT: 
+
+  If some bib entries in the file or selection are syntactically incorrect,
+  your BibTeX application will display the errors.  But these errors won't
+  affect the work of "Bib/Bbl To Html", and these erroneous entries will
+  probably be converted to html with wrong fields.
+
+NOTE: 
+
+  It is not needed to first sort the .bib file or the selection because
+  BibTeX will do it.  The converted .html file will be correctly sorted.
+  Any '@strings' entries will also be translated.
+
+
+	  	License and Disclaimer
+
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+ ¥ Redistributions of source code must retain the above copyright
+   notice, this list of conditions and the following disclaimer.
+
+ ¥ Redistributions in binary form must reproduce the above copyright
+   notice, this list of conditions and the following disclaimer in the
+   documentation and/or other materials provided with the distribution.
+
+ ¥ Neither the name of Alpha/Alphatk nor the names of its contributors may
+   be used to endorse or promote products derived from this software
+   without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ARE DISCLAIMED. IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE FOR
+ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
+DAMAGE.
+
+
+Author: Pierre BASSO
+E-mail: <basso@lim.univ-mrs.fr>
+
+	  	Copyright
+
+This document has been placed in the public domain.

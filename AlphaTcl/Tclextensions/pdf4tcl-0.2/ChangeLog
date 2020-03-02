@@ -1,0 +1,19 @@
+2005-01-14  Jens Pšnisch   <jens@ruessel.in-chemnitz.de>
+
+	* fixed circle implementation
+	* added support for arcs
+
+2004-11-30  Frank Richter  <frichter@truckle.in-chemnitz.de>
+
+	* partially fixed font handling, still needs a lot of work
+
+2004-10-30  Jens Pšnisch  <jens@ruessel.in-chemnitz.de>
+
+	* added support for qCurve, circle and polygon
+	* linestyle can now be reset
+	* switchable coordinate system, page can now be build bottom-up
+
+2004-10-25  Frank Richter  <frichter@truckle.in-chemnitz.de>
+
+	* initial version
+

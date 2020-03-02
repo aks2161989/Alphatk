@@ -1,0 +1,193 @@
+/* 
+ * This is an example file to demonstrate the Plc (Property List Compiler)
+ * mode in Alpha. This file can be compiled in CW Pro 8 or greater to create an 
+ * property list file Info.plist ('plist' directive) and InfoPlist.strings files 
+ * for various languages ('localize' directive) for a bundled application under MacOS.
+ */
+
+
+// Here is a conditional include. It is listed in the {} popup.
+#ifdef FOOBAR_SYMBOL
+#include <foobar.h>
+#endif
+
+// Here is a message
+#message This is an example file for Plc Mode in Alpha
+
+// Here is a warning
+#warning The Property List Compiler was introduced in CW Pro 8
+
+// Some macro definitions. They are listed in the {} popup.
+	// Bundle identifier string
+#define kBundleIdentifier "net.sourceforge.alphatcl"
+
+	// Short version string
+#define kShortVersionString __OUTPUT_FILENAME__ " version 8.0"
+
+	// String to display in the Finder's Get Info window
+#define kGetInfoString kShortVersionString ", \U00A9 2003 by Alpha Cabal. All rights reserved."
+
+
+plist
+{
+	dictionary
+	{
+		key "CFBundleVersion" value string kShortVersionString
+		key "CFBundleShortVersionString" value string kShortVersionString
+		key "CFBundleGetInfoString" value string kGetInfoString
+		
+		key "CFBundleName" value string __OUTPUT_FILENAME__
+		key "CFBundleSignature" value string __OUTPUT_CREATOR__
+		key "CFBundlePackageType" value string __OUTPUT_TYPE__
+		
+		key "CFBundleIconFile" value string "128"
+		key "CFBundleIdentifier" value string kBundleIdentifier
+		
+		key "CFBundleDevelopmentRegion" value string "English"
+		key "CFBundleInfoDictionaryVersion" value string "6.0"
+		key "LSPrefersCarbon" value boolean true
+		
+		key "CFBundleDocumentTypes" value array
+		[
+		dictionary
+		{
+			key "CFBundleTypeName" value string "plist_item_one"
+			key "CFBundleTypeIconFile" value string "129"
+			key "CFBundleTypeRole" value string "Editor"
+			key "CFBundleTypeOSTypes" value array
+			[
+			string 'abcd'
+			]
+			key "CFBundleTypeExtensions" value array
+			[
+			string "abcd"
+			string "efgh"
+			string "ijkl"
+			]
+		}
+		
+		dictionary
+		{
+			key "CFBundleTypeName" value string "plist_item_two"
+			key "CFBundleTypeIconFile" value string "130"
+			key "CFBundleTypeRole" value string "None"
+			key "CFBundleTypeOSTypes" value array
+			[
+			string 'wxyz'
+			]
+		}
+		
+		dictionary
+		{
+			key "CFBundleTypeName" value string "NSStringPboardType"
+			key "CFBundleTypeIconFile" value string "131"
+			key "CFBundleTypeRole" value string "Viewer"
+			key "CFBundleTypeOSTypes" value array
+			[
+			string 'TEXT'
+			]
+			key "CFBundleTypeExtensions" value array
+			[
+			string "*"
+			]
+		}
+		]
+	}
+}
+
+/* 
+* Following the plist {} directive  may  follow  localization  directives.
+* They are used to  customize  the  string  values  present  in  the  main
+* property list dictionary. Generally it's helpful to  keep  localizations
+* separate from the main property list compiler source file and  have  the
+* main localization file include the localizations. Separate localization
+* files mays be designated with the filename extension of ".ploc".
+*/
+
+localize "English" as "InfoPlist.strings"
+{
+	comment "Localized versions of Info.plist keys"
+	key "CFBundleName" value string "Calculator"
+
+	comment "Unicode copyright character \U00A9 has code \\U00A9"
+	key "CFBundleShortVersionString" value string kShortVersionString
+	key "CFBundleGetInfoString" value string kGetInfoString
+}
+
+localize "French" as "French.strings"
+{
+	comment "Localized versions of Info.plist keys"
+	key "CFBundleName" value string "Calculette"
+}
+
+localize "Spanish"
+{
+	comment "Localized versions of Info.plist keys"
+	key "CFBundleName" value string "Calculadora"
+}
+
+localize "German"
+{
+	comment "Localized versions of Info.plist keys"
+	key "CFBundleName" value string "Rechner"
+}
+
+
+// Experiment with the competions
+// ==============================
+// Experiment 1:
+// Type "plist" (without the quotes) and hit the completion key. 
+// You get a full plist directive template.
+
+
+
+// Experiment 2:
+// Type "localize" (without the quotes) and hit the completion key. 
+// You get a localize directive template. Type "loc" and hit the key. 
+// Type "locas" and hit the completion key.
+
+
+
+// Experiment 3:
+// Type the word "value" (without the quotes) followed by a white space 
+// and hit the completion key. The word string is inserted and hilited; 
+// hit the competion key repeatedly and you'll cycle through the seven possible 
+// values for the "value" keyword.
+
+
+
+// Experiment 4:
+// Type the word "key" (without the quotes) and hit the completion key. 
+// A space is added followed by an opening quote. Hit the completion key 
+// again: a picklist dialog offers a choice of all the possible predefined values.
+// Choose for instance the first one (APFileDescriptionKey). It is 
+// inserted after the double quote and the line is automatically completed. 
+// You get:
+// 		key "APFileDescriptionKey" value string 
+
+
+
+// Now do the same experiment but choose CFBundleDocumentTypes in the picklist. 
+// You are asked how many types you want. Type a number. You get a full template 
+// for a declaration of document types.
+
+
+
+// Experiment 5:
+// Type the following
+// 		key "NS
+// then hit the completion key. A smaller picklist is displayed containing the 
+// words starting with NS. Choose NSMenuItem. The line is completed with a 
+// dictionary value.
+
+
+
+// Experiment 6:
+// Simple completions. Type the beginning of any plc specific keyword to 
+// test the usual completion mechanism: for instance, type LSP or bo or 
+// di. Type a simple underscore and hit the completion key.
+
+
+
+// The following words are electric: array, dict, loc, locas. They 
+// immediately insert the right completion.

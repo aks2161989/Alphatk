@@ -1,0 +1,152 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+
+<HTML>
+
+<HEAD>
+
+<TITLE>Command-double-click</TITLE>
+
+<LINK HREF="../Style%20Sheet/manual.css" REL="stylesheet" TYPE="text/css">
+
+
+</HEAD>
+
+<BODY>
+
+<!-- #INCLUDE INCLPATH="maintop.html" -->
+
+<SCRIPT TYPE="text/javascript">
+<!--
+if (document.body.clientHeight) {
+	height = document.body.clientHeight - 50;
+} else {
+	height = window.innerHeight - 50 ;
+}
+document.write('<div class="main" style="height: ' + height + 'px;">');
+// -->
+</SCRIPT>
+
+
+<!-- /#INCLUDE -->
+
+
+<H1>Command-double-clicking</H1>
+
+<P>
+Command-double-clicking in an HTML window provides different kinds of 
+functionality depending on where you click.
+</P>
+
+<H3>Command-double-clicking on an opening tag</H3>
+
+<P>
+Command-double-clicking on an opening tag lets you change the attributes of 
+the tag. This is equivalent of using <A HREF="editing.html#edit"><SPAN CLASS="menuitem">Edit Tag</SPAN></A> 
+in the <SPAN CLASS="menu">Editing</SPAN> 
+menu. However, clicking on a color or URL attribute has a special 
+effect, see below.
+</P>
+
+<H3>Command-double-clicking on a color attribute</H3>
+<P>
+Command-double-clicking on a color attribute brings up a color picker where 
+you can change, and optionally name,  the color.
+</P>
+
+<H3>Command-double-clicking on a URL attribute</H3>
+
+<P>
+Command-double-clicking on an absolute URL sends the URL to your web 
+browser.  This is not limited to HTML mode. It is a general feature of 
+Alpha.
+</P>
+
+<P>
+Command-double-clicking on a relative URL attribute opens a new window with 
+the file if the file exists and is a text file.  If it does not exist, a 
+dialog box appears as the one shown below.  As you see, a new empty window 
+can be opened with the name of the file.  This window is automatically 
+saved in the right place, and if necessary new folders are created.  Thus, 
+if you are making a new set of pages, you can make links to the ones you 
+have not written yet and then, by cmd-double-clicking, let Alpha make empty 
+files which are saved where you want them.
+</P>
+
+<DIV>
+<img src="../bilder/cmddoubleclick.png" alt="Cmd double click" width="374"
+height="184">
+</DIV>
+
+<P>
+Command-double-clicking on an anchor link &lt;A&nbsp;HREF="#anchor"&gt; jumps to 
+the corresponding &lt;A&nbsp;NAME="anchor"&gt; in the file.
+</P>
+
+<P>
+If the URL you click on points to a non-text file like an image, the file 
+is opened in the application which created it. If you don't want to 
+open non-text files this way you can disable this feature by unchecking 
+<SPAN CLASS="item">Cmd-double-clicking on non-text file link opens file</SPAN> in the <A
+HREF="prefs.html#General2">general preferences dialog</A>.
+</P>
+
+<H3>Command-double-clicking on a CSS URL</H3>
+
+<P>
+Command-double-clicking on a CSS URL property has the same effect as 
+clicking on a URL attribute.
+</P>
+
+<H3>Command-double-clicking on an include tag</H3>
+<P>
+Command-double-clicking on an <A HREF="includes.html">include tag</A> opens 
+the include file.
+</P>
+
+<H3>Command-double-clicking in home page windows</H3>
+
+<P>
+Command-double-clicking on a file or folder in a home page windows opens 
+the file or a new home page window with the folder. Read more in the 
+section about <A HREF="homepagewins.html">home page windows</A>.
+</P>
+
+<!-- #INCLUDE INCLPATH="mainbottom.html" -->
+
+<DIV STYLE="height: 50px">
+</DIV>
+
+<SCRIPT TYPE="text/javascript">
+<!--
+document.write('<\/DIV>');
+// -->
+</SCRIPT>
+
+
+<!-- /#INCLUDE -->
+
+
+<!-- #INCLUDE INCLPATH="navigation.html" PREV="[manualPrevPage optionclick.html]" 
+NEXT="[manualNextPage layout.html]" -->
+
+<P>
+<script type="text/javascript">
+<!--
+document.write('<div class="navigation" style="top: ' + height + 'px; height: 50px">');
+// -->
+</script>
+<A HREF="optionclick.html">Previous page</A>
+<A HREF="layout.html">Next page</A>
+<SCRIPT TYPE="text/javascript">
+<!--
+document.write('<\/DIV>');
+// -->
+</SCRIPT>
+</P>
+
+<!-- /#INCLUDE -->
+
+
+</BODY>
+
+</HTML>

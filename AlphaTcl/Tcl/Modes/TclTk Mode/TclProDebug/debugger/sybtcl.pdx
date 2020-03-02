@@ -1,0 +1,20 @@
+# sybtcl.pdx --
+#
+#	This file implements the TclPro Debugger extension for Sybtcl.
+#
+# Copyright (c) 1998-2000 Ajuba Solutions
+# All rights reserved.
+# 
+# RCS: @(#) $Id: sybtcl.pdx,v 1.3 2003/03/31 23:01:21 vincentdarley Exp $
+
+# Register the Sybtcl extension
+
+instrument::addExtension 2.0 {sybtcl}
+
+# Register handlers for each of the Sybtcl commands
+
+instrument::addCommand sybevent	{parseSimpleArgs 1 2 {
+    parseWord parseBody}}
+
+instrument::addCommand sybnext	{parseSimpleArgs 1 -1 {
+    parseWord parseBody parseWord}}

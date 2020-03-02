@@ -1,0 +1,293 @@
+
+Tcl-Tk Help
+
+                                               version: 3.1.0
+                                               created: 08/12/2002 {05:27:04 PM}
+                                           last update: 06/10/2005 {02:56:22 PM}
+
+
+	  	Abstract
+
+This mode is for editing Tcl code.  You can edit code for internal use with
+Alpha (since a large part of Alpha is actually implemented in Tcl), or use
+Alpha as an external editor for code destined for use with Tcl and Tk
+interpreters --- <http://www.tcl.tk> distributes the Tclsh/Wish applications,
+extensions, documentation etc.
+
+When editing .tcl, .tk, .itk and .itcl files, the Tcl-Tk mode is
+automatically active, and provides a large range of useful, powerful editing
+functionality.
+
+Beyond that, however, it also allows you to run your Tcl scripts, and modify
+those scripts while they are running.
+
+This help file is primarily to show you how to write code for use with
+general Tcl, Tk interpreters.  For much more information and specifics on
+writing Tcl code to extend the AlphaTcl library, please activate the 'Alpha
+Developer Menu', and read the documentation it makes available (in particular
+the help file "Extending Alpha").
+
+
+	  	Table Of Contents
+
+"# Basic usage"
+"# The Tcl Menu"
+"#   Keyboard Shortcuts"
+"# Running Tcl code"
+"# Current Tcl interpreter"
+"# Tcl-Tk Shell Windows"
+"# Debugging with TclPro Debugger"
+"# Tracing function execution"
+"# Learning Tcl/Tk"
+"# Other Tcl-Tk Resources"
+
+<<floatNamedMarks>>
+
+
+	  	Basic usage
+
+The Tcl mode supports all the usual array of powerful Alpha editing features.
+These include:
+
+¥ auto-indentation
+¥ code templates and argument templates
+¥ command completion
+¥ variable completion
+¥ code folding/outlining (Alphatk only)
+
+
+	  	The Tcl Menu
+
+When you open a file in Tcl mode, the Tcl Menu is automatically inserted into
+the menu bar.  This menu contains a number of commands that are useful both
+for editing .tcl files, as well as interpreting them.
+
+	  	 	Keyboard Shortcuts
+
+Most of the Tcl Menu items have pre-assigned keyboard shortcuts that you are
+able to adjust (or remove entirely).  To change the shortcuts, select the
+command "Tcl Menu > Tcl Mode Options > Tcl Menu Bindings" -- you will then be
+presented with a list-pick dialog containing the categories of menu commands.
+
+<<Tcl::tclMenuBindings>>
+
+Select a category, and change the shortcuts as desired.  In most cases, the
+"bindings" dialog includes a "Activate Bindings In Tcl Mode Only" preference
+that can be turned on and off.  When it is turned on, the shortcuts are only
+in play when the active window is in Tcl mode.  If you turn on Tcl Menu
+globally
+
+Preferences: Menus
+
+and you want these shortcuts to always be available, turn off this preference
+for each category of commands.  One might, for example, want all of the items
+in the "Tcl Tracing" menu to always be available via a keypress.
+
+
+	  	Running Tcl code
+
+Open the "Tcl Example.tcl" file, and then try using the 'Tcl Menu > Run' menu
+item (Click on 'Save To Temp' when prompted).
+
+Else, starting from scratch, create a new .tcl file (e.g. test.tcl) and type
+the following:
+
+	tk_messageBox -message "hello"
+
+then, after saving the file, select the 'Tcl Menu > Run' menu command.  You
+may be prompted for the location of a wish executable and, once selected, this
+script will be launced and you should see the 'hello' message you have just
+requested.
+
+If you want this same script to be easily accessible for future usage, you
+should create a Tcl project.  Do this with 'Edit Projects' followed by the
+'NewÉ' button.  You will then have easy access to this project from the
+'tcl-tk project' submenu of the Tcl menu.  (Selecting them will startup a
+remote shell, source that .tcl file into it, and put Alpha(tk) into 'remote'
+mode.  Subsequent loading of code will go to the remote shell automatically,
+so you can use Alpha to edit and reload procedures in the remote shell, very
+simply.)
+
+Once you have starting running a Tcl file, you will notice that, the top item
+in the Tcl menu changes to reflect the interpreter being used for that file.
+This means that any changes to Tcl/Tk scripts that are 'Evaluated' (Command-L
+or Alt-L depending on your platform) will be sent to the wish application you
+just launched.
+
+This means you can now add some more lines to the current window, select them
+and with Command-L have the new lines take effect immediately.  For example, type
+the following into a new line in your test.tcl:
+
+	. configure -bg blue
+
+and select all of that line and press Command-L. The external Wish process
+should now have a blue background.  In this way you can develop your Tcl/Tk
+applications interactively.
+
+
+	  	Current Tcl interpreter
+
+The top item in the Tcl menu shows which interpreter will normally be used
+when you evaluate any command/script or generally carry out any
+Tcl-interpreter related action.  If it shows 'Internal Interpreter', then the
+interpreter inside Alpha is the one in use.  When you carry out a command like
+'Tcl Menu > Run', and other certain other circumstances, the current
+interpreter is automatically updated.
+
+
+	  	Tcl-Tk Shell Windows
+
+The "Tcl Menu > Tcl-tk Shells" submenu includes items for evaluating single
+lines of Tcl-Tk code via an Alpha "shell" window.  Results are displayed in
+the shell window, no matter where the commands are evaluated.  You can adjust
+the Keyboard Shortcuts for opening any of these shell windows by selecting
+the menu item "Tcl Menu > Tcl Mode Options > Tcl Menu Bindings".
+
+	Alpha8/X/tk Tcl Shell
+
+<<tclShell>>
+
+This shell window evaluates code using Alpha(tk)'s internal interpreter.
+This is identical to the "Utils > Tcl Shell" menu item.  Note that changes to
+any AlphaTcl procedures or variables will likely affect the application's
+behavior, for better or worse!
+
+	Remote Tcl Shell
+
+<<remoteTclShell>>
+
+This shell window sends code to your remote Tcl interpreters.  This
+effectively allows you to use this window to control and debug other Tcl/Tk
+interpreters (either on this machine or other machines).
+
+	Tkcon Shell
+
+<<tkconShell>>
+
+This shell window makes use of Jeffrey Hobbs' 'tkcon.tcl' file, which is
+included in standard distributions of Alphatk in the "Tools" directory, and
+requires Tk.  Note that Tkcon's [edit] command is renamed to [tkconedit],
+because otherwise it would conflict with Alphatk.
+
+
+	  	Debugging with TclPro Debugger
+
+On some platforms, Alpha comes integrated with the TclPro debugger for
+interactive debugging of Tcl scripts.  To use this, open your main .tcl file
+(or, for example, open the "Tcl Example.tcl" file) and then select the menu
+item 'Debug in TclProÉ'.  This will launch the debugger (as a subinterpreter
+inside AlphaTcl), and start it up with the current window.  The TclPro
+debugger is a full, interactive debugger (you can set breakpoints, examine
+variables etc).
+
+This is currently supported in Alphatk on Windows, but there is no reason it
+cannot be made to work seamlessly on any Unix or MacOS X system, or even MacOS
+Classic.
+
+
+	  	Tracing function execution
+
+Tracing functions helps both to learn how they work and to debug them if they
+are not operating correctly.  Unlike a conventional debugger that allows you
+to set breakpoints and single step through the code, tracing provides a
+complete snapshot of everything that took place inside a function.  It does
+this by recording the parameters and results of every single operation that
+was carried out inside the given function.  This information is dumped (in its
+entirety) into a window (or can be saved to file) so that you can look through
+it carefully to analyse what actually happened.  Sometimes this is a much
+quicker way of working out what has gone wrong than the more labour-intensive
+single-stepping approach.
+
+The following instructions on tracing when using Alphatk/8/X with Tcl 8.4 make
+use of the "Tcl Menu > Tcl Tracing" submenu commands.
+
+Tracing operates in the same way whether you are tracing procedures internal
+to Alpha (i.e. you are developing or debugging parts of the editor itself) or
+whether you are tracing procedures inside external interpreters.  Obviously,
+if you are tracing a procedure inside an external interpreter, you must first
+launch it so the code is running.  Do this with the usual 'RunÉ' or 'Debug in
+TclProÉ' menu selections.
+
+Now, to start tracing, use either the 'Trace Tcl ProcÉ' or 'Trace This Proc'
+menu commands.  The former will prompt you with a list of all available
+procedures, and the latter will start tracing the procedure in which the
+cursor currently lies.
+
+Now, you should carry out some action that will cause the traced procedure to
+be executed (unless that is going to happen automatically due to some timer
+scripts).  For example if the procedure is attached to a button-press or
+menu-selection, then click on that button, or make that menu selection.
+Assuming the procedure is reasonably long, you will probably notice a
+longer-than-usual delay before the action finishes.  This is due to the
+overhead associated with execution tracing.
+
+[CAVEAT: As of September 2002, if you are tracing the internal interpreter,
+but are tracing a command that fires up an external interpreter, you must
+select 'Tcl > Tcl-Tk projects > AlphaTcl' before Stop/Display Traces.  This
+limitation will be removed in the future]
+
+Once the procedure has completed, you can select 'Stop Tracing' to turn off
+the tracing (otherwise the same procedure will be traced each time it is
+executed).  Otherwise select 'Display Traces'.
+
+A new window will be opened in Alpha containing the results of the execution.
+Each individual Tcl command within the procedure will be shown, together with
+the results of that command.  In this way, through some careful analysis, you
+can see exactly where things went wrong (alternatively, if the problem is less
+subtle and an error is thrown inside the procedure, you will be able to see
+that very clearly!).
+
+
+	  	Learning Tcl/Tk
+
+There are some wonderful examples of Tcl/Tk on the Tcler's Wiki at
+<http://wiki.tcl.tk>.  These show off the power of Tcl with some very
+impressive demos achieved in only a hundred lines of code, for example:
+
+Colliding spheres: <http://mini.net/tcl/9860>
+Tcl chess: <http://mini.net/tcl/4070>
+Tcl trains: <http://mini.net/tcl/1350>
+more Tcl trains: <http://mini.net/tcl/1359>
+Rain storm: <http://mini.net/tcl/8835>
+Tcl topo maps: <http://mini.net/tcl/3926>
+Particle system: <http://mini.net/tcl/3252>
+Ferris wheel: <http://mini.net/tcl/8763>
+
+In fact the Tcl menu contains a convenient command to extract the code
+from the above pages (and dozens of others) so you can run it from
+inside Alphatk.  Select 'Tcl Menu -> Get Wiki Code...' and enter any of the
+above numbers (9860, 4070, etc).  See <http://mini.net/tcl/8179> for a full
+list of such 'reapable' pages.
+
+To get started, click here <<edit -c [Tcl::getWikiCode 10820]>>, and then
+select 'Tcl Menu -> Run...'
+
+	  	Other Tcl-Tk Resources
+
+Most of Alpha(tk)'s functionality is contained in the AlphaTcl library of Tcl
+code.
+
+Alpha includes the help file "Tcl 8.4 Commands".
+
+Most Tcl resources can be found through <http://www.tcl.tk/>, and the sources
+and related projects accessed through
+
+<http://sourceforge.net/foundry/tcl-foundry/>.
+
+You can download standalone versions of Tcl and Tk for MacOS from there.  Tcl
+(and Tk) on MacOS and MacOS X (development has largely shifted to OS X now)
+are largely supported by Jim Ingham, Daniel Steffen, Vince Darley and others
+in their spare time.  If you'd like to help with, for instance, improving Tk
+on Aqua, or building in support for MacOS specific features (e.g. proxy icons,
+drag and drop, etc), the source code is freely available.  The newsgroup
+<news:comp.lang.tcl> is both active, and full of very helpful people
+(including all the most active developers of Tcl and many Alpha developers) so
+it's often a good place to look for more information, and to coordinate work
+in specific areas.
+
+Another useful resource is the Tcler's Wiki <http://wiki.tcl.tk/>
+
+There are also a number of good books on Tcl/Tk, both for beginners and for
+experts.
+
+Alpha 8/X and Alphatk all use Tcl 8.4.1 or newer.

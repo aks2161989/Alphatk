@@ -1,0 +1,220 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+
+<HTML>
+
+<HEAD>
+
+<TITLE>Home page windows</TITLE>
+
+<LINK HREF="../Style%20Sheet/manual.css" REL="stylesheet" TYPE="text/css">
+
+
+</HEAD>
+
+<BODY>
+
+<!-- #INCLUDE INCLPATH="maintop.html" -->
+
+<SCRIPT TYPE="text/javascript">
+<!--
+if (document.body.clientHeight) {
+	height = document.body.clientHeight - 50;
+} else {
+	height = window.innerHeight - 50 ;
+}
+document.write('<div class="main" style="height: ' + height + 'px;">');
+// -->
+</SCRIPT>
+
+
+<!-- /#INCLUDE -->
+
+
+<H1>Home page windows</H1>
+
+
+
+<P>
+<IMG SRC="../bilder/homepagewinmenu.png" ALT="Home page win menu" WIDTH="238"
+HEIGHT="86" CLASS="rightpic">
+Home page windows are windows with lists of files much in the same way as
+Finder windows. The title of the window is the name of the folder. The first line in the 
+window is the complete path to the folder. In the list of files the folders 
+are shown in boldface.
+</P>
+
+<P>
+The home page windows serve two purposes. They let you easily copy and 
+paste to create HTML links and they let you open files without leaving 
+Alpha or opening a file dialog.
+</P>
+
+
+
+<P>
+<img src="../bilder/homepagewin.png" alt="Home page window" width="248"
+height="299" CLASS="rightpic">
+You can navigate in the windows with the up and down arrows. You can also 
+make quick jumps in the windows by relatively quickly type the first few 
+letters of a file name. The selection then jumps to that file, just like in 
+the Finder.
+</P>
+
+
+<TABLE STYLE="clear: both" CELLPADDING="3">
+	
+	<TR VALIGN="BASELINE">
+		<TD COLSPAN="2"><B>Key combinations with special functions in the home page windows</B></TD>
+	</TR>
+	
+	<TR VALIGN="BASELINE">
+		<TD><SPAN CLASS="item">cmd-shift-C</SPAN></TD><TD>Copies the path of 
+		the file at the current line. The line doesn't have to be selected. 
+		Alpha grabs the file anyway. This copying does not use the clipboard. The 
+		file can then pasted into an HTML document as a link using <SPAN
+		CLASS="item">Paste URL</SPAN> or as an <A HREF="includes.html">include 
+		file</A> using <SPAN CLASS="item">Paste Include Tags</SPAN>.</TD>
+	</TR>
+	
+	<TR VALIGN="BASELINE">
+		<TD><SPAN CLASS="item">return</SPAN></TD><TD>Return on a text 
+		file opens the file in Alpha. Return on a folder opens a new home 
+		page window or brings it to front if it is already open. Return on 
+		a non-text file opens the file in the application it was created 
+		in. Return on an application launches the application. If you like 
+		you can disable the feature that Alpha opens non-text files 
+		and launches applications in the <A HREF="prefs.html#General2">general 
+		preferences dialog</A>. Uncheck <SPAN CLASS="item">Return on non-text file in home 
+		page window opens file</SPAN>.</TD>
+	</TR>
+	
+	<TR VALIGN="BASELINE">
+		<TD><SPAN CLASS="item">cmd-downarrow</SPAN></TD><TD>The same as 
+		return.</TD>
+	</TR>
+	
+	<TR VALIGN="BASELINE">
+		<TD><SPAN CLASS="item">cmd-double-click</SPAN></TD><TD>Works like 
+		return.</TD>
+	</TR>
+	
+	<TR VALIGN="BASELINE">
+		<TD><SPAN CLASS="item">option-return</SPAN></TD><TD>The same 
+		functionality as return and in addition closes the home page window.</TD>
+	</TR>
+	
+	<TR VALIGN="BASELINE">
+		<TD><SPAN CLASS="item">cmd-option-downarrow</SPAN></TD><TD>The same as 
+		option-return.</TD>
+	</TR>
+	
+	<TR VALIGN="BASELINE">
+		<TD><SPAN CLASS="item">cmd-return</SPAN></TD><TD>Opens the parent 
+		folder of the window, or brings it to the front if it's already open.</TD>
+	</TR>
+	
+	<TR VALIGN="BASELINE">
+		<TD><SPAN CLASS="item">cmd-uparrow</SPAN></TD><TD>The same as 
+		cmd-return.</TD>
+	</TR>
+	
+	<TR VALIGN="BASELINE">
+		<TD><SPAN CLASS="item">cmd-option-return</SPAN></TD><TD>The same as 
+		cmd-return and in addition closes the home page window.</TD>
+	</TR>
+	
+	<TR VALIGN="BASELINE">
+		<TD><SPAN CLASS="item">cmd-option-uparrow</SPAN></TD><TD>The same as 
+		cmd-option-return.</TD>
+	</TR>
+	
+	<TR>
+		<TD><SPAN CLASS="item">cmd-R</SPAN></TD><TD>Refreshes the window, i.e. 
+		it removes or adds lines if you have removed or added any files in the 
+		folder.</TD>
+	</TR>
+	
+	<TR VALIGN="BASELINE">
+		<TD><SPAN CLASS="item">option-click in 
+		titlebar</SPAN></TD><TD>Displays a popup menu where you can select 
+		a parent folder to opens as a home page window, see the picture 
+		below. If you hold down 
+		the option key when you select a folder in this menu the current 
+		window is closed before the new one is opened.
+		
+		<P>
+		<img src="../bilder/homepagewinoptionclick.png"
+		alt="Home page win option click" width="248" height="299"
+		class="rightpic">
+		</P>
+		
+		</TD>
+	</TR>
+	
+</TABLE>
+
+
+<P>
+Now to the menu items:
+</P>
+
+
+<div CLASS="item">Open...</div>
+<DIV CLASS="indent">Opens a file dialog and lets 
+you select a folder. A home page window for this folder is then opened.</DIV>
+
+<div CLASS="itempara">Paste URL</div>
+<DIV CLASS="indent">Pastes the URL which you 
+previously have copied with cmd-shift-C from the home page window. If the 
+file is an image an IMG tag is inserted, otherwise an A tag is 
+inserted.</DIV>
+
+<div CLASS="itempara">Paste Include Tags</div>
+<DIV CLASS="indent">Inserts include tags for the file you have previously 
+copied from a home page window.</DIV>
+
+<div CLASS="itempara">Refresh Windows</div>
+<DIV CLASS="indent">Refreshes all open 
+home page windows by removing or adding lines to them if any files have 
+been removed or added in the corresponding folders.</DIV>
+
+<!-- #INCLUDE INCLPATH="mainbottom.html" -->
+
+<DIV STYLE="height: 50px">
+</DIV>
+
+<SCRIPT TYPE="text/javascript">
+<!--
+document.write('<\/DIV>');
+// -->
+</SCRIPT>
+
+
+<!-- /#INCLUDE -->
+
+
+<!-- #INCLUDE INCLPATH="navigation.html" PREV="[manualPrevPage ftp.html]" 
+NEXT="[manualNextPage extend.html]" -->
+
+<P>
+<script type="text/javascript">
+<!--
+document.write('<div class="navigation" style="top: ' + height + 'px; height: 50px">');
+// -->
+</script>
+<A HREF="ftp.html">Previous page</A>
+<A HREF="extend.html">Next page</A>
+<SCRIPT TYPE="text/javascript">
+<!--
+document.write('<\/DIV>');
+// -->
+</SCRIPT>
+</P>
+
+<!-- /#INCLUDE -->
+
+
+
+</BODY>
+
+</HTML>

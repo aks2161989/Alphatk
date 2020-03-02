@@ -1,0 +1,362 @@
+
+teTeX Help
+
+										
+										 help version: 8.1
+										 created: 2004-03-09 15:13:57
+										 last update: 2006-01-01 16:24:16
+
+	  	Table Of Contents
+
+"# Table Of Contents"
+"# Introduction"
+"# 'TeXC' mode"
+"# Basic operation"
+"#   Error browsing"
+"#   Next action"
+"#   Viewing"
+"#   Synchronisation"
+"#   Typeset Selection"
+"# tetexComm (TeXC) Preferences"
+"# Some more advanced scenarios"
+
+"# Credits"
+
+<<floatNamedMarks>>
+
+
+	  	Introduction
+
+
+teTeX is a complete TeX distribution for UNIX compatible systems,
+maintained by Thomas Esser.  It is based on the web2c distribution which is
+currently maintained by Olaf Weber.
+
+<http://www.tug.org/teTeX/>
+
+"tetexComm" is Alpha's internal interface to teTeX, the raw command-line
+version of TeX.  When you do 'Typeset' (Command-T), a console window pops
+up in which the messages from TeX roll down, and you can interact with it 
+like in standard command-line TeX, plus many extra features described in 
+this document.  Only when it comes to viewing do you leave Alpha.
+
+Alpha can also interface external TeX environments, like TeXShop or OzTeX,
+in which case everything takes place outside Alpha.  To choose your TeX
+programme, goto
+
+    "Config > Global Setup > Helper Applications"
+
+and go to the TeX pane.  Here choose an implementation for "Typeset".
+(That pane is full of other settings (separate settings for pdftex, etex,
+etc.) but these do not affect tetexComm.  For more information on how to
+interact with external TeX environments, see Alpha's TeX Mode Manual.)
+
+The menu item
+
+    "TeX Menu > LaTeX Help > teTeX Help"
+
+or
+
+    "Help > More Modes Help > TeXC"
+
+will open this file should you need to reference it in the future.
+
+
+	  	'TeXC' mode
+
+
+The TeX Console window used to communicate with tex is in 'TeXC' mode.  
+Several preferences associated with this mode affect the interactions.
+
+Preferences: Mode-TeXC
+
+When this console is the active window, "Config > Mode Prefs > Preferences"
+(usually F12) will give you access to this preference dialog -- the
+different options are explained in more detail in the "# tetexComm (TeXC)
+Preferences" section.
+
+
+	  	Basic operation
+
+
+To typeset a document through this interface, open your .tex document and
+choose "Typeset" from the Process submenu of the TeX Menu, or just press
+"Command-T" .  (If you have choosen an external tex programme for
+Command-T, you can still invoke tetexComm with the alternative sortcut
+"Command-Shift-R" .
+
+If there is an error during the TeX run, TeX gives a question mark prompt
+and then you can type one of the following letters (precisely the same as
+work in any command-line TeX)
+
+	<Return>   try to continue
+	e          edit the source document where the error occurs
+	q          enter batch mode
+
+and many others.  See the TeX man page for a complete list.  In addition,
+the standard Mac binding Cmd-. will interrupt the tex run.  (This feature
+is inspired by OzTeX.)
+
+tetexComm is very much designed to be controlled by magic first lines
+in the TeX source file.  This means that a first line like
+
+	%&latex
+
+instructs tetexComm to use latex.  Other typical instructions are %&tex,
+%&pdflatex, and so on.  If no magic-line instruction is found in the source
+file, tetexComm will run pdflatex by default.  You can change this setting
+in the TeXC Preference Pane (cf. below), where you can also turn on a
+heuristic "Guess Format From Log" mechanism.
+
+When the TeX run has finished you are given various options among which: 
+
+	[V]iew the resulting dvi/pdf file:     Control-v  (or just v)
+	see list of errors and [W]arnings:     Control-w  (or just w)
+
+	  	 	Error browsing
+
+After TeX run, if there were errors, Control-W brings up a list of all
+errors and warnings (inside the TeX console) from where you can jump
+to the appropriate line in the source file by pressing return when the
+error is selected in the list.
+
+	  	 	Next action
+
+When the TeX run finishes, there is a smart mechanism which figures out
+what is the most likely 'next action' the user will take (this is done by
+parsing the log file).  This 'next action' could be error browsing (if
+there were errors), viewing (if no errors occurred), running bibtex (in
+case of an undefined cite reference), and so on.  This 'next action' is
+dynamically bound to <space>, so in normal operation, running TeX and
+viewing becomes a matter of slapping the space bar.
+
+There is support for several degrees of automatisation of Next Action,
+controlled by the 'autoView' whose values can be for example 'no
+automatisation', 'autoViewWhenNoErrors' (default), or 'autoNextAction'.
+The latter means for example that TeX runs several times until all
+references are resolved, and then the viewer is invoked in the end.
+
+Each next action is associated with a letter as follows:
+
+	view           v
+	typeset        t
+	error-browse   w
+	bibtex         b
+	makeindex      m
+	view log file  l
+
+After a tex run (or a bibtex run, or whatever) you can invoke a specific
+next action by pressing its associated letter (no modifier key is needed,
+but Ctrl-letter works too).  Such a letter can also be pressed while tex is
+running to force a specific action immediately after the tex run finishes.
+This can be used as an alternative to AutoNextAction, or it can be used to
+override the automatic mechanism.  For example, if AutoNextAction is set,
+and if you want to view immediately after the tex run, independently of
+missing bibs or changing label, press 'v' while tex is running.  (These
+features are inspired by OzTeX.)
+
+	  	 	Viewing
+
+A crucial point of the interface is of course where the viewer is invoked.
+Which viewer is invoked depends on your choice of DVI viewer and PDF
+viewer, which can be set in the Helper Applications Dialogue
+
+    "Config > Global Settings > Helper Applications"
+
+You can also access these settings in the TeXC preferences, available when
+the TeX Console is frontmost.  Finally, you can choose viewer on the fly at
+invocation time, doing Ctrl-Shift-v instead of just Ctrl-v: this brings up
+a listpick dialogue for choosing viewer.
+
+The choice between DVI viewer and PDF viewer is made automatically
+according to the newest output file (dvi or pdf), hence ultimately it
+depends on the tex engine, whose choice you control via magic first lines
+or via your Default Command setting, as explained below.  If in some
+situation the automatic dvi/pdf viewing choice is not what you wanted, for
+example in debugging situations, you can also specifically request to see
+dvi or pdf output, using the shortcuts Ctrl-d and Ctrl-p respectively.
+
+	  	 	Synchronisation
+
+Synchronisation is supported.  By default, src-specials are enabled for
+latex, so if the dvi viewer supports it, there should be reverse and
+forward navigation between source file and dvi viewer window.  See for
+example the xdvi man page for description of this feature.
+
+<http://www.columbia.edu/acis/documentation/man/xdvi.html>
+
+For pdfsync, you need to use the "pdfsync.sty" file.  iTeXMac supports pdf
+synchronisation well, TeXShop and TeXniscope do to some extend.  (Please
+see the change logs for these applications for more details.)
+
+To tell the viewer that Alpha is the editor to invoke, you should
+give it the string
+
+	/Applications/Alpha/Tools/alphac  +%d %s 
+
+at the appropriate place in its settings. In TeXniscope 0.3.4 or newer, 
+the 'editor arguments' should be
+
+	+%line "%file"
+
+not +%d %s (see TeXniscope's documentation).
+
+	  	 	Typeset selection
+
+With the "Typeset Selection" command (in the Process submenu of the TeX
+Menu; shortcut Command-Shift-Alt-T), you can typeset only the current
+selection, and view the result.  This feature can be useful to fine tune
+a complicated diagram or drawing.  This works using temporary files behind
+the scenes, but everything works transparently: viewing, error navigation,
+synchronisation automatically relates to the original source file.
+
+
+	  	tetexComm (TeXC) Preferences
+
+
+All preference flags are set in the TeXC Mode preference pane.  To access
+this Pane, you need to have the TeX Console frontmost, and then you can
+find it as a menu item at "Config > TeXC Mode Prefs > Preferences" 
+(usually just F12).
+
+Preferences: Mode-TeXC
+
+The most interesting setting is Default Command.  This may be 'pdflatex', 
+but you might rather want 'latex'.  This is the command that will be used 
+to typeset all documents that do not have a magic first line.
+
+There are also pop-up menus for chosing PDF and DVI viewers.  These popups
+are aliases to the general helper settings.
+
+Some other settings include: 
+
+	Auto Save On Typeset
+
+If checked will automatically save the document before running TeX.  If
+unchecked you'll be asked if you want to save.
+
+	Send Console To Back While Viewing
+
+This does what you would expect from the name.  The reason for wanting this
+is that after viewing, when you come back to Alpha, what you want is much
+more likely to edit the source file than to see the Console.
+
+        GuessDocumentRoot
+
+If this flag is set, there is a mechanism that will try to guess which is
+the document root.  Typically this is just the frontmost file itself, in
+which case the flag has no effect.  If the frontmost window is part of a
+tex fileset, the flag is ignored too.  Otherwise the guessing works by
+scanning log files; it is very accurate and goes so far as to also scan tex
+files in order to give a correct result.  If no information is found, just
+use the calling file like all other tex implementations do.  (In rare cases
+where the calling file is part of two different projects, the user will be
+asked to choose.)  All this is also very fast: it is unnoticeable in usual
+operation, and for complicated situations it takes a fraction of a second.
+You should be warned that this is only a heuristic helper that can
+sometimes be confused if your tex run fails and produces an incomplete log
+file.  It is always preferred to create a tex fileset.
+
+      GuessCommandFromLogfile
+
+If this flag is set, there is a mechanism that guesses which format or
+command should be used for this tex job.  It works also by log file
+scanning.  Again this is just a hack that may be useful in some situations,
+but it can also be extremely annoying in extreme cases where suddenly you
+are trapped in a deceitful log file.  Use this flag with caution.  In any
+case it is recommended to use magic-first-lines as explained above.  These
+always take precedence over guess work (and indeed take precedence over
+everything.)
+
+
+		Some more advanced scenarios
+
+
+tetexComm allows many experts settings and fine tunings that are not
+accessible from the prefs pane.  The power user is referred to the Tcl file
+tetexComm.tcl (found in the Latex Mode folder) which contains detailed
+technical comments and instructions on expert settings.  Then to change
+some setting, copy it from the file and write it in your prefs.tcl file.
+Here are some examples and scenarios (explaining in particular the notion
+of override commands):
+
+
+* You realise that error-browsing is far more efficient than running TeX
+again and again, once for each error.  Then you can take the consequence
+and write this line in your "prefs.tcl" file:
+
+	set TeX::tetexComm::overrideCommands(latex) "latex --interaction nonstopmode"
+
+This will instruct tetexComm always to run latex in nonstopmode, and if
+there are errors, <space> will be bound to error-browse, and this will now
+be the preferred interface to correcting errors.  Furthermore, you might
+check the preferences flag AutoNextAction, which will automatically go to
+error browsing when there are errors.
+
+
+* You like the crisp display of a pdf viewer (native graphics format in
+OSX), but your files use eps graphics or ps rotates, so they don't work
+with pdflatex.  One choice is then to use Gerben Wierda's simpdftex script
+(formerly altpdftex) which is a wrapper for tex-dvips-ghostscript.  Using
+this as magic line or Default Command will always produce pdf, and hence
+your pdf viewer will be invoked.  But there is an alternative which is
+better: stick with %&latex in the magic line and latex as default command,
+but choose a pdf viewer as dvi viewer: this is the menu item called
+'usingPDFViewer' in the DVIViewer popup menu.  This instructs tetexComm to
+run dvips and ghostscript behind the scenes to produce a pdf for the
+viewer.  The advantage over simpdftex is that you only run dvips and
+ghostscript when you are about to actually view the result, not if you are
+going to correct and error or edit further.  (With simpdftex you are forced
+to go through the whole sequence of programmes latex-dvips-ghostscript each
+time you typeset.)
+
+Another approach, if the problem is eps graphics, is to use the epstopdf
+package (pdftricks) to convert eps graphics to pdf on the fly.  In that
+case you need to enable shell-escapes, so you'll write this in your
+prefs.tcl file (for example):
+
+	set Tex::tetexComm::overrideCommands(pdftex) "pdftex --shell-escape"
+
+
+* xdvi is a very powerful dvi viewer (needs X11 running).  You can
+completely control it from within Alpha by writing a custom xdvi command:
+
+	set TeX::tetexComm::xdviCommand [list xdvi -display :0.0 \
+	  -geometry 1028x768 -s 5 -expert +statusline -hushstdout \
+	  -editor "[file norm [file join $HOME Tools alphac]] +%l %f"] 
+
+Here -geometry 1028x768 is a full screen of some portable computers, -s 5
+is shrink factor 5, which corresponds to filling that full screen, -expert
+means no buttons, +statusline -hushstdout means no statusline and no
+messages...  Another approach is to write all these settings in your
+xdvi.cfg file --- see the xdvi man page for all details.
+
+<http://www.columbia.edu/acis/documentation/man/xdvi.html>
+
+
+* Occasionally it is prcatical to run some unix command between tex runs,
+for debugging purposes, or to move some file.  Cmd-shift-E inserts a prompt
+in the TeX Console, from which you can issue any unix command (the pwd will
+be that of the previous tex job).  This can be very useful to send a quick
+query like 'ls -l' or 'kpsewhich diagrams.sty', or to run some exceptional
+tex command like 'etex --initex "&latex" someFile'.  Once such a command is
+running it behaves like any other tex run in the TeX Console.  (In a sense
+such custom commands have been supported all the time, except that you had
+to issue them from the AlphaTcl shell, since there was no other prompt to
+send them from...)
+
+
+* While tex is running (and has not given you an error prompt) you can type
+'v' to instruct tetexComm to procede directly to viewing as soon as the tex
+run has finished, or type 't' to force an extra tex run.  You can also type
+<space> to instruct tetexComm automtically to take the Next Action
+(similarly to what happens if the NextAction variable is set to
+AutoNextAction).  This functionality is inspired by OzTeX.
+
+	====================================================================
+
+	  	Credits
+
+Author: Joachim Kock
+
+This document has been placed in the public domain.

@@ -1,0 +1,68 @@
+## -*-Inst-*- (auto-install-script)
+ # ===========================================================================
+ #  Examples - a Help package for Alpha
+ # 
+ #  FILE: "Install-Example"
+ #                                    created: 03/12/00 {07:51:40 pm} 
+ #                                last update: 10/17/00 {08:21:06 pm} 
+ #                                
+ #  Author: Craig Barton Upright
+ #  E-mail: <cupright@princeton.edu>
+ #    mail: Princeton University,  Department of Sociology
+ #          Princeton, New Jersey  08544
+ #     www: <http://www.princeton.edu/~cupright>
+ #  
+ # ===========================================================================
+ # 
+ # If you want to modify this example to create an actual Open To Install
+ # file for your own Alpha package, save a copy of this file somewhere in
+ # the :Tcl directory, and then open and edit it as needed.
+ # 
+ # To modify this file and turn it into an actual "Open To Install" script,
+ # here are some suggestions.
+ # 
+ #   ¥ Replace "Install Example" with the name of your mode, package, etc.
+ #   ¥ Remove the last line, "  -ignore ...  ".
+ #   ¥ Remove the \ (command continue marker) on the second to last line.
+ #   ¥ Put in your own message!
+ # 
+ # To separate portions of text with an empty line, type a <space> after the
+ # backslash (\).  I don't know why this works, but it does.  The empty lines
+ # that appear below are visual markers only, and do not create spaces.
+ # 
+ # It is also recommended that you create specific folders adjacent to the 
+ # Open To Install file to help direct installation, i.e. Help, Modes, Menus, 
+ # Packages, etc.  Otherwise the installation proc will make some educated 
+ # guesses about where your files should be installed.
+ # 
+ # The " -ignore " option is just one of several available with the install
+ # proc.  See the Extending Alpha file for more installation script options.
+ # 
+ # ===========================================================================
+ ##
+
+
+# We need to be sure that nothing in this folder gets installed.
+set ignoreExamples1 [glob -dir [file join $HOME "Examples"] *]
+foreach f $ignoreExamples1 {
+    lappend ignoreExamples2 [file tail $f]
+}
+
+install::packageInstallationDialog "Install Example" "\
+
+This dialog appears when opening an\
+'Open To Install' file, presenting\
+the user with the options below.\ 
+
+'Custom Install' would normally list the files\
+which would be installed by clicking 'OK' --\
+This file does not actually install anything.\ 
+
+To see the actual contents of this file,\
+press any modifier key while opening the hyperlink.\
+" \
+-ignore $ignoreExamples2
+
+unset ignoreExamples1 
+unset ignoreExamples2
+ 

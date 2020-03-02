@@ -1,0 +1,413 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+
+<HTML>
+
+<HEAD>
+
+<TITLE>Preferences</TITLE>
+
+<LINK HREF="../Style%20Sheet/manual.css" REL="stylesheet" TYPE="text/css">
+
+
+</HEAD>
+
+<BODY>
+
+<!-- #INCLUDE INCLPATH="maintop.html" -->
+
+<SCRIPT TYPE="text/javascript">
+<!--
+if (document.body.clientHeight) {
+	height = document.body.clientHeight - 50;
+} else {
+	height = window.innerHeight - 50 ;
+}
+document.write('<div class="main" style="height: ' + height + 'px;">');
+// -->
+</SCRIPT>
+
+
+<!-- /#INCLUDE -->
+
+
+<H1>Preferences</H1>
+
+<P>
+<IMG SRC="../bilder/prefsmenu.png" ALT="Prefs menu" WIDTH="220" HEIGHT="312"
+CLASS="rightpic">
+HTML mode is highly customizable.  You can modify its behavior in several 
+ways. This page describes all settings you can do using the <SPAN
+CLASS="menu">Preferences</SPAN> menu of the HTML menu.
+</P>
+
+<H2>General</H2>
+
+<P>
+<IMG SRC="../bilder/general1.png" ALT="General prefs page 1" WIDTH="489"
+HEIGHT="361">
+</P>
+
+
+<div CLASS="item">Bring browser to front when sending a window to 
+it</div>
+
+<DIV CLASS="indent">
+If checked, when you send a file to the browser, the browser will be 
+brought to the foreground.  If you have lots of screen space and are just 
+validating, uncheck this flag to leave the browser in the background and 
+Alpha in the foreground.  By default the browser is brought to the 
+foreground.
+</DIV>
+
+
+<div CLASS="itempara">Save window without asking when sending it to the 
+browser</div>
+
+<DIV CLASS="indent">
+If checked, when you send a file to the browser, the window is saved 
+automatically without asking you. By default you are asked if you want to 
+save the window.
+</DIV>
+
+<div CLASS="itempara">Set tags in lower case</div>
+
+<DIV CLASS="indent">
+If not checked, elements will be like &lt;P&gt;; if checked, like 
+&lt;p&gt;.  By default upper case is used in HTML. In XHTML lowercase is 
+required.
+</DIV>
+
+<div CLASS="itempara">Add extra space before /&gt; in empty XHTML elements</div>
+
+<DIV CLASS="indent">
+If checked, elements such as &lt;br/&gt; will get an extra space 
+before /&gt;, like &lt;br&nbsp;/&gt; in XHTML. This for better 
+compatibility with some browsers.
+</DIV>
+
+<div CLASS="itempara">Use template stops (<SPAN 
+CLASS="code">&#8226;</SPAN>)</div>
+
+<DIV CLASS="indent">
+If checked, will insert the <SPAN CLASS="code">&#8226;</SPAN> characters. 
+By default the <SPAN CLASS="code">&#8226;</SPAN> characters are inserted.
+</DIV>
+
+<div CLASS="itempara">Electric Braces, Electric Semicolon, Indent On Return</div>
+
+<DIV CLASS="indent">
+See the <A HREF="electrics.html">Electrics</A> page.
+</DIV>
+
+<div CLASS="itempara">Give attributes in dialog boxes/status 
+bar</div>
+
+<DIV CLASS="indent">
+To choose whether you want to use dialog boxes or the status bar when you 
+give attributes to an HTML element. By default dialog boxes are used.
+</DIV>
+
+
+<div CLASS="itempara">Change attributes in dialog boxes/status 
+bar</div>
+
+<DIV CLASS="indent">
+To choose whether you want to use dialog boxes or the status bar when you 
+change the attributes in an existing HTML element by using <SPAN
+CLASS="menuitem">Edit Tag</SPAN> in the <SPAN CLASS="menu">Editing</SPAN> 
+menu or by cmd-double clicking on an opening tag. By default 
+dialog boxes are used.
+</DIV>
+
+
+<div CLASS="itempara">Beep for first attribute (applies only if you use 
+the status bar)</div>
+
+<DIV CLASS="indent">
+If checked, and you input element attributes from the status bar, Alpha 
+will beep when asking for element attribute information there.  By default 
+Alpha will beep.  This applies only if you use the status bar.
+</DIV>
+
+<P>
+<A NAME="General2"><img src="../bilder/general2.png"
+alt="General prefs page 2" width="489" height="361"></A>
+</P>
+
+<div CLASS="item">Use old style Comment Paragraph</div>
+
+<DIV CLASS="indent">
+In HTML mode 3.0 I made a change in (Un)Comment Paragraph, which made 
+Uncomment Paragraph incompatible with comments created by Comment Paragraph 
+in older versions of HTML mode. If you have old paragraph comments enable 
+this preference to ignore the change in (Un)Comment Paragraph.
+</DIV>
+
+<div CLASS="itempara">Auto-indent when typing &gt; of a tag</div>
+
+<DIV CLASS="indent">
+See the <A HREF="electrics.html">Electrics</A> page.
+</DIV>
+
+<div CLASS="itempara">Adjust current line indentation when inserting a 
+template</div>
+
+<DIV CLASS="indent">
+If this preference is enabled Alpha adjusts the indentation of the current 
+line when inserting a template at the beginning of the line. This applies both 
+when you insert a template using a menu item and when you use word 
+completion. This behavior helps you to make sure the code is indented 
+according to your preferences. By default Alpha adjusts the indentation.
+</DIV>
+
+<div CLASS="itempara">Open attribute dialog after completing an element</div>
+
+<DIV CLASS="indent">
+When checked Alpha will open an attribute dialog - or ask you for the 
+attributes in the status bar - when you uniquely word complete an opening 
+element tag &lt;ELEM to a template including a closing tag. Uncheck if you 
+prefer to type the attributes too, and do not want the dialog.
+</DIV>
+
+<div CLASS="itempara">Create missing file without asking when 
+cmd-double-clicking a link</div>
+<DIV CLASS="indent">
+If checked and you cmd-double-click a link 
+pointing to a file which does not exist, Alpha will create an empty file and 
+open it without first asking you if you want to create the file. By default you 
+are asked before the file is created.
+</DIV>
+
+<div CLASS="itempara">Cmd-double-clicking on non-text file link opens 
+file</div>
+
+<DIV CLASS="indent">
+If checked, and you cmd-double-click on a link pointing to a non-text file 
+it is opened in the application it was created in. If not checked, nothing 
+happens when you click on such a link. By default the file is opened. This 
+setting also applies when you use <SPAN CLASS="menuitem">Follow Link</SPAN> in 
+the contextual menu.
+</DIV>
+
+<div CLASS="itempara">Return on non-text file in home page window opens 
+file</div>
+
+<DIV CLASS="indent">
+If checked, and you hit return on  a non-text file in a home page window
+it is opened in the application it was created in. If not checked, nothing 
+happens when you hit return on such a file. By default the file is opened.
+</DIV>
+
+<div CLASS="itempara">'Insert include tags' only insert tags</div>
+
+<DIV CLASS="indent">
+If checked, Alpha will only insert the include tags when you use 'Insert 
+include tags', and not insert the file to be included until you update the 
+window. But default only the tags are inserted.
+</DIV>
+
+<div CLASS="itempara">Preserve line endings when updating includes or moving 
+files</div>
+
+<DIV CLASS="indent">
+If checked, Alpha will make sure the type of line endings used in each 
+file - Mac, Windows, or Unix - is preserved when updating files with include 
+tags or when moving files. By default line endings are not preserved, 
+because this slightly slows down the updating.
+</DIV>
+
+<div CLASS="itempara">Update META tags with NAME="DATE" attributes when 
+saving</div>
+
+<DIV CLASS="indent">
+If checked, HTML mode will look for tags 
+&lt;META CONTENT="2001-01-14" NAME="DATE"&gt; in the document every time you 
+are saving and update the date. By default this is not done.
+</DIV>
+
+
+<P>
+<A NAME="General3"><img src="../bilder/general3.png"
+alt="General prefs page 3" width="489" height="361"></A>
+</P>
+
+<div CLASS="item">'Last modified' text</div>
+
+<DIV CLASS="indent">
+The default text when you insert last modified tags.
+</DIV>
+
+<div CLASS="itempara">HTML menu icon</div>
+
+<DIV CLASS="indent">
+The icon for the HTML menu.
+</DIV>
+
+
+<div CLASS="itempara">HTML Utilities menu icon</div>
+
+<DIV CLASS="indent">
+The icon for the HTML Utilities menu.
+</DIV>
+
+<H2>Attributes Globally</H2>
+
+<P>
+See the section <A HREF="askedabout.html">Deciding which attributes to be 
+asked about.</A>
+</P>
+
+<H2>Use Attributes</H2>
+
+<P>
+See the section <A HREF="askedabout.html">Deciding which attributes to be 
+asked about.</A>
+</P>
+
+<H2>Indentation</H2>
+
+<P>
+See the section <A HREF="layout.html#indentation">Indentation</A>.
+</P>
+
+<H2>Layout</H2>
+
+<P>
+See the section <A HREF="layout.html">Controlling the layout of the code</A>.
+</P>
+
+<H2>Optional Closing Tags</H2>
+
+<P>
+Lets you specify if you want to use the closing tag of those elements which 
+have an optional closing tag.
+</P>
+
+<P>
+<img src="../bilder/optionalclosing.png" alt="Optional closing" width="484"
+height="236">
+</P>
+
+
+<H2>Home Pages</H2>
+
+<P>
+See the section <A HREF="config.html">Configuring HTML mode</A>.
+</P>
+
+<H2>Key Bindings</H2>
+
+<P>
+See the section <A HREF="keybindings.html">Key bindings</A>.
+</P>
+
+<H2>Coloring</H2>
+
+<P>
+See the section <A HREF="coloring.html">Coloring</A>.
+</P>
+
+<H2>Checking Links</H2>
+
+<P>
+See the section <A HREF="checklinks.html">Checking links</A>.
+</P>
+
+<H2>Word Wrapping</H2>
+
+<P>
+<img src="../bilder/wrappingprefs.png" alt="Wrapping prefs" width="489"
+height="361">
+</P>
+
+<div CLASS="item">Line width</div>
+
+<DIV CLASS="indent">
+Determines at which position lines are wrapped.  This is the HTML mode 
+specific version of the variable <SPAN CLASS="item">Fill Column</SPAN> in 
+the global settings dialog <SPAN CLASS="menuitem">Config -&gt; Preferences 
+-&gt; Interface Preferences -&gt; Text</SPAN>.
+
+<DIV CLASS="leftcolumn" STYLE="margin-top: 1em">
+<SPAN CLASS="item">wordBreak</SPAN>
+</DIV>
+
+<DIV STYLE="height: 2.5em; margin-top: 1em">
+This controls which characters 
+build up words,
+</DIV>
+	
+<DIV CLASS="leftcolumn" STYLE="clear: left; margin-bottom: 1em">
+<SPAN CLASS="item">wrapBreak<BR>
+wrapBreakPreface</SPAN>
+</DIV>
+
+<DIV>
+and these ones control word 
+wrapping.
+</DIV>
+
+
+<P STYLE="clear: left">
+Read about them in the general manual if you want to change them (should 
+usually not be needed).
+</P>
+</DIV>
+
+<H2><A NAME="types">Content Types, Media Descriptors, Link Types</A></H2>
+
+<P>
+To edit the list of content types, media descriptors, and link types, which 
+appear in the popup menus of the attribute dialog boxes. A window is opened 
+where you can edit these list. Separate each item in the list with a space 
+or a new line. Anything item containing spaces must be put within quotes.
+</P>
+
+<P>
+Close the window to save the changes. Cancel the changes by holding down 
+the shift key while clicking the window's close box.
+</P>
+
+<DIV>
+<img src="../bilder/contenttypes.png" alt="Content type prefs" width="224"
+height="166">
+</DIV>
+
+<!-- #INCLUDE INCLPATH="mainbottom.html" -->
+
+<DIV STYLE="height: 50px">
+</DIV>
+
+<SCRIPT TYPE="text/javascript">
+<!--
+document.write('<\/DIV>');
+// -->
+</SCRIPT>
+
+
+<!-- /#INCLUDE -->
+
+
+<!-- #INCLUDE INCLPATH="navigation.html" PREV="[manualPrevPage keybindings.html]" 
+NEXT="[manualNextPage javascript.html]" -->
+
+<P>
+<script type="text/javascript">
+<!--
+document.write('<div class="navigation" style="top: ' + height + 'px; height: 50px">');
+// -->
+</script>
+<A HREF="keybindings.html">Previous page</A>
+<A HREF="javascript.html">Next page</A>
+<SCRIPT TYPE="text/javascript">
+<!--
+document.write('<\/DIV>');
+// -->
+</SCRIPT>
+</P>
+
+<!-- /#INCLUDE -->
+
+</BODY>
+
+</HTML>

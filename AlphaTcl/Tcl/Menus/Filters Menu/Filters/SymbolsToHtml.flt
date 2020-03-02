@@ -1,0 +1,39 @@
+!! This file : SymbolsToHtml.flt 
+!! Convert symbols to HTML.
+!! To be used with the Filters Menu in Alpha.
+!! Last modification : 8 avril 2000 - 17:41:24
+(c) Copyright : Bernard Desgraupes 2000
+
+&	&amp;
+©	&copy;
+Ñ	&emdash;
+Ğ	&endash;
+Ü	&ETH;
+İ	&eth;
+>	&gt;
+<	&lt;
+¨	&reg;
+ 	&Yacute;
+à	&yacute;
+ª	&#153;
+Á	&#161;
+¢	&#162;
+£	&#163;
+?	&#164;
+´	&#165;
+¤	&#167;
+¬	&#168;
+»	&#170;
+Ç	&#171;
+Â	&#172;
+¡	&#176;
+±	&#177;
+«	&#180;
+µ	&#181;
+¦	&#182;
+á	&#183;
+ü	&#184;
+¼	&#186;
+È	&#187;
+À	&#191;
+Ö	&#247;

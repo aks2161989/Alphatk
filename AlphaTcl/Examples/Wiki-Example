@@ -1,0 +1,56 @@
+
+Feel free to ''Experiment''
+on '''this''' [Graffiti] page if
+you want to test any particular [Formatting Rules].
+----
+How to create a new page:
+   * go to [New pages]
+   * click on [[Edit New Pages]] at bottom
+   * put your desired title at end of editable body, in brackets
+   * click Save
+   * Scroll to the location - you'll see blue underlined brackets 
+around your title - and click on one of the brackets
+   * an editing mask with your desired title comes up
+   * edit, click Save
+----
+[http://dev.scriptics.com/images/tclp.gif]
+----
+   1. You can refer to another page by putting its name in square 
+brackets like this: [[PAGE]]
+   1. URLs will automatically be recognized and underlined: 
+http://your.site/contents.html
+   1. If you put URLs in square brackets, they'll be shown as a tiny 
+reference [http://your.site/contents.html] instead.(''In this  
+situation,the system assumes that any url ending in '''.jpg, .png, or 
+.gif''' is an image and displays it inline.'')
+   1. '''URL ''methods'' recognized are:'''
+      * http://www.w3.org/
+      * ftp://ftp.x.org/
+      * mailto:user@somehost.com
+      * news:comp.lang.tcl
+----
+Test quotes pathologically (There are evidently some '''significant''' 
+differences between one wiki and another?):
+
+P '' I ''' BI '' B ''' P ''' B '' BI ''' B '' P
+
+what ever happens to pages how lose their [links]!??
+
+'one quote'
+''two quotes''
+'''three quotes'''
+''''four quotes''''
+'''''five quotes'''''
+''''''six quotes''''''
+'''''''seven quotes'''''''
+
+''''''''eight quotes; a dollar!''''''''
+'''All for Tcl--Stand up and holler!'''
+----
+It seems that a link can't be made just by CapitalizingWords without 
+any brackets. So I added brackets. '''DarrylZurn'''
+
+test from Wiki mode, with auto-edit.  Now you can use Alphatk to edit
+remote Wiki files and have the WWW mode automatically refresh its 
+windows
+when you save the Wiki files..

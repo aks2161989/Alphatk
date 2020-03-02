@@ -1,0 +1,252 @@
+<HTML>
+<HEAD>
+<TITLE>CodeWarrior Menu Help</TITLE>
+<META NAME=GENERATOR CONTENT="Aida Mode">
+</HEAD>
+<BODY>
+<!-- :Title:                  codeWarriorMenudHelp -->
+<!-- :Version:                1.3.2 -->
+<!-- :Author:                 Bernard DESGRAUPES <A HREF="mailto:berdesg@easynet.fr">berdesg@easynet.fr</A> -->
+<!-- :Homepage:				<A HREF="http://webperso.easyconnect.fr/~berdesg/">http://webperso.easyconnect.fr/~berdesg/</A> -->
+<!-- :Alpha-Version:          7.4.2 -->
+<!-- :AlphaTcl-Version:       7.5b2 -->
+<!-- :State:                  Final -->
+<!-- :Type:                   Help -->
+<!-- :Mode:                   Aida -->
+<!-- :Created: 				2001-10-12 07:40:54 -->
+<!-- :Modified:			 	2001-10-22 21:41:11 -->
+<!-- :Keywords:				codewarrior, compiler --><P><HR><BLOCKQUOTE><P><I> 
+This is a help file for the "Code Warrior Menu" in Alpha. For Alpha to find
+it, you must move this file to the "Help" folder located at the same  level
+as the Alpha application itself.
+</I></P></BLOCKQUOTE><HR><P><HR>
+<UL>
+<LI><A HREF="#anchor1">Introduction</A>
+<UL><LI><A HREF="#anchor2">Setting the menu</A></UL>
+<UL><LI><A HREF="#anchor3">External Editor</A></UL>
+<UL><LI><A HREF="#anchor4">Code Warrior projects</A></UL>
+<UL><LI><A HREF="#anchor5">Errors</A></UL>
+<LI><A HREF="#anchor6">Description of the menu items</A>
+<LI><A HREF="#anchor7">Version History</A>
+<LI><A HREF="#anchor8">Known problems</A>
+<LI><A HREF="#anchor9">License and Disclaimer</A>
+</UL>
+<HR>
+<P><P><H2><A NAME="anchor1"></A> Introduction</H2>
+This menu is designed to let   you    interact    with    the    Metrowerks
+CodeWarrior(tm) program. You can develop your C/C++ project  in  Alpha  and
+control most of CodeWarrior actions from within  Alpha  :  compile,  build,
+run, preprocess, disassemble, export,  touch,  update,  precompile,  switch
+between projects or between targets in a project, get all kinds of info and
+much more without leaving Alpha.
+ <P><H3><A NAME="anchor2"></A> Setting the menu</H3>
+Alpha/CodeWarrior interaction does not need any setup beyond activating the
+menu. The CodeWarrior menu can be added or removed as a global menu via the
+menu item 
+    "Config --&gt; Global Setup --&gt; Menus" 
+but the best way to use it is to link it to C and C++ modes  so  that  each
+time a file is opened in  one  of  these  modes  the  CodeWarrior  menu  is
+automatically installed : to do this, switch to C or C++  mode  and  select
+the menu item 
+    "Config --&gt; Mode Prefs --&gt; Menus"
+In the dialog window check the  "CodeWarrior  menu"  checkbox.  That's  all
+there is to it.<P>Alpha's support is implemented entirely in Tcl, Alpha's macro language. The
+code can be found in two files : 
+"codeWarriorMenu.tcl" and "codeWarriorCompletions.tcl". 
+The CodeWarrior menu items are explained below.<P><H3><A NAME="anchor3"></A> External Editor</H3>
+CodeWarrior now has support for external editors.  Metrowerks CodeWarrior
+supports the notion of an "External Editor".  To use Alpha as such:
+<OL> 
+	<LI> Create a folder called (Helper Apps) (with the curly  braces)  in  the
+same directory as the IDE if it does not already exist.
+	<LI> Place an alias to Alpha in this {Helper Apps} folder. Call this  alias
+"External Editor".
+	<LI> Check the "External Editor" flag in the Metrowerks preferences  dialog
+(IDE Extras panel). Alternatively you can set this flag from Alpha with the
+corresponding flag 'Use External Editor' in the Werks Flags submenu.<P></OL><P><H3><A NAME="anchor4"></A> Code Warrior projects</H3>
+For the interaction  to  work  correctly  between  your  source  files  and
+CodeWarrior, there must be a project opened in CodeWarrior and  the  source
+file must belong to the project. There is a menu item called "Add File"  to
+add the currently opened source file to the current project.  If  you  hold
+the option key down this menu item  becomes  "Remove  File"  and  lets  you
+remove the file from the project.
+<P> Several projects can be opened at a time : the interaction always takes
+place with the frontmost one. You can easily switch between  projects  with
+the "Select Project..." menu item. Within a  project,  you  switch  between
+targets with the "Select Target..." menu item.
+<P> CodeWarrior menu always checks, when necesary, that a project is opened
+or that your file belongs to the current target and warns you  in  case  of
+problem. <P><H3><A NAME="anchor5"></A> Errors</H3>
+All of the functions that cause compilation to take place return any errors
+in a window called "* Compiler Errors *". Individual errors can be selected
+by using the up and down arrow keys. Return/Enter is used to bring  up  the
+offending file at the correct line.<P><H2><A NAME="anchor6"></A> Description of the menu items</H2>
+<P><IMG SRC="Images/codewarriormenu.gif" ALIGN=bottom></P><P><DL><P><DT><B>Switch To Ide</B><DL><DT>
+Switch to CodeWarrior app.</DL><P><DT><B>Werks Flags</B><DL><DT>
+Specify compiling, building or linking options. Options available are :
+<P><TABLE BORDER=0 CELLPADDING=1 WIDTH="100%">
+<TR><TD></TD><TD>Build Before Running</TD></TR>
+<TR><TD></TD><TD>Play Sound After Updt & Make</TD></TR>
+<TR><TD></TD><TD>Save Open Files Before Build</TD></TR>
+<TR><TD></TD><TD>Use External Editor</TD></TR>
+<TR><TD></TD><TD>Activate Browser</TD></TR>
+<TR><TD></TD><TD>Activate C++ Compiler</TD></TR>
+<TR><TD></TD><TD>Enable Objective C</TD></TR>
+<TR><TD></TD><TD>Enable C++ Exceptions</TD></TR>
+<TR><TD></TD><TD>Enable RunTime Type Info</TD></TR>
+<TR><TD></TD><TD>Generate Link Map</TD></TR>
+<TR><TD></TD><TD>Generate Sym File</TD></TR>
+<TR><TD></TD><TD>Invert Debugger</TD></TR>
+<TR><TD></TD><TD>Switch When Compiling</TD></TR>
+</TABLE></P>
+Note that the  flag  "Invert  Debugger"  was  previously  improperly  named
+"Enable Debugger": it acts in fact like a toggle. If you set this  flag  in
+Alpha but the debugger is already enabled in CW, then this  _disables_  the
+debugger when you run your built project from Alpha : this is a feature  or
+a bug (?) resulting from the corresponding CW Apple Event (param DeBg).<P>The "Save Open Files Before Build" flag is available since CW 6.
+</DL><P><DT><B>Select Project...</B><DL><DT>
+Brings up a dialog with a list  of  all  the  open  projects.  The  current
+project is the one selected in the list: it corresponds  to  the  frontmost
+one in CodeWarrior. To switch to another target, select it and click OK. 
+</DL><P><DT><B>Select Target...</B><DL><DT>
+Brings up a dialog with a list of all the targets in the  current  project.
+The current target is the one selected in the list. To  switch  to  another
+target, select it and click OK.</DL><P><DT><B>Add File</B><DL><DT>
+Add current file to the current project.</DL><P>When holding the option key down :
+<DL><P><DT><B>Remove File</B><DL><DT>
+Remove current file from the current project.</DL><P></DL><P><DT><B>Touch</B><DL><DT>
+Declare frontmost window as modified in current target.</DL><P><DT><B>Compile</B><DL><DT>
+Compile frontmost window.
+</DL><P>When holding the option key down :
+<DL><P><DT><B>Compile Files</B><DL><DT>
+Compile all windows in the same mode as the frontmost window.</DL><P></DL><P><DT><B>Check Syntax</B><DL><DT>
+Check syntax of frontmost window.</DL><P><DT><B>Preprocess</B><DL><DT>
+Preprocess the current file : resulting window is opened in IDE.</DL><P><DT><B>Disassemble</B><DL><DT>
+Disassemble the current file. This file  must  belong  to  a  target  in  a
+project and must have been compiled already. To edit the dump file in Alpha
+open the CodeWarrior menu with the option key down. The "Disassemble"  item
+becomes "Edit Dump in Alpha".
+</DL><P>When holding the option key down :
+<DL><P><DT><B>Edit Dump in Alpha</B><DL><DT>
+The dump file resulting from a Disassemble command will be  saved  on  disk
+and opened in Alpha. Not available in versions of CW prior to 6.<P></DL><P><DT><B>Precompile Header...</B><DL><DT>
+Prompt user for destination and compile frontmost window to destination. 
+Destination must already exist.</DL><P><DT><B>Update</B><DL><DT>
+Update current project.</DL><P><DT><B>Make</B><DL><DT>
+Make current project.</DL><P><DT><B>Run</B><DL><DT>
+Run current project.</DL><P><DT><B>Remove Object Code</B><DL><DT>
+Remove all compiled object codes from the current target.</DL><P><DT><B>Reset Entry Paths</B><DL><DT>
+Reset the entry paths in the current project.</DL><P><DT><B>Export Project</B><DL><DT>
+Export the project file as an XML file (not available in  old  versions  of
+CodeWarrior). The output file is named  after  the  project  file  plus  an
+'.xml' extension. It is created in the same  folder  as  the  project  file
+itself. Not available in versions of CW prior 6.</DL><P><DT><B>Open Resource</B><DL><DT>
+Open a resource file belonging to the project with  the  application  which
+created it (Constructor, ResEdit etc.) If there are several resource files,
+the proc displays a picklist to choose one.</DL><P><DT><B>Open Include</B><DL><DT>
+Open the file #include'd on this line (also can be invoked by
+command-double-clicking).</DL><P><DT><B>Header & Source</B><DL><DT>
+This item attempts to edit the header file corresponding  to  a  particular
+source file and vice-versa. It looks only in the same folder as the current
+file (this should certainly be improved). It considers that a  header  file
+has an extension starting with the letter h and  a  source  file  with  the
+letter c.
+</DL><P><DT><B>Headers</B><DL><DT>
+This submenu allows you to set your own searching paths which will be  used
+by Alpha when attempting to open an included file.</DL><P><DT><B>Debugging</B><DL><DT>
+<DL><P><DT><B>Go to Debugger</B><DL><DT>
+Launch the MetroWerks debugger  (makes  sense  only  for  old  versions  of
+CodeWarrior when the debugger was separate).</DL><P><DT><B>Set Breakpoint</B><DL><DT>
+Set a breakpoint at the current line of the frontmost window.</DL><P><DT><B>Clear Breakpoint</B><DL><DT>
+Clear a breakpoint at the current line of the frontmost window.</DL><P><DT><B>Next Error</B><DL><DT>
+Display next error.</DL><P><DT><B>Prev Error</B><DL><DT>
+Display previous error.</DL><P><DT><B>Show in IDE</B><DL><DT>
+Open file in IDE and show the current line of the frontmost window  in  the
+debugger.</DL><P><DT><B>Edit Link Map</B><DL><DT>
+Edit the .xMAP file corresponding to the current target. The proc looks for
+.xMAP files in  the  project's  output  folder  and  displays  a  picklist.
+CodeWarrior produces a link map only if the 'Generate Link Map' flag is set
+on. See the "Werks Flags" submenu above.
+</DL><P></DL>
+</DL><P><DT><B>Inspectors</B><DL><DT>
+<DL><P><DT><B>File Inspector</B><DL><DT>
+Brings info about the current source file.</DL><P><DT><B>Target Inspector</B><DL><DT>
+Brings info about the current target.</DL><P><DT><B>Project Inspector</B><DL><DT>
+Brings info about the current project.</DL><P><DT><B>Link Order</B><DL><DT>
+Edit the list of all source files in the current  project  in  the  linking
+order.</DL><P><DT><B>Non Simple Classes</B><DL><DT>
+Edit the list of all non simple classes in a  C++  project.  This  supposes
+that your project has been built succesfully otherwise CodeWarrior won't be
+able to return this piece of info.</DL><P><DT><B>Class Info...</B><DL><DT>
+Brings info about a specific non  simple  class  in  a  C++  project.  This
+supposes that the info is available in CodeWarrior which is not always  the
+case. The project must at least  have  been  built  succesfully.  The  info
+returned is a list of base  classes  from  which  the  specified  class  is
+derived,  of  all  data  memebers  and  all  member  functions  with  their
+properties. 
+</DL><P><DT><B>Class Browser...</B><DL><DT>
+Open in IDE a browser window about a specified class.</DL><P></DL>
+</DL><P><DT><B>Global Prefs</B><DL><DT>
+Each item in this submenu allows you to retrieve and edit (but not to  set)
+the global preferences chosen in the corresponding panel in CodeWarrior. To
+get all the  global  preferences,  choose  the  menu  item  "All  Globals".
+Available panels are:
+<P><TABLE BORDER=0 CELLPADDING=1 WIDTH="100%">
+<TR><TD>Build Settings     </TD><TD>Layout Editor   </TD></TR>
+<TR><TD>Debugger Display   </TD><TD>MetroNub Panel  </TD></TR>
+<TR><TD>Debugger Global    </TD><TD>Plugin Settings </TD></TR>
+<TR><TD>Extras             </TD><TD>Shielded Folders</TD></TR>
+<TR><TD>Font               </TD><TD>Syntax Coloring </TD></TR>
+<TR><TD>Global Source Trees</TD><TD>VCS Setup       </TD></TR>
+</TABLE></P>
+</DL><P><DT><B>Target Prefs</B><DL><DT>
+Each item in this submenu allows you to retrieve and edit (but not to  set)
+the target-specific  preferences  chosen  in  the  corresponding  panel  in
+CodeWarrior. To get all the target-specific preferences,  choose  the  menu
+item "All Panels". Available panels are:
+<P><TABLE BORDER=0 CELLPADDING=1 WIDTH="100%">
+<TR><TD>Access Paths     </TD><TD>PPC Linker         </TD></TR>
+<TR><TD>Build Extras     </TD><TD>PPC PEF            </TD></TR>
+<TR><TD>C-C++ Compiler   </TD><TD>PPC Project        </TD></TR>
+<TR><TD>Custom Keywords  </TD><TD>PPCAsm Panel       </TD></TR>
+<TR><TD>File Mappings    </TD><TD>Rez Compiler       </TD></TR>
+<TR><TD>MacOS Merge Panel</TD><TD>Runtime Settings   </TD></TR>
+<TR><TD>Output Flags     </TD><TD>Target Settings    </TD></TR>
+<TR><TD>PPC Disassembler </TD><TD>Target Source Trees</TD></TR>
+</TABLE></P>
+</DL><P><DT><B>Create Fileset</B><DL><DT>
+Create a fileset containing all text files in the project currently  opened
+in CodeWarrior. See the 'Filesets Help' file for more info  about  filesets
+in Alpha.</DL><P><DT><B>Help</B><DL><DT>
+Edit this Help file.</DL><P></DL><P><H2><A NAME="anchor7"></A> Version History</H2><P><UL>
+	<LI> Original Author: Pete Keleher
+	<LI> Improvements, updates, modifications  by  various  authors  :  John
+Dunning  (jdunning@cs.princeton.edu),  Jon  Guyer  (jguyer@his.com),  Craig
+Barton Upright (cupright@alumni.princeton.edu).
+	<LI> 2001-10-11 - 1.3 - New features and enhancements by Bernard Desgraupes
+(berdesg@easynet.fr) 
+	<LI> 2001-10-15 - 1.3.1 - Added items to disassemble and export to xml.
+	<LI> 2001-10-20 - 1.3.2 - Added item to open resource  file.  Modified  the
+cw::header&Source proc to rely on  file::sourceHeaderToggle  and  the  Mode
+Search Path mechanism. Added version checking for items  not  available  in
+older versions of CW.<P></UL><P><H2><A NAME="anchor8"></A> Known problems</H2>
+<P> Please e-mail any problem or bug you encounter with this version 1.3 :
+<P> <A HREF="mailto:berdesg@easynet.fr">berdesg@easynet.fr</A>
+<P> Visit my Web page for updates and other Alpha utilities :
+<P> <A HREF="http://webperso.easyconnect.fr/~berdesg/alpha.html">http://webperso.easyconnect.fr/~berdesg/alpha.html</A><P><H2><A NAME="anchor9"></A> License and Disclaimer</H2>
+Version 1.3 of CodeWarrior Menu.
+<P>  Distributable under Tcl-style free license.
+<P> This software is provided by the copyright holders and contributors "as
+is" and any express or implied warranties, including, but not  limited  to,
+the implied warranties of merchantability  and  fitness  for  a  particular
+purpose are disclaimed. In no event shall the regents  or  contributors  be
+liable  for  any  direct,  indirect,  incidental,  special,  exemplary,  or
+consequential damages  (including,  but  not  limited  to,  procurement  of
+substitute goods or services; loss of use, data, or  profits;  or  business
+interruption) however caused and on any theory  of  liability,  whether  in
+contract, strict liability, or tort  (including  negligence  or  otherwise)
+arising in any way out of the use of this software, even if advised of  the
+possibility of such damage.
+
+</BODY>
+</HTML>

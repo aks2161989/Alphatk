@@ -1,0 +1,865 @@
+
+LaTeX Mode -- An extension package for Alpha
+
+
+                                               version: 5.0
+                                               created: 06/30/1996 {07:44:13 pm}
+                                           last update: 12/17/2004 {04:28:01 PM}
+
+
+Welcome to Alpha's LaTeX mode, a package designed to simplify the input and
+processing of LaTeX documents.  This is the "LaTeX Help Introduction" file
+available from the "TeX Menu > LaTeX Help" menu.
+
+This help file is an Alpha hypertext document.  Hyperlinks are colored green
+or magenta and underlined.  Click on a link to jump to another part of the
+document or open another help file.  You can use the keyboard shortcut for
+"Search > Return To Bookmark" to return the cursor to its previous position.
+Note: Some links are url documents on the World Wide Web, which require an
+Internet connection.
+
+TeX mode has been constructed for LaTeX 2e (it may also work with other older
+versions of latex or pure TeX).  The TeX menu is very customizable, allowing
+you to change nearly any key-binding, or to add new menu item templates.  See
+the options available in the "TeX Menu > LaTeX Menu" submenu.
+
+There are a number of additional Alpha packages which enhance the use of LaTeX
+mode (click to read more about them):
+
+  package: latexAccents
+  package: latexBbToViewport
+  package: latexColors
+  package: latexMathbb
+  package: latexSizes
+
+You may wish to activate these (via "Config > Preference > Features") and test
+some of these to see whether you'd find them useful.
+
+Preferences: Mode-Features-TeX
+
+	----------------------------------------------------------------------
+
+The full, detailed user's guide for Alpha LaTeX mode is available in pdf
+format:
+
+      <<TeX::menuProc {LaTeX Help} {Users Guide - pdf}>>
+
+Click on this hyperlink to view the file using your preferred browser.
+
+Or you can view the .tex source file through the following links:
+
+	е User's Guide:        an introduction to the Alpha LaTeX macros
+
+      <<TeX::menuProc {LaTeX Help} {Users Guide - tex}>>
+
+	е LaTeX Menus:         commands and bindings (organized by menu)
+
+      <<TeX::menuProc {LaTeX Help} {LaTeX Menus - tex}>>
+
+	е LaTeX Key Bindings:  commands and bindings (organized by command key)
+
+      <<TeX::menuProc {LaTeX Help} {LaTeX Key Bindings - tex}>>
+
+Clicking on one of these links opens a .tex file and inserts the LaTeX menu
+into your menubar.  To typeset the document, pull down the LaTeX menu and
+choose the 'typeset' command on the Typeset submenu (or press Command-T).
+Choose the 'view' or 'print' command on the Typeset submenu to view or print
+the document (or press Shift-Command-V or Shift-Command-P), respectively.
+
+Users of "teTeX" should read "teTeX Help" for more information about how to
+use Alpha with this command line version of TeX.
+
+Finally, be sure to check out the Completions tutorial, "TeX Tutorial v1.3.tex".
+	
+Happy LaTeXing!
+
+Cheers,
+
+Vince Darley
+<vince@santafe.edu>
+<http://www.santafe.edu/~vince/>
+
+and the previous author:
+
+Tom Scavo
+<mailto:trscavo@syr.edu> 
+<http://web.syr.edu/~trscavo/> 
+
+	----------------------------------------------------------------------
+
+
+	  	Version History
+
+
+	  	 	5.0
+
+Version 5.0 introduces some major changes.  The main one of these is the
+introduction of a much better way for users to define key bindings, via the
+new submenu "TeX Menu > LaTeX Menu" which presents an easy to use dialog
+for defining bindings without knowing anything about Tcl or AlphaTcl.
+
+This same menu also allows the user to define new templates for any 'Text'
+or 'Math' submenu, which will also be saved between editing sessions.
+
+Some electric completions have been removed, after several users complained
+(c.f. Bug# 806) that they were too user (and Anglo) specific -- these
+include the completions for "Appendix" "Section" etc.  which allow one to
+choose the proper "\ref{...}" string.
+
+If you want to restore them, create a "TeXPrefs.tcl" file and add the
+following Tcl code:
+
+	set TeXelectrics(Appendix)         "╫kill0Appendix~\\ref\{еlabelе\}ее"
+	set TeXelectrics(Chapter)          "╫kill0Chapter~\\ref\{еlabelе\}ее"
+	set TeXelectrics(Eq.)              "~\\eqref\{еlabelе\}ее"
+	set TeXelectrics(Figure)           "╫kill0Figure~\\ref\{еlabelе\}ее"
+	set TeXelectrics(Section)          "╫kill0Section~\\ref\{еlabelе\}ее"
+	set TeXelectrics(Table)            "~\\ref\{еlabelе\}ее"
+
+This code will be sourced each time that Alpha is launched, after you have
+opened a file in TeX mode.
+
+Other changes include:
+
+ е 'Use Short Menu' broken into two preferences, to allow either the Text
+   or Math submenus to be included in the main menu.
+ е 'LaTeX Help' menu item replaced by a submenu, giving access to the 
+   various documents available.
+ е Open Windows Hook now dims items appropriately.
+ е "dontIndentLaTeXenvironments" renamed to "indentLaTeXenvironments",
+   and is now used for inserting all environments including electrics and
+   "Environments" menu items.
+ е Except for the "document" environment, else we indent the entire file.
+ е Simplification (hopefully) of the prefs which determine how the format
+   is selected for newer version of CMacTeX.
+ е No format name is ever inserted when opening a file -- instead, the
+   current format is auto-adjusted if the first line in the .tex file
+   starts with something like "%$LaTeX".  
+ е Many, many improvements based on AlphaTcl 7.5 procs.
+ е A new "Use Label Prefixes" preference determines if labels are inserted
+   with names like \label{ref:|} or simply \label{|} where "|" indicates
+   the cursor position.  This is initially turned off.
+
+	  	 	4.3-4.7
+
+ е better support for Alphatk
+ е some new key-bindings
+ е process menu dims items which can't be used
+ е some support for latexpdf
+ е TeXInputsFolder replaced by TeXSearchPath which is a list of 
+   folders rather than just a single folder.
+ е allowed use of CMacTeX's xdvi and ghostview viewers
+ е bunch of improvements
+ е requires Alpha 7.0p4
+ е allowed use of tex-xet CMacTeX app with sig 'BTxT'
+ е some improvements to various menus, and some new key-bindings.  
+   Note that you can easily add your own bindings like this, say:
+
+	menu::replaceWith "Binary Operators" \
+	  [list "vee" "wedge" "setminus"] \
+	  items "/V<Ivee" "/W<Iwedge" "/-<Isetminus"
+
+ е preliminary support for making glossaries with makeindex --- slight
+   problem in that the appleevents sent don't indicate to use a 
+   glossary style file to makeindex so unless it looks at the .glo 
+   extension and makes the right choice, you may have to tell it
+   by hand.
+ е Math Environments menu adjusted for AMS-LaTeX (align etc, and no eqnarray)
+ е internal changes to math-env procedures (still more to do)
+ е better use of citation referencing/creating new bib entries.
+ е better handling of labels, environments
+ е requires Alpha 7.0p1
+ 
+	  	 	4.2
+
+ е better sectioning menu
+ е new theorem menu (many thanks Paul Gastin <Paul.Gastin@liafa.jussieu.fr>)
+ е couple of fixes to insertion/package searching
+ е untitled windows or 'saveAs' windows now result in the typeset menu
+   being updated correctly (requires the core bugfix included).
+ е Environment completion rewritten
+ е new or better list/table env construction thanks to Pierre BASSO
+ е numerous small bugs fixed (all those reported so far, I believe)
+ е package: latexAccents separate package now
+
+	  	 	4.1 - 4.1.1
+
+ е package: latexSizes a little better.
+ е smart-Paste now works for TeX mode.
+ е nicer handling of TeXinBackground flag -- the typeset menu changes
+   to reflect the value of the flag.
+ е bug fixes in "latexComm.tcl"
+ е menus rewritten to allow user additions using Alpha's new 
+   'proc: menu::insert' commands.
+ е Vince Darley <vince@santafe.edu> has taken over maintenance
+   of LaTeX mode.
+ е Better support for elec-Completions
+ е Format menu works
+ е Simplified quite a few things
+ е LaTeX Help menu item works again
+ е Renamed *AppSig to *AppSign so there's no conflict with 'Helpers'
+ е LaTeX menu icon switching now handled by Alpha.
+ е Textures code only registered if we use textures.
+ е requires Alpha 7.0fc1p2
+ е proc: smartScripts now use a pref-binding so international users can use 
+   them more easily.
+
+	  	 	4.0
+
+ е Updated for Alpha 7.0.  Old versions will not work.
+
+Here's brief documentation on new features: 
+
+You can use proc: menu::insert to add items to pretty much all of the latex 
+menu.  For instance if you've defined a new format, you can add that 
+to the menu with 'menu::insert Format items end Vince-Article' (say).  
+See general Alpha documentation for more details on that command.  
+You'll have to scan through the file "latexMenu.tcl" to find the name 
+of the menu to which you want to add something.
+
+You may want package: latexSizes or package: latexAccents (available separately)
+
+You may want to try package: electricCompletions (try the completions
+tutorial for latex mode, "TeX Tutorial v1.3.tex").
+
+
+	  	 	3.3
+
+ е AMS-LaTeX is here!  Check the "AMS-LaTeX" menu item on the 
+   "LaTeX Utilities" submenu.
+ е Added the command 'chooseEnvironment' (bound to <Shf Cmd E>) to 
+   the "Environments" and "Math Environments" submenus.  This 
+   command is a convenient keyboard-bound method of inserting LaTeX 
+   environments.  The 'general' command, previously bound to <Opt 
+   F12>, is gone.
+ е Added the identifiers "fig:", "tbl:", and "eq:" to the \label 
+   commands generated inside figure, table, and equation 
+   environments, respectively.  Also added the "eq:" identifier to 
+   the eqnarray environment.
+ е Made improvements to the sectioning commands on the Sectioning 
+   submenu.  In particular, the \part and \chapter commands include 
+   \thispagestyle{empty} by default.
+ е Added the starred equivalents of all the sectioning commands.  
+   With the Sectioning submenu down, press the <Opt> key to access 
+   these new commands.
+ е Fixed a bug in 'typeset' so that it now recognizes a window 
+   with a funny title like "foo.tex <2>".
+ е Added a 'Text Commands' submenu with many new commands.
+ е Removed 'ellipsis', 'em-dash', and 'en-dash' from the 
+   Miscellaneous submenu.  The latter two commands are now on the 
+   'Text Commands' submenu.
+ е Replaced the 'з' command on the International submenu with 
+   the 'ss' and 'SS' commands, which insert the LaTeX commands \ss 
+   and \SS, respectively, at the insertion point.
+ е Changed the name of 'isDocumentSelected' (in "latexEngine.tcl") 
+   to 'isSelectionAll', so that it corresponds with 'proc: isSelection' 
+   in "procs.tcl".
+ е Moved the procs 'latex', 'bibtex', and 'makeindex' from 
+   "latexMacros.tcl" to "latexComm.tcl".
+ е Created a new file called "latexUtilities.tcl", which is sourced
+   on demand.  Moved the procs 'deleteTabStops', 'deleteComments', 
+   'convertQuotes', and 'convertDollarSigns' from "latexMacros.tcl" 
+   to "latexUtilities.tcl".
+ е Added the commands "Convert Accents to LaTeX" and "Convert 
+   LaTeX to Accents" to the LaTeX Utilities submenu.  The 
+   corresponding code (in "latexUtilities.tcl") was written by 
+   F. Miguel DionТsio <fmd@math.ist.utl.pt>.
+ е Created a new file called "latexNavigation.tcl", which is 
+   sourced on demand.  Moved many of the procs on the Goto submenu 
+   from "latexMacros.tcl" to "latexNavigation.tcl".
+ е The file "latexSmart.tcl" is now sourced on demand.
+ е Added the command 'deleteProc' to "latexEngine.tcl", which does 
+   the obvious thing.
+ е Updated the LaTeX documentation.
+ 
+	  	 	3.2t
+
+ е Added a new Textures' interface, specifically designed for 
+   Textures version 1.8.  The primary advantage of Textures over the 
+   other TeX implementations is the capability of multiple windows, 
+   which Alpha now supports.
+ е Added non-functional menu filters to the Text Size, International, 
+   and Arrows submenus, which appears to fix some problems.  (I have no 
+   idea why this works!)  Thanks to Johan Linde <jl@theophys.kth.se> for 
+   the suggestion.
+ е Fixed the 'll' command on the Relations submenu.
+ е Fixed a bug that prevented users from specifying the "latexMenu" 
+   in Config:Global:Menus.
+ е Added a "LaTeX Help" command to the LaTeX menu.  This command 
+   does the same thing as choosing "LaTeX Help" from the System help 
+   menu (under the question mark).
+ е Updated the LaTeX documentation.
+ 
+	  	 	3.2
+
+ е Rewrote and reorganized the Alpha LaTeX documentation.  The primary 
+   help file is now distributed as both a LaTeX file and an HTML file 
+   (generated by latex2html).  See the "LaTeX Help" document on the 
+   System help menu (under the question mark) for a summary.
+ е Totally rewrote "latexMenu.tcl" so that it's more modular.  Users may 
+   now easily modify the LaTeX menu.  (See the "Installation" section 
+   in the new User's Guide.)
+ е Implemented Chris Higgins' <C.Higgins@cit.gu.edu.au> version of 
+   "latexProjects.tcl".  Later implemented Vince Darley's
+   <vince@das.harvard.edu> more powerful version of "latexProjects.tcl".  
+   In the end, however, Vince incorporated LaTeX projects directly into 
+   the Fileset menu.
+ е Put 'typeset' on a dynamic submenu called Typeset.  The 'typeset' 
+   command (bound to <Cmd T>) now displays the name of the file to be 
+   typeset.  If the current file can not be typeset (e.g., if it's a .log 
+   file or an .aux file) or if there are no open windows, the user is 
+   asked to locate a file to be typeset.
+ е Modified 'typesetSelection' so that it resolves top-level input 
+   files.  In other words, there's a high probability that the current 
+   selection will be typeset by the TeX app without error or warning.  
+   Thanks to Pierre Basso <Pierre.Basso@lim.univ-mrs.fr> for bug reports 
+   and advice.
+ е Added a 'typesetClipboard' command to the Typeset submenu, bound 
+   to <Shf Cmd T>.  The contents of the clipboard are sent to the TeX 
+   application in a plain vanilla LaTeX wrapper.
+ е Added 'viewDVI' and 'printDVI' to the Typeset submenu, bound to <Shf 
+   Cmd V> and <Shf Cmd P>, respectively.  Also added 'dvips', 'viewPS', 
+   and 'printPS' to the Typeset submenu.  All commands display the name 
+   of the file to be processed.
+ е Added 'bibtex' and 'makeindex' to the Typeset submenu.  All known 
+   BibTeX and MakeIndex apps are supported.
+ е Any LaTeX auxiliary file (.log, .aux, etc.) may be opened and 
+   displayed.  While the Typeset submenu is down, press the option key 
+   to see various 'open' commands.  Other such commands are found on 
+   the "Other Files" submenu on the Typeset submenu, including a 
+   command that lets you open any file in the current directory (bound 
+   to <Shf Cmd O>).
+ е Relocated the 'removeAuxiliaryFiles' command from the LaTeX Utilities 
+   submenu to the new Typeset submenu.
+ е Alpha LaTeX now writes all temporary files to "$PREFS:tmp:", which 
+   makes them easier to remove.  All temporary files are removed once, 
+   at launch; however, the new command 'removeTemporaryFiles' on the 
+   Typeset submenu removes all temporary files immediately.
+ е The short menu is now installed by default.  Remove the tick on 
+   "Short LaTeX Menu" (a checkable menu item) on the "LaTeX Utilities" 
+   submenu to install the long menu.
+ е Alpha now launches applications by signature, not name.  This 
+   means you can freely change the names of your TeX-related apps, so 
+   long as the applications themselves don't mind. :-)  Application 
+   signatures may be viewed and removed with the 'viewSavedSetting' and 
+   'removeSavedSetting' commands on the Config menu.
+ е Every time 'texSig' is altered (either by choosing the command
+   'removeSavedSetting' on the Config menu or opening a new TeX app), 
+   the LaTeX menu is rebuilt and the corresponding small icon is 
+   inserted into Alpha's menu bar.  For most users, this will be a 
+   one-time operation.
+ е Alpha's TeX mode search path (used when cmd-dbl-clicking the 
+   arguments of \input and \include commands, for instance) has been 
+   extended to *two* levels of subfolders.  First, the current directory 
+   is searched, then 'TeXInputs' (a global variable optionally set with 
+   the 'appPaths' command on the Config menu) and finally any TeX-inputs 
+   folder recognized by your TeX app.  The search path is generated the 
+   first time it's needed (rather than on-the-fly) and thereafter when 
+   the values 'texSig' or 'TeXInputs' are changed (i.e., not very often).
+ е The proc 'buildSubMenu' in "DblClickAux.tcl" has been modified 
+   to accomodate its use in "latexMenu.tcl".  (See below for a 
+   description of the new 'packages' submenu.)
+ е Redesigned the Documents submenu.  Choosing "New Document" (or 
+   pressing <Shf Cmd N>) brings up a dialog with a pop-up menu of 
+   standard document types.  This command creates a new TeX window, 
+   inserts a document of the requested type, and automatically runs 
+   the 'options' command (which is still on the Documents submenu).  
+   The old commands 'article', 'letter', etc. will be found on the 
+   "Insert Document" subsubmenu.  Each such command behaves as it did 
+   before, that is, it inserts a document template into an empty window 
+   or wraps the entire contents of the current window.
+ е Modified the 'usepackage' command (bound to <Ctl Opt U>) on the 
+   Documents submenu so that it inserts "\usepackage" immediately after 
+   the \documentclass command regardless of the current location of the 
+   insertion point.
+ е Added 'filecontentsAll' to the Documents submenu, which creates a 
+   single, self-contained LaTeX document (for file transfer, say) from 
+   the current document.
+ е Added a flag called 'buildPkgsSubmenu', which is turned off by 
+   default.  Check this flag in the 'currentMode:flags' dialog on the 
+   Config menu to enable the Packages submenu (see below).
+ е The Packages submenu contains a list of all packages known to the 
+   TeX app.  Choosing one of these packages inserts the corresponding 
+   \usepackage command into the preamble of the current document.  To 
+   build this submenu, enable the flag 'buildPkgsSubmenu' as described 
+   above, and then choose the 'rebuildDocumentsSubmenu' command on the 
+   Documents submenu.
+ е SmartScripts are temporarily turned off when the cursor is inside 
+   the required argument of any LaTeX command taking a filename as input 
+   (e.g., \input, \include, \usepackage, \documentclass, etc.).  Vince 
+   Darley <vince@das.harvard.edu> provided the essential ingredient for 
+   this new feature.
+ е The commands 'latex', 'bibtex', and 'makeindex' on the Goto 
+   submenu recognize additional TeX-related applications.
+ е Added 'writeFile' (complementary to 'readFile') to "DblClickAux.tcl".
+ е Improved the DirectTeX Pro interface courtesy of Ivan Alves 
+   <ivan.alves@ci.educ.lu>.
+ е Added the general-purpose procs 'buildStructure', 'insertStructure',
+   'wrapStructure', and 'doWrapStructure' to "latexEngine.tcl".  (Tcl 
+   programmers take note!)
+ е Added the flag 'useBrackets', set to false, by default.  If set 
+   to true, "\[...\]" will be used in multi-line math displays instead 
+   of "\begin{displaymath}...\end{displaymath}".
+ е The body of a table or figure environment now begins with a 
+   \centering command (not \centerline).
+ е Multi-line delimiters have finally arrived!  With the Delimiters 
+   submenu down, press the <Opt> key to see the possibilities.
+ е Added 'overrightarrow' and 'overleftarrow' to the Grouping submenu.
+ е Fixed a bug in 'gotoTabStop', a proc in "latexMacros.tcl" used by 
+   'nextTabStop' and 'prevTabStop'.
+ е Changed the command key for the 'chooseCommand' command on the 
+   LaTeX Utilities submenu from <Shf Cmd T> to <Shf Cmd C>.  (Sorry, 
+   Pete!)
+ е Changed the name of the TeX mode variable 'boxMacroName' to 
+   'boxMacroNames'.  The latter now takes a *list* of macro names, which 
+   is set to "includegraphics includegraphics*" by default.
+ е The TeX mode flag 'useBoxMacro' is gone.  When inserting a figure 
+   environment, the user is asked to choose one of the box macros stored 
+   in 'boxMacroNames'.  If the choice is left blank, the current 
+   selection (if there is one) is wrapped inside the figure environment.
+
+	  	 	3.1
+
+ е Pete added Vince Darley's excellent fill routines to Alpha proper.  
+   LaTeX users, in particular, will notice big improvements when filling 
+   paragraphs and regions in TeX mode.
+ е Implemented a shortened version of the LaTeX menu, which may be 
+   installed by checking 'shortLaTeXMenu' on the LaTeX Utilities submenu.
+ е Fixed some bugs in 'chooseCommand' and generalized it so that other 
+   modes could use it as well.  Changed its command key from <Opt Cmd T> 
+   to <Shf Cmd T> to accomodate the new 'typesetSelection' command 
+   described below.
+ е Added a new command called 'typesetSelection' <Opt Cmd T>, which 
+   typesets any selection (i.e., region) within the document environment.  
+   To see this new command, pull down the main menu, and with the cursor on 
+   the 'typeset' command, press the <Opt> key.
+ е The LaTeX utility 'removeAuxiliaryFiles' now searches for ALL auxiliary 
+   files in the current directory, regardless of the base filename.  Two 
+   buttons were also added to the dialog:  the command "rm ext" removes all 
+   files with the same extension as the file displayed in the dialog, and 
+   "rm all" removes all auxiliary files from the current directory without 
+   prompting.
+ е Tightened the input validation routines used in 'nthTabStop', 
+   'enumerate', 'itemize', 'description', 'thebibliography', 'tabular', 
+   'eqnarrayStar', 'eqnarray', and 'myArray'.  [Note:  Tcl programmers
+   will want to look at the generally useful routines 'isInteger', 
+   'isUnsignedInteger', and 'isPositiveInteger' in "latexEngine.tcl".]
+ е Fixed a bug in the automatic typesetting routines that prevented 
+   Alpha from finding the PPC version of Textures.
+ е Improved the communication between Alpha and DirectTeX Pro.  
+   (Thanks to Alun Carr <ajcarr@ccvax.ucd.ie> and Ivan Alves
+   <alves@econ.ubc.ca> for this modification.)
+ е 'TeXMarkFile' now marks \input and \include files (thanks to Vince 
+   Darley).  To mark a file, choose "Mark File" on the mark menu on the 
+   tool bar at the right of each window.
+ е The keybindings for '(la)texMath' and '(la)texDisplaymath' on the 
+   Math Modes submenu have been changed to <Ctl Cmd M> and <Ctl Opt Cmd 
+   M>, respectively, primarily for compatibility with international 
+   keyboards.  The old keybindings <Ctl Cmd 4> and <Ctl Opt Cmd 4> are 
+   still available, however.
+ е The 'insertReference' command (formerly on the LaTeX Utilities 
+   submenu) has been removed to make way for Vince Darley's new 
+   improved 'ref' and 'pageref' commands (see below).
+ е To use Vince Darley's new reference completion facility:  press 
+   <Ctl Opt X> or <Ctl Opt P> to insert a \ref or \pageref command, 
+   respectively.  The inserted command will contain the argument of the 
+   nearest \label command.  Continue pressing <Ctl Opt X> or <Ctl Opt P> 
+   to cycle through all the \label commands in your document.
+ е Fixed a serious bug with 'useBoxMacro' and 'boxMacroName'.  (See 
+   the "LaTeX Help" file for descriptions of these TeX variables.)
+ е Updated and polished the Alpha LaTeX document latex_macros.tex 
+   (commands organized by menu) and created a new latex_bindings.tex 
+   (commands organized by command key), both of which are found in 
+   Alpha's LaTeX folder.
+ е The commands 'oneParameter' <Ctl Cmd 1> and 'twoParameters' 
+   <Ctl Cmd 2> no longer bring up a dialog (which just gets in the way).  
+   If there is a selection, these commands now wrap that selection.
+ е All the commands on the Text Style submenu now have command keys, 
+   namely, <Ctl Opt 1>, <Ctl Opt 2>, etc., through <Ctl Opt 0>.
+ е Each of the commands 'lim', 'inf', 'sup', 'liminf', 'limsup', 
+   'min', and 'max', now inserts a subscript automatically.  For 
+   example, the 'lim' command (now bound to <Ctl Cmd L>) inserts 
+   the string "\lim_{е}".  After insertion, press the <Del> key twice 
+   to get rid of this subscript, if desired.
+ е Changed the name of 'custom' to 'generic' on the Documents 
+   submenu, and assigned it the command key <Ctl Opt D>.
+ е Added 'usepackage' to the Documents submenu, bound to <Ctl Opt U>. 
+ е Added 'verb' to the Miscellaneous submenu, bound to <Ctl Opt V>.
+ е Bound 'underbrace' and 'overbrace' to <Ctl Opt Cmd U> and
+   <Ctl Opt Cmd O>, respectively.
+ е Added the declarative counterparts to each of the Text Style 
+   commands.  These can be seen by pulling down the Text Style submenu 
+   and pressing the <Shf> key.
+ е Added 'nocite' <Shf Ctl Opt C> to the Miscellaneous submenu.
+
+
+	  	 	3.0
+
+ е Designed and implemented a totally new set of key bindings.  This 
+   was necessary because the old LaTeX bindings conflicted with Alpha's 
+   new key bindings and many international keyboards.
+ е The LaTeX menu now displays key bindings, whenever possible.
+ е Fixed a bug in "latexSmart.tcl" (formerly "smart.tcl") which prevented 
+   a user from typing a literal double quote (\").
+ е Added a 'smartQuotes' flag to the default list of flags on the "check" 
+   pop-up menu, so that users could turn off this feature on demand.
+ е Added 'convertQuotes' to the LaTeX Utilities submenu.  If there 
+   is a selection, 'convertQuotes' converts all straight quotes to 
+   curved quotes (LaTeX-style) within the selection; otherwise, it 
+   processes the entire window.
+ е Added a "smart dots" feature so that three consecutive dots (...) 
+   are automatically replaced with \ldots.  This can be turned off with 
+   the 'smartDots' flag on the "check" pop-up menu.
+ е Smart quotes and dots can be escaped on-the-fly by pressing the 
+   <Delete> key.  For example, with 'smartQuotes' enabled, type a double
+   quote at the keyboard.  Unless preceded with a backslash, this double
+   quote will automatically be replaced by a pair of curved single quotes
+   (LaTeX-style).  Pressing the <Delete> key will bring the original double 
+   quote back.
+ е Added a 'smartScripts' flag to the "check" pop-up menu.  Enabled by 
+   default, this feature binds the <_> and <^> keys to 'formulas:subscript' 
+   and 'formulas:superscript', respectively.  As with smart quotes and dots, 
+   smart scripts may be escaped on-the-fly by pressing the <Delete> key.
+ е Fixed a bug that inserted an extra blank line between the rows of 
+   an array environment.
+ е Repaired the note environment.
+ е Added DirectTeX Pro and Euro-OzTeX to the list of supported TeX 
+   implementations.  (Thanks to Alun Carr and Michel Moreaux for the 
+   patches.)
+ е The proc 'typeset' now processes an untitled or unsaved TeX window 
+   by first asking the user if the window should be saved.  If the answer 
+   is "no", then 'typeset' goes ahead and passes the contents of the window 
+   to the LaTeX application anyway, which is very handy for on-the-fly 
+   testing and debugging.  Temporary files are stored in $PREFS and cleaned 
+   up the next time Alpha launches.
+ е Added the flag 'runTeXInBackground' to the "check" pop-up menu.  Tick 
+   this option if you want to 'typeset' your LaTeX documents in the 
+   background.
+ е Added 'fillColumn' and 'leftFillColumn' to the default list of 
+   TeX mode variables available on the "check" pop-up menu.
+ е The 'useDollarSigns' flag works again!
+ е Fixed numerous bugs in the proc 'convertDollarSigns'.
+ е This version of "latex.tcl" completely takes over the numeric keypad 
+   (except for the clear/numLock key, which now toggles the keypad in 
+   any mode).
+ е Added many new navigation commands to the Goto submenu:  'prevCommand' 
+   <Kpad4>; 'nextCommand' <Kpad6>; 'prevCommandSelect' <Shf Kpad4>; 
+   'nextCommandSelect' <Shf Kpad6>; 'prevEnvironment' <Cmd Kpad4>; 
+   'nextEnvironment' <Cmd Kpad6>; 'prevEnvironmentSelect' 
+   <Shf Cmd Kpad4>; and 'nextEnvironmentSelect' <Shf Cmd Kpad6>.
+   Also added two additional commands on an experimental basis:  
+   'prevCommandSelectWithArgs' <Shf Opt Kpad4> and 
+   'nextCommandSelectWithArgs' <Shf Opt Kpad6> (see Bugs below).
+ е In addition to the old navigation commands 'prevSection' 
+   <Cmd Kpad8>, 'nextSection' <Cmd Kpad2>, 'prevSubsection' 
+   <Kpad8>, and 'nextSubsection' <Kpad2>, there are four new commands 
+   'prevSectionSelect' <Shf Cmd Kpad8>, 'nextSectionSelect' 
+   <Shf Cmd Kpad2>, 'prevSubsectionSelect' <Shf Kpad8>, and 
+   'nextSubsectionSelect' <Shf Kpad2>.  The latter make it easy to 
+   select large blocks of text (i.e., complete sections or subsections).
+ е Fixed some minor bugs in the tab stop mechanism, including a 
+   bug in 'gotoTabStop' that caused it to find a tab stop immediately 
+   to the right of the cursor when searching backwards, and another in 
+   'nthTabStop'.  The latter now handles ANY input, including zero.
+ е The following interactive procedures now validate the user's input:
+   'nthTabStop', 'enumerate', 'itemize', 'description', 'thebibliography', 
+   'tabular', 'myArray', 'eqnarrayStar', 'eqnarray'.  Invalid input 
+   simply causes the procedure to terminate.
+ е Put 'insertLiteralTab' and 'insertTabStop' on the LaTeX Utilities 
+   submenu, if for no other reason but to advertise the key bindings.  
+   Note:  The proc 'insertTabStop' is bound to <Opt 8> on US keyboards.
+ е The 'filecontents' command on the Documents submenu finally works!
+ е Removed 'loadSymbolPackage' from the LaTeX Utilities submenu 
+   because the symbol package (latexsym) can be loaded with the 
+   'packages' command on the Documents submenu.  The latter now checks 
+   to see if the chosen package is already loaded.
+ е Merged 'item' and 'bibitem' on the Miscellaneous submenu into a 
+   single command: 'item' now inserts either \item, \item[], or \bibitem{} 
+   depending on the context, and is bound to <Ctl Opt J>.
+ е Reorganized the Math Environments submenu for conceptual purposes.  
+   (The array environment, in particular, is different than the other 
+   environments since it MUST be used in math mode, whereas the others 
+   must NEVER be used in math mode).
+ е The table environment now puts the caption at the top.  (The 
+   figure environment still puts the caption at the bottom.)
+ е Tom Pollard fixed 'TeXMarkFile' so that the "{}" pop-up menu is 
+   more readable.
+ е Using Alpha's new command-double-click facility, Tom Pollard 
+   wrote a routine that chases references and citations.  Simply 
+   command-double-click the required argument of a \ref or \cite 
+   (which are now underlined) to find the corresponding \label or 
+   \bibitem, respectively.  It will even open a .bib file, if necessary.
+ е Andreas Amann added \pageref, \input, \include, and \bibliography 
+   to the list of (underlined) commands whose required arguments can now 
+   be command-double-clicked.
+ е Added \usepackage, \documentclass, \RequirePackage, and \LoadClass to 
+   the list of (underlined) LaTeX commands.  Also, the required argument of 
+   the command specified in the TeX mode variable 'boxMacroName' 
+   (\includegraphics, by default) may also be command-double-clicked.
+ е The user-defined variable 'boxMacroName' on the "check" pop-up menu 
+   is now dimmed if the flag 'useBoxMacro' is set to false.
+ е Changed the name of the "Styles" command to "Options", and added 
+   the remaining standard options to the corresponding pop-up menu.
+ е Renamed some of the commands on the Formulas submenu.
+ е Totally reorganized the Arrows submenu.  With the menu down, 
+   press any modifier key to see the double arrow commands.
+ е Shortened the Greek submenu considerably.  With the menu down, 
+   press any modifier key to see the upper-case Greek letters.
+ е The Greek letters have a new set of key bindings.  See the description 
+   of the new Greek submenu below.
+ е Added 'removeAuxiliaryFiles' to the LaTeX Utilities submenu, 
+   which interactively removes all auxiliary files (.aux .bbl .dvi .glo 
+   .idx .ind .lof .log .lot .toc .blg .clg .ilg .ps) for the current 
+   document in the current directory.
+ е Added 'deleteComments' to the LaTeX Utilities submenu.
+ е Reorganized the Miscellaneous submenu.
+ е Pete added a nifty keyboard-bound method of invoking any LaTeX menu 
+   command.  It's called 'chooseCommand' (bound to <Opt Cmd T>) and it's 
+   on the LaTeX Utilities submenu.
+ е Vince Darley wrote a handy utility called 'insertReference' on the 
+   LaTeX Utilities submenu that displays a list of labels defined in the 
+   current document.  Choosing one of them inserts the corresponding \ref 
+   at the insertion point.
+   
+
+	  	 	2.3
+
+ е A handy install mechanism (designed and implemented by Tom Pollard) 
+   lets the user choose between the old LaTeX macros (aka LaTeX 2.09) 
+   and the current version (which is LaTeX 2e-compatible).  Simply choose 
+   'install:LaTeX' on the Utils menu to switch versions.
+ е Totally redesigned the kernel so that the insertion of LaTeX 
+   environments and document templates is faster and less choppy.
+ е The 'typeset' command is now bound to <Cmd T> (thanks, Pete!) and 
+   supports version 2.2 of CMacTeX (courtesy of its author, Tom Kiffe)
+   as well as DirectTeX running under MPW (Alun Carr <ajcarr@ccvax.ucd.ie> 
+   provided the relevant code).  Alpha now supports all known Macintosh 
+   TeX implementations!
+ е A crude command completion mechanism has been implemented (see the 
+   section on "Command Completion" at the bottom of this document).
+ е The navigation commands 'bibtex' and 'makeindex' are now on the 
+   Goto submenu (compliments of Tom Pollard).
+ е Added \textnormal to the Text Style submenu.  It has no corresponding 
+   command key, by default.
+ е Added 'flushleft' and 'flushright' commands to the Environments 
+   submenu on either side of 'center'.
+ е Added a new Utilities submenu.  There's a procedure called 'clearTabStops' 
+   (bound to <Cmd Tab>) which removes all tab stops, and another proc called 
+   'convertDollarSigns' which replaces all dollar signs with appropriate LaTeX 
+   syntax (see the "MathModes" section of this document).  Both these commands 
+   act on the current document or the current selection (if there is one).  
+   Another command called 'loadSymbolPackage' carefully inserts the string 
+   "\usepackage{latexsym}" into the current document (see p.42 of the _LaTeX_ 
+   book).
+ е Added 'smallskip', 'medskip', and 'bigskip' to the Spacing submenu.
+ е Modified 'filecontents' on the Documents submenu so that the user is 
+   presented with a standard file dialog for selecting the file to be 
+   prepended to the current document.
+ е Fixed a bug in "latexKeys.tcl" (reported by Christian Konrad 
+   <Konrad@dax1.w7.ipp-garching.mpg.de>) that prevented Bib mode from 
+   initializing TeX mode.
+ е Both the figure and table environments now have optional arguments.
+ е Added the flag 'promptNoisily' to the "flags" pop-up menu.
+ е Listed many of the corresponding command keys in the "LaTeX Help" 
+   file (i.e., this file).
+ е Fixed a bug (reported by Jonathan Guyer <j-guyer@nwu.edu>) which
+   caused some "latex.tcl" routines to inadvertently alter the search
+   string (in the Find dialog).  A recent Alpha enhancement made this
+   bug fix possible.
+
+
+	  	 	2.2
+
+ е Improved the messages throughout.  (These can be read from the status 
+   bar at the bottom of your screen.)
+ е Significantly enhanced the letter documentclass template.
+ е The 'typeset' command (formerly called 'Latex') on the LaTeX menu not 
+   only switches to the appropriate LaTeX app (Textures and OzTeX are 
+   currently supported), but also TeXs the current document automatically, 
+   with a single keystroke.  (Thanks to Tom Pollard for assistance.)
+ е Interchanged the command keys assigned to 'eqnarray' and 'eqnarrayStar' 
+   so that they parallel those assigned to 'displaymath' and 'equation'.  
+   As a result, un-numbered equations begin with the <Shf Opt> modifier while 
+   numbered equations begin with <Ctl Opt>.  Also, 'eqnarrayStar' comes before 
+   'eqnarray' on the Math Environments submenu.
+ е Changed the command keys for the 'slide', 'tabular', and 'thebibliography' 
+   environments.  (These changes were needed to make way for new environments).  
+   See the files "latex_commands.tex" and "latex_keys.tex" for a complete list 
+   of command keys suitable for printing.
+ е Changed "\documentstyle" to "\documentclass" in the document templates 
+   to conform with LaTeX 2e syntax.  Added a generic "\usepackage" command to 
+   each of the templates.
+ е Added the \appendix declaration to the Sectioning submenu.
+ е Reorganized the Text Style menu according to LaTeX 2e conventions.
+   Changed "{\em }" to "\emph{}", "{\it }" to "\textit{}" and "{\sl }" 
+   to "\textsl{}", and removed the italic correction on all three (which 
+   LaTeX 2e now handles automatically).  Also changed "{\sc }" to "\textsc{}", 
+   "{\bf }" to "\textbf{}", "{\rm }" to "\textrm{}", "{\sf }" to "\textsf{}", 
+   and "{\tt }" to "\texttt{}".  Added \underline (which works in any mode), 
+   as well as \textup and \textmd (the default shape and series, 
+   respectively).  The latter two commands do not have assigned command 
+   keys, by default.
+ е Added four new math styles to the Math Style submenu:  "\mathrm", 
+   "\mathbf", "\mathsf", and "\mathtt".  Changed the name of "\mit" to 
+   "\mathit" and "\cal" to "\mathcal".  Relocated the Math Style submenu 
+   higher up on the LaTeX menu.
+ е Added support for the new "slides" documentclass, and the associated 
+   environments "slide", "overlay", and "note".
+ е Implemented the Functions submenu, a menu of 34 log-like functions.
+ е Added omicron to the Greek submenu, for completeness.
+ е Added many commands, too numerous to mention by name, to the Binary 
+   Operations, Relations, Arrows, Symbols, and Large Operators submenus.
+ е Some LaTeX 2e symbols require the input of a special symbol package.  
+   In "latex.tcl", before such a symbol is inserted into the text, a macro 
+   automatically checks to see if the required symbol package is loaded.  
+   If not, the user may opt to have the program install it automatically.
+ е Added a Page Layout submenu and macros to insert a title page and 
+   abstract.  There is also a 'maketitle' command which inserts a template 
+   into the current document and positions it automatically.  (Note:  The 
+   "titlepage" style is often used in conjunction with \maketitle.  See the 
+   'styles' command on the Documents submenu.)  Other page layout commands 
+   have also been added.
+ е Fine tuned the insertion macros so that input is less choppy.
+ е Command names now mimic their LaTeX 2e counterparts as much as possible.
+ е Streamlined the code underlying the Delimiters submenu.
+ е Added a 'center' command to the Environments submenu.
+ е By default, <Opt Cmd $> and <Shf Opt Cmd $> are respectively bound to 
+   'latexMath' and 'latexDisplaymath' (previously, these keys were bound 
+   to 'texMath' and 'texDisplaymath').  Users wanting to use the old-style 
+   dollar signs to invoke math mode should set the flag 'useDollarSigns' to 
+   true.
+ е TeX mode now recognizes the suffixes .ltx, .dtx and .ins, in addition 
+   to .tex and .sty.  (Note that the suffixes are case sensitive, however.)
+ е Restored the <Opt 8> keystroke to its default Macintosh setting 
+   (which necessitated moving \bullet to <Opt Cmd 8>).  Thus <Opt 8> 
+   inserts a literal bullet into the .tex document.  Bullets may be used 
+   in conjunction with the tab stop mechanism (<Tab> and <Shf Tab>), and 
+   are great for setting "bookmarks", for example.
+ е The <Tab> and <Shf Tab> keys now beep if a tab stop is not found.  This 
+   can be turned off by setting the 'searchNoisily' flag to false.  (Note:  
+   Other search operations in "latex.tcl" also beep; the 'searchNoisily' flag 
+   applies to all of them simultaneously.)
+ е Added a proc called 'nthTabStop' (bound to <Ctl Tab>) which generalizes 
+   the existing 'nextTabStop' and 'prevTabStop' routines by taking an 
+   arbitrary integer argument.
+ е Added a new Goto submenu containing the various navigation commands  
+   mentioned above.  Also included are commands for moving to and from the 
+   next and previous (sub)sections.  (See the docs for the corresponding 
+   command keys.)
+ е Added more than ten commands to the Boxes submenu, including \fbox, 
+   \sbox, \raisebox, \parbox, and \rule.  There's also a new minipage 
+   environment.
+ е Reorganized and enhanced the Spacing submenu with additional 
+   commands, the first half-dozen of which are listed in increasing order 
+   of "wideness".  Adjusted the corresponding command keys (all of which 
+   are a modified spacebar) so that they more closely match the order of 
+   the menu items.
+ е To facilitate file transfer, LaTeX 2e now has a 'filecontents' 
+   environment to contain the source of a LaTeX auxiliary file.
+   This new environment is supported in "latex.tcl" 2.2 on the Documents 
+   submenu.  Also on the Documents submenu are new commands for 
+   automatically inserting standard LaTeX 2e styles and packages.
+ е Implemented the International submenu, including most of the symbols 
+   and half of the accents.
+ е The \mathcal command on the Math Style submenu now checks to see that 
+   its argument is upper-case.
+ е Broke the "latex.tcl" source code into four parts:  "latex.tcl", 
+   "latexMode.tcl", "latexMenu.tcl", and "latexKeys.tcl".
+ е Fixed 'wordBreak' and 'wordBreakPreface' (thanks Pete!) so that the 
+   leading backslash is now selected when double-clicking a LaTeX command.
+ е The flags 'optionIsMeta' and 'useDollarSigns' (on the "flag" pop-up 
+   menu) are now dynamic in the sense that they may be changed at any time 
+   with immediate effect.
+ е Environments which prompt the user for input (enumerate, itemize, 
+   description, thebibliography, tabular, array, eqnarray, and eqnarray*) 
+   now do so on the status bar at the bottom of the screen.
+
+
+	  	 	2.0
+
+ е The documentation (LaTeX Help and latex_commands.tex) has been totally 
+   rewritten.
+ е A new, expanded LaTeX menu has been implemented, following closely the 
+   organization and terminology of the LaTeX book.
+ е Ellipses have been added to LaTeX menu items where appropriate.
+ е Macros intelligently respond to the current selection---although
+   many objects simply replace the current selection (similar to Paste), 
+   others conveniently and automatically wrap themselves around it.  
+   Environments automatically wrap themselves around a selection, too.
+ е Functionality has been localized in utility macros as much as possible.
+ е Standard document types (letter, article, report, and book) have been 
+   added.  Simply select some text (or not) before choosing the desired 
+   command from the Documents menu.
+ е Three flags have been added to the Utils menu:  'useBoxMacro' (which 
+   controls the behavior of the figure environment), 'deleteObjectNoisily' 
+   (which controls an alert that appears when the current selection is 
+   about to be replaced by an object), and 'deleteEnvironmentNoisily' 
+   (which controls an alert that appears when the current selection is 
+   about to be replaced by an environment).
+ е Many new environments have been added (figure, table, verbatim, quote,
+   quotation, verse) and some (enumerate, itemize, description, tabular, 
+   bibliography, array, eqnarray, and eqnarray*) now prompt the user for 
+   the desired number of rows and, in some cases, columns.  The environment 
+   body is then constructed automatically.
+ е The figure environment now depends on a flag called 'useBoxMacro' on the
+   Utils menu.  If this flag is true (which it is by default), then the
+   figure environment inserts the string "\\centerline{\\$boxMacroName{е}}"
+   into its body.  Otherwise, the body of the figure environment is left
+   empty (unless there is a current selection, in which case the figure
+   environment wraps).
+ е A new, improved fraction macro now parses a selection of the form 
+   "numerator/denominator" and then automatically constructs the 
+   corresponding displayed fraction.  A selection not containing a  
+   "/" is inserted in lieu of the fraction's numerator.
+ е Both TeX and LaTeX math modes are supported, including $...$, $$...$$,
+   \(...\), and \[...\].  These are inserted into the document horizontal-
+   ly.  The corresponding multi-line environments \begin{math}...\end{math} 
+   and \begin{displaymath}...\end{displaymath} are also supported and 
+   heartily recommended (since these constructs are more easily modified 
+   and maintained by the user).
+ е There's now a two-parameter nth root, in addition to square root.
+ е Arbitrary one- and two-parameter LaTeX commands have been implemented, 
+   namely, \<command>{е} and \<command>{е}{е}.  These can be run inter-
+   actively, or used as templates for user-defined commands.
+ е In addition to sum and integral, numerous "large operators" (product, 
+   union, intersection, logical and/or) have been added.
+ е The nonumber command has been removed since it only appears in the 
+   context of an eqnarray environment.
+ е Both the Conjugate and Expected Value commands have been removed since 
+   in my (perhaps limited) experience these are nonstandard mathematical 
+   notation.
+ е Sectioning commands no longer insert a trailing carriage return.
+ е The Sum and Integral commands no longer typeset the current selection 
+   as the lower limit of the sum or integral.
+ е The command texDisplayEqn is no longer supported. Instead, the commands
+   MathModes:texDisplaymath and MathModes:latexDisplaymath insert 
+   themselves horizontally into the .tex file.  For vertical source code 
+   formatting, use MathEnvironments:Displaymath.
+ е Extraneous comments preceding each environment have been removed.
+ е The command alignEqual has been removed since the separator is now
+   inserted automatically into the appropriate environments.
+
+
+	  	 	1.2
+
+ е **IMPORTANT**: KEYBINDINGS NOW DEPENDENT ON optionIsMeta FLAG
+
+ е macros shortened through use of movePoint and selReplace utility macros.
+ е new macros added: section, subsection, subsubsection, enumerate,
+   itemize
+ е most short macros handle selected text (i.e. highlight "word", execute
+   the boldface command, and you get "{\bf word}").  NOTE: this is 
+   OPTIONAL--you can still execute boldface, type "word", and type tab.
+ е latex key bindings only performed the first time Tex mode is entered,
+   to save time
+ е emphasize macro updated
+
+
+	  	 	1.1
+
+ е non-breaking space removed from cite macro
+ е slide environment macro added and assigned to o-F9 and c-o-9
+ е equation, displaymath, eqnarray, eqnarray*, slide, and general environment
+   now indent and no longer insert a blank line if called from column 0.
+ е texDisplayEqn ($$...$$) added and bound to o-s-4
+

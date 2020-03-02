@@ -1,0 +1,238 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+
+<HTML>
+
+<HEAD>
+
+<TITLE>Coloring</TITLE>
+
+<LINK HREF="../Style%20Sheet/manual.css" REL="stylesheet" TYPE="text/css">
+</HEAD>
+
+<BODY>
+
+<!-- #INCLUDE INCLPATH="maintop.html" -->
+
+<SCRIPT TYPE="text/javascript">
+<!--
+if (document.body.clientHeight) {
+	height = document.body.clientHeight - 50;
+} else {
+	height = window.innerHeight - 50 ;
+}
+document.write('<div class="main" style="height: ' + height + 'px;">');
+// -->
+</SCRIPT>
+
+
+<!-- /#INCLUDE -->
+
+
+<H1>Coloring</H1>
+
+<P>
+Coloring of your HTML code is highly customizable. You can choose the 
+colors you want for HTML tags, attributes, strings, JavaScript keywords, 
+CSS keywords, and JavaScript and CSS comments.
+</P>
+
+<P>
+The coloring in HTML mode is a little bit more complex than Alpha is 
+designed for. Alpha was originally designed to color programming code. HTML 
+documents contains both code and ordinary text and Alpha can't tell which 
+words are code and which are ordinary text, when it colors your documents. 
+Therefore the coloring will not always be perfect.
+</P>
+
+<P>
+In the submenu <SPAN CLASS="menu">Config -&gt; Redefine Colors</SPAN> there 
+are seven extra colors <SPAN CLASS="menuitem">color_9</SPAN> ... <SPAN 
+CLASS="menuitem">color_15</SPAN>. You can use these colors to define your 
+own favorite colors for your HTML documents. By default these seven colors 
+are undefined, but as soon as you give them a value they appear in the 
+coloring preference dialog box, where you can choose the colors you wants 
+for the keywords.
+</P>
+
+<P>
+By default the coloring of HTML tags is like this:
+</P>
+
+<P CLASS="code">
+<SPAN CLASS="htmlcode">&lt;IMG </SPAN><SPAN 
+CLASS="attrcode">SRC=</SPAN><SPAN CLASS="textcode">"fig.gif"</SPAN><SPAN 
+CLASS="htmlcode">&gt;</SPAN>
+</P>
+
+<P>
+Tags are colored blue, attributes magenta and strings green. For the 
+coloring of the attributes to work the attribute values must be put inside 
+quotes. If an attribute is written WIDTH=246 Alpha thinks WIDTH=246 is one 
+single word and therefore doesn't find the word WIDTH= which it is supposed 
+to color. To reduce this problem there is a function <SPAN 
+CLASS="menuitem">Quote all attributes</SPAN> in the submenu <A 
+HREF="editing.html"><SPAN CLASS="menu">Editing</SPAN></A> of the HTML 
+Utilities menu. This functions goes through your document and put quotes 
+around all attributes.
+</P>
+
+<H2>Coloring preferences dialog box</H2>
+
+<P>
+The coloring can be customized in the coloring preferences dialog box, 
+which you find in the submenu <SPAN CLASS="menu">Preferences</SPAN> of the 
+HTML menu. At the top of this dialog box there is a popup menu, where you 
+can choose between <SPAN CLASS="item">Simple coloring</SPAN> and <SPAN 
+CLASS="item">Complex coloring</SPAN>.
+</P>
+
+<P>
+<IMG SRC="../bilder/coloringsimple.png" ALT="Simple coloring" WIDTH="489"
+HEIGHT="106">
+</P>
+
+<P>
+When simple coloring is selected the tags are colored all blue:
+</P>
+
+<P CLASS="code">
+<SPAN CLASS="htmlcode">&lt;IMG SRC="fig.gif"&gt;</SPAN>
+</P>
+
+<P>
+This can be a better choice on lowend machines with slow graphics.
+</P>
+
+<DIV>
+<img src="../bilder/coloringcomplex.png" alt="Complex coloring" width="489"
+height="386">
+</DIV>
+
+<P>
+When complex coloring is chosen there are a number of options to customize 
+the coloring.
+</P>
+
+<div CLASS="item">Color of HTML tags</div>
+
+<DIV CLASS="indent">
+The color of the HTML tags.  The default is <SPAN 
+CLASS="htmlcode">blue</SPAN>.
+</DIV>
+
+<div CLASS="itempara">Color of attributes</div>
+
+<DIV CLASS="indent">
+The color of the HTML attributes.  The default is <SPAN 
+CLASS="attrcode">magenta</SPAN>.
+</DIV>
+
+<div CLASS="itempara">Color of strings</div>
+
+<DIV CLASS="indent">
+The color of everything between quotes.  The default is <SPAN 
+CLASS="textcode">green</SPAN>.
+</DIV>
+
+<div CLASS="itempara">Always color immediately when typing</div>
+
+<DIV CLASS="indent">
+When this option is chosen the tags are always colored immediately when you 
+simply type them into the document. The disadvantage of this option is that 
+it colors more words in the ordinary text - provided you write in English. 
+This coloring option also does not look as nice as the other one.
+</DIV>
+
+<div CLASS="itempara">Coloring of best quality</div>
+
+<DIV CLASS="indent">
+This option gives the nicest looking coloring of the code. The only 
+disadvantage is that the code is not colored as you type. Type <SPAN
+CLASS="itemlight">control-L</SPAN> to 
+redraw the window to overcome this problem.
+</DIV>
+
+<div CLASS="itempara">Color JavaScript keywords</div>
+
+<DIV CLASS="indent">
+If checked, keywords and comments in JavaScript will be colored. These 
+keywords also include the event handlers. By default JavaScript keywords 
+are not colored. Coloring of JavaScript keywords is not possible if 'simple 
+coloring' is used.
+</DIV>
+
+<div CLASS="itempara">Color of JavaScript keywords</div>
+
+<DIV CLASS="indent">
+The color of keywords in JavaScript.  Applies only if you choose to color 
+JavaScript keywords. The default is <SPAN CLASS="attrcode">magenta</SPAN>.
+</DIV>
+
+<div CLASS="itempara">Color CSS keywords</div>
+
+<DIV CLASS="indent">
+If checked, keywords and comments in CSS will be colored. By default CSS 
+keywords are not colored. Coloring of CSS keywords is not possible if 
+'simple coloring' is on.
+</DIV>
+
+<div CLASS="itempara">Color of CSS keywords</div>
+
+<DIV CLASS="indent">
+The color of keywords in CSS.  Applies only if you choose to color CSS 
+keywords. The default is <span style="color: cyan">cyan</span>.
+</DIV>
+
+<div CLASS="itempara">Color of JavaScript and CSS comments</div>
+
+<DIV CLASS="indent">
+The color of comments in JavaScript and CSS.  Applies only if you choose to 
+color JavaScript or CSS keywords. The default is <span 
+style="color: red">red</span>.
+</DIV>
+
+<P>
+You can also customize the coloring in CSS and JavaScript modes. See the 
+pages documenting these modes.
+</P>
+
+<!-- #INCLUDE INCLPATH="mainbottom.html" -->
+
+<DIV STYLE="height: 50px">
+</DIV>
+
+<SCRIPT TYPE="text/javascript">
+<!--
+document.write('<\/DIV>');
+// -->
+</SCRIPT>
+
+
+<!-- /#INCLUDE -->
+
+
+<!-- #INCLUDE INCLPATH="navigation.html" PREV="[manualPrevPage editing.html]" 
+NEXT="[manualNextPage funcs.html]" -->
+
+<P>
+<script type="text/javascript">
+<!--
+document.write('<div class="navigation" style="top: ' + height + 'px; height: 50px">');
+// -->
+</script>
+<A HREF="editing.html">Previous page</A>
+<A HREF="funcs.html">Next page</A>
+<SCRIPT TYPE="text/javascript">
+<!--
+document.write('<\/DIV>');
+// -->
+</SCRIPT>
+</P>
+
+<!-- /#INCLUDE -->
+
+
+</BODY>
+
+</HTML>
+

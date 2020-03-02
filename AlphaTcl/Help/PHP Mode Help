@@ -1,0 +1,186 @@
+Title:                  phpModeHelp
+Version:                $Revision 0.1 $
+Author:                 Bernard DESGRAUPES <bdesgraupes@easyconnect.fr>
+Homepage:		<http://webperso.easyconnect.fr/bdesgraupes/alpha.html>
+Type:                   Help
+Mode:                   Aida
+Created: 		2002-01-30 16:10:06
+Modified:		2002-06-28 21:48:17
+Keywords:		PHP
+
+
+					Abstract
+
+This is "PHP mode Help", help file for the PHP mode in Alpha. For Alpha  to
+find it, you must move this file to the "Help" folder located at  the  same
+level as the Alpha application itself.
+
+
+
+----------------------------------------------------------------------
+1. Introduction
+2. Installation
+   2.1. Automatic installation
+   2.2. Manual installation
+3. Electrics
+4. Words completion
+5. File marking
+6. Preferences
+7. Version History
+8. Known problems
+9. License and Disclaimer
+----------------------------------------------------------------------
+
+1. Introduction
+This mode implements very basic mode-specific settings to  write  and  edit
+PHP files in Alpha. It currently provides the following features:
+
+¥ syntax coloring
+¥ comments handling
+¥ function definitions marking
+¥ basic completion namely : keywords  completion    and    electrics    for
+conditional structures
+
+
+PHP mode will be developed further in the future when AlphaX (a  carbonized
+version of Alpha running  on  OSX)  is  available.  Any  contributions  are
+welcome. 
+
+2. Installation
+Follow these instructions only if Php Mode is  not  already  part  of  your
+Alpha distribution.
+
+2.1. Automatic installation
+
+Open the "OPEN TO INSTALL" file. Opening this file tells Alpha that  a  new
+package has to be installed : the procedure is automatic. Alpha knows where
+to store the different elements of your PHP Mode package.
+ 
+2.2. Manual installation
+
+¥ put the "PHPMode.tcl" file in the "Modes" subfolder of the  "Tcl"
+folder which is located at the same level as your Alpha application
+
+¥ put the "PHP Mode Help" file in the "Help" folder located at the  same
+level as your Alpha application. Next time you launch Alpha, you will  have
+a "PHP Mode Help" item in the Help menu to edit this file.
+
+¥ launch Alpha. You have to rebuild the package indices and the Tcl ones.
+"Rebuild Package Indices" is in the "Config--Packages"  menu,  and  "Rebuild
+Tcl Indices" is in the Tcl menu.
+ 
+¥ quit Alpha and relaunch it : that's all there is to it. 
+
+
+
+3. Electrics
+PHP mode defines electric expansions for the following keywords :
+
+	 if, ifelse, ifelseif, elseif, while, do, for,
+	 foreach, foreachkey, switch, php
+
+This means that you just have  to  type  one  of  them  and  then  hit  the
+completion key (the Electric Completions package must be active)  and  they
+will expand to a complete structure which you can fill  very  easily  :  it
+contains electric tabs, ie bullet symbols, and you can jump from one to the
+following using the Tab key. For instance, typing 'do' (without the quotes)
+and completing yields :
+
+	 do {
+	     
+	     } while ( );
+
+
+Typing 'for' (without the quotes) and completing yields :
+
+	 for ( ;  ;  ) {
+	      
+	     }
+
+
+Typing 'for' (without the quotes) and completing yields :
+
+	 switch () {
+	       case  :
+	          
+	       default:
+	          
+	     }
+
+
+4. Words completion
+PHP mode also have a system of language keywords completion. Type the first
+letters of a keyword and Alpha will complete. If there are several choices,
+you'll be prompted to choose one of them. For instance, type 'sh'  (without
+the quotes) and hit the completion key to get 'shuffle'.
+
+It you type imaget and hit the completion key, a  list  will  be  displayed
+with the possible choices which are in this case :
+imagettfbbox, imagettftext, imagetypes.
+
+5. File marking
+All the functions defined in the document with the following scheme 
+
+	  function foo ($arg_1, $arg_2, ..., $arg_n) {
+	      Instructions here...
+	  }
+
+can be marked and made accessible via the "M" popup menu in  the  top-right
+corner of the document's window.
+
+
+6. Preferences
+A few preferences can be set in the PHP Mode Preferences which  you  access
+from the "Config -- Mode Prefs -- Preferences..." menu  item.  Among  other
+choices you can set :
+
+¥ the prefix string (Default is // )
+¥ the syntax coloring
+
+¥ Color for comments (Default is red)
+¥ Color for keywords (Default is blue)
+¥ Color for strings (Default is green)
+¥ Color for delimiters (Default is magenta)
+
+
+
+7. Version History
+
+¥ 0.1.1	01/05/08	First release.
+
+
+8. Known problems
+
+Please e-mail any problem or bug you encounter : 
+ <bdesgraupes@easyconnect.fr>
+
+9. License and Disclaimer
+
+Copyright Bernard Desgraupes, 2001, 2002
+        All rights reserved.
+This software is free software distributed under the terms of the  new  BSD
+license :
+Redistribution and  use  in  source  and  binary  forms,  with  or  without
+modification, are permitted provided that the following conditions are met:
+
+¥ Redistributions of source code must retain the  above  copyright  notice,
+this list of conditions and the following disclaimer.
+¥ Redistributions in binary form must reproduce the above copyright notice,
+this list of conditions and the following disclaimer in  the  documentation
+and/or other materials provided with the distribution.
+¥ Neither the name of Bernard Desgraupes nor the names of its  contributors
+may be used to endorse or  promote  products  derived  from  this  software
+without specific prior written permission.
+
+This software is provided by the copyright holders and contributors "as is"
+and any express or implied warranties, including, but not limited  to,  the
+implied warranties of merchantability and fitness for a particular  purpose
+are disclaimed. In no event shall the regents or contributors be liable for
+any direct, indirect,  incidental,  special,  exemplary,  or  consequential
+damages (including, but not limited to, procurement of substitute goods  or
+services; loss of use, data, or profits; or business interruption)  however
+caused and  on  any  theory  of  liability,  whether  in  contract,  strict
+liability, or tort (including negligence or otherwise) arising in  any  way
+out of the use of this software, even if advised of the possibility of such
+damage. 
+

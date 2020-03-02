@@ -1,0 +1,76 @@
+!! Filter : CyrlatexToKoi8.flt
+!! 
+!! To be used with the Filter Menu in Alpha.
+!! Last modification : 18 avril 2000 - 18:49:38
+!! (c) Copyright : Bernard Desgraupes 2000
+
+
+\guillemotleft	„	0
+\guillemotright	…	0
+\cyrzh		Ö	0
+\cyrz		Ú	0
+\cyryu		À	0
+\cyryo		£	0
+\cyrya		Ñ	0
+\cyrv		×	0
+\cyru		Õ	0
+\cyrt		Ô	0
+\cyrshch	Ý	0
+\cyrsh		?	0
+\cyrsftsn	Ø	0
+\cyrs		Ó	0
+\cyrr		Ò	0
+\cyrp		Ð	0
+\cyro		Ï	0
+\cyrn		Î	0
+\cyrm		Í	0
+\cyrl		Ì	0
+\cyrk		Ë	0
+\cyrishrt	Ê	0
+\cyri		É	0
+\cyrhrdsn	ß	0
+\cyrh		È	0
+\cyrg		Ç	0
+\cyrf		Æ	0
+\cyrery		Ù	0
+\cyrerev	Ü	0
+\cyre		Å	0
+\cyrd		Ä	0
+\cyrch		Þ	0
+\cyrc		Ã	0
+\cyrb		Â	0
+\cyra		Á	0
+\CYRZH		ö	0
+\CYRZ		ú	0
+\CYRYU		à	0
+\CYRYO		³	0
+\CYRYA		ñ	0
+\CYRV		÷	0
+\CYRU		õ	0
+\CYRT		ô	0
+\CYRSHCH	ý	0
+\CYRSH		û	0
+\CYRSFTSN	ø	0
+\CYRS		ó	0
+\CYRR		ò	0
+\CYRP		ð	0
+\CYRO		ï	0
+\CYRNo		†	0
+\CYRN		î	0
+\CYRM		í	0
+\CYRL		ì	0
+\CYRK		ë	0
+\CYRISHRT	ê	0
+\CYRI		é	0
+\CYRHRDSN	ÿ	0
+\CYRH		è	0
+\CYRG		ç	0
+\CYRF		æ	0
+\CYRERY		ù	0
+\CYREREV	ü	0
+\CYRE		å	0
+\CYRD		ä	0
+\CYRCH		þ	0
+\CYRC		ã	0
+\CYRB		â	0
+\CYRA		á	0

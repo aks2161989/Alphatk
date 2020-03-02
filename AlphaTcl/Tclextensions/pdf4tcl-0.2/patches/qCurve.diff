@@ -1,0 +1,30 @@
+--- pdf4tcl.tcl	2004-10-21 14:34:53.000000000 +0200
++++ /var/tmp/pdf4tcl.tcl	2004-11-03 22:21:11.000000000 +0100
+@@ -740,6 +740,27 @@
+ 		pdfout $name [format "%g %g l\n" [nf [expr {$x2+$pdf($name,xoff)}]] [nf [expr {$y2+$pdf($name,yoff)}]]]
+ 		pdfout $name "S\n"
+ 	}
++###>2004-11-03 jpo
++	proc qCurve {name x1 y1 xc yc x2 y2} {
++		variable pdf
++		variable g
++
++		endTextObj $name
++		set y1 [expr {$pdf($name,height)-$y1}]
++		set y2 [expr {$pdf($name,height)-$y2}]
++		set yc [expr {$pdf($name,height)-$yc}]
++		pdfout $name [format "%g %g m\n" [nf [expr {$x1+$pdf($name,xoff)}]] [nf [expr {$y1+$pdf($name,yoff)}]]]
++		pdfout $name [format "%g %g %g %g %g %g c\n" \
++		  [nf [expr {0.3333*$x1+0.6667*$xc+$pdf($name,xoff)}]] \
++		  [nf [expr {0.3333*$y1+0.6667*$yc+$pdf($name,yoff)}]] \
++		  [nf [expr {0.3333*$x2+0.6667*$xc+$pdf($name,xoff)}]] \
++		  [nf [expr {0.3333*$y2+0.6667*$yc+$pdf($name,yoff)}]] \
++		  [nf [expr {$x2+$pdf($name,xoff)}]] \
++		  [nf [expr {$y2+$pdf($name,yoff)}]] \
++		]
++		pdfout $name "S\n"
++	}
++###<jpo
+ 
+ 	proc arrow {name x1 y1 x2 y2 sz {angle 20}} {
+ 		line $name $x1 $y1 $x2 $y2

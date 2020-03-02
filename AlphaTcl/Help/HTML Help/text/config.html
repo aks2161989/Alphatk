@@ -1,0 +1,216 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<HTML>
+
+<HEAD>
+
+<TITLE>Configuring HTML mode</TITLE>
+
+<LINK HREF="../Style%20Sheet/manual.css" REL="stylesheet" TYPE="text/css">
+
+
+</HEAD>
+
+<BODY>
+
+<!-- #INCLUDE INCLPATH="maintop.html" -->
+
+<SCRIPT TYPE="text/javascript">
+<!--
+if (document.body.clientHeight) {
+	height = document.body.clientHeight - 50;
+} else {
+	height = window.innerHeight - 50 ;
+}
+document.write('<div class="main" style="height: ' + height + 'px;">');
+// -->
+</SCRIPT>
+
+
+<!-- /#INCLUDE -->
+
+
+<H1>Configuring HTML mode</H1>
+
+<P>
+There are several functions in HTML mode for maintaining one or more www 
+sites.  To be able to use these functions in the best way you have to tell 
+Alpha which folder contains the files of a www site.  To do this use <SPAN 
+CLASS="menuitem">Home pages</SPAN> in the <SPAN 
+CLASS="menu">Preferences</SPAN> submenu of the HTML menu.  The idea is that each of those 
+folders, together with their subfolders, should contain all your html files 
+at a server and be a mirror of your home page at the corresponding server.
+</P>
+
+<P>
+<img src="../bilder/homepages.png" alt="Home page dialog" width="434"
+height="381">
+</P>
+
+<P>
+When you select <SPAN CLASS="menuitem">Home Pages</SPAN> from the <SPAN 
+CLASS="menu">Preferences</SPAN> menu you are presented with a dialog 
+window which looks like the one above. (This is actually what it looks like 
+after you have given some information. At first a few things are absent.) 
+In this window you have the following:
+</P>
+
+<DIV CLASS="indent">
+<P>
+<SPAN CLASS="item">URLs:</SPAN> a menu with all home pages you 
+have a folder for on your disk. The rest of the things are information 
+related to this home page and are described in detail below.
+</P>
+
+</DIV>
+
+<P>
+At the bottom there are a couple buttons:
+</P>
+
+<DIV CLASS="indent">
+<P>
+<SPAN CLASS="item">New:</SPAN> To define a new home page folder. You are 
+presented with a second dialog as shown below.
+</P>
+
+<P>
+<SPAN CLASS="item">Change:</SPAN> To change the home page selected in 
+the menu.
+</P>
+
+<P>
+<SPAN CLASS="item">Remove:</SPAN> To remove the home page selected in 
+the menu.
+</P>
+
+<P>
+<SPAN CLASS="item">Tell Big Brother:</SPAN> If you check this check box, 
+the URL mappings will be changed in Big Brother's settings, when you click 
+OK. Big Brother is told which home page folders map to which URLs.  Big 
+Brother is a shareware program for checking links by Fran&ccedil;ois 
+Pottier, Francois.Pottier@inria.fr.  You can get Big Brother from <A 
+HREF="http://pauillac.inria.fr/~fpottier/" TARGET="_top">his home page</A>. Read more 
+about how to use Big Brother together with Alpha in the section <A
+HREF="checklinks.html">Checking Links</A>.
+</P>
+</DIV>
+
+<P>
+<img src="../bilder/homepages2.png" alt="Home page dialog" width="474"
+height="416">
+</P>
+
+<P>
+In the second dialog which appears when you click 'New' or 'Change' you 
+can specify:
+</P>
+
+<DIV CLASS="indent">
+<P>
+<SPAN CLASS="item">Home Page Folder:</SPAN> The folder containing all 
+the files of your home page.
+</P>
+
+<P>
+<SPAN CLASS="item">Include Folder:</SPAN> A folder where you can put your 
+files to be dynamically included.  To define an include folder is 
+optional and only needed if you want to use dynamically included files. 
+Read about dynamically included files in the section <A 
+HREF="includes.html">Include files</A>.
+</P>
+
+<P>
+<SPAN CLASS="item">Template folder:</SPAN> A folder with templates to use 
+when creating new HTML documents. To define a template folder is optional. 
+Read about how to use templates in the section <A 
+HREF="newdocs.html">Creating a new document</A>.
+</P>
+
+<P>
+<SPAN CLASS="item">URL:</SPAN> The URL to your home page, for 
+example<BR>
+http://www.theophys.kth.se/~jl/
+</P>
+
+<P>
+<SPAN CLASS="item">Default file:</SPAN> The file which is used if a link 
+points to a directory.  This name depends on the configuration of your 
+server, but is often index.html.
+</P>
+
+<P>
+<SPAN CLASS="item">Ftp Server:</SPAN> The ftp server which you upload
+your files to. If you specify one you can upload your files using the 
+submenu <A HREF="ftp.html"><SPAN CLASS="menu">FTP</SPAN></A> in the HTML Utilities menu.
+</P>
+
+<P>
+<SPAN CLASS="item">User ID:</SPAN> The name of your account on the 
+machine you upload files to.
+</P>
+
+<P>
+<SPAN CLASS="item">Password:</SPAN> Your password. Unfortunately 
+Alpha doesn't support textboxes where bullets are inserted, so the password 
+has to be given in a separate dialog where the textbox is made no narrow it 
+is impossible to see what you type, see below. Click the 'Set...' button to 
+set your password. <B>Note!</B> Only specify your password here if it's 
+safe to do so. Alpha saves the password in <B>plain text</B> in its 
+preference file. If you don't specify it here you can give it when you want 
+to upload a file.
+</P>
+
+<img src="../bilder/password.png" alt="Password dialog" width="324"
+height="114">
+
+<P>
+<SPAN CLASS="item">Directory:</SPAN> The directory of your home page 
+relative to your home directory.
+</P>
+</DIV>
+
+<P>
+The minimum information you need to provide is the <B>home page folder</B>, 
+<B>server URL</B>, and <B>default file</B>. Everything else is optional.
+</P>
+
+<!-- #INCLUDE INCLPATH="mainbottom.html" -->
+
+<DIV STYLE="height: 50px">
+</DIV>
+
+<SCRIPT TYPE="text/javascript">
+<!--
+document.write('<\/DIV>');
+// -->
+</SCRIPT>
+
+
+<!-- /#INCLUDE -->
+
+
+<!-- #INCLUDE INCLPATH="navigation.html" PREV="[manualPrevPage gettingstarted.html]" 
+NEXT="[manualNextPage attributes.html]" -->
+
+<P>
+<script type="text/javascript">
+<!--
+document.write('<div class="navigation" style="top: ' + height + 'px; height: 50px">');
+// -->
+</script>
+<A HREF="gettingstarted.html">Previous page</A>
+<A HREF="attributes.html">Next page</A>
+<SCRIPT TYPE="text/javascript">
+<!--
+document.write('<\/DIV>');
+// -->
+</SCRIPT>
+</P>
+
+<!-- /#INCLUDE -->
+
+
+</BODY>
+
+</HTML>

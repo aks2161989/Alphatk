@@ -1,0 +1,102 @@
+A dictionary file has three parts: two header sections and the main body.
+
+The first header is a description of the file for humans.  It may contain
+description of the origin of the file, copyright notices, and the like.
+
+The second header contains instructions for the dictionary script.  (Also
+called the boot sector of the dictionary file.)  
+        
+Part three, the main body, is simply the list of words, with one word
+definition per line, and sorted according to the compare proc specified
+above.
+
+
+The first part is never read.
+
+The second part is read once by Alpha, namely the first time the dictionary
+is opened: it then loads the two procs into memory and is ready to look
+up words.  In order for the Tcl interpreter to be able to find this
+important information, this block must begin with a line 
+<!-- BEGIN TCL 
+and end with a line 
+END TCL -->  
+
+The third part starts at the offSet, defined as the beginning of the first
+non-white line after the END TCL --> tag.  The dictionary programme reads
+small chunks of random access between $offset and [maxPos], for each
+lookup.  Typically a lookup consists of around 12 quick accesses, and a
+final chunk which is somewhat bigger
+
+
+About the 'boot sector'
+
+The boot sector should contain two Tcl procedures:
+-  A normalForm proc (which reduces strings to a normal form according
+   to which the dictionary is sorted) and a corresponding compare proc.
+-  The formatOutput proc (rendering engine), which instructs how to format 
+   the output (eg. interpreting markup).  The proc formatOutput can
+   optionally set the variable currentHeadword which will then be used by
+   the programme to colour all occurrences of the headword blue.  It is
+   also used for tab-between-headwords functionality.  If it is not set,
+   no problem.
+Finally, the boot sector may give colouring instructions.  This aspect
+has not yet been very much exploited.  Currently the only accepted 
+instruction is like
+
+   variable citeDelims [list Ò Ó]
+
+which would instruct the programme to colour all strings enclosed in curly
+quotes green.  (This particular instruction is taken from the Webster-1913
+dictionary, where it serves to colour all citations.)
+
+To see what the boot sector and a dictionary file may look like, open one
+of the four example dictionaries (located in the same folder as this file).
+The file 'Country-codes' has rather simple and typical procs.  The second
+example, 'Whisky-distillers' illustrates how simple a dictionary file can
+be: it is just an alphabetically ordered list, with one entry per line ---
+it has neither header nor boot sector.  In this case, the programme defines
+the needed procedures to be some standard fallback ones, and usually that
+will work all right.  The third and fourth examples are rather special, and
+illustrates alternative uses of the programme.  The dictionary file
+'Tcl-commands' itself is just an index and then the format procs goes to
+another file to gather the information at the specified spot.  The
+dictionary file 'man' has an empty data sector!  Instead all the work is
+done by the formatOutput proc, which retrieves the information from
+external sources (roughly through [exec man]).
+
+To see an example of a really heavy dictionary file (in all respects),
+look at the Webster-1913 dictionary from
+
+    http://mat.uab.es/~kock/alpha-tcl/Webster-1913.gz 
+
+
+More about the format of the dictionary file:
+
+If the dictionary file is nothing but a sorted list of lines, without any 
+markup, there is not much to do for the rendering proc: just break the 
+output into lines that are not too long.
+
+But typically there is an advantage of having some markup in the 
+dictionary file, and among the files found on the internet there are some
+with html markup.  Of course you don't want to see those tags on the screen
+when you look up a word so you need to tell the programme how to handle
+that: these instructions are given in the proc formatOutput which takes a 
+string as input and formats it.  (So it mostly performs a series of 
+regsubs...)
+
+
+More info about the working of the lookup proc: it starts by reducing the
+input to normal form (which is defined by the proc normalForm), it then
+performs a binary search in the interval between $offSet and [maxPos] of
+the dictionary file.  When the interval has beed narrowed conveniently, the
+precise location is found linearly.  Now if the file is not consistenly
+sorted, (or if it is sorted according to other criteria than the one
+specified in the preamble), the lookup script may fail to find a word.  You
+can check if this is the case by invoking the command 'Check Sorting'
+(found in 'Utils -> Local Dictionaries -> Some Tools').  If there is any
+essential alphabetical disorder, you should either perform a sort (invoking
+'Sort Dictionary File') --- this will inforce the criterion specified in the
+preamble, or: have a look at the out-of-order words to see if you can
+detect any criterion which governs the order.  Then adjust the normalForm
+proc correspondingly...
+

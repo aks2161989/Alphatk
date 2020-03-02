@@ -1,0 +1,497 @@
+-*-Help-*-
+
+Shell Scripts Help
+
+                                        help version: 2.0
+                                             created: 03/07/2000 {01:10:49 am}
+                                         last update: 03/07/2006 {12:10:06 PM}
+
+
+	  	Abstract
+
+This document describes the "Shell Scripts" mode for the software Alpha.
+This mode is useful for editing unix, linux, or MacOSX shell scripts.
+
+
+	  	Table of Contents
+
+"# Description of files"
+"# General Notes About sh Mode"
+
+"# Specific Notes About sh Mode"
+"#   Keywords"
+"#   sh Command-Double-Click"
+"#   sh File Marking"
+"#   Adding a sh Prefs file"
+"# Unix Commands Help"
+"# The sh Scripts Menu"
+
+"# Future Versions"
+"# License and Disclaimer"
+
+<<floatNamedMarks>>
+
+
+	  	Description of files
+
+
+This package includes four files for the sh mode:
+
+	"shScriptsMode.tcl"
+	"shCompletions.tcl"
+	"sh Tutorial.sh"
+
+and
+
+	sh Scripts Help  (this file)
+
+
+	  	General Notes About sh Mode
+
+
+(1)  This mode serves primarily to make it easier to write unix environment
+     shell scripts -- it colorizes keywords, and sets some indentation,
+     electric, word break, and commenting preferences.
+
+(2)  sh mode contains a full set of electric completions, as well as a 
+     Completions Tutorial via the "Config > Mode Prefs"  menu item.
+
+(3)  The sh mode allows for user customization of keyword dictionaries 
+     via the  "Config > Mode Prefs > Preferences"  dialog.  New keywords 
+     and color changes will take effect immediately, without the need for 
+     a restart or changing windows.
+	 
+(4)  Instructions for editing a shPrefs.tcl file are given below.  
+     Any keywords added will not only be colorized, but included
+     in the completions routines as well.
+
+(5)  sh mode has Mark File [M] and Parse Function {} capabilities.
+
+(6)  Finally, on-line help is available for the sh mode through 
+     Command-Double-Clicking.  The URL to which the keywords are sent 
+     can be configured in the Mode Preferences dialog.
+
+
+	======================================================================
+
+
+	  	Specific Notes About sh Mode
+
+
+	  	 	Keywords
+
+
+Keyword dictionaries are available in the "shScriptsMode.tcl" file, along with
+any relevant annotation.  Commands, flags, program names, common system
+directories, file suffixes and a few symbols (including the $ magic character)
+can all be colorized.
+
+Keywords and functions are based on System V and Solaris 2.0, as found in
+O'Reilly's Unix in a Nutshell, and OS version 5.7 bin directories.
+
+Example syntax file:  "sh Example.sh"
+
+For a different sh script example, which uses 'block' style formatting, try
+this example: "sh Example.tsch".  Toggle the 'Navigate Blocks' preference to
+change sh mode's file marking and navigation routines.
+
+Preferences: Mode-sh
+
+Completions Tutorial: "sh Tutorial.sh"
+
+
+	  	 	sh Command-Double-Click
+
+
+On-line help is available for Unix commands through Command-Double-Clicking,
+by sending the selected keyword to the menu item 'Www Command Help' The URL to
+which the keywords are sent can be changed through the Mode Preferences
+dialog.  See the "# Unix Commands Help" section below for more details.
+
+	---------------------------------------------------------------------
+
+You can also Command-Double-Click on keyword defined programs, such as 
+
+	spss
+	stata
+	emacs
+
+etc.  You will receive a dialog asking if you would like your browser to
+attempt to find the host name of http://www.<program>.com .  This is probably
+of limited utility, but you can define additional programs through the
+preferences as well.
+
+
+	  	 	sh File Marking
+
+The default file marking routine recognizes all commands that start at the
+beginning of a line, as well as section marks such as this:
+
+### Section Heading        ¥ Section Heading
+#### Subsection Heading    * Subsection Heading
+### -----                  --------------------
+
+### section and divider marks are built into the sh Mark File.  If the
+preference for 'Mark Headers Only' is turned on, then these will be the only
+marks that appear.
+
+Preferences: Mode-sh
+
+	--------------------------------------------------------------
+
+An alternative marking scheme takes over if the 'Navigate Blocks' preference
+is turned on, one that was constructed for my (perhaps) idiosyncratic use of
+unix shell scripts.  I mainly use shell scripts them to run a series of syntax
+files, tabbing each line and commenting them out as I build a statistical
+analysis, so most of my commands are single lines.  Scripts can serve many
+purposes, however, and shell commands can extend over several lines with
+personalized styles of indentation, so one can adjust the Mark Expression
+preference in the "Config > Mode Preferences" dialog.
+
+Preferences: Mode-sh
+
+Note that there is also a regular expression preference available for Parsing
+Functions {} ; this item will only return the captured expression, not the
+line.  It's preference does not need to agree with the Mark Expression, and
+there might be good reason to have them catch different expressions.
+
+Here's how different regular expressions will mark and parse the file, with
+various uses of tabs and spaces.
+
+
+	The file                 Mark File        Parse Functions
+	______________________________________________________________________
+
+^[ \t]*(\w+)          (the default setting)    (the default setting)
+
+test1 xxx                   test1 xxx        test1            
+____test2 xxx               test2 xxx        test2
+\t    test3 xxx             test3 xxx        test3
+________test4 xxx           test4 xxx        test4
+\t    ____test5 xxx         test5 xxx        test5
+____\t  ____test6 xxx       test6 xxx        test6
+\t    \t    test7 xxx       test7 xxx        test7
+# test8 xxx
+
+	______________________________________________________________________
+
+^[ \t]+(\w+)
+
+test1                
+____test2 xxx               test2 xxx        test2
+\t    test3 xxx             test3 xxx        test3
+________test4 xxx           test4 xxx        test4
+\t    ____test5 xxx         test5 xxx        test5
+____\t  ____test6 xxx       test6 xxx        test6
+\t    \t    test7 xxx       test7 xxx        test7
+# test8 xxx
+
+	______________________________________________________________________
+
+^[ \t](\w+)
+
+test1 xxx
+____test2 xxx
+\t    test3 xxx             test3 xxx        test3
+________test4 xxx
+\t    ____test5 xxx
+____\t  ____test6 xxx
+\t    \t    test7 xxx        
+# test8 xxx
+
+	______________________________________________________________________
+
+^[\t]*(\w+)
+
+test1 xxx                   test1 xxx        test1
+____test2 xxx            
+\t    test3 xxx             test3 xxx        test3
+________test4 xxx
+\t    ____test5 xxx
+____\t  ____test6 xxx
+\t    \t    test7 xxx       test7 xxx        test7
+# test8 xxx
+
+	______________________________________________________________________
+
+^[\t]+(\w+)
+
+test1 xxx
+____test2 xxx
+\t    test3 xxx             test3 xxx        test3
+________test4 xxx
+\t    ____test5 xxx        
+____\t  ____test6 xxx
+\t    \t    test7 xxx       test7 xxx        test7
+# test8 xxx
+
+	______________________________________________________________________
+
+^[ ]*(\w+)
+
+test1 xxx                   test1 xxx        test1
+____test2 xxx
+\t    test3 xxx             test3 xxx        test3
+________test4 xxx           test4 xxx        test4
+\t    ____test5 xxx        
+____\t  ____test6 xxx
+\t    \t    test7 xxx
+# test8 xxx
+
+	______________________________________________________________________
+
+^(\w+)
+
+test1 xxx                   test1 xxx        test1
+____test2 xxx
+\t    test3 xxx
+________test4 xxx
+\t    ____test5 xxx
+____\t  ____test6 xxx
+\t    \t    test7 xxx
+# test8 xxx
+
+	______________________________________________________________________
+
+
+
+This does not, of course, exhaust the possibilities of regular expressions.
+For more information see the Alpha help file "Regular Expressions".
+
+
+	  	 	Adding a sh Prefs file
+
+
+To add additional commands or arguments in an "shPrefs.tcl" file, select
+"Config > Mode Prefs > Edit Prefs File", and add these lines:
+
+
+	set shUserCommands {
+		blah bladdity
+	}
+	
+	set shUserPrograms {
+		blah2 bladdity2
+	}
+	
+	set shUserFlags {
+		blah3 bladdity3
+	}
+	
+	sh::colorizesh
+
+
+Include as many keywords as desired within the braces, separating each keyword
+by at least one space or carriage return.  Alpha will automatically load this
+preferences file the first that the sh mode is invoked.
+
+Any keywords contained in these categories will not only be colorized, but
+will also be included as electric completions.
+
+
+	  	Unix Commands Help
+
+On-line help is available for any sh mode keyword, both through Command-
+Double-Clicking and by using the "sh Menu > Www Command Help" menu item.  The
+behavior of these routines can be re-configured as desired by toggling the sh
+mode preference "Help Opens Man Page".
+
+Here's an example of the difference between the two:
+
+University of Edinburgh, Scotland
+
+<http://unixhelp.ed.ac.uk/cgi-bin/unixhelp_search?search_term=rmdir&max_hits=20>
+<http://unixhelp.ed.ac.uk/CGI/man-cgi?rmdir>
+
+	--------------------------------------------------------------
+
+If the "Help Opens Man Page" preference is turned on, then keywords are sent
+to an on-line man pages cgi-bin site.  There are a number of different sites 
+available, as listed here:
+
+<http://www.w3.org/Tools/Man_faq_filters.html>
+
+Here are some examples:
+
+<http://unixhelp.ed.ac.uk/CGI/man-cgi?ls>
+
+<http://campuscgi.princeton.edu/man?ls>
+
+<http://www.freebsd.org/cgi/man.cgi?query=ls>
+
+There are several mirrors of these sites available.  If you change the url, be
+sure to include everything up to the actual command name, including any
+preceding question marks or equals signs.
+
+	--------------------------------------------------------------
+
+If this preference is not set, then keywords are instead sent to the search
+engine for "Unix Help for Users".  This site was developed at the University
+of Edinburgh, and is freely distributed around the world for local
+installation.  The mode is set up to send your query to the UK, but you can
+change this in the Mode Preferences if want want a site that is closer (or
+further away).
+
+You'll find a list of mirror sites here:
+
+<http://www.google.com/search?q=unixhelp>
+
+Once you've chosen one, do a search for your favorite command, and then pay 
+attention to the URL that you ended up with.  Include the address up 
+to the question mark, as in
+
+	http://www.dmu.ac.uk/cgi-bin/unixhelp_search?
+
+Here's some examples.
+
+University of Edinburgh, Scotland
+
+<http://unixhelp.ed.ac.uk/cgi-bin/unixhelp_search?search_term=rmdir&max_hits=20>
+
+De Montfort University, East Midlands United Kingdom
+
+<http://www.dmu.ac.uk/cgi-bin/unixhelp_search?search_term=rmdir&max_hits=20>
+
+J—zsef Attila University, Szeged Hungary
+
+<http://www.cab.u-szeged.hu/cgi-bin/unixhelp_search?search_term=rmdir&max_hits=20>
+
+Swiss Federal Institute of Technology, Lausanne Switzerland
+
+<http://dgrwww.epfl.ch/cgi-bin/unixhelp_search?search_term=rmdir&max_hits=20>
+
+	---------------------------------------------------------------------
+
+Any available syntax information is also available by pressing the Control key
+while Command-Double-Clicking.  This information will appear in the status bar
+window.  In some cases, this information is too long to be read in its
+entirety.  Pressing the Shift key instead of the Control key will insert this
+syntax information as commented text into the active window.
+
+NOTE: These Control-Command and Shift-Command Double-Click features have not
+been fully implemented.  See the "shCompletions.tcl" file for additional 
+information.
+
+
+	  	The sh Scripts Menu
+
+The menu associated with this mode contains the following items:
+
+	sh Scripts Home Page
+
+Opens the url specified in the "sh Scripts Home Page" url preference.
+
+	Www Command Help
+
+Opens a dialog like this --> <<sh::wwwCommandHelp>> allowing you to enter a
+unix command to send to the various unix help urls.  See the section above on
+"# Unix Commands Help" for more information.
+
+	sh Mode Options
+
+This is a submenu allowing you to set some sh mode 'flag' preferences, or 
+to open this file.
+
+	New Comment
+
+Inserts a new 'paragraph' style comment just prior to the current block of 
+commands, such as this
+
+  ## 
+   # 
+   ##
+
+
+The template can be customized using the Comment Template menu item.
+
+Note that if the 'Navigate Blocks' preference is set, then the new comment 
+will be inserted at the beginning of the current block, as defined by an
+empty line.
+
+	## 
+	 # 
+	 ##
+	¥	rm -f    ../data-temp
+		ln -s    /var/scratch/benefits-cps/  ../data-temp/
+
+
+	Comment Template
+
+Creates (or changes) the 'sh Custom Template' preference.  Simply type in the
+custom template, highlight it, and then use this menu item to save the
+selected text as the template.  To create 'bullets' that you can navigate with
+the tab key, be sure to insert two bullets for each stop.
+
+	--------------------------------------------------------------
+
+These next items will change depending on the 'Navigate Blocks' preference.
+
+	Next Block/Command
+
+Jump to the next 'block' of commands, as defined by being separated by at
+least one empty line, or to the next command as determined by indentation.
+
+	Prev Block/Command
+
+Jump to the previous 'block' of commands, or the previous command as
+determined by indentation.
+
+
+These items are also bound to Control-Shift-Arrow keys.  The Up and Down
+arrows will simply move the cursor to the start of the next/prev block (or
+command).  Right and Left Arrows will also place this entry at the top of the
+window.
+
+These items are also bound to 1 and 3 on the keypad when Num-Lock is turned
+off.  These key bindings will place the next/prev block/command in the center
+of the window.  The NLCK in Alpha is toggled by holding down the Shift key
+when pressing "Num-Lock" on the keypad.
+
+If any text is currently highlighted, all of these navigation items will
+extend the current selection to the next/previous entry.
+
+
+	Select Block/Command
+
+Select the entire block/command in which the cursor currently resides.
+
+	Reformat Block
+
+Reformat the entire block/command in which the cursor currently resides.  This
+is essentially a shortcut for the menu items "Edit > Select Paragraph" and
+"Text > Indent Selection".
+
+
+	======================================================================
+
+
+	  	Future Versions
+
+
+I submit this mode to the Alpha community with the hopes that (i) somebody
+else will find it useful, (ii) any errors or updates will be reported to me,
+and (iii) I might inspire somebody to take it even further.  I will continue
+to maintain them and post updates as necessary, but any contributions are
+certainly welcome.
+
+
+	  	License and Disclaimer
+
+
+Copyright (c) 2000-2006  Craig Barton Upright
+All rights reserved.
+
+See the file "license.terms" for information on usage and redistribution of
+this package, and for a DISCLAIMER OF ALL WARRANTIES.
+
+This mode is free.  Alpha is shareware !   <<register>>
+
+cheers,
+
+-- Craig
+
+Author: Craig Barton Upright
+E-mail: <cupright@alumni.princeton.edu>
+   www: <http://www.purl.org/net/cbu>
+
+This document has been placed in the public domain.

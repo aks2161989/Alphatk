@@ -1,0 +1,163 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+
+<HTML>
+
+<HEAD>
+
+<TITLE>CSS completions</TITLE>
+
+<LINK HREF="../Style%20Sheet/manual.css" REL="stylesheet" TYPE="text/css">
+
+
+</HEAD>
+
+<BODY>
+
+<!-- #INCLUDE INCLPATH="maintop.html" -->
+
+<SCRIPT TYPE="text/javascript">
+<!--
+if (document.body.clientHeight) {
+	height = document.body.clientHeight - 50;
+} else {
+	height = window.innerHeight - 50 ;
+}
+document.write('<div class="main" style="height: ' + height + 'px;">');
+// -->
+</SCRIPT>
+
+
+<!-- /#INCLUDE -->
+
+
+<H1>Word completions in CSS</H1>
+
+<P>
+There is a clever word completion mechanism in CSS mode which saves you 
+keystrokes and time while typing. It also helps you to make sure no 
+properties are misspelt.
+</P>
+
+<P>
+As explained on the previous page you can use dialog windows 
+to edit CSS properties, but perhaps you prefer simply to type them. Then the 
+word completion mechanism can help you. Word completion is bound 
+to <SPAN CLASS="item">ctrl-tab</SPAN>. 
+</P>
+
+<P>
+<B>Tip:</B> If you prefer another key binding to ctrl-tab for word 
+completion you 
+can change it using <SPAN CLASS="menuitem">Config-&gt;Special Keys...</SPAN>
+</P>
+
+<P>
+How word completion works is best explained with examples.
+</P>
+
+<P>
+When you are outside a pair of braces Alpha tries to expand what you have typed 
+to an HTML element. For example, if you type
+</P>
+
+<PRE CLASS="code">
+blo
+</PRE>
+
+<P>
+and hit <SPAN CLASS="itemlight">ctrl-tab</SPAN> it is expanded to
+</P>
+
+<PRE CLASS="code">
+<SPAN CLASS="attrcode">BLOCKQUOTE</SPAN>
+</PRE>
+
+<P>
+Continue by inserting a { and begin typing a CSS property 
+</P>
+
+<PRE CLASS="code">
+<SPAN CLASS="attrcode">BLOCKQUOTE</SPAN> {
+    vert
+</PRE>
+
+<P>
+Hitting <SPAN CLASS="itemlight">ctrl-tab</SPAN> expands this to 
+</P>
+
+<PRE CLASS="code">
+<SPAN CLASS="attrcode">BLOCKQUOTE</SPAN> {
+    <SPAN CLASS="htmlcode">vertical-align:</SPAN>
+</PRE>
+
+<P>
+Continue by typing a few letters of the value of vertical-align.
+</P>
+
+<PRE CLASS="code">
+<SPAN CLASS="attrcode">BLOCKQUOTE</SPAN> {
+    <SPAN CLASS="htmlcode">vertical-align:</SPAN> bas
+</PRE>
+
+<P>
+Hit <SPAN CLASS="itemlight">ctrl-tab</SPAN> and this is expanded to
+</P>
+
+<PRE CLASS="code">
+<SPAN CLASS="attrcode">BLOCKQUOTE</SPAN> {
+    <SPAN CLASS="htmlcode">vertical-align:</SPAN> baseline
+</PRE>
+
+<P>
+Many properties can either take a value from a list of possible values or 
+some other type of value. When completing CSS mode tries to match against the 
+values in the list. For example 'marker-offset' can either take the values 
+'auto' or 'inherit' or a length. When completing the value for 
+marker-offset, CSS modes matches against 'auto' and 'inherit'.
+</P>
+
+<P>
+When you're typing a URL it can also be expanded using the <A 
+HREF="caches.html">URL cache</A>, and when you type a color it is matched 
+against the color names.
+</P>
+
+<!-- #INCLUDE INCLPATH="mainbottom.html" -->
+
+<DIV STYLE="height: 50px">
+</DIV>
+
+<SCRIPT TYPE="text/javascript">
+<!--
+document.write('<\/DIV>');
+// -->
+</SCRIPT>
+
+
+<!-- /#INCLUDE -->
+
+
+<!-- #INCLUDE INCLPATH="navigation.html" PREV="[manualPrevPage property.html]" 
+NEXT="[manualNextPage electricscss.html]" -->
+
+<P>
+<script type="text/javascript">
+<!--
+document.write('<div class="navigation" style="top: ' + height + 'px; height: 50px">');
+// -->
+</script>
+<A HREF="property.html">Previous page</A>
+<A HREF="electricscss.html">Next page</A>
+<SCRIPT TYPE="text/javascript">
+<!--
+document.write('<\/DIV>');
+// -->
+</SCRIPT>
+</P>
+
+<!-- /#INCLUDE -->
+
+
+</BODY>
+
+</HTML>

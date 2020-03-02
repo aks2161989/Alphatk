@@ -1,0 +1,198 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+
+<HTML>
+
+<HEAD>
+
+<TITLE>Document utilities</TITLE>
+
+<LINK HREF="../Style%20Sheet/manual.css" REL="stylesheet" TYPE="text/css">
+
+
+</HEAD>
+
+<BODY>
+
+<!-- #INCLUDE INCLPATH="maintop.html" -->
+
+<SCRIPT TYPE="text/javascript">
+<!--
+if (document.body.clientHeight) {
+	height = document.body.clientHeight - 50;
+} else {
+	height = window.innerHeight - 50 ;
+}
+document.write('<div class="main" style="height: ' + height + 'px;">');
+// -->
+</SCRIPT>
+
+
+<!-- /#INCLUDE -->
+
+
+<H1>Document utilities</H1>
+
+
+<P>
+<IMG SRC="../bilder/docutils.png" ALT="Document utilities" WIDTH="215"
+HEIGHT="89" CLASS="rightpic">
+This page documents the four last functions of the HTML Utilities menu.
+</P>
+
+
+<div CLASS="item">Last Modified...</div>
+
+<DIV CLASS="indent">
+Adds tags to the document which makes it possible to automatically update 
+the date and time when the document is saved. Two tags inside HTML comments 
+are inserted:
+
+<PRE CLASS="code">
+<SPAN CLASS="commentcode">&lt;!-- #LASTMODIFIED</SPAN> <SPAN CLASS="attrcode">TEXT=</SPAN><SPAN CLASS="textcode">"some text"</SPAN> <SPAN CLASS="attrcode">FORM=</SPAN><SPAN CLASS="textcode">"date format"</SPAN> <SPAN CLASS="attrcode">LANG=</SPAN><SPAN CLASS="textcode">"language"</SPAN><SPAN CLASS="commentcode">--&gt;</SPAN>
+some text and date
+<SPAN CLASS="commentcode">&lt;!-- /#LASTMODIFIED --&gt;</SPAN>
+</PRE>
+
+<P>
+Whenever the document is saved the date is updated.  Do not write anything 
+between the comment tags.  It will be removed when the document is saved.
+</P>
+
+<P>
+Character translation is done automatically of the text and date.
+</P>
+
+<IMG SRC="../bilder/lastmodified.png" ALT="Last modified" WIDTH="322"
+HEIGHT="551">
+
+<P>
+When you use <SPAN CLASS="item">Last Modified...</SPAN> in the HTML Utilities 
+menu a dialog box is opened where you can specify:
+</P>
+<UL>
+	<LI>the text before the date. (Default: Last modified) You can change the 
+	default text in the <A HREF="prefs.html#General2">general preferences</A> dialog box.
+	<LI>the date format, relaxed ISO, strict ISO, long, abbreviated or short. 
+	Relaxed and strict ISO are universal while the other three formats are 
+	language dependent. (We here show the U.S. format.)
+	
+	<UL>
+		<LI><SPAN CLASS="item">Relaxed ISO</SPAN> 2001-01-14 15:07
+		<LI><SPAN CLASS="item">Strict ISO</SPAN> 2001-01-14T15:07:18+01:00
+		<LI><SPAN CLASS="item">Long</SPAN> Sunday, January 14, 2001 3:07 PM
+		<LI><SPAN CLASS="item">Abbreviated</SPAN> Sun, Jan 14, 2001 3:07 PM
+		<LI><SPAN CLASS="item">Short</SPAN> 1/14/01 3:07 PM
+	</UL>
+	<LI>if the weekday should be included in the date. (Applies to the Long 
+	and Abbreviated formats.)
+	<LI>if the time should be included in the date. (Applies to all except the 
+	Strict ISO format.)
+	<LI>it the time should be given in seconds. (Applies to all except the 
+	Strict ISO format.)
+	<LI>the language of the date format. (Applies to the Long, Abbreviated, and 
+	Short formats.) If no language is specified the format in the Date and 
+	Time control panel is used.
+</UL>
+
+<P>
+<B>Note!</B> The short time format can be confusing. For example 4/5/66 
+means 4 May 1966 in some parts of the world and April 5, 1966 in other parts.
+</P>
+
+</DIV>
+
+
+<div CLASS="item">Document Type...</div>
+<DIV CLASS="indent">Inserts a <A HREF="doctype.html">document type 
+declaration</A> at the top of the document. If there already is one, it is 
+replaced.
+
+<P>
+<IMG SRC="../bilder/doctype.png" ALT="Document type" WIDTH="273" HEIGHT="205">
+</P>
+
+</DIV>
+
+<div CLASS="itempara">Document size</div>
+<DIV CLASS="indent">Calculates the size of the current window including 
+images etc. The following limitations apply:
+
+<UL>
+	<LI>For documents with frames, the images etc. in the individual frames 
+	are not included.
+	<LI>Images etc. loaded by external style sheets or scripts are excluded.
+	<LI>Remote sources are excluded.
+</UL>
+
+</DIV>
+
+<div CLASS="item">Document index...</div>
+<DIV CLASS="indent">Makes an index of 
+the document with an item for each header H1-6. If there already exists an 
+index in the document it is replaced, otherwise a new one is inserted at 
+the current position.
+
+
+<P>
+<img src="../bilder/docindex.png" alt="Document index" width="324"
+height="156">
+</P>
+
+<P>
+The index can be done using either PRE or an UL list. When Alpha makes the 
+index it goes through the window and looks for all headers. If there is an 
+anchor &lt;A NAME="..."&gt; inside a header that anchor is used when 
+building the index, otherwise an anchor is inserted inside the header. 
+Alpha then inserts
+</P>
+
+<PRE CLASS="code">
+<SPAN CLASS="commentcode">&lt;!-- #DOCINDEX</SPAN> <SPAN CLASS="attrcode">TYPE=</SPAN><SPAN CLASS="textcode">"PRE,3"</SPAN> <SPAN CLASS="attrcode">DEPTH=</SPAN><SPAN CLASS="textcode">"6"</SPAN> <SPAN CLASS="commentcode">--&gt;</SPAN>
+the index
+<SPAN CLASS="commentcode">&lt;!-- /#DOCINDEX --&gt;</SPAN>
+</PRE>
+
+<P>
+The index consists of a list with links to the various headers.
+</P>
+</DIV>
+
+<!-- #INCLUDE INCLPATH="mainbottom.html" -->
+
+<DIV STYLE="height: 50px">
+</DIV>
+
+<SCRIPT TYPE="text/javascript">
+<!--
+document.write('<\/DIV>');
+// -->
+</SCRIPT>
+
+
+<!-- /#INCLUDE -->
+
+
+<!-- #INCLUDE INCLPATH="navigation.html" PREV="[manualPrevPage moving.html]" 
+NEXT="[manualNextPage keybindings.html]" -->
+
+<P>
+<script type="text/javascript">
+<!--
+document.write('<div class="navigation" style="top: ' + height + 'px; height: 50px">');
+// -->
+</script>
+<A HREF="moving.html">Previous page</A>
+<A HREF="keybindings.html">Next page</A>
+<SCRIPT TYPE="text/javascript">
+<!--
+document.write('<\/DIV>');
+// -->
+</SCRIPT>
+</P>
+
+<!-- /#INCLUDE -->
+
+
+</BODY>
+
+</HTML>

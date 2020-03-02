@@ -1,0 +1,320 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+
+<HTML>
+
+<HEAD>
+
+<TITLE>Extending HTML mode</TITLE>
+
+<LINK HREF="../Style%20Sheet/manual.css" REL="stylesheet" TYPE="text/css">
+
+
+</HEAD>
+
+<BODY>
+
+<!-- #INCLUDE INCLPATH="maintop.html" -->
+
+<SCRIPT TYPE="text/javascript">
+<!--
+if (document.body.clientHeight) {
+	height = document.body.clientHeight - 50;
+} else {
+	height = window.innerHeight - 50 ;
+}
+document.write('<div class="main" style="height: ' + height + 'px;">');
+// -->
+</SCRIPT>
+
+
+<!-- /#INCLUDE -->
+
+
+<H1>Extending HTML mode</H1>
+
+<P>
+<IMG SRC="../bilder/extendmenu.png" ALT="Extend menu" WIDTH="179" HEIGHT="67"
+CLASS="rightpic">
+You can add new HTML elements, or new attributes to existing elements, to 
+HTML mode. New elements will be put in a new submenu <SPAN 
+CLASS="menu">Custom</SPAN> of the HTML menu. The possibility to extend HTML 
+mode was originally developed when HTML was continuously evolving with 
+Netscape and Microsoft adding new extensions to HTML. It provided a way for 
+you to add these new elements before HTML mode was updated. Now when HTML 
+has stabilized the main reason for the extendability is for the user to be able 
+to add elements of scripting languages, which use tags which look like HTML 
+tags.
+</P>
+
+<P>
+Your custom elements will always be available, regardless of the document 
+type declaration in the document or the attribute preferences. It is 
+assumed that you add new element because you want to use them... However, 
+when validating the document all custom elements are considered as unknown.
+</P>
+
+<P>
+The <SPAN CLASS="menu">Extend</SPAN> menu has three functions:
+</P>
+
+<UL>
+	<LI><SPAN CLASS="item">New Element</SPAN> to add a new element
+	<LI><SPAN 
+	CLASS="item">Edit Element</SPAN> to add new attributes to an existing HTML 
+	element, or one you have previously added.
+	<LI><SPAN CLASS="item">Remove Additions</SPAN> to delete a new element or 
+	to remove the new attributes you have added to an existing element.
+</UL>
+
+<H2>Adding a new element</H2>
+
+<DIV>
+<img src="../bilder/newelement.png" alt="New element" width="364" height="246">
+</DIV>
+
+<P>
+When adding a new element a dialog box is first opened where you can 
+specify:
+</P>
+
+<UL>
+	<LI>The name of the element.
+	<LI>If the element has a closing tag or not. (Applies only if the type below 
+	is "Normal".)
+	<LI>The type of the element. There are three available types:
+	
+	<UL>
+		<LI>Normal. This is the option you would normally use. 
+		<LI>A new type of INPUT element. This option is here for technical and 
+		historical reasons. In the <SPAN CLASS="menu">Forms</SPAN> menu the INPUT 
+		element is available for each value of the TYPE attribute. This because 
+		the other attributes vary depending on the value of the TYPE attribute. 
+		Here you can add another variant of the INPUT element, and in this case 
+		you give the value of the TYPE attribute as the element name. 
+		<LI>A plug-in using EMBED. Most plug-ins have their own specific 
+		attributes. Here you add a new EMBED element with all these attributes. 
+		By default all attributes of the generic EMBED element are added.
+	</UL>
+	
+</UL>
+
+<P>
+Next you are asked to give a key binding for the new element. This dialog 
+box is the same as is used when <A HREF="keybindings.html">changing key bindings in the menus</A>.
+</P>
+
+<P>
+Thereafter you are asked to specify the layout for the element. This is 
+done in the way explained in the section about <A HREF="layout.html">element layout</A>.
+</P>
+
+<P>
+Next a window is opened where you can specify the attributes. This is 
+explained in the next subsection.
+</P>
+
+<H2>Editing an element</H2>
+
+<P>
+When you are adding a new element or editing an existing one a window is 
+opened where you can specify the attributes. <STRONG>Note!</STRONG> You 
+should <STRONG>not</STRONG> edit the text in this window directly, but only 
+through dialog boxes and the key shortcuts described below. Direct editing 
+has <STRONG>no</STRONG> effect, except possibly messing things up. There is 
+a reason that this window is made read-only.
+</P>
+
+<P>
+<img src="../bilder/editelement.png" alt="Edit element" width="297"
+height="391">
+</P>
+
+<P>
+Above is the edit window for the IMG element, where we have already 
+added a new attribute MYATTRIBUTE. Each attribute is given in this window 
+like this: 
+</P>
+
+<UL>
+	<LI>First we have the attribute name - a bullet to the left of the name indicates that it is 
+	provided by HTML mode and cannot be edited.
+	<LI>Then comes the attribute type.
+	<LI>The text "required" indicates that the attribute is required.
+	<LI>For attributes of the type "Choices" all available choices are listed 
+	below.
+	<LI>For attributes taking numerical values the minimum and maximum allowed 
+	value is given below.
+</UL>
+
+<H2>Adding a new attribute</H2>
+
+<DIV>
+<IMG SRC="../bilder/newattr.png" ALT="New attribute" WIDTH="493" HEIGHT="449">
+</DIV>
+
+<P>
+To add a new attribute type <STRONG>N</STRONG>. A dialog box is then opened 
+where you can specify:
+</P>
+
+<UL>
+	<LI>The attribute name.
+	<LI>The attribute type.
+	<LI>If the attribute is required.
+</UL>
+
+<P>
+The available types are:
+</P>
+
+<UL>
+	<LI><SPAN CLASS="item">Flag</SPAN>  Attributes which are flags and 
+	don't take any value, like ISMAP for &lt;IMG&gt; or NOHREF for 
+	&lt;AREA&gt;. These attributes will be checkboxes in the attribute dialog.
+	<LI><SPAN CLASS="item">URL</SPAN> Attributes which take a URL as 
+	value, like HREF, SRC, etc.
+	<LI><SPAN CLASS="item">Color</SPAN> Attributes which take a color 
+	as value.
+	<LI><SPAN CLASS="item">Frame target</SPAN> Attributes which take a 
+	target window as value, like the attribute TARGET.
+	<LI><SPAN CLASS="item">Choices</SPAN> Attributes which can only 
+	take certain predefined choices, such as ALIGN.
+	<LI><SPAN CLASS="item">Length</SPAN> Attributes which take an 
+	integer or percentage value.
+	<LI><SPAN CLASS="item">Integer</SPAN> Attributes which take an 
+	integer value.
+	<LI><SPAN CLASS="item">Other</SPAN> Attributes which do not fit into any 
+	of the other categories or can take any value.
+	<LI><SPAN CLASS="item">Content type</SPAN> Attributes which take a content 
+	type as value, like TYPE of STYLE.
+	<LI><SPAN CLASS="item">Content types</SPAN> Attributes which take a comma 
+	separated list of content 
+	types as value.
+	<LI><SPAN CLASS="item">Event handler</SPAN> Attributes which are 
+	event handlers for JavaScript.
+	<LI><SPAN CLASS="item">Link types</SPAN> Attributes which take a space 
+	separated list of link types as value, link REL and REV of LINK.
+	<LI><SPAN CLASS="item">Multi length</SPAN> Attributes which take a length 
+	value or a value of the form 2*, like WIDTH of COL.
+	<LI><SPAN CLASS="item">Multi lengths</SPAN> Attributes which take a comma 
+	separated list of multi length values, like COLS and ROWS of FRAMESET.
+	<LI><SPAN CLASS="item">Language code</SPAN> Attributes which take a 
+	language code as value, like LANG.
+	<LI><SPAN CLASS="item">Character set</SPAN> Attributes which take a 
+	character set as value, like CHARSET.
+	<LI><SPAN CLASS="item">Character sets</SPAN> Attributes which take a space 
+	separated list of character sets as value, like ACCEPT-CHARSET of FORM.
+	<LI><SPAN CLASS="item">Lengths</SPAN> Attributes which take a comma separated 
+	list of integer values, like COORDS of AREA.
+	<LI><SPAN CLASS="item">Date and time</SPAN> Attributes which take a date 
+	and time value on ISO format, like DATETIME of INS and DEL.
+	<LI><SPAN CLASS="item">Character</SPAN> Attributes which take a single character 
+	as value, like ACCESSKEY.
+	<LI><SPAN CLASS="item">Media descriptors</SPAN> Attributes which take a 
+	comma separated list of media descriptors as value, like MEDIA of STYLE.
+</UL>
+
+<P>
+A few attribute types require additional information.
+</P>
+
+<P>
+For attributes of the type <SPAN CLASS="item">Choices</SPAN> you must 
+specify all valid choices in a second dialog box.  The choices you define 
+will be displayed in the dialog window as you go along, as shown below. 
+Click
+</P>
+<UL>
+	<LI>'OK' for each choice
+	<LI>'No more choices' <B>after</B> you have clicked OK for the last 
+	one.
+	<LI>'Remove last' to remove the last choice you just defined.  You can 
+	remove them all one after another to correct a mistake somewhere.
+</UL>
+
+<DIV>
+<img src="../bilder/newchoices1.png" alt="New choices 1" width="384"
+height="176"><BR><img src="../bilder/newchoices2.png" alt="New choices 2"
+width="384" height="176">
+</DIV>
+
+
+<P>
+For attributes of the types <SPAN CLASS="item">Length</SPAN>,
+<SPAN CLASS="item">Integer</SPAN>, <SPAN CLASS="item">Multi length</SPAN>,
+<SPAN CLASS="item">Multi lengths</SPAN>, and <SPAN CLASS="item">Lengths</SPAN>
+you must specify the range of valid values in a second dialog box. Leave the 
+edit fields blank if there is no minimum or maximum value.
+</P>
+
+<P>
+<img src="../bilder/range.png" alt="Range" width="324" height="166">
+</P>
+
+<H2>Editing and deleting attributes</H2>
+
+<P>
+To edit an attribute to change its name, type, and values, browse to the 
+attribute and hit <SPAN CLASS="item">return</SPAN>. You can then give it values in the same way as 
+when you define a new attribute as described above. <STRONG>Note</STRONG> 
+that attributes marked with a bullet cannot be modified with one exception. 
+You can add new choices to an attribute of type <SPAN 
+CLASS="item">Choices</SPAN>. <SPAN CLASS="item">Cmd-double-clicking</SPAN> 
+on an attribute also lets you edit it.
+</P>
+
+<P>
+To delete an attribute browse to the attribute and type <SPAN 
+CLASS="item">delete</SPAN> or <SPAN CLASS="item">backspace</SPAN>. You can 
+also select several lines and delete them all at once. <STRONG>Note</STRONG> 
+that attributes marked with a bullet cannot be deleted.
+</P>
+
+<H2>Saving</H2>
+
+<P>
+Once you are finished close the window to save your changes. To <SPAN
+CLASS="item">cancel</SPAN> the changes hold down the shift key while 
+clicking the window's close box.
+</P>
+
+<!-- #INCLUDE INCLPATH="mainbottom.html" -->
+
+<DIV STYLE="height: 50px">
+</DIV>
+
+<SCRIPT TYPE="text/javascript">
+<!--
+document.write('<\/DIV>');
+// -->
+</SCRIPT>
+
+
+<!-- /#INCLUDE -->
+
+
+<!-- #INCLUDE INCLPATH="navigation.html" PREV="[manualPrevPage homepagewins.html]" 
+NEXT="[manualNextPage moving.html]" -->
+
+<P>
+<script type="text/javascript">
+<!--
+document.write('<div class="navigation" style="top: ' + height + 'px; height: 50px">');
+// -->
+</script>
+<A HREF="homepagewins.html">Previous page</A>
+<A HREF="moving.html">Next page</A>
+<SCRIPT TYPE="text/javascript">
+<!--
+document.write('<\/DIV>');
+// -->
+</SCRIPT>
+</P>
+
+<!-- /#INCLUDE -->
+
+
+
+</BODY>
+
+</HTML>

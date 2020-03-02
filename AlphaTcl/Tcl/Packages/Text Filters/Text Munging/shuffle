@@ -1,0 +1,6 @@
+#!/usr/bin/perl
+srand;                      # Randomize the rand function.
+@lines = <>;                # Read in all the lines.
+while (@lines) {            # While more than 0 elements.
+    print splice(@lines, rand @lines, 1);
+}

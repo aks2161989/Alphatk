@@ -1,0 +1,322 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+
+<HTML>
+
+<HEAD>
+
+<TITLE>Controlling the layout</TITLE>
+
+<LINK HREF="../Style%20Sheet/manual.css" REL="stylesheet" TYPE="text/css">
+
+
+</HEAD>
+
+<BODY>
+
+<!-- #INCLUDE INCLPATH="maintop.html" -->
+
+<SCRIPT TYPE="text/javascript">
+<!--
+if (document.body.clientHeight) {
+	height = document.body.clientHeight - 50;
+} else {
+	height = window.innerHeight - 50 ;
+}
+document.write('<div class="main" style="height: ' + height + 'px;">');
+// -->
+</SCRIPT>
+
+
+<!-- /#INCLUDE -->
+
+
+<H1>Controlling the layout of the code</H1>
+
+<P>
+There are three main features which let you control the layout of the code.
+</P>
+
+<UL>
+	<LI><SPAN CLASS="menuitem">Element layout</SPAN> in the <SPAN
+	CLASS="menu">Preferences</SPAN> submenu, which lets you define how you 
+	prefer blank lines and carriage returns to be inserted around each HTML 
+	element.
+	<LI><SPAN CLASS="menuitem">Indentation</SPAN> in the <SPAN
+	CLASS="menu">Preferences</SPAN> submenu, which lets you choose elements to 
+	indent the content of. 
+	<LI>The <SPAN CLASS="menu">Formatting</SPAN> submenu where you find 
+	functions for reformatting the document according to your layout and 
+	indentation preferences. With this menu you also insert special formatting 
+	tags, which define how a section of the document should be formatted. This 
+	is useful for example if your document contains some server side scripting 
+	code, which you would like to have a special layout.
+</UL>
+
+<H2>Element layout</H2>
+
+<P>
+Using <SPAN CLASS="menuitem">Element layout</SPAN> in the <SPAN 
+CLASS="menu">Preferences</SPAN> submenu of the HTML menu, you can specify the layout you 
+want for each HTML element. Alpha then uses your settings when it inserts 
+new tags in the document, and when it otherwise reformats the code. The 
+possible options differ between elements with and without a closing tag.
+</P>
+
+<H3>Elements without a closing tag</H3>
+
+<DIV>
+<img src="../bilder/layoutnoclose.png" alt="Layout" width="254" height="146"
+CLASS="rightpic">
+</DIV>
+
+<P>
+For elements without a closing tag you can specify if you always want a 
+carriage return inserted before and/or after the tag.
+If you check both checkboxes in the dialog, Alpha will format the code like 
+this:
+</P>
+
+<P CLASS="code">
+some text before the tag<BR>
+<SPAN CLASS="htmlcode">&lt;TAG&gt;</SPAN><BR>
+some text after the tag
+</P>
+
+
+
+<H3>Elements with a closing tag</H3>
+
+<DIV>
+<img src="../bilder/layoutclose.png" alt="Layout" width="244" height="376"
+CLASS="rightpic">
+</DIV>
+
+<P>
+For elements with a closing tag, you have four different options letting  
+you specify if you want the tags to be on lines of their own and if you 
+want blank lines before and after them.
+</P>
+
+<P>
+With the first option Alpha will format the code like this:
+</P>
+
+<P CLASS="code">
+some text before the tag <SPAN CLASS="htmlcode">&lt;TAG&gt;</SPAN>text 
+between tags<SPAN CLASS="htmlcode">&lt;/TAG&gt;</SPAN> some text 
+after the tag
+</P>
+
+<P>
+With the second option Alpha will format the code like this:
+</P>
+
+<P CLASS="code">
+some text before the tag<BR>
+<SPAN CLASS="htmlcode">&lt;TAG&gt;</SPAN>text between tags<SPAN 
+CLASS="htmlcode">&lt;/TAG&gt;</SPAN><BR>
+some text after the tag
+</P>
+
+<P>
+With the third option Alpha will format the code like this:
+</P>
+
+<P CLASS="code">
+some text before the tag<BR><BR>
+<SPAN CLASS="htmlcode">&lt;TAG&gt;</SPAN>text between tags<SPAN 
+CLASS="htmlcode">&lt;/TAG&gt;</SPAN><BR><BR>
+some text 
+after the tag
+</P>
+
+<P>
+With the fourth option Alpha will format the code like this:
+</P>
+
+<P CLASS="code">
+some text before the tag<BR><BR>
+<SPAN CLASS="htmlcode">&lt;TAG&gt;</SPAN><BR>
+text between tags<BR>
+<SPAN 
+CLASS="htmlcode">&lt;/TAG&gt;</SPAN><BR><BR>
+some text 
+after the tag
+</P>
+
+
+<H2><A NAME="indentation">Indentation</A></H2>
+
+<P>
+Alpha indents the HTML code to make easier to read. Using <SPAN 
+CLASS="menuitem">Indentation</SPAN> in the <SPAN 
+CLASS="menu">Preferences</SPAN> submenu, you can choose which elements 
+whose content should be indented. By default the content of lists and 
+tables is indented. The element which you can indent the content of are 
+those with a closing tag, which you have specified the fourth layout above.
+</P>
+
+<P CLASS="code">
+some text before the tag<BR><BR>
+<SPAN CLASS="htmlcode">&lt;TAG&gt;</SPAN><BR>
+text between tags<BR>
+<SPAN 
+CLASS="htmlcode">&lt;/TAG&gt;</SPAN><BR><BR>
+some text 
+after the tag
+</P>
+
+<P>
+Below is an example of how the code is indented. Whenever Alpha inserts 
+new tags in the document or otherwise reformats the code, it recognizes 
+your indentation preferences.
+</P>
+
+<PRE CLASS="code">
+<SPAN CLASS="htmlcode">&lt;TABLE</SPAN> <SPAN CLASS="attrcode">BORDER=</SPAN><SPAN CLASS="textcode">"0"</SPAN> <SPAN CLASS="attrcode">CELLSPACING=</SPAN><SPAN CLASS="textcode">"0"</SPAN> <SPAN CLASS="attrcode">CELLPADDING=</SPAN><SPAN CLASS="textcode">"5"</SPAN><SPAN CLASS="htmlcode">&gt;</SPAN>
+    
+    <SPAN CLASS="htmlcode">&lt;TR</SPAN> <SPAN CLASS="attrcode">VALIGN=</SPAN><SPAN CLASS="textcode">"TOP"</SPAN><SPAN CLASS="htmlcode">&gt;</SPAN>
+        <SPAN CLASS="htmlcode">&lt;TH</SPAN> <SPAN CLASS="attrcode">ALIGN=</SPAN><SPAN CLASS="textcode">"LEFT"</SPAN><SPAN CLASS="htmlcode">&gt;</SPAN>ELEMENT may not have a closing tag.<SPAN CLASS="htmlcode">&lt;/TH&gt;</SPAN>
+        <SPAN CLASS="htmlcode">&lt;TD&gt;</SPAN>A closing tag for an element which may not have one has been 
+        found, like <SPAN CLASS="htmlcode">&lt;SPAN</SPAN> <SPAN CLASS="attrcode">CLASS=</SPAN><SPAN CLASS="textcode">"inlinecode"</SPAN><SPAN CLASS="htmlcode">&gt;</SPAN>&amp;lt;/BR&amp;gt;<SPAN CLASS="htmlcode">&lt;/SPAN&gt;</SPAN>.<SPAN CLASS="htmlcode">&lt;/TD&gt;</SPAN>
+    <SPAN CLASS="htmlcode">&lt;/TR&gt;</SPAN>
+    
+<SPAN CLASS="htmlcode">&lt;/TABLE&gt;</SPAN>
+</PRE>
+
+<H3><A NAME="formatting">Formatting menu</A></H3>
+
+<DIV>
+<IMG SRC="../bilder/formattingmenu.png" ALT="Formatting menu" WIDTH="231"
+HEIGHT="86" CLASS="rightpic">
+</DIV>
+
+<DIV>
+<SPAN CLASS="item">Reformat Paragraph</SPAN>
+</DIV>
+
+<DIV CLASS="indent">
+If there is a selection the code is reformatted within the selection, 
+otherwise it is reformatted in the paragraph of the current position. A 
+paragraph is in this case defined to be everything between the nearest 
+blank lines.
+</DIV>
+
+<P>
+</P>
+
+<DIV>
+<SPAN CLASS="item">Reformat Document</SPAN>
+</DIV>
+
+<DIV CLASS="indent">
+The same kind of reformatting of the whole document.
+</DIV>
+
+<DIV CLASS="indent">
+<P>
+The reformatting is basically done such that the document would look as if 
+you have typed it from top to bottom without changing anything. The 
+following is done:
+</P>
+
+<UL>
+	<LI>Everything between SCRIPT, STYLE, and PRE tags as well as everything 
+	inside comments is left untouched.
+	<LI>The content of formatting tags (see below) in indented according to the 
+	tags, but is otherwise not changed.
+	<LI>Line breaks are never inserted inside attribute values. If there is 
+	an attribute ATTR="blah blah", then "blah blah" is never broken into two 
+	lines. This is in particular to prevent that the event handlers are broken 
+	into two lines.
+	<LI>Provided these constraints Alpha inserts line breaks and blank lines 
+	and indents the code according to your layout and indentation preferences, 
+	and otherwise tries to make the lines approximately equally long.
+</UL>
+
+<P>
+Unfortunately reformatting of the code is rather complex and therefore not 
+lightning fast.
+</P>
+
+</DIV>
+
+<DIV>
+<SPAN CLASS="item">No Formatting</SPAN>
+</DIV>
+
+<DIV CLASS="indent">
+Insert formatting tags around the selected text indicating that the content 
+between the tags should not be reformatted at all, but be left as it is. You 
+can for example use this around server side scripting code, which Alpha has 
+no special support for. 
+</DIV>
+
+<P CLASS="codeindent">
+<SPAN CLASS="commentcode">&lt;!-- #NO-FORMATTING --&gt;</SPAN><BR>
+some text which should left untouched<BR>
+<SPAN CLASS="commentcode">&lt;!-- /#NO-FORMATTING --&gt;</SPAN>
+</P>
+
+<DIV>
+<SPAN CLASS="item">C Style Formatting</SPAN>
+</DIV>
+
+<DIV CLASS="indent">
+Insert formatting tags around the selected text indicating that the content 
+between the tags should be formatted like C code. This is the same way as both 
+JavaScript code and CSS code is formatted. 
+</DIV>
+
+<PRE CLASS="codeindent">
+<SPAN CLASS="commentcode">&lt;!-- #C-FORMATTING --&gt;</SPAN>
+if (a == 17) {
+    return;
+}
+<SPAN CLASS="commentcode">&lt;!-- /#C-FORMATTING --&gt;</SPAN>
+</PRE>
+
+<P>
+You can define your own formatting tags. See the <A
+HREF="power.html">power user section</A>.
+</P>
+
+<!-- #INCLUDE INCLPATH="mainbottom.html" -->
+
+<DIV STYLE="height: 50px">
+</DIV>
+
+<SCRIPT TYPE="text/javascript">
+<!--
+document.write('<\/DIV>');
+// -->
+</SCRIPT>
+
+
+<!-- /#INCLUDE -->
+
+
+<!-- #INCLUDE INCLPATH="navigation.html" PREV="[manualPrevPage cmddoubleclick.html]" 
+NEXT="[manualNextPage wordcompletion.html]" -->
+
+<P>
+<script type="text/javascript">
+<!--
+document.write('<div class="navigation" style="top: ' + height + 'px; height: 50px">');
+// -->
+</script>
+<A HREF="cmddoubleclick.html">Previous page</A>
+<A HREF="wordcompletion.html">Next page</A>
+<SCRIPT TYPE="text/javascript">
+<!--
+document.write('<\/DIV>');
+// -->
+</SCRIPT>
+</P>
+
+<!-- /#INCLUDE -->
+
+
+</BODY>
+
+</HTML>

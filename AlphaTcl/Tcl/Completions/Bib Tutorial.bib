@@ -1,0 +1,481 @@
+
+Title:                  Bib Electrics
+Author:                 Craig Barton Upright <cupright@alumni.princeton.edu>
+
+    created: 05/26/2000 {06:23:20 pm}
+last update: 03/06/2006 {07:37:56 PM}
+
+	  	% Table Of Contents
+
+"# Abstract"
+"# Description"
+"# BibTeX Entry completions"
+"# BibTeX Field completions"
+"# List Pick versus Status Bar"
+"# LaTeX text-style commands"
+"# LaTeX text-style command abbreviations"
+"# Nearby word completions"
+"# Field Value completions"
+"# Acronyms"
+"# Auto Capitalization"
+"# Writing additional completions"
+
+"# Copyright"
+
+
+	======================================================================
+
+
+	  	% Abstract
+
+This document provides examples of Bib mode electric completions.
+
+	  	% Description
+
+This file contains examples of "electric completions".  Completions are
+ways in which Alpha attempts to complete what you're typing in a mode
+specific way (in this case Bib specific).
+
+The "Config --> Special Keys ...  " menu item will display your current
+completion key-binding, and will give you the option to change it if you
+desire.
+
+In this tutorial, you can use the back-quote key ( ` ) to jump to the next
+completion example.  Once at the correct position, imagine that you had
+just typed the preceding text.
+
+Then hit the completion invoking key.  Alpha attempts to complete what you
+typed -- eliminating a lot of keystrokes, avoiding the need for
+copy/pasting, and reducing the possibility of typos.
+
+
+IMPORTANT:  completions are case sensitive, respecting the Bib mode
+preferences for "Upper Case Entry/Fields", so if either is set only the
+proper case of the 'hint' will be used for a completion.  In this 
+tutorial, it is assumed that these preferences are not set (the 
+default values), and the examples will only work if this is the 
+case.
+
+
+	  	% BibTeX Entry completions
+
+Alpha will first attempt to determine if you're typing in a new entry.  All
+entries must be preceded by the @ sign.  For example, you can insert a new
+article entry by completing:
+
+
+	@art×
+
+
+The template stops allow you to use the tab key to jump to the next
+insertion point.  If you forget to include the @, then only the entry name
+will be completed:
+
+
+	art×
+
+If you simply forgot the @, use 'control-2' to toggle the @ at
+the beginning of the word, and then hit the completion key again.
+
+Entry names are case-sensitive.  Only one of these:
+
+
+	@ART×
+
+or
+
+	@art×
+
+
+will invoke an Entry completion.  An exception to this rule is 
+that if the upper case pref is NOT set, any two-word entry name
+that appears in the menu (such as "In Proceedings") can also be
+completed by putting the first word in lower case and removing
+the space, as in 'inProceedings'
+
+	@inProc×
+	@inproc×
+	
+	@inColl×
+	@incoll×
+	
+	@techRep×
+	@techrep×
+	
+
+Entry completions can be started anywhere in the document, even
+inside an existing entry:
+
+
+	@incollection{DiMaggio1991,
+	   author    = {Paul J. DiMaggio},
+	   booktitle = {The New Institutionalism in Organizational Analysis},
+	   title     = {Constructing an Organizational Field as a Professional Project},
+	   editor    = {Paul J. DiMaggio and Walter W. Powell @unpu×},
+	   chapter   = {11},
+	   address   = {Chicago},
+	   publisher = {University of Chicago Press},
+	   year      = {1991},
+	}
+
+
+(This is also true for the "Entries" menu items.)
+
+
+	  	% BibTeX Field completions
+
+If Alpha decides that you're not typing in a new entry, it will
+next check to see if you're attempting to add a new field to an
+existing entry.  This includes both the standard BibTeX fields as
+well as any defined in the " Add Fields " preference, added via
+the " Config --> Mode Prefs --> Preferences " dialog.
+
+If the completion is taking place in front of an existing field,
+the new one will be inserted in front:
+
+
+	@article{DiMaggio1987,
+	   author  = {Paul J. DiMaggio},
+	   title   = {Classification in Art},
+	   journal = {American Sociological Review},
+	   volume  = {52},
+	num×   pages   = {440-455},
+	   year    = {1987},
+	   annote  = {},
+	}
+
+
+If the completion is taking place anywhere else, even inside an
+existing field, the new one will be inserted on the next line:
+
+
+	@article{DiMaggio1982a,
+	   author  = {Paul J. DiMaggio},
+	   title   = {Cultural Entrepreneurship in Nineteenth--Century Boston}
+	   journal = {Media, Culture and Society},
+	   volume  = {4}, numb×
+	   pages   = {33-50},
+	   year    = {1982},
+	}
+	
+	@article{DiMaggio1982b,
+	   author  = {Paul J. DiMaggio},
+	   title   = {Cultural Entrepreneurship in Nineteenth--Century Boston, Part II},
+	   journal = {Media, Culture and Society},
+	   volume  = {4 }, 
+	   pages   = {303-322},
+	   year    = {1982 note×},
+	}
+
+
+(This is also true for the "Fields" menu items.)
+
+The menu item "Format Entry" will line up the brackets once
+again.  This command has the key-binding "control-shift-L" .
+
+
+	  	% List Pick versus Status Bar
+
+The " Config --> Preferences --> Completions " menu item includes
+the preference " List Pick if Multiple Completions ".  This
+determines Alpha's behavior when the user is attempting to
+complete an ambiguous piece of text.
+
+If this preference is checked, then attempting to complete the
+following will open a dialog box with the options available. 
+Otherwise, the list of possible completions will appear in the
+status bar:
+
+
+	@article{DiMaggio1982c,
+	   author   = {Paul J. DiMaggio},
+	   title    = {Cultural Capital and School Success},
+	   journal  = {American Sociological Review},
+	   volume   = {47},
+	   number   = {2},
+	   pages    = {189-201},
+	   year     = {1982},
+	}
+	@in×
+
+
+	  	% LaTeX text-style commands
+
+If Alpha determines that your completion is not an entry or a
+field, it will next check to see if it is a LaTeX completion. 
+Bib mode recognizes (for both colorizing and completions) a
+limited number of LaTeX commands, including all those listed in
+the " LaTeX --> Text Style " menu item.  These are particularly
+useful in the note field, or if the user includes abstracts or
+quotes within bibliographic databases.
+
+
+	\textup×
+	\textbf×
+	\textit×
+	\textmd×
+
+
+If the user does not supply the initial backslash, the completion
+will provide one:
+
+
+	textrm×
+
+
+Additional LaTeX commands can be added through the Mode
+Preferences dialog.  Adding items will reload the
+BibCompletions.tcl file.  "emph" and "underline" were initially
+included in this preference, and provide examples:
+
+
+	\under×
+	em×
+
+
+	  	% LaTeX text-style command abbreviations
+
+All of the text commands can be completed with abbreviations as
+well.  These abbreviations are active even if the slashes are not
+provided beforehand:
+
+
+	bf×
+	it×
+	md×
+	rm×
+	\sc×
+	\sf×
+	\sl×
+	\tt×
+	\up×
+
+
+	  	% Nearby word completions
+
+Alpha first tries to complete your text using the procedures
+explained above.  If no suitable completion can be found, then it
+looks in the document to find some written text for a completion. 
+For example, if your advisor's name is Paul J. DiMaggio and
+you're including yet another article that he wrote in 1982, you
+can complete
+
+
+	author = {Paul J. Di×},
+
+
+This can also be useful if you are looking for particular cite
+keys to include in cross-references.  Complete this example
+again, but press the complete key multiple times after the first
+completion appears:
+
+
+	crossref = {Di×},
+
+Alpha will offer all of the instances in which a potential "Di"
+completion appears in the document, and indicate in the status bar
+the location of the found text.  After running through the entire
+list of possible completions, the last one will be highlighted,
+allowing one to delete it if desired.  Pressing the completion key
+again will delete the selection, and start the whole process over
+once again.
+
+
+	  	% Field Value Completions
+
+There is another advanced electric completion feature available,
+for fields which potentially have information repeated in the
+file.  In the fields
+
+	address author city editor howpublished institution journal
+	organization publisher school series
+
+hitting the completion key will scan the current window for all fields
+which might have similar information, and a listpick dialog will appear
+presenting all of the possible field values with that completion.  For 
+example, completing
+
+	journal = {A×},
+
+could complete
+
+	journal = {American Sociological Review},
+
+or 
+
+	journal = {Annual Review of Sociology},
+
+Other fields will only offer the potential 'address' or 'author'
+(e.g.) completions.
+
+
+	  	% Acronyms
+
+A limited number of acronym completions are provided, mainly as
+examples for additional user-defined acronyms.  These serve as
+alternatives to defining @string{...} within each .bib file.
+
+
+	address = {ny×},
+	
+	address = {wdc×},
+	
+	publisher = {pup×},
+	
+	publisher = {hup×},
+
+    
+These acronyms can also be completed using the expansion key
+(which is not the same as the completion key.)  The menu item
+"Config --> Special Keys ...  " will display your current
+expansion key-binding, and will give you the option to change it
+if you desire.
+
+
+	publisher = {ucp×},
+	
+	journal = {ajs×},
+   
+
+This can be handy if acronym expansions tend to conflict with
+nearby word completions or LaTeX command abbreviations, both of
+which will take precedence over acronyms.  Try completing, and 
+then expanding the following example:
+
+
+	note = {Originally appeared in up×}
+	
+	publisher = {Yale up×}
+
+
+	  	% Formatting
+
+When formatting an entry, all required fields are automatically 
+replaced in they are found to be missing.  Advance to the next 
+stop and use "Command-Shift L" to format the entry:
+
+×@article{DiMaggio1996,
+   author   = {Paul DiMaggio},
+   title    = {Are Art-Museum Visitors Different From Other People? The 
+               Relationship Between Attendance and Social and Political 
+               Attitudes in the United States},
+   volume   = 24,
+   pages    = {161-180},
+}
+
+If you define a "Custom Article" set of fields, using the menu 
+item "Default Entry Fields --> Article", then formatting will 
+also reorder the fields to respect the order in the preference.  
+Try adding these fields to the preference:
+
+    author title journal volume number pages year keywords
+
+and then reformat the entry.  This example is listed twice so
+that you can see the original order.
+
+×@article{DiMaggio1997,
+   keywords = {culture, knowledge},
+   journal  = {Annual Review of Sociology},
+   author   = {Paul DiMaggio},
+   title    = {Culture and Cognition},
+   volume   = 21,
+   year     = 1997,
+   pages    = {263-287},
+}
+
+@article{DiMaggio1997,
+   keywords = {culture, knowledge},
+   journal  = {Annual Review of Sociology},
+   author   = {Paul DiMaggio},
+   title    = {Culture and Cognition},
+   volume   = 21,
+   year     = 1997,
+   pages    = {263-287},
+}
+
+If the "Zap Empty Fields" preference is set, then all empty fields 
+EXCEPT those which are required will be eliminated during 
+reformatting.  If the preference is not set, then all fields 
+included in the "Custom <Entry>" preference will be restored.  
+Using the same "Custom Article" fields that you have just 
+defined, try adjusting the preference and then reformat this entry 
+again.  Then change the preference back and try again.
+
+×@article{DiMaggio1996,
+   author   = {Paul DiMaggio},
+   title    = {Are Art-Museum Visitors Different From Other People? The 
+	       Relationship Between Attendance and Social and Political 
+	       Attitudes in the United States},
+   journal  = {Poetics},
+   volume   = 24,
+   pages    = {161-180},
+}
+
+
+	  	% Auto Capitalization
+
+
+The values of all fields listed in the "Auto Cap Fields" Bib mode 
+preference will be properly capitalized during reformatting of any 
+entry.  Here's an example, presented twice so that you can see the 
+original and the formatted result.
+
+×@article{Dimaggio2000,
+   author   = {PAUL DIMAGGIO},
+   title    = {The production of scientific change: Richard Peterson and the 
+	       institutional turn in cultural sociology},
+   year     = {2000},
+   journal  = {poetics},
+   key      = {Sociology-of-Culture ; Sociological-Theory ; Popular-Culture},
+   language = {english},
+   month    = {dec},
+   number   = {2-3},
+   pages    = {107-136},
+   volume   = {28},
+}
+
+@article{Dimaggio2000,
+   author   = {PAUL DIMAGGIO},
+   title    = {The production of scientific change: Richard Peterson and the 
+	       institutional turn in cultural sociology},
+   year     = {2000},
+   journal  = {Poetics},
+   key      = {Sociology-of-Culture ; Sociological-Theory ; Popular-Culture},
+   language = {english},
+   month    = {dec},
+   number   = {2-3},
+   pages    = {107-136},
+   volume   = {28},
+} 
+
+Note that the 'title' field is not included in the default list
+of fields to be converted.  Use the "Bib Mode Options --> Auto
+Capitalization" menu item to fine tune the settings for this
+routine, including the list of fields whose values should be
+capitalized, the list of words that should always be forced to
+lower case (unless they appear at the beginning of the string or
+immediately after ";" or ":"), and special substitution patterns.
+(See the "BibTeX Help" section on "Auto Capitalization" for more 
+information.)
+
+
+	  	% Writing additional completions
+
+Additional acronyms can be easily added, and are easy to write. 
+Use the "Bib Mode Acronyms --> View Acronyms" menu item to see
+the current list.
+
+Additional user-defined completions could be included simply by 
+using the "Add Acronyms" menu item.  If you're not happy with the 
+
+default list supplied with the mode, you can turn them off by 
+selecting the "Unset Acronyms List" menu item.
+
+
+	======================================================================
+
+	  	% Copyright
+
+This document has been placed in the public domain.
+
+

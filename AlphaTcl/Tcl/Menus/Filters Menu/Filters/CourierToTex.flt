@@ -1,0 +1,24 @@
+!! This file : CourierToTex.flt
+!! Convert various TeX symbols to characters 
+!!     (to be viewed with the Courier font)
+!! To be used with the Filters Menu in Alpha.
+!! Last modification : 8 avril 2000 - 18:18:59
+!! (c) Copyright : Bernard Desgraupes 2000
+
+
+¤	\S
+§	\beta
+­	\neq
+°	\infty
+±	\pm
+²	\leq
+³	\geq
+µ	\mu
+¶	\delta
+¹	\pi
+Ã	\sqrt
+Æ	\Delta
+Ï	\oe
+ß	\equiv
+·	\sum
+¸	\prod

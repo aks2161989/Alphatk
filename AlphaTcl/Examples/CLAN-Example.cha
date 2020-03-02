@@ -1,0 +1,1493 @@
+@Font:	Win95:Courier:-13:1
+@Begin	
+@bg	
+@bg:	10mins
+@Participants:	CHI Christopher Target_Child, MOT Mother, INV Investigator
+@ID:	1.001.2.14.1=CHI
+@ID:	2.001.2.14.1=MOT
+@ID:	4.001.2.14.1=INV
+@Sex of CHI:	male
+@Birth of CHI:	24-NOV-1982
+@Age of CHI:	1;1.14
+@Coding:	CHAT 27 November 1988
+@Filename:	D001214.cha
+@Location:	Boston, MA. USA
+@Warning:	Hesitation phenomena have not been accurately transcribed in
+		this data.
+@Transcriber:	Susan Powers
+@eg	
+@eg:	10mins
+*INV:	www .
+%tim:	09:19:00
+%com:	apparently the first seconds of this tape were lost as CHI, MOT and
+	INV are already standing in the room at the start of the tape
+%exp:	INV explains warm-up task to MOT . CHI walks around and explores the
+	toys on the floor . INV leaves the room .
+@bg	
+@bg:	10mins
+@Activities:	Warm-up
+*MOT:	0.
+%tim:	09:19:10
+%act:	MOT hangs her coat up on the wall
+*CHI:	bye+bye .
+%spa:	$MRK:MK
+%pho:	/babei/
+%gpx:	<bef> CHI turns around and looks up towards door . <aft> CHI looks
+	down at the toys on the floor
+*MOT:	yeah bye+bye .
+%spa:	$MRK:AC
+%act:	MOT walks over to the chair next to the desk
+*CHI:	<0> [>] .
+%act:	CHI bends down and picks up a block
+*MOT:	<what are you gonna [: go-ing to] do now> [<] ?
+%spa:	$NIA:QN
+%act:	MOT sits in the chair
+%gpx:	MOT looks at CHI
+*CHI:	gonna [: go-ing to] do .
+%mor:	$VP:S
+%spa:	$NIA:RT
+%act:	<aft> CHI puts the block in his mouth
+*MOT:	<what-'is that [= block]> [>] ?
+%spa:	$DHA:QN
+%gpx:	MOT watches CHI
+*CHI:	<0> [<] .
+%par:	sighs
+%act:	<bef> CHI takes the block out of his mouth . CHI walks towards MOT
+*MOT:	<is that a block> [>] ?
+%spa:	$DJF:YQ
+%act:	<aft> MOT moves her bag beside her and out of CHI's view
+*CHI:	<0> [<] .
+%act:	CHI walks across the room
+%gpx:	CHI looks down
+*MOT:	<is that a block> [>] ?
+%spa:	$DJF:YQ
+%gpx:	MOT watches CHI
+*CHI:	<0> [>] .
+%act:	CHI throws the block on the floor
+*CHI:	yyy this .
+%mor:	$NP:S:P
+%spa:	$NIA:TO:IN
+%pho:	/d6/
+%act:	<bef> CHI walks across the room . CHI picks up the jack+in+the+box
+	and hands it to MOT
+*MOT:	oh -: thank you .
+%spa:	$MRK:MK
+%gpx:	MOT takes the jack+in+the+box and looks at CHI
+*CHI:	0.
+%gpx:	CHI stares at the jack+in+the+box
+*MOT:	can you open it [= jack+in+the+box] ?
+%spa:	$NIA:RP
+*CHI:	0.
+%act:	CHI raises his hand
+%gpx:	CHI stares at the jack+in+the+box
+*MOT:	+^ what-'is this [= handle] ?
+%spa:	$DHA:QN
+%gpx:	MOT points to the handle
+*CHI:	0.
+%sit:	CHI still has his hand raised and ready for action
+%gpx:	CHI looks at the jack+in+the+box
+*MOT:	what-'is that [= handle] ?
+%spa:	$DHA:QN
+%gpx:	MOT points to the handle and looks at CHI
+*MOT:	can you <turn that [= handle]> [>] ?
+%spa:	$NIA:RP
+%gpx:	MOT looks at CHI
+*CHI:	<0> [<] .
+%act:	CHI grabs the handle and tries to turn it
+*MOT:	yeah # that-'is like your toy at home .
+%spa:	$DRP:ST
+*CHI:	0.
+%act:	CHI tries to turn the handle with his other hand
+%gpx:	CHI looks at the handle closely
+*MOT:	what is it [= jack+in+the+box] ?
+%spa:	$DJF:QN
+*CHI:	yyy .
+%spa:	$NIA:RP:IN
+%pho:	/dIh/
+%act:	CHI puts both hands on the jack+in+the+box and pushes it down
+%gpx:	CHI looks at the jack+in+the+box
+*MOT:	okay .
+%spa:	$NIA:AD
+%act:	MOT puts the jack+in+the+box on the floor
+*MOT:	how (a)bout if Mommy do-es it [= turn the handle] ?
+%spa:	$NIA:RQ
+%act:	<aft> MOT turns the handle until it pops
+*CHI:	0.
+%gpx:	CHI stands still and bends his head as he watches the
+	jack+in+the+box
+%sit:	the jack+in+the+box pops
+*MOT:	<0 [=! gasp]> [+ trn] .
+%spa:	$MRK:MK:IN
+%gpx:	MOT leans back and throws up her hands in excitement
+*CHI:	0.
+%act:	CHI hesitates about one second and then starts pulling the clown by
+	the head
+*MOT:	what-'is that [= clown] ?
+%spa:	$DJF:QN
+%gpx:	<bef> MOT folds her arms on her lap . MOT watches CHI
+*CHI:	0.
+%act:	CHI gently pulls the clown's head back and forth
+*MOT:	can you push him [= clown] back in ?
+%spa:	$NIA:RP
+%gpx:	MOT watches CHI
+%tim:	09:20:00
+*CHI:	0.
+%act:	CHI pushes the clown down
+*MOT:	0.
+%gpx:	MOT extends her hand to help CHI and then quickly retracts it
+*CHI:	yyy .
+%spa:	$YYY:YY
+%pho:	/de/
+%act:	CHI pushes the clown down
+%sit:	the clown pops up as soon as CHI lets go
+*MOT:	uhoh -.
+%spa:	$MRK:MK
+*CHI:	0.
+%act:	CHI tries unsuccessfully to turn the handle so instead he violently
+	shakes the jack+in+the+box around on the floor
+*MOT:	0.
+%gpx:	MOT reaches out to help CHI and pulls back quickly
+*CHI:	0.
+%act:	CHI lets go of the jack+in+the+box and then picks it up by the head
+	of the clown and throws it across the floor
+%gpx:	CHI looks at the jack+in+the+box
+*MOT:	0.
+%par:	MOT laughs
+*CHI:	<0> [>] .
+%gpx:	<bef> CHI stares at the jack+in+the+box
+%act:	CHI walks across the room to the jack+in+the+box
+*MOT:	<what are you do-in(g)> [<] ?
+%spa:	$NIA:QN
+%gpx:	MOT watches CHI
+*CHI:	yyy .
+%spa:	$YYY:YY
+%pho:	/banch/
+%act:	<bef> CHI picks up the jack+in+the+box and throws it on the floor
+	again . CHI bends down and touches the jack+in+the+box
+%gpx:	<aft> CHI looks up at MOT
+*MOT:	<hey what-'is that> [>] ?
+%spa:	$DJF:QN
+%gpx:	MOT looks at CHI
+*CHI:	<0> [<] .
+%act:	CHI throws the jack+in+the+box on the floor again . <aft> CHI holds
+	the jack+in+the+box down with one hand and wiggles the head back and
+	forth with the other
+*MOT:	can we put him [= clown] back inside ?
+%spa:	$NIA:RP
+%com:	MOT does not wait for permission
+%act:	MOT pulls the jack+in+the+box away from CHI
+*CHI:	0.
+%gpx:	CHI watches MOT
+*MOT:	can we put him [= clown] back in here [= box] like this ?
+%spa:	$NIA:RP
+%act:	MOT pushes the clown in the box
+*CHI:	<0> [>] .
+%act:	CHI walks over to the jack+in+the+box slowly
+%gpx:	CHI stares at the jack+in+the+box
+*MOT:	<what-'is that> [<] ?
+%spa:	$DJF:QN
+%act:	MOT closes the cover of the jack+in+the+box
+*CHI:	<0> [>] .
+%act:	CHI bends down and puts his hand on the handle of the
+	jack+in+the+box
+*MOT:	<how-'is that> [<] ?
+%spa:	$NIA:QN
+%com:	MOT is asking whether CHI agrees with what she is doing
+%gpx:	MOT watches CHI
+*CHI:	0.
+%act:	CHI tries to turn the handle
+*MOT:	can you turn ?
+%spa:	$NIA:RP
+*CHI:	0.
+%act:	CHI starts to turn the handle
+*MOT:	that-'is right !
+%spa:	$NIA:AB
+%gpx:	MOT watches CHI
+*CHI:	0.
+%act:	CHI stops turning handle and picks up the jack+in+the+box
+*MOT:	0.
+%par:	sharp intake of breath
+%gpx:	MOT looks at CHI
+*CHI:	yyy .
+%spa:	$YYY:TO:IN
+%pho:	/d6 dI/
+%act:	CHI hands the jack+in+the+box to MOT
+*MOT:	thank -: you .
+%spa:	$MRK:MK
+%act:	MOT takes the jack+in+the+box and holds it out to CHI
+*CHI:	<xxx> [>] .
+%spa:	$OOO:OO
+%act:	<aft> CHI reaches for the handle
+*MOT:	<can you turn it [= handle]> [<] ?
+%spa:	$NIA:RP
+*CHI:	0.
+%act:	CHI turns the handle briefly and then stops
+*MOT:	that-'is a boy .
+%spa:	$NIA:AB
+%gpx:	MOT watches CHI
+*CHI:	0.
+%act:	CHI tries to turn the handle
+%gpx:	CHI turns and looks at the other toys on the floor
+%sit:	CHI's hand is still on the handle
+%tim:	09:21:00
+*MOT:	what else is in here ?
+%spa:	$DJF:QN
+*CHI:	0.
+%gpx:	CHI looks at the toys on the floor
+*MOT:	what else is <in here ?> [>]
+%spa:	$DJF:QN
+%int:	whispered
+*CHI:	<0> [<] .
+%gpx:	CHI turns quickly and looks at MOT
+%act:	CHI lets go of the handle briefly and then starts to turn it again
+*CHI:	yyy .
+%spa:	$YYY:YY
+%pho:	/di/
+%act:	<bef> CHI stops turning the handle . CHI puts his hand on the top of
+	the jack+in+the+box . <aft> CHI turns the handle briefly and then
+	walks away
+*MOT:	okay .
+%spa:	$SAT:XA
+%act:	MOT starts to lower the jack+in+the+box to the floor
+*CHI:	0.
+%gpx:	CHI turns and watches MOT
+*MOT:	okay .
+%spa:	$SAT:XA
+%act:	MOT puts the jack+in+the+box on the floor
+*CHI:	0.
+%act:	CHI tries to turn the handle again
+*MOT:	Christopher can you read a book ?
+%spa:	$NIA:RP
+%gpx:	MOT leans over and looks at CHI
+*CHI:	0.
+%gpx:	CHI turns and looks at the other toys on the floor
+*MOT:	Christopher where-'is the book ?
+%spa:	$DHA:QN
+%gpx:	MOT looks at the book
+*CHI:	here .
+%spa:	$DJF:SA:IN
+%pho:	/i/
+%act:	CHI walks across the room
+*CHI:	this .
+%mor:	$NP:S:P
+%spa:	$DJF:SA:IN
+%pho:	/dIS/
+%act:	CHI puts his hand on the book . <aft> CHI picks the book up
+*MOT:	yeah .
+%spa:	$DJF:AC
+%gpx:	MOT watches CHI
+*CHI:	yyy .
+%spa:	$YYY:YY
+%pho:	/dI/
+%act:	CHI walks across the room to MOT with the book
+*MOT:	can you read that [= book] ?
+%spa:	$NIA:RP
+%gpx:	<bef> MOT nods . <aft> MOT puts out her hands encouraging CHI to
+	hand the book to her
+*CHI:	0.
+%gpx:	CHI stands in front of MOT and stares at the book in his hands
+*MOT:	wanna [: want to] read the book ?
+%spa:	$NIA:RQ
+%gpx:	MOT looks at CHI
+*CHI:	yyy .
+%spa:	$YYY:YY
+%pho:	/dIS/
+%act:	CHI turns the book around and accidentally drops it on the floor
+*MOT:	yeah that-'is the right way .
+%spa:	$NIA:AB
+%gpx:	MOT watches CHI
+*CHI:	0.
+%act:	CHI goes over and starts to turn the handle of the jack+in+the+box
+	again
+*MOT:	0.
+%par:	sharp intake of breath
+*MOT:	you-'re a big boy .
+%spa:	$NIA:ST
+%gpx:	MOT points to the jack+in+the+box
+%tim:	09:22:00
+*MOT:	you can do +/.
+%spa:	$NIA:ST
+*CHI:	0.
+%spa:	$NIA:TO:IN
+%act:	CHI picks up the jack+in+the+box and hands it to MOT
+*MOT:	thank you .
+%spa:	$MRK:MK
+%act:	MOT takes the jack+in+the+box from CHI
+*CHI:	yyy .
+%spa:	$YYY:YY
+%pho:	/g6/
+*MOT:	okay you want me to do it [= turn the handle] ?
+%spa:	$DCA:YQ
+%act:	<aft> MOT starts to turn the handle of the jack+in+the+box
+*CHI:	kitty .
+%spa:	$DHA:ST
+%mor:	$NP:U
+%pho:	/s6ti/
+%gpx:	CHI looks up and points to the wall
+*MOT:	0.
+%par:	sharp intake of breath
+%act:	<bef> MOT stops turning the handle
+*MOT:	what-'is that ?
+%spa:	$DJF:QN
+%gpx:	MOT looks up at the wall
+*CHI:	kitty .
+%spa:	$DJF:SA
+%mor:	$NP:U
+%gpx:	CHI points to the wall again . <aft> CHI looks at MOT
+*MOT:	kitty ?
+%mor:	$NP:U
+%spa:	$DCC:YQ
+*MOT:	that-'is right .
+%spa:	$DJF:AP
+*MOT:	that-'is a kitty .
+%spa:	$DJF:CT
+*CHI:	<0> [>] .
+%gpx:	CHI reaches for the handle of the jack+in+the+box
+*MOT:	<0> [<] .
+%spa:	$DHA:OO:IN
+%gpx:	MOT points to a different part of the same wall
+*CHI:	0.
+%gpx:	CHI looks up at the wall
+*MOT:	is there a doggy ?
+%spa:	$DJF:YQ
+*CHI:	0.
+%gpx:	CHI looks up at the wall
+*MOT:	+^ no # there-'is no doggy .
+%spa:	$DJF:AN $DJF:ST
+*CHI:	0.
+%gpx:	CHI reaches for the handle as he stares at the wall
+*MOT:	Christopher what-'is this ?
+%spa:	$DHA:QN
+%act:	MOT puts the jack+in+the+box on the floor
+*CHI:	0.
+%gpx:	CHI watches MOT
+*MOT:	what-'is this ?
+%spa:	$DHA:QN
+%act:	MOT stands up
+%gpx:	MOT points to something on the wall
+%sit:	MOT's upper half is out of camera view
+*CHI:	0.
+%gpx:	CHI stares at the wall
+*MOT:	is that a birdie ?
+%spa:	$DJF:YQ
+%gpx:	<aft> MOT bends down a little
+*CHI:	kitty .
+%spa:	$DHA:ST
+%mor:	$NP:U
+%gpx:	CHI points to different place on the wall
+*MOT:	kitty .
+%spa:	$DJF:AP
+%gpx:	MOT points to the wall
+*MOT:	that-'is right .
+%spa:	$DJF:AP
+*MOT:	what-'is this ?
+%spa:	$DHA:QN
+%act:	MOT picks up the toy football on the floor and holds it out to CHI
+*CHI:	0.
+%act:	CHI takes the football and puts it in his mouth as he walks over to
+	the chair
+*MOT:	can you <throw that [= football] ?> [>]
+%spa:	$NIA:RP
+%gpx:	MOT looks at CHI
+*CHI:	<0> [<] .
+%act:	CHI drops the football on the floor
+*MOT:	0.
+%par:	sharp intake of breath
+%gpx:	MOT looks at something on the floor
+*CHI:	0.
+%gpx:	CHI looks down at the ball
+*MOT:	what-'is that [=! whispered] ?
+%spa:	$DHA:QN
+%act:	MOT reaches for something on the floor
+*CHI:	0.
+%gpx:	CHI turns to see what MOT is doing
+%act:	CHI takes a few steps towards MOT
+*MOT:	what-'is this ?
+%spa:	$DJF:QN
+%act:	MOT picks up a book off the floor
+*CHI:	0.
+%gpx:	CHI looks at the book
+*MOT:	Cookie+Monster .
+%spa:	$DJF:SA
+%par:	<bef> sharp intake of breath
+%gpx:	<aft> MOT points to the book and looks up at CHI
+*CHI:	0.
+%gpx:	CHI stares blankly at the book
+*MOT:	Cookie !
+%spa:	$DJF:ST
+%gpx:	MOT looks at the book
+*MOT:	Cookie+Monster .
+%spa:	$DJF:ST
+%act:	MOT opens the book . <aft> MOT turns a page
+*MOT:	0.
+%par:	sharp intake of breath
+%gpx:	MOT looks at the page
+*CHI:	0.
+%gpx:	CHI looks briefly at both pages
+%act:	CHI turns the page
+%tim:	09:23:00
+@eg:	10mins
+*MOT:	we gonna [: go-ing to] look at the picture-s ?
+%spa:	$NIA:RQ
+%act:	<aft> MOT moves the page back and forth briefly
+%com:	MOT is requesting CHI turn pages more slowly
+*MOT:	<okay> [>] .
+%spa:	$NIA:AD
+%gpx:	MOT looks at the page
+*CHI:	<0> [<] .
+%gpx:	CHI looks at the page
+%act:	CHI turns the page
+*MOT:	oh -: .
+%spa:	$DJF:MK
+%gpx:	MOT looks at the next page
+*CHI:	kitty .
+%spa:	$DHA:ST
+%mor:	$NP:U
+%gpx:	CHI points to the page
+*MOT:	cookie .
+%spa:	$DJF:CT
+%gpx:	MOT points to the page
+%com:	on assumption that MOT is pointing to same picture as CHI
+*MOT:	is that Big+Bird ?
+%spa:	$DHA:YQ
+%gpx:	MOT points to different place on the page
+*CHI:	0.
+%gpx:	CHI glances at the page
+%act:	CHI turns the page
+*CHI:	yyy .
+%pho:	/ti/
+%spa:	$DHA:ST:IN
+%gpx:	CHI looks at the page
+*MOT:	is that Ernie ?
+%spa:	$DCC:YQ
+%gpx:	MOT points to the place on the page where CHI was looking
+*CHI:	0.
+%act:	CHI turns the page
+*MOT:	okay .
+%spa:	$NIA:MK
+%gpx:	MOT points to the page
+*CHI:	yyy .
+%spa:	$YYY:YY
+%pho:	/obdi/
+%act:	CHI turns the page
+%gpx:	<aft> CHI looks at the page
+*CHI:	0 [=! grunts] .
+%act:	CHI bends down and half-heartedly attempts to pick up the other book
+	on the floor
+%gpx:	<aft> CHI turns to watch MOT
+*CHI:	yyy .
+%spa:	$YYY:YY
+%pho:	/dis/
+*MOT:	you wanna [: want to] read that one [= book] ?
+%spa:	$DCA:YQ
+%act:	<bef> MOT puts the other book on the floor
+%gpx:	MOT points to the book and looks at CHI
+*CHI:	0.
+%gpx:	CHI looks at the book MOT put down
+*MOT:	+^ which one [= book] do you want to read ?
+%spa:	$NIA:QN
+%gpx:	<aft> MOT looks at CHI
+*CHI:	yyy .
+%spa:	$NIA:SA:IN
+%pho:	/gE dI dI/
+%act:	<bef> CHI walks over to the book . <1u-1u .> CHI hands the book to
+	MOT
+*MOT:	cookie ?
+%spa:	$DCC:YQ
+%gpx:	MOT looks at CHI
+*MOT:	do you want to read about the cookie monster ?
+%spa:	$DCC:YQ
+*CHI:	0.
+%gpx:	CHI looks at the book
+*MOT:	okay .
+%spa:	$NIA:AD
+%act:	<aft> MOT open the book and turns the page
+*CHI:	0.
+%gpx:	CHI looks at the book
+*INV:	www .
+%com:	INV enters the room at 09:23:41 to explain Small Scale Activity to
+	MOT then leaves the room while Small Scale Activity takes place . INV
+	re-enters at 09:30:24 and explains the Forbidden Object task to MOT
+	and has her sit next to CHI at the table . INV gives CHI the slinky
+	toy to hold
+@eg	
+@Activities:	Forbidden Object
+*INV:	okay it-'is [= object] in this drawer .
+%tim:	09:32:00
+%act:	INV takes the object out of the drawer
+*MOT:	is-'nt it [= object] beautiful ?
+%gpx:	MOT watches INV
+%spa:	$DJF:YQ
+*INV:	<mhmm> [+ bch] .
+*CHI:	0.
+%gpx:	CHI turns around and watches INV
+*INV:	0.
+%par:	laughs softly
+*MOT:	yeah .
+%spa:	$SAT:XA
+%gpx:	MOT looks at the object
+*INV:	okay so I-'m gonna [: go-ing to] put it [= object] up here so keep
+	him from <touching okay> [>] ?
+%act:	INV puts the object on the table and lets go of it
+*CHI:	<0> [<] .
+%act:	CHI immediately grabs for the object
+*MOT:	okay .
+%add:	INV
+%act:	<aft> MOT grabs the base of the object and tries to push it away
+	from CHI
+*MOT:	0 [=! chuckles] .
+%act:	MOT pushes the object away
+*MOT:	Christopher .
+%spa:	$NMA:PF:IN
+%act:	MOT pushes the object further away
+%gpx:	MOT pushes with her other hand towards CHI
+*CHI:	0.
+%act:	CHI lets go reluctantly
+%gpx:	CHI stares at the object
+*CHI:	0.
+%gpx:	CHI raises his hands excitedly and smiles
+*MOT:	can you leave that [= object] alone ?
+%spa:	$NIA:RP
+%gpx:	MOT leans forwards and looks at CHI
+*MOT:	can you +...
+%spa:	$NIA:RP
+*CHI:	0.
+%gpx:	CHI turns away from MOT
+%sit:	CHI has one hand on each cheek
+*MOT:	(o)kay no # no hand-s .
+%spa:	$NIA:PF
+%gpx:	MOT points to CHI's hands for about a second
+*MOT:	no hand-s .
+%spa:	$NIA:PF
+%gpx:	MOT shakes her head no gently and looks at CHI
+*CHI:	0.
+%gpx:	CHI turns back to face the object and looks at it
+%act:	CHI reaches for the object
+*MOT:	no .
+%spa:	$NIA:PF
+%act:	MOT pushes CHI away
+*MOT:	no hand-s .
+%act:	MOT tries to remove CHI's hands from the object
+%spa:	$NIA:PF
+*CHI:	0.
+%act:	CHI continues to touch the object
+*MOT:	Christopher .
+%spa:	$NMA:CL
+%act:	MOT pulls CHI's hands off the object
+*CHI:	0.
+%gpx:	CHI pulls his hands back
+*MOT:	no hand-s just oh -: .
+%spa:	$NIA:PF
+%par:	<3.> sharp intake of breath
+%sit:	MOT holds CHI's hands down
+%gpx:	MOT looks CHI . <4> MOT glances up at the object and then to CHI
+*CHI:	pretty .
+%spa:	$DJF:ST
+%pho:	/tIti/
+%gpx:	<aft> CHI looks down at the slinky and then up at the object again
+*INV:	yeah pretty .
+*INV:	that-'is right .
+*INV:	0 [=! laughs] .
+*CHI:	0.
+%act:	CHI reaches for the object
+*MOT:	oop(sidaisy) no -: .
+%spa:	$NIA:PF
+%act:	MOT pulls CHI's hands away
+*MOT:	no hand-s .
+%spa:	$NIA:PF
+%gpx:	MOT points to CHI's hands
+*CHI:	0.
+%gpx:	CHI keeps his hands on the slinky and looks down
+*MOT:	that-'is right .
+%spa:	$NIA:AB
+*CHI:	oh -: .
+%spa:	$DJF:MK
+%gpx:	< .1-1> CHI looks up at the object
+*MOT:	oh -: .
+%spa:	$DJF:RT
+*INV:	<mhmm> [+ bch] .
+*CHI:	0.
+%gpx:	CHI smiles and looks at INV
+%sit:	both of CHI's hands are on the slinky in his lap
+*MOT:	no hand-s .
+%spa:	$NIA:PF
+%gpx:	MOT leans forward and looks at CHI
+*CHI:	<0> [>] .
+%gpx:	CHI looks away from MOT
+%com:	CHI seems to be talking to himself as his lips move but no sound is
+	audible
+*MOT:	<yeah> [<] .
+%spa:	$SAT:XA
+*CHI:	0.
+%gpx:	CHI looks down at the floor
+*CHI:	uhoh !
+%spa:	$MRK:MK
+%act:	CHI throws the slinky off of the table
+%gpx:	CHI looks at the slinky on the floor and then reaches for the object
+*MOT:	uhoh .
+%spa:	$MRK:RT
+*INV:	0.
+%par:	laughs
+*MOT:	no # no hand-s .
+%spa:	$NIA:PF
+%act:	MOT gently pushes CHI's hands back
+%gpx:	MOT puts her hands on her lap and looks at CHI
+*CHI:	0.
+%gpx:	CHI lowers his eyes
+*MOT:	yeah I knew [: know-&ed] you were gonna [: go-ing to] <do that to me
+	.> [>]
+%add:	INV
+*CHI:	<0.> [<]
+%gpx:	CHI reaches out for the toys INV has in her hands and then touches
+	the object
+%com:	end of Forbidden Object Activity
+*INV:	+^ uhoh xxx .
+%act:	<aft> INV stands up with the toys from Small Scale Activity and puts
+	them on the desk
+*MOT:	look at those [= toys] .
+%spa:	$DHA:RP
+%gpx:	<aft> MOT looks at CHI
+*MOT:	no no .
+%spa:	$NIA:PF
+%act:	<$=2> MOT pokes gently at CHI's hands to deter him
+*MOT:	no hand-s .
+%spa:	$NIA:PF
+*MOT:	no hand-s .
+%spa:	$NIA:PF
+*CHI:	0.
+%gpx:	CHI turns away from MOT
+*INV:	okay .
+%act:	<bef> INV lays the toys on the desk
+%gpx:	INV turns towards the table
+*INV:	very good .
+%act:	INV picks up the object
+*CHI:	0.
+%gpx:	CHI turns very quickly and watches INV
+*MOT:	0.
+%gpx:	MOT watches INV
+*INV:	that was great he was very compliant about that .
+%act:	<aft> INV puts the object back in the drawer
+*MOT:	<xxx> [=! laughs] .
+*INV:	he-'is probably not the same at home .
+%act:	INV closes the drawer
+%tim:	09:33:00
+*INV:	www .
+%exp:	INV tells MOT about Parent Child Interaction Boxes and leaves room .
+@bg	
+@bg:	10mins
+@Activities:	Ball
+*MOT:	what-'is this ?
+%spa:	$DHA:QN
+%gpx:	MOT points to the ball
+%tim:	09:34:05
+*CHI:	yyy .
+%spa:	$YYY:YY
+%pho:	/d&/
+%act:	CHI takes the ball out of the box
+*MOT:	oh -: !
+%spa:	$DJF:MK
+%act:	<bef> MOT hold box so CHI can easily remove the ball
+*CHI:	yyy .
+%spa:	$YYY:YY
+%pho:	/gum d&/
+%act:	CHI bounces the ball excitedly on the floor
+*MOT:	yeah # can we throw it [= ball] ?
+%spa:	$NIA:RP
+%tim:	09:34:11
+%com:	INV leaves
+*MOT:	+^ can you kick it [= ball] ?
+%spa:	$NIA:RP
+*CHI:	0.
+%par:	CHI screams excitedly
+%act:	CHI walks towards MOT and then back towards the door
+*MOT:	can you throw that [= ball] to Mommy ?
+%spa:	$NIA:RP
+%gpx:	MOT hold her hands out to catch the ball
+*CHI:	0.
+%act:	CHI drops the ball and takes a few steps towards the door
+%gpx:	CHI looks at the ball
+*MOT:	can you kick it [= ball] ?
+%spa:	$NIA:RP
+%act:	MOT rolls the ball to CHI
+%gpx:	MOT watches CHI
+*CHI:	<0.> [>]
+%act:	CHI runs after the ball
+*MOT:	<kick it [= ball]> [<] !
+%spa:	$NIA:RP
+%gpx:	MOT watches CHI
+*CHI:	0.
+%act:	CHI kicks the ball gently and almost falls over
+%sit:	CHI follows the ball across the room
+*MOT:	that-'is a boy .
+%spa:	$NIA:PM
+*MOT:	<kick it [= ball]> [>] !
+%spa:	$NIA:RP
+%gpx:	MOT watches CHI
+*CHI:	<0> [<] .
+%act:	CHI kicks the ball under the chair
+*MOT:	that-'is right .
+%spa:	$NIA:PM
+%gpx:	MOT reaches out to help CHI get the ball
+*CHI:	yyy .
+%spa:	$NIA:RT
+%pho:	/ki ki/
+%act:	CHI pulls the ball out from underneath the chair
+*CHI:	yyy .
+%spa:	$YYY:YY
+%pho:	/dIs/
+%act:	CHI throws the ball
+*MOT:	<yay> [<] !
+%spa:	$NIA:ET
+%act:	MOT retrieves the ball then she moves over by the door and holds the
+	ball out to CHI
+*CHI:	0.
+%gpx:	CHI watches MOT
+*MOT:	okay now .
+%spa:	$NIA:MK
+%act:	<aft> MOT drops the ball on the floor and rolls it to CHI
+*MOT:	can you kick it [= ball] ?
+%spa:	$NIA:RP
+%gpx:	MOT watches CHI
+%sit:	the ball bounces off of CHI's feet
+*CHI:	yyy .
+%spa:	$YYY:YY
+%pho:	/he/
+%act:	<bef> CHI bends over and picks up the ball . CHI bounces the ball on
+	the floor
+%gpx:	<aft> CHI looks down at the ball
+*MOT:	yeah .
+%spa:	$NIA:AC
+%act:	MOT pulls the ball back to her
+*CHI:	0.
+%gpx:	CHI looks down at the box on the floor
+%act:	CHI picks up the box and shakes it
+*MOT:	no+no .
+%spa:	$NIA:PF
+%gpx:	MOT holds out the ball and looks at CHI
+*CHI:	0.
+%gpx:	CHI turns and looks at MOT
+*MOT:	<what are you do-ing> [>] ?
+%spa:	$NIA:QN
+%gpx:	MOT holds out the ball and looks at CHI
+*CHI:	<0> [<] .
+%act:	CHI walks over to MOT
+*CHI:	<xxx> [>] .
+%spa:	$OOO:OO
+%act:	CHI takes the ball from MOT and walks back over to the box
+*MOT:	<can you put it [= ball] in there [= box]> [<] ?
+%spa:	$NIA:RP
+%gpx:	MOT watches CHI
+*CHI:	0.
+%act:	CHI drops the ball in the box
+%gpx:	CHI stares down at the ball
+*MOT:	that-'is a boy !
+%spa:	$NIA:AB
+%par:	<bef> sharp intake of breath
+%act:	MOT takes the box and puts it on the chair next to the desk
+*CHI:	0.
+%gpx:	CHI watches MOT
+%tim:	09:34:49
+%com:	End of PCI- Ball
+*MOT:	that-'is a boy .
+%spa:	$NIA:AB
+*MOT:	<you wanna [: want to] &g> [//] what-'is this ?
+%spa:	$DHA:QN
+%act:	MOT gets up and reaches for something on the desk that is out of
+	camera view
+*CHI:	0.
+%act:	CHI takes a few steps forwards and puts his hand on the table
+%gpx:	CHI looks at the desk
+*MOT:	let-'us see what-'is in this box .
+%spa:	$NIA:RP
+%act:	MOT takes the next box off the table
+*CHI:	0.
+%gpx:	CHI watches MOT
+*MOT:	let-'us see what-'is in this box .
+%spa:	$NIA:RP
+%act:	<aft> MOT puts the box on the floor and starts to open it
+%tim:	09:34:51
+%com:	MOT opens the box
+@Activities:	Peekaboo
+*MOT:	0.
+%par:	sharp intake of breath
+%act:	MOT takes the cloth out of the box
+*CHI:	0.
+%act:	CHI takes a step closer to the box
+%gpx:	CHI stares at the box
+*MOT:	0.
+%act:	MOT closes the cover of the box and puts the cloth on her lap and
+	starts to open it up
+*CHI:	0.
+%act:	CHI starts to back away from MOT
+*MOT:	where-'is Christopher ?
+%spa:	$PRO:QN
+%act:	<bef> MOT puts the cloth on CHI's head
+%tim:	09:35:00
+*CHI:	0.
+%act:	CHI takes the cloth off his head and throws it on the floor
+%gpx:	CHI is smiling
+*MOT:	0.
+%par:	sharp intake of breath
+*MOT:	hi .
+%spa:	$NMA:CL
+%gpx:	MOT looks at CHI in an effort to get his attention
+*CHI:	0.
+%gpx:	CHI looks at something under the desk
+%act:	CHI walks towards the desk
+*MOT:	Christopher .
+%spa:	$NMA:CL
+%act:	MOT pokes CHI
+*CHI:	0.
+%act:	CHI bends down and tries to get at something under the desk
+*MOT:	no+no .
+%spa:	$NIA:PF
+%act:	MOT grabs CHI's arm
+*CHI:	0.
+%gpx:	CHI looks up at MOT
+*MOT:	+^ do-'nt touch that .
+%spa:	$NIA:PF
+%act:	<$=1> MOT pulls CHI to his feet and over by her
+*MOT:	do-'nt touch that honey .
+%spa:	$NIA:PF
+*CHI:	<0> [>] .
+%act:	CHI tries to open the box
+*MOT:	<where is (h)e> [<] ?
+%spa:	$PRO:QN
+%act:	MOT puts the cloth on CHI's head again
+*MOT:	I do-'nt see <Christopher anywhere> [>] .
+%spa:	$PRO:ST
+%gpx:	MOT looks at CHI
+*CHI:	<0> [<] .
+%act:	CHI takes the cloth off of his head and drops it on the floor
+*CHI:	yyy box .
+%spa:	$YYY:YY
+%pho:	/titi/
+%act:	CHI pushes the cover off the box and kneels in it
+*MOT:	you want to play with the box rather than play peekaboo .
+%spa:	$NIA:ST
+%gpx:	MOT watches CHI
+*CHI:	box .
+%mor:	$NP:U
+%pho:	/wa/
+%spa:	$NIA:RT
+%gpx:	CHI turns and looks at MOT
+*MOT:	where-'is Mommy Christopher ?
+%spa:	$PRO:QN
+%act:	<$=1> MOT covers herself with the cloth
+*MOT:	+^ where is she ?
+%spa:	$PRO:QN
+*CHI:	0.
+%gpx:	CHI looks at MOT
+%act:	<aft> CHI leans back in the box
+*MOT:	where-'is Mommy ?
+%spa:	$PRO:QN
+*CHI:	0.
+%gpx:	CHI leans forward and looks at MOT
+*MOT:	where-'is Mommy ?
+%spa:	$PRO:QN
+%act:	CHI leans back in the box again
+%gpx:	CHI looks at the box and then up at MOT
+*MOT:	hi .
+%spa:	$PRO:PR
+%act:	<bef> MOT removes the cloth
+%gpx:	MOT looks at CHI
+*CHI:	0.
+%gpx:	CHI looks at MOT and smiles
+*MOT:	how are you ?
+%spa:	$PRO:QN
+%act:	<bef> MOT raises the cloth briefly in front of her face
+*CHI:	0.
+%act:	CHI crawls over the boxes towards the wall
+*MOT:	where did Mommy go ?
+%spa:	$PRO:QN
+%gpx:	MOT watches CHI
+*CHI:	<0> [+ trn] .
+%spa:	$NIA:RD:IN
+%gpx:	CHI stares at MOT briefly then shakes his head and turns back
+	towards the wall
+%exp:	CHI is refusing an indirect request by MOT
+%tim:	09:35:38
+%com:	End of PCI - Peekaboo
+*MOT:	no ?
+%spa:	$DCA:YQ
+*CHI:	0.
+%act:	CHI starts crawling towards the wall
+*MOT:	Chris stay here .
+%spa:	$NMA:RP
+%act:	MOT reaches out to CHI
+*CHI:	0.
+%act:	CHI grabs at the outlet on the wall
+*MOT:	no .
+%spa:	$NIA:PF
+%act:	MOT pulls CHI's arm
+*MOT:	do-'nt you touch those wire-s .
+%spa:	$NIA:PF
+%act:	MOT pulls CHI away from the outlet
+*CHI:	0.
+%act:	CHI puts both hands on the box cover
+%gpx:	CHI looks around the room
+*MOT:	do-'nt you touch .
+%spa:	$NIA:PF
+%gpx:	MOT points at CHI
+*CHI:	0.
+%gpx:	CHI looks up at MOT
+*MOT:	no .
+%spa:	$NIA:PF
+%gpx:	MOT shakes her head and looks at CHI sternly
+*CHI:	0.
+%gpx:	CHI looks towards the door
+*MOT:	can you put these [= cloth] away ?
+%spa:	$NIA:RP
+%act:	MOT spreads the cloth on the floor
+*CHI:	0.
+%act:	CHI stands up
+%gpx:	CHI turns to the wall and reaches for something
+*MOT:	xxx put this [= cloth] away ?
+%spa:	$NIA:OO
+%act:	MOT starts to fold the cloth
+%gpx:	MOT looks up at CHI
+*CHI:	0.
+%act:	CHI is holding onto something on the wall that is not in camera view
+*MOT:	Christopher .
+%spa:	$NMA:CL
+*MOT:	what are you do-ing ?
+%spa:	$NIA:QN
+%act:	MOT stops folding the cloth
+%gpx:	MOT looks at CHI
+*CHI:	yyy .
+%spa:	$YYY:YY
+%pho:	/o/
+%act:	CHI walks towards the door
+%tim:	09:36:00
+*MOT:	0.
+%act:	MOT folds the cloth
+*CHI:	yyy .
+%spa:	$YYY:YY
+%pho:	/d& di/
+%act:	CHI walks over and reaches for something on the desk
+*MOT:	<what-'is that> [=! whispers] .
+%spa:	$DJF:QN
+%par:	<bef> sharp intake of breath
+%gpx:	< .1-1> MOT turns and watches CHI
+%act:	<aft> MOT puts the cloth in the box
+*CHI:	<0> [>] .
+%act:	CHI pulls out the top desk drawer
+*MOT:	<what-'is that> [<] ?
+%spa:	$DJF:QN
+%act:	<aft> MOT puts the cover on the box
+*CHI:	0.
+%gpx:	CHI looks at the camera
+*MOT:	0.
+%act:	MOT picks up the box and comes over to the desk with it
+*CHI:	0.
+%gpx:	CHI glances at MOT briefly and then looks back at the drawer
+*MOT:	can you close that [= drawer] ?
+%spa:	$NIA:RP
+%act:	MOT closes the drawer . <aft> MOT stands up
+*CHI:	<0> [>] .
+%act:	CHI pulls out the bottom desk drawer
+*MOT:	<0> [<] .
+%act:	MOT takes the ball box and puts it on top of the peekaboo box on the
+	table
+*CHI:	0.
+%gpx:	CHI looks in the drawer
+*MOT:	uh -: no .
+%spa:	$NIA:PF
+%act:	<aft> MOT closes the drawer
+*MOT:	you can-'nt play in those drawer-s .
+%spa:	$NIA:PF
+*CHI:	0.
+%gpx:	CHI looks up at the desk
+*MOT:	that-'is like Daddy-'s desk .
+%spa:	$DRP:ST
+%act:	MOT pushes all the drawers closed
+*MOT:	you can-'nt play in Daddy-'s desk [>] .
+%spa:	$DRP:GR
+%act:	MOT takes the next box off the desk
+*CHI:	<0> [<] .
+%act:	CHI tries to open one of the drawers
+*MOT:	Christopher Christopher .
+%spa:	$NMA:CL
+%act:	MOT holds her hand on the drawer
+*CHI:	0.
+%gpx:	CHI looks at MOT
+*MOT:	what-'is this [= box] ?
+%spa:	$DHA:QN
+%act:	MOT puts the box on the floor
+*CHI:	yyy .
+%spa:	$YYY:YY
+%pho:	/&h chI/
+%act:	CHI walks over to the box
+%gpx:	CHI stares at the box
+@Activities:	Crayons and Paper
+*MOT:	0.
+%par:	sharp intake of breath
+%tim:	09:36:26
+%com:	MOT opens the box
+*CHI:	0.
+%gpx:	CHI looks at the contents of the box
+*MOT:	<uhoh> [=! whispered] .
+%spa:	$DJF:MK
+%act:	MOT picks up a crayon and a piece of paper
+*MOT:	what-'is this ?
+%spa:	$DJF:QN
+*CHI:	<0> [>] .
+%act:	CHI violently reaches in the box and picks up a crayon
+*MOT:	<can you draw a picture> [<] ?
+%spa:	$NIA:RP
+%act:	MOT draws on the paper
+*MOT:	can you draw a picture ?
+%spa:	$NIA:RP
+%act:	<aft> MOT stops drawing
+%gpx:	<aft> MOT looks up at CHI
+*CHI:	0.
+%gpx:	CHI stares at the box
+%act:	MOT draws briefly then stops . <aft> MOT holds the crayon out to CHI
+*CHI:	yyy .
+%spa:	$YYY:YY
+%pho:	/gi/
+%act:	<bef> CHI takes the crayon from MOT . CHI squats down over the paper
+	and holds the crayon over it
+%gpx:	CHI stares at the paper
+*MOT:	yeah .
+%spa:	$YYY:AC
+%act:	MOT moves so that she is opposite CHI
+*MOT:	let-'us see the picture .
+%spa:	$NIA:RP
+%gpx:	MOT leans forward and looks at the paper in the box
+*CHI:	yyy .
+%spa:	$YYY:YY
+%pho:	/ki/
+%act:	< .1-1> CHI draws with the crayon in one hand while he holds the
+	other crayon . <aft> CHI draws with his other hand also
+*MOT:	yeah that-'is it .
+%spa:	$NIA:AB
+*MOT:	+^ draw a line .
+%spa:	$NIA:RP
+%gpx:	MOT leans forward and looks at the paper in the box
+*CHI:	yyy .
+%spa:	$YYY:YY
+%pho:	/gi i/
+%act:	CHI colors violently with a crayon and then stops to climb into the
+	box
+%sit:	CHI tips over backwards in the box
+*MOT:	oop(sidaisy) .
+%spa:	$MRK:MK
+*MOT:	xxx .
+%spa:	$OOO:OO
+%act:	<aft> MOT pulls the box towards her
+%tim:	09:37:00
+*CHI:	yyy .
+%spa:	$YYY:YY
+%pho:	/6 6 o/
+%act:	<bef> CHI pulls himself up
+%gpx:	CHI looks in the box
+*CHI:	this .
+%mor:	$NP:S:P
+%spa:	$DHA:ST:IN
+%pho:	/dIS/
+%act:	CHI holds up a crayon and then starts to draw with it
+%sit:	the cover of the box falls on to CHI
+*CHI:	0.
+%act:	CHI stops drawing and moves out from underneath the cover
+*MOT:	<0> [>] .
+%act:	MOT moves the box over and removes the cover
+*CHI:	<0> [<] .
+%act:	CHI picks up a crayon and starts to eat it
+*MOT:	no .
+%spa:	$NIA:PF
+%gpx:	MOT points to the crayon
+*MOT:	do-'nt eat them [= crayons] .
+%spa:	$NIA:PF
+%act:	MOT pulls CHI's arm away from his mouth
+*CHI:	0.
+%gpx:	CHI pulls back away from MOT so that she can't reach the crayon
+*MOT:	no -: .
+%spa:	$NIA:PF
+*MOT:	those [= crayons] are (y)icky .
+%spa:	$NIA:GR
+%gpx:	MOT reaches for the crayon
+*MOT:	those [= crayons] are (y)icky .
+%spa:	$NIA:GR
+%act:	MOT pulls on CHI's overalls
+*CHI:	0.
+%gpx:	CHI stays turned away from MOT holding his crayon
+*MOT:	Christopher .
+%spa:	$NMA:CL
+*CHI:	0.
+%gpx:	CHI turns and looks at MOT
+*MOT:	what-'is this ?
+%spa:	$DHA:QN
+%act:	MOT holds the crayon on the paper as if she is going to draw with it
+*MOT:	can you draw ?
+%spa:	$NIA:RP
+%act:	MOT draws a circle
+*CHI:	0.
+%gpx:	CHI watches MOT and extends one of his hands
+*MOT:	is that a circle ?
+%spa:	$DJF:YQ
+%gpx:	MOT looks up at CHI
+*CHI:	0.
+%gpx:	CHI looks down and examines his crayon
+%sit:	a noise is heard in the hall
+*CHI:	0.
+%gpx:	CHI turns towards the door
+%act:	CHI starts to eat his crayon
+*MOT:	do-'nt you eat that crayon .
+%spa:	$NIA:PF
+%int:	MOT stresses every word
+%act:	<bef> MOT throws her crayon down on the page and pulls the crayon
+	out of CHI's mouth
+%gpx:	MOT leans close to CHI and looks in his face
+*CHI:	0.
+%act:	CHI reaches for another crayon
+*MOT:	no .
+%spa:	$NIA:PF
+%gpx:	MOT watches CHI closely
+*CHI:	0.
+%act:	CHI grabs a different crayon out of the box and tries to eat it
+*MOT:	<no> [=! laughs] .
+%spa:	$NIA:PF
+%act:	MOT takes the crayon away from CHI
+*CHI:	0.
+%gpx:	CHI looks up at MOT
+*MOT:	no no no no no !
+%spa:	$NIA:PF
+%int:	sing song
+%act:	MOT waves the crayon in front of CHI
+%gpx:	MOT looks at CHI
+*CHI:	0.
+%act:	CHI reaches for the crayon and then pulls his hand back
+%gpx:	CHI watches MOT
+*MOT:	what-'is this ?
+%spa:	$DHA:QN
+%act:	MOT puts her crayon on the paper
+*MOT:	can you <draw a circle> [>] ?
+%spa:	$NIA:RP
+%act:	MOT draws on the paper
+*CHI:	<0> [<] .
+%act:	CHI reaches out and tries to grab MOT's crayon
+*MOT:	0.
+%act:	MOT pulls the crayon back out of CHI's reach
+*CHI:	<0> [>] .
+%act:	CHI grabs a crayon and puts it in his mouth
+*MOT:	<can you do that [= draw]> [<] ?
+%spa:	$NIA:RP
+%gpx:	MOT looks at CHI
+*MOT:	do-'nt you .
+%spa:	$NIA:PF
+%act:	<bef> MOT pulls the crayon out of CHI's mouth . MOT picks up all of
+	the other crayons in the box
+*CHI:	yyy .
+%spa:	$YYY:YY
+%pho:	/gi/
+%act:	<bef> CHI reaches in the box and pulls the paper back in frustration
+%gpx:	CHI looks at MOT and points
+%sit:	a man's voice is heard in the background of the tape
+*CHI:	0.
+%gpx:	CHI looks around him
+*MOT:	0.
+%act:	MOT holds the crayons out to CHI
+*CHI:	yyy .
+%spa:	$YYY:YY
+%pho:	/3 gi/
+%act:	CHI reaches out and takes the crayon from MOT
+%gpx:	CHI holds the crayon up in front of him and looks at it
+%tim:	09:38:00
+*MOT:	pretty ?
+%spa:	$DJF:YQ
+%gpx:	MOT looks at CHI
+*CHI:	0.
+%act:	CHI puts the crayon in his mouth
+*MOT:	no -: .
+%spa:	$NIA:PF
+%act:	MOT grabs CHI's arm and pulls the crayon away from his mouth
+*CHI:	0.
+%act:	CHI puts the crayon down at his side
+%gpx:	CHI looks up at MOT
+*MOT:	yeah now you-'re be-in(g) silly .
+%spa:	$NIA:DS
+%gpx:	MOT watches CHI
+*CHI:	<0> [>] .
+%act:	CHI picks up the crayon and then starts to put it in his mouth
+*MOT:	<yeah you-'re be-in(g) silly> [<] .
+%spa:	$NIA:DS
+*MOT:	no -: .
+%spa:	$NIA:PF
+%act:	MOT takes the crayon out of CHI's mouth . <aft> MOT starts to take
+	the crayon out of CHI's hand
+*CHI:	<0> [+ trn] .
+%spa:	$NIA:PF:IN
+%par:	CHI cries and yells
+%act:	CHI resists MOT and lies on the floor
+*MOT:	no .
+%spa:	$NIA:PF
+*MOT:	you can-'nt eat those [= crayons] .
+%spa:	$NIA:PF
+%act:	MOT starts to pick up the paper on the floor
+*CHI:	yyy .
+%spa:	$NIA:RP:IN
+%pho:	/dodi/
+%gpx:	CHI points to the crayons in MOT's hands as he watches MOT
+*MOT:	no # you can-'nt eat those [= crayons] .
+%spa:	$NIA:RD $NIA:GR
+%act:	MOT piles the paper in the box neatly
+*CHI:	0 [+ trn] .
+%spa:	$NIA:RP:IN
+%par:	whines
+%gpx:	<bef> CHI points to the box of paper and looks at it then CHI looks
+	up at MOT
+*MOT:	yeah ?
+%spa:	$NIA:AC
+%gpx:	<$=1> MOT sits back and looks at CHI
+*MOT:	what else ?
+%spa:	$NIA:QN
+*CHI:	yyy .
+%spa:	$NIA:SA:IN
+%pho:	/g6 gi/
+%gpx:	CHI points to the crayons MOT has in her hand
+*CHI:	yyy .
+%spa:	$NIA:RP:IN
+%pho:	/gi g6gi ki/
+%act:	CHI stands up
+%gpx:	CHI points to the crayons in MOT's hand
+*MOT:	no you can-'nt play with these [= crayons] .
+%spa:	$NIA:PF
+%act:	MOT pulls the crayons closer to her
+%gpx:	MOT looks at CHI
+%tim:	09:38:37
+%com:	End of PCI - Crayons and Paper
+*CHI:	0.
+%par:	cries briefly
+%act:	CHI walks away from MOT over to the desk
+*MOT:	(be)cause you-'re gonna [: go-ing to] put those [= crayons] in your
+	mouth .
+%spa:	$NIA:GR
+%act:	<4-5> MOT pokes CHI in the back . < .5-.8> MOT picks up the papers
+	on the floor and puts them in the box with the crayons
+%gpx:	<aft> MOT looks up at CHI
+*CHI:	0.
+%act:	CHI is reaching for something on the desk that is out of camera view
+*MOT:	uhoh -.
+%spa:	$NIA:PF
+%com:	intonation indicates MOT is forbidding CHI's act
+%act:	MOT puts the cover on the box
+*MOT:	no hand-s .
+%spa:	$NIA:PF
+%act:	MOT reaches out and grabs CHI's arm
+%sit:	CHI is making noises but since CHI is completely out of camera view
+	and there is no way of knowing what is being done at the desk
+*MOT:	no hand-s .
+%spa:	$NIA:PF
+%par:	<bef> laughs
+%act:	<aft> MOT pushes the cover down on the box
+*CHI:	0.
+%act:	CHI walks over to the box
+%gpx:	CHI watches MOT
+*MOT:	<0> [+ trn] .
+%spa:	$NMA:MK:IN
+%gpx:	MOT looks CHI in face and widens eyes
+%par:	sharp intake of breath
+*CHI:	0.
+%gpx:	CHI turns towards the desk
+*MOT:	what-'is next ?
+%spa:	$NIA:QN
+%act:	MOT picks up the box and puts it on the other boxes at the table
+*MOT:	+^ what-'is this [= contents of next box] ?
+%spa:	$DHA:QN
+%gpx:	MOT faces the desk
+*CHI:	0.
+%act:	CHI opens the bottom desk drawer and shakes the object from the
+	forbidden object task
+%tim:	09:39:00
+*MOT:	Christopher .
+%spa:	$NMA:CL
+%act:	<bef> MOT takes the next box and puts it on the floor . MOT pulls
+	the object away from CHI
+%gpx:	MOT smiles
+*CHI:	0.
+%gpx:	CHI's attention is fixed on the object
+*MOT:	can you put that [= object] away ?
+%spa:	$NIA:RP
+%act:	MOT pulls the object away from CHI and places it in the drawer
+*CHI:	0.
+%gpx:	CHI reaches out for the object as he stares at it
+*MOT:	can you put that [= object] away ?
+%spa:	$NIA:RP
+%par:	<aft> sharp intake of breath
+%act:	<aft> MOT closes the drawer
+*MOT:	what-'is this [= box] ?
+%spa:	$DHA:QN
+%gpx:	MOT looks at the box on the floor
+*CHI:	0.
+%gpx:	CHI looks at the box
+%act:	CHI walks over to the box
+*MOT:	what-'is in this box ?
+%spa:	$DJF:QN
+@Activities:	Book
+@bg:	book
+*CHI:	oh -: .
+%tim:	09:39:12
+%com:	MOT opens the box and takes the ball box off of the table
+%spa:	$DJF:MK
+*CHI:	oh this .
+%spa:	$DJF:SA
+%pho:	/o o dIs/
+%act:	CHI picks up the book and starts turning the pages
+%gpx:	CHI holds the book up in front of him and stares at it
+*MOT:	0.
+%act:	MOT pushes the box cover out of the way and sits on the floor
+%gpx:	MOT looks up at CHI
+*CHI:	this .
+%mor:	$NP:S:P
+%spa:	$DJF:ST
+%pho:	/di/
+%act:	CHI flips through the pages of the book and then accidentally drops
+	it on the floor
+*MOT:	can Mommy read that [= book] with you ?
+%spa:	$NIA:FP
+*CHI:	yyy .
+%spa:	$NIA:PA:IN
+%pho:	/a gi g6/
+%act:	CHI picks up the book and hands it to MOT
+*MOT:	okay .
+%spa:	$NIA:AC
+%act:	MOT takes the book from CHI
+*MOT:	+^ you wanna [: want to] sit down ?
+%spa:	$NMA:RQ
+%gpx:	MOT pats her lap and looks at CHI
+*CHI:	0.
+%gpx:	CHI looks at MOT
+*MOT:	you wanna [: want to] sit down on Mommy-'s lap ?
+%spa:	$NMA:RQ
+%act:	MOT takes CHI and puts him on her lap
+*MOT:	okay .
+%spa:	$NIA:MK
+%act:	MOT holds the book in front of CHI
+*CHI:	0.
+%gpx:	CHI looks at the book
+*MOT:	<baby animal-s> ["] .
+%spa:	$TXT:TX
+%par:	<bef> sharp intake of breath
+%gpx:	<1> MOT points to the cover
+%act:	<aft> MOT opens the cover
+*MOT:	what-'is that ?
+%spa:	$DHA:QN
+%gpx:	MOT points to the page
+*CHI:	kitty .
+%spa:	$DJF:SA
+%mor:	$NP:U
+%gpx:	CHI looks at the page
+*MOT:	what-'is this ?
+%spa:	$DHA:QN
+%gpx:	MOT points to the other page and looks at CHI
+*CHI:	0.
+%gpx:	CHI looks at the page blankly
+*MOT:	doggy .
+%spa:	$DJF:SA
+*CHI:	yyy .
+%spa:	$YYY:YY
+%pho:	/e dan/
+%act:	CHI tries to get out of MOT's arms
+*MOT:	what does a doggy say ?
+%spa:	$DRP:EA
+%gpx:	CHI leans to the opposite side of CHI and looks at him in an effort
+	to get his attention
+*CHI:	0.
+%act:	CHI walks over to the desk and opens the bottom drawer
+*MOT:	0.
+%par:	laughs
+%gpx:	MOT watches CHI
+*CHI:	0.
+%act:	CHI shakes the object wildly
+*MOT:	Christopher .
+%spa:	$NMA:CL
+%act:	MOT puts her hand on the object
+*CHI:	0.
+%act:	CHI stops shaking the object
+*MOT:	Christopher .
+%spa:	$NMA:CL
+%gpx:	MOT looks up on CHI while she continues to hold down the object
+*CHI:	0.
+%act:	CHI takes his hands off of the object
+%gpx:	CHI looks at the object
+*MOT:	no .
+%spa:	$NIA:PF
+%gpx:	MOT looks up on CHI while she continues to hold down the object
+*CHI:	0.
+%par:	CHI whines and squats down on the floor
+*MOT:	okay close the drawer .
+%spa:	$NIA:RP
+%act:	MOT pushes the drawer closed
+%gpx:	MOT watches CHI
+*CHI:	no+no [=! whines] .
+%spa:	$NIA:RD
+%pho:	/na na/
+*CHI:	no+no [=! whines] .
+%spa:	$NIA:CS:IN
+%pho:	/na na/
+%act:	CHI tries to pull the drawer open
+%sit:	MOT holds the drawer closed
+*CHI:	0.
+%par:	CHI cries in frustration
+%act:	CHI walks over to the boxes at the table
+%tim:	09:40:00
+@eg:	10mins
+*MOT:	0.
+%act:	MOT puts the book away
+*CHI:	0.
+%act:	CHI pulls a box off the table
+%gpx:	CHI looks up at MOT
+*MOT:	uhoh .
+%spa:	$MRK:MK
+*CHI:	0.
+%act:	CHI picks up the box and drops it and then walks over to the book
+	box
+*MOT:	what-'is in here ?
+%spa:	$DJF:QN
+%act:	MOT opens the box
+%par:	<aft> sharp intake of breath
+*CHI:	yyy .
+%spa:	$DJF:SA
+%pho:	/ki ki/
+%act:	CHI reaches in the box and takes out the book
+%gpx:	CHI stands in front of MOT flipping the book between his hand and
+	looking around the room
+*MOT:	what else ?
+%spa:	$DJF:QN
+%act:	MOT closes the cover of the box
+%gpx:	MOT looks at CHI
+%sit:	voices are heard somewhere outside the room
+*CHI:	0.
+%gpx:	CHI looks around the room to see where the voices are coming from
+*MOT:	what was that noise ?
+%spa:	$DRE:QN
+*CHI:	0.
+%gpx:	CHI looks at MOT
+%act:	CHI walks over to MOT
+*MOT:	+^ what was that noise ?
+%spa:	$DRE:QN
+*CHI:	yyy .
+%spa:	$YYY:SA
+%pho:	/ko/
+%act:	CHI sits on MOTs lap
+*MOT:	you do-'nt know ?
+%spa:	$DCC:YQ
+%act:	MOT pulls CHI onto her lap
+*MOT:	okay .
+%spa:	$NIA:MK
+%act:	MOT reaches for the book
+*MOT:	what-'is this ?
+%spa:	$DHA:QN
+*CHI:	kitty .
+%spa:	$DJF:SA
+%mor:	$NP:U
+%act:	CHI holds the book up
+%gpx:	CHI looks at the book
+*MOT:	0.
+%act:	MOT takes the book and starts to open it
+%tim:	09:40:36
+%com:	End of PCI - Book . INV enters the room
+@eg:	book
+@eg	
+@End	

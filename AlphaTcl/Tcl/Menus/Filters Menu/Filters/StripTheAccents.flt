@@ -1,0 +1,58 @@
+!! This file : StripTheAccents.flt 
+!! Strip the accents from accented letters.
+!! To be used with the Filters Menu in Alpha.
+!! Last modification : 8 avril 2000 - 17:35:48
+!! (c) Copyright : Bernard Desgraupes 2000
+
+á	a
+à	a
+â	a
+ä	a
+å	a
+æ	ae
+Á	A
+À	A
+Â	A
+Ä	A
+Å	A
+Æ	AE
+ç	c
+Ç	C
+é	e
+è	e
+ê	e
+ë	e
+É	E
+Ë	E
+Ê	E
+È	E
+í	i
+ì	i
+î	i
+ï	i
+Í	I
+Ì	I
+Î	I
+Ï	I
+ó	o
+ò	o
+ô	o
+ö	o
+œ	oe
+Ó	O
+Ò	O
+Ô	O
+Ö	O
+Œ	OE
+ñ	n
+Ñ	N
+ß	ss
+ú	u
+ù	u
+û	u
+ü	u
+Ú	U
+Ù	U
+Û	U
+Ü	U
+

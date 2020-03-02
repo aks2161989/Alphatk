@@ -1,0 +1,251 @@
+
+<HTML>
+<HEAD>
+   <TITLE>PHP Mode Help</TITLE>
+   <META NAME=GENERATOR CONTENT="Claris Home Page 1.0">
+   <X-SAS-WINDOW TOP=42 BOTTOM=563 LEFT=4 RIGHT=534>
+</HEAD>
+<BODY background="../Images/vertpale.jpg">
+
+<P ALIGN=CENTER><A HREF="../index.html">Main page</A> 
+| <A HREF="../alpha.html">Alpha Page</A></P>
+
+<P>&nbsp;</P>
+
+<P><HR></P>
+
+<BLOCKQUOTE><P><I>This is "PHP mode Help", help file for the PHP mode
+in Alpha. For Alpha to find it, you must move this file to the "Help"
+folder located at the same level as the Alpha application itself.
+</I></P></BLOCKQUOTE>
+
+<P><HR></P>
+
+<P><HR></P>
+
+<UL>
+   <LI><A HREF="#anchor1">Introduction</A>
+   
+   <LI><A HREF="#anchor2">Installation</A>
+   
+   <UL>
+      <LI><A HREF="#anchor3">Automatic installation</A>
+      
+      <LI><A HREF="#anchor4">Manual installation</A>
+   </UL>
+   
+   <LI><A HREF="#anchor5">Electrics</A>
+   
+   <LI><A HREF="#anchor6">Words completion</A>
+   
+   <LI><A HREF="#anchor7">File marking</A>
+   
+   <LI><A HREF="#anchor8">Preferences</A>
+   
+   <LI><A HREF="#anchor9">Version History</A>
+   
+   <LI><A HREF="#anchor10">Known problems</A>
+   
+   <LI><A HREF="#anchor11">License and Disclaimer</A>
+</UL>
+
+<P><HR></P>
+
+<H2><A NAME="anchor1"></A>Introduction</H2>
+
+<P>This mode implements very basic mode-specific settings to write
+and edit PHP files in Alpha. It currently provides the following
+features:</P>
+
+<UL>
+   <LI>syntax coloring
+   
+   <LI>comments handling
+   
+   <LI>function definitions marking
+   
+   <LI>basic completion namely : keywords completion and electrics
+   for conditional structures
+</UL>
+
+<P>&nbsp;</P>
+
+<P>PHP mode will be developed further in the future when AlphaX (a
+carbonized version of Alpha running on OSX) is available. Any
+contributions are welcome.</P>
+
+<H2><A NAME="anchor2"></A>Installation</H2>
+
+<H3><A NAME="anchor3"></A>Automatic installation</H3>
+
+<P>Open the "OPEN TO INSTALL" file. Opening this file tells Alpha
+that a new package has to be installed : the procedure is automatic.
+Alpha knows where to store the different elements of your PHP Mode
+package.</P>
+
+<H3><A NAME="anchor4"></A>Manual installation</H3>
+
+<UL>
+   <LI>put the "PHPMode.tcl" file in the "Modes" subfolder of the
+   "Tcl" folder which is located at the same level as your Alpha
+   application
+   
+   <LI>put the "PHP Mode Help" file in the "Help" folder located at
+   the same level as your Alpha application. Next time you launch
+   Alpha, you will have a "PHP Mode Help" item in the Help menu to
+   edit this file.
+   
+   <LI>launch Alpha. You have to rebuild the package indices and the
+   Tcl ones. "Rebuild Package Indices" is in the "Config--Packages"
+   menu, and "Rebuild Tcl Indices" is in the Tcl menu.
+   
+   <LI>quit Alpha and relaunch it : that's all there is to it.
+</UL>
+
+<P>&nbsp;</P>
+
+<H2><A NAME="anchor5"></A>Electrics</H2>
+
+<P>PHP mode defines electric expansions for the following keywords :
+</P>
+
+<PRE> if, ifelse, ifelseif, elseif, while, do, for,
+ foreach, foreachkey, switch, php
+&nbsp;</PRE>
+
+<P>This means that you just have to type one of them and then hit the
+completion key (the Electric Completions package must be active) and
+they will expand to a complete structure which you can fill very
+easily : it contains electric tabs, ie bullet symbols, and you can
+jump from one to the following using the Tab key. For instance,
+typing 'do' (without the quotes) and completing yields :</P>
+
+<PRE> do {
+     
+     } while ( );
+&nbsp;</PRE>
+
+<P>Typing 'for' (without the quotes) and completing yields :</P>
+
+<PRE> for ( ;  ;  ) {
+      
+     }
+&nbsp;</PRE>
+
+<P>Typing 'for' (without the quotes) and completing yields :</P>
+
+<PRE> switch () {
+       case  :
+          
+       default:
+          
+     }
+&nbsp;</PRE>
+
+<H2><A NAME="anchor6"></A>Words completion</H2>
+
+<P>PHP mode also have a system of language keywords completion. Type
+the first letters of a keyword and Alpha will complete. If there are
+several choices, you'll be prompted to choose one of them. For
+instance, type 'sh' (without the quotes) and hit the completion key
+to get 'shuffle'.</P>
+
+<P>It you type imaget and hit the completion key, a list will be
+displayed with the possible choices which are in this case :
+imagettfbbox, imagettftext, imagetypes.</P>
+
+<H2><A NAME="anchor7"></A>File marking</H2>
+
+<P>All the functions defined in the document with the following
+scheme</P>
+
+<PRE>  function foo ($arg_1, $arg_2, ..., $arg_n) {
+      Instructions here...
+  }
+&nbsp;</PRE>
+
+<P>can be marked and made accessible via the "M" popup menu in the
+top-right corner of the document's window.</P>
+
+<H2><A NAME="anchor8"></A>Preferences</H2>
+
+<P>A few preferences can be set in the PHP Mode Preferences which you
+access from the "Config -- Mode Prefs -- Preferences..." menu item.
+Among other choices you can set :</P>
+
+<UL>
+   <LI>the prefix string (Default is // )
+   
+   <LI>the syntax coloring
+   
+   <UL>
+      <LI>Color for comments (Default is red)
+      
+      <LI>Color for keywords (Default is blue)
+      
+      <LI>Color for strings (Default is green)
+      
+      <LI>Color for delimiters (Default is magenta)
+   </UL>
+   
+   <P>&nbsp;</P>
+</UL>
+
+<P>&nbsp;</P>
+
+<H2><A NAME="anchor9"></A>Version History</H2>
+
+<UL>
+   <LI>0.1.1 01/05/08 First release.
+</UL>
+
+<P>&nbsp;</P>
+
+<H2><A NAME="anchor10"></A>Known problems</H2>
+
+<P>Please e-mail any problem or bug you encounter :</P>
+
+<P><A HREF="mailto:bdesgraupes@easyconnect.fr">bdesgraupes@easyconnect.fr</A>
+</P>
+
+<H2><A NAME="anchor11"></A>License and Disclaimer</H2>
+
+<P>Copyright Bernard Desgraupes, 2001, 2002 All rights reserved. This
+software is free software distributed under the terms of the new BSD
+license : Redistribution and use in source and binary forms, with or
+without modification, are permitted provided that the following
+conditions are met:</P>
+
+<UL>
+   <LI>Redistributions of source code must retain the above copyright
+   notice, this list of conditions and the following disclaimer.
+   
+   <LI>Redistributions in binary form must reproduce the above
+   copyright notice, this list of conditions and the following
+   disclaimer in the documentation and/or other materials provided
+   with the distribution.
+   
+   <LI>Neither the name of Bernard Desgraupes nor the names of its
+   contributors may be used to endorse or promote products derived
+   from this software without specific prior written permission.
+</UL>
+
+<P>This software is provided by the copyright holders and
+contributors "as is" and any express or implied warranties,
+including, but not limited to, the implied warranties of
+merchantability and fitness for a particular purpose are disclaimed.
+In no event shall the regents or contributors be liable for any
+direct, indirect, incidental, special, exemplary, or consequential
+damages (including, but not limited to, procurement of substitute
+goods or services; loss of use, data, or profits; or business
+interruption) however caused and on any theory of liability, whether
+in contract, strict liability, or tort (including negligence or
+otherwise) arising in any way out of the use of this software, even
+if advised of the possibility of such damage.</P>
+
+<P ALIGN=CENTER>&nbsp;</P>
+
+<P ALIGN=CENTER><A HREF="../index.html">Main page</A> 
+| <A HREF="../alpha.html">Alpha Page</A></P>
+</BODY>
+</HTML>

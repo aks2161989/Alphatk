@@ -1,0 +1,359 @@
+# -*-Tcl-*- (nowrap)
+# Cache v1.2 created on 06/02/2006 {11:06:59 PM}
+set uninstall(filesetIndentationPreference) {0.2.1 {[file join $HOME "Tcl/Packages/filesetIndentation.tcl"]} {file delete [file join $HOME "Tcl/Packages/filesetIndentation.tcl"]}}
+set uninstall(changeLogHelper) {0.1 {[file join $HOME "Tcl/Packages/changeLogHelper.tcl"]} {file delete [file join $HOME "Tcl/Packages/changeLogHelper.tcl"]}}
+set uninstall(thinkRefMenu) {1.1 {[file join $HOME "Tcl/Menus/thinkRefMenu.tcl"]} {file delete [file join $HOME "Tcl/Menus/thinkRefMenu.tcl"]}}
+set uninstall(electricMenu) {1.3.7 {[file join $HOME "Tcl/Menus/electricMenu.tcl"]} {file delete [file join $HOME "Tcl/Menus/electricMenu.tcl"]}}
+set uninstall(openDocument) {1.2.1 {[file join $HOME "Tcl/Packages/openDocument.tcl"]} {file delete [file join $HOME "Tcl/Packages/openDocument.tcl"]}}
+set uninstall(InSh) {1.3.6 {[file join $HOME "Tcl/Modes/inshMode.tcl"]} {file delete [file join $HOME "Tcl/Modes/inshMode.tcl"]}}
+set uninstall(javadocComment) {0.1 {[file join $HOME "Tcl/Packages/javadocComment.tcl"]} {file delete [file join $HOME "Tcl/Packages/javadocComment.tcl"]}}
+set uninstall(C) {1.4.5 {[file join $HOME "Tcl/Modes/cMode.tcl"]} {
+    if {[askyesno  "Uninstalling \"C\" mode will also remove \"C++\" and \"Objc\" modes.\r\r Do you want to continue?"]} {
+	catch {file delete [file join $HOME Tcl Modes cMode.tcl]}
+	catch {file delete [file join $HOME Tcl Completions CCompletions.tcl]}
+	catch {file delete [file join $HOME Tcl Completions C++Completions.tcl]}
+	catch {file delete [file join $HOME Tcl Completions "C Tutorial.r"]}
+	catch {file delete [file join $HOME Tcl Completions "C++ Tutorial.cc"]}
+    }
+}}
+set uninstall(TeXC) {0.1.2 {[file join $HOME "Tcl/Modes/latex Mode/tetexComm.tcl"]} {file delete [file join $HOME "Tcl/Modes/latex Mode/tetexComm.tcl"]}}
+set uninstall(MPW) {0.6.1 {[file join $HOME "Tcl/Modes/mpwMode.tcl"]} {file delete [file join $HOME "Tcl/Modes/mpwMode.tcl"]}}
+set uninstall(Stta) {2.3b1 {[file join $HOME "Tcl/Modes/stataMode.tcl"]} {
+    catch {file delete [file join $HOME Tcl Modes stataMode.tcl]}
+    catch {file delete [file join $HOME Tcl Completions SttaCompletions.tcl]}
+    catch {file delete [file join $HOME Tcl Completions "Stta Tutorial.do"]}
+}}
+set uninstall(mailTcllib) {2.0 {[file join $HOME "Tcl/Menus/Mail Menu/mailTcllib.tcl"]} {file delete [file join $HOME "Tcl/Menus/Mail Menu/mailTcllib.tcl"]}}
+set uninstall(elecCompletions) {9.1.3 {[file join $HOME "Tcl/Packages/elecCompletion.tcl"]} {file delete [file join $HOME "Tcl/Packages/elecCompletion.tcl"]}}
+set uninstall(germanUmlaute) {0.2.1 {[file join $HOME "Tcl/Packages/germanUmlaute.tcl"]} {file delete [file join $HOME "Tcl/Packages/germanUmlaute.tcl"]}}
+set uninstall(VB) {0.1 {[file join $HOME "Tcl/Modes/VBMode.tcl"]} {file delete [file join $HOME "Tcl/Modes/VBMode.tcl"]}}
+set uninstall(emacs) {0.3.3 {[file join $HOME "Tcl/Packages/emacs.tcl"]} {file delete [file join $HOME "Tcl/Packages/emacs.tcl"]}}
+set uninstall(m4) {0.1 {[file join $HOME "Tcl/Modes/m4Mode.tcl"]} {file delete [file join $HOME "Tcl/Modes/m4Mode.tcl"]}}
+set uninstall(rememberWindows) {0.4.0 {[file join $HOME "Tcl/Packages/rememberWindows.tcl"]} {file delete [file join $HOME "Tcl/Packages/rememberWindows.tcl"]}}
+set uninstall(calculator) {1.0 {[file join $HOME "Tcl/Modes/calc.tcl"]} {file delete [file join $HOME "Tcl/Modes/calc.tcl"]}}
+set uninstall(vfsFileset) {0.3.7 {[file join $HOME "Tcl/Packages/vfsFileset.tcl"]} {file delete [file join $HOME "Tcl/Packages/vfsFileset.tcl"]}}
+set uninstall(makeMenu) {0.2 {[file join $HOME "Tcl/Menus/makeMenu.tcl"]} {file delete [file join $HOME "Tcl/Menus/makeMenu.tcl"]}}
+set uninstall(Scil) {1.0 {[file join $HOME "Tcl/Modes/scilabMode.tcl"]} {file delete [file join $HOME "Tcl/Modes/scilabMode.tcl"]}}
+set uninstall(colorMenu) {1.2.3 {[file join $HOME "Tcl/Menus/colorsMenu.tcl"]} {file delete [file join $HOME "Tcl/Menus/colorsMenu.tcl"]}}
+set uninstall(macros) {2.0.1 {[file join $HOME "Tcl/Packages/macros.tcl"]} {file delete [file join $HOME "Tcl/Packages/macros.tcl"]}}
+set uninstall(tkhtmlViewer) {0.2 {[file join $HOME "Tcl/Packages/tkhtmlViewer.tcl"]} {file delete [file join $HOME "Tcl/Packages/tkhtmlViewer.tcl"]}}
+set uninstall(Clan) {1.1 {[file join $HOME "Tcl/Modes/clanMode.tcl"]} {file delete [file join $HOME "Tcl/Modes/clanMode.tcl"]}}
+set uninstall(speech) {1.3.2 {[file join $HOME "Tcl/Packages/speakText.tcl"]} {file delete [file join $HOME "Tcl/Packages/speakText.tcl"]}}
+set uninstall(newDocument) {1.0.3 {[file join $HOME "Tcl/Packages/newDocument.tcl"]} {file delete [file join $HOME "Tcl/Packages/newDocument.tcl"]}}
+set uninstall(elecExpansions) {9.1.3 {[file join $HOME "Tcl/Packages/elecExpansions.tcl"]} {file delete [file join $HOME "Tcl/Packages/elecExpansions.tcl"]}}
+set uninstall(toolboxRefMenu) {1.1 {[file join $HOME "Tcl/Menus/toolboxAssistMenu.tcl"]} {file delete [file join $HOME "Tcl/Menus/toolboxAssistMenu.tcl"]}}
+set uninstall(filesetMenu) {2.1.6 {[file join $HOME "Tcl/Menus/filesetsMenu.tcl"]} {file delete [file join $HOME "Tcl/Menus/filesetsMenu.tcl"]}}
+set uninstall(wikiMenu) {1.2b8 {[file join $HOME "Tcl/Modes/Wiki Mode/wikiMenu.tcl"]} {file delete -force [file join $HOME "Tcl/Modes/Wiki Mode"]}}
+set uninstall(Igor) {1.1.1 {[file join $HOME "Tcl/Modes/igorMode.tcl"]} {
+    catch {file delete [file join $HOME Tcl Modes igorMode.tcl]}
+    catch {file delete [file join $HOME Tcl Completions IgorCompletions.tcl]}
+}}
+set uninstall(filesetRemoteMirror) {0.4.0 {[file join $HOME "Tcl/Packages/filesetRemoteMirror.tcl"]} {file delete [file join $HOME "Tcl/Packages/filesetRemoteMirror.tcl"]}}
+set uninstall(copyRing) {1.7.4 {[file join $HOME "Tcl/Packages/copyRing.tcl"]} {file delete [file join $HOME "Tcl/Packages/copyRing.tcl"]}}
+set uninstall(voodooMenu) {2.0.2 {[file join $HOME "Tcl/Menus/VOODOOMenu/voodooMenu.tcl"]} {file delete -force [file join $HOME "Tcl/Menus/VOODOOMenu"]}}
+set uninstall(S) {2.3 {[file join $HOME "Tcl/Modes/sMode.tcl"]} {
+    catch {file delete [file join $HOME Tcl Modes sMode.tcl]}
+    catch {file delete [file join $HOME Tcl Completions SCompletions.tcl]}
+    catch {file delete [file join $HOME Tcl Completions "S Tutorial.s"]}
+}}
+set uninstall(recentFiles) {1.3 {[file join $HOME "Tcl/Packages/recentFilesMulti.tcl"]} {file delete [file join $HOME "Tcl/Packages/recentFilesMulti.tcl"]}}
+set uninstall(elecCorrections) {1.1b2 {[file join $HOME "Tcl/Packages/elecCorrections.tcl"]} {
+    catch {file delete [file join $HOME Tcl Packages elecCorrections.tcl]}
+    catch {file delete [file join $HOME Help "Electric Corrections Help"]}
+}}
+set uninstall(man) {0.1.5 {[file join $HOME "Tcl/Modes/manMode.tcl"]} {file delete [file join $HOME "Tcl/Modes/manMode.tcl"]}}
+set uninstall(windowZoom) {1.0.1 {[file join $HOME "Tcl/Packages/windowZoom.tcl"]} {file delete [file join $HOME "Tcl/Packages/windowZoom.tcl"]}}
+set uninstall(Pyth) {1.0.3 {[file join $HOME "Tcl/Modes/pythonMode.tcl"]} {file delete [file join $HOME "Tcl/Modes/pythonMode.tcl"]}}
+set uninstall(MATL) {2.0.8 {[file join $HOME "Tcl/Modes/Matlab mode/matlabMode.tcl"]} {file delete -force [file join $HOME "Tcl/Modes/Matlab mode"]}}
+set uninstall(Objc) {1.4.2 {[file join $HOME "Tcl/Modes/cMode.tcl"]} {
+    if {[askyesno  "Uninstalling \"Objc\" mode will also remove \"C\" and \"C++\" modes.\r\r Do you want to continue?"]} {
+	catch {file delete [file join $HOME Tcl Modes cMode.tcl]}
+	catch {file delete [file join $HOME Tcl Completions CCompletions.tcl]}
+	catch {file delete [file join $HOME Tcl Completions "C Tutorial.r"]}
+	catch {file delete [file join $HOME Tcl Completions "C++ Tutorial.cc"]}
+    }
+}}
+set uninstall(autoSaveOnSwitch) {0.1.1 {[file join $HOME "Tcl/Packages/autoSaveOnSwitch.tcl"]} {file delete [file join $HOME "Tcl/Packages/autoSaveOnSwitch.tcl"]}}
+set uninstall(ftpMenu) {1.1.3 {[file join $HOME "Tcl/Menus/ftpMenu.tcl"]} {file delete [file join $HOME "Tcl/Menus/ftpMenu.tcl"]}}
+set uninstall(recentDirsMenu) {1.3.8 {[file join $HOME "Tcl/Packages/recentDirs.tcl"]} {file delete [file join $HOME "Tcl/Packages/recentDirs.tcl"]}}
+set uninstall(f2cMenu) {2.0 {[file join $HOME "Tcl/Menus/f2cMenu.tcl"]} {file delete [file join $HOME "Tcl/Menus/f2cMenu.tcl"]}}
+set uninstall(filesetFtpMirror) {0.3.1 {[file join $HOME "Tcl/Packages/filesetFtpMirror.tcl"]} {file delete [file join $HOME "Tcl/Packages/filesetFtpMirror.tcl"]}}
+set uninstall(Mf) {2.1 {[file join $HOME "Tcl/Modes/Metafont Mode/mfMode.tcl"]} {file delete -force [file join $HOME "Tcl/Modes/Metafont Mode"]}}
+set uninstall(terminal) {1.5.1 {[file join $HOME "Tcl/Packages/terminalPrefsAlpha.tcl"]} {
+   file delete [file join $HOME Tcl Packages terminalPrefsAlpha.tcl]
+   file delete [file join $HOME Tcl Packages terminal.tcl]
+   file delete [file join $HOME Help "Terminal Help"]
+   file delete [file join $HOME Examples Terminal-Example.tcl]
+   file delete -force [file join $HOME Developer Source terminal]
+}}
+set uninstall(smartPaste) {0.7.4 {[file join $HOME "Tcl/Packages/smartPaste.tcl"]} {file delete [file join $HOME "Tcl/Packages/smartPaste.tcl"]}}
+set uninstall(latexSizes) {1.0 {[file join $HOME "Tcl/Packages/latexSizes.tcl"]} {file delete [file join $HOME "Tcl/Packages/latexSizes.tcl"]}}
+set uninstall(contextualMenu) {1.2.1 {[file join $HOME "Tcl/SystemCode/CorePackages/contextualMenu.tcl"]} {file delete [file join $HOME "Tcl/SystemCode/CorePackages/contextualMenu.tcl"]}}
+set uninstall(Setx) {2.6b1 {[file join $HOME "Tcl/Modes/setextMode.tcl"]} {file delete [file join $HOME "Tcl/Modes/setextMode.tcl"]}}
+set uninstall(dtd) {0.4.2 {[file join $HOME "Tcl/Modes/xmlMode.tcl"]} {
+    if {[askyesno  "Uninstalling \"dtd\" mode will also remove \"xml\" mode.\r\r Do you want to continue?"]} {
+	catch {file delete [file join $HOME Tcl Modes xmlMode.tcl]}
+    }
+}}
+set uninstall(HTML) {3.2b1 {[file join $HOME "Tcl/Modes/HTML and CSS Modes/htmlMode.tcl"]} {
+	if {[askyesno "This will uninstall both HTML and CSS modes. Continue?"] == "no"} {return}
+	catch {file delete [file join $HOME Tcl Completions HTMLCompletions.tcl]}
+	catch {file delete [file join $HOME Tcl Completions CSSCompletions.tcl]}
+	catch {file delete [file join $HOME Help "CSS Help.tcl"]}
+	catch {file delete [file join $HOME Help "HTML Help.tcl"]}
+	catch {file delete -force [file join $HOME Help "HTML Help"]}
+	set folder [procs::find htmlMenu]
+	if {$folder != ""}Ê{
+		set folder [file dirname $folder]
+		if {[file exists $folder]} {catch {file delete -force $folder}}
+	}
+}}
+set uninstall(prettyComments) {0.1 {[file join $HOME "Tcl/Packages/prettyComments.tcl"]} {file delete [file join $HOME "Tcl/Packages/prettyComments.tcl"]}}
+set uninstall(vcVoodoo) {0.2 {[file join $HOME "Tcl/Packages/vcVoodoo.tcl"]} {file delete [file join $HOME "Tcl/Packages/vcVoodoo.tcl"]}}
+set uninstall(vcPerforce) {0.3 {[file join $HOME "Tcl/Packages/vcPerforce.tcl"]} {file delete [file join $HOME "Tcl/Packages/vcPerforce.tcl"]}}
+set uninstall(embrace) {1.1.6 {[file join $HOME "Tcl/Packages/embrace.tcl"]} {file delete [file join $HOME "Tcl/Packages/embrace.tcl"]}}
+set uninstall(bat) {0.2 {[file join $HOME "Tcl/Modes/batMode.tcl"]} {file delete [file join $HOME "Tcl/Modes/batMode.tcl"]}}
+set uninstall(SAS) {2.3 {[file join $HOME "Tcl/Modes/sasMode.tcl"]} {file delete [file join $HOME "Tcl/Modes/sasMode.tcl"]}}
+set uninstall(mailMenu) {2.0 {[file join $HOME "Tcl/Menus/Mail Menu/mailMenu.tcl"]} {file delete -force [file join $HOME "Tcl/Menus/Mail Menu"]}}
+set uninstall(Lisp) {2.3 {[file join $HOME "Tcl/Modes/lispMode.tcl"]} {
+    catch {file delete [file join $HOME Tcl Modes lispMode.tcl]}
+    catch {file delete [file join $HOME Tcl Completions LispCompletions.tcl]}
+    catch {file delete [file join $HOME Tcl Completions "Lisp Tutorial.el"]}
+    catch {file delete [file join $HOME Help "Lisp Help"]}
+}}
+set uninstall(Vlog) {0.2.1 {[file join $HOME "Tcl/Modes/VlogMode.tcl"]} {file delete [file join $HOME "Tcl/Modes/VlogMode.tcl"]}}
+set uninstall(Scrp) {2.3 {[file join $HOME "Tcl/Modes/AppleScript Mode/ASmode.tcl"]} {file delete -force [file join $HOME "Tcl/Modes/AppleScript Mode"]}}
+set uninstall(sourceforgeMenu) {0.3.5 {[file join $HOME "Tcl/Menus/sourceforgeMenu.tcl"]} {file delete [file join $HOME "Tcl/Menus/sourceforgeMenu.tcl"]}}
+set uninstall(C++) {1.4.5 {[file join $HOME "Tcl/Modes/cMode.tcl"]} {
+    if {[askyesno  "Uninstalling \"C++\" mode will also remove \"C\" and \"Objc\" modes.\r\r Do you want to continue?"]} {
+	catch {file delete [file join $HOME Tcl Modes cMode.tcl]}
+	catch {file delete [file join $HOME Tcl Completions CCompletions.tcl]}
+	catch {file delete [file join $HOME Tcl Completions C++Completions.tcl]}
+	catch {file delete [file join $HOME Tcl Completions "C Tutorial.r"]}
+	catch {file delete [file join $HOME Tcl Completions "C++ Tutorial.cc"]}
+    }
+}}
+set uninstall(clipboardPreferences) {1.3 {[file join $HOME "Tcl/Packages/cutCopyPaste.tcl"]} {file delete [file join $HOME "Tcl/Packages/cutCopyPaste.tcl"]}}
+set uninstall(PS) {0.6.3 {[file join $HOME "Tcl/Modes/postscriptMode.tcl"]} {file delete [file join $HOME "Tcl/Modes/postscriptMode.tcl"]}}
+set uninstall(latexMathbb) {1.3.2 {[file join $HOME "Tcl/Packages/latexMathbb.tcl"]} {file delete [file join $HOME "Tcl/Packages/latexMathbb.tcl"]}}
+set uninstall(Wiki) {{for wikiMenu menu} {[file join $HOME "Tcl/Modes/Wiki Mode/wikiMode.tcl"]} {file delete -force [file join $HOME "Tcl/Modes/Wiki Mode"]}}
+set uninstall(tclproUtils) {0.4.0 {[file join $HOME "Tcl/Packages/tclproUtils.tcl"]} {file delete [file join $HOME "Tcl/Packages/tclproUtils.tcl"]}}
+set uninstall(betterTemplates) {9.3.1 {[file join $HOME "Tcl/Packages/elecTemplates.tcl"]} {file delete [file join $HOME "Tcl/Packages/elecTemplates.tcl"]}}
+set uninstall(Mp) {2.2 {[file join $HOME "Tcl/Modes/Metapost Mode/mpMode.tcl"]} {file delete -force [file join $HOME "Tcl/Modes/Metapost Mode"]}}
+set uninstall(bibConvert) {2.0.2 {[file join $HOME "Tcl/Packages/Bibconversion/bibConvert.tcl"]} {file delete -force [file join $HOME "Tcl/Packages/Bibconversion"]}}
+set uninstall(searchPaths) {1.2.6 {[file join $HOME "Tcl/Packages/modeSearchPaths.tcl"]} {file delete [file join $HOME "Tcl/Packages/modeSearchPaths.tcl"]}}
+set uninstall(smarterSource) {1.0 {[file join $HOME "Tcl/Packages/smarterSource.tcl"]} {file delete [file join $HOME "Tcl/Packages/smarterSource.tcl"]}}
+set uninstall(M2) {4.2.1 {[file join $HOME "Tcl/Modes/M2 Mode/m2Mode.tcl"]} {
+    if {[askyesno "You should NOT deinstall preinstalled modes (see also Modula-2 Help).  For upgrading try a reinstallation. Really proceed?"] == "yes"} {
+	# Prefs and variables
+	M2::uninstallAllDefs
+	# Help
+	M2::uninstallFile "[file join $HOME Help "Modula-2 Help"]"
+	# Completions and Completions tutorial
+	M2::uninstallFile "[file join $HOME Tcl Completions "M2Completions.tcl"]"
+	M2::uninstallFile "[file join $HOME Tcl Completions "M2 Tutorial.M2"]"
+        # Mode
+	M2::uninstallFile "[file join $HOME Tcl Modes "M2 Mode" "m2ShellUse.tcl"]"
+	M2::uninstallFile "[file join $HOME Tcl Modes "M2 Mode" "m2Marking.tcl"]"
+	M2::uninstallFile "[file join $HOME Tcl Modes "M2 Mode" "m2Prefs.tcl"]"
+	M2::uninstallFile "[file join $HOME Tcl Modes "M2 Mode" "m2Edit.tcl"]"
+	M2::uninstallFile "[file join $HOME Tcl Modes "M2 Mode" "m2Bindings.tcl"]"
+	M2::uninstallFile "[file join $HOME Tcl Modes "M2 Mode" "m2AdjPrefs.tcl"]"
+	M2::uninstallFile "[file join $HOME Tcl Modes "M2 Mode" "m2Config.tcl"]"
+	M2::uninstallFile "[file join $HOME Tcl Modes "M2 Mode" "m2Menu.tcl"]"
+	M2::uninstallFile "[file join $HOME Tcl Modes "M2 Mode" "m2Syntax.tcl"]"
+	M2::uninstallFile "[file join $HOME Tcl Modes "M2 Mode" "m2Templates.tcl"]"
+	M2::uninstallFile "[file join $HOME Tcl Modes "M2 Mode" "m2HelpLookup.tcl"]"
+	M2::uninstallFile "[file join $HOME Tcl Modes "M2 Mode" "m2Utils.tcl"]"
+	M2::uninstallFile "[file join $HOME Tcl Modes "M2 Mode" "m2GlobAux.tcl"]"
+	M2::uninstallFile "[file join $HOME Tcl Modes "M2 Mode" "m2BackCompatibilty.tcl"]"
+	M2::uninstallFile "[file join $HOME Tcl Modes "M2 Mode" "m2CompErr.tcl"]"
+	M2::uninstallFile "[file join $HOME Tcl Modes "M2 Mode" "m2Load.tcl"]"
+	M2::uninstallFile "[file join $HOME Tcl Modes "M2 Mode" "m2Mode.tcl"]"
+	M2::uninstallFile "[file join $HOME Tcl Packages "globalM2bindings.tcl"]"
+	M2::uninstallFile "[file join $HOME Tcl Modes "M2 Mode" "globalM2bindings.tcl"]"
+	M2::uninstallFile "[file join $HOME Tcl Modes "M2 Mode" "tclIndexx"]"
+	M2::uninstallFile "[file join $HOME Tcl Modes "M2 Mode" CVS "Entries"]"
+	M2::uninstallFile "[file join $HOME Tcl Modes "M2 Mode" CVS "Repository"]"
+	M2::uninstallFile "[file join $HOME Tcl Modes "M2 Mode" CVS "Root"]"
+	M2::uninstallFile "[file join $HOME Tcl Modes "M2 Mode" CVS "Tag"]"
+	M2::uninstallFile "[file join $HOME Tcl Modes "M2 Mode" CVS][file join ""]"
+	# The following will fail, since the folder still contains a
+	# hidden CVS folder, containing files 'Entries', 'Repository', 'Root',
+	# and 'Tag'. I decide to leave this folder untouched during a deinstallation.
+	M2::uninstallFile "[file join $HOME Tcl Modes "M2 Mode"][file join ""]"
+	# 
+	set msg "M2 deinstallation done: All mode's objects removed unless reported otherwise."
+	if {[info exists M2::installDebugFlag] && [set M2::installDebugFlag]} {
+	    alertnote [set msg]
+	} else {
+	    status::msg [set msg]
+	}
+    }
+}}
+set uninstall(latexColors) {0.5 {[file join $HOME "Tcl/Packages/latexColors.tcl"]} {file delete [file join $HOME "Tcl/Packages/latexColors.tcl"]}}
+set uninstall(PHP) {0.1.2 {[file join $HOME "Tcl/Modes/phpMode.tcl"]} {file delete [file join $HOME "Tcl/Modes/phpMode.tcl"]}}
+set uninstall(SQL) {1.1.3 {[file join $HOME "Tcl/Modes/sqlMode.tcl"]} {file delete [file join $HOME "Tcl/Modes/sqlMode.tcl"]}}
+set uninstall(documentProjects) {2.0.2 {[file join $HOME "Tcl/Packages/Docprojects.tcl"]} {file delete [file join $HOME "Tcl/Packages/Docprojects.tcl"]}}
+set uninstall(SPSS) {2.3 {[file join $HOME "Tcl/Modes/spssMode.tcl"]} {file delete [file join $HOME "Tcl/Modes/spssMode.tcl"]}}
+set uninstall(JScr) {1.1.4 {[file join $HOME "Tcl/Modes/javaScriptMode.tcl"]} {file delete [file join $HOME "Tcl/Modes/javaScriptMode.tcl"]}}
+set uninstall(mailEudora) {2.0 {[file join $HOME "Tcl/Menus/Mail Menu/mailEudora.tcl"]} {file delete [file join $HOME "Tcl/Menus/Mail Menu/mailEudora.tcl"]}}
+set uninstall(projectBuilderMenu) {0.1 {[file join $HOME "Tcl/Menus/projectBuilderMenu.tcl"]} {file delete [file join $HOME "Tcl/Menus/projectBuilderMenu.tcl"]}}
+set uninstall(coq) {0.1 {[file join $HOME "Tcl/Modes/coqMode.tcl"]} {file delete [file join $HOME "Tcl/Modes/coqMode.tcl"]}}
+set uninstall(Fort) {2.0 {[file join $HOME "Tcl/Modes/fortranMode.tcl"]} {
+    if {[askyesno "You are about to remove both 'Fort' and 'f90' modes. \r\rDo you want to continue?"]} {
+	foreach fileName [list  [file join $::HOME Tcl Modes fortranMode.tcl]  [file join $::HOME Tcl Completions FortCompletions.tcl]  [file join $::HOME Tcl Completions "Fort Tutorial.f"]  [file join $::HOME Tcl Completions f90Completions.tcl]  [file join $::HOME Tcl Completions "f90 Tutorial.f90"]  [file join $::HOME Help "Fortran Mode Help"]  ] {
+	    if {[file exists $fileName]} {
+	        catch {file delete -force $fileName}
+	    }
+	}
+	unset fileName
+    }
+}}
+set uninstall(Scm) {2.2 {[file join $HOME "Tcl/Modes/schemeMode.tcl"]} {
+    catch {file delete [file join $HOME Tcl Modes schemeMode.tcl]}
+    catch {file delete [file join $HOME Tcl Completions ScmCompletions.tcl]}
+}}
+set uninstall(vcCvs) {0.4.1 {[file join $HOME "Tcl/Packages/vcCvs.tcl"]} {file delete [file join $HOME "Tcl/Packages/vcCvs.tcl"]}}
+set uninstall(alphaServer) {3.0 {[file join $HOME "Tcl/Packages/alphaServer.tcl"]} {file delete [file join $HOME "Tcl/Packages/alphaServer.tcl"]}}
+set uninstall(bibDelimited) {1.0 {[file join $HOME "Tcl/Packages/bibDelimited.tcl"]} {file delete [file join $HOME "Tcl/Packages/bibDelimited.tcl"]}}
+set uninstall(filtersMenu) {2.1 {[file join $HOME "Tcl/Menus/Filters Menu/filtersMenu.tcl"]} {
+    file delete -force [file join $HOME Tcl Menus "Filters Menu"]
+    file delete [file join $HOME Help "Filters Help"]
+}}
+set uninstall(latexAccents) {1.3.0 {[file join $HOME "Tcl/Packages/latexAccents.tcl"]} {file delete [file join $HOME "Tcl/Packages/latexAccents.tcl"]}}
+set uninstall(xsl) {0.4.2 {[file join $HOME "Tcl/Modes/xmlMode.tcl"]} {
+    if {[askyesno  "Uninstalling \"xsl\" mode will also remove \"xml\" mode.\r\r Do you want to continue?"]} {
+	catch {file delete [file join $HOME Tcl Modes xmlMode.tcl]}
+    }
+}}
+set uninstall(favoritesMenu) {1.0.1 {[file join $HOME "Tcl/Packages/favoritesMenu.tcl"]} {file delete [file join $HOME "Tcl/Packages/favoritesMenu.tcl"]}}
+set uninstall(addressBook) {1.1 {[file join $HOME "Tcl/Packages/addressBook.tcl"]} {file delete [file join $HOME "Tcl/Packages/addressBook.tcl"]}}
+set uninstall(CSS) {2.2b1 {[file join $HOME "Tcl/Modes/HTML and CSS Modes/cssMode.tcl"]} {
+	if {[askyesno "This will uninstall both HTML and CSS modes. Continue?"] == "no"} {return}
+	catch {file delete [file join $HOME Tcl Completions HTMLCompletions.tcl]}
+	catch {file delete [file join $HOME Tcl Completions CSSCompletions.tcl]}
+	catch {file delete [file join $HOME Help "CSS Help.tcl"]}
+	catch {file delete [file join $HOME Help "HTML Help.tcl"]}
+	catch {file delete -force [file join $HOME Help "HTML Help"]}
+	set folder [procs::find htmlMenu]
+	if {$folder != ""}Ê{
+		set folder [file dirname $folder]
+		if {[file exists $folder]} {catch {file delete -force $folder}}
+	}
+}}
+set uninstall(fileCompression) {0.4.1 {[file join $HOME "Tcl/SystemCode/CorePackages/fileCompression.tcl"]} {file delete [file join $HOME "Tcl/SystemCode/CorePackages/fileCompression.tcl"]}}
+set uninstall(Java) {1.23 {[file join $HOME "Tcl/Modes/javaMode.tcl"]} {
+    catch {file delete [file join $HOME Tcl Modes javaMode.tcl]}
+    catch {file delete [file join $HOME Tcl Completions JavaCompletions.tcl]}
+}}
+set uninstall(mapl) {1.1.5 {[file join $HOME "Tcl/Modes/mapleMode.tcl"]} {
+    global HOME
+    catch {file delete [file join $HOME Tcl Modes mapleMode.tcl]}
+    catch {file delete [file join $HOME Tcl Completions maplCompletions.tcl]}
+    catch {file delete [file join $HOME Tcl Completions "mapl Tutorial.maple"]}
+}}
+set uninstall(Ruby) {0.1 {[file join $HOME "Tcl/Modes/rubyMode.tcl"]} {file delete [file join $HOME "Tcl/Modes/rubyMode.tcl"]}}
+set uninstall(wwwDictionary) {1.0.1 {[file join $HOME "Tcl/Packages/wwwDictionary.tcl"]} {file delete [file join $HOME "Tcl/Packages/wwwDictionary.tcl"]}}
+set uninstall(Perl) {3.7b1 {[file join $HOME "Tcl/Modes/Perl Mode/perlMode.tcl"]} {
+    catch {file delete [file join $HOME Tcl Modes "Perl Mode"]}
+    catch {file delete [file join $HOME Tcl Completions PerlCompletions.tcl]}
+    catch {file delete [file join $HOME Tcl Completions "Perl Tutorial.pl"]}
+    catch {file delete [file join $HOME Help "Perl Commands"]}
+    catch {file delete [file join $HOME Help "Perl Help"]}
+}}
+set uninstall(sh) {2.0 {[file join $HOME "Tcl/Modes/shScriptsMode.tcl"]} {
+    catch {file delete [file join $HOME Tcl Modes shScriptsMode.tcl]}
+    catch {file delete [file join $HOME Tcl Completions shCompletions.tcl]}
+    catch {file delete [file join $HOME Tcl Completions "sh Tutorial.sh"]}
+    catch {file delete [file join $HOME Help "sh Scripts Help"]}
+}}
+set uninstall(tcl/TkExtendedC) {0.2 {[file join $HOME "Tcl/Packages/tcltkExtendedC.tcl"]} {file delete [file join $HOME "Tcl/Packages/tcltkExtendedC.tcl"]}}
+set uninstall(TIP) {0.4.4 {[file join $HOME "Tcl/Modes/tipMode.tcl"]} {file delete [file join $HOME "Tcl/Modes/tipMode.tcl"]}}
+set uninstall(Bib) {4.4.1 {[file join $HOME "Tcl/Modes/BibTeX Mode/bibtexMode.tcl"]} {
+    foreach f {Data Entries File Menu Mode Prefs Search Strings} {
+        set F [file join $HOME Tcl Modes "BibTeX Mode" bibtex${f}.tcl]
+        catch {file delete $F}
+    }
+    catch {file delete [file join $HOME Tcl Modes "BibTeX Mode" bibVersionHistory.tcl]}
+    catch {file delete [file join $HOME Tcl Completions BibCompletions.tcl]}
+    catch {file delete [file join $HOME Tcl Completions "Bib Tutorial.bib"]}
+    catch {file delete [file join $HOME Help "BibTeX Help"]}
+    unset f F
+}}
+set uninstall(dictionary) {2.3.5 {[file join $HOME "Tcl/Packages/dictionary.tcl"]} {file delete [file join $HOME "Tcl/Packages/dictionary.tcl"]}}
+set uninstall(macMenu) {2.3 {[file join $HOME "Tcl/Menus/macMenu/macMenu.tcl"]} {file delete -force [file join $HOME "Tcl/Menus/macMenu"]}}
+set uninstall(frontierMenu) {2.2.1 {[file join $HOME "Tcl/Menus/frontierMenu.tcl"]} {
+	file delete $pkg_file
+	file delete [file join $HOME Help "Frontier Help"]
+}}
+set uninstall(Ada) {1.0.4 {[file join $HOME "Tcl/Modes/adaMode.tcl"]} {file delete [file join $HOME "Tcl/Modes/adaMode.tcl"]}}
+set uninstall(printerChoicesMenu) {0.2.1 {[file join $HOME "Tcl/Packages/printerChoices.tcl"]} {file delete [file join $HOME "Tcl/Packages/printerChoices.tcl"]}}
+set uninstall(f90) {2.0 {[file join $HOME "Tcl/Modes/fortranMode.tcl"]} {
+    if {[askyesno "You are about to remove both 'Fort' and 'f90' modes. \r\rDo you want to continue?"]} {
+	foreach fileName [list  [file join $::HOME Tcl Modes fortranMode.tcl]  [file join $::HOME Tcl Completions FortCompletions.tcl]  [file join $::HOME Tcl Completions "Fort Tutorial.f"]  [file join $::HOME Tcl Completions f90Completions.tcl]  [file join $::HOME Tcl Completions "f90 Tutorial.f90"]  [file join $::HOME Help "Fortran Mode Help"]  ] {
+	    if {[file exists $fileName]} {
+		catch {file delete -force $fileName}
+	    }
+	}
+	unset fileName
+    }
+}}
+set uninstall(bibtexLogHelper) {1.8.8 {[file join $HOME "Tcl/Packages/bibEngine.tcl"]} {file delete [file join $HOME "Tcl/Packages/bibEngine.tcl"]}}
+set uninstall(specialCharacters) {1.0.1 {[file join $HOME "Tcl/Packages/specialCharacters.tcl"]} {file delete [file join $HOME "Tcl/Packages/specialCharacters.tcl"]}}
+set uninstall(notes) {1.1 {[file join $HOME "Tcl/Packages/notes.tcl"]} {file delete [file join $HOME "Tcl/Packages/notes.tcl"]}}
+set uninstall(alphaDeveloperMenu) {1.3 {[file join $HOME "Tcl/Menus/AlphaDev Menu/alphaDeveloperMenu.tcl"]} {file delete -force [file join $HOME "Tcl/Menus/AlphaDev Menu"]}}
+set uninstall(TeX) {6.0a2 {[file join $HOME "Tcl/Modes/latex Mode/latex.tcl"]} {file delete -force [file join $HOME "Tcl/Modes/latex Mode"]}}
+set uninstall(xml) {0.5.0 {[file join $HOME "Tcl/Modes/xmlMode.tcl"]} {file delete [file join $HOME "Tcl/Modes/xmlMode.tcl"]}}
+set uninstall(filesetEncodingPreference) {0.3 {[file join $HOME "Tcl/Packages/filesetEncodingPreference.tcl"]} {file delete [file join $HOME "Tcl/Packages/filesetEncodingPreference.tcl"]}}
+set uninstall(wwwMenu) {2.5.1 {[file join $HOME "Tcl/Menus/WWW menu/wwwMenu.tcl"]} {file delete -force [file join $HOME "Tcl/Menus/WWW menu"]}}
+set uninstall(Tcl) {3.1.1 {[file join $HOME "Tcl/Modes/TclTk Mode/tclMode.tcl"]} {
+    this-dir
+}}
+set uninstall(vcLocal) {0.2 {[file join $HOME "Tcl/Packages/vcLocal.tcl"]} {file delete [file join $HOME "Tcl/Packages/vcLocal.tcl"]}}
+set uninstall(functionComments) {0.1.5 {[file join $HOME "Tcl/Packages/functionComments.tcl"]} {file delete [file join $HOME "Tcl/Packages/functionComments.tcl"]}}
+set uninstall(windowUtilities) {1.3.2 {[file join $HOME "Tcl/Packages/fileUtils.tcl"]} {file delete [file join $HOME "Tcl/Packages/fileUtils.tcl"]}}
+set uninstall(bibToRefer) {1.3 {[file join $HOME "Tcl/Packages/bibToRefer.tcl"]} {file delete [file join $HOME "Tcl/Packages/bibToRefer.tcl"]}}
+set uninstall(userMenu) {0.7 {[file join $HOME "Tcl/Menus/userMenu.tcl"]} {file delete [file join $HOME "Tcl/Menus/userMenu.tcl"]}}
+set uninstall(internetConfigMenu) {1.1 {[file join $HOME "Tcl/Menus/internetConfigMenu.tcl"]} {file delete [file join $HOME "Tcl/Menus/internetConfigMenu.tcl"]}}
+set uninstall(latexBbToViewport) {0.1.1 {[file join $HOME "Tcl/Packages/latexBbToViewport.tcl"]} {file delete [file join $HOME "Tcl/Packages/latexBbToViewport.tcl"]}}
+set uninstall(Caml) {1.0.2 {[file join $HOME "Tcl/Modes/camlMode.tcl"]} {file delete [file join $HOME "Tcl/Modes/camlMode.tcl"]}}
+set uninstall(manipCols) {1.2.2 {[file join $HOME "Tcl/Packages/manipCols.tcl"]} {file delete [file join $HOME "Tcl/Packages/manipCols.tcl"]}}
+set uninstall(codewarriorMenu) {3.1 {[file join $HOME "Tcl/Menus/CodeWarrior Menu/codeWarriorMenu.tcl"]} {file delete -force [file join $HOME "Tcl/Menus/CodeWarrior Menu"]}}
+set uninstall(globalM2Bindings) {1.1.1 {[file join $HOME "Tcl/Modes/M2 Mode/globalM2bindings.tcl"]} {
+    # deactivate
+    if {[info exists M2modeVars(globalM2Bindings)] && $M2modeVars(globalM2Bindings)} {
+	set M2modeVars(globalM2Bindings) "0"
+    }
+    if {[alpha::package exists M2]} {
+	M2::unsetGlobalBindings 
+    }
+    # uninstall
+    if {[info exists M2modeVars(globalM2Bindings)]} {
+        # does not function in Alpha 7.6 (bug?)
+	catch { prefs::removeObsolete M2modeVars(globalM2Bindings) }
+    }
+    if {[info exists M2modeVars(globalM2Bindings)]} {
+        unset M2modeVars(globalM2Bindings)
+    }
+    if {[info exists M2firstInitForBindings]} {
+	catch { prefs::removeObsolete M2firstInitForBindings }
+    }
+    if {[info exists M2firstInitForBindings]} {
+        unset M2firstInitForBindings
+    }
+    set pfn [file join $HOME Tcl Modes "M2 Mode" "globalM2Bindings.tcl"]
+    catch {file delete -force ${pfn}}
+    if {[file exists ${pfn}]} {
+	alertnote "globalM2Bindings uninstall: ${pfn} could not be removed (unexpected error)."
+    } else {
+	set msg "Success globalM2Bindings uninstall: globalM2Bindings.tcl removed."
+	status::msg "[set msg]"
+    }
+}}
+set uninstall(C#) {0.1.1 {[file join $HOME "Tcl/Modes/c#Mode.tcl"]} {file delete [file join $HOME "Tcl/Modes/c#Mode.tcl"]}}
+set uninstall(make) {0.2 {[file join $HOME "Tcl/Modes/makeMode.tcl"]} {file delete [file join $HOME "Tcl/Modes/makeMode.tcl"]}}
+set uninstall(eeMenu) {0.3.1 {[file join $HOME "Tcl/Menus/eemenu.tcl"]} {file delete [file join $HOME "Tcl/Menus/eemenu.tcl"]}}
+set uninstall(dot) {0.2 {[file join $HOME "Tcl/Modes/dotMode.tcl"]} {file delete [file join $HOME "Tcl/Modes/dotMode.tcl"]}}
+set uninstall(GPLT) {2.1.3 {[file join $HOME "Tcl/Modes/gnuplotMode.tcl"]} {file delete [file join $HOME "Tcl/Modes/gnuplotMode.tcl"]}}
+set uninstall(Plc) {1.0.4 {[file join $HOME "Tcl/Modes/plcMode.tcl"]} {file delete [file join $HOME "Tcl/Modes/plcMode.tcl"]}}

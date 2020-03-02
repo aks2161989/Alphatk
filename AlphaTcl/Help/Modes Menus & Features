@@ -1,0 +1,292 @@
+
+Mode Menus & Features
+
+                                               version: 8.1a2
+                                               created: 03/01/2004 {01:11:01 PM}
+                                           last update: 01/26/2006 {01:53:53 PM}
+
+	  	Abstract
+
+Every distribution of Alpha8/X/tk includes two components: the core binary
+application, and a collection of Tool Command Language (Tcl) open-source
+files known collectively as "AlphaTcl".
+
+This Help file describes the Modes, Menus and Features found in AlphaTcl.
+
+
+	  	Table Of Contents
+
+"# Introduction"
+"# Modes"
+"# Menus"
+"# Features"
+"#   Global Features"
+"#  Mode Specific Features"
+"#   'Flag' Features"
+"#   'Always On' Features"
+"#   Auto-loading Features"
+"#   Incompatible Packages"
+
+"# Additional Information"
+
+<<floatNamedMarks>>
+
+
+	  	Introduction
+
+This distribution of Alpha includes a collection of Tool Command Language
+(Tcl) open-source files known collectively as "AlphaTcl".  Many of these
+files enable the basic User Interface for editing files, found in the
+"$HOME/Tcl/SystemCode" folder.  These files should never be moved or deleted.
+
+Most of the "extra" functionality that makes Alpha so useful is implemented
+by AlphaTcl in various "packages" or "extensions" that affect the colors that
+appear in windows, Keyboard Shortcuts, menubar menus, etc.  and other
+elements of the User Interface.  These packages generally fall into one of
+three major categories,
+
+    "# Modes"
+    "# Menus"
+    "# Features"
+
+each of which entails a different method for user interaction as described
+below.  You will probably make use of only a handful of the packages that are
+provided in the standard distribution.  Most of these packages can be
+"uninstalled" from your AlphaTcl library if desired, but in general this will
+only save disk space and will not affect Alpha's performance.
+
+For a complete list of the current AlphaTcl packages that are installed,
+please see the "Installed Packages" help file.  This file includes hyperlinks
+that will open any available help for the given package.
+
+	  	Modes
+
+A "mode" is an editing environment specific to the type of file that you
+might want to edit.  Files written for the world-wide-web are often written
+using a "[H]yper[T]ext [M]arkup [L]anguage" syntax, and are named using the
+suffix ".html".  When you edit these files in Alpha, the "HTML" editing
+environment provides special menus with all sorts of fancy tools for editing,
+and the text is automatically colored according to the html syntax to make it
+easier to read.  Other useful modes include those for "LaTeX" (.tex) files,
+"Tool Command Language" (.tcl) files, "C" and "C++" files, and many other
+computer languages.
+
+"Modes" do not require any activation on the part of the user.  As long as
+they are installed in AlphaTcl, they are always available.
+
+Alpha will attempt to determine the proper mode for any file that you open
+using a variety of tests, including the file name extension (e.g. ".html").
+See the "Alpha Manual # Initial Mode Selection" help file for more
+information.  You can also change the mode of the active window 'manually'
+by selecting "Config > Mode Prefs > Change Mode" or by selecting a mode's
+name in the pop-up menu of the status bar.
+
+For help on mode-specific issues, consult the mode's help file --- pressing
+Control-Help opens the help file for the mode of the active window.
+Selecting the menu item "Config > Mode Prefs > Describe Mode" will provide
+more technical information regarding the mode.  You can also obtain help
+for any installed mode by selecting "Help > More Modes Help".
+
+For more information about specific modes, the "Help > More Modes Help" menu 
+item will offer this "More Modes Help" list-pick dialog allowing you to 
+select the one you're interested in.
+
+Many modes allow you to customize their behavior by setting "Mode Prefs",
+which can be accessed through "Config > Mode Prefs > Preferences".  These
+dialogs generally include a "Help" button that describes the individual
+preferences.
+
+Preferences: Mode
+
+As is the case with all "Preference" dialogs, the changes that you make will
+be saved between Alpha editing sessions.
+
+
+	  	Menus
+
+A "menu" is an AlphaTcl package that inserts a new item in the global
+menubar, the one at the top of your monitor that includes "File" "Edit"
+"Text" etc.  Each new menu is represented by either a name or an icon, and
+create a variety of new commands that can be selected with your mouse or by
+pressing any Keyboard Shortcut that is displayed next to the new commands.
+You can obtain help for any menu by selecting "Help > More Menus Help" and
+selecting an item from the list-pick dialog that appears, or by clicking on
+the hyperlinks that are in the "Installed Packages" help file.
+
+Some menus, such as the package: filesetMenu or the package: ftpMenu ,
+provide functionality that is useful "globally", i.e. no matter what the mode
+of the active window happens to be.  You can turn on any of these menus by
+selecting "Config > Global Setup > Menus" and clicking on the checkbox that
+is next to the menu's name.
+
+Preferences: Menus
+
+Menus that are turned on using this method will be inserted in the menubar
+when Alpha is first started, and will remain there until you quit the
+application.  You can adjust the order in which these global menus are
+presented by selecting "Config > Global Setup > Arrange Menus".
+
+AlphaTcl contains many other menus that are generally only useful for
+specific modes.  While these are also available in the Preferences: Menus
+dialog, you can also make them active only when you are editing a file that
+is in a specific mode.  For example, the "Html Menu" is very useful for
+editing .html files, but of less value for .tex files.  You can adjust the 
+list of menus presented in the menubar for the mode of the active window by 
+selecting "Config > Mode Prefs > Menus".
+
+Preferences: Mode-Menus
+
+Unlike the "Global Setup" dialog, this one only includes those items that are
+potentially useful for the given mode.
+
+For more information about specific menus, the "Help > More Menus Help" menu 
+item will offer this "More Menus Help" list-pick dialog allowing you to 
+select the one you're interested in.
+
+
+	  	Features
+
+Any AlphaTcl package that is not specifically a "mode" or a "menu" is
+classified as a "feature".  Features provide a wide variety of extra
+functionality, and they can provide additional syntax coloring, create new
+Keyboard Shortcuts, insert new menu items or hierarchical submenus, offer
+additional preferences, or enable other potentially useful changes to the
+standard User Interface.  Because these features might not be desired or
+useful to some users, they need to be explicitly turned on.  You can obtain
+help for any menu by selecting "Help > More Features Help" and selecting an
+item from the list-pick dialog that appears, or by clicking on the hyperlinks
+that are in the "Installed Packages" help file.
+
+Some of these packages include a set of preferences that change how they are
+used.  In general, these preferences can be changed by selecting the menu
+item "Config > Preferences > Package Preferences" and navigating to the
+relevant dialog pane.  Many packages that insert submenus also include some
+"<Package> Prefs" menu item to provide faster access.
+
+For more information about specific features, the "Help > More Features Help"
+menu item will offer this "More Features Help" list-pick dialog allowing you
+to select the one you're interested in.
+
+
+	  	 	Global Features
+
+The majority of AlphaTcl features are turned on by selecting the menu item
+"Config > Global Setup > Features".
+
+Preferences: Features
+
+Features that are turned on in this dialog will be in effect throughout your
+Alpha editing session, even if there are no windows open.  Most of them will
+only be useful when there is an open window, as they affect various editing
+operations.
+
+This dialog is divided into two sections.  The first contains items that are
+useful no matter what the mode of the active window happens to be.  Many of
+these features can only be turned on "globally", and they will always be
+active until you explicitly turn them off using the Features dialog.  Others
+can be turned on for specific modes as described below.  Examples of global 
+features include
+
+package: emacs
+package: macros
+package: recentFiles
+package: smartPaste
+
+
+	  		Mode Specific Features
+
+Some of AlphaTcl's features are only useful for specific modes.  For example,
+the package: latexAccents allows you to convert between international symbols
+(available from the keyboard in use) and LaTeX codes.  While this might be
+very useful for TeX mode, it makes little sense to turn this feature on if
+you primarily use Alpha to edit .html files.  In fact, outside of TeX and Bib
+modes this feature doesn't do anything at all.  Other examples of features 
+that are mode-specific include
+
+package: javadocComment
+package: latexSizes
+package: tcl/TkExtendedC
+
+Alpha allows you to specify features that should only be turned on for
+specific modes via the "Config > Mode Prefs > Features" menu item.  This
+follows the same logic as the "Mode Menus" section above.  Features that are
+turned on for a specific mode are automatically turned off when you leave
+that mode.
+
+Preferences: Mode-Features
+
+This dialog also include a pane labelled "Turn items off".  This allows you
+disable the functionality provided by a feature that is turned on globally 
+whevener you enter this mode.
+
+	  	 	'Flag' Features
+
+Some AlphaTcl features are turned on/off in a different set of dialogs, those 
+contained in the "Config > Preferences" submenu.  Examples include
+
+package: autoContinueComment
+package: autoSaveOnSwitch
+package: backup
+
+These features are turned on/off by clicking on the checkbox next to their
+name in the relevant dialog.
+
+Of course, these preference dialogs include a lot of items that are simply
+provided by Alpha's SystemCode, and are not associated with any specific
+package.  In general, it is not necessary to know in advance how the
+preference has been created.  Its classification as a "package" usually just
+means that there is a specific Help file associated with the preferences, or
+that the preference can be turned on for specific modes.
+
+	  	 	'Always On' Features
+
+Some of AlphaTcl's features are turned on automatically by the SystemCode,
+and can never be turned off.  Often times these packages started out as
+optional behavior that has been deemed to be so useful that they have been
+"canonized" in the standard distributions.  Examples include
+
+package: alphaServer
+package: contextualMenu
+package: elecCompletions
+package: elecExpansions
+package: spellcheck
+package: supersearch
+
+These packages are turned on whenever Alpha is started.
+
+	  	 	Auto-loading Features
+
+One last classification of AlphaTcl features need not concern the "normal"
+user, and are of interest mainly to AlphaTcl developers.  They are known as
+"auto-loading", and provide some functionality that is useful for other
+packages.  These cannot be turned on or off, and do not appear in any of the
+Preference dialogs.
+
+	  	 	Incompatible Packages
+
+Because AlphaTcl is a library for a cross-platform set of applications, there
+are some packages that only make sense in the MacOS, or in Windows, or based
+upon other OS environmental variables.  These are listed at the end of the
+"Installed Packages" help file.
+
+	====================================================================
+
+	  	Additional Information
+
+Most of the packages in AlphaTcl were contributed by various users over the
+years.  (Actually, the AlphaTcl development team is currently composed
+entirely of volunteers that are actual users of the program.)  Because
+these extensions are all written in Tcl, and because Alpha is an excellent
+Tcl code editor, creating new packages or modifying the behavior of
+existing ones is relatively easy.  If you're interested in learning some of
+the internal workings of AlphaTcl, see the "Extending Alpha" help file.
+The AlphaTcl Wiki
+
+<http://www.purl.org/net/alpha/wiki/>
+
+also provides a number of additional resources to help both users and 
+developers improve Alpha's functionality.  All contributions are welcome.
+
+
+This document has been placed in the public domain.
+

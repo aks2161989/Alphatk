@@ -1,0 +1,159 @@
+
+The Alpha family of editors, using AlphaTcl library version 8.1a5
+
+
+                                     Readme version: 8.1a5
+                                            created: 03/18/1991 {10:22:14 AM}
+                                        last update: 05/17/2006 {02:16:25 PM}
+
+
+	  	Table Of Contents
+
+"# Introduction"
+"# General Help files"
+"# Mode specific help"
+"# Package specific help"
+"# Keyboard shortcuts (key bindings)"
+"# Internet resources"
+"# Bug reporting"
+"# Registration"
+
+<<floatNamedMarks>>
+
+NOTE: Colored, underlined text is hyperlinked.  Most links lead to other
+places in Alpha's documentation, from where you can return by selecting the
+menu item "Search > Return To Bookmark".  Other links will open the relevant
+Preference Pane or Tutorial.
+
+
+	  	Introduction
+
+Alpha is a powerful, multi-modal, highly configurable, and programmable text
+editor.  For basic editing you can probably rely on your experience from
+other text editors or word processors, but in order to take advantage of the
+power-user features you will sooner or later want to dive into Alpha's vast
+documentation.  This 'Readme' briefly surveys Alpha's documentation and help
+system, and points to other resources.  Please see the "Release Notes" help
+file for a list of the major recent changes and known limitations.
+
+If you wish to uninstall Alpha, click here: <<uninstall>>
+
+
+	  	General Help files
+
+Most of Alpha's help files can be accessed from the Help Menu, right-most in
+the menu bar.  To get an idea of some of Alpha's capabilities, peruse the
+"Examples Help" file.  For general help, there is a detailed "Alpha Manual",
+and a rather shorter "Quick Start" document.  The other help files are more
+specialized.  Some help files are also available in html or pdf format.  Html
+formatted help files can also be read with Alpha's html renderer.
+
+Preferences: Help
+
+
+	  	Mode specific help
+	       
+Alpha automatically enters a "mode" specific to the sort of document being
+edited, and many features are mode dependent.  For example, in HTML mode there
+are special menus with all sorts of fancy tools for editing html documents,
+and the text is automatically colored according to the html syntax to make it
+easier to read.  
+
+Alpha determines the mode from the file name extension (e.g. .html); otherwise
+you can change mode manually by selecting "Config > Mode Prefs > Change Mode".
+For help on mode-specific issues, consult the mode help file --- pressing
+Control-Help opens the help file for the active mode.  Selecting the menu item
+"Config > Mode Prefs > Describe Mode" will provide more technical information
+regarding the mode.
+
+Many modes allow you to customize their behavior by setting "Mode Prefs",
+which can be accessed through "Config > Mode Prefs > Preferences".  These
+dialogs generally include a "Help" button that describes the individual
+preferences.
+
+Preferences: Mode
+
+
+	  	Package specific help
+
+Much of Alpha's functionality is implemented as 'packages', which can be
+turned on and off in "Config > Global Setup > Features", where you can also
+obtain short descriptions of the individual features.
+
+Preferences: Features
+
+See the "Installed Packages" file for a list of pre-installed packages in
+Alpha, with hyperlinks to their documentation.  For other packages, check
+this web page:
+
+    <http://www.purl.org/net/alpha/wikipages/new-packages>
+
+The "Config > Packages" menu contains items for "Describe a Package" and "Read
+Help for a Package".  Selecting either of these will open a dialog allowing
+you to select the package for which you want more information.
+
+
+	  	Keyboard shortcuts (key bindings)
+
+Alpha is very rich in keyboard shortcuts: some of them are displayed in the
+menus, but there are many others.  It is also easy to define your own keyboard
+shortcuts for any menu item, or for any action or script.  The help file
+"Keyboard Shortcuts" describes Alpha's preset shortcuts, and contains more
+information on how to define your own.  The preset key bindings adjust to
+keyboard layout --- currently you have to tell Alpha about your keyboard
+layout, in "Config > Preferences > System Preferences > International".
+
+Preferences: International
+
+
+	  	Internet resources
+	      
+For the most recent, up-to-date, information about Alpha, and further 
+resources, see "The Alpha Wiki" at
+
+    <http://www.purl.org/net/alpha/wiki> .
+
+Alpha is privileged by an active and helpful user community whose main
+communication channels are two mailing lists you are invited to subscribe 
+to, for "users" and "developers".  Go to
+
+    <http://www.purl.org/net/alpha/mail>
+
+to search the archives or to sign up.
+
+The developers' list is for discussing technical issues, while the users'
+list is for all sorts of questions and hints --- it is read also by the
+developers.  Questions are usually answered within a day, and often they lead
+to improvements in subsequent versions of Alpha and its documentation.  You
+can also use the "Help > Search E-mail Archives" menu item to see if a
+particular issue has been discussed.
+
+
+	  	Bug reporting 
+	    
+There are still a number of known bugs, and probably many which have not yet
+been discovered.  Bug reports are very welcome.  PLEASE read the help file
+"Known Bugs" for a list of known bugs, and for information regarding how to
+make your bug report sufficiently informative to allow the developers to
+identify and fix the bug.  Alpha has a sophisticated bug reporting and
+tracking system at
+
+    <http://www.purl.org/net/alpha/bugzilla/> .
+
+It allows to keep track of all information related to a bug, workarounds,
+dependence, and solutions.  The preferred method for submitting a new bug to
+this system is through "Help > Report A Bug" menu item.
+
+
+	  	Registration
+
+You may freely copy and distribute Alpha, but please bear in mind that Alpha
+is Shareware.  If you decide to keep it, please <<register>> your copy.
+
+The Author(s) of this product are in no way liable for any direct or indirect
+damage caused by the product.
+
+See the file "license.terms" for information on usage and redistribution of
+this software, and for a DISCLAIMER OF ALL WARRANTIES.
+
+This document has been placed in the public domain.

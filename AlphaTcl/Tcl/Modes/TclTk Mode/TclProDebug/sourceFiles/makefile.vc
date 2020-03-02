@@ -1,0 +1,189 @@
+# Makefile.vc
+#
+# This makefile is suitable for use with # Microsoft Visual C++ 2.x and 4.0.
+#
+# This makefile was hacked from Sun's 'example.zip'
+# Copyright (c) 1996 Sun Microsystems, Inc.
+# Copyright 1997 Tom Poindexter.
+# Copyright 2001 Vince Darley.
+#
+MACHINE		= IX86
+
+PARSER_VERSION = 1.4
+DLL_VERSION = 14
+
+# comment the following line to compile with symbols
+NODEBUG=1
+
+!IF "$(NODEBUG)" == "1"
+DEBUGDEFINES =
+DBGX     = 
+!ELSE
+DEBUGDEFINES = -DTCL_MEM_DEBUG -DUSE_TCLALLOC=0 -DPURIFY
+DBGX     = d
+!ENDIF
+
+PROJECT = parser$(DLL_VERSION)$(DBGX)
+
+#
+# Project directories -- these may need to be customized for your site
+#
+# ROOT --       location of the example files.
+# TOOLS32 --    location of VC++ compiler installation.
+# TCL --        location where Tcl is installed.
+# TCLLIB --     define the Tcl lib (with correct version)
+
+# note that the tcl  vclibs should have been unpacked in $(TCL)\lib !!
+
+ROOT    = .
+!IF "$(NODEBUG)" == "1"
+WINDIR		 = $(ROOT)\Release
+!ELSE
+WINDIR		 = $(ROOT)\Debug
+!ENDIF
+GENERICDIR	= $(ROOT)\.
+LIBDIR          = $(ROOT)\library
+TOOLS32		= C:\Progra~1\devstudio\vc
+TOOLS32_rc	= C:\Progra~1\devstudio\sharedide
+
+cc32		= "$(TOOLS32)\bin\cl.exe"
+link32		= "$(TOOLS32)\bin\link.exe"
+libpath32	= /LIBPATH:"$(TOOLS32)\lib"
+lib32		= "$(TOOLS32)\bin\lib.exe"
+
+rc32		= "$(TOOLS32_rc)\bin\rc.exe"
+include32	= -I"$(TOOLS32)\include"
+
+# point TCL and TCLLIB to your tcl distribution
+
+TCL     = c:\progra~1\tcl
+TCLLIB  = $(TCL)\lib\tclstub84$(DBGX).lib
+INSTALLDIR = $(TCL)\lib\parser$(PARSER_VERSION)
+
+######################################################################
+# Compile flags
+######################################################################
+
+!IF "$(NODEBUG)" == "1"
+# This cranks the optimization level to maximize speed
+cdebug = -O2 -Gs -GD
+!ELSE IF "$(MACHINE)" == "IA64"
+cdebug = -Od -Zi
+!ELSE
+cdebug = -Z7 -Od -WX
+!ENDIF
+
+# declarations common to all compiler options
+cflags = -c -W3 -nologo -Fp$(TMPDIR)\ -YX -DBUILD_tclparser
+
+######################################################################
+# Link flags
+######################################################################
+
+!IF "$(NODEBUG)" == "1"
+ldebug	= /RELEASE
+!ELSE
+ldebug	= -debug:full -debugtype:cv
+!ENDIF
+
+# declarations common to all linker options
+lflags	= /NODEFAULTLIB /NOLOGO /MACHINE:$(MACHINE) $(libpath32)
+
+# declarations for use on Intel i386, i486, and Pentium systems
+!IF "$(MACHINE)" == "IX86"
+DLLENTRY = @12
+dlllflags = $(lflags) -entry:_DllMainCRTStartup$(DLLENTRY) -dll
+!ELSE IF "$(MACHINE)" == "IA64"
+DLLENTRY = @12
+dlllflags = $(lflags) -dll
+!ELSE
+dlllflags = $(lflags) -entry:_DllMainCRTStartup$(DLLENTRY) -dll
+!ENDIF
+
+conlflags = $(lflags) -subsystem:console -entry:mainCRTStartup
+guilflags = $(lflags) -subsystem:windows -entry:WinMainCRTStartup
+
+!IF "$(MACHINE)" == "PPC"
+libc = libc$(DBGX).lib
+libcdll = crtdll$(DBGX).lib
+!ELSE
+libc = libc$(DBGX).lib oldnames.lib
+libcdll = msvcrt$(DBGX).lib oldnames.lib
+!ENDIF
+
+baselibs   = kernel32.lib $(optlibs) advapi32.lib user32.lib
+winlibs	   = $(baselibs) gdi32.lib comdlg32.lib winspool.lib
+
+guilibs	   = $(libc) $(winlibs)
+conlibs	   = $(libc) $(baselibs)
+guilibsdll = $(libcdll) $(winlibs)
+conlibsdll = $(libcdll) $(baselibs)
+
+PARSEROBJS = \
+	$(WINDIR)\tclParser.obj
+
+#
+# Visual C++ tools
+#
+
+PATH=$(COMMON32)/bin;$(TOOLS32)\bin;$(PATH)
+
+cc32    = $(TOOLS32)\bin\cl -I$(TOOLS32)\include
+CP      = copy
+RM      = del
+!if "$(OS)" == "Windows_NT"
+RMDIR	= rmdir /S /Q
+!else
+RMDIR	= deltree /Y
+!endif
+
+INCLUDES = \
+    -I../../tcl8.4/generic  \
+    -I../../tcl8.4/windows  \
+    -I$(TOOLS32)/include	\
+    -IC:/Progra~1/Tcl/include \
+    -I../generic
+
+DEFINES = -nologo $(DEBUGDEFINES) -DUSE_TCL_STUBS \
+    -DVERSION=\"$(PARSER_VERSION)\" 
+
+# 
+# Global makefile settings
+#
+
+DLLOBJS = \
+	$(WINDIR)\tclParser.obj
+
+# Targets
+
+all: setup $(PROJECT).dll
+
+setup:
+	-@md $(WINDIR)
+
+install:	$(PROJECT).dll
+	-@md $(INSTALLDIR)
+	$(CP) $(LIBDIR)\*.tcl $(INSTALLDIR)
+	$(CP) $(LIBDIR)\tclIndex $(INSTALLDIR)
+	$(CP) $(PROJECT).dll $(INSTALLDIR)\$(PROJECT).dll
+
+$(PROJECT).dll: $(DLLOBJS)
+	$(link32) $(ldebug) $(dlllflags) $(TCLLIB) \
+		$(guilibsdll) -out:$(PROJECT).dll $(DLLOBJS)
+
+# Implicit Targets
+
+#.c.obj:
+#	$(cc32) $(cdebug) $(cflags) $(cvarsdll) $(INCLUDES) \
+#		$(DEFINES) -Fo$(WINDIR)\ $<
+
+$(WINDIR)\tclParser.obj: $(GENERICDIR)\tclParser.c
+	$(cc32) $(cdebug) $(cflags) $(cvarsdll) $(INCLUDES) \
+		$(DEFINES) -Fo$(WINDIR)\ $?
+
+clean:
+	-$(RM) $(WINDIR)\*.obj
+	-$(RMDIR) $(WINDIR)
+	-$(RM) $(PROJECT).dll
+	-$(RM) $(PROJECT).lib
+	-$(RM) $(PROJECT).exp

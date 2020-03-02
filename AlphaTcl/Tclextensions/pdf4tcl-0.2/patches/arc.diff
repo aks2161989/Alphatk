@@ -1,0 +1,135 @@
+--- orig/pdf4tcl.tcl	2004-12-01 13:08:19.000000000 +0100
++++ tmp/pdf4tcl.tcl	2005-01-19 21:59:48.000000000 +0100
+@@ -742,12 +743,14 @@
+ 		return ""
+ 	}
+ 
+-	proc setLineStyle {name width on off} {
++###<jpo 2004-11-08: replaced "on off" by "args"
++###                 to enable resetting dashed lines
++	proc setLineStyle {name width args} {
+ 		variable pdf
+ 
+ 		endTextObj $name
+ 		pdfout $name "$width w\n"
+-		pdfout $name "\[$on $off\] 0 d\n"
++		pdfout $name "\[$args\] 0 d\n"
+ 	}
+ 
+ 	proc line {name x1 y1 x2 y2} {
+@@ -824,31 +827,31 @@
+ 	  if {$pdf($name,orient)} {
+ 	    set y [expr {$pdf($name,height)-$y}]
+ 	  }
+-	  set sq5 [expr {1.0-1.0/sqrt(5.0)}]
++	  set sq [expr {4.0*(sqrt(2.0)-1.0)/3.0}]
+ 	  set x0(0) [expr {$x+$r}]
+ 	  set y0(0) $y
+ 	  set x1(0) [expr {$x+$r}]
+-	  set y1(0) [expr {$y+$r*$sq5}]
+-	  set x2(0) [expr {$x+$r*$sq5}]
++	  set y1(0) [expr {$y+$r*$sq}]
++	  set x2(0) [expr {$x+$r*$sq}]
+ 	  set y2(0) [expr {$y+$r}]
+ 	  set x3(0) $x
+ 	  set y3(0) [expr {$y+$r}]
+-	  set x1(1) [expr {$x-$r*$sq5}]
++	  set x1(1) [expr {$x-$r*$sq}]
+ 	  set y1(1) [expr {$y+$r}]
+ 	  set x2(1) [expr {$x-$r}]
+-	  set y2(1) [expr {$y+$r*$sq5}]
++	  set y2(1) [expr {$y+$r*$sq}]
+ 	  set x3(1) [expr {$x-$r}]
+ 	  set y3(1) $y
+ 	  set x1(2) [expr {$x-$r}]
+-	  set y1(2) [expr {$y-$r*$sq5}]
+-	  set x2(2) [expr {$x-$r*$sq5}]
++	  set y1(2) [expr {$y-$r*$sq}]
++	  set x2(2) [expr {$x-$r*$sq}]
+ 	  set y2(2) [expr {$y-$r}]
+ 	  set x3(2) $x
+ 	  set y3(2) [expr {$y-$r}]
+-	  set x1(3) [expr {$x+$r*$sq5}]
++	  set x1(3) [expr {$x+$r*$sq}]
+ 	  set y1(3) [expr {$y-$r}]
+ 	  set x2(3) [expr {$x+$r}]
+-	  set y2(3) [expr {$y-$r*$sq5}]
++	  set y2(3) [expr {$y-$r*$sq}]
+ 	  set x3(3) [expr {$x+$r}]
+ 	  set y3(3) $y
+ 	  pdfout $name [format "%g %g m\n" \
+@@ -865,6 +868,74 @@
+ 	  }
+ 	  pdfout $name " $op\n"
+ 	}
++
++        # scale with r, rotate by phi, and move by (dx, dy)
++	proc transform {r phi dx dy points} {
++	  set cos_phi [expr {$r*cos($phi)}]
++	  set sin_phi [expr {$r*sin($phi)}]
++	  set res [list]
++	  foreach {x y} $points {
++	    set xn [expr {$x*$cos_phi - $y*$sin_phi + $dx}]
++	    set yn [expr {$x*$sin_phi + $y*$cos_phi + $dy}]
++	    lappend res $xn $yn
++	  }
++	  return $res
++	}
++
++	proc simplearc {phi2} {
++	  set x0 [expr {cos($phi2)}]
++	  set y0 [expr {-sin($phi2)}]
++	  set x3 $x0
++	  set y3 [expr {-$y0}]
++	  set x1 [expr {0.3333*(4.0-$x0)}]
++	  set y1 [expr {(1.0-$x0)*(3.0-$x0)/(3.0*$y0)}]
++	  set x2 $x1
++	  set y2 [expr {-$y1}]
++	  return [list $x0 $y0 $x1 $y1 $x2 $y2 $x3 $y3]
++	}
++
++	proc arc {name x0 y0 r phi extend} {
++	  variable pdf
++	  variable g
++
++	  if {abs($extend) >= 360.0} {
++	    circle $name 0 $x0 $y0 $r
++	    return
++	  }
++	  endTextObj $name
++	  if {abs($extend) < 0.01} return
++	  if {$pdf($name,orient)} {
++	    set y0 [expr {$pdf($name,height)-$y0}]
++	  }
++	  set count 1
++	  while {abs($extend) > 90} {
++	    set count [expr {2*$count}]
++	    set extend [expr {0.5*$extend}]
++	  }
++	  set phi [expr {$phi/180.0*3.1416}]
++	  set extend [expr {$extend/180.0*3.1416}]
++	  set phi2 [expr {0.5*$extend}]
++	  set x [expr {$x0+$r*cos($phi)}]
++	  set y [expr {$y0+$r*sin($phi)}]
++	  pdfout $name [format "%g %g m\n" \
++	    [nf [expr {$x+$pdf($name,xoff)}]] \
++	    [nf [expr {$y+$pdf($name,yoff)}]]]
++	  set points [simplearc $phi2]
++	  set phi [expr {$phi+$phi2}]
++	  for {set i 0} {$i < $count} {incr i} {
++	    foreach {x y x1 y1 x2 y2 x3 y3} \
++	      [transform $r $phi $x0 $y0 $points] break
++	    set phi [expr {$phi+$extend}]
++	    pdfout $name [format "%g %g %g %g %g %g c\n" \
++	      [nf [expr {$x1+$pdf($name,xoff)}]] \
++	      [nf [expr {$y1+$pdf($name,yoff)}]] \
++	      [nf [expr {$x2+$pdf($name,xoff)}]] \
++	      [nf [expr {$y2+$pdf($name,yoff)}]] \
++	      [nf [expr {$x3+$pdf($name,xoff)}]] \
++	      [nf [expr {$y3+$pdf($name,yoff)}]]]
++	  }
++	  pdfout $name " S\n"
++	}
+ ###<jpo
+ 
+ 	proc arrow {name x1 y1 x2 y2 sz {angle 20}} {

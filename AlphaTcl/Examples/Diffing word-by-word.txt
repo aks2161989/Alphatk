@@ -1,0 +1,60 @@
+This is a short introduction to word-by-word comparison (of windows or
+selections).  Usual diff is line based.  This means that these two
+sentences
+
+  What we are now witnessing on the geometry/physics frontier is 
+  one of the most refreshing events in the mathematics of the 20th 
+  century.
+
+  What we are now witnessing on the geometry/physics frontier 
+  is one of the most refreshing events in the mathematics of the 
+  20th century.
+
+will count as a difference of two lines, just because two words were
+reflowed from one line to another.
+
+It also means that for two different lines like
+
+  set pat {^[\t ]*@ *([a-zA-Z]+) *([\{\(]) *([^\s\{\}\(\),]+) *(,|\})}
+
+  set pat {^[\t ]*@ *([a-zA-Z]+) *([\{\(]) *([^\s\{\}\(\).]+) *(,|\})}
+
+diff will only tell you that the lines differ, not precisely where.
+
+The idea of word-by-word diff is simply to compare words instead 
+of lines.  This means that the two sentences would be cconsidered 
+equal, and that in the regexp example, only the second-to-last "word" 
+would be highlighted, because this is where the difference is.  
+This works by creating for each window a temp file with one word 
+per line, then run diff on those temp files, and finally translate 
+all the line-specs back into positions in the original windows.  
+This is particularly useful for tex files written in Alpha, 
+where reflowing paragraphs happens commonly, especially in tex mode,
+to make the source file more readable.
+
+This method also has some drawbacks, though: one drawback is that 
+since comments are line based, they are not detected properly in 
+the word based approach: the difference between
+
+   The ramifications are vast, and
+   % in my opinion,
+   the ultimate scope and nature of
+
+   The ramifications are vast, and in my opinion, the ultimate 
+   scope and nature of
+
+will be only the % sign.  Another situation where the result is
+very bad is when two otherwise word-by-wod-equal paragraps have
+been commented out.  Seen as a long sequence of words, the comment
+chars have been inserted in diferent places, so you get a lot of
+false positives...
+
+It might be possible to invent some trick to handle comments
+better, but it compromise the simplicity of the current algorithm.
+
+Finally: for longer and very different documents there is a
+serious issue with speed.  I don't know if there is anything wrong
+with my implementation, or if it is simply because it takes a lot
+of time to put a lot of marks in the windows.  I tried to
+word-by-word diff the new version of diffMore.tcl with an old
+version, and it took about a minute to produce about 1200 marks.

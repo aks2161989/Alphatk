@@ -1,0 +1,115 @@
+# -*-Tcl-*- (nowrap)
+# Cache v1.2 created on 06/02/2006 {11:06:59 PM}
+set requirements(speech) {1.3.2 {
+    # As of this writing, TclSpeech requires the MacOS ...
+    if {!$::alpha::macos} {
+	error "The TclSpeech package is only supported on the Mac OS"
+    }
+}}
+set requirements(thinkRefMenu) {1.1 {
+    if {!${alpha::macos}} {
+	error "The ThinkRef application is only available on the Macintosh"
+    }
+}}
+set requirements(toolboxRefMenu) {1.1 {
+    if {!${alpha::macos}} {
+	error "The QuickView application is only available on the Macintosh"
+    }
+}}
+set requirements(aeom) {1.3 {
+    if {!${alpha::macos}} {
+	error "Apple-events are only available on MacOS"
+    }
+    if {[catch {::package present tclAE}]} {
+        ::package require tclAE
+    } else {
+        eval [::package ifneeded tclAE [::package present tclAE]]
+    }
+}}
+set requirements(voodooMenu) {2.0.2 {
+    if {!${alpha::macos}} {
+	error "The 'Voodoo Menu' is only useful on MacOS"
+    }
+}}
+set requirements(ODBEditor) {1.0b3 {
+    if {!${alpha::macos}} {
+	error "The ODB Editor suite is only supported on the Macintosh"
+    }
+    alpha::package require Alpha 8.0a3
+    alpha::package require aeom 1.0a3
+    package require tclAE
+}}
+set requirements(latexMathbb) {1.3.2 {
+    alpha::package require -loose TeX 5.0
+}}
+set requirements(tclproUtils) {0.4.0 {
+    if {$tcl_platform(platform) == "macintosh"} {
+	error "tclproUtils requires command-line functionality"
+    }
+}}
+set requirements(dictionary) {2.3.5 {
+    if {[info tclversion] < 8} {
+	error "This feature requires Tcl 8 (or newer)"
+    }
+}}
+set requirements(frontierMenu) {2.2.1 {
+	if {$alpha::macos == 0} {
+		error "Frontier menu is only supported on Mac OS"
+	}
+}}
+set requirements(macMenu) {2.3 {
+    if {${alpha::macos} != 2} {
+	error "The 'Mac Menu' is only useful on MacOSX"
+    }
+}}
+set requirements(rememberWindows) {0.4.0 {
+    if {$alpha::platform ne "tk"} {
+	error "Only useful for Alphatk"
+    }
+}}
+set requirements(vfsFileset) {0.3.7 {
+    ::package require vfs
+}}
+set requirements(projectBuilderMenu) {0.1 {
+    # PB only exists on Mac OS X, but /should/ be able to talk
+    # to Alpha8 in Classic
+#     if {${alpha::macos} != 2} {
+# 	error "Project Builder integration is only supported on Mac OS X"
+#     }
+
+    ::package require tclAE
+    alpha::package require aeom 1.0a5
+}}
+set requirements(mailEudora) {2.0 {
+    if {!$::alpha::macos} {
+	error "Eudora mail management is only available in the MacOS.
+    }
+}}
+set requirements(userMenu) {0.7 {
+    alpha::package require AlphaTcl 8.0d7
+}}
+set requirements(alphaServer) {3.0 {
+    if {$tcl_platform(platform) eq "macintosh"} {
+	error "No support for Alpha server in Mac OS Classic"
+    }
+}}
+set requirements(version) {2.0.4 {
+    ::package require tclAE
+}}
+set requirements(tkhtmlViewer) {0.2 {
+    if {${alpha::platform} != "tk"} {
+	error "Requires Alphatk"
+    }
+}}
+set requirements(codewarriorMenu) {3.1 {
+    if {[info tclversion] < 8.0} {
+		error "codewarrior menu requires Tcl 8"
+    }
+}}
+set requirements(latexAccents) {1.3.0 {
+    alpha::package require -loose TeX 5.0
+    alpha::package require AlphaTcl 8.1a1
+}}
+set requirements(eeMenu) {0.3.1 {
+   alpha::package require AlphaTcl 8.0d1
+}}

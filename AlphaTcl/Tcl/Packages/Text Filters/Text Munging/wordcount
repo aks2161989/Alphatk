@@ -1,0 +1,22 @@
+#!/usr/bin/perl
+
+$/ = "";                        # Enable paragraph mode.
+$* = 1;                         # Enable multi-line patterns.
+
+# Now read each paragraph and split into words.  Record each
+# instance of a word in the %wordcount associative array.
+
+while (<>) {
+    s/-\n//g;                   # Dehyphenate hyphenations.
+    tr/A-Z/a-z/;                # Canonicalize to lower case.
+    @words = split(/\W*\s+\W*/, $_);
+    foreach $word (@words) {
+	$wordcount{$word}++;    # Increment the entry.
+    }
+}
+
+# Now print out all the entries in the %wordcount array.
+
+foreach $word (sort keys(%wordcount)) {
+    printf "%20s %d\n", $word, $wordcount{$word};
+}

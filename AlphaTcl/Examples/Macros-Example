@@ -1,0 +1,280 @@
+-*-Setx-*-
+
+
+# Macros Tutorial
+=================
+
+                                       tutorial version: 1.5
+                                                created: 05/19/2000 {11:44:50 am}
+                                            last update: 12/01/2003 {01:04:59 PM}
+
+
+This tutorial demonstrates the "Macros" feature for Alpha.
+
+In order to use it, you must first activate the feature by selecting the menu
+item "Config > Preferences > Features" and clicking on the checkbox that
+appears next to 'Macros'.
+
+This Tutorial, when opened through a hyperlink or a menu item, should be a
+"shell" window.  None of the changes you make will affect the actual file.  If
+you close the window and then open the tutorial again, you will start with the
+same example as before.  Note that "Undo" is not available in shell windows.
+
+This tutorial is in Setx mode to take advantage of some file marking and
+colorizing procedures.  Macros can work in any mode.
+
+-------------------------------------------------
+# Example 1: Adding a menu item keyboard shortcut
+-------------------------------------------------
+
+While many of Alpha's menu items have keyboard shortcuts, some which you use
+on a regular basis might not (such as "Save A Copy As").  In this case you can
+easily define a Macro with only one step, name it, and assign it a permanent
+keyboard shortcut.
+
+(1) Open a document, and then begin recording by selecting the Keyboard Macros
+menu item "Start Keyboard Macro," or by typing "Control-X (".
+
+(2) Select the "File > Save A Copy As" menu item, and choose your destination.
+(Don't press cancel, because this will stop the recording.)
+
+(3) End the recording of the macro, either with the menu or "Control-X )".
+
+(4) Save this macro using the "Utils > Macro Utils > Save Last Macro" menu
+item.  Give it a distinctive name, like "Special Save".
+
+(5) This macro should now appear in the "Utils > Saved Macros" menu.  Check to
+make sure that the keyboard shortcut Command-Option-S is not currently used by
+using the "Config > Describe Binding" menu item, which is itself bound to F7.
+
+(6) Using the "Utils > Saved Macros > Assign Shortcuts" menu item, set the new
+keyboard shortcut for your named macro.
+
+This may seem like a lot of steps, but it takes more time to read this than to
+actually perform the 6 steps.  The end result is that you now have a handy
+keyboard shortcut for a commonly used function, one which will be waiting for
+you the next time that you start Alpha.
+
+-------------------------------
+# Example 2: Double-Space Macro
+-------------------------------
+
+A very simple example of a keyboard macro is the classic double-space macro.
+This macro when applied repeatedly to lines of text will insert spaces between
+the lines: useful if you want to print out a draft for editing.
+
+(1) Begin recording by selecting "Start Keyboard Macro" or by pressing the
+keyboard shortcut "Control-X (".
+
+(2) Move to the end of the current line with Control-E.
+
+(3) Press the return key.  
+
+(4) Move to the next line, (Control-F), to position the cursor proper in case
+the macro willbe called multiple times with Control-U.
+
+(5) Now end the macro by selecting "End Keyboard Macro" or by pressing the
+keyboard shortcut "Control-x )".
+
+Use this text to practice:
+
+
+    Alpha is multi-modal, which means it switches between different modes
+    depending on what type of document you are editing.  Everybody who has
+    used Emacs knows about this concept.  A mode customizes Alpha's behavior
+    to assist you to create and edit documents of the mode...
+
+        (from the Alpha Manual)
+
+
+Defining the macro has inserted a space between the first two lines.  Now you
+will want to double-space the rest of the paragraph.  You can use Control-U
+(iterationCount).  The text "iterate..."  appears in the status bar.  The next
+thing you type will be the number of times you want a command repeated.  There
+are three more lines in the example text so type 3, then "Control-X E" to
+invoke the macro you just defined.  (Note for Emacs users: typing Control-U is
+the same as typing "Control-U 4"; however typing Control-U more than once does
+not result in the standard multiplication.  
+
+    Control-U Control-U Control-U Control-U Control-X E 
+
+DOES NOT result in 56 executes.)
+
+If you want to find out how many times to repeat the double-space macro,
+select the region of text you want to double-space; type Escape-X (execute)
+(that is press and release the Escape key, then press X); the text "meta-x"
+will appear in the status bar; now type the command "wordCount" into the
+status bar and press Return.  The number of chars, words, and lines in the
+selected region will be displayed.  If you don't select a region the numbers
+for the entire file will be returned.
+
+If you want to use this macro again in the future, you should name it.  
+Select "Save Last Macro" and enter something meaningful.  You should not 
+use any special characters or spaces in the macro name since the macro 
+will be saved as a Tcl procedure.  Since your macro will be a Tcl 
+procedure like any other, you should avoid naming it anything that will 
+conflict with another Alpha or Tcl command.  
+
+All of your named macros will appear in the "Saved Macros" submenu.  Since
+your macros are valid Tcl procedures you can define keyboard shortcuts for
+them.  For the double-spacing macro, let's call it DblSpace1.
+
+Now, let's suppose that you have several named macros.  "Control-X E" will
+execute only the current (last recorded) macro not one of the previously named
+macros.  One strategy is to trick Alpha into making a named macro the current
+macro by re-recording it.  This is not very difficult.  Just press "Control-X
+(", select the named macro from the Macros submenu, then type "Control-X )" to
+end recording.  You don't have to enter in all the keystrokes again.  Now that
+your named macro is once again the current macro you may invoke it with
+"Control-X E".  This is useful if you want to combine "Control-X E" with
+Control-U to invoke the macro multiple times.
+
+------------------------------------------
+# Example 3: Copy Sentence to Another File
+------------------------------------------
+
+This example is a little complicated, but it will show you how to add a
+search to a macro.
+
+This macro copies the sentence that contains the point and pastes (yanks) it
+into a file named 'AlphaRefs'.  You can run this macro on this file if you
+would like to test it.  First, you will need to open a new edit window
+entitled 'AlphaRefs'.  (If you have the New Document package activated, just
+press Command-N and type in the name; otherwise you will have to save the
+empty file in order to name it.)
+
+
+    Keystrokes              | Action
+    _________________________________________________________________________
+#   Control-X (             | Begin recording macro.
+#   Escape-A                | Move to the beginning of the sentence that 
+#                           |   contains the point.
+#   Control-Space           | Set the mark.
+#   Escape-E                | Move the point to the end of the sentence.
+#   Escape-W (or CommanD-C) | Copy region to the clipboard.
+#   Control-X O*            | Bring 'AlphaRefs' edit window to the front.
+#   Control-Y (or Command-V)| Paste clipboard in the 'AlphaRefs' window.
+#   Control-X O*            | Return to the original window.
+#   Control-X )             | Stop recording.
+
+
+* "Control-X O" (otherThing) is used since Alpha does not record the text
+typed into the status bar; changing the buffer with "Control-X B" will require
+that you press Return to go to the 'AlphaRefs' window.  "Control-X O"
+(otherThing), simply cycles to the window immediately behind the current,
+front-most, window.  You will have to be careful that the target window is in
+the right place before invoking this macro when using "Control-X O".
+
+Now that you have recorded the macro, you want to make it more useful by
+automatically finding the sentences that you wish to copy into the
+'AlphaRefs' window.  You can do this by first saving and then editing the
+macro.
+
+(1) First, name the macro, using the "Macro Utils > Save Last Macro" menu
+item.  (I called the macro 'cpSent2otherWin', but feel free to name it
+whatever you wish.)
+
+(2) Next, using the "Macro Utils > Edit Saved Macro" menu item, choose
+the macro that you just saved.  A new window will open containing the
+procedures contained in the macro.  The following proc (or something
+similar) will appear in this window:
+
+	proc cpSent2otherWin {} {
+		prevSentence
+		setMark
+		nextSentence
+		copy
+		otherThing
+		paste
+		bind::CarriageReturn
+		otherThing
+	}
+
+(3) Now edit the macro.  The code for automatically finding the sentences
+you want to copy is simple.  Let's assume that you wish to copy all the
+sentences with the word 'Alpha' in them to the 'AlphaRefs' window.  You
+will need to use a search command.  The simplest way to proceed is to show
+you the modified procedure, then explain what each line does.
+
+(The line numbers are merely for reference purposes and should NOT be
+included in your procedure).
+
+	proc cpSent2otherWin {} {
+2		set pos [getPos]
+3		set theText [search -f 1 -m 0 -s -i 1 "Alpha" $pos]
+4		eval select $theText
+		
+		prevSentence
+		setMark
+		nextSentence
+		copy
+		otherThing
+		paste
+		bind::CarriageReturn
+		otherThing
+		
+15		goto [pos::math [lindex $theText 1] + 1]
+	}
+
+Line 2 uses the AlphaTcl command 'getPos' to return the value of the current
+position of the insertion point.  This position value is a number (in units of
+bytes) and is stored in the variable 'pos'.
+
+Line 3 does the search (you should take a look at the description of search in
+'Alpha Commands' to find out what the flags mean).
+
+The result of the search is two values: the initial position of the found text
+and the final position of the found text.  Search doesn't move the insertion
+point, so line 4 accomplishes this by selecting the found text.
+
+The following lines are the same as the original macro.  
+
+Line 15 is not necessary since the call to nextSentence moves the insertion
+point beyond the found text, but if our macro did not move the point, then
+some line like 15 would be necessary to set up the procedure to be called
+again without manually moving the point.  Line 15 uses pos::math to move the
+point 1 byte past the found text.
+
+(4) Once you have finished, use the "Macro Utils > Edit Saved Macro" menu item
+once again to save the edited macro.  Now try it!  If it doesn't work, you can
+try to edit it once more using the same steps.
+
+(5) If you are satisfied with your macro, you could select the menu item
+"Saved Macros > Assign Shortcuts" to define a (previously un-assigned)
+keyboard shortcut to the macro.  Select the "Config > Describe Binding" menu
+item, bound to F7, to ensure that the shortcut is not already claimed.
+
+
+# Things That Don't Work
+========================
+
+Emacs users will be used to setting up a macro with a search, Control-S,
+command.  Alpha is not Emacs!  Text typed into the status bar is not recorded.
+The command Control-S (quickFind) is recorded, but none of the search text is.
+In order to couple your macro with a search you will have to learn a little
+Tcl (as shown above).
+
+Recursive edits do not work in Alpha.  All keystrokes you type during macro
+recording are a collected.  (A recursive edit in Emacs is invoked with
+"Control-X Q" or "Control-U Control-X Q" and provides a way to pause the macro
+for user enterable text.  While in the recursive edit, the keystrokes are not
+recorded.  During the macro playback, the macro will pause for the user to
+enter text when the recursive edit is encountered.)
+
+
+# Differences Between Alpha and Emacs
+=====================================
+
+In the double-space example, we used "Control-E Control-F" to position the
+cursor on the next line.  Control-N is just as good in Alpha; unlike Emacs,
+Alpha does not add a new line to the buffer if Control-N is issued on the last
+line of the file.  If you use Control-N in Alpha and call the macro more times
+than there are lines in the file no extra lines are added.
+
+
+	======================================================================
+
+
+ Author: Donavan Hall
+ E-mail: <hall@magnet.fsu.edu>
+

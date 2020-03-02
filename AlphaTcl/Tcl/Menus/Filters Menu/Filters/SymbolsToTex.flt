@@ -1,0 +1,23 @@
+!! This file : SymbolsToTex.flt
+!! Convert various symbols to TeX macros
+!! To be used with the Filters Menu in Alpha.
+!! Last modification : 8 avril 2000 - 17:34:26
+!! (c) Copyright : Bernard Desgraupes 2000
+
+
+¡	\circ
+¤	\S
+§	\beta
+­	\neq
+É	\ldots
+±	\pm
+²	\leq
+³	\geq
+µ	\mu
+¶	\delta
+¹	\pi
+Ã	\sqrt
+Æ	\Delta
+Ï	\oe
+·	\sum
+¸	\prod

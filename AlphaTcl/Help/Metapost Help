@@ -1,0 +1,483 @@
+Title:			Metapost Mode Help
+Version:		$Revision 2.1 $
+Author:			Bernard DESGRAUPES bdesgraupes@easyconnect.fr
+Homepage:		http://webperso.easyconnect.fr/bdesgraupes/alpha.html
+Modified:	 	2003-04-06 18:50:53
+Keywords:		Metafont, Tex, graphics, postscript 
+  
+----------------------------------------------------------------------
+1. Introduction
+2. Installation
+   2.1. Automatic installation
+   2.2. Manual installation
+   2.3. After installing
+3. Description
+   3.1. List of the macros submenus:
+   3.2. Macros from additionnal packages:
+4. File marking
+   4.1. The Mark pop-up menu
+   4.2. The Functions pop-up menu
+5. Command double clicking a word
+6. Option clicking the title bar
+7. Completions
+8. Key Bindings
+9. Metapost Mode preferences
+10. Version History
+11. Known problems
+12. License and Disclaimer
+----------------------------------------------------------------------
+
+					Abstract
+
+This is a help file for the Metapost mode in Alpha.
+This file should be located in the Help subfolder of Alpha's folder to
+show up automatically in the Help menu when Alpha is loaded.
+
+
+1. Introduction
+
+MetapostMode is a mode for the text editor Alpha: it is  designed  to  make
+writing, processing and testing  of  Metapost  source  files  much  easier.
+Metapost is the programming language written by  John  Hobby  in  order  to
+create all kinds of figures, graphs, pictures  to  include  in  a  document
+prepared with TeX or with Troff. Its syntax is very  much  like  Metafont's
+syntax but Metapost outputs are Postscript encapsulated files.
+
+Once Metapost mode is installed, the opening of a Metapost source file (i-e
+with extension ".mp") invokes a new menu (called Metapost) in the menu  bar
+with the following features:
+
+• easy insertion of all the basic Metapost commands (with electric stops):
+macros from the mfplain, boxes and graph packages are also included.
+• syntax coloring.
+• file marking.
+• capacity to process a source file from within Alpha with  various  flags,
+printer modes, input mem files.
+• editing the log and the mpx files.
+• key bindings to choose the processing mode, to process  files,  open  the
+log or mpx etc
+• advanced keywords completion
+• command clicking on a word leads to its definition
+• option clicking on the title bar of a window brings a list of  .mp,  .mpx
+and .log files at the same level or in a selected folder and allows to edit
+them.
+
+Note that both CMacTeX Metapost and OzMetapost are  supported. 
+MetapostMode is fully compatible with MetafontMode.
+
+
+2. Installation
+
+2.1. Automatic installation
+
+Open the "OPEN TO INSTALL" file. Opening this file indicates to Alpha that
+a new package has to be installed :  the  procedure  is  automatic.  Alpha
+knows where to store the different elements of your Metapost Mode package.
+
+2.2. Manual installation
+
+• put the "Metapost Mode" folder in the "Modes" subfolder of  the  "Tcl"
+folder which is located at the same level as your Alpha application
+
+• put the "Metapost Help" file in the "Help" folder located at  the  same
+level as your Alpha application. Next time you launch Alpha, you will have
+a "Metapost Help" item in the Help menu to edit this file.
+
+• launch Alpha. You have to rebuild the package indices and the Tcl indices.
+'Rebuild Package Indices' is in the Config - Packages  menu,  and  'Rebuild
+Tcl Indices' is in the Tcl menu.
+
+• quit Alpha and relaunch it : that's all there is to it.
+
+
+2.3. After installing
+
+From now on, the opening of any file with a ".mp" or ".mpx" extension  will
+invoke the Metapost menu. Have a look at the mode  specific  preferences  :
+create or open any Metapost source file and  choose  "Preferences"  in  the
+"Metapost Mode Prefs" submenu of the "Config" menu. You can set  the  paths
+to various useful macros package. More explanations below.
+
+
+3. Description
+
+Metapost menu items:
+
+<Switch To Metapost>
+     Launches the Metapost application in front.
+
+<Run The Buffer>
+     Calls up the  Metapost  application  and  processes  the  current
+     window. 
+
+<Save And Run>
+     Saves the current window and calls up the Metapost application to
+     process it.
+
+<Run a File>
+     Prompts you for a "mp" file to run.
+
+<Metafont Mode>
+     This is only for use with a Metafont-like source file when  using
+     for instance the mfplain macros package.  The  word  mode  has  a
+     different meaning for Alpha and for Metafont : here it means  the
+     Metafont's printer mode, the one you specify when you  process  a
+     file. If no mode is specified, the default is proof and your file
+     will be processed by Metapost in the usual way.  You  can  choose
+     among the following list. User  Defined  should  be  set  in  the
+     Current Mode Prefs : it is the printer mode at your installation.
+     If you do not know which mode corresponds  to  your  installation
+     choose "Localfont" or look in the modes.mf file which comes  with
+     your TeX distribution. You can edit this file directly  in  Alpha
+     from this Metapost Menu (see below).
+			• Proof
+			• Smoke
+			• Lowres
+			• Localfont
+			• User Defined
+
+<Processing Options>
+     Define here any particular processing option allowed by Metapost.
+
+<mag…>
+     Default value is 1, which means no magnification.
+<magstep…>
+     Default value is 0, which means no magnification. Note  that  you
+     choose a magnification either in mag  or  in  magstep  :  if  you
+     choose the magstep syntax, any choice you  previously  made  with
+     mag will be omitted (and vice versa).
+<Input Mem File…>
+     You can specify a particular "mem" file  (for  insatnce  foo.mem)
+     which should be loaded before the file you want to process.  Like
+     in the following command line : mp &foo somefile.mp To cancel  an
+     input file you have to clear all options (see below the menu item
+     "Clear All Options")
+<Input Mfplain.mem>
+     In case you want to make use of the mfplain  macros  package  and
+     have them dumped in a mem file.
+<Clear All Options>
+     Cancel all previously selected options.
+	
+<Related Files…>
+
+<Open Log File>
+     Edit in Alpha (read-only)  the  log  file  corresponding  to  the
+     currentwindow and produced by a run of Metapost on  this  current
+     window. 
+<Open Mpx File>
+     Edit in Alpha (read-only)  the  mpx  file  corresponding  to  the
+     currentwindow and eventually produced by a  run  of  Metapost  on
+     this current window when btex…etex environments are present.
+                             
+<Open plain.mp>
+     Edit this file (read-only).
+<Open mfplain.mp>
+     Edit this file (read-only).
+<Open plain.mf>
+     Edit this file (read-only).
+<Open modes.mf>
+     Edit this file (read-only).
+
+	Note : you have to set the paths to  these  files  in  the
+	mode specific preferences when you first use the  Metapost
+	Mode. If these paths are not set, Metapost Mode  will  ask
+	you to locate the files when you first try to open them.
+
+<Input…>
+     To insert an input instruction concerning the main macro packages
+     for Metapost. A list of these files is shown to let you pick  the
+     one you need.
+
+<Remove Files…>
+     Remove any kind of auxiliary files. All the files  of  a  certain
+     type included in a folder can  be  removed.  Use  the  "Choose  A
+     Folder…" item to select a folder. If a folder has already  been
+     selected, its name will be recalled at the bottom of the "Related
+     Files…" submenu. For each kind of files you are prompted for  a
+     confirmation before they are deleted.
+
+<All Log Files>
+     Remove dvi files
+<All Tfm Files>
+     Remove ps files
+<All Mpx Files>
+     Remove ofm files
+<All Of Them>
+     Remove all these types of files
+<Choose A Folder…>
+     Choose a new current folder to which  the  removing  items  above
+     will apply.
+
+     The last item of the "Related Files…" menu indicates  the  name
+     of the current folder. It says either
+
+<No Folder Selected>
+     If no no folder is currently selected
+<Current Folder Is:>
+     Followed by the  name of the currently selected folder
+
+
+					
+<New Figs File Template>
+     Builds a template for a complete new figures source file. User is
+     asked for the number of figures in the file.  They  are  numbered
+     automatically. 
+
+
+All the following submenus contain the  basic  Metapost  commands  and
+macros: any item you choose will be  inserted  in  your  file  at  the
+cursor's current position with electric tabs for those commands  which
+need arguments. In some cases, you will be asked  to  enter  a  number
+(see "makegrid" for instance). All the macros relevant to a particular
+aspect have been collected together in  a  (supposedly)  logical  way.
+When clicking on a submenu, try the option, command, control or  shift
+keys to get variants.
+
+For instance:
+
+• in the "Labels…" submenu the "label" item will become :
+		• 'dotlabel' with the option key
+		• 'dotlabels' with the command key
+		• 'thelabel' with the shift key
+
+In the case of 'dotlabels' you will  be  prompted  to  set  the  number  of
+arguments. 
+• in the  "Graph.mp  Macros…"  submenu  the  "setcoords"  item  will
+     become :
+		• setcoords(lin,lin)  with the option key
+		• setcoords(log,log)  with the command key
+		• setcoords(lin,log)  with the shift key
+		• setcoords(log,lin)  with the control key
+
+
+3.1. List of the macros submenus:
+
+		• Boolean…
+		• Boxes…
+		• Color…
+		• Conditions…
+		• Debugging…
+		• Definitions…
+		• Drawing…
+		• Figures…
+		• Font Internals…
+		• Functions…
+		• Internal Variables…
+		• Labels…
+		• Miscellaneous…
+		• Paths…
+		• Pens…
+		• Pictures…
+		• Positioning…
+		• Transformations…
+		• Variables…
+
+
+3.2. Macros from additionnal packages:
+
+		• Mfplain.mp Macros…
+		• Graph.mp Macros…
+		• Boxes.mp Macros…
+
+
+4. File marking
+
+Various elements are marked : macros  definitions,  character  definitions,
+related files, input files etc. and can be easily accessed  through  pop-up
+menus and option or commed clicking.
+						
+4.1. The Mark pop-up menu
+
+If you choose to mark your file from the "M" pop-up menu (top right of your
+editing window), all the def, vardef  and  beginfig  declarations  in  your
+source  file  will  be  marked.  Remember  that  the  beginfig  command  is
+customizable (in the Mode Prefs) and any change  you  make  there  will  be
+taken into account for marking.
+If the  "Auto  Mark"  checkbox  is  checked  in  the  Prefs,  the  file  is
+automatically marked at opening.
+
+4.2. The Functions pop-up menu
+
+The "{}" pop-up menu (top  right  of  your  editing  window)  contains  the
+functions and macros defined in your source file. We list here all the def,
+primarydef, secondarydef, tertiarydef and vardef definitions as well as the
+files input with an "input" command.
+
+
+5. Command double clicking a word
+
+If you Command-Double-Click on a keyword you access  its  definition.  This
+procedure looks first for a definition in the current file itself, then  in
+the list of primitives, then in all the Metapost  macros  files  (boxes.mp,
+mfplain.mp, plain.mp etc. Note that plain.mp is scanned first) and  finally
+in the other ".mp" text files called in the  current  file  by  an  'input'
+command and located at the same level  (typically  they  are  user  defined
+macros files).
+
+
+6. Option clicking the title bar
+
+If you Option-Click on a the title bar, you get a list of all the .mp, .mpx
+and .log files located :
+
+• in the "local" folder (folder of your current window). 
+• in the "selected" folder (selected when you process an entire folder 
+    with "Run A Folder" or in the "Remove Files" sub menu)
+
+Selecting any item in this list will open it  in  a  window  or  bring  its
+window to front if it is already open.
+
+
+7. Completions
+
+There is a set of completion procedures in Metapost  Mode.  To  enable
+them, you must activate the "elecCompletion"  package  (in  "Config -
+Global Setups - Features") and  choose  your  completion  key
+(default is F1).
+
+Completion will behave differently depending on the context.
+
+• First we have a set abbreviations and contractions.  Just  type  the
+following abbreviations and  hit  the  completion  key  to  have  them
+expanded to the entire word or to a complete structure :
+
+	 bf		beginfig   endfig                 
+	 bg		begingroup    endgroup            
+	 bt		btex    etex                      
+	 vt		verbatimtex    etex               
+	 dbp	define_blacker_pixels             
+	 dcp	define_corrected_pixels           
+	 dgxp	define_good_x_pixels              
+	 dgyp	define_good_y_pixels              
+	 dhcp	define_horizontal_corrected_pixels
+	 dp		define_pixels                     
+	 dwp	define_whole_pixels               
+	 dwvp	define_whole_vertical_pixels      
+	 prt	proofrulethickness                
+	 sc		screen_cols                       
+	 sr		screen_rows                       
+
+	 for		for    endfor;         
+	 def		def    enddef;         
+	 prim		primarydef    enddef;  
+	 sec		secondarydef    enddef;
+	 ter		tertiarydef    enddef; 
+	 vardef		vardef    enddef;      
+	 forever	forever  endfor;       
+	 forsuffixes	forsuffixes    endfor; 
+	 if			if    fi               
+
+	 cu'n	currentpen 
+	 cu'p	currentpicture 
+	 di'p	directionpoint 
+	 di't	directiontime 
+	 re'a	reflectedabout
+	 ro'a	rotatedaround
+	 x'b	extra_beginfig
+	 x'e	extra_endfig
+	 i'p	intersectionpoint
+	 i't	intersectiontimes
+
+
+• You can  also  type  the  first  letters  of  a  word  and  hit  the
+completion key.  If  it  is  recognized  as  a  keyword,  it  will  be
+completed. If there are different possible completions, they  will  be
+listed in the status bar : hit the completion key again and  you  will
+have a list of all the possibilities from which you   can  select  the
+one you want.
+
+• With 'input' instructions : type 'input xx' and the proc  will  look
+for a known mp base file whose name starts with 'xx'.
+
+
+8. Key Bindings
+
+A few key bindings are defined in Metapost mode. For all of them  you  have
+to hit 'ctrl-p', release, then hit one of the following letters:
+'p', 's', 'l', 'w' or 'u'
+     to select respectively  "p"roof,  "s"moke,  "l"ocalfont,  lo"w"res  or
+     "u"ser defined mode
+
+	 'b'	to process the "b"uffer
+	 'f'	to process a "f"ile
+	 'n'	to create a "n"ew figs template
+	 'm'	to edit the "m"odes file 'modes.mf'
+	 'c'	to edit the macro "c"ommands file 'plain.mp'
+	 'g'	to edit the lo"g" file
+	 'x'	to edit the mp"x" file
+
+
+9. Metapost Mode preferences
+
+The "Preferences…" item in the "Mode Prefs" submenu of the "Config" menu
+allows you to edit specific preferences for the Metapost Mode. All of them
+should be self-explanatory.
+You can specify there :
+• the paths to several basic files;
+• the name of the output folder in which to  put  the  files  produced  by
+Metapost. be very careful with this : this choice is  relevant  only  with
+CMacTeX. You must choose an output folder  in  accordance  with  CMacTeX's
+output folder;
+• a "User beginfig" : it is customary in Metapost's font files  to  modify
+the definition of the beginfig/endfig routine and to give it  a  different
+name : for instance "beginmyfig/endmyfig" or  whatever.  You  can  specify
+here this modified name in order to get a correct file  marking  from  the
+little "M" pop-up menu on the top right corner of the current window.
+
+
+10. Version History
+
+• 0.1b1 -- 09/21/99 -- Created this new Metapost Mode starting from the already existing Metafont Mode which I wrote a few month ago. It includes the following features : Metapost menu, submenus to insert Metapost macros with electric stops, syntax colorizing, processing of source files with CMacTeX Metapost or with Oz%etapost. Great care has been taken in order to avoid incompatibilities between Metafont and Metapost modes, due to their similarities. All the Metafont procs are now prefixed with "Mf::" and Metapost macros are prefixed with "Mp::". 
+• 1.0 -- 09/23/99 -- First release.
+• 1.0.1 -- 03/17/2000 -- Changed the Related Files submenu : the "edit log" and "edit mpx" items do not appear any more if we are not in Mp Mode. Suppressed the Outputfolder preference. Corrected a bug concerning the marking of "beginfig" commands.
+• 1.0.2 -- 03/18/2000 -- Added the "Current Folder Is" and "No Folder Selected" items. Added "mpx" to the suffix mappings. 
+• 1.0.3 -- 03/20/2000 -- Changed the "exec" Apple Events to "odoc" to reflect the new "OpenDoc" procedure in CMacTeX Metapost : all the output is sent now to the current folder. This requires CMacTeX version 3.4 (mpost 2.1) or later. The "Current Folder Is" item now shows the current window's folder. 
+• 1.0.4 -- 05/06/2000 -- Improved the mark file procedure. Added a lot of key bindings. Changed some basic code for future compatibility with Alpha 8 and AlphaTk.
+• 1.1 -- 05/09/2000 -- Added procs Mp::DblClick, Mp::OptionTitlebar, Mp::OptionTitlebarSelect and Mp::parseFuncs. Modified syntax coloring procs to distinguish primitives from plain format macros.
+• 1.2 -- 06/05/2000 -- Added completion routines. Corrected minor bugs.
+• 1.2.1 -- 06/06/2000 -- Added items to launch dvitomp and mptotex (works only with CMacTeX since there are no separate applics with OzMP).
+• 1.2.2 -- 06/22/2000 -- Removed the items to call dvitomp and mptotex since they have been removed from the last 3.5 version of CMacTeX. Modified the Apple Event.
+• 2.1 -- 06/04/2003 -- Complete revision for compatibility with Alpha8 and AlphaTcl 8.0.
+
+		
+11. Known problems
+
+Alpha 7.4 or later is required. Alpha 8 is preferred.
+
+Please e-mail any problem or bug you encounter : <bdesgraupes@easyconnect.fr>
+Visit my Web page for updates : 
+<http://webperso.easyconnect.fr/bdesgraupes/>
+
+
+12. License and Disclaimer
+
+Copyright : Bernard Desgraupes, 2000-2002, 2003
+        All rights reserved.
+
+This software is free software and distributed under the terms of  the  new
+BSD license :
+
+Redistribution and  use  in  source  and  binary  forms,  with  or  without
+modification, are permitted provided that the following conditions are met:
+
+• Redistributions of source code must retain the  above  copyright  notice,
+this list of conditions and the following disclaimer.
+• Redistributions in binary form must reproduce the above copyright notice,
+this list of conditions and the following disclaimer in  the  documentation
+and/or other materials provided with the distribution.
+• Neither the name of Bernard Desgraupes nor the names of its  contributors
+may be used to endorse or  promote  products  derived  from  this  software
+without specific prior written permission.
+
+This software is provided by the copyright holders and contributors "as is"
+and any express or implied warranties, including, but not limited  to,  the
+implied warranties of merchantability and fitness for a particular  purpose
+are disclaimed. In no event shall the regents or contributors be liable for
+any direct, indirect,  incidental,  special,  exemplary,  or  consequential
+damages (including, but not limited to, procurement of substitute goods  or
+services; loss of use, data, or profits; or business interruption)  however
+caused and  on  any  theory  of  liability,  whether  in  contract,  strict
+liability, or tort (including negligence or otherwise) arising in  any  way
+out of the use of this software, even if advised of the possibility of such
+damage. 
+

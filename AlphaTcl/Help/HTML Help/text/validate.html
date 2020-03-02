@@ -1,0 +1,295 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<HTML>
+
+<HEAD>
+
+<TITLE>Validating the code</TITLE>
+
+<LINK HREF="../Style%20Sheet/manual.css" REL="stylesheet" TYPE="text/css">
+
+
+</HEAD>
+
+<BODY>
+
+<!-- #INCLUDE INCLPATH="maintop.html" -->
+
+<SCRIPT TYPE="text/javascript">
+<!--
+if (document.body.clientHeight) {
+	height = document.body.clientHeight - 50;
+} else {
+	height = window.innerHeight - 50 ;
+}
+document.write('<div class="main" style="height: ' + height + 'px;">');
+// -->
+</SCRIPT>
+
+
+<!-- /#INCLUDE -->
+
+
+<H1>Validating the code</H1>
+
+
+<P>
+<IMG SRC="../bilder/validatemenu.png" ALT="Validate menu" WIDTH="223"
+HEIGHT="67" CLASS="rightpic">
+The <SPAN CLASS="menu">Validate</SPAN> menu contains three functions for 
+validating the code. These three functions are of varying complexity and 
+therefore takes different amount of time. Unfortunately Alpha is not fast 
+enough to validate the HTML code instantly. Checking both tags and 
+attributes in large documents takes time!
+</P>
+
+<P>
+If there are any errors found a window is opened displaying 
+all errors. Use the up and down arrows to browse this window and return to 
+jump to the error in the code.
+</P>
+
+<P>
+Some general tips when correcting errors:
+</P>
+
+<UL>
+	<LI>Always try to fix the first error first. Often one error can produce 
+	more than one error message.
+	<LI>Some elements have optional closing tags, P for example. That Alpha says 
+	there is a closing tag without a matching opening tag may be because a 
+	closing tag have been implicitly inserted.
+	<LI>The element TBODY has both optional opening 
+	and closing tags. Therefore you may see error messages referring to TBODY 
+	although you have no TBODY elements in your document.
+	<LI><A HREF="http://www.htmlhelp.com/" TARGET="_top">The Web Design Group</A> has very 
+	good documentation about in which context each element may appear.
+</UL>
+
+
+<div CLASS="item">Find Unbalanced Tags</div> 
+
+<DIV CLASS="indent">
+This is the simplest of the three validating functions. It looks for 
+opening tags without a matching closing tag and vice versa. When checking, 
+Alpha knows which elements have optional opening tags, which have optional 
+closing tags and which may not have closing tags. Alpha does not check if 
+the elements are valid HTML elements. The possible error 
+messages are:<BR>&nbsp;
+
+<TABLE BORDER="0" CELLSPACING="0" CELLPADDING="5">
+	
+	<TR VALIGN="TOP">
+		<TH ALIGN="LEFT">ELEMENT may not have a closing tag.</TH>
+		<TD>A closing tag for an element which may not have one has been 
+		found, like <SPAN CLASS="inlinecode">&lt;/BR&gt;</SPAN>.</TD>
+	</TR>
+	
+	<TR VALIGN="TOP">
+		<TH ALIGN="LEFT">ELEMENT1 must be closed before ELEMENT2.</TH>
+		<TD>A closing tag is missing, like in this case: <SPAN 
+		CLASS="inlinecode">&lt;B&gt;&lt;I&gt;&lt;/B&gt;</SPAN>.</TD>
+	</TR>
+	
+	<TR VALIGN="TOP">
+		<TH ALIGN="LEFT">Closing ELEMENT tag without a matching opening 
+		tag.</TH>
+		<TD>A tag <SPAN CLASS="inlinecode">&lt;/ELEMENT&gt;</SPAN> has been 
+		found with no corresponding <SPAN 
+		CLASS="inlinecode">&lt;ELEMENT&gt;</SPAN>.</TD>
+	</TR>
+	
+	<TR VALIGN="TOP">
+		<TH ALIGN="LEFT">The ELEMENT tag is not an empty element tag.</TH>
+		<TD>A tag of an empty element, such as <SPAN 
+		CLASS="inlinecode">&lt;br&gt;</SPAN>, has been 
+		found in an XHTML document but the tag doesn't use the minimized syntax <SPAN 
+		CLASS="inlinecode">&lt;br/&gt;</SPAN>. (This is strictly not an error, 
+		since <SPAN 
+		CLASS="inlinecode">&lt;br&gt;&lt;/br&gt;</SPAN> is valid in XHTML, but 
+		the minimized form is prefered for compatibility with some browsers.)</TD>
+	</TR>
+	
+	<TR VALIGN="TOP">
+		<TH ALIGN="LEFT">No element name in tag.</TH>
+		<TD>Alpha could not find the element name in a tag.</TD>
+	</TR>
+	
+</TABLE>
+
+
+</DIV>
+
+<div CLASS="itempara">Check Tags</div> 
+
+<DIV CLASS="indent">
+A more complete 
+validation, and therefore more time consuming. Alpha checks all tags in the 
+document, but ignores the attributes. 
+
+<P>
+Alpha can <STRONG>only</STRONG> validate the code according the three HTML 
+4.01 <A HREF="doctype.html">document type declarations</A>. If there is an 
+HTML 4.0 or HTML 4.01 document type declaration in the beginning of the 
+document Alpha will use it to determine which elements are legal. Currently 
+all document type declarations other than HTML 4.0 and HTML 4.01 are 
+ignored. Alpha treats HTML 4.0 and HTML 4.01 declarations as equivalent and 
+validates according to HTML 4.01. If there is no document type declaration 
+in the beginning of the document Alpha will make an intelligent guess and 
+use either the transitional or the frameset declaration. General error 
+messages are:
+</P>
+
+<TABLE BORDER="0" CELLSPACING="0" CELLPADDING="5">
+	
+	<TR VALIGN="TOP">
+		<TH ALIGN="LEFT">No element name in tag.</TH>
+		<TD>Alpha could not find the element name in a tag.</TD>
+	</TR>
+	
+	<TR VALIGN="TOP">
+		<TH ALIGN="LEFT">Unmatched &lt;.</TH>
+		<TD>A single &lt; has been found.</TD>
+	</TR>
+	
+	<TR VALIGN="TOP">
+		<TH ALIGN="LEFT">ELEMENT is unknown.</TH>
+		<TD>An unknown HTML element not part of HTML 4.01 or XHTML 1.0 or 1.1 has been 
+		found.</TD>
+	</TR>
+	
+	<TR VALIGN="TOP">
+		<TH ALIGN="LEFT">ELEMENT may not be used with the strict DTD.</TH>
+		<TD>ELEMENT is part of HTML 4.01 or XHTML 1.0 but may not be used if you use the 
+		strict document type declaration.</TD>
+	</TR>
+	
+	<TR VALIGN="TOP">
+		<TH ALIGN="LEFT">ELEMENT may mot have a closing tag.</TH>
+		<TD>A closing tag for an element which may not have one has been 
+		found, like <SPAN CLASS="inlinecode">&lt;/BR&gt;</SPAN>.</TD>
+	</TR>
+	
+	<TR VALIGN="TOP">
+		<TH ALIGN="LEFT">The ELEMENT tag is not an empty element tag.</TH>
+		<TD>A tag of an empty element, such as <SPAN 
+		CLASS="inlinecode">&lt;br&gt;</SPAN>, has been 
+		found in an XHTML document but the tag doesn't use the minimized syntax <SPAN 
+		CLASS="inlinecode">&lt;br/&gt;</SPAN>. (This is strictly not an error, 
+		since <SPAN 
+		CLASS="inlinecode">&lt;br&gt;&lt;/br&gt;</SPAN> is valid in XHTML, but 
+		the minimized form is prefered for compatibility with some browsers.)</TD>
+	</TR>
+	
+	<TR VALIGN="TOP">
+		<TH ALIGN="LEFT">Closing ELEMENT tag without a matching opening 
+		tag.</TH>
+		<TD>A tag <SPAN CLASS="inlinecode">&lt;/ELEMENT&gt;</SPAN> has been 
+		found with no corresponding <SPAN 
+		CLASS="inlinecode">&lt;ELEMENT&gt;</SPAN>.</TD>
+	</TR>
+	
+	<TR VALIGN="TOP">
+		<TH ALIGN="LEFT">ELEMENT1 must be closed before ELEMENT2.</TH>
+		<TD>A closing tag is missing, like in this case: <SPAN 
+		CLASS="inlinecode">&lt;B&gt;&lt;I&gt;&lt;/B&gt;</SPAN>.</TD>
+	</TR>
+	
+	<TR VALIGN="TOP">
+		<TH ALIGN="LEFT">Text after &lt;/HTML&gt;.</TH>
+		<TD>No text may appear after the final <SPAN 
+		CLASS="inlinecode">&lt;/HTML&gt;</SPAN> tag, except for 
+		comments.</TD>
+	</TR>
+	
+	<TR VALIGN="TOP">
+		<TH ALIGN="LEFT">ELEMENT1 may not contain ELEMENT2.</TH>
+		<TD>ELEMENT2 may not appear as a child element of ELEMENT1. For 
+		example <SPAN CLASS="inlinecode">&lt;TABLE&gt;&lt;B&gt;</SPAN> is 
+		invalid. TABLE may not contain B elements as child elements.</TD>
+	</TR>
+	
+	<TR VALIGN="TOP">
+		<TH ALIGN="LEFT">ELEMENT may not contain text.</TH>
+		<TD>Plain text has been found inside an element which may not 
+		contain text. Example: <SPAN CLASS="code"><SPAN 
+		CLASS="htmlcode">&lt;UL&gt;</SPAN>text</SPAN>. UL may only contain 
+		LI elements.</TD>
+	</TR>
+	
+	<TR VALIGN="TOP">
+		<TH ALIGN="LEFT">ELEMENT1 may not appear anywhere inside 
+		ELEMENT2.</TH>
+		<TD>The error messages above only concern the case when an element 
+		may not be a child element of another element. This error message 
+		tells that ELEMENT1 may not appear inside ELEMENT2 at any level of 
+		nesting. For example <SPAN 
+		CLASS="inlinecode">&lt;A&gt;&lt;B&gt;&lt;A&gt;&lt;/A&gt;&lt;/B&gt;&lt;/A&gt;</SPAN> 
+		is invalid. A elements cannot be nested at any level.</TD>
+	</TR>
+	
+	<TR VALIGN="TOP">
+		<TH ALIGN="LEFT">The ELEMENT tag must be in lowercase in XHTML.</TH>
+		<TD>In XHTML all tags must be in lowercase.</TD>
+	</TR>
+	
+	<TR VALIGN="TOP">
+		<TD COLSPAN="2">In addition there are a large number of error 
+		messages specific to an HTML element.</TD>
+	</TR>
+	
+</TABLE>
+
+
+</DIV>
+
+<div CLASS="itempara">Check Tags and Attributes</div> 
+
+<DIV CLASS="indent">
+The most complete 
+validation, and therefore the most time consuming. Alpha checks all tags in the 
+document including the attributes. The possible error messages are the same 
+as when using <SPAN CLASS="item">Check Tags</SPAN> plus a number of error 
+messages for the attribute values.
+</DIV>
+
+<!-- #INCLUDE INCLPATH="mainbottom.html" -->
+
+<DIV STYLE="height: 50px">
+</DIV>
+
+<SCRIPT TYPE="text/javascript">
+<!--
+document.write('<\/DIV>');
+// -->
+</SCRIPT>
+
+
+<!-- /#INCLUDE -->
+
+
+<!-- #INCLUDE INCLPATH="navigation.html" PREV="[manualPrevPage entities.html]" 
+NEXT="[manualNextPage translation.html]" -->
+
+<P>
+<script type="text/javascript">
+<!--
+document.write('<div class="navigation" style="top: ' + height + 'px; height: 50px">');
+// -->
+</script>
+<A HREF="entities.html">Previous page</A>
+<A HREF="translation.html">Next page</A>
+<SCRIPT TYPE="text/javascript">
+<!--
+document.write('<\/DIV>');
+// -->
+</SCRIPT>
+</P>
+
+<!-- /#INCLUDE -->
+
+
+
+</BODY>
+
+</HTML>

@@ -1,0 +1,489 @@
+
+Alpha Quick Start
+
+                                               version: 8.1a1
+                                               created: 01/03/1996 {11:49:15 PM} 
+                                           last update: 01/26/2006 {03:48:27 PM}
+
+
+This help file provides a quick overview of some of the editing functions and
+user interface details for Alpha, and assumes that you have already read the
+basic "Readme" file.  The "Alpha Manual" is a more comprehensive document
+explaining all of this (and much, much more) in greater detail.
+
+See the "Release Notes" help file for a list of the major recent changes and
+known limitations with this version.
+
+
+	  	Table Of Contents
+
+
+"# Installation"
+"# Creating and Saving Documents"
+"# Editing Documents"
+"# Modes, Menus, and Features"
+"#   Modes"
+"#   Menus and Features"
+"# Searching"
+"#   Quick Find"
+"#   Multi-File Searches"
+"# Marks"
+"# The Window"
+"# The Numeric Keypad"
+"# Dynamic Menus"
+"# Text Manipulations"
+"#   Automatic Wrapping"
+"#   Automatic Indentation"
+"#   'Tab' and other Special Keys"
+"#   Other Text Manipulations"
+"#   Contextual Menu"
+"# Credits and Registration"
+
+<<floatNamedMarks>>
+
+
+	  	Installation
+
+
+If you are reading this document, installation must be finished.  Alpha relies
+on the files in the Tcl and Help subfolders being in the same folder as Alpha
+itself.  These two folders must not be renamed.  Alpha creates a subfolder
+within the system preferences folder, but you should never have to worry about
+this.
+
+
+	  	Creating and Saving Documents 
+
+
+Documents can be created in Alpha via the "File > New" menu item under the
+file menu <<new>>.  Use the "File > Open" menu item <<findFile>> to open
+existing files, by double-clicking on Alpha documents in the Finder, or via
+the Filesets menu (See "Filesets Help" for more info.)
+
+Once a document has been opened, you can modify it by typing in it, cutting
+and pasting, or using drag-and-drop editing.
+
+Files can then be saved and/or closed, also via the File menu.
+
+
+	  	Editing Documents
+
+
+At its most basic, editing in Alpha is very similar to editing within any
+other mac environment.  The current insertion point is shown by the cursor.
+The arrow keys (or clicking with the mouse) can be used to move the cursor, as
+in any other application.
+
+However, Alpha can also move via larger increments of text:
+
+	Option-Left		- one word left        (use 'Control-Alt-Left' on Alphatk)
+	Option-Right	- one word right       (use 'Control-Alt-Right' on Alphatk)
+
+	Command-Left	- beginning of line    (use 'Alt-Left' on Alphatk)
+	Command-Right	- end of line          (use 'Alt-Right' on Alphatk)
+
+	Command-Up      - beginning of window  (use 'Alt-Up' on Alphatk)
+	Command-Down    - end of window        (use 'Alt-Down' on Alphatk)
+
+Holding down the Shift key tells Alpha to extend the selection the designated
+distance.
+
+Text can be cut, copied, or pasted by selecting a region of text and using the
+items in the "Edit" menu.  Alpha also supports all the latest Drag and Drop
+technology.  Any selected piece of text can be dragged to another part of the
+same window, or to another application merely by dragging it.  To try this
+out, i) select a piece of text (double-click on a word), ii) move the cursor
+over the selected text (the cursor should now be an open hand), and iii) mouse
+down on the selected text and drag it elsewhere.  An outline of the selected
+text will accompany the cursor until you release it, and a caret will mark the
+current insertion point while you move the cursor.
+
+Tip: you can also use most of the standard Emacs editing commands if you
+activate the Emacs feature.  
+
+Preferences: Features
+
+A new "Edit > Emacs" submenu will be created, which contains several familiar
+Emacs commands along with their keyboard shortcuts.
+
+
+
+	  	Modes, Menus, and Features
+
+
+	  	 	Modes
+
+A central concept in Alpha is that of a "mode".  A mode is simply a preset
+configuration and a superset of features specific to a given editing task.
+For example, "TeX" mode is useful for editing (La)TeX documents, "HTML" mode
+is used for html documents, and so on.
+
+Each mode decides what a "word" or "paragraph" looks like, defines keyword
+coloring, specifies comment characters, implements special indentation
+routines, etc.  Furthermore, it typically defines special functions for
+navigating a document based on its structure, and for inserting templates
+specific to such documents.  A mode may also provide support for interaction
+with relevant external programs or networks.  Often all this functionality is
+packed into a mode-specific menu.
+
+You can learn more about the mode of the active window by selecting the menu
+item "Config > Mode Prefs > Describe Mode", or by pressing Control-Help.  The
+"Installed Packages" help file includes hyperlinks to help files for all
+currently recognized modes.  Many modes also have "Completion Tutorials"
+installed which describe their support for the package: elecCompletions -- to
+open them, select "Config > Mode Prefs > Completions Tutorial".
+
+Alpha automatically enters the appropriate mode for each document/window
+depending on its file extension (.tex, .html, etc.), and the mode will change
+as necessary when you switch amongst all of your open windows.
+
+Preferences: SuffixMappings
+
+You can always change the mode of the active window by selecting the menu
+command "Config > Mode Prefs > Change Mode".  You can also change the mode of
+the active window via the pop-up menu found in the status bar.
+
+The default mode (when none of the "standard" modes appears to apply to your
+new window) is Text mode, which is rather neutral: in Text mode Alpha behaves
+mostly like a primitive text editor such as SimpleText in MacOS9, or TextEdit
+in MacOSX, or WordPad in Windows.
+
+
+	  	 	Menus and Features
+
+You can customize Alpha by turning on/off various menus and features.  This is
+done by using the menu items "Config > Global Setup > Menus" and/or the
+"Config > Setup > Features".  A "menu" is a stand-alone menu which is attached
+to the menu bar, while a "feature" is some functionality which doesn't have a
+menu connected to it.  However, some features add a submenu or menu items to a
+submenu.
+
+Preferences: Menus
+Preferences: Features
+
+Many modes also have their own menus.  You can choose which menus and features
+to use for a particular mode by using the "Config > Mode Prefs" menus items.
+Note that it's normally little need to change which menu(s) to use in a
+particular mode.  The mode menus are normally not very useful in other modes
+or as global menus.
+
+Preferences: Mode-Menus
+Preferences: Mode-Features
+
+
+	  	Searching
+
+
+Alpha allows searching for character strings in either the active window, or
+within multiple files, whether or not they are currently open.
+
+Searching is usually accomplished via the "Search" menu.  "Find" brings up a
+dialog box <<find>> that allows a search string, a string optionally used to
+replace found text, and several options.  These options are:
+
+¥ 'Forward' - Search backwards or forwards.
+¥ 'Ignore Case' - The search routine can ignore the case of both the 
+  search string and the text to which it matches.
+¥ 'Word Match' - The search only matches complete words.
+¥ 'Regexp' - Regular expression matching. Regular expressions allow 
+  searching for specific character patterns, rather than just a 
+  single character sequence. See "Regular Expressions" for more information.
+¥ 'Multiple Files' - see below.
+¥ 'Patterns' - This is a popup menu that allows search strings to be 
+  saved and later re-used.
+
+Once a string has been found, the "Search" menu allows the text to be replaced
+with the 'Replace With' string from the "Find" dialog.
+
+[Tip: As with all dialogs in Alpha, buttons may be selected from the keyboard
+by pressing Command-C, where 'C' is the first character of the button's text.]
+
+[Tip: Pull down the "Search" menu and press the Option key.  There are several
+new items.  "Search Start" returns the insertion point to where the last
+search started.  "Replace All" uses the search and replace strings to make
+substitutions through the rest of the file.]
+
+See the package: supersearch for more information.
+
+
+	  	 	Quick Find
+
+
+Alpha allows the Find dialog to be bypassed by "Quick Find" and "Reverse Quick
+Find" from the "Search" menu.  These functions search for character strings as
+you type.  Use Escape to terminate a search.  Quick Find / Reverse Quick Find
+always ignore case, but do not match words.
+
+There is also a Quick Find Regexp which lets you use regular expressions.
+Look in the "Search" menu while holding down the Option key.
+
+See the package: incrementalSearch for more information.
+
+
+	  	 	Multi-File Searches
+
+
+Multi-file searches are accomplished by using file-sets, or lists of files.
+File-sets are usually a list of files in a single folder.  They can be created
+either through the file-set menu, or through the Find dialog.  (Select
+multiple files in <<find>> and then click on the "New Fileset" button).
+
+To create the simplest kind of fileset, you supply a name, the folder that
+contains the files, and a pattern to select which files from the folder are
+to be contained in the fileset.  To select all, the pattern should be `*'.
+To select just the files that end in `.tex', the pattern would be `*.tex'.
+To select all files that end in either `.c' or `.h', the pattern would be
+`*.{c,h}'.
+
+Once you have a fileset, you search through the entire thing just by
+selecting "Multiple Files" and the fileset from the popup menu.  The
+`Batch' option allows all matches to be listed in a new window, for more
+information see the package: Brws .
+
+Read more about filesets in the "Filesets Help" file.
+
+
+	  	Marks
+
+
+Alpha allows manipulation of marks through a popup menu over the 'M' icon
+above the vertical scrollbar.  Marks are pointers to particular positions in
+the file.  This file, for instance, has marks pointing to each of the major
+sections of the document (use the Marks menu to go to a different section, and
+then to come back to the 'Marks' section).
+
+The marks popup menu allows marks to be automatically established for a file.
+How the file is marked depends on which mode you are using.  For example,
+'Mark File' will automatically create a mark for each section and subsection
+of a latex document.  To create a floating menu with all of the marks in the
+active window, use the "Text > Named Marks > Float Named Marks" menu item, or
+the keyboard shortcut Command-Shift-F. For an example, click on this hyperlink
+<<floatNamedMarks>> to float the marks in this window.
+
+See the package: marks for more information.
+
+		
+	  	The Window
+
+
+Alpha's windows have several non-standard features. They are the following:
+
+¥ Command-clicking on the title-bar anywhere but right on the title pulls 
+  down a menu showing the window's current mark, and allows marks to be 
+  automatically created for all supported modes (C, LaTeX, etc.). A mark is 
+  merely a placeholder for a specific position in a file, much like a 
+  bookmark.
+
+¥ Clicking on the title pulls down a popup showing the complete 
+  pathname of the window's file.  (Right mouse click in Alphatk.)
+
+¥ Option-clicking on the titlebar brings down a menu. The content of this 
+  menu is mode dependent, and if the current mode doesn't support this 
+  feature, the menu will contain a list of all files in the open window's 
+  folder. Selecting a file in the menu will open it.
+
+¥ Above the vertical scrollbar is a gray "split-pane" bar.  (Pass the mouse
+  over this area to see the pointer change.)  Double-clicking or dragging the
+  split-pane bar splits the active window into two separately scrollable
+  panes.  Either pane can be edited, any changes appear in both panes if they
+  show the same text.  Move from one pane to the other by typing Control-x,
+  then 'o'.  Go back to a single pane by either double-clicking again or
+  dragging the bar back to the top of the window.
+
+¥ Above the split-pane bar (the 'M' or the 'paperclip' icon) is another way
+  to access the current marks for the front window.
+
+¥ Above the Marks menu is another icon '{}'. This is the Funcs menu. The 
+  content of this menu is mode dependent but will typically contain a list 
+  of all functions in the file. This menu is built when you press the icon 
+  and is therefore always up-to-date.
+
+¥ Above the Funcs menu is another pop-up menu with either a 'padlock' or
+  a 'pencil' icon.  The pencil indicates that the file is under some sort
+  of "Version Control" system.  Otherwise, the padlock indicates the
+  "read-only" status of the window.  No matter what the icon is, clicking
+  on it will display a pop-up menu with several different options.  This
+  menu will also indicate if the active window is contained in one of your
+  filesets.
+
+¥ At the top of this sidebar is either a blank space or a red 'disk' icon
+  showing that the window is dirty and needs to be saved.  Clicking the
+  icon saves the window.
+
+¥ The status window at the bottom or the top of the primary display has 
+  three or four popup menus, and a line number display: 
+  
+  ¥ "Wrap" menu.  Shows how if the lines in the active window are wrapped
+    automatically.  Note: When the package: autoWrapComments is turned
+    on, text that is typed in in a commented line will be automatically
+    wrapped even if the current "Wrap" setting is "None".
+  
+  ¥ "File Attributes" menu. Shows various attributes of the active 
+    window that can be changed.  "Mac", "Unix", or "IBM" refers to the way
+    carriage returns are formatted.  The toggleable "Remember Window State"
+    item determines if Alpha remember the current insertion and window
+    positions and fonts, tab-sizes, etc when the file is saved.  Other
+    items will change various settings for the active window.
+
+  ¥ "Encoding" menu (Alphatk only), which shows the current window's 
+    encoding and allows it to be changed.  
+
+  ¥ "Mode" menu, which shows the current mode and allows it to be changed.  
+    Bindings, keyword colorings, and many other features differ from mode 
+    to mode.
+
+  ¥ Line display. Displays current line and column. Clicking opens a dialog 
+    that allows a specific line to be found.
+
+Preferences: Window
+Preferences: Appearance
+
+
+	  	The Numeric Keypad
+
+Alpha is able to use numeric key pad as a navigation tool.  Press Shift-Clear
+(or Shift-Numlock) to turn on this feature.  The current status of Alpha's
+internal "numLock" variable is indicated by the "NLCK" button in the status
+bar menu.  Clicking on this button also toggles "numLock" on and off.  Click
+on this hyperlink <<toggleNumLock>> to locate it.
+
+See the "Keyboard Shortcuts # The Numeric Keypad" help file for more
+information about some of the navigation tools available.
+
+As of this writing, Alphatk has no control over the functions that are bound
+to the numeric keypad keys.
+
+	
+	  	Dynamic Menus
+
+
+Alpha uses dynamic menus.  This means that some menu items are changed if you
+hold down any of the modifier keys.  Usually the Option key is the one which
+reveals the hidden menu items, but there are also a few items which are
+revealed by holding down the Control or Shift keys.  Try this out by pulling
+down the File menu and holding down one of the Option, Control, or Shift keys.
+
+
+	  	Text Manipulations
+
+
+	  	 	Automatic Wrapping
+
+Line wrapping refers to Alpha automatically inserting line breaks as you
+type.  The "Config > Mode Prefs" lets you modify several mode-specific
+flags, including the default "Line Wrap" setting.  Each mode decides what
+the default line-wrapping regime should be, but you can change this for any
+given window using a pop-up menu in the status bar window.
+
+When 'lineWrap' is set to "Auto" Alpha automatically inserts a carriage
+return when a line becomes too long, respecting the value for the mode's
+"Fill Column" preference.
+
+Preferences: Mode
+
+Note: when the package: autoWrapComments is turned on, text that is typed in
+in a commented line will be automatically wrapped even if the current "Line
+Wrap" setting is "None".  If you don't like this behavior, you should turn
+off "Auto Wrap Comments".
+
+Preferences: Electrics
+
+If the status bar "Line Wrap" pop-up menu includes 'Visual-Char' or
+'Visual-Word' options, Alpha will not insert carriage returns, but rather
+simply visually wrap long lines so that they can be seen (rather like a
+word-processor).
+
+
+	  	 	Automatic Indentation
+
+Many modes have defined sophisticated indentation routines that are often
+specific to the context surrounding the cursor position.  When this is the
+case, the mode will have an "Indent On Return" preference that can be turned
+on and off.  When it is turned on, pressing Return will automatically indent
+the new line that is created.
+
+Preferences: Mode
+
+Even if this preference is turned off, you can always indent the current line
+using the "Text > Indent Line/Selection" menu commands.  In addition, pressing
+Command-Return will always indent the new line, while Control-Return will
+always insert a new line without indentation.
+
+
+	  	 	'Tab' and other Special Keys
+
+
+Alpha has several advanced features such as Electric Completions/Expansions
+that are invoked when you press "Special Keys".  The keyboard shortcuts for
+such operations can be changed to suit your particular needs and habits, or
+they can be completely disabled by setting the shortcut to "No Binding".  The
+menu item "Config > Special Keys" will open a dialog allow you to define
+global keyboard shortcuts to particular functions.
+
+Preferences: SpecialKeys
+
+For more information, see the "Electrics Help # Electric Bindings" help file.
+See the "Keyboard Shortcuts" help file for more information about discovering
+some of the other keyboard shortcuts that have been defined, and how to create
+your own personalized set.
+
+
+	  	 	Other Text Manipulations
+
+
+From the 'Text' menu:
+
+¥ 'Fill Paragraph' - reflows the current paragraph so that lines are 
+  approximately the same length.
+
+¥ 'Upcase Region' - converts all selected   characters to upper case.
+
+¥ 'Downcase Region' (hold down Option key) - converts all selected 
+   characters to lower case.
+
+From the 'File' menu:
+
+¥ 'Text to Alpha' - This menu item (in the "File Utils" submenu) prompts
+   the user to select a folder, and then recursively changes the creator of
+   all text files in that folder to Alpha.  This is useful if you receive
+   text files created by another editor.
+
+
+	  	 	Contextual Menu
+
+
+Alpha provides sophisticated Contextual Menu support, obtained by pressing the
+mouse and the Control key simultaneously (or, in Alphatk, by using the right
+mouse button).  This support is based on the context of the mode of the
+active window as well as any text surrounding the 'click' position.  You can
+customize the menus/items that are presented in the CM, and have a different
+set of options for each given mode.  See the "contextualMenu Help" window for
+more information.
+
+
+	  	Credits and Registration
+
+
+Alpha8/X/tk are all shareware.  Please click here <<register>> and follow the
+instructions found in the register application or web page.
+
+Alpha8's home page is  <http://www.purl.org/net/alpha/Alpha8>.
+
+AlphaX's home page is  <http://www.purl.org/net/alpha/AlphaX>.
+
+Alphatk's home page is <http://www.purl.org/net/Alphatk>.
+
+PLEASE use the alphatcl-developers mailing lists to discuss problems,
+suggestions etc with this release.  See the subscription options available
+at
+
+    <http://www.purl.org/net/alpha/mail>
+
+There are a number of known bugs which will hopefully be corrected in a
+future release.  PLEASE read the "Known Bugs" file for a list of known bugs,
+and for how to give an informative bug report, without which it is unlikely
+any bug you found can be fixed.
+
+
+Author: Peter Keleher
+

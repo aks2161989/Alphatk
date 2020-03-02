@@ -1,0 +1,88 @@
+
+Typesetting LaTeX Files
+
+                                            version: 5.0.7
+                                            created: 05/01/2004 {10:49:57 PM}
+                                        last update: 01/26/2006 {02:37:23 PM}
+
+
+	  	Table Of Contents
+
+"# Table Of Contents"
+"# Introduction"
+"# Preferences"
+"# Using Alpha with 'teTeX'"
+"# Typesetting Trouble-shooting"
+
+<<floatNamedMarks>>
+
+
+	  	Introduction
+
+Alpha supports typesetting with OzTeX, CMacTeX, Textures, TeXShop, and more,
+and for multiple OS platforms, but if can be difficult to configure all of
+the available preferences to make everything work correctly.
+
+	  	Preferences
+
+We current have these preferences:
+
+"Config > Global Setup > Helper Applications"
+
+(See the preferences: HelperApplications dialog)
+
+	TeX Signature
+
+"Config > TeX Mode Prefs > Preferences"
+
+(See the preferences: Mode-TeX dialog)
+
+	Additional TeX Flags
+	Run TeX In Back
+	Show TeX Log
+	Use Textures Flash Mode
+	Version For CMacTeX
+	Version For Textures
+
+"TeX Menu > TeX Format"
+
+	TeX Format
+	Auto Adjust Format
+
+"TeX Menu > TeX Program"
+
+	TeX Program
+
+
+so the number of variations is incredibly high, and one wrong setting can
+disable the typesetting of your file.  (For most TeX helpers, only a few of
+these are important anyway, but it is hard to know in advance which ones
+matter.)
+
+
+	  	Using Alpha with 'teTeX'
+
+
+A separate "teTeX Help" file explains how to use Alpha with tetex.
+
+
+	  	Typesetting Trouble-shooting
+
+The most common problem users encounter involve the "Tex Format/Program"
+preferences.  Please try setting these to
+
+	TeX Format  : tex
+	TeX Program : LaTeX
+
+and try to typeset the file again to see if that helps.  Yes, we know that
+these settings are confusing, and we hope to explain them better in the
+future.  Until then, please see this web page:
+
+<http://www.purl.org/net/alpha/wikipages/typesetting-files>
+
+Eventually, this document will contain information on how all of these items 
+should be set for different applications and platforms.  
+
+
+This document has been placed in the public domain.
+

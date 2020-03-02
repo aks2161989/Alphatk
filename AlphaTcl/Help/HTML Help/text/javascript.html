@@ -1,0 +1,214 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+
+<HTML>
+
+<HEAD>
+
+<TITLE>JavaScript</TITLE>
+
+<LINK HREF="../Style%20Sheet/manual.css" REL="stylesheet" TYPE="text/css">
+
+
+</HEAD>
+
+<BODY>
+
+<!-- #INCLUDE INCLPATH="maintop.html" -->
+
+<SCRIPT TYPE="text/javascript">
+<!--
+if (document.body.clientHeight) {
+	height = document.body.clientHeight - 50;
+} else {
+	height = window.innerHeight - 50 ;
+}
+document.write('<div class="main" style="height: ' + height + 'px;">');
+// -->
+</SCRIPT>
+
+
+<!-- /#INCLUDE -->
+
+
+<H1>JavaScript mode</H1>
+
+<P>
+JavaScript mode is intended for editing of external JavaScript documents 
+(suffix <B>.js</B>). It may also sometimes be a better choice when you are 
+editing JavaScript inside an HTML document. Select <B>JScr</B> in the mode 
+menu in the status bar to manually switch to JavaScript mode.
+</P>
+
+<P>
+JavaScript mode provides keyword coloring, word completion, and the basic 
+editing features, indent on return, electric semicolon, 
+electric braces, and special indent for case label.
+</P>
+
+<H2><A NAME="complete">Word completion</A></H2>
+
+<P>
+In JavaScript mode completions of a number of statements are available: 
+<SPAN CLASS="item">function</SPAN>, <SPAN CLASS="item">for</SPAN>, <SPAN 
+CLASS="item">while</SPAN>, <SPAN CLASS="item">switch</SPAN>, <SPAN 
+CLASS="item">case</SPAN>, <SPAN CLASS="item">do</SPAN>, <SPAN 
+CLASS="item">if</SPAN>, and <SPAN CLASS="item">else</SPAN>. Typing <SPAN
+CLASS="item">ctrl-tab</SPAN>
+after typing any of these statements expands them to a template. Two 
+examples:
+</P>
+
+<P>
+Typing
+</P>
+
+<PRE CLASS="code">
+<SPAN CLASS="htmlcode">for</SPAN>
+</PRE>
+
+<P>
+and then typing <SPAN CLASS="item">ctrl-tab</SPAN> gives
+</P>
+
+<PRE CLASS="code">
+<SPAN CLASS="htmlcode">for</SPAN> (|; &#8226;; &#8226;) {
+    &#8226;
+}
+&#8226;
+</PRE>
+
+<P>
+Typing
+</P>
+
+<PRE CLASS="code">
+<SPAN CLASS="htmlcode">while</SPAN>
+</PRE>
+
+<P>
+and then typing <SPAN CLASS="item">ctrl-tab</SPAN> gives
+</P>
+
+<PRE CLASS="code">
+<SPAN CLASS="htmlcode">while</SPAN> (|){
+    &#8226;
+}
+&#8226;
+</PRE>
+
+<H2><A NAME="funcs">Funcs menu</A></H2>
+
+<P>
+The funcs menu lists all functions defined in the document. Selecting a 
+function in the menu lets you jump to it.
+</P>
+
+<H2>Cmd-double-clicking</H2>
+
+<P>
+Cmd-double-clicking on a keyword or builtin property or function makes 
+Alpha jump to a JavaScript reference guide. This requires that you install 
+the <A HREF="http://hem.fyristorg.com/alpha_www_tools/JSref.html">JavaScript reference for 
+Alpha</A> by Wolfgang Haeuptli.
+</P>
+
+<P>
+The cmd-double-clicking also works in HTML mode.
+</P>
+
+<H2><A NAME="prefs">Preferences</A></H2>
+
+<P>
+The JavaScript preferences dialog is opened using <SPAN 
+CLASS="menuitem">Config-&gt;JScr Mode Prefs-&gt;Preferences</SPAN>.
+</P>
+
+<P>
+<img src="../bilder/javascriptprefs.png" alt="JavaScript prefs" width="504"
+height="378">
+</P>
+
+<div CLASS="item">Electric braces</div> 
+
+<DIV CLASS="indent">
+Enabling <SPAN CLASS="item">Electric braces</SPAN> tells Alpha to treat the left or 
+right brace '{', '}' keys as special keypresses which enter the '{' or '}' 
+character, followed by a carriage return and then indent the following line 
+correctly. <STRONG>Note!</STRONG> For the electric braces to 
+work you must select your keyboard in the dialog <SPAN 
+CLASS="menuitem">Config-&gt;Preferences-&gt;System Preferences-&gt;International</SPAN>.
+</DIV>
+
+<div CLASS="itempara">Electric semicolon</div>
+
+<DIV CLASS="indent">
+Enabling <SPAN CLASS="item">Electric semicolon</SPAN> tells Alpha to treat 
+the semicolon key ';' as special keypresses which enters the ';' character 
+followed by a carriage return and then indents the following line 
+correctly.  The ';' key is context-dependent so you can still enter a for( 
+; ; ) loop in JavaScript code without Alpha messing things up. 
+</DIV>
+
+<div CLASS="itempara">Indent on return</div>
+
+<DIV CLASS="indent">
+Enabling <SPAN CLASS="item">Indent on return</SPAN> tells Alpha to indent the following 
+line automatically whenever you press return.
+</DIV>
+
+<div CLASS="itempara">Special indent for case label</div>
+
+<DIV CLASS="indent">
+Enabling <SPAN CLASS="item">Special indent for case label</SPAN> tells Alpha to indent the 
+case lines inside switch differently.
+</DIV>
+
+<H2><A NAME="mode">JavaScript in HTML mode</A></H2>
+
+<P>
+The JavaScript support in HTML mode is the same as in JavaScript mode, 
+except that there is no special indent for case label, and the funcs menu has another 
+functionality in HTML mode. You can say that between &lt;SCRIPT&gt; tags in 
+an HTML document Alpha behaves as if it were is JavaScript mode.
+</P>
+
+<!-- #INCLUDE INCLPATH="mainbottom.html" -->
+
+<DIV STYLE="height: 50px">
+</DIV>
+
+<SCRIPT TYPE="text/javascript">
+<!--
+document.write('<\/DIV>');
+// -->
+</SCRIPT>
+
+
+<!-- /#INCLUDE -->
+
+
+
+<!-- #INCLUDE INCLPATH="navigation.html" PREV="[manualPrevPage prefs.html]" 
+NEXT="[manualNextPage CSS.html]" -->
+
+<P>
+<script type="text/javascript">
+<!--
+document.write('<div class="navigation" style="top: ' + height + 'px; height: 50px">');
+// -->
+</script>
+<A HREF="prefs.html">Previous page</A>
+<A HREF="CSS.html">Next page</A>
+<SCRIPT TYPE="text/javascript">
+<!--
+document.write('<\/DIV>');
+// -->
+</SCRIPT>
+</P>
+
+<!-- /#INCLUDE -->
+
+
+</BODY>
+
+</HTML>

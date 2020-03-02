@@ -1,0 +1,519 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+
+<HTML>
+
+<HEAD>
+
+<TITLE>Giving attributes to HTML elements</TITLE>
+
+<LINK HREF="../Style%20Sheet/manual.css" REL="stylesheet" TYPE="text/css">
+
+
+</HEAD>
+
+<BODY>
+
+<!-- #INCLUDE INCLPATH="maintop.html" -->
+
+<SCRIPT TYPE="text/javascript">
+<!--
+if (document.body.clientHeight) {
+	height = document.body.clientHeight - 50;
+} else {
+	height = window.innerHeight - 50 ;
+}
+document.write('<div class="main" style="height: ' + height + 'px;">');
+// -->
+</SCRIPT>
+
+
+<!-- /#INCLUDE -->
+
+
+<H1>Giving attributes to HTML elements</H1>
+
+<P>
+This page explains how you can give attributes to an HTML elements when you 
+insert a new one using one of the menu items for an HTML element, or when 
+you change an existing tag either using <A HREF="editing.html"><SPAN 
+CLASS="menuitem">Edit Tag</SPAN></A> in the <SPAN 
+CLASS="menu">Editing</SPAN> submenu of the HTML Utilities menu or <A 
+HREF="cmddoubleclick.html">command-double-click</A> a tag. For other 
+features which helps you modify an existing tag, see <A 
+HREF="contextmenu.html">Contextual menu</A>, <A 
+HREF="optionclick.html">Option-click in titlebar</A>, <A 
+HREF="wordcompletion.html">Word completion</A>, and <A 
+HREF="editing.html#insert"><SPAN CLASS="menuitem">Insert attributes</SPAN></A> in 
+the <SPAN CLASS="menu">Editing</SPAN> menu.
+</P>
+
+<P>
+When you insert a new HTML element using one of the menu items you can be 
+asked about the element's attributes in two different 
+ways: either in a dialog box with all attributes (the default), or in the 
+status bar.  In the <A HREF="prefs.html">general preferences dialog</A> you 
+can select which of these two ways you want to use. You can use different 
+settings for when you give attributes to and insert a new tag and when you 
+want to change an existing one.
+</P>
+
+<H2>Using dialog boxes</H2>
+
+<P>
+Different attributes can take different types of values, URLs, colors, 
+integers, for example. Below we will go through how to specify the 
+attribute value for the different kinds of attributes.
+</P>
+
+<DIV CLASS="item">
+URL
+</DIV>
+
+<DIV CLASS="indent">
+
+<P>
+<IMG SRC="../bilder/attrURL.png" ALT="URL attribute" WIDTH="460" HEIGHT="125">
+</P>
+
+<P>
+You can specify the URL in three ways:
+</P>
+
+<OL>
+	<LI>type the URL in the text box,
+	<LI>choose one from the menu with your <A HREF="caches.html">URL cache</A>,
+	<LI>select a file via a file dialog.  The file you have selected will 
+	be put in the menu.
+</OL>
+
+<P>
+<B>Note!</B> If you type a URL in the text box, it will be used even if you choose 
+something from the menu.
+</P>
+<P>
+It is probably much faster to type the URL than selecting a file from a 
+file dialog, but the advantage of using the file dialog is that it will 
+automatically insert a correct absolute or relative URL depending on which 
+is appropriate.  If you use a BASE tag in the current window it will be 
+noticed.
+</P>
+
+<P>
+Alpha calculates the URL as follows. Files inside home page folders 
+are mapped to a URL http://as.you.have.defined.it/file.html and files 
+outside the home page folders are mapped to a URL file:///path/to/file.html
+</P>
+
+<P>
+Alpha first determines the URL of the two files, and then determines the 
+URL to link between them.
+</P>
+
+<UL>
+	<LI>If you link within a home page folders you will get a relative URL.
+	<LI>If you link between two different home page folders like 
+	http://here.net/ and http://there.net/ you will get an absolute URL.
+	<LI>If you link between two different home page folders like 
+	http://www.net/~me/ and http://www.net/~you/ (at the same server), you 
+	will get a relative URL.
+</UL>
+
+<P>
+You can also make links between files which are not in a home page folder, 
+but linking between files, where one is inside a home page folder and the 
+other one is not, may not always make sense.
+</P>
+
+<P>
+If you select a GIF, JPEG, or PNG file for the attribute SRC of IMG via a file 
+dialog, the attributes WIDTH and HEIGHT are automatically determined.
+</P>
+
+</DIV>
+
+<DIV CLASS="item">
+Color
+</DIV>
+
+<DIV CLASS="indent">
+<P>
+<IMG SRC="../bilder/attrcolor.png" ALT="Color attribute" WIDTH="460"
+HEIGHT="162">
+</P>
+
+<P>
+You can specify the color in three ways:
+</P>
+
+<OL>
+	<LI>type a hexadecimal number #RRBBGG, which defines the color, in the 
+	text box,
+	<LI>choose a color from the menu,
+	<LI>define a new color.  The color so defined will be put in the menu.
+</OL>
+
+<P>
+<B>Note!</B> If you type something in the text box, it will be used, even if you choose 
+a color from the menu.
+</P>
+
+<P>
+The menu contains first your own colors and then the 16 predefined colors 
+in HTML. See the section <A HREF="colors.html">Color sets</A> about how to 
+define your own colors and how to group them into sets.
+</P>
+
+</DIV>
+
+<DIV CLASS="item">
+Target window
+</DIV>
+
+
+<DIV CLASS="indent">
+<P>
+<IMG SRC="../bilder/attrwindow.png" ALT="Target window attribute" WIDTH="460"
+HEIGHT="165">
+</P>
+
+<P>
+You can specify the target window in two ways:
+</P>
+
+<OL>
+	<LI>type the window name in the text box,
+	<LI>choose a window name from the menu with your <A HREF="caches.html">window cache</A>.
+</OL>
+
+<P>
+<B>Note!</B> If you type something in the text box, it will be used, even if you choose 
+a window from the menu.
+</P>
+</DIV>
+
+<DIV CLASS="item">
+Content type
+</DIV>
+
+
+<DIV CLASS="indent">
+<P>
+<IMG SRC="../bilder/attrcontenttype.png" ALT="Content type attribute"
+WIDTH="460" HEIGHT="98">
+</P>
+
+<P>
+You can specify the content type in two ways:
+</P>
+
+<OL>
+	<LI>type the content type in the text box,
+	<LI>choose one from the menu.
+</OL>
+
+<P>
+<B>Note!</B> If you type something in the text box, it will be used, even if you choose 
+something from the menu.
+</P>
+</DIV>
+
+<DIV CLASS="item">
+Media descriptors, Content types, Link types
+</DIV>
+
+<DIV CLASS="indent">
+<P>
+<IMG SRC="../bilder/attrmedia.png" ALT="Content types attribute" WIDTH="460"
+HEIGHT="50">
+</P>
+
+<P>
+These are attributes which takes a list of values. Media descriptors and 
+content types should be a comma separated list, while the link types 
+should be space separated. You can either type the value you want directly 
+into the text box, or select values from the menu. Clicking the Add button 
+will add the selected item to the text box. <B>Note!</B> If there is 
+something selected in the menu when you leave the dialog, it will 
+automatically be added to the attribute value. Thus if you only need one 
+value, it is enough to select it in the menu without having to click Add.
+</P>
+
+<P>
+The values in the menu can be edited by using the functions <SPAN 
+CLASS="menuitem">Content types</SPAN>, <SPAN CLASS="menuitem">Media 
+descriptors</SPAN>, and <SPAN CLASS="menuitem">Link types</SPAN> in the 
+<A HREF="prefs.html#types"><SPAN CLASS="menu">Preferences</SPAN></A> menu.
+</P>
+
+</DIV>
+
+<DIV CLASS="item">
+Predefined choices
+</DIV>
+
+<DIV CLASS="indent">
+<P>
+<IMG SRC="../bilder/attrchoices.png" ALT="Choices attribute" WIDTH="260"
+HEIGHT="118">
+</P>
+
+<P>
+Attributes which take a value from a predefined list of choices. Select a 
+value from the menu.
+</P>
+
+</DIV>
+
+<DIV CLASS="item">
+Integer, Length, Multilength
+</DIV>
+
+<DIV CLASS="indent">
+<P>
+<IMG SRC="../bilder/attrnumber.png" ALT="Number attribute" WIDTH="180"
+HEIGHT="31">
+</P>
+
+<P>
+Attributes which take an numerical value.  The number will be checked that 
+it is in the valid range and that it is of the right type, e.g. if a 
+percentage value is allowed.
+</P>
+</DIV>
+
+<DIV CLASS="item">
+Flag
+</DIV>
+
+<DIV CLASS="indent">
+<P>
+<IMG SRC="../bilder/attrflag.png" ALT="Flag attribute" WIDTH="83" HEIGHT="23">
+</P>
+
+<P>
+These are attributes which does not take any value.  Check the checkbox to 
+use it.
+</P>
+</DIV>
+
+<DIV CLASS="item">
+Date and time
+</DIV>
+
+<DIV CLASS="indent">
+<P>
+<IMG SRC="../bilder/attrtime.png" ALT="Date and time attribute" WIDTH="460"
+HEIGHT="52">
+</P>
+
+<P>
+These are attributes which takes a date and time of ISO format as its 
+value. Either specify the value or check <B>Current time</B> to have Alpha 
+insert the value of the current time.
+</P>
+</DIV>
+
+<P>
+If an element has very many attributes, the dialog box may have to be 
+divided into two, or possibly three, pages to fit your screen.  Then there 
+will be a menu in the upper left corner of the dialog box to switch between 
+the pages.  The dialog box is made as large as possible before being split 
+into two or three pages.
+</P>
+
+<P>
+Alpha will complain if you forget a required attribute, and in most cases 
+it will complain if you give a value to an attribute which is not valid.
+</P>
+
+<P>
+<IMG SRC="../bilder/attrpages.png" ALT="Divided attribute dialog" WIDTH="430"
+HEIGHT="193">
+</P>
+
+<H2>Using the status bar</H2>
+
+<P>
+When you use the status bar, Alpha will go through the attributes and ask 
+you to type a value for each of them in the status bar. It you do not want 
+to give a value to an attribute, simply type return and the attribute is 
+skipped. You can customize which attributes to be asked about, see the next 
+page.
+</P>
+
+<P>
+By default, Alpha beeps for the first attribute 
+it asks you about in order to attract your attention.  You can turn off the 
+beep in the <A HREF="prefs.html">general preferences 
+dialog</A>.
+</P>
+
+<P>
+For each attribute you will get a prompt in the status bar. When an 
+attribute is optional, "(optional)" is added to the prompt. When you are 
+editing an already existing tag, the current value will be given as a 
+default within brackets. This value will be used if you do not specify a new value. 
+</P>
+
+<P>
+<IMG SRC="../bilder/bar1.png" WIDTH="85" HEIGHT="15" ALT="Status bar, required element"><BR>
+<IMG SRC="../bilder/bar3.png" WIDTH="148" HEIGHT="15" ALT="Status bar, optional element"><BR>
+<IMG SRC="../bilder/attrstatusdefault.png" WIDTH="169" HEIGHT="15" ALT="Default value">
+</P>
+
+<P>
+You can simply type the value you want for an attribute, but some keys have 
+special functions to speed up your work.
+</P>
+
+<DIV CLASS="indent">
+
+<P>
+<SPAN CLASS="item">tab</SPAN> - If you type tab Alpha will look at what you 
+have typed so far and match it against the possible options and attempt to 
+complete it as much as possible. If Alpha cannot complete anything it will 
+beep. Let us illustrate this with an example. If you are asked about the 
+value for the attribute ALIGN of the P element, the possible values are 
+LEFT, CENTER, RIGHT, and JUSTIFY. If you now type C and then tab, Alpha 
+will complete this for you by adding ENTER giving the value CENTER.
+</P>
+
+<P>
+Tab can be used for the following types of attributes:
+</P>
+
+<UL>
+	<LI><SPAN CLASS="item">Predefined choices</SPAN> Alpha attempts to 
+	match against the list of predefined choices.
+	<LI><SPAN CLASS="item">URL</SPAN> Alpha attempts to match against your 
+	your URL cache.
+	<LI><SPAN CLASS="item">Target window</SPAN> Alpha attempts to match 
+	against your window cache.
+	<LI><SPAN CLASS="item">Color</SPAN> Alpha attempts to match against the 
+	list of color names.
+	<LI><SPAN CLASS="item">Content type(s)</SPAN> Alpha attempts to match 
+	against the list of content types. If you type a list of content types 
+	Alpha will attempt to complete the one after the last comma.
+	<LI><SPAN CLASS="item">Media descriptors</SPAN> Alpha attempts to match 
+	against the list of media descriptors. If you type a list of media 
+	descriptors Alpha will attempt to complete the one after the last 
+	comma.
+	<LI><SPAN CLASS="item">Link types</SPAN> Alpha attempts to match 
+	against the list of link types. If you type a list of link types 
+	Alpha will attempt to complete the one after the last space.
+</UL>
+
+<P>
+<SPAN CLASS="item">double tab</SPAN> - As just explained, when you type tab 
+Alpha will try to complete what you have typed as much as possible. 
+Sometimes there are several possible options and Alpha can only 
+complete partially. Then if you immediately type a second tab Alpha will 
+open a window with a list of everything that match what you have typed so 
+far. If you choose something from the list, Alpha will use that value 
+and immediately jump to ask you about the next attribute.
+</P>
+
+<P>
+<SPAN CLASS="item">ctrl-f</SPAN> - Ctrl-f can be used for attributes of the 
+types <SPAN CLASS="item">URL</SPAN> and <SPAN CLASS="item">Color</SPAN>. If 
+you are asked for a URL, typing ctrl-f will let you select a file from a 
+file dialog. If you are asked for a color, typing ctrl-f will let you 
+define a new color from a color picker.  Once you have selected a file or 
+defined a new color, Alpha immediately jumps to ask you about the next 
+attribute.
+</P>
+
+<P>
+If you select a GIF, JPEG, or PNG file for the attribute SRC of IMG via a file 
+dialog, the attributes WIDTH and HEIGHT are automatically determined.  Just 
+hit return for the WIDTH and HEIGHT attributes and the automatically 
+determined values will be used.
+</P>
+
+<P>
+<SPAN CLASS="item">cmd-v</SPAN> - Pastes the clipboard into the 
+status bar.
+</P>
+
+<P>
+<SPAN CLASS="item">ctrl-q</SPAN> - Skips the current and 
+subsequent attributes.  This saves you from going through the whole list of 
+attributes.
+</P>
+
+<P>
+<SPAN CLASS="item">ctrl-d</SPAN> - Sometimes there is a default 
+value for an attribute. In particular when you are changing an existing 
+tag the current value is given as default. This default value is given 
+within brackets in the prompt:
+</P>
+<IMG SRC="../bilder/attrstatusdefault.png" WIDTH="169" HEIGHT="15" ALT="Default value">
+
+<P>
+If you type a new value it will be used and if you just hit return without 
+giving a value, the default one will be used. In this case, if you do not 
+want any value at all and want to remove this attribute, type ctrl-d to 
+skip this attribute.
+</P>
+
+<P>
+<SPAN CLASS="item">escape</SPAN> - Deletes everything written.
+</P>
+
+<P>
+<SPAN CLASS="item">ctrl-z</SPAN> - Cancel everything.
+</P>
+</DIV>
+
+<H3>Other things to note</H3>
+
+<P>
+When you are asked about a <SPAN CLASS="item">Color</SPAN> attribute, you 
+can either type a color value #123456 or the name of one of your colors.
+</P>
+
+<P>
+When you are asked about a <SPAN CLASS="item">Date and time</SPAN> 
+attribute you can type "now" to make Alpha use the current time as the 
+value.
+</P>
+
+<!-- #INCLUDE INCLPATH="mainbottom.html" -->
+
+<DIV STYLE="height: 50px">
+</DIV>
+
+<SCRIPT TYPE="text/javascript">
+<!--
+document.write('<\/DIV>');
+// -->
+</SCRIPT>
+
+
+<!-- /#INCLUDE -->
+
+
+<!-- #INCLUDE INCLPATH="navigation.html" PREV="[manualPrevPage config.html]" 
+NEXT="[manualNextPage askedabout.html]" -->
+
+<P>
+<script type="text/javascript">
+<!--
+document.write('<div class="navigation" style="top: ' + height + 'px; height: 50px">');
+// -->
+</script>
+<A HREF="config.html">Previous page</A>
+<A HREF="askedabout.html">Next page</A>
+<SCRIPT TYPE="text/javascript">
+<!--
+document.write('<\/DIV>');
+// -->
+</SCRIPT>
+</P>
+
+<!-- /#INCLUDE -->
+
+
+</BODY>
+
+</HTML>

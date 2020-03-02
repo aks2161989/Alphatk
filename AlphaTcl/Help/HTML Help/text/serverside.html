@@ -1,0 +1,98 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+
+<HTML>
+
+<HEAD>
+
+<TITLE>Server side scripting</TITLE>
+
+<LINK HREF="../Style%20Sheet/manual.css" REL="stylesheet" TYPE="text/css">
+
+
+</HEAD>
+
+<BODY>
+
+<!-- #INCLUDE INCLPATH="maintop.html" -->
+
+<SCRIPT TYPE="text/javascript">
+<!--
+if (document.body.clientHeight) {
+	height = document.body.clientHeight - 50;
+} else {
+	height = window.innerHeight - 50 ;
+}
+document.write('<div class="main" style="height: ' + height + 'px;">');
+// -->
+</SCRIPT>
+
+
+<!-- /#INCLUDE -->
+
+
+<H1>Server Side Scripting</H1>
+
+<P>
+HTML mode has no specific support for server side scripting inside HTML 
+documents. But here are some hints to help you make the scripting cooperate 
+with HTML mode:
+</P>
+
+<UL>
+	<LI>To avoid that HTML mode reformats the scripting code and makes it 
+	unreadable and perhaps non-functional, insert <A 
+	HREF="layout.html#formatting">formatting tags</A> in the document. Two 
+	different tags are available, one to prevent formatting completely, and 
+	one for C style formatting. See the <A 
+	HREF="power.html">power user section</A> how to write your 
+	own formatting tags.
+	<LI>If the scripting language use tags which look like HTML tags, use 
+	the <A HREF="extend.html"><SPAN CLASS="menu">Extend</SPAN></A> menu to 
+	add the tags to HTML mode.
+</UL>
+
+<P>
+If you are a Tcl programmer and would like to add support to HTML mode for a 
+scripting language, I'm willing to help you <STRONG>provided you let me 
+freely distribute your code as part of HTML mode</STRONG>.
+</P>
+
+<!-- #INCLUDE INCLPATH="mainbottom.html" -->
+
+<DIV STYLE="height: 50px">
+</DIV>
+
+<SCRIPT TYPE="text/javascript">
+<!--
+document.write('<\/DIV>');
+// -->
+</SCRIPT>
+
+
+<!-- /#INCLUDE -->
+
+
+<!-- #INCLUDE INCLPATH="navigation.html" PREV="[manualPrevPage alphatk.html]" 
+NEXT="[manualNextPage gettingstarted.html]" -->
+
+<P>
+<script type="text/javascript">
+<!--
+document.write('<div class="navigation" style="top: ' + height + 'px; height: 50px">');
+// -->
+</script>
+<A HREF="alphatk.html">Previous page</A>
+<A HREF="gettingstarted.html">Next page</A>
+<SCRIPT TYPE="text/javascript">
+<!--
+document.write('<\/DIV>');
+// -->
+</SCRIPT>
+</P>
+
+<!-- /#INCLUDE -->
+
+
+</BODY>
+
+</HTML>

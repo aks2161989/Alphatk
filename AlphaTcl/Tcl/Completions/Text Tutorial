@@ -1,0 +1,246 @@
+
+Title:                  Text Electrics
+Author:                 Craig Barton Upright <cupright@alumni.princeton.edu>
+
+    created: 06/18/2000 {01:34:15 am}
+last update: 03/06/2006 {08:06:21 PM}
+
+
+	  	Table Of Contents
+
+"# Abstract"
+"# Tutorial"
+"# Nearby word completions:"
+"# Expansions, Acronyms"
+"# User-defined completions and expansions:"
+"# Mode Specific Completions:"
+
+"# Copyright"
+
+<<floatNamedMarks>>
+
+
+
+	======================================================================
+
+
+	  	Abstract
+
+This document provides examples of Text mode electric completions.
+
+
+	  	Tutorial
+
+The menu item "Config --> Mode Prefs --> Completions Tutorial" is mode
+specific.  If the current window had been in TeX mode, for example, the
+menu item would have opened a different tutorial shell.  Modify any of
+these tutorials as much as you want -- after you close them, opening them
+again through the menu item will return the unblemished original.
+
+This file contains examples of 'electric completions'.  Completions are
+ways in which Alpha attempts to complete what you're typing in a mode
+specific way (in this case Text mode specific).  In order to use electric
+completions, you must enable the 'Elec Completions' feature, available
+under "Config --> Preferences --> Features".
+
+The "Config --> Special Keys ..."  menu item will display your current
+completion key-binding, and will give you the option to change it if you
+desire.  Click here <<global::specialKeys>> to access this dialog now.
+
+In this tutorial, you can use the back-quote key ( ` ) to jump to the next
+completion example.  Once at the correct position, imagine that you had
+just typed the preceding text.
+
+Then hit the completion invoking key.  Alpha attempts to complete what you
+typed -- eliminating a lot of keystrokes, avoiding the need for
+copy/pasting, and reducing the possibility of typos.
+
+This tutorial also provides some examples of 'electric expansions', which is 
+a separate feature that can also be activated, providing a convenient way to 
+expand acronyms.  The 'electric corrections' package, distinct from both of 
+these, is explained in the "Electric Corrections Help" file.
+
+
+	  	Nearby word completions:
+
+If a mode does not have a specific completion routine built in (as is the
+case with Text mode), an electric completion will simply scan the
+surrounding text in your document for a word that is similar to the one
+that you are apparently typing.  For example, if you are writing a paper on
+sustainable agriculture as a social movement, you can complete
+
+	sus× ag×
+
+or
+
+	so×
+
+
+Sometimes the initial 'hint' does not lead to an unambiguous completion. 
+In your paper you might make heavy use of the words organic, organically,
+organics, organizations, organizationally, etc.
+
+Complete this example, but press the complete key multiple times after the
+first completion appears:
+
+
+	org×
+
+
+Alpha will offer all of the instances in which a potential 'org' completion
+appears in the document, and indicate in the status bar the location of the
+found text.  After running through the entire list of possible completions,
+the last one will be highlighted, allowing one to delete it if desired. 
+Pressing the completion key again will delete the selection, and start the
+whole process over once again.  Try it!
+
+
+	com×
+
+See the "Electrics Help" file for more information.
+
+
+	  	Expansions, Acronyms
+
+(not so useful for Text documents, but a handy thing to know)
+
+If you are in the habit of naming variables with both lower and upper case
+letters, you can use the 'expansion' key to complete acronyms.
+
+Important: In order to use electric expansions, you must enable the 'Elec
+Expansions' feature, available under "Config --> Preferences --> Features". 
+The exansion key is _not_ the completion key.  The expansion key is defined
+with the "Config --> Special Keys ..."  menu item.  You can click on this
+hyperlink <<global::specialKeys>> to access this dialog now.
+
+For example, if you have the variables NoWork, momGrad, and TelNo3, 
+
+
+	nw×
+	    
+	mG×
+	    
+	TN×
+
+
+This also works for variables separated by underscores, such as get_graph, 
+New_variable, or Just_An_Example:
+
+	gg×
+	
+	nv×
+	
+	jae×
+	
+	JAE×
+	
+	Jae)×
+	
+	Jae)]  ×
+
+
+See the package: elecExpansions for more information.
+
+
+	  	User-defined completions and expansions:
+
+
+The array 'userCompletions' will always take precedence over other
+completions, in any mode.  Alpha defines one such completion for you:
+
+
+	date×
+
+
+	------------------------------------------------------------------
+
+××× IMPORTANT: ×××
+
+There are no further examples to complete in this tutorial.  
+
+Stop using the ` key to advance to the next completion, because this will
+delete the × symbols below.
+	
+	------------------------------------------------------------------
+
+Defining personalized completions is easy.
+
+A user completion is used for small mode-independent snippets, like your
+email address, name etc.  For instance, Vince has the following defined:
+
+	set userCompletions(vmd) "×kill0Vince Darley"
+	set userCompletions(www) "×kill0<[icGetPref WWWHomePage]>"
+	set userCompletions(e-)  "×kill0<[icGetPref Email]>"
+
+Here '×kill0' is a control sequence which means kill exactly what I just
+typed before carrying out this completion.
+
+Activating the 'Electric Completions' package inserts a new submenu in the
+"Config --> Packages" menu, which provides a convenient way to define your
+own global completions.  A similar menu is available if you activate
+electric expansions as well.  Global completions and expansions will always
+take precedence over mode specific ones.
+
+Here are some more examples:
+ 
+	set userCompletions(Craig)  " Barton Upright"
+	set userCompletions(Dear)   ",\r\r\r\r\rSincerely,\r\r\rCraig"
+	
+	set userCompletions(pu)     "×kill0Princeton University"
+	set userCompletions(dos)    "×kill0Department of Sociology"
+	set userCompletions(pnj)    "×kill0Princeton, New Jersey"
+
+
+See the "Electrics Help" file for more information.
+
+To define expansions instead, add to the 'userExpansions' array:
+
+	set userExpansions(cbu)     "×kill0Craig Barton Upright"
+	set userExpansions(pu)      "×kill0Princeton University"
+	set userExpansions(dos)     "×kill0Department of Sociology"
+	set userExpansions(pnj)     "×kill0Princeton, New Jersey"
+	
+	set userExpansions(http)    "//www."
+
+While the 'Electric Completions / Expansions' submenus provide accessible 
+methods for adding completions, you might want to add them to a "prefs.tcl" 
+file instead -- this will give you a little more control over editing them.
+
+To write your own completions and expansions in a "prefs.tcl" file,
+available with the "Config --> Preferences --> Edit Prefs File" menu item,
+cut and paste the examples above, and then replace the acronym and text
+with your custom completions / expansions.  If the text includes the
+special characters
+
+	" { } [ ] \
+
+then you must precede them with a backslash, as in
+
+	set userExpansions(demo)    "×kill0Include \"special characters\" \{\}"
+
+Once you are done, save your prefs.tcl file, and 'load' it using the key
+binding 'command-L' (or the Tcl menu item 'Evaluate') .  This file will 
+be sourced automatically on every subsequent restart of Alpha.
+
+
+	  	Mode Specific Completions:
+
+
+% Several modes have more complicated completion routines which not only scan
+% surrounding text, but add templates to mode-specific commands.  The status
+% bar window contains a pop-up menu (which currently states 'Text') that
+% allows you to change the mode of the current window.  Change the mode of 
+% this window to TeX.  After TeX mode has been loaded, this paragraph should 
+% change color to red.
+
+
+Now go to the "Config --> Mode Prefs --> Completions Tutorial" menu item
+once again.  A new tutorial shell window will open, one that is specific to
+TeX mode.
+
+	======================================================================
+
+	  	Copyright
+
+This document has been placed in the public domain.
+

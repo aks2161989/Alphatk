@@ -1,0 +1,348 @@
+
+VOODOO Menu Help 
+
+
+                                            version: 2.0.2
+                                            created: 06/30/1997 {11:13:46 pm}
+                                        last update: 02/27/2004 {08:17:51 PM}
+
+ 
+This help file describes the "Voodoo Menu".  This package integrates Alpha
+with the VOODOO (Versions Of Outdated Documents Organized Orthogonally)
+version management package:
+
+    <http://www.unisoftwareplus.com/products/voodooserver/>
+
+
+	  	Table Of Contents
+
+
+"# Projects"
+"# Settings"
+"#   User name"
+"#   Variants"
+"#   Actions"
+"#   File comparison"
+"#   Customizing actions"
+"#   Keyboard Shortcuts"
+"# Acknowledgments"
+"# To do"
+"# Recent Changes"
+"# License And Disclaimer"
+
+<<floatNamedMarks>>
+
+	
+	  	Projects
+
+Turn this package on selecting the "Config > Global Setup > Menus" menu item
+and clicking on the checkbox next to "Voodoo Menu"
+
+Preferences: Menus
+		  
+Select the "VOODOO > Connect > Choose" menu item to assign a VOODOO project.
+Once selected, a settings dialog will be provided for the project before
+connecting to it.  The project name, for Alpha's purposes, is a near
+approximation of its actual name, with curly brackets removed and a number
+appended in the event of name conflicts.  The name can be changed by selecting
+the menu command "VOODOO > Connect > Rename".  Each new project is added to
+the "VOODOO > Connect" submenu for easy reconnection.
+
+Currently, selection of a new project automatically disconnects the old one.
+This is done, in part, because that's what the BBEdit extension does.  If you
+would like more than one project to remain connected for some reason, let me
+know.  The active project is also disconnected when you quit Alpha.  Let me
+know if this is a problem.
+		  
+NOTE: Because of limitations in Alpha's AppleEvent interface, VOODOO will not
+be brought forward if there is anything wrong with your user name or password.
+You'll get an alert (e.g., blinking icon in the menu bar) and you can manually
+shift to VOODOO, but it won't happen automatically.
+
+There currently is no mechanism for creating VOODOO projects through
+AppleEvents, so you will need to create your project in VOODOO, but you can
+then use Alpha to define what files should be in the project (such as adding
+all open windows or all files of an Alpha fileset).  There is not currently a
+straight-forward way to determine what files are already in a project, such
+that an Alpha fileset could be created from an existing VOODOO project.  I
+know of a cumbersome way to do it, so if it's important to you, let me know
+and I'll see what I can do.
+
+
+	  	Settings
+
+	  	 	User name
+
+VOODOO uses the Macintosh's owner name as its default user name for a project.
+Unfortunately, this name is not always available to Alpha.  AlphaVOODOO tries
+the following, in order, to set the user name for the project:
+
+• Under Mac OS 8.x, get the owner name from the File Sharing control
+  panel.
+  <<try {error::alertnote [tclAE::build::OS8userName]} -reporting taciturn>>
+
+• Under Mac OS 7.x, or if the previous failed, get the owner of the
+  system's preferences file (almost certain to be the Mac's owner).
+  <<try {error::alertnote [tclAE::build::OS7userName]} -reporting taciturn>>
+
+• As a last resort, such as if File Sharing is disabled, get the user name
+  from Internet Config.
+  <<try {error::alertnote [icGetPref RealName]} -reporting taciturn>>
+
+	  	 	Variants
+		
+You may restrict the VOODOO variants which are visible by either typing the
+variant names in explicitly or by clicking the "Variants…" button in the
+"VOODOO > Settings…" dialog.  As long as the project is logged on, a list of
+available variants will be provided, allowing you to select or Shift-Select
+the variant(s) you are interested in.  If the project is not logged on, the
+most recently available list will be provided, along with a warning that it is
+not current.
+
+You may, if you get your jollies that way, type in the variant names. 
+Enclose each variant name in squirrely brackets, e.g.,
+
+	{Variant 1} {Variant 2} {Variant 3}
+
+	  	 	Actions
+
+Once Alpha is connected to a VOODOO project, files in Alpha may be
+
+• stored to
+• fetched from (read or read-only)
+• status checked against
+• added to 
+
+that project.  Any of these actions may be performed on
+
+• the topmost window
+• all open windows
+• the current fileset 
+  (ftp filesets are not supported (any thoughts on what
+   this would even mean?))
+
+	  	 	File comparison
+		  
+Unlike the other version management actions, file comparison is only available
+for the topmost window.  In order to compare a file in Alpha with an archived
+file, you need VOODOO version 1.8.1 or greater; AlphaVOODOO knows this and
+will throw an error if it detects an earlier version.
+
+Note: If you have more than one copy of Alpha, this action is unpredictable.
+VOODOO always launches the copy of Alpha defined in the Desktop Database,
+rather than talking to the copy that's currently running.  There's nothing to
+be done about this from Alpha's end; it needs to be changed by UNISOFT.
+
+	  	 	Customizing actions
+
+Press the Option modifier in the VOODOO menu to use VOODOO's dialog to make
+adjustments to Fetch, Store, and Add requests before completing them.
+
+	  	 	Keyboard Shortcuts
+
+To the curious: The "Command-Shift-Control" modifier prefix combination for
+the "Window" operations, Command-Shift-Control, was selected as having no
+(known) conflicts with other modes, thereby allowing all VOODOO commands to
+have the same keyboard shortcuts with "logical" letters.
+
+	  	
+	----------------------------------------------------------------------
+
+
+	  	Acknowledgments
+		
+
+My thanks to Christoph Reichenberger for writing VOODOO in the first place,
+and for providing extensive help on this package in the second.
+
+I'm indebted to Pete Keleher for having provided an editor worth connecting to
+and to Vince Darley for making it much easier to write packages.
+
+I've borrowed liberally and shamelessly from Vince Darley's "Vince's
+Additions".  Thanks Vince!
+
+
+	  	To do
+		
+
+• Implement VOODOO logs in browser mode.
+
+• VOODOO should respect the currently running Alpha for compares, rather
+  than always launching the one in the Desktop Database.
+
+
+	  	Recent Changes
+
+
+	  	 	2.0.1       January 19, 2001
+
+
+• Fixes for Alpha 8
+
+
+	  	 	2.0         January 3, 2001
+
+
+• Compatibility with (and requirement of) AlphaTcl 7.4.
+• Verified compatibility with VOODOO Personal.
+
+
+	  	 	1.0.1       December 17, 1999
+
+
+• Compatibility with Tcl 8.x, from VMD.
+• URL revisions.
+• Installation fixes.
+
+
+	  	 	1.0.0       October 20, 1998
+
+
+• Release!
+• Documentation revisions.
+• Installation fixes.
+
+
+	  	 	1.0.0b7     May 6, 1998
+
+
+• Code reorganization.
+• Vince's updated menu tools used.
+• Updated aebuild/aeparse/aecoerce suite used for more automated 
+  handling of AppleEvents.
+• cmd argument removed from proc: voodoo::eligibleFiles.  upvar used 
+  now.
+• proc: voodoo::try more flexible and makes use of updated try command.
+• voodoo::*userName moved to "aebuild.tcl"
+• Overly clever upvar mechanism for changing projects eliminated.  
+  Master projects are now ordinally numbered, 
+  voodoo::projects::[0-9]+, and are swapped in and out of 
+  voodooProjects.
+• Incremental numbers on projects changed from "<nn>" to "[nn]" 
+  for better menu compatibility.
+• Minimum version of VOODOO for compares is 1.8.1.  Earlier betas 
+  worked too, but they have expired now.
+
+
+	  	 	1.0.0b6     March 1, 1998
+
+
+• AlphaVOODOO is a better citizen now, providing an uninstall 
+  script and cleaning up messes left by earlier installers.
+• Error catching and handling mechanism now much more general.
+• In the event that none of the selected files are eligible for 
+  VOODOO, e.g., shells, Diff reports, etc, an alert is now 
+  posted. Before, nothing happened at all.
+• Instead of setting the default project owner's name to 
+  InternetConfig's user name, which virtually never gave the 
+  correct result, AlphaVOODOO now obtains the Mac's owner 
+  name under MacOS 8.x and makes a pretty good guess under MacOS 
+  7.x (by using the owner of the Preference folder; almost 
+  certain to be the Mac's owner).
+• Old "appleEvents.tcl" calls replaced with new "aebuild.tcl" calls.
+• Various minor bug fixes.
+• VOODOO's new «event CompComp» is _not_ supported, due to lack 
+  of capability in Alpha's AppleEvent interface. 
+  'compareExternalFiles' renamed to 'proc: voodoo::compareFiles'.
+• Better integration with "diffMode.tcl" (requiring changes to 
+  both Diff mode and AlphaVOODOO). 
+• NOTE: Due to a crashing bug in Alpha, if an error is 
+  returned from a call to VOODOO while Alpha is in the 
+  background (switched either manually or from using the 
+  "With Dialog" menu option), an alert dialog will not be 
+  displayed.  As much of the message as possible will be 
+  displayed in the status bar, instead.
+		 
+
+	  	 	1.0.0b5     December 22, 1997
+
+
+• Further modernizations for Vince Darley's Alpha 7.  NOTE: 
+  As of this version, AlphaVOODOO is incompatible with Alpha 
+  6.5.x. Please contact me, supplying a note from your 
+  mother, if you are unable/unwilling to migrate to Alpha 7.
+• Support for the new «event compcomp» compare AE from 
+  VOODOO. As of VOODOO 1.8.1b6, the old "DoScript" interface 
+  is still used, unless Alpha's creator is changed from 
+  'ALFA'.  Either way, the new "diffMode.tcl" is exploited.   
+• Interim patch file "coreFixes+.tcl" that fixes the broken 
+  Alpha proc specToPathName.  If you have the December 20, 
+  1997 release of Alpha 7 or later (how 'bout some real 
+  version numbers, Vince?), this file is not needed, as both 
+  it and "aevt.tcl" are in the System code.
+• The code in "diff+.tcl" and "appleEvents+.tcl" has been 
+  incorporated in Alpha's core code.  These files may be (and 
+  should be) safely removed from Alpha's PREFS folder.
+
+
+	  	 	1.0.0b4     September 5, 1997
+
+
+• Installer now compliant with Vince Darley's new Tcl structure.  
+  Still works on old systems, too.
+• Project naming and selection now more flexible.
+• All files in fileset now stored and fetched with VOODOO, rather 
+  than just TEXT files.
+• Nice display of "Add" and "Locking Status" operations.  When 
+  VOODOO's AppleEvent model supports it, "Store" and "Fetch" will 
+  generate reports too.
+
+
+	  	 	1.0.0b3     August 10, 1997
+
+
+• Multiple VOODOO projects now supported, with easy menu 
+  selection.
+• Redesigned settings dialog.
+• Menu redesign; renamed some items and properly disable items 
+  when appropriate.
+• Changed key bindings to (the somewhat more cumbersome) 
+  <command><shift><control>.  The new bindings don't conflict 
+  with any other modes, so far as I know.
+• Improved display of locking-status and add results
+• More robust AppleEvent parsing and handling.
+• More comprehensive and robust error catching.
+• "Log On" and "Log Off" renamed to "Connect" and 
+  "Disconnect" at Christoph's suggestion.
+
+
+	  	 	1.0.0b2     July 15, 1997
+
+
+• Many error conditions eliminated or handled more gracefully.
+• No longer logs on automatically to select filters.
+• "Project Settings…" dialog sizes itself to the main screen.
+• Filters applied prior to each pertinant action, rather than
+  only when changed (the old way meant that the variant filters
+  assiged in Alpha might be ignored).
+• Much code commenting.
+• Improved log-in status check.
+• Most dialogs eliminated. User requested dialogs are now handled
+  entirely by VOODOO.
+• VOODOO's reply from 'compare' events is now handled properly.
+• Only currently open windows are refreshed after a fileset fetch.
+  Remaining files in fileset are fetched, but not opened.
+• Big VOODOO menu icon eliminated.
+
+
+	  	 	1.0.0b1     July 1, 1997
+
+
+    Original
+	
+
+	----------------------------------------------------------------------
+
+
+	  	License And Disclaimer
+
+
+This package is free software; you can redistribute it and/or modify it under
+the terms of the GNU General Public License.
+ 
+Author: Jonathan Guyer
+E-mail: <jguyer@his.com>
+   www: <http://www.his.com/~jguyer/>
+ 
+ Copyright (c) 1998-2000  Jonathan Guyer
+ 

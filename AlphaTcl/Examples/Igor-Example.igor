@@ -1,0 +1,152 @@
+// Igor-Example.igor
+//
+// Included in the Alpha distribution as an example of the Igor mode.
+// Igor mode is part of the standard Alpha distribution.
+//
+// Additional information about Igor Pro, a data analysis and graphing package
+// can be found at:
+//      <http://www.wavemetrics.com/>
+//
+// Jonathan Guyer has written some extra macros for Igor, which can be found at
+//      <http://www.his.com/~jguyer/IGOR/index.html>
+
+// IgorMacros.igor
+
+#pragma rtGlobals=1		// Use modern global access method.
+
+Macro ClearRegion()
+	PauseUpdate; Silent 1
+	if (CmpStr(WinName(0, 1), "") == 0)
+		Beep
+		print "No Top Graph."
+	else
+ 		if ( CmpStr( CsrWave(A), CsrWave(B)) == 0 )
+			$CsrWave(A)[min(pcsr(A), pcsr(B)), max(pcsr(A),pcsr(B))]=NaN
+		else
+			Beep
+			print "Cursors must be on same wave"
+		endif
+	endif
+EndMacro
+
+Macro DeleteRegion()
+	PauseUpdate; Silent 1
+	if (CmpStr(WinName(0, 1), "") == 0)
+		Beep
+		print "No Top Graph."
+	else
+ 		if ( CmpStr( CsrWave(A), CsrWave(B)) == 0 )
+			if (CmpStr(XWaveName(WinName(0, 1), CsrWave(A)), "" )==0)
+				DeletePoints min(pcsr(A), pcsr(B)),  Abs(pcsr(A)-pcsr(B))+1, $CsrWave(A)
+			else
+				DeletePoints min(pcsr(A), pcsr(B)),  Abs(pcsr(A)-pcsr(B))+1, $CsrWave(A), $CsrXWave(A)
+			endif
+			if (pcsr(A) > pcsr(B))
+				Cursor A, $CsrWave(A), pcsr(B)+1
+			else
+				Cursor B, $CsrWave(A), pcsr(A)+1
+			endif
+		else
+			Beep
+			print "Cursors must be on same wave"
+		endif
+	endif
+EndMacro
+
+Macro ClipToRegion()
+	PauseUpdate; Silent 1
+	if (CmpStr(WinName(0, 1), "") == 0)
+		Beep
+		print "No Top Graph."
+	else
+ 		if ( CmpStr( CsrWave(A), CsrWave(B)) == 0 )
+			if (CmpStr(XWaveName(WinName(0, 1), CsrWave(A)), "" )==0)
+				DeletePoints max(pcsr(A), pcsr(b))+1, numpnts($CsrWave(A))-max(pcsr(A), pcsr(B))-1, $CsrWave(A)
+				DeletePoints 0, min(pcsr(A), pcsr(B)),  $CsrWave(A)
+			else
+				DeletePoints max(pcsr(A), pcsr(b))+1, numpts(CsrWave(A))-max(pcsr(A), pcsr(B))-1, $CsrWave(A), $CsrXWave(A)
+				DeletePoints 0, min(pcsr(A), pcsr(B)),  $CsrWave(A), $CsrXWave(A)
+			endif
+			if (pcsr(A) > pcsr(B))
+				Cursor A, $CsrWave(A), numpnts($CsrWave(A))
+				Cursor B, $CsrWave(A), 0
+			else
+				Cursor B, $CsrWave(A), numpnts($CsrWave(A))
+				Cursor A, $CsrWave(A), 0
+			endif
+		else
+			Beep
+			print "Cursors must be on same wave"
+		endif
+	endif
+EndMacro
+
+Proc DefaultStyle() : GraphStyle
+	PauseUpdate; Silent 1		| modifying window...
+	Modify/Z tick=2
+	Modify/Z mirror=1
+	Modify/Z minor=1
+	Modify/Z standoff=0
+EndMacro
+
+Macro CloseAllGraphs()
+	string topwindowname
+	
+	silent 1
+	do
+		topwindowname = WinName(0, 1)
+		if (strlen(topwindowname))
+		   DoWindow/K $topwindowname
+		endif
+	while (strlen(topwindowname) != 0)
+EndMacro
+
+Macro CatWaves(a, b)
+	String a,b
+	Prompt a, "First Wave"
+	Prompt b, "Second Wave"
+
+	Variable newlen, lena, lenb
+	lena = numpnts($a)
+	lenb = numpnts($b)
+	newlen=lena+lenb
+	InsertPoints lena, lenb, $a
+	$a[lena,newlen-1]=$b[p-lena]
+EndMacro
+
+Macro ScaleRegion(m)
+Variable m
+Prompt m, "Multiplication Factor"
+	Variable c, d
+
+	PauseUpdate; Silent 1
+	if (CmpStr(WinName(0, 1), "") == 0)
+		Beep
+		print "No Top Graph."
+	else
+ 		if ( CmpStr( CsrWave(A), CsrWave(B)) == 0 )
+			c = Min(pcsr(A), pcsr(B))
+			d = Max(pcsr(A), pcsr(B))
+			$CsrWave(A)[c, d] *= m
+		else
+			Beep
+			print "Cursors must be on same wave"
+		endif
+	endif
+EndMacro
+
+Macro LabelX_Temp()
+	Label bottom "\F'Palatino'\Z18Temperature [K]"
+EndMacro
+
+Macro LabelX_Field()
+	Label bottom "\F'Palatino'\Z18Field [T]"
+EndMacro
+
+Macro LabelY_Resist()
+	Label left "\F'New York'\Z18 [\[0\F'Symbol'W\F]0]"
+EndMacro
+
+Macro LabelY_M_emu()
+	Label left "\F'Palatino'\Z18 M [emu]"
+EndMacro

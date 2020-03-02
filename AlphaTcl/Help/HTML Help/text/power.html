@@ -1,0 +1,343 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+
+<HTML>
+
+<HEAD>
+
+<TITLE>Power users</TITLE>
+
+<LINK HREF="../Style%20Sheet/manual.css" REL="stylesheet" TYPE="text/css">
+
+
+</HEAD>
+
+<BODY>
+
+<!-- #INCLUDE INCLPATH="maintop.html" -->
+
+<SCRIPT TYPE="text/javascript">
+<!--
+if (document.body.clientHeight) {
+	height = document.body.clientHeight - 50;
+} else {
+	height = window.innerHeight - 50 ;
+}
+document.write('<div class="main" style="height: ' + height + 'px;">');
+// -->
+</SCRIPT>
+
+
+<!-- /#INCLUDE -->
+
+
+<H1>Defining your own formatting tags</H1>
+
+<P>
+In the <SPAN CLASS="menu">Formatting</SPAN> menu there are two items for 
+inserting <A HREF="layout.html#formatting">formatting tags</A>. You can define 
+your own formatting tags by defining procs for how the text should be 
+indented within the tags. Let us say you want to define formatting tags 
+called MY-SCRIPT-FORMATTING.
+</P>
+
+<P>
+First write a proc which correctly indents a line inside MY-SCRIPT-FORMATTING tags.  
+</P>
+
+<PRE CLASS="code">
+proc myScriptIndent {} {
+    code goes here
+}
+</PRE>
+
+<P>
+Then you can optionally define a proc for reformatting a region of text. By 
+default the proc ::indentRegion is used, which simply indents line after 
+line in the region. If you need a more sophisticated reformatting write a 
+new proc.
+</P>
+
+<PRE CLASS="code">
+proc myScriptIndentRegion {} {
+    code goes here
+}
+</PRE>
+
+<P>
+Then finally you register it by adding a line of the form
+</P>
+
+<PRE CLASS="code">
+html::RegisterFormattingStyle "style" "menu item text" "indent line proc" "reformat region proc"
+</PRE>
+
+<P>
+to your HTML preferences file. When you are in HTML mode open it using <SPAN 
+CLASS="menuitem">Config -&gt; HTML Mode Prefs - &gt; Edit 
+Prefs File</SPAN>.
+</P>
+
+<P>
+Let us say that in this case you want the menu item text "My Script 
+Formatting". Then the line would be
+</P>
+
+<PRE CLASS="code">
+html::RegisterFormattingStyle "MY-SCRIPT-FORMATTING" "My Script Formatting" "myScriptIndent" "myScriptIndentRegion"
+</PRE>
+
+<P>
+Optionally you can omit the last argument if you have no special 
+reformatting proc:
+</P>
+
+<PRE CLASS="code">
+html::RegisterFormattingStyle "MY-SCRIPT-FORMATTING" "My Script Formatting" "myScriptIndent"
+</PRE>
+<H1><A NAME="palettes">Making your own palettes</A></H1>
+
+
+<P>
+With a little bit of programming you can create your own palettes with your 
+frequently used menu items in the two HTML menus. What you need to do is 
+the following:
+</P>
+
+<P>
+A palette is created by first defining a menu. This is done with code like 
+this
+</P>
+
+
+<PRE CLASS="code">
+Menu -n "Palette title" -m -p myPaletteProc {
+    "Button text 1"
+    "Button text 2"
+    "Button text 3"
+    "Button text 4"
+}
+</PRE>
+
+
+<P>
+You can of course add as many buttons as you like. <B>myPaletteProc</B> is 
+the function which will be called when you click a button. It is called 
+with two arguments, the first is the palette title and the second is the 
+button text. To attach each button to a menu item in one of the two HTML 
+menus myPaletteProc has to be defined like this:
+</P>
+
+
+<PRE CLASS="code">
+proc myPaletteProc {themenu theitem} {
+    switch $theitem {
+        "Button text 1" {html::MenuItem "submenu" "menu item"}
+        "Button text 2" {html::MenuItem "submenu" "menu item"}
+        "Button text 3" {html::UtilsMenuItem "submenu" "menu item"}
+        "Button text 4" {html::UtilsMenuItem "submenu" "menu item"}
+    }
+}
+</PRE>
+
+
+<P>
+<B>submenu</B> is here a submenu of one of the HTML menus and <B>menu 
+item</B> is the menu item in the submenu you want the button to be attached 
+to. In this example the first argument "themenu" of myPaletteProc is never 
+used, but it has to be there since Alpha sends two arguments to myPaletteProc. 
+For items in any of the submenus of the HTML menu use "html::MenuItem" and 
+for any of the submenus of the HTML Utilities menu use "html::UtilsMenuItem".
+</P>
+
+<P>
+As an explicit example we create a palette with two buttons attached to 
+"Table Template" and "Insert Paragraphs". The menu defining the palette is
+</P> 
+
+
+<PRE CLASS="code">
+Menu -n "My palette" -m -p myPaletteProc {
+    "Table Template"
+    "Insert Paragraphs"
+}
+</PRE>
+
+
+<P>
+Two things to notice:
+</P>
+
+<UL>
+	<LI>The palette title can be anything you like, except that it can't be the 
+	same as the name of any of the menus or submenus in Alpha.
+	<LI>The button texts can be anything you like and does not have to be the 
+	same as the menu item you attach it to.
+</UL>
+
+<P>
+The function myPaletteProc should in our example be define as
+</P>
+
+
+<PRE CLASS="code">
+proc myPaletteProc {themenu theitem} {
+    switch $theitem {
+        "Table Template" {html::MenuItem "Tables" "Table Template"}
+        "Insert Paragraphs" {html::MenuItem "Blocks and Dividers" "Insert Paragraphs"}
+    }
+}
+</PRE>
+
+
+<P>
+One important detail is that if a menu item ends by ... this trailing ... 
+must be omitted as was done in <SPAN CLASS="code">html::MenuItem "Tables" "Table Template"</SPAN>.
+</P>
+
+<P>
+What about if we want one of the menu items at top level in the two HTML 
+menus? To clarify this we extend the example by adding two more buttons to 
+the palette:
+</P>
+
+
+<PRE CLASS="code">
+Menu -n "My palette" -m -p myPaletteProc {
+    "Table Template"
+    "Insert Paragraphs"
+    "New Document"
+    "Last Modified"
+}
+
+proc myPaletteProc {themenu theitem} {
+    global htmlMenu htmlUtilsMenu
+    switch $theitem {
+        "Table Template" {html::MenuItem "Tables" "Table Template"}
+        "Insert Paragraphs" {html::MenuItem "Blocks and Dividers" "Insert Paragraphs"}
+        "New Document" {html::MenuItem $htmlMenu "New Document"}
+        "Last Modified" {html::UtilsMenuItem $htmlUtilsMenu "Last Modified"}
+    }
+}
+</PRE>
+
+
+<P>
+To refer to the two HTML menus we use the variables <SPAN CLASS="code">htmlMenu</SPAN> and 
+<SPAN CLASS="code">htmlUtilsMenu</SPAN> in the way shown above. First we add the line
+</P>
+
+<PRE CLASS="code">
+    global htmlMenu htmlUtilsMenu
+</PRE>
+
+<P>
+and then we write <SPAN CLASS="code">$htmlMenu</SPAN> when we want the HTML menu and 
+<SPAN CLASS="code">$htmlUtilsMenu</SPAN> when we want the HTML Utilities menu.
+</P>
+
+<P>
+This code defining your palette(s) should be put in your HTML prefs file. 
+When you are in HTML mode open it using <SPAN CLASS="menuitem">Config -&gt; 
+HTML Mode Prefs - &gt; Edit 
+Prefs File</SPAN>.
+</P>
+
+<P>
+OK, we have now defined a palette but how do we open it? For this to be 
+possible we have to add one line to the global prefs file. Open the global 
+prefs file by using <SPAN CLASS="menuitem">Config -&gt; Preferences -&gt; 
+Edit Prefs File</SPAN>. The line to add is
+</P>
+
+<PRE CLASS="code">
+set customHTMLpalettes {"Palette title 1" "Palette title 2"}
+</PRE>
+
+<P>
+where "Palette title 1" etc. are the titles of your palettes. In our 
+example we would have added the line
+</P>
+
+<PRE CLASS="code">
+set customHTMLpalettes {"My palette"}
+</PRE>
+
+<P>
+The reason that this line has to be in the global prefs file is that is has 
+to be loaded before HTML mode.
+</P>
+
+<P>
+The next time you launch Alpha you will now get an extra submenu in the HTML menu 
+called <B>Palettes</B> where the menu items are the titles of your 
+palettes.
+</P>
+
+<P>
+Selecting a menu item in the 'Palettes' menu opens the palette. These palettes
+are such that they disappear when you leave HTML mode and reappear when 
+you go back to HTML mode. This behavior is the same as when you pull off 
+one of the two HTML menus, but unfortunately not when you pull off a submenu.
+</P>
+
+<H1><A NAME="menus">Modifying the menus</A></H1>
+
+<P>
+If you write some new procs and want to add them to the two HTML 
+menus it can be done easily. 
+</P>
+
+<UL>
+	<LI>If you want to add a menu item called "New Menu Item" the your proc has 
+	to be called html::NewMenuItem.
+	<LI>Insert the menu item to a submenu by with putting the line<BR>
+	<SPAN CLASS="code">menu::insert "submenu name" items end "New Menu Item"</SPAN><BR>
+	in your HTML preferences file.
+</UL>
+
+<P>
+<STRONG>Note!</STRONG> For the following submenus this does not work: Browsers, 
+Preferences, Character Entities, Colors, URLs, Windows.
+</P>
+
+<!-- #INCLUDE INCLPATH="mainbottom.html" -->
+
+<DIV STYLE="height: 50px">
+</DIV>
+
+<SCRIPT TYPE="text/javascript">
+<!--
+document.write('<\/DIV>');
+// -->
+</SCRIPT>
+
+
+<!-- /#INCLUDE -->
+
+
+
+<!-- #INCLUDE INCLPATH="navigation.html" PREV="[manualPrevPage cssprefs.html]" 
+NEXT="[manualNextPage references.html]" -->
+
+<P>
+<script type="text/javascript">
+<!--
+document.write('<div class="navigation" style="top: ' + height + 'px; height: 50px">');
+// -->
+</script>
+<A HREF="cssprefs.html">Previous page</A>
+<A HREF="references.html">Next page</A>
+<SCRIPT TYPE="text/javascript">
+<!--
+document.write('<\/DIV>');
+// -->
+</SCRIPT>
+</P>
+
+<!-- /#INCLUDE -->
+
+
+
+</BODY>
+
+</HTML>

@@ -1,0 +1,43 @@
+/* 
+ * CSS-Example.css
+ * 
+ * Included in the Alpha distribution as an example of CSS mode.
+ * 
+ * This file is the Cascading Style Sheet for the HTML Mode Manual.
+ *
+ */
+
+
+.indent {
+	margin-left: 3em;
+}
+
+BODY {
+	background: #FFFFFF;
+}
+
+A:link {
+	color: #045D17;
+}
+
+A:visited {
+	color: #045D17;
+}
+
+/* Working around a bug in M$IE */
+A.name:link {
+	color: #000000;
+}
+
+.code {
+	background: #E1E1E1;
+	border: none;
+	padding: 3pt;
+}
+
+UL.features {
+	padding: 1em;
+	border: solid thin;
+	background: #CCFFFF;
+	margin-left: -2em;
+}

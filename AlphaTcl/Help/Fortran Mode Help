@@ -1,0 +1,279 @@
+-*-Help-*-
+
+Fortran Mode Help
+
+                                            version: 2.0
+                                            created: 02/11/2005 {01:11:47 PM}
+                                        last update: 03/07/2006 {01:05:42 PM}
+
+	  	Abstract
+
+FORTRAN was first developed in the 1950s and still used today.  Its name
+comes from "FORmula TRANslation," revealing its early use in processing
+mathematics.  Dialects include FORTRAN 77 and FORTRAN 90.  Versions include
+FORTRAN II, IV, and V, WATFOR, and WATFIV.
+    
+Alpha's Fortran modes ('Fortran' and 'Fortran90') provide keyword coloring, subroutine
+marking and indexing.  They support Command-Double-Click for jumping to
+subroutines and the opening of 'include' files.
+    
+    
+	  	Table Of Contents
+
+"# Fixed-Format vs Fortran 90"
+"# 'Fortran' vs 'Fortran90' modes"
+"# Fortran Menu"
+"# Fortran90 Menu"
+"# 'Fortran' Mode Comments"
+"# 'Fortran90' Mode Comments"
+"# Continuing Statement Lines"
+"#   'Fortran' mode:"
+"#   'Fortran90' mode:"
+"# Fortran Electrics"
+"# Window Navigation"
+
+"# License and Disclaimer"
+
+<<floatNamedMarks>>
+
+
+	  	Fixed-Format vs Fortran 90
+    
+Fortran 77 is not a free-format language, but has a very strict set of rules
+for how the source code should be formatted.  The most important rules are
+the column position rules:
+
+    Col. 1    : Blank, or one  of "c C ! *" for comments
+    Col. 2-5  : Statement label (optional)
+    Col. 6    : Continuation of previous line (optional)
+    Col. 7-72 : Statements
+    Col. 73-80: Sequence number (optional, rarely used today)
+
+Most lines in a Fortran 77 program starts with 6 blanks and ends before
+column 72, i.e. only the statement field is used.
+    
+Fortran 90, on the other hand, allows free format.
+    
+
+	  	'Fortran' vs 'Fortran90' modes
+
+
+AlphaTcl contains two mode for Fortran files, 'Fortran' and 'Fortran90'.
+
+'Fortran' mode is intended for fixed-format editing, as described above.
+Comment lines are only colored if one of "c" "C" "!"  or "*" appear in the
+first column.  'Fortran' mode windows have the "# Fortran Menu" available.
+
+Click on this "FORTRAN Example.f" link for an example syntax file.
+    
+'Fortran90' mode is intended for free-format editing, in which columns 1-6
+are not special, and "!"  indicates a comment no matter where it appears in
+the line.  'Fortran90' mode windows has the "# Fortran90 Menu" available.
+
+Click on this "F90 Example.f90" link for an example syntax file.
+    
+Yes, these are both dialects rather than separate languages, but for
+technical reasons Alpha needs to define a different mode for each one.  Both
+of them share some of the features described in this file, but have distinct
+indentation and block-shifting routines.
+
+
+	  	Fortran Menu
+    
+The "Fortran Menu" is automatically inserted into the menu bar whenever you
+open a file in "Fortran" mode.  It includes items that will open up the www
+"Fortran Home Page" and the "Fortran Faq" sites.  (You can adjust your
+Fortran preference to change the home page location to something more useful
+by selecting "Config > Fortran Mode Prefs > Preferences".)
+    
+Preferences: Mode-Fortran
+    
+The "Shift Left/Right" menu commands will preserve columns 1-6, and adjust
+the indentation of the statement in the current line/selection.  These use
+the same Keyboard Shortcuts as the "Edit > Shift" menu items, i.e.
+over-riding the behavior seen in other Alpha modes.  If you need to turn off
+this feature to restore the "Edit > Shift" keyboard shortcuts then toggle the
+"Fortran > Fortran Mode Shifting" menu item.
+    
+In Alpha8/X, these are dynamic menu items -- press Option to display the
+items and shortcuts which shift the text one space to the left/right.
+    
+The "Fortran > Special Balance" menu item will behave like Alpha's normal
+"Edit > Balance" command to select the text contained in () (or in {}).  If
+there are no more bracket/brace characters to balance, then blocks of code
+found between "IF ...  END IF" or "DO ...  CONTINUE" will be selected, as
+well as entire MODULE, INTERFACE, PROGRAM, SUBROUTINE, and FUNCTION blocks.
+
+
+	  	Fortran90 Menu
+    
+The "Fortran90 Menu" is automatically inserted into the menu bar whenever you
+open a file in "Fortran90" mode.  It includes items that will open up the www
+"Fortran Home Page" and the "Fortran Faq" sites.  (You can adjust your
+Fortran preference to change the home page location to something more useful
+by selecting "Config > Fortran Mode Prefs > Preferences".)
+    
+Preferences: Mode-Fortran90
+    
+Unlike 'Fortran' mode, there are no special "Shift Left/Right" menu commands,
+and you can make use of the "Edit > Shift" menu items.
+    
+The "F90 > Special Balance" menu item will behave just like Alpha's normal
+"Edit > Balance" command to select the text contained in () (or in {}).  If
+there are no more bracket/brace characters to balance, then blocks of code
+found between "IF ...  END IF" or "DO ...  CONTINUE" will be selected, as
+well as entire MODULE, INTERFACE, PROGRAM, SUBROUTINE, and FUNCTION blocks.
+    
+    
+	  	'Fortran' Mode Comments
+    
+You can use the "Fortran > Fortran Comments" submenu to change the character
+used for all Comment menu items.
+    
+The "Indent Comments" preference determines if comments should be left in
+column 3 or advanced to column 7, or simply left alone.  (You can select
+"Fortran > Reformat Block" to properly indent commented code.)
+    
+Known bugs :
+    
+(1) In Alpha8/X, only one character can be used to colorize commented lines;
+in AlphaTk all lines starting with "c" "C" "*" "!"  will be properly colored.
+    
+(2) In Alpha8/X, comments with "!"  that do not appear in column 1 cannot be
+properly colored.  We hope to resolve this in a future release.  In the
+meantime, you can turn on the "Color Inline Comments" preference which will
+use a hacky workaround to colorize all "!"  comments no matter where they
+appear in the line.  The keyboard shortcuts Control-L (refresh) and
+Control-Option-L (center refresh) will update these comment colors -- they
+will _not_ automatically appear as you type.
+    
+Preferences: Mode-Fortran
+    
+Unfortunately, the presence of any specially colored keywords within these
+comments will end the colorization on these lines.  Remember, this is a known
+bug and this preference is an acknowledged hack, so please don't complain
+about its inadequate implementation.
+
+
+	  	'Fortran90' Mode Comments
+
+The comment character "!" can appear anywhere in a line to indicate a comment
+and all text following a "!" will be colored.  This includes a "!" that
+appears within a statement, as in
+
+	write(unit=*, fmt=*) "Can't divide by zero!!", sqrt(rnorm/ynorm)
+
+so the "sqrtÉ" statement will also be colored.  This is a known limitation,
+we hope to address it in a future release.
+
+    
+	  	Continuing Statement Lines
+
+	  	 	'Fortran' mode:
+    
+Use the "Fortran > Continue Line" command to create a new line with your
+"Continuation Character" in column 6, properly indenting the line with
+respect to the most recent one.  You can toggle the current line as continued
+or not with the "Fortran > Toggle Continuation" command.
+    
+You can select the "Fortran Mode Prefs > Preferences" dialog to change the
+character inserted to indicate continuations.
+    
+Preferences: Mode-Fortran
+    
+There is a separate preference named "Continuation Characters" which
+determines the characters that appear in the pop-up menu of options.  (This
+simply ensures that you always select a valid option.)
+    
+Previous versions of Fortran mode used Control-Option-J to continue lines.
+This shortcut has been retained for those who are used to it.
+
+	  	 	'Fortran90' mode:
+
+Use the "F90 > Continue Line" command to insert a "&" at the current cursor
+position, and then create a new properly indented line, as in
+
+	private :: solve, mv_prod, prod0, prod1, Preco, |
+
+to this
+
+	private :: solve, mv_prod, prod0, prod1, Preco, &
+		  |
+
+
+Continued lines are always indented twice the "normal" indentation amount.
+Some Fortran users like to also insert a "&" in column 6 in .f90 files even
+though this is unnecessary.  'Fortran90' mode does not support this, and this
+syntax will result in errant formatting of subsequent lines.
+
+    
+	  	Fortran Electrics
+    
+Both 'Fortran' and 'Fortran90' modes support "Electric Completions".  You can
+open the "Fort Tutorial.f" and "f90 Tutorial.f90" windows for a little
+demonstration.
+    
+If the mode preference named "Indent On Return" is turned on, pressing Return
+will automatically indent the current line if necessary and then indent the
+new line that is created.
+    
+Preferences: Mode-Fortran
+Preferences: Mode-Fortran90
+
+Even when this preference is turned on, pressing Control-Return creates a new
+line without any automatic indentation or insertion of comment characters.
+
+    
+	  	Window Navigation
+    
+The "Fortran|F90 > Next/Prev Block" commands will advance the cursor in the
+active window.  A "block" is simply delineated by empty lines.  If there is a
+current selection when you call these items, the selection is extended to the
+end/beginning of the next/previous block of code.
+    
+These functions are also available by pressing Control-Shift-Arrow keys.  For
+example, Control-Shift-Down will advance to (or select) the next block of
+code.  Control-Shift-Right will do this but also move the new cursor location
+to the top of the window.
+    
+"Fortran|F90 > Reformat Block" will properly indent the statements in the
+block of code surrounding the cursor, and then position the cursor at the
+start of the next block of code.
+    
+File marking (see the M or paperclip icon in the window's sidebar) will
+collect all new PROGRAM statements in the active window.  There is an
+additional "Mark Tag" preference that can be set -- all occurrences of this
+string in a commented line (i.e. starting in column 2 for 'Fortran' mode or
+following a "!"  in 'Fortran90' mode) will also be marked.  For example, if
+the value of this preference is "!!!"  then
+    
+	!!!! This is a special comment
+	! !!! This is another one !!!
+	!    !!! And this is a third.
+    
+will be specially marked.  In 'Fortran' mode, this tag can appear after any
+valid column 1 comment character, as in
+    
+	!!!! This is a special comment
+	c !!! This is another one !!!
+	C    !!! And this is a third.
+
+
+	====================================================================
+
+	  	License and Disclaimer
+
+
+Copyright (c) 1994-2006  Tom Pollard, Craig Barton Upright
+All rights reserved.
+
+See the file "license.terms" for information on usage and redistribution of
+these packages, and for a DISCLAIMER OF ALL WARRANTIES.
+
+Mode Author: Tom Pollard
+
+ Maintainer: Craig Barton Upright
+     E-mail: <cupright@alumni.princeton.edu>
+        www: <http://www.purl.org/net/cbu>
+
+This document has been placed in the public domain.

@@ -1,0 +1,210 @@
+
+Alpha Developers FAQ
+
+                                            version: 8.0
+                                            created: 03/01/2000 {14:18:04 PM}
+                                        last update: 01/25/2005 {01:47:31 PM}
+
+
+	  	Description
+
+
+Ordinary Alpha(tk) 'users' will probably not find much of use here...
+
+For those developing modes, menus, and other features for Alpha and Alphatk,
+or simply hacking away at existing code, this file contains the answers to
+some frequently asked questions.  Feel free to suggest new questions and
+answers (on the AlphaTcl-Developers mailing list described in the "Readme").
+
+If you are sending files to any of the core developers of Alpha, please ensure
+they are encoded in some way (whether binhex'd, stuffed, macbinarized, or
+whatever).  Many of Alpha's .tcl and help files contain ascii characters >
+128, which are usually garbled when a file is sent as a plain attachment.
+
+The help file "Extending Alpha" provides more detailed information about how
+to write additional code for AlphaTcl.
+
+
+	  	Table Of Contents
+
+
+"# Tcl Procs / Indices"
+"# AlphaTcl Package Indices"
+"# Alpha7/8/X/tk, OS Platforms"
+"# Position Procs"
+"# Line Endings"
+
+<<floatNamedMarks>>
+
+
+
+	  	Tcl Procs / Indices
+
+
+(Q) I've added/changed some .tcl files but when I run Alpha and try to use the
+new features, I get an error 
+
+	invalid command name <myproc>
+
+I'm sure that [myproc] exists!
+
+(A) Tcl uses "tclIndex" files to work out how to locate previously unknown
+procedures.  If [myproc] is new, it presumably isn't in those index files, and
+Tcl can't find it (except by chance, by loading a different proc in the same
+file).  So the solution is to rebuild your Tcl indices -- select the menu item
+"Tcl Menu > Tcl Indices > Rebuild Tcl Indices", or alternatively the menu item
+"AlphaDev Menu > Rebuild AlphaTcl Indices".
+
+In the <<tclShell>> (Command-Y) you can also [cd] to the correct directory
+and type:
+
+	auto_mkindex
+
+to rebuild just the index in that directory.  Another quick option is to
+select the "Tcl Menu > Tcl Indices > Rebuild Tcl Index For Win".
+
+If you're just doing interactive code development/debugging, then you
+can of course just select the proc in question and 'evaluate' it.
+
+	----------------------------------------------------------------
+
+(Q) What's the difference between the menu items 'Rebuild Package Indices' and
+'Rebuild Tcl Indices'?
+
+(A) The former rebuild's Alpha's database of package details -- all the
+information in those alpha::feature/mode/menu/extension commands.  The
+latter rebuilds Tcl's standard database of which procedures are in which
+files.  Alpha's database is stored in your
+
+	${PREFS}/Cache/index
+
+directory.  Tcl's database is stored in the tclIndex files in each directory
+that is found in the 
+
+	${HOME}/Tcl
+
+hierarchy.  These tclIndex files are Tcl's standard way of locating
+unknown procedures (and as such are not unique to Alpha).  The package
+index information is something totally unique and specific to Alpha.
+
+	----------------------------------------------------------------
+
+
+	  	AlphaTcl Package Indices
+
+
+(Q) I made some minor changes to my alpha::feature/mode/menu command, and
+Alpha hasn't noticed the change.
+
+(A) Alpha caches package information to avoid having to scan hundreds of files
+on startup.  You need to rebuild your package indices by selecting the menu
+item "Config > Packages > Rebuild Package Indices".
+
+	----------------------------------------------------------------
+
+(Q) I've added/changed some .tcl files but when I run Alpha my entire package
+isn't even recognised.  Why not?
+
+(A) Alpha caches package information to avoid having to scan hundreds of files
+on startup.  You need to rebuild your package indices by selecting the menu
+item "Config > Packages > Rebuild Package Indices".  AlphaTcl will always
+check whether the number of files/folders have changed between editing
+sessions and will perform an automatic rebuild for you when necessary, which
+should avoid this problem.
+
+	----------------------------------------------------------------
+
+
+	  	Alpha7/8/X/tk, OS Platforms
+
+
+(Q) What's the difference between:
+
+	alpha::package require Alpha 7.2
+
+and
+
+	alpha::package require AlphaTcl 7.2
+
+?
+
+(A) AlphaTcl is the library of Tcl code which comes with Alpha and Alphatk.
+Most existing packages should only really test the version of AlphaTcl.  As we
+continue working on Alpha 8.0, new commands may appear, or old commands may
+have their behaviour slightly changed, in that case you may wish to test the
+version of Alpha.  Note that Alpha 8 and Alphatk 8 both use AlphaTcl versions
+8.x at present.  So, you should use
+
+	alpha::package require AlphaTcl ...
+
+Alpha 8, Alpha X and Alphatk will all declare themselves as 'Alpha 8.x'.  The
+differences between these three (as well as Alpha 7) are best ascertained by
+examining any of:
+
+	alpha::platform
+	alpha::macos
+	info tclversion
+	tcl_platform(platform)
+	tcl_platform(os)
+
+See "Extending Alpha # MacOS X And Other Platforms" for more information.
+
+	----------------------------------------------------------------
+
+(Q) How can I tell if I'm running on MacOS. Won't 'tcl_platform' tell me I'm
+running on Unix if I'm using MacOS X?
+
+(A) Use ${alpha::macos} -- if it's 1 or 2 then you're on some version of
+MacOS, if it's 0 then you're not.  This doesn't tell you whether you're
+running with Alpha or Alphatk (if you care about that you should look at
+$alpha::platform -- but most packages should work perfectly on any of Alpha
+8/X/tk).  What $alpha::macos tells us is whether useful things like
+applescript, apple-events, file types are likely to be available.  The
+values '1' and '2' correspond to MacOS classic and MacOS X respectively.
+
+See "Extending Alpha # MacOS X And Other Platforms" for more information.
+
+	----------------------------------------------------------------
+
+
+	  	Position Procs
+
+
+(Q) Why should I use 
+
+    command: minPos
+    command: maxPos
+    command: pos::math
+    command: pos::compare
+    command: pos::diff
+
+?  What's wrong with just using the command: expr ?
+
+(A) Alpha's current windowing model simply uses numbers to represent positions
+relative to the start of the window.  However Alphatk uses a more complex
+positioning scheme.  In the future we may change the windowing model of Alpha.
+So, if you only care about having your code run on Alpha now, then [expr] is
+fine.  For your code to run on Alphatk now, and to avoid incompatibility if
+Alpha changes in the future, you should use the [pos::] functions.
+
+	----------------------------------------------------------------
+
+
+	  	Line Endings
+
+
+(Q) Does Alpha always use '\r' for line-endings?  What about Unix/PC files?
+
+(A) You're best off simply assuming that a line-ending may be either '\r' or
+'\n'.  (Or sometimes a combination of the two).  In particular, Alpha uses
+'\r', Alphatk uses '\n', and files on disk may use any of \r, \n, or \r\n
+
+	----------------------------------------------------------------
+
+This document has been placed in the public domain.
+
+Author:	Vince Darley
+E-mail:	<vince@santafe.edu>
+  mail:	317 Paseo de Peralta, Santa Fe, NM 87501, USA
+   www:	<http://www.santafe.edu/~vince/>
+

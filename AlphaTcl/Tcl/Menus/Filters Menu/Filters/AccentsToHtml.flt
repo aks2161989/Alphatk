@@ -1,0 +1,66 @@
+!! This file : AccentsToHtml.flt 
+!! Convert accents to HTML.
+!! To be used with the Filter Menu in Alpha.
+!! Last modification : 8 avril 2000 - 16:17:38
+!! (c) Copyright : Bernard Desgraupes 2000
+
+
+á	&aacute;
+â	&acirc;
+æ	&aelig;
+à	&agrave;
+å	&aring;
+ã	&atilde;
+ä	&auml;
+ç	&ccedil;
+é	&eacute;
+ê	&ecirc;
+è	&egrave;
+ë	&euml;
+í	&iacute;
+î	&icirc;
+ì	&igrave;
+ï	&iuml;
+ñ	&ntilde;
+ó	&oacute;
+ô	&ocirc;
+ò	&ograve;
+ø	&oslash;
+õ	&otilde;
+ö	&ouml;
+ß	&szlig;
+ú	&uacute;
+û	&ucirc;
+ù	&ugrave;
+ü	&uuml;
+ÿ	&yuml
+Æ	&AElig;
+Á	&Aacute;
+Â	&Acirc;
+À	&Agrave;
+Å	&Aring;
+Ã	&Atilde;
+Ä	&Auml;
+Ç	&Ccedil;
+É	&Eacute;
+Ê	&Ecirc;
+È	&Egrave;
+Ë	&Euml;
+Í	&Iacute;
+Î	&Icirc;
+Ì	&Igrave;
+Ï	&Iuml;
+Ñ	&Ntilde;
+Ó	&Oacute;
+Ô	&Ocirc;
+Ò	&Ograve;
+Ø	&Oslash;
+Õ	&Otilde;
+Ö	&Ouml;
+Ú	&Uacute;
+Û	&Ucirc;
+Ù	&Ugrave;
+Ü	&Uuml;
+Œ	&#338;
+œ	&#339;
+Ÿ	&#376;

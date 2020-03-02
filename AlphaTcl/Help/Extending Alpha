@@ -1,0 +1,3309 @@
+
+Extending Alpha
+
+                                            version: 8.1a1
+                                            created: 03/03/1997 {11:44:50 AM}
+                                        last update: 08/04/2005 {01:04:06 PM}
+
+	  	Abstract
+
+
+This document contains information for AlphaTcl developers interested in
+writing new modes, menus and packages.  Note that all of this information
+assume Tcl 8.4 or higher, which is required for all of Alpha8/X/tk.  Alpha 7.x
+required that AlphaTcl include a lot of back compatibility procedures and Tcl
+constructions, but all code is gradually being updated to take advantage of
+the benefits of 8.4.  This file includes several tips to help make this
+transition smoother, explaining some of the quirks (esp of namespaces) that
+might not be immediately apparent to developers who worked on earlier
+versions.
+
+Note that in this file, as in most Help documents, 'Alpha' refers to the
+current generation of Alpha editors which use the AlphaTcl library, including
+all of Alpha8, AlphaX, and Alphatk.  When we need to refer to a specific
+binary, we'll do so by name.
+
+
+	  	Table Of Contents
+
+"# Introduction"
+"# Changing Alpha's Behavior"
+"#   Where To Put New Code?"
+"#   Modifying Alpha's Menus"
+"#   Use Of The Term 'Electric'"
+
+"# Package Basics"
+"# Compatibility Issues"
+"#   Namespaces"
+"#   Namespaces And Infinite Loops"
+"#   Variable-parameter Name Clashes"
+"#   Directory Delimiters"
+"#   Other Tcl 8.x Details"
+"#   Alphatk Compatibility"
+"#   MacOS X And Other Platforms"
+"#   Declaring Your Package To Alpha"
+"# The Alpha Developer Menu"
+"# Licensing Issues"
+"# Coding Standards (tab sizes etc)"
+
+"# Writing New Modes"
+"#   Multi-file Modes"
+"#   Mode Procs"
+"#   Smart Mode Lines"
+"#   unixMode array"
+"#   modeCreator array"
+"#   Comment Characters"
+"#   Paragraph Definitions"
+"#   Electric Braces And Semicolon"
+"#   Indent On Return"
+"#   Automatic Indentation"
+"#   Option-click-titlebar Menu"
+"#   Electric Code Templates"
+"#   The Marks Menu"
+"#   The '{}' Popup Menu"
+"#   <mode>Completions.tcl"
+
+"# Writing New Menus"
+"# Menu Creation Syntax"
+
+"# Writing New Features Or Extensions"
+"# Writing New Extensions (Keyboard Caveats)"
+"# Technicalities Of Different Menu/Feature/Extensions"
+"# [alpha::library] packages"
+
+"# Package Preferences"
+"#   Adding To The Core Prefs Dialogs"
+"#   Defining A Package's Flags And Variables"
+"# Declaring Help Text"
+"# Adding Items To Global Menus"
+"#   menu::buildProc"
+"#   menu::insert"
+"# Package Testing"
+
+"# Installation"
+"#   Installation Over-rides"
+"#   Uninstalling Packages"
+"#   Disabling Packages"
+"#   Package Requirements"
+"#   Tcl 'index' Files"
+
+"#  Miscellaneous Extras"
+"#   Source-Header files"
+"#   Completions"
+"#   Mode-specific Completions"
+"#   Electric Menu Templates"
+"#   Contextual Menu Help"
+"#   Summary"
+
+"# Advanced Topics"
+"#   What Happens In [new] And [editDocument]"
+"#   What happens in [save] and [saveAs]"
+"#   Embedding AlphaTcl"
+"# AlphaTcl Window API"
+"# Defining new Window attributes"
+"# Defining minor modes and modifying window behaviours"
+"# Error Handling"
+"# Event Hooks"
+"#   Window Hooks"
+"#   Alpha Hooks"
+"#   Mode Hooks"
+"#   Keyboard Hooks"
+"#   Miscellaneous Hooks"
+"#   Hooks continued..."
+"#   Hook Definitions"
+
+"# Copyright"
+
+
+	  	Introduction
+
+
+This document tells you how to write or modify code to add functionality to
+Alpha or Alphatk.  Alpha 7.x, 8.x, Alpha X and Alphatk all rely upon the
+AlphaTcl library to perform most tasks.  The AlphaTcl library in turn provides
+a consistent API ("Application Programming Interface" -- a set of procedures,
+variables, interfaces) by which you can add new features.  If written
+correctly, such additions will work seamlessly with any of Alpha 7.x, 8.x,
+Alpha X or Alphatk.
+
+Examples of such additions may be to create a new mode, menu, add an item to
+an existing mode or menu, or simply add some new functionality to existing
+actions.  Collectively all such add-ons to Alpha are known as 'packages' or
+'features'.  Individual packages may be referred to as modes, menus or
+extensions depending upon their use.
+
+This document also tells you how to make your package interact effectively
+with a few other commonly used packages which users might already be using.
+
+
+	  	Changing Alpha's Behavior
+
+        
+This first section is for Alpha users that might want to modify or extend some
+part of the AlphaTcl code without creating new packages.
+
+
+	  	 	Where To Put New Code?
+        
+First of all, where do you put your own Tcl code so that Alpha can find it?
+Alpha has a set of preferences files for this purpose.  There is one global
+preferences file which is loaded when Alpha is launched.  In this file you
+should put code which should be loaded regardless of which mode you're working
+in.  This "prefs.tcl" file is opened / created by the selecting the menu item
+"Config > Preferences > Edit Prefs File".
+
+Then there is one preferences file for each mode.  The file for a mode is
+loaded after as the last code to be loaded when a mode is used the first time.
+This preferences file can be opened /created using the menu item "Config >
+Mode Prefs > Edit Prefs File".
+
+These preferences files are intended for code for personal use.  You can also
+activate the package: smarterSource if you want to make more extensive changes
+to some default behavior of a package included in AlphaTcl.
+
+If you want to write a complete new package for Alpha, which others also can
+use, of course all the following information in this file is there to help
+you, in the "# Package Basics" section and those which follow.
+
+
+	  	 	Modifying Alpha's Menus
+
+Alpha's global menus and most mode menus can be modified using
+
+    proc: menu::insert
+    proc: menu::removeFrom  and 
+    proc: menu::replaceWith
+
+The use of these are explained in the "# Adding Items To Global Menus" section
+below.
+
+
+	  	 	Use Of The Term 'Electric'
+
+Through out the documentation and in actual proc names, you will see the use
+of the word "electric", so a note on its usage might be helpful.  "Electric"
+is used in the sense of "automatic, power assisted behaviour", it is intended
+to save time, keystrokes, and brainpower.  Such behaviour is usually invoked
+by certain keystrokes (determined by various preference settings).
+
+Preferences: Electrics
+
+
+	====================================================================
+
+
+	  	Package Basics
+
+
+There are two basic types of package which Alpha uses: modes, and features.
+
+A mode helps with editing a file for a particular purpose: web pages use
+'HTML' mode, C++ code uses 'C++' mode, LaTeX documents use 'TeX' mode,É There
+are about 40 such modes currently available.
+
+Features are of three types: menus, extensions and ordinary features.  A
+feature adds functionality to Alpha either globally (a 'global feature') or
+just for particular modes (a 'mode feature').  Menus are one type of feature
+used to extend Alpha, and aren't really much different to features which don't
+add menus: the only distinguishing difference is a couple of lines of code
+which do some menu creation/deletion.
+
+Preferences: Menus
+Preferences: Features
+
+All packages will contain a package identification and initialization command,
+called
+
+    proc: alpha::extension
+    proc: alpha::feature
+    proc: alpha::flag
+    proc: alpha::library
+    proc: alpha::menu
+    proc: alpha::mode
+
+as appropriate.  (One of the purposes of this document is to describe the
+minor, but important differences between them).
+
+Here are some examples:
+
+	alpha::extension bibtexEngine 1.8.6 { ...
+
+
+	alpha::feature recentFilesMenu 0.5.1 "global-only" {
+
+The package: bibtexEngine is an extension which creates an 'eventHandler' that
+allows for interaction between the BibTeX application and Alpha.  It is
+designed to be turned on globally, and there is no action to be taken if it is
+turned off.  The number is the version of this package; in this case version
+0.5.1.
+
+The package: recentFilesMenu, which creates a menu of recent files accessible
+from Alpha's File menu, is an "global-only" feature that is defined in the
+file "recentFiles.tcl".  Like extensions, global-only features are only
+designed to be turned on and off globally (so you can't use the recent files
+menu when in C++ mode but not when in HTML mode(*)), which makes sense for
+this package, since a user will either want to have access to the menu all the
+time, or not at all.  It is a 'feature' so that we can also create a
+deactivation script to remove the menu when it is turned off.  Notice this is
+declared as an feature, not as a menu.
+
+The [alpha::menu] command is reserved for menus which appear in Alpha's
+menubar, not submenus such as this.
+
+In fact the "Config > Mode Prefs > Features" dialog lets expert users turn
+such global extensions off for particular modes, but this might cause
+unforeseen problems.
+
+Preferences: Mode-Features-Text
+
+Another example:
+
+	alpha::feature latexAccents 1.0.5 {TeX Bib} ...
+
+Some users of LaTeX find it easier to type accented characters 'ŽŒŸÉ' directly
+into their documents rather than somewhat esoteric control codes like \'{e}.
+The package: latexAccents makes that task a lot easier.  It is only useful for
+LaTeX and BibTeX documents, so the author specifies that information in an
+extra argument to [alpha::feature] which is not allowed (or relevant) for
+[alpha::extension].
+
+Most modes add a menu which is automatically attached to that mode.  Other
+menus are often useful globally.  It's up to the user to decide when each
+feature/menu is active, although each feature can specify its default.
+Mode-authors can of course set the defaults for their mode.
+
+Examples of globally useful menus are the filesets menu, the mail menu and the
+electric menu.  When you create a new menu for Alpha, you have the option of
+suggesting that it is attached to particular modes, or that it is suggested as
+global, or that it is global only.  General features are organized in the same
+way, but don't create menus.
+
+Finally, an extension is a simple form of feature which is either globally
+active or off (it either doesn't make sense or isn't particularly useful to
+turn extensions on and off in a mode-dependent way).  Examples of extensions
+are the printer choices sub-menu, or the bib-engine (used to interact with
+BibTeX).
+
+Note: a 'menu' is something which sits in Alpha's menubar, at the top level.
+A feature or extension can create submenus which sit inside top level menus,
+but these are not 'menus' in the same sense.  The main distinction is that
+menus must be registered with [alpha::menu] or [addMenu], whereas submenus
+need no special registration.
+
+For the impatient reader: here's how to write a very simple feature which
+contains one new procedure and one new key-binding (to that procedure).  Just
+create a file which looks like this:
+
+	# (auto-install) --- this line will cause Alpha to try to install 
+	# this pkg when this file is opened outside of Alpha's folder hierarchy
+	
+	alpha::feature myPackage 0.1 {C C++} {
+		# no global initialization required
+	} {
+		# activation script
+		# bind the 'x' key to my procedure (not a good idea ;-)
+		Bind 'x' myProcedure
+	} {
+		# deactivation script
+		unBind 'x' myProcedure
+	} requirements {
+	    # if your package has any strange requirements (such as 
+		# particular versions of Alpha or it only runs on unix),
+		# place code to test that here.  Otherwise omit this
+		# section completely.
+	    if {[info tclversion] < 10.0} {
+	        error "My package requires Tcl 10!"
+	    }
+	} uninstall {this-file} maintainer {
+		"My Name" my@email http://webpage..
+	} help {
+		Binds the blah-key to 'myProcedure' which carries out...
+		
+		This package is only designed to do something useful in
+		C and C++ modes.
+	}
+	
+	proc myProcedure {} {
+		# do some cool stuff
+	}
+	
+Save this file on your desktop (say), and open it.  You'll see Alpha
+automatically opens an installation dialog, puts this file in the right place
+if you agreed to the installation, and rebuilds its package and tcl indices so
+that this package can be used next time you restart Alpha (actually with a
+simple package like this, you can use it straight-away).  By default this
+package declares it is useful for C and C++ modes, although the user could
+choose to activate the package globally or individually for any set of modes.
+
+IMPORTANT: if you're writing a mode, menu or package, you should know about
+the 'package index'.  Alpha keeps a cache of all startup information, so that
+if you edit your [alpha::mode ...]  statement, and quit and restart Alpha, the
+changes will not take effect.  You must tell Alpha to rebuild the package
+indices before quitting.  In fact simple evaluating any of these commands 
+like alpha::mode will have no effect at all except during the package 
+rebuild process.  So, these commands are not for interactive development.
+
+Alpha provides lots of cool facilities to help you write useful packages,
+whether they are modes, menus or extensions.  This document describes those
+facilities.
+
+We strongly recommend that you look at some of the existing packages and base
+your code upon them.  There are at least a dozen quite small, simple packages
+in AlphaTcl which would make good templates.  Here's a partial list:
+"recentFilesMenu.tcl", "colors.tcl", "macros.tcl", "spellcheck.tcl",
+"smartPaste.tcl", "backup.tcl", "autoSaveOnSwitch.tcl", "fileUtils.tcl"
+"changeLogHelper.tcl" .  These files are all found in either CorePackages or
+Packages folders.
+
+
+	  	Compatibility Issues
+
+
+This section is useful if you've created code for AlphaTcl v 7.x, or are more
+familiar with versions of Tcl prior to 8.0.  It will also help you to
+understand how to write code which works efficiently with Tcl 8, making
+maximum use of the potential speed improvements there.  Now that Alpha has
+upgraded to Tcl 8, some changes to your code may be necessary, there are a few
+simple details to which you should give some heed.
+
+
+	  	 	Namespaces
+
+First, any proc which contains '::' is a procedure defined inside a namespace.
+Tcl 8 requires you to declare namespaces in advance.  Hence unless Tcl 8 knows
+about namespace 'A', say, defining a procedure 'proc A::blah ...'  is an
+error.  You should therefore include the line 'namespace eval A {}' at the
+beginning of the file defining all the 'A::' procedures.
+
+	  	 	Namespaces And Infinite Loops
+
+The second guideline concerns the way namespaces actually work.  Assume you
+have defined two procedures [A::open] and [A::list].  Let's say:
+
+	1 | proc A::list {} {
+	2 |     open [file join $HOME Help Changes] w ; ...
+	3 | }
+	4 | proc A::open {} {
+	5 |     return [list a b c]
+	6 | }
+
+Then both of these procedures will fail (and may crash Alpha).  This is
+because inside the procedures we're in the 'A' namespace and this means
+commands are checked first to see if they exist inside that namespace.
+Therefore command [open] in line 2 is not the global Tcl command [::open],
+rather it is the procedure [A::open] (which is obviously not what was intended
+above).
+
+Similarly [list] in line 5 is in fact the procedure [A::list].  There are two
+ways to resolve this:
+
+(1) write 'list' as '::list' inside the proc (and 'open' as '::open'), or
+
+(2) ensure the tail end of your procedures do not clash with any global Tcl
+(or AlphaTcl) commands which you are going to use from within your namespace.
+
+While the second option can make for somewhat easier to read code, the first
+is guaranteed to work in Tcl 8.0 and doesn't require that you be aware of
+every possible AlphaTcl command which exists in the global namespace.
+
+(Want a list?  Click here <<global::listFunctions>> to open a new window
+containing all of the AlphaTcl commands defined as of this moment.  This list
+will change, of course, as new AlphaTcl files are sourced during your editing
+session.)
+
+	  	 	Variable-parameter Name Clashes
+
+A third problem occurs quite rarely.  A variable such as 'index::flags' is
+actually a variable 'flags' inside a namespace 'index'.  Under some
+circumstances it is possible for a nameclash to occur.  For instance:
+
+	proc test {flags} {
+		global index::flags
+		...
+	}
+
+Will throw an error 'Error: variable "flags" already exists' when executed.
+The easy solution is to rename the parameter passed in (from flags to theFlags
+or whatever).  Name clashes can only happen between function parameters and
+variables declared inside.  Note that this behaviour is simply an extension of
+the more obvious mistake in Tcl 7.x of 'proc test {flags} {global flags ...}'.
+
+Another Tcl 8.0 namespace quirk is that if you have something like
+
+	1 | proc test {} {
+	2 |     global index::flags
+	3 |     set flags [list 1 2 3]
+	4 |     ...
+	5 | }
+
+then the 'flags' variable in line 3 is actually setting the 'index::flags'
+variable.  If this isn't what you wanted to do, name the 'local' flags to
+something else that won't clash.
+
+
+	  	 	Directory Delimiters
+
+MacOS uses the colon ':' as a directory delimiter, so paths in Alpha may be
+written as $HOME:Tcl:SystemCode:...  However, OSX has a unix underpinning, and
+AlphaX use the MacOS X-native version of Tcl (as does Alphatk on MacOS X),
+which is similarly unix based.  Hence the Tcl library within Alpha will then
+use the forward-slash '/' as a directory delimiter.  And Alphatk in Windows
+also knows nothing about ':' (it uses '/' and '\' interchangeably).
+
+The simple solution is to use
+
+	[file join ...]  and
+	[file split ...] 
+
+so that you don't assume any particular delimiter, and your code works fine on
+all platforms.  If you really need the file separator, use
+
+	[file separator]
+
+to get the correct value.  In general, excessive manual tweaking of file
+separators is probably a sign your code isn't designed in the simplest way ---
+please ask on the alphatcl-developers mailing list if you run into problems
+like this.
+
+	  	 	Other Tcl 8.x Details
+
+A final Tcl 8 issue is that lists are not parsed lazily as in Tcl 7.x. So,
+grabbing an arbitrary string and doing
+
+	lindex $string 0
+
+in Tcl 7.x would usually return the first element of $string without an error,
+even if $string is not a valid Tcl list (e.g. it contains unmatched {}
+braces).
+
+In Tcl 8 the entire string is first converted to a list, and then the first
+element is extracted.  If the string is not a list, an error will result.  The
+solution is only to use
+
+    command: lindex
+    command: lrange
+    etc
+
+where you really have a list, and to use
+
+    command: split
+    command: regexp
+
+or the various command: string options when you need to manipulate strings.
+For example
+
+	regexp "^\[^ \t\r\n\]+" $string firstElement
+
+will usually accomplish the same as 
+
+	lindex $string 0
+
+(beware if $string may start with whitespace; you need a more complex regular
+expression).
+
+By following these two guidelines, your code should continue to work without
+any additional changes (except that your code should now run 2-10 times
+faster!).
+
+If you're really concerned about maximum efficiency in Tcl 8, make sure you
+always use '{}' with both 'if' and 'expr'.  This speeds things up with Tcl 8
+due to some technical aspects of the way the Tcl compiler works (see
+<http://www.tcl.tk> for details).  For example, in numerically intensive code,
+don't write
+
+	if [expr 1+2 == 3] { set b [expr 5*10] ; ... }
+
+but rather
+
+	if {(1+2) == 3} { set b [expr {5*10}] ; ... }
+
+Remember that 'if {}' expressions are just that: expressions, so you never
+need to use 'if {[expr ...]}'.  The 'expr' is simply redundant.
+
+A very important pointer for speed in Tcl 8 is that lists are very fast.  This
+means using [lappend], [lindex] etc is very quick.  There is one small point
+you should obey: never use
+
+	if {$myList == ""} {...}
+
+to see if a list is empty.  Instead use one of
+
+	if {![llength $myList]} {...}
+	if {$myList eq ""} {...}
+
+Until Tcl implements some good optimisation in the internal compiler (which it
+may never do), the former expression will slow your code down hugely when the
+list isn't empty.
+
+The behaviour of
+
+	file tail
+
+has changed slightly between Tcl 7.5 (as used by Alpha 6.x and 7.x) and 8.0;
+with 7.5
+
+	file tail a:b:
+
+was "", but 8.0 returns "b".  Some code which depended on this distinction
+might need to be updated.
+
+Any procedures in the "BackCompatibility.tcl" file are obsolete.  Please do
+not use them.  At some point in the future they will be removed completely.
+In particular you should realize that the compatibility procedures are slower
+than calling the correct ones.  In addition there have been many, many
+improvements and bug fixes to AlphaTcl since 7.x, so you'll save your
+end-user, yourself and the alphatcl-developers list a lot of trouble if
+everyone is encouraged to upgrade to AlphaTcl 8.0 or newer.
+
+	  	 	Alphatk Compatibility
+
+Related to the above is the other editor which uses the AlphaTcl library of
+code: 'Alphatk', a version of Alpha which runs on MacOS X, Unix and Windows
+using the Tk toolkit.  If you want your packages to function smoothly with
+Alphatk, make sure you obey the following guidelines.  As an added benefit, if
+the windowing model in Alpha changes in the future, if you follow these
+guidelines, your code will still work.
+
+IMPORTANT: Positions in Alphatk are not necessarily integers, in fact they may
+contain all sorts of stuff (e.g.
+
+	5.0 lineend wordstart
+
+is a valid position in Alphatk).  Hence you can never use 'expr' to
+add/subtract positions since they aren't numbers.  Also, since they may
+contain spaces, you must be careful with 'concat', 'eval' etc which may break
+them apart into multiple arguments (e.g. don't do something like 'eval goto
+$pos').  Alpha provides the following 4 functions which you can use instead,
+and which provide all the functionality you need.
+
+    command: pos::math
+    command: pos::compare
+    command: pos::diff
+    command: minPos
+
+(See "Alpha Commands" for details, and the "positions.tcl" file for more
+position query procs that are available in AlphaTcl.)
+
+Provided you use these functions, your code will work unchanged across Alpha
+7.x, Alpha 8.x and Alphatk.  Note that [pos::compare] is not optional!  The
+code
+
+	if {$x == $y}
+
+or
+
+	if {$x eq $y}
+
+can return a different result to
+
+	if {[pos::compare $x == $y]}
+
+on Alphatk, either because one position is a complex one like '5.0 lineend
+wordstart' (when both examples will fail), or, for example, if x is 4.3 and y
+is 4.30 (when only the first example will fail).  These positions are quite
+different.  This means one must be very careful with 'expr' too, and code like
+this:
+
+	goto [expr {$flag ? $x : $y }]
+
+will simply return '4.3' for both $x and $y here, since expr will treat them
+as numerical values where possible.
+
+There are a few subtleties concerning the beginning and end of the window and
+the behaviour of the above commands when dealing with positions which don't
+exist (because they are before the beginning or after the end of the window or
+line).  In these cases, the behaviour may vary between Alpha 7.x, 8.x and Tk.
+Here is one example of this behaviour (if it becomes a regular problem, we
+will fix things...).  Assume a line of text looks like this:
+
+	HELLO THERE
+	
+with the cursor at the end of the line (after the E; assume there are no
+spaces).  Then the effect of:
+
+	set p [getPos]
+	# Delete the 'ERE'
+	deleteText [pos::math $p -3] $p
+	set p [pos::math $p -3]
+	deleteText [pos::math $p -1] $p
+	
+will be ' HELLO T' on Alpha 7, but ' HELL TH' on Alphatk.  This is because the
+position 'p' after the first deleteText actually no longer exists properly,
+and is therefore automatically moved backwards.  The workaround is to adjust
+'p' before deleting the text, since this works on all application binaries.
+This problem occurs very rarely (I've only seen it once in all of AlphaTcl),
+so it's not something to worry about very much.
+
+One slightly more common occurrence of this kind of problem is with the
+beginning of the buffer.  In Alpha 7, 'pos::math [minPos] -1' will give '-1',
+an artificial position before the beginning of the buffer (which might be
+useful for code as an 'undefined position'), but in Alphatk, the same code
+will actually return 1.0 (which is 'minPos') -- Alphatk will never return an
+invalid position.  This means you are better off writing code which doesn't
+use the -1 trick, since it won't work with Alphatk (and might not work with a
+future version of Alpha, if we change the text rendering engine).  An example
+of this problem used to lie in the completions package, but since AlphaTcl 7.5
+this has been rewritten to avoid use of -1.
+
+Finally, Tk (and therefore Alphatk), uses many, many commands beginning with
+'.'  for all the gui elements created.  Therefore you should probably steer
+clear of writing your own commands which start with a '.'  (not that anyone
+has ever tried to do this with Alpha!).
+
+
+	  	 	MacOS X And Other Platforms
+
+The original Alpha editor (version 7.x, running on classic MacOS) is gradually
+going to be replaced by newer versions Alpha 8 (running on classic MacOS) and
+Alpha X running natively on MacOS X. Furthermore, Alphatk is also available
+and can run several different platforms: Windows, Unix and MacOS X using the
+Tcl/Tk library.  It can be important for your package to know how to
+differentiate between these different systems (although, where possible, it is
+of course best if your package can run on all of them).  There are a number of
+global variables available:
+
+    Variable                    Value       Implication
+
+	$tcl_platform(platform)     macintosh   Classic MacOS, but NOT MacOSX.
+	$tcl_platform(platform)     unix        Unix, or MacOS X (which implies
+											command-line tools are
+											available)
+	$tcl_platform(platform)     windows     Microsoft Windows OS (any) - also
+	                                        with command-line tools.
+	                                       
+	${alpha::macos}             0           Windows or Unix, but NOT MacOSX.
+	${alpha::macos}             1           Classic MacOS (which implies
+	                                        Alpha 7 or Alpha 8 or Alphatk
+	                                        under classic Tcl/Tk).
+	${alpha::macos}             2           MacOS X (which implies AlphaX
+	                                        or Alphatk native or Alphatk under
+											X11)
+	                                       
+	${alpha::platform}          alpha       Alpha 7,8,X
+	${alpha::platform}          tk          Alphatk (on any platform)
+	
+	[info tclversion]           7.x         Alpha 7
+	[info tclversion]           8.x         Alpha 8,X or Alphatk.
+	
+	$alpha::windowingsystem     alpha       Alpha 7,8,X
+	$alpha::windowingsystem     aqua        Alphatk on Aqua-Tk (MacOS X)
+	$alpha::windowingsystem     windows     Alphatk on Windows
+	$alpha::windowingsystem     classic     Alphatk on MacOS classic
+	$alpha::windowingsystem     x11         Alphatk on Unix with X-windows
+	                                        (could be MacOS X with DarwinX)
+
+So, for example, we know that apple-events should be available if
+${alpha::macos} is non-zero.  Clearly having all of these different variables
+available is a bit confusing, and making the right choice of test for the
+particular functionality you need can be difficult.  Feel free to discuss any
+problems on the alphatcl-developers mailing list.  It is best if you write
+code which simply doesn't depend on any of the above, but sometimes that isn't
+possible.
+
+In particular, note that if you wish to test for AlphaX and exclude all
+other versions of Alpha/Alphatk, there is no single condition which will
+describe that.  You should probably use:
+
+	if {$alpha::platform eq "alpha" && $alpha::macos == 2}
+
+Similarly if you want to test for Alphatk running on MacOS X under 
+X11/DarwinX (not the standard native TkAqua bundle), you'll need:
+
+	if {$alpha::windowingsystem eq "x11" && $alpha::macos == 2}
+
+Just remember: it's best if your package doesn't care about any of
+this!
+
+	  	 	Declaring Your Package To Alpha
+
+A package must contain, preferably as its first non-comment line (this is
+important), a statement like this:
+
+	alpha::mode NAME VERSION ...
+	
+	alpha::menu NAME VERSION ...
+	
+	alpha::feature NAME VERSION ...
+	
+	alpha::extension NAME VERSION ...
+	
+(The other parameters to these commands are explained below).  The name will
+identify your package, and for modes must be at most 4 characters long.  It
+should not contain any spaces (this limitation may be lifted in a future
+version of Alpha).  The version is a string of the form 1.0.1, or 2.3b1 or
+1.4.530.1.3a5.  Modes, menus and extensions take different arguments for the
+remainder of the 'alpha::' declaration line, but each ends in a script which
+Alpha scans and stores for you (Alpha scans all installed files for package
+declaration lines and caches this information so that at startup, no files
+need be read).  For modes and menus, this script is executed automatically at
+startup.  For features, there are initialization and activation/deactivation
+scripts.  An extension is a simpler form of a feature which only has a single
+initialization script (used the first time it is activated).  Package
+initialization occurs in the order: modes, menus and finally extensions.
+
+IMPORTANT: The declaration command must not be wrapped in any 'catch'
+statements.  This is necessary to allow Alpha to rebuild package indices
+rapidly (note that it is no longer required to be at the beginning of the
+line).  If you wish to write code which is able to run both inside AlphaTcl
+and with other Tcl interpreters, try something like:
+
+	if {[info commands alpha::extension] != ""} {
+		alpha::extension ...
+	} else {
+		# initialize in some old way for Alpha 6.x
+	}
+
+Your package will not function properly if you don't obey the above
+guidelines.  Alpha itself is considered a package, with a version number, so
+that your code can request a particular version of Alpha.  Alpha's version
+number also has a patchlevel which will be updated with each Tcl-only patch
+release.  Hence you can write:
+
+	alpha::package require Alpha 7.1b1
+
+For the first Alpha 7.1 beta release, and
+
+	alpha::package require Alpha 7.1p1
+
+If your package actually requires some fixes from the first patch release
+after the final 7.1 release.  You can similarly require particular versions of
+other packages.  You should 'require' as old a version as possible, so that
+you don't force users to upgrade unnecessarily.
+
+It is not actually necessary to place modes, menus and packages in their
+separate directories: they can go anywhere on the auto_path.  However it is
+more convenient to store them separately most of the time.
+
+
+	  	The Alpha Developer Menu
+
+
+You will want to activate this menu, since it helps with a number of
+developer-related tasks:
+
+¥ debugging Tcl code
+¥ rebuilding Tcl and package indices and rebuilding menus
+¥ distribution archival, compression, and uploading
+¥ creation of new modes/menu/features/extensions
+¥ quick links to AlphaTcl related web sites.
+
+Preferences: Menus
+
+
+	  	Licensing Issues
+
+
+Obviously if you want to allow your code to be distributed with Alpha and/or
+Alphatk, you need to license it under a compatible license agreement -- one
+that allows free redistribution of your code.  The most obvious choices are a
+'Tcl/Tk/BSD' style license or a 'GNU' style license, although other licenses
+are possible.
+
+If your Tcl code is of use with Tcl/Tk in general (i.e. not restricted to
+being used inside Alpha/Alphatk), then you are strongly urged to use a
+Tcl-compatible license, not a GNU license, since that is the norm in the Tcl
+community.  Alpha and Alphatk come with various pieces of code copyrighted and
+licensed under both of these licenses, although most of the core AlphaTcl
+(i.e. excluding some standalone modes, menus and packages) is now licensed
+under a Tcl-style license.
+
+
+	  	Coding Standards (tab sizes etc)
+
+The core AlphaTcl library generally uses a tabsize of 8 but a visual
+indentation of 4 (this is the default for Alpha, and also the standard for
+Emacs and a lot of open-source projects in the unix world).  If you are
+writing standalone packages for distribution with AlphaTcl there is no need to
+abide by that convention, but individual procedures contributed to AlphaTcl
+files will be (re)formatted according to that convention before being applied.
+Note that AlphaTcl contains facilities for individual files or filesets to
+specify their default tabsize, so Alpha can quite happily be made to work
+simultaneously on many different projects using different tabsizes.
+
+
+	====================================================================
+
+	  	 
+	  	Writing New Modes
+
+To add a mode to Alpha, a file (usually ending with 'Mode.tcl') must be
+created and placed in the ":Tcl:Modes" directory.  Please note that the
+'standard' tab size to be used in AlphaTcl is 8.  Of course individuals can
+use whatever they want, but most existing code uses a tab-size of 8 (with an
+indentation amount of 4).
+
+The "Config > Global Setup > Create New Mode" helper can also help you to set
+up the basics of your mode.
+
+The file should begin with a construct of the following form:
+
+	alpha::mode Perl 1.3 dummyPerl {*.pl *.ph *.pm} {
+		perlMenu 
+	} {
+		addMenu perlMenu ¥132 Perl
+	}
+
+The command: alpha::mode is very, very important.  This:
+
+	alpha::mode <mode> <version> <startupScript> <suffixes> <mode-features> <script>
+	
+defines a new mode.  The first time Alpha tries to switch to Perl mode,
+AlphaTcl will create a 'Perl' namespace and then the 'startupScript' will
+be evaluated.  In this case this calls the procedure 'dummyPerl'.  This
+procedure is simply an empty procedure in the main perlMode.tcl file.  The
+effect of evaluating it is to first autoload that procedure: i.e. source
+the perlMode.tcl file.  Having done that the actual procedure evaluation is
+rather irrelevant: hence the name 'dummyPerl'.
+
+Note that alpha::mode cannot be used interactively.  This command is only 
+recognised during the package rebuild process.
+
+Subsequent switches to Perl mode will not need to source the file and so the
+startup script is only ever evaluated once.  As a simplification, you can use
+the word 'source' as a startupScript, and AlphaTcl will source the file in
+which the alpha::mode statement occurs.  However, be careful with this.  If
+the file has already been sourced by some other code, use of 'source' will
+still source the file again.  Therefore it can be better just to use an empty
+dummy procedure as a way of ensuring the file has been sourced once and once
+only.
+
+The 'suffixes' allow Alpha to automatically determine the correct mode of a
+newly opened file.  In this case the script contains the single command:
+
+	addMenu <mname> ?<name>? ?<pertains to modes>?
+
+which defines a new menu, with 'name' the visible name of the menu (names
+which start with '¥' indicate Alpha should use an icon resource with the given
+number.  Icon number 132 is the Perl camel icon).  This menu can be used in
+any mode, although by default, it is only attached to Perl mode.  'mname' is
+actually a variable which contains (will contain) the real menu name (in this
+case '¥132').  The third argument usually contains a single mode with which
+this menu is distributed.  Its use is mainly so that Alpha knows that this
+menu belongs primarily to this mode, so that if the user asks for information
+on the menu, Alpha knows to respond with information on the mode instead
+(curiously Alpha wouldn't otherwise know).
+
+IMPORTANT: Perhaps the MOST important part of the above code is the existence
+of the 'startupScript'.  When this proc is called, the result must be that all
+of the mode's preferences are declared.  In other words, the startupScript
+should ensure that the Tcl code containing all the 'newPref' declarations is
+evaluated.  This is very, very important!
+
+The normal way to do this is to have the 'startupScripts' be a dummy
+procedure: e.g. 'proc dummyPerl {} {}' as above.  Tcl's autoloading mechanism
+will then source the file containing that procedure.  Hence the dummy
+procedure should normally be in the same file as the mode's 'newPref'
+declarations.  This is important because almost directly after that call,
+Alpha expects all of the mode's preferences to be stored in the
+${mode}modeVars array, which will only be true if all of the newPref commands
+have been evaluated.
+
+IMPORTANT: the result of calling 'dummyProc/startupScript' must indeed be that
+all your newPref declarations are executed.  As a result of this, the
+preferences will be stored in the <mode>modeVars array, but will not yet be
+copied into the global scope (i.e. the <mode>modeVars(myPref) array element
+will exist, but the global var 'myPref' will not yet exist).  Once your
+dummyProc/startupScript returns (which generally means your mode's
+initialization and sourcing of files is complete), only then are the array
+entries copied into the global scope (in the latter half of the changeMode
+proc).
+
+Here is an example from Diff mode:
+
+	alpha::mode Diff 1.0 diffMenu {*.diff} {diffMenu} {
+		addMenu diffMenu ¥288
+		menu::insert Utils submenu 0 compare
+		menu::insert compare items end "windows" "filesÉ" "directoriesÉ"
+	} uninstall {
+		file delete "$pkg_file"
+		file delete [file join ${HOME} Tools "GNU Diff"]
+	} maintainer { "Vince Darley" vince@santafe.edu http://... }
+
+The 'uninstall' and 'maintainer' sections are optional, and explained later.
+Here is a more complex example for Python mode:
+
+	# ×××× minimalist mode set-up ×××× #
+	alpha::mode Pyth 0.2 dummyPython {*.py *.pyc *.pyi} PythonMenu {
+		addMenu PythonMenu
+		#To set the mode from a unix-like "#!python" first line
+		set unixMode(python) {Pyth}
+	}
+	# dummy proc to load this mode.  
+	proc dummyPython {} {}
+	# dummy proc to load the code to make the PythonMenu 
+	proc PythonMenu {} {}
+	# rest of mode's code follows...
+	
+	#Lets the automatic comment insertion/continuation
+	# routines function with this mode. 
+	set Pyth::commentCharacters(General) "\#"
+	set Pyth::commentCharacters(Paragraph) [list "## " " ##" " # "]
+	set Pyth::commentCharacters(Box) [list "#" 1 "#" 1 "#" 3]
+	
+The package declaration should contain all code which is necessary to
+recognize a given file as belonging to that mode (hence the use of 'unixMode'
+for python), which will then make Alpha call the dummyProc which will
+auto-load the entire file.  Other information, such as the 'commentCharacters'
+entries above should not go in the package declaration.
+	
+Notice that there are two types of 'dummy' proc; each menu Alpha uses should
+have a proc of the same name associated with it.  This proc is called by Alpha
+_each_ time Alpha tries to insert the menu into the menubar.  The proc can be
+empty (as above), or could actually do something if desired.  The second kind
+of dummy proc is the 'mode' dummy proc, given in the 'alpha::mode' command.
+Here it is called 'dummyPython'.  Alpha calls this proc the first time it
+switches to Pyth mode.  Again the proc can do something if desired, but will
+usually be empty.  If both procs are empty, as above, one can of course just
+use one proc (called PythonMenu in this case), and replace the alpha::mode
+line by:
+
+	alpha::mode Pyth 0.2 PythonMenu {*.py *.pyc *.pyi} PythonMenu
+
+The only advantage of this approach is that it saves a small amount of memory
+(you can delete the 'dummyPython' proc from the file).  Note that this only
+holds true for modes whose Tcl code is in one file.
+	
+	  	 	Multi-file Modes
+
+Modes that consist of more than a single file should no longer use a source
+statement that assumes that the other files for the mode will be in
+$HOME:Tcl:Modes.  The best solution is to use Alpha's standard auto-loading
+capability which will source a file when it needs a procedure which is
+contained in that file.  If you must use 'source' manually, you can use 'file
+dirname [procs::find someProcInThisFile]' to get the current directory.  Your
+other files should also be there.
+
+A convenient way of implementing your multi-file loading is to create procs
+with the same name as the file at the beginning of each file.  Then to load
+the file you just do 'catch "filename"'.  For example if there is a proc
+defined 'proc perl5.tcl {} {}' at the start of the file "perl5.tcl", then I
+can auto-load that file by having the following code in "perlMode.tcl" (note:
+actual code differs slightly):
+
+	if {[catch perl5.tcl]} { 
+		alertnote "Problem loading 'perl5.tcl'" 
+	}
+
+Remember, you don't necessarily need to source all your mode/pkg's files in
+one go.  Tcl is designed to source files for you when they are needed (when a
+procedure contained in one of them is called).  Hence you only need to source
+files which are required immediately (to set up some data, variables, menus
+etc.)  and not everything else.  It is usually best to have a single file
+which contains all the initialization code, and let any other files be
+auto-loaded as necessary.
+
+
+	  	 	Mode Procs
+
+
+The following procs are either required or desired for a mode to be fully
+functional within Alpha.
+
+Have a look at a standard mode like Tcl or C++ to see what some of these
+should do.  (In fact if you are writing your own mode, it is always helpful to
+examine other modes and borrow from them.)
+
+
+Marking Proc's:
+---------------
+
+	<mode>::MarkFile -w <win>
+	<mode>::parseFuncs
+
+These provide indexes into code via '{}' and "M' pop-ups.  See the sections
+below on "# The Marks Menu" and "# The '{}' Popup Menu").  Note that,
+for future compatibility if your mode makes use of the 'auto mark' on open
+flag, the MarkFile procedure should be able to mark windows which are not
+the frontmost window.
+
+Info providers:
+---------------
+
+These procedures drive & support access to source or file related info.
+
+	<mode>::DblClick
+
+Usually provides term specific help
+	
+	<mode>::optionTitlebar
+
+Provides menu to access related files
+
+	<mode>::optionTitlebarSelect
+
+Action for menu selection above
+
+	<mode>::foldableRegion pos
+
+Returns the region around pos that can be folded, if any.  Code folding
+is only currently supported in Alphatk.
+	
+Electric behaviour:
+-------------------
+
+These assist formatting & and save on keystrokes.
+
+	<mode>::carriageReturn
+
+This, supported by the following two, help to keep indentation standard
+(indirectly called by a carriage return).
+
+	<mode>::indentLine
+
+Indents a line by inserting spaces/tabs as appropriate.  If a 'correct
+indentation' proc is given, then this procedure is not necessary.
+
+	<mode>::correctIndentation -w <win> pos {next ""}
+
+Allows smart-paste package to function.  This procedure must never throw an
+error.
+
+	<mode>::electricLeft
+	<mode>::electricRight
+	<mode>::electricSemi
+
+These provide electric behaviour for '{', '}', and ';' respectively.  Their
+use is primarily for languages that use '{' and '}' for code blocks, and ';'
+as the line terminator.  They are indirectly called by the key they correspond
+to, and then, only if a corresponding mode preference flag has been defined
+and set to one.  (See "# Electric Braces And Semicolon" below.)
+  
+
+	  	 	Smart Mode Lines
+
+	
+If your mode will want to be able to use the first line of a file to determine
+what mode a file should be opened up in, you need to tell alpha what word in
+the first line should trigger that mode:
+	
+	set unixMode(python) {Pyth} 
+
+A good place to do this is in the body of the your mode's package declaration
+"alpha::mode É {É" statement (see example for Python above).  Note that the
+presence of the word itself is not sufficient; it must be of the form
+'#!\usr\..\python' as is common on Unix (where it tells the shell with what
+application to run the script)
+
+Note that there is already built in support for opening a file in a given mode
+if the first line contains:
+
+	-*-<mode_label>-*-
+	
+e.g.:
+
+	-*-Tcl-*-
+
+Also, if the first line contains:
+
+	(nowrap)
+
+then you will not be asked if you want to see such a file in paragraph format
+simply because the lines have gotten so long alpha thinks they might be from
+an application that maintains a paragraph as one long line and does its own
+wrapping internally.
+
+
+	  	 	unixMode array
+
+When you open unix files where the first non-empty line reads
+
+	#!/dir/subdir/command ...
+
+then Alpha tries to find a mode corresponding to 'command'.  With the unixMode
+array you can tell Alpha which mode to choose when opening such a file.  Add
+to this array with lines like:
+
+	set unixMode(<command>) <mode>
+    
+where 'command' is the lowercase version of 'command' in the line
+
+	#!/dir/subdir/command ...
+
+and 'mode' is the mode which you want Alpha set for the window.  For example,
+to make Alpha open files with a line '#!/dir/subdir/perl ...'  in Perl mode
+use the line:
+
+	set unixMode(perl) Perl
+
+
+	  	 	modeCreator array
+	
+The modeCreator array allow you to tell Alpha which mode to choose when you
+open a window depending on which application has created the file.  Add to
+this array with lines like:
+
+	set modeCreator(<4_char_creator_code>) <mode_label>
+
+e.g.:
+
+	set modeCreator(McPL) Perl
+	set modeCreator(MOSS) HTML
+
+'Signature' is the signature of the application which has created the file and
+'mode' is the mode which you want Alpha set for the window.
+    
+Tip: To find the signature of an application, launch it, open the Tcl shell
+(command-Y,) and type 'ps' at the prompt.  This will list all running
+applications; the second column lists the signatures.
+
+(Or click here --> <<tclShell; insertText "ps" ; Shel::carriageReturn>>)
+
+A good place to do this is in the body of the your mode's init script in the
+"alpha::mode É {É" statement.
+
+
+	  	 	Comment Characters
+
+If your mode will want to use the standard Alpha comment/uncomment block
+procedures, file headers, ...  you need to tell Alpha what characters are used
+for comments.  You should just define the following variables:
+	
+	set ${mode}::commentCharacters(General) [list "*" "//"]
+	set ${mode}::commentCharacters(Paragraph) [list "/* " " */" " * "]
+	set ${mode}::commentCharacters(Box) [list "/*" 2 "*/" 2 "*" 3]
+	
+where the values shown are for C++ mode.  If you do this then there is no need
+to mess with the commentCharacters procedure.  (In general it is best if your
+mode does not need to redefine procedures in Alpha's core).
+
+If you want to over-ride the standard proc: ::CommentLine , then you can
+include a mode proc, as in the proc: C::CommentLine.
+
+
+	  	 	Paragraph Definitions
+
+Paragraph filling.  You can set the variables:
+
+	set ${mode}::startPara {^(.*\{)?[ \t]*$}
+	set ${mode}::endPara {^(.*\})?[ \t]*$}
+
+to customize your mode's paragraph definition.  The above example's regular
+expressions (third 'word') are for Tcl code.
+
+Alpha uses these to determine what it should act on when it is requested to
+re-wrap, make a selection or navigate with respect to paragraphs.
+
+Note that currently the wrapping routines take no notice of code formatting 
+rules and are limited utility outside of the 'Text' mode.  The only proc's 
+that use these are found in "textFill.tcl".
+
+
+	  	 	Electric Braces And Semicolon
+
+If your mode wants to use electric '{', '}', ';' (i.e. characters that end the
+current line and indent the next one automatically) you need to define a few
+procedures named
+
+	${mode}::electricLeft
+	${mode}::electricRight
+	${mode}::electricSemi
+
+which will be called automatically.  You do NOT need to bind anything to the
+keys.  Alpha will automatically call your mode's procedures if (1) the
+preferences are in place, (2) they remain turned on by the user, and (3) the
+mode procs are named correctly.  If you do not define these procedures, (but
+conditions (1) and (2) have been met), then Alpha will use a default electric
+procedure which works pretty well for C, Perl and Java code.
+
+    proc: ::electricLeft
+    proc: ::electricRight
+    proc: ::electricSemi
+
+
+	  	 	Indent On Return
+
+The "Indent On Return" mode preference allows pressing Return to indent
+correctly for the following line so you may begin typing immediately.  To use
+this simply include this preference as a default mode preference using
+something like
+
+	newPref flag indentOnReturn 1 <modeName>
+
+but do _not_ bind to the return key.
+
+If you want to modify the behavior of "Indent On Return" for your mode, then
+define a <mode>::carriageReturn proc, as in the proc: Tcl::carriageReturn .
+
+
+	  	 	Automatic Indentation
+
+Two variables are associated with a window's indentation scheme:
+'indentationAmount' and the window's tab-size (which can be read with the
+commmand: getWinInfo or the proc: text::getTabSize).  If you are writing a
+custom indentation routine, the proc: indent::setup will be useful to handle
+all these choices for you.  Look at the relevant section of "globals.tcl" to
+see what that procedure sets up for you.
+
+Most people use either 
+
+	tab-size = 4, indentation-amount = 4 spaces, OR
+	tab-size = 8, indentation-amount = 4 spaces.  
+
+These cases are quite different, and it's nice if your mode allows the user to
+work with their preferred setup.
+
+
+
+	  	 	Option-click-titlebar Menu
+
+If your mode has a specific 'opt-titlebar-click' menu, you need to define the
+procedures:
+
+	proc C++::OptionTitlebar {} {
+		# returns list of items for the menu
+	}
+	proc C++::OptionTitlebarSelect {item} {
+		# carries out the mode-specific action when 'item' is selected.
+	}
+
+
+	  	 	Electric Code Templates
+	
+If you mode wants to insert text into the window which contains template stops
+(usually bullets '¥' in Alpha), so that the user can move from one to the next
+using the standard Alpha template packages (Alpha comes with a basic one, and
+more sophisticated ones build upon the same infrastructure), the you should
+insert template text with:
+
+	elec::Insertion "blah blah ¥¥ blah blah"
+
+This is a simple example with a single template stop.  Template stops are
+noted with a pair of bullets (even though only one appears in the text).  You
+can place between the pair of bullets some more information about the template
+stop, for instance:
+
+	elec::Insertion "while \{¥condition¥\} \{\r\t¥while body¥\r\}\r¥¥"
+
+would be useful to insert a typical Tcl 'while' loop.  The template packages
+can prompt the user with the explanatory text making code entry a little bit
+easier.
+
+The 'elec::Insertion' routine works just like 'insertText' except it treats
+any item ¥PROMPT¥ as a template stop called 'PROMPT'.  This procedure takes a
+variable number of arguments, just like 'insertText'.  It has one further
+side-effect.  If there are any stops in the block, then the cursor is
+positioned at the first such stop.  Hence you don't need to do this: set p
+[getPos] ; insertText "blah..."  ; goto $p ; nextTabStop Instead you just do
+'elec::Insert "blah..."'.
+
+Use "ring::+", "ring::-" etc.  to move amongst tab stops.  The basic Alpha
+distribution setup includes only basic template support.  Activate the
+package: betterTemplates to extend this support to persistent stops, with
+user-prompting in the text or status bar, as well as other enhancements.  You
+don't have to change your code to take advantage of the features of "Better
+Templates".  It comes for free if you use 'elec::Insertion' etc.
+
+
+	  	 	The Marks Menu
+
+Each mode has a procedure <mode>::MarkFile which is called to create the popup
+'M' menu of marks.  Just what text-patterns are used to trigger the formation
+of a 'namedMark' (kept in the resource fork), its name, text position and
+extent, and the order in which they are present in the menu, is all determined
+by the <mode>::MarkFile your procedure.
+
+See the proc: Igor::MarkFile for an example.
+
+For computer language editing modes, the common convention was to create an
+index by routine names for each routine defined in the file, and to present it
+in alphabetical order.  The more current convention is to either hardwire, or
+present the user with the option of listing the routine names in the order in
+which they were defined in the file, indented under the name of the code
+section in which it was defined.
+
+The Tcl mode proc: Tcl::MarkFile is a good example of the above -- by default
+the defined Tcl proc's are presented in alphabetical order.  However if you
+check the 'StucturalMarks' flag in preferences: Tcl-Mode , you get an index
+with the above format (after regenerating the index via the 'MarkFile'
+menuitem).  If you organize your Tcl code into sections of logically or
+functionally related proc's, and then give them a short header by using the
+'InsertDivider' option under the Tcl Menu, you have an index that can be used
+to quickly get to a procedure when remember its position or functionality more
+than you do its exact name.
+
+Of course, it is still often the case that you remember the name and just want
+to get to it quickly via an alphabetical index, so modes that use the above
+scheme usually provide an alphabetical listing via the '{}' popup, which is
+located right above the 'M' popup (see next topic).
+
+Power User tip: cmd-clicking anywhere in a window's titlebar (except the exact
+center), or in the "bevel'ed frame" will give you the same menu as the 'M'
+popup.  Using the sides of the window lets you access a particular area of the
+menu quicker as you can cmd-click in the approximate location of the index you
+want to go to.  Additionally, if the window is flush against the lefthand edge
+of your monitor, it is easier to 'crash' your cursor into that edge and summon
+up the mark menu than it is to hit an eighth inch square button.
+
+
+	  	 	The '{}' Popup Menu
+
+
+The 'Parse Funcs' popup menu can be put to whatever use the mode author wants.
+If your are using the scheme mentioned in the above section, it is good to use
+this popup to present an alphabetical listing of the routines.  Some modes add
+extras such as indicating the number of arguments a routine expects (see Tcl),
+whether a argument is a 'reference' or a 'value' pass (see the M2, i.e. modula
+mode) or anything else that might be useful.  Languages that use multi-part
+(qualified) identifiers may name the first part of a group of identifiers and
+indent the rest of the identifiers that share that first part under it.
+
+Power user tip: cmd-opt-<K> will put up a listpick dialog of the indexes under
+the '{}' popup, as this is usually alphabetical you can type the starting
+letters of the index you want to go to.  (note: see "Emacs Help" for some
+other tips to navigate any scrolling list dialog box.)
+
+
+	  	 	<mode>Completions.tcl
+
+Each mode can have a completions file full of defined electrics that will be
+used by the package: elecCompletions package.  To use this, place the
+appropriate definitions in a file called '<mode>Completions.tcl'.  If your
+package is distributed with an installer script, the installer will place such
+files in the 'Completions' directory automatically (provided you don't put
+them in a sub-folder of your distribution), and they will also be sourced
+automatically the first time a file opens in your mode.  There is therefore no
+need for you to source the file yourself.
+
+
+	====================================================================
+
+
+	  	Writing New Menus
+
+New menus are placed in ":Tcl:Menus", and contain a start-up section of much
+the same form as a mode or feature:
+
+	alpha::menu ftpMenu	0.3 global "¥141" {
+		# One-time initialization script 
+		
+		# here we do nothing
+	} {
+		# Activation script
+		
+		# here we do the standard thing of calling the menu proc
+		ftpMenu
+	} {
+		# Deactivation script
+	}
+	# proc ftpMenu to auto-load
+	proc ftpMenu {} {}
+
+The 'global' parameter tells Alpha that this menu isn't associated with any
+particular mode (otherwise you can replace 'global' by a list of modes
+possibly including the global keyword, e.g. {global WWW HTML}).
+
+Older versions of Alpha used to call a procedure with the same name as the
+menu (here 'ftpMenu') automatically whenever the menu was to be inserted.  The
+newer setup is a bit more verbose, but puts more control in your hands.
+
+NOTE: If all you want to do is add a submenu to an already existing menu, go
+to the section 'Adding Items to Global Menus': you don't need the
+'alpha::menu' statement, but actually need to write a feature using
+'alpha::feature'.
+
+A menu-package is a set of code which builds and handles a standalone menu
+which the user may choose as a global menu.  Examples are the ftpMenu,
+filesetMenu, voodooMenu, internetConfigMenu, colorMenu and eudoraMenu (in fact
+this last item, since it has a mode associated with it, could in fact be
+rewritten as a mode with attached menu).
+
+Note: as of Alpha 7.1, you should use the command 'Menu -n ...'  to build
+menus, not 'menu -n ...'
+
+
+	  	Menu Creation Syntax
+        
+Alpha's menu commands allow the user to build custom menus which contain names
+of functions, macros, or arbitrary Tcl commands that are included in the
+menus, as opposed to being merely callable through the bindings.  The menu
+items are defined as a list of strings.  The following meta characters can be
+embedded in the strings, and should be placed at the beginning of the string:
+
+	Meta-character      Usage
+	--------------      -----
+
+    ; or Return         Separates multiple items.
+
+    ^                   Followed by an icon number, adds that icon to the item.
+    !                   Followed by a character, marks the item with that
+                        character.
+
+    <                   Followed by B, I, U, O, E, or S, sets the character
+                        style of the item.
+
+    /                   Followed by a character, sets up a keyboard equivalent.
+
+    (                   Disables the item. Use (- to get a separator line.
+
+    ª                   If a trademark character is the first character 
+                        in a menu item (except possibly for a preceding
+                        opening parenthesis), the menu form is disabled for
+                        this menu item.  It lets you disable menu form on
+                        an item-per-item basis, while the -m option above
+                        has the same effect on the entire menu.
+
+So, each item has the following syntax:
+
+    (                  - disable item
+    ª                  - don't use menu form
+    /key               - add a shortcut-key
+    <mod ... <mod      - modifiers for the shortcut key
+    !char              - mark the menu item with this character
+    label              - the label must be there
+    ^num               - add an icon to the menu item
+
+It is preferable if the items are defined in the above sequence (the parsing
+code has some, but not complete flexibility).  The following modifiers can be
+used to require other combinations of modifiers than just the command key.
+Control-option, for instance, is specified by putting the string "<B<I" in
+the menu item.  The menu symbol for shift is an upward outline arrow, control
+is the outlined ^ symbol ("Wins > Iconify" has one), and option is the wavy
+line with the dot in the upper right ("Search > Replace All" has one).  The
+following are characters that can follow the '<' and what they signify.
+
+    B       - control key required
+    I       - option key required
+    U       - shift key required (only for alpha-numerics!)
+    O       - command key required
+    S       - is part of a dynamic item.
+    E       - forces item to start new dynamic item.
+
+
+A '/' followed by a character in the left column sets up a keyboard equivalent
+for the key in the right column:
+
+    a   Enter           n   F10
+    b   Return          o   F11
+    c   Tab             p   F12 
+    d   Num Lock        q   F13
+    e   F1              r   F14
+    f   F2              s   F15
+    g   F3              t   Help
+    h   F4              u   Del
+    i   F5              v   Forward Del
+    j   F6              w   Home
+    k   F7              x   End
+    l   F8              y   Page Up
+    m   F9              z   Page Down
+    
+The menu creation syntax is :
+
+	Menu [-s] <-n name> <-i num> [-p procName] [-m] [-M <mode>] "Tcl list of menu items"
+
+Where the arguments have the followings meanings:
+
+    -c            Ignore any menu meta-chars. Can also be done on a per-item
+                  basis by appending an ampersand ('&') to the end of an item.
+    -m            No menu form. If not supplied, each menu item is split into 
+                  words at each capitalized letter.
+    -M <mode>     Specifies that any bindings created by the menu are 
+                  specific to a given mode.  This is important because
+                  mode-specific bindings over-ride global bindings.
+    -n <name>     Name the menu. Not necessary for submenus.
+    -n <num>      Resource id of icon suite to use for menu title. 'ics#' 
+                  is the only resource that is really necessary.
+    -p <name>     The tcl proc named by 'name' is called w/ the menu's name
+                  and the item's contents when the item is chosen.
+    -s            Use system menu definition proc (faster).
+  
+The 'Tcl list of menu items' can include another menu definition allowing you
+to create hierarchical menus.  Once the menus are created, they can be
+inserted and deleted from the menu bar by the syntax:
+
+	insertMenu "name"
+	removeMenu "name"
+
+As alluded to above, Alpha attempts to make procedure names readable in the
+menus by separating words at any capitalized letter.  For example, 'findFile'
+becomes "Find File".  This function is turned off for the entire menu by the
+'-m' option, or for individual items by the 'ª' character.
+
+Menu items can be enabled and disabled through the command: enableMenuItem.
+Menu items checkmarks can be turned on and off via the command: markMenuItem.
+Menu items can be appended via the command: addMenuItem and deleted via
+the command: deleteMenuItem.  See the "Alpha Commands" help file for syntax.
+
+As explained above, Alpha uses various keys to specify text style and key
+equivalents.  Sometimes you may want these characters included in your text
+literally.  If an ampersand ('&') is the last character in a menu item, these
+special characters are not interpreted.
+
+If an ellipsis ('É') is the last character in a menu item (except possible for
+the above ampersand), it is stripped off before searching for the function
+corresponding to the chosen item.
+
+
+	====================================================================
+
+
+	  	Writing New Features Or Extensions
+
+An extension is a package which can be turned on once and then left alone.
+Something which requires turning on/off for different modes is a feature.  In
+fact an extension is just implemented as a simple form of feature.  A new
+extension must provide at the very least the following line, preferably as the
+first non-comment line of one of its files:
+
+	alpha::extension 'NAME' 'VERSION'
+
+Normally it is useful for the user to be able to choose whether to activate an
+extension or not.  In this case you must also provide a script for Alpha to
+evaluate if the user chooses to activate the extension.  Such a script is
+given by the following line:
+
+	alpha::extension 'NAME' 'VERSION' 'SCRIPT'
+
+If no such script argument is given, the extension is called 'auto-loading'
+and really just provides some new procedures which can be used by other code.
+
+A feature is more sophisticated and takes arguments of the following form:
+
+	alpha::feature 'NAME' 'VERSION' 'LIST OF MODES/GLOBAL' \
+	  'INIT SCRIPT' 'ACTIVATE SCRIPT' 'DEACTIVATE SCRIPT'
+	
+Here is an example from the 'bibtexEngine' package:
+
+	alpha::extension bibtexEngine 1.8 {
+		eventHandler GURL GURL GURLHandler
+	}
+
+Here we didn't bother to turn the feature on and off, since its initialization
+was so trivial, and it won't interfere with other modes at all.  Here's a more
+complex example:
+
+	alpha::feature latexMathbb 1.0 {TeX Bib} {
+	    newPref variable blackboardBoldSymbols "QZRN" TeX TeX::adjustMathbb
+	    hook::register mode::init TeX::adjustMathbb TeX
+	} "" ""
+
+We didn't bother with activation deactivation, since the definitions don't
+take effect in other modes.  The simple 'extension' and 'feature' commands
+make it very, very easy to extend Alpha's functionality without messing with
+the user's preferences file, without creating any '...+.tcl' extension files
+and without a complex installation process.  Alpha simply maintains a database
+of all 'extension' scripts, and evaluates at startup all scripts for
+extensions which the user has activated.
+
+
+	  	Writing New Extensions (Keyboard Caveats)
+
+
+Writers of any package for Alpha should pay some attention to the problems
+which can arise with international keyboards.  Some bindings are simply not
+available on some keyboards.  For instance, on some keyboards, you need to use
+'shift' to get the key '\' (unlike american keyboards where it is a single
+keypress).  On such a keyboard there is no distinction between 'cmd-\' and
+'shift-cmd-\'.  There is no simple workaround for this problem.
+
+Possibilities are: (i) check the current keyboard definition and adjust
+bindings appropriately (based upon user feedback, presumably).  (ii) let the
+bindings be user-definable either by using 'newPref binding' to define things,
+or by using a menu-scheme such as is used by HTML mode.
+
+See more information for the package: internationalMenus
+
+
+	  	Technicalities Of Different Menu/Feature/Extensions
+
+
+Menus and features and extensions are all treated in the same way by Alpha.
+However each will have different associated information which will determine
+whether/in what section it appears in a dialog box.  All this information is
+stored in the index::feature array.
+
+...to be continued...
+
+
+	  	[alpha::library] packages
+
+
+Packages that are declared using [alpha::library] provide extra functionality
+to AlphaTcl without requiring the user to turn on/off a menu or feature.
+These packages are essentially "early" and "always-on" features, so their
+activation scripts will be evaluated when Alpha is first started, before the
+user's global features are activated and before mode scripts are sourced.
+
+This is most useful for packages which either (1) add different preferences
+(or additional options for current preferences) that can be used in other
+code, or (2) simply provide a "library" of Tcl code which requires a minimal
+script to properly enable the user-interface.
+
+The basic syntax is
+
+	alpha::library 'NAME' 'VERSION' 'SCRIPT' args
+
+Additional arguments can include the standard 'help' 'maintainer' 'uninstall'
+and 'requirements'.  If the 'requirements' script throws an error then the
+activation script will not be sourced on startup.  These packages should not
+include any 'preinit' script.
+
+For example, the various Version Control packages (such as Voodoo, CVS, etc.)
+add different options that the user can set, so if the code is available and
+relevant to the user's platform we simply evaluate the package's script when
+Alpha is first started.  Thus we find this in "vcVoodoo.tcl" :
+
+	# Feature declaration
+	alpha::library vcVoodoo 0.2 {
+	    if {$::alpha::macos} {
+	        hook::register vcsSupportPackages {vcs::voodooSupport}
+	        namespace eval vcs {
+	            variable system
+	            set system(Voodoo) Vodo
+	        }
+	        ;proc vcs::voodooSupport {} {
+	            # The location of the Voodoo application.
+	            newPref sig voodooSig "Vodo" vcs
+	        }
+	    }
+	} uninstall {
+	    this-file
+	} maintainer {
+	    ...
+
+The result here is that a new Version Control option named "Voodoo" is added 
+to the vcs pop-up menu presented in the <<editAFileset>> dialog.
+
+IMPORTANT: The [alpha::library] package declaration should _not_ be used to
+add new menu items or keyboard shortcuts.  It can create new preferences or
+define new support procedures, but there should be _no_ impact on the user
+with regard to default behaviors, editing or otherwise.
+
+Note that the "runAlphaTcl.tcl" file declares other packages in AlphaTcl to
+be "early" and/or "always-on".  These lists are hard-wired, reserved for
+those packages deemed universally useful, and only adjusted after discussion
+on one of the AlphaTcl listservs.
+
+
+	====================================================================
+
+
+	  	Package Preferences
+
+
+Alpha stores preferences in three different places:
+
+(1) Global preferences are set in the 'Config > Preferences' menus, and are
+for variables/flags which maintain a value at the global scope.
+
+(2) Mode prefs are set in the 'Config > Mode Prefs > Preferences' item, and
+are for variables/flags which are stored in a mode array, but are transferred
+into global scope when that mode is active (and hence temporarily override any
+global preferences with the same names)
+
+(3) Packages may add to the global/mode preferences as they desire.  They may
+also store preferences in their package array '${pkg}modeVars(É)'.  Such
+variables/flags are never transferred into the global scope.  Menu items to
+edit a package's preferences should be placed in the 'global' menu, unless
+they are global/mode prefs which should be added to Alpha's default routines
+for use by the standard Alpha dialogs.  There is a standard proc
+
+	package::addPrefsDialog Mypkg
+	
+which you can use to add an item to the global menu which will bring up the
+standard dialog to edit the contents of your '${pkg}modeVars(É)' array.
+
+Any editing of preferences using the standard dialogs code in AlphaTcl 
+will automatically save any changes when Alpha quits and they will be
+reloaded the next time Alpha starts up.  If you need to make manual changes
+to preferences (or, indeed, any Tcl variable or array), pass the changed
+variable name to 'prefs::modified', for example:
+
+	prefs::modified myPrefName
+	prefs::modified myPrefArray
+	prefs::modified myPrefArray(justThisElement)
+
+You can pass a variable name, an array name, or just one element of an
+array.
+
+
+	  	 	Adding To The Core Prefs Dialogs
+
+
+If you wish to add items to any of the core preferences pages (Backups,
+Electric, Miscellaneous,...), you can do that like this:
+
+	lunion varPrefs(Electric) var1 var2
+	lunion flagPrefs(Electric) flag1 flag2
+
+All non-registered global preferences are added to the Miscellaneous page, so
+there is no need to do that automatically.  Make sure you don't add too much
+to any of these pages, because they will become too large to display
+correctly!
+
+You can also add new core preferences pages.  All you have to do is create a
+new 'flagPrefs' entry (Alpha uses the command 'array names flagPrefs' to list
+the different pages):
+
+	lunion flagPrefs(NewPage) flag1
+	
+Only add such pages if your package really does merit it; otherwise you're
+better off just add a new global preferences dialog in the global menu.
+	
+
+	  	 	Defining A Package's Flags And Variables
+
+
+Preferences for a mode or package are defined as follows:
+
+	# description of the preference
+	newPref type name {val 0} {pkg "global"} {pname ""} \
+		{options ""} {subopt ""}
+
+Define a new preference variable/flag.
+
+'type' is one of:
+  'flag' (on/off only), 'variable' (anything), 'binding' (key-combo)
+  'menubinding' (key-combo which works in a menu), 'file' (input only),
+  'io-file' (either input or output), 'funnyChars'
+  
+'name' is the var name, 
+
+'val' is its default value (which will be ignored if the variable
+already has a value)
+
+'pkg' is either 'global' to mean a global preference, or the name 
+of the mode or package (no spaces) for which this is a preference.
+
+'pname' is a procedure to call if this preference is changed by
+the user (no need to setup a trace).  This proc is only called
+for changes made through prefs dialogs or prefs menus created by
+Alpha's core procs.  Other changes are not traced.
+
+Depending on the previous values, there are two optional arguments with the
+following uses:
+
+TYPE:
+
+variable:
+
+'options' is a list of items from which this preference takes a single
+item.
+'subopt' is any of 'item', 'index', 'varitem' or 'varindex' or 'array', where
+'item' indicates the pref is simply an item from the given list
+of items, 'index' indicates it is an index into that list, and
+'var*' indicates 'items' is in fact the name of a global variable
+which contains the list. 'array' means take one of the values from an array.
+If no value is given, 'item' is the default
+
+binding:
+
+'options' is the name of a proc to which this item should be bound.  If
+options = '1', then we bind to the proc with the same name as this variable.
+Otherwise we do not perform automatic bindings.
+
+'subopt' indicates whether the binding is mode-specific or global.  It should
+either be 'global' or the name of a mode.  If not given, it defaults to
+'global' for all non-modes, and to mode-specific for all packages.  (Alpha
+tests if something is a mode by the existence of modeMenus($mode))
+
+menubinding:
+
+menubindings are like bindings, but they don't have any automatic binding
+capabilities, and are restricted to key-sequences which the MacOS allows in
+menus.  Here is an example of how one might declare the 'QuickFind(Regexp)'
+dynamic pair using a menubinding pref:
+
+declare the binding:
+
+	ÇAlpha ÄÈ newPref menubinding quickFind/quickFindRegexp <B/S
+	
+edit it if we like with:
+
+	ÇAlpha ÄÈ dialog::getAKey quickFind/quickFindRegexp <B/S
+	
+show the menu sequence if we like:
+	
+	ÇAlpha ÄÈ menu::bind quickFind/quickFindRegexp -
+	<S<E<B/SquickFind <S<I<B/SquickFindRegexp
+	ÇAlpha ÄÈ 
+
+add it to a menu:
+
+	ÇAlpha ÄÈ eval menu::insert Search items end \
+	    [menu::bind quickFind/quickFindRegexp -]
+	
+Have a look at the search menu.  It has a new dynamic item at the bottom!
+
+funnyChars:
+
+This is like 'variable', but provides for automatic decoding/encoding of tab,
+newline, carriage return into \t, \n, \r when the value is displayed to the
+user.
+
+Note that if you place a comment (one or more lines) just before the 'newPref'
+statement, it is scanned and stored by Alpha in a cache.  It can then be used
+to explain to the user what each preference does when the user selects
+'describe mode' or presses the 'Help' button in a preference dialog (it is
+also used for balloon help/tooltips, where those are available).
+
+
+	  	Declaring Help Text
+
+
+Alpha has the ability to extract descriptive text for your preference items
+automatically, provided they are declared using 'newPref', and that you follow
+these guidelines.
+
+If there is a comment (a line starting with '#') on the line/lines preceding
+the newPref command, Alpha will (when it rebuilds the package indices) store
+the text in that line/lines and use it to display helpful information for that
+preference.  For example if you hit the 'help' button in a dialog, Alpha will
+display this information.  Note that if the preference is simply overriding
+one of the built-in global values (lineWrap, commentContinuation, etc), 
+then there is no need to provide a comment.  AlphaTcl's core already 
+contains good descriptions which will be used automatically (but if your
+mode does provide a comment it will over-ride the core's description).
+
+This information is also used for balloon help in the prefs dialog related to
+your package/mode, provided you use the standard mechanisms for declaring your
+mode/menu/feature/extension and you use the standard preference mechanism
+supplied.  The format of the comment lines is simple for all except basic
+flags (newPref flag ...).  These will display a different help text in
+balloons depending on their state.  There are four possible states, although
+Alpha only really uses the first and third such states at present.  The first
+state is the 'unchecked' state, and the third the 'checked' state.  You
+declare separate help text for the four possible states like this:
+
+	# it is unchecked|it is dimmed|it is checked|it is checked and dimmed
+	newPref flag myFlag ...
+
+In fact all help items have four possible states, although you will usually
+not notice the other possibilities.  As you can see, Alpha uses '|' to
+separate the different pieces of text.  Currently a typical help text for a
+checkbox item should probably just look like this:
+
+	# To use a solid rectangular cursor, click this box||To use a thin 
+	# vertical cursor, click this box.
+	newPref flag blockCursor 0
+
+Notice the syntax of the two messages.  Apple's interface guidelines give some
+advice for balloon help which you should follow for two reasons: first, it's
+good advice for writing balloons, and second, Alpha assumes your messages are
+of the above form to use the text effectively both for balloons, and for
+descriptive text.  Alpha will automatically convert the above to:
+
+	Block Cursor: To use a solid rectangular cursor, turn this item on.  To
+	use a thin vertical cursor, turn this item off.
+
+which is used in the descriptive dialogs Alpha sometimes provides.  This
+advice is of greatest importance for 'flag' preference items, since they
+require two separate on/off balloon help texts.  Other items currently just
+expect one piece of text.  Each text item should be no longer than 255
+characters.  The simplest balloon help methods impose this constraint (in
+principle it could be relaxed, by using the more complex help methods inside
+Alpha, but it doesn't seem necessary).
+
+A similar mechanism is also available for menus and packages, using a 'help'
+argument in the package declaration.  If this help argument looks like this:
+
+	alpha::menu filtersMenu 1.7 global "¥301" {
+		addMode Fltr filtersMenuTcl {*.flt} {}
+		package::addPrefsDialog filtersMenu
+	} {
+		# Activation script.
+		...
+	} {
+		# Deactivation script.
+		...
+	}  help {
+		file "Filters Help"
+	}
+
+then the proc: package::helpWindow will send the name of the specified file to
+the proc: help::openFile where it will be dealt with appropriately.
+Otherwise, balloon help will be created using the ||etc syntax described
+above, as in
+
+	alpha::feature colorPrefs 0.1 "global-only" {
+		# Initialization script.
+		...
+	} {
+		menu::insert Config submenu end redefineColors
+	} {
+		menu::uninsert Config submenu end redefineColors
+	} help {
+		This package provides support for coloring of text in Alpha windows||
+		This package provides support for coloring of text in Alpha windows||
+		
+		Alpha supports automatic coloring of the text.  The way Alpha colors the
+		text depends on the current mode.
+
+In this case the 'fifth' || clause is used by the proc: package::helpWindow
+while the first four are used for balloon help.
+
+Preferences: Menus
+Preferences: Features
+
+While these dialogs are open, use the "Help > Show Balloons" menu item to
+activate balloon help for the various items in the dialog.
+
+See the "Help Files Help" file for more information on Alpha's Help file
+colorizing/marking/etc syntax that is used to create files like this one.
+
+	
+	  	Adding Items To Global Menus
+
+
+Using 'addMenuItem' is a bad idea, since many menus are dynamically rebuilt
+and such items will be lost.  Furthermore, addMenuItem does not work if you
+want to add dynamic items or sub-menus.  Also creating a menu directly using
+'Menu -n Name {list of items}' is generally a bad thing to do when using Alpha
+version 7.0 or newer.
+
+The solution to these problems is to use the following calls:
+
+	menu::buildProc 'nameOfMenu' 'nameOfIts_build-proc' 
+	menu::insert 'nameOfMenu' 'type' 'where' 'menuItem' ?menuItem...?
+
+For technical reasons, if you use both types of call, always add the procs
+first.  You can add any list of menuItems using the latter of these two calls.
+The first registers a procedure which will be called to build a given menu.
+
+Menus must be rewritten to support this new feature.  Currently all global
+menus File...Config support it, and several modes: Tcl, Perl, TeX.
+
+
+	  	 	menu::buildProc
+
+
+The proc: menu::buildProc registers a procedure to be the 'build-proc' for a
+given menu (tech note: just adds the build-proc to the "menu_build_procs"
+global array with the given menu's name as its index).  The build-proc
+procedure can do one of two things:
+
+(1) build the entire menu, including evaluating the 'Menu ...'  command.  In
+this case the build proc should return anything which doesn't begin 'build
+...'
+
+If the proc returns anything beginning with 'Menu ..'  that returned string is
+evaluated, but no insertions can take place.
+
+(2) build up part of the menu, and then allow pre-registered menu
+insertions/replacements to take-effect.  In this case the procedure should
+return a list of the following (listed by index in the list):
+
+0: "build"
+1: list-of-items-in-the-menu
+2: menu procedure to call when an item is selected.  If nothing is given,
+   or if '-1' is given, then we don't have a procedure.  If "" is given,
+   we use the standard 'menu::generalProc' procedure.  Else we use the
+   given procedure.
+3: list of submenus which need building.
+4: over-ride for the name of the menu.
+
+Note that you can also define a 'postEval' proc that will be called after the
+menu has been built -- this is an optional second argument supplied to
+[menu::buildProc].
+
+Here is an example of what gets returned by "menu::globalBuild", the
+build-proc for the menu named "global" (see Config:Global:):
+
+	ÇAlpha ÄÈ menu::globalBuild
+	0:	build 
+	1:	{
+			/p<U<BmenusAndFeaturesÉ 
+						{Menu -n preferences {}} 
+			editPrefsFile 
+			(- 
+			compareWindowsPrefsÉ 
+			newDocumentPrefsÉ 
+			(- 
+			specialKeysÉ 
+			listGlobalBindings 
+			listPackages 
+			listAllBindings 
+			listFunctions 
+			(- 
+			rebuildPackageIndices
+		} 
+	2:	menu::globalProc 
+	3:	preferences
+
+Note: the above output was reformatted and numbered to make its structure
+explicit, also note that any additions to what you see in this menu (or its
+submenus) are due to calls to the proc: menu::insert .
+
+You must register the build-proc before attempting to build the menu (i.e.
+call
+
+	menu::buildProc <menuName> <buildProc> ?<postEvalProc>?
+
+Once registered, any call of the proc: menu::buildSome <name of your menu>
+will build your menu.
+
+
+	  	 	menu::insert
+
+
+The proc: menu::insert takes the arguments
+
+	<nameOfMenu> <type> <where> <list of menuItems>
+
+Here, type can be, either 'items', or 'submenu'.  This proc adds given items
+to a given menu, provided they are not already there, and then rebuilds that
+menu if necessary.
+
+There is also the proc: menu::removeFrom which does the opposite of this one,
+and the proc: menu::replaceWith which replaces a given menu item with others.
+
+There is a difference between
+
+	menu::insert Utils submenu 2 compare
+
+and
+ 
+	menu::insert Utils items 2 [list Menu -n compare {}]
+
+The former registers the submenu as a submenu which will be built
+automatically by a call to the proc: menu::buildSome each time the parent menu
+is rebuilt, the latter does no such thing.  You will, therefore normally wish
+to use the first form, but occasionally there will be situations when the
+latter would be better.
+
+Here is a simple example:
+
+	alpha::extension compareWindows 0.1 {
+		Bind 0x32    <X> compare::windowsInPlace
+		Bind '1'  <X> compareOpt
+		Bind 0x32    <sX> compareNext
+		Bind 0x12    <sX> compareOptNext
+		menu::insert Utils submenu 2 compare
+		menu::insert "compare" items end windowsInPlace
+	}
+
+We first add a submenu after the second item in the Utils menu, called
+'compare', and then add to the end of that compare menu.  This code works
+whether the package is active at startup or not.  Here is a more complex
+example:
+
+	alpha::extension documentProjects 1.2 {
+		alpha::package require elecCompletions
+		alpha::package require newDocument
+		menu::buildProc "Current Project" Docproj::currentMenu
+		menu::insert global items end \
+			"documentProjectPrefsÉ" "userDetailsÉ" \
+			"<E<SremoveDocumentTemplateÉ" "<S<BeditDocumentTemplateÉ" \
+			"<SnewDocumentTemplateÉ" \
+			"<E<SremoveProjectÉ" "<S<BeditProjectÉ" "<SnewProjectÉ"
+		menu::insert global submenu end {Current Project}
+		newPref binding updateFileVersion "/f<U" Docproj
+		menu::insert fileUtils items end \
+			"showInFinder" \
+			"(-" \
+			"updateDate" \
+			"[menu::bind DocprojmodeVars(updateFileVersion) -]"
+		lunion elec::MenuTemplates "createHeader" "newDocument"
+		menu::insert elec items end \
+			{Menu -n functionComments -p menu::fileUtils {
+			"/efunctionComment"	
+			"/e<IfunctionCommentSimple" 
+			"/e<OfunctionCommentWithAuthor" 
+			"/e<UfunctionCommentUpdate" 
+		}}
+		set newDocument::handlers(documentProjects) Docproj::newHandler
+	}
+
+The 'documentProjects' package adds items to many different menus, including
+the 'elec' menu (from the package: electricMenu).
+
+
+	  	Package Testing
+
+
+The proc: alpha::package is very similar to Tcl 8.0's command: package , but
+differs in a few respects.  This allows both features to coexist happily in
+Tcl 8.0.  You can use [alpha::package] to check/request the presence of other
+packages.
+
+	alpha::package require NAME ?VERSION?
+	
+Other sub-commands are 'exists' 'names' 'versions' 'vcompare' 'vsatisfies'
+'forget' 'uninstall' and 'mode', 'menu' and 'package'.  These last three mimic
+the usual [alpha::mode] [alpha::menu] and [alpha::package] commands.
+
+	alpha::package require ?-extension -mode -menu? name version
+	alpha::package exists ?-extension -mode -menu? name version
+	alpha::package names
+	alpha::package uninstall name version [this-file|this-directory|script]
+	alpha::package vcompare v1 v2
+	alpha::package vsatisfies v1 v2
+	alpha::package versions ?-extension -mode -menu? name
+	alpha::package type name
+	alpha::package info name
+	alpha::package maintainer name version {name email web-page}
+	alpha::package help name version [file 'name'|text]
+
+Equivalent to alpha::mode, alpha::menu and alpha::extension
+
+	alpha::package mode ...
+	alpha::package menu ...
+	alpha::package extension ...
+
+For extensions only:
+
+	alpha::package forget name version
+
+...
+
+
+	====================================================================
+
+
+	  	Installation
+
+
+There is an 'Inst' (install) mode which adds the Install menu.  Install mode
+is triggered when a file's name ends in 'Install' or 'INSTALL', or when the
+first line of the file contains the letters 'install', provided in this last
+case, that the file is not in Alpha's Tcl hierarchy.  This last case is useful
+so that a single .tcl file can be a package and be installed by Alpha using
+these nice scripts, without the need for a separate install-script-file.
+However once that .tcl file is installed, if you open it you certainly
+wouldn't want it opened in Install mode!
+	
+So, single file packages should just include 'install' somewhere in their
+first line.  Multi-file packages should include an install file.  Call this
+file 'OPEN.TO.INSTALL' or something like that.  When the user opens it, Inst
+mode is activated, and the user can use the install menu to install your
+package.  If you wish the installation dialog to be activated automatically,
+include the text
+
+	(auto-install)
+
+in the first line of the file.
+
+Most packages will _not_ need anything other than the existence of such a
+file.  In fact a file called 'OPEN.TO.INSTALL' containing the single line
+'(auto-install)' will do the trick nicely.
+
+Alpha will scan the installation file directory and make a nice dialog with
+'Easy install' and 'Custom install' options.  Alpha knows where Modes, Menus,
+Completions, Bug fixes, Tools, Packages, Extensions, ...  all go in the Alpha
+hierarchy.
+
+In summary:
+
+(1) If it's a single file package (e.g. "smartPaste.tcl"), simply include
+'(auto-install)' in the first line of the file, and when the file is opened
+Alpha will try to install it.
+
+(2) If it's a multi-file package, create a file 'OPEN.TO.INSTALL' containing a
+single line containing the text '(auto-install)' and place it in the same
+directory as your other files.  When the user opens that file, they'll get a
+nice installation dialog.  (You can also change its type to 'InSt' using the
+"AlphaDev > Distribution > Change Installer Icon" menu item to get a nice
+icon).
+
+More sophisticated things are possible, but usually not needed.  Note that if
+you want to read an install file, rather than execute it, hold down 'option'
+when you double click on it.
+
+Finally, in most cases, simply dropping files into Alpha's directory hierarchy
+will work (and Alpha will notice they are there and rebuild indices etc
+automatically).  However if a user is upgrading, rather than installing such a
+package for the first time, Alpha will not notice the change and not rebuild
+indices and this will probably cause problems.  Hence this is not a
+recommended installation technique.
+
+
+	  	 	Installation Over-rides
+
+
+You can over-ride the default behaviour by providing a 'xxx_install.tcl' file
+in the file directory.  In such a case that file will be sourced.  See
+"install.tcl" for some more information on how to over-ride the default
+behaviour.  You will usually use the following procedure:
+
+	install::packageInstallationDialog 'NAME' 'DESCRIPTION' ...
+
+Optional arguments are as follows:
+ 
+	-ignore {list of files to ignore}
+	-remove {list of files to remove from Alpha hierarchy}	
+	-forcequit '0 or 1'  
+	    (forces the user to quit; default 0)
+	-require {Pkg version Pkg version É}
+		e.g. -require {Alpha 7.0b1p2 elecCompletions 7.99}
+	-provide {Pkg version Pkg version É}
+ 
+and 
+ 
+	-SystemCode -Modes -Menus -BugFixes -Completions -Packages
+	-ExtensionsCode -UserModifications -Tools -Home
+ 
+which force the placement/use of the following lists of files.  To require an
+exact package version use:
+
+	-require {Alpha {-exact 7.0b2} elecCompletions {-exact 8.1.2} ...}
+
+Also, rather than having separate 'OPEN.TO.INSTALL' and '*install.tcl' files,
+if the former file contains the text 'auto-install-script' in its first line,
+it will be used as a Tcl script, and sourced rather than opened.  Ensure that
+first line begins with a '#' or an error will result.  (You can open that file
+for editing, without triggering the install script if you hold down a modifier
+key).
+
+If you gave the -provide option, Alpha checks those items with what the user
+has already installed and warns if an item has already been installed and is
+not older than the one about to be installed.
+
+The '-forcequit' option may also take '2' as an argument, but this is only
+used to update Alpha's core code: do not use this for your own packages, since
+Alpha will not update the package indices correctly.
+
+
+	  	 	Uninstalling Packages
+
+
+Each package should provide an 'uninstall' argument in its package
+declaration, as in
+
+	alpha::extension developerUtilities 1.1 {
+	    # declaration script
+	} uninstall {
+	    # uninstall script
+	    ...
+	}
+
+For a single file package, the following is normal:
+
+	} uninstall {
+	    this-file
+	}
+
+If the uninstall argument is 'this-directory', then that entire file's
+directory is removed.  Make sure you don't use 'uninstall this-directory' for
+a single-file package, or you'll wipe out the entire package hierarchy.  All
+alpha::<packageDeclaration> procs, i.e. [alpha::mode], [alpha::menu] and
+friends may contain an optional uninstall scripts like the above.
+
+
+	  	 	Disabling Packages
+
+
+A 'feature' can add a script to be evaluated when the user disables the
+package.  This is the 6th argument for the proc: alpha::feature .  Note that
+'extensions' do NOT have deactivation scripts, since these types of packages
+are intended to be turned on globally and add some extra functionality.  If
+the extension adds a submenu or performs some other operation that needs to be
+'undone' when it is turned off, then make it a 'global-only' feature instead.
+See the "smarterSource.tcl" file for an example.
+
+
+	  	 	Package Requirements
+
+
+A package can specify a separate script for testing whether the current
+environment is suitable for the package.  This is called a 'requirements'
+section:
+
+	alpha::extension appleEventWizard 1.1 {
+		# declaration script
+	} requirements {
+		# This package only runs on MacOS, and needs AlphaTcl 7.6
+		if {$tcl_platform(platform) != "macintosh"} {
+			error "The appleEventWizard only works on a Macintosh"
+		}
+		alpha::package require AlphaTcl 7.6
+	}
+
+Packages whose requirements fail cannot be activated in any of the
+preferences dialogs, and are listed separately in the "Installed Packages"
+help file, together with the reason that their requirements failed.  The user
+can then perhaps see that, say, the package would work if they upgraded some
+component of Alpha, and may decide to do so.
+
+Packages may be dependent on particular operating systems (MacOS, Windows,
+Unix), on particular implementations of the editor (Alpha, Alpha X, Alphatk),
+on particular versions of those implementations (Alpha 7.3, Alpha 7.4, Alpha
+8.0, etc), or on other packages (e.g. filesets 2.0).  You should try to make
+sure you don't pick a set of requirements which are more restrictive than
+necessary, since that will stop people from using the package on systems on
+which it should work!
+
+For example, Alphatk runs on MacOS, and can use the TclAE shared library, so
+if your package requires apple-events, you should not assume it only works
+with Alpha, since it should also work with Alphatk.  Also note that Alpha X
+actually uses the Unix version of Tcl, so the value of tcl_platform(platform)
+will be 'unix', not 'macintosh'!  As you can see, there is some subtlety about
+appropriate requirements.  The section "# MacOS X And Other Platforms" has
+more details.
+
+
+	  	 	Tcl 'index' Files
+
+
+You probably know that Tcl uses 'index' files to find procedures which are
+called but not yet defined.  Your installation directories may contain index
+files if you desire, but they are only installed if no current index file
+exists in the installation location.  You cannot override this behaviour.
+
+
+	====================================================================
+
+	  	 
+	  	 Miscellaneous Extras
+
+
+This is primarily for new modes.  This section addresses ways in which a mode
+can better interact with the following packages:
+
+   package: betterTemplates
+   package: newDocument
+   package: electricBindings
+   package: elecCompletions
+   package: searchPaths
+   package: functionComments
+
+This section simply shows how you can make your mode/menu/extension aware of
+these other packages, so that their functionality can be used effectively.
+
+(This section needs to be updated -- see package source files for more
+information.)
+
+
+	  	 	Source-Header files
+	 
+If your mode makes distinctions between 'Source' and 'Header' files, you
+should define these two variables
+
+	newPref var sourceSuffices { .cc .cp .cpp .c .icc } C++
+	newPref var headerSuffices { .h .hh } C++
+
+	  	 	Completions
+
+If you mode is to use a variety of completion routines, define an array entry
+like this:
+
+	set completions(${mode}) \
+		{completion::cmd completion::electric completion::word}
+
+For the meaning of the list items, look at "elecCompletion.tcl".  If all you
+need is the basic 'Command', 'Electric' and 'Word' completion routines, the
+above list will do the trick.  You will then need to define a variable
+${mode}cmds like this:
+
+	set Ccmds { #elseif #endif #include class default enum for register return 
+	 struct switch typedef volatile while }
+
+It MUST be in alphabetical order.  For electric template insertions, you need
+to create an array with entries like these:
+	
+	set Celectrics(for) " (¥init¥;¥test¥;¥increment¥)\{\n\t¥loop body¥\n\}\n¥¥"
+	set Celectrics(while) " (¥test¥)\{\n\t¥loop body¥\n\}\n¥¥"
+	set Celectrics(switch) " (¥value¥)\{\nÉcase ¥item¥:\n\t¥case body¥\nÉdefault:\n\t¥default body¥\n\}\n¥¥"
+	set Celectrics(case) " ¥item¥:\nÉ¥case body¥\ncase"
+
+
+	  	 	Mode-specific Completions
+
+
+If your mode has its own completion routines, they must be named
+${mode}::Completion::Type, where 'Type' is an entry in the above list.  You'll
+have to know a reasonable bit of Tcl to write your own routines like that.
+Look at the proc: C::Completion::Class for a relatively simple example, or
+"BibCompletions.tcl".
+
+
+	  	 	Electric Menu Templates
+
+
+${mode}Templates is a list of names which are added to the electric menu's
+'Templates' sub-menu.  The real procs should be called 'file::${name}'.
+
+
+	  	 	Contextual Menu Help
+
+
+AlphaTcl implements the contextual menu in the package: contextualMenu .  In
+Alphatk, this menu is accessed using the right mouse button, in Alpha8 and
+AlphaX you press the Control key while clicking on the mouse.  This menu is
+mode specific, and the 'context' can also include the location of the current
+window, any surrounding files, any text surrounding the cursor position, etc.
+
+What follows below is possibly more information than you want to know about
+how the contextual menu is created in Alpha -- see the "contextualMenu.tcl"
+file for information about how to add CM modules for your mode or package.
+
+Alpha's event loop identifies a CM event and passes the location to
+[contextualMenuHook] (it just passes a position in the front window right now,
+but, based on the behavior of other apps, it should either activate background
+windows and/or pass the window name, too).  It passes either an 'null' AEDesc,
+or, based on the other thread, expects the return of one created with
+[tclAE::createDesc].
+
+The proc: contextualMenuHook will examine the position of the CM event and
+compare it to the current selection.  If they're different, it will create an
+AE object specifier for the click position in the document: 'character 2356 of
+window "AlphaBits.tcl"'.  If the click is within an existing selection, it'll
+create an AE object specifier for the range of the current selection 'from
+character 234 to character 875 of window "www.tcl"'.  Either way, no
+intelligence to the context; just characters.
+
+Next, [contextualMenuHook] does [hook::callAll] to invoke any registered CM
+hooks.  It'll pass the position and this context descriptor.  Strictly, it
+only needs to pass the descriptor, but it may be more efficient to pass the
+position, too.  These registered CM hooks may then decide that they know more
+about the context than just a range of characters.  A simple one might just
+note that whole words were selected and replace the context with 'word 4 to
+word 7 of paragraph 9 of window "thesis.tex"'.  Tcl mode's CM hook might
+change it to 'line 3 of proc "contextualMenuHook" of window "alphaHooks.tcl"'.
+Johan could write one that would change it to 'anchor "acknowledgment" of
+window "HTMLManual.html"'.
+
+CW 6 does this sort of thing (@%*!  eliminating command-double-click in the
+process!), adding an item "Go to function definition of ..."  or "Go to
+typedef declaration of..."  to the CM (I'm actually only assuming that it
+changes the context descriptor as well, but it could and should from what I
+can tell).
+
+IM doesn't provide a hell of a lot of guidance here, saying:
+
+  If the IsShowContextualMenuClick function returns true, you should call
+  the ContextualMenuSelect function after generating your own menu and
+  preparing an Apple Event descriptor (AEDesc) that describes the item for
+  which your application is displaying a contextual menu.  This descriptor
+  may contain an object specifier or raw data and will be passed to all
+  contextual menu plug-ins.
+
+I'm still puzzling through exactly how to implement object specifiers in
+general, so when that becomes clear to me, this probably will, too.
+
+
+	  	 	Summary
+
+That's it!  Take a look at "scilabMode.tcl" as a simple example of a new mode
+which makes use of much of the above.
+
+	  	 
+	======================================================================
+
+
+	  	Advanced Topics
+
+
+Most of this section will not be relevant to the average developer, but this
+stuff needs documenting somewhere!
+
+
+	  	  What Happens In [new] And [editDocument]
+
+
+Sequence of events in the command: new and the proc: editDocument :
+
+new:
+
+- call coreWindow
+
+editDocument:
+
+- check if window exists and prompt user whether to 'edit existing', if
+  so, then just 'bringToFront' and return.
+- call filePreOpeningHook (this can use win::setInitialConfig to set
+  details of the window, but cannot assume the window exists, since it
+  doesn't).
+- call coreWindow
+- call winReadOnly if needed
+
+coreWindow:
+
+- create the window structures (so that 'setWinInfo' will work), and
+  so that the window name appears in the [winNames] list (but _not_
+  at the beginning of the list, since the window is not frontmost)
+- call 'winCreatedHook'.  This ensures the window's 'mode' attribute
+  is set (possibly calling win::FindMode), and uses setWinInfo to set any 
+  window/mode/global/command-line options on the window; anything which 
+  was set with win::setInitialConfig, which typically will have been 
+  called in filePreOpeningHook and/or filesets code).  Typically this
+  will also use setWinInfo to tell Alpha how to colour/bind-keys/etc
+  for the window.
+- put any initial text into the window, and finish any other internal
+  book-keeping.
+- call registerWindowWithAlphaTcl (which calls alpha::openHook first, and
+  then bringToFront if the window is to be frontmost (which will eventually
+  call activateHook if the window is not deleted first) -- only in this
+  latter case will the window move to the front of [winNames] and be the
+  [win::Current]).
+
+The above is now correct for Alphatk.  Note that Alphatk's core window
+handling knows absolutely nothing about win::attr, $::mode, or even that
+AlphaTcl has a concept of a mode.
+
+
+	  	 	What happens in [save] and [saveAs]
+
+
+Sequence of events in the command: save and the command: saveAs :
+
+save: 
+
+- check if file already exists (if not, route call to saveAs instead).
+- call 'coreSave'
+
+saveAs: 
+
+- determine location (unless given with -f)
+- check if file exists and ask user about replacement
+- rename window
+- call 'winChangedNameHook' which determines new mode and calls 
+  'changeMode' if necessary
+- if window has no previous encoding (i.e. getWinInfo doesn't have an
+  encoding set), get encoding from the window's associated varmodes
+  [win::getModeVar $name encoding ""] if that works, or else from the new
+  location [alpha::encodingFor $filename], asking user if there is a
+  conflict.
+- call 'coreSave'
+
+coreSave:
+- call 'saveHook'
+- save file to disk, using window's encoding
+- set window dirty state to 0, and call 'dirtyHook'
+- call 'savePostHook'
+
+The above is the most consistent behaviour, which is implemented in recent
+versions of Alphatk.  Alpha 8/X may not yet implement the above sequence
+correctly, but it is I believe, absolutely needed to have correct handling of
+mode-dependent preferences on things like encodings, and to have a consistent
+behaviour available for mode's which want to take action either before or
+after _any_ window is saved (whether via 'save' or 'saveAs').
+
+If a different sequence is used to the above, then the backup package and the
+docProjects 'update header' operations may not work (e.g. they don't work for
+'saveAs' in Alpha 7)!  Also the Open Windows menu may have problems.  And,
+having a preference like:
+
+	newPref variable defaultEncoding iso8859-1 HTML
+
+will not function correctly when saveAs'ing a new window.
+
+
+	  	 	Embedding AlphaTcl
+
+
+Alpha 7, 8, X and Alphatk are all applications which embed the AlphaTcl
+library and use it to provide almost all functionality outside of the basic
+editing window and core dialogs.  This section is here to document what that
+actually means, since it isn't documented anywhere else.
+
+Historically, (e.g. up to Alpha 7.x) embedding AlphaTcl has largely meant
+setting a HOME variable to the location of the AlphaTcl library files and
+sourcing '[file join $HOME Tcl SystemCode AlphaBits.tcl]'.  As the AlphaTcl
+library has become more complex, this startup sequence has been retained, but
+it is probably time to add more flexibility.  This is particularly important
+because parts of the gui presented to the user by the embedding application
+may be customizable by the user, yet all preference handling (which it would
+be nice to use for that customization) happens through the AlphaTcl library.
+The solution implemented in AlphaTcl as of versions 7.4.2 or newer, is to
+provide a pre-entry in AlphaTcl which initializes and reads all of the users
+preferences.  These can then be read by the embedding application to decide on
+the correct gui to display (e.g. position of the status bar) and then
+initialization of the rest of AlphaTcl can proceed.
+
+To achieve this, the embedding application must:
+
+	set the HOME variable
+	source [file join $HOME Tcl SystemCode Init initialize.tcl]
+	call 'alpha::PreGuiStartup'
+
+now preferences are available, so the gui can be created. Then:
+
+	call 'alpha::Startup'
+	
+This two phase initialization is used in Alpha8/X/tk.  We may want to
+gradually split AlphaTcl into a directory containing the files required for
+the first phase, and another set of directories for everything else.
+
+We also need to document what command/variables beyond 'HOME' must be created
+for the first phase to complete correctly.
+
+
+	  	AlphaTcl Window API
+
+When windows are created, renamed, or destroyed, various of the hooks
+defined later in this document are called (winCreatedHook, etc).  These
+make use of the AlphaTcl Window API to keep track of window names,
+attributes, as follows:
+
+	win::created <name> - a window with this name has been created
+	win::destroyed <name> - a window with this name has been destroyed
+	win::nameChanged <oldname> <newname> - a window has been renamed
+
+These three procedures may then be used by any AlphaTcl package to 
+query information about the current windows:
+
+	win::Exists <name>  -  does a window with this name exist?
+	win::CreationOrder - return list of window names, ordered by creation
+	win::StackOrder - return list of window names, ordered frontmost to backmost
+
+Any AlphaTcl variables (such as $win::Active, $win::attr(),
+$win::StackOrder) should be considered private to AlphaTcl's core and only
+accessed through the above functions.
+
+
+	  	Defining new Window attributes
+		
+
+AlphaTcl provides very nice support for any mode/package/feature to
+attached, detach and query an arbitrary set of information associated
+with any window.  Such information is automatically cleaned up when the
+window is closed, and automatically adjusted if the user renames/saves the
+window.  AlphaTcl developers can use this to make it much easier to 
+provide window-specific behaviours.  This support has a public API
+defined by the following functions:
+
+proc: win::getInfo
+proc: win::setInfo
+proc: win::freeInfo
+proc: win::infoExists
+proc: win::setInitialConfig
+
+For example, this can be used to make it much easier for, say, Diff
+mode to run multiple simultaneous diffs, or for Brws mode to have
+different browser geometries, etc.
+
+So, how is this used?  Each window has a set of attributes associated with
+it, which will persist for the lifetime of the window, and track the window
+as it is saved, renamed, moved, etc.  Some of these attributes are termed
+"core" attributes which are used internally by Alpha(tk)'s editing engine.
+An obvious example of this is the font and fontsize of the window.  Other
+attributes are defined/read/set only in AlphaTcl - an important example is
+the 'mode' attribute defines the editing mode to use for the window.  A
+more internal and less known one is the "Modified" attribute which stores
+the last known modification time of a window corresponding to a file on
+disk.  It is used particularly to allow AlphaTcl to respond to the
+situation where the file on disk appears to be more recent than the
+contents of the editing window.
+
+Here are the current attributes:
+
+Core attributes for window mode-like behaviour:
+  
+	bindtags
+	colortags
+	hookmodes    
+	varmodes     
+	featuremodes
+
+Other core attributes:
+
+	currline (read-only)
+	dirty
+	encoding (Alphatk only)
+	font
+	fontsize
+	horscrollbar (Alphatk only)
+	linenumbers (Alphatk only)
+	linesdisp (read-only)
+	platform
+	read-only
+	shell
+	split (read-only)
+	state
+	tabsize
+	wordbreak
+	wrap (Alphatk only)
+
+AlphaTcl (some of these may only be defined if certain packages are
+active):
+
+	mode - rather an important attribute, this one!
+	Modified
+	indentationAmount
+	indentUsingSpacesOnly
+
+When opening a new window, the appropriate value of these attributes must
+be calculated and assigned to the window.  This is done in a prioritised
+fashion, taking account of five different priority levels:
+
+	global  - the global default, which is the lowest priority level
+	mode    - the default mode-specific value (from proc: mode::getVar,
+			  which typically looks in the <mode>modeVars() array)
+	fileset - any fileset specific value, see e.g. 
+			  package: filesetIndentationPreference
+	window  - a value which is specific just to this window, e.g. as 
+			  read from the window's first line '(tabsize:5)'
+	command - effectively a forced value, as given, say in a direct 
+			  command, like 'edit -tabsize 3 Readme.txt'.  This is the
+			  highest priority level.
+
+The way this works is that any code may, during early window creation
+(proc: winCreatedHook), call proc: win::setInitialConfig with a window
+name, an attribute name, a value and a priority level.  For example,
+one of the fileset packages does this:
+
+	proc fileset::checkIndentationPreference {fset name} {
+		set tab [fileset::getInformation $fset "Tab Size"]
+		set indent [fileset::getInformation $fset "Indentation Amount"]
+		set spaces [fileset::getInformation $fset "Indent Using Spaces Only"]
+		if {[string length $tab]} {
+			win::setInitialConfig $name tabsize $tab "fileset"
+		}
+		if {[string length $indent]} {
+			win::setInitialConfig $name indentationAmount $indent "fileset"
+		}
+		if {[string length $spaces]} {
+			win::setInitialConfig $name indentUsingSpacesOnly $spaces "fileset"
+		}
+	}
+
+which therefore provides up to three different attributes (one for the core
+and two for AlphaTcl, although the code doesn't have to distinguish between
+them), each of which is given the "fileset" priority level.  This means it 
+will over-ride any global or mode default, but itself be over-ridden by any
+window-specific or direct command options.
+
+The resolution between the different priority levels happens just once,
+when proc: win::getAndReleaseInitialInfo is called in winCreatedHook.  Once
+that resolution is complete, the original priority levels of the winning
+attribute values are forgotten.
+
+
+	  	Defining minor modes and modifying window behaviours
+
+
+NOTE: The following section is still under discussion (Feb 2004), and only
+fully applies to Alphatk (and Alpha 8.0b15-D7 or newer) at present:
+
+Each window has five different aspects of behaviour, relating to bindings,
+colouring, code hooks, variables and active features.  For each such
+"aspect", the window will have zero or more associated "tags" which dictate
+the details of that specific behaviour.  Typically, an ordinary editing
+window will have just one tag for each behaviour, with each tag being just
+'$mode', reflecting the editing mode of that window.  However, Alphatk and
+AlphaTcl provide support for modifying or replacing each behaviour aspect
+for any window, either directly (with proc: win::setInfo and/or
+'setWinInfo') or through the definition and application of 'minor modes'.
+
+We will first explain what the five editing aspects are, and how the list
+of associated tags are used, before explaining how to define and make use
+of minor modes in AlphaTcl packages.
+
+To start with an example, the colouring aspect of any window is dictated by
+a prioritised list of "color tags" attached to the window.  Here is a
+somewhat contrived example:
+
+	setWinInfo colortags [list "verb" "noun"]
+
+As Alpha(tk) then colours the contents of the window, it examines each
+chunk of text (typically each word) and asks each colour tag in turn
+whether that tag wishes to colour the word.  When one colour tag claims
+ownership of the word, it is coloured appropriately, and Alpha moves onto
+the next chunk of text.
+
+So, for example, if the command 'colorTagKeywords' has been used as
+follows:
+
+	colorTagKeywords -k green "verb" {be go dog run walk drive fly}
+	colorTagKeywords -k blue "noun" {person dog cat car}
+
+Then any text in the window would be coloured with the given verbs in green
+and the given nouns in blue.  Notice that 'dog' would be coloured in green,
+since it is the "verb" tag which is the first to match.
+
+Each of the five aspects of the window controls one behaviour type, in much
+the same way as just described: the aspect has an ordered list of tags, and
+when deciding what aspect-specific action to take, Alpha checks each tag in
+turn until it finds one that applies to the action in question.  If none is
+found then a global default action would occur (which might be to do
+nothing).
+
+So, let's examine a second example, this time with "bindtags" aspect used
+for keyboard bindings/shortcuts.  Here a similar approach is taken: the
+window has a prioritised list of "bind tags" attached:
+
+	setWinInfo bindtags [list "shell" "Tcl"]
+
+When the user presses a key in the window, Alpha(tk) asks each bind tag in
+turn whether that tag wishes to claim the key-sequence.  If it does, the
+appropriate command is triggered.  For example:
+
+	Bind '\n' Tcl::carriageReturn "Tcl"
+	...
+	Bind '\n' Shel::carriageReturn "shell"
+	...
+
+Now if the user presses the return key in this window, the
+Shel::carriageReturn function will be the first to match, and it will
+therefore be triggered.
+
+The five behaviour types are summarised as follows:
+
+¥ colortags - the list of colouring schemes to use for the window.  For
+each of these tags, when colouring the window's contents Alphatk will
+examine the colouring information defined in a call to 'regModeKeywords
+$tag' or 'colorTagKeywords $tag'.  The first tag in the list is allowed to
+declare comment definitions and colours, string definitions and colours,
+etc., while all subsequent colouring tags may only declare keywords to
+colour.
+
+¥ bindtags - the list of binding schemes to use for the window.  For each
+of these tags, when the user presses a certain key-combination, Alphatk
+will examine the set of bindings defined with 'Bind <char> [<modifier>]
+<script> <tag>', searching for any match to the given key-combo.
+
+¥ hookmodes - the list of hook schemes to use for the window.  For each of
+these tags, when executing hooks with 'hook::callProcForWin' (e.g. hooks
+like electricLeft, correctIndentation, carriageReturn, etc), AlphaTcl will
+check for procs defined in the namespace '$tag::'.  The first such hook
+found will be called (or a global hook if none is found).
+
+¥ varmodes - the list of variable schemes to use for the window.  For each
+of these tags, when checking for a window/mode-specific variable value with
+'proc: win::getModeVar' (typical variables are 'startPara', 'tabSize',
+'indentationAmount', etc), AlphaTcl will check for variables defined in the
+namespace '$tag::' or the array '${tag}modeVars()' as appropriate.  The
+first such variable found will be returned (or a global variable if none is
+found).  Note that the following list of variables are searched for in the
+namespace: escapeChar quotedstringChar lineContinuationChar
+commentCharacters(General) commentCharacters(Paragraph)
+commentCharacters(Box) startPara endPara, and all others in the array.
+Note also that the only variables copied from a <mode>modeVar() array to
+the global namespace are those associated with the 'real' mode of the
+window as given by proc: win::getMode.
+
+¥ featuremodes - the list of feature schemes to use for the window.  For
+each of the tags in the featuremodes list, when activating the window,
+AlphaTcl will adjust the set of currently active features according to the
+information in 'mode::features($tag)'.  Similarly when deactivating the
+window.  In this activation/deactivation process, AlphaTcl always compares
+the set of features needed for the new window with those for the previously
+active window, and makes the appropriate minimal set of on/off calls to
+have the appropriate set of features active.  Currently, for real modes,
+mode::features($mode) can be edited through the mode's preferences dialogs.
+There is no current way the user can edit this set for feature tags which
+are not modes (they must be hard-coded).  This feature activation and
+deactivation all takes place through core-private proc: alpha::changeMode.
+
+All of the above behaviour aspects can be set with 'proc: win::setInfo' (in
+Alpha 8/X at present, bindtags and colortags are not supported).  There is
+also a mechanism, with 'minor modes' by which a whole set of modifications
+(for any or all of the five behaviour aspects) can be created as a set, and
+applied to any window.  This is done with the 'proc: alpha::minormode', as
+follows:
+
+	alpha::minormode $name ?(+aspect|-aspect|aspect) value?+
+
+Use '+' to extend, '-' to remove and nothing to set.  For example:
+  
+	alpha::minormode tclshell +bindtags TclShell -hookmodes Tcl varmodes TeX
+
+Then you may use 'win::setInitialConfig <winname> minormode <name> window'
+to apply a minor mode to a window (this only currently works before that
+window is created, but this limitation is due to be removed).
+
+
+	  	Error Handling
+		
+
+Errors which are not caught in your code are bugs, unless they start with the
+string 'cancel' (case doesn't matter here), when they are considered to be the
+result of the user cancelling an operation.  This can make your code simpler,
+by allowing you to simply throw a cancel error, as in
+
+	error "cancel"
+	error "Cancelled -- this is not a valid option."
+
+Any other error which is not caught is a bug, and may be shown to the user,
+depending on their error reporting settings.
+
+
+	  	Event Hooks
+        
+
+When certain events occur.  e.g. when opening and closing windows, Alpha (or
+AlphaTcl) calls an event hook.  'Core' hooks call specific procedures defined
+in "alphaHooks.tcl" -- these procs might then in turn call the proc:
+hook::callAll , and in this case you can register your own event hooks to add
+to the default behavior when the corresponding event occurs.  (The core will
+never call [hook::callAll] directly.)  Other hooks are called from specific
+AlphaTcl procs (not by the core).  This section lists all available hooks, and
+specifies when they are called and by whom.
+
+To add your own procedure to be called when the hook in invoked there are two
+things you have to do.  First write a proc to be called when some events
+occurs.  This proc must have the parameters shown in the table.  Lets say you
+want to define a saveHook.  Then define some proc
+
+	proc mysaveHook {name}{
+	    .
+	    .
+	}
+    
+Note that [hook::callAll] wraps all called hook procedures in a [catch], so
+you should not attempt to cancel the action calling the hook by throwing an
+error (throwing an error in a hooked procedure is usually considered a 
+bug in that procedure).
+
+The next thing you have to do is to register the proc.  This is done with a
+line like:
+
+	hook::register 'hook-name' 'your proc' 'mode' ?... 'mode'?
+
+The optional mode parameters specify in which modes the hook will be called.
+If no mode parameters are given the hook will be called regardless of the
+mode.  Avoid this unless absolutely necessary.
+
+Let's assume that you want your hook to be called in TeX and Perl modes.  To
+register it you would use the line:
+
+	hook::register saveHook mysaveHook TeX Perl
+
+Note, however, that a few hooks doesn't use the mode to determine when to be
+called and should be registered slightly differently, see below.
+    
+Many of the hooks below are invoked by a procedure with the name of the hook
+to which you register your action (indicated below with something like proc:
+someHookName), others are called during the sourcing of particular files or by
+other procedures as indicated.
+
+Note that hooks are always invoked in a stacked fashion.  This means
+that if one hook (say an openHook) causes the execution of other hooks 
+(e.g. it calls killWindow which therefore causes the closeHooks to be
+called), then all the first hooks will be executed before any of the
+second hooks (so, in the example, given, all openHooks will be
+executed, some of them possibly with no window in existence, and only
+then will all closeHooks be executed.  This has the important benefit
+that code can always be sure openHook is called before closeHook, even
+if some other code has closed the window).
+
+	  	 	Window Hooks
+
+  Hook                  Calling Code                    Parameter(s)
+  ----                  ------------                    ------------
+
+¥ activateHook          proc: activateHook              full window name
+
+  Called when a window is brought to front, including, if it is a normal
+  (non-minimized, non-hidden) window, when it is first created. The
+  window should exist (and the command: getWinInfo, the command: winNames
+  and the proc: win::Current should all work and behave as if the window is
+  present).  The window's contents will be available during this hook (even
+  if called during window opening -- in such a case it is called after any
+  openHooks).  The current 'mode' Alpha is in will have been adjusted just
+  prior to calling this hook (but the activateHook could if desired change
+  the mode of the window, although the desire to change the window would
+  best be handled elsewhere).  It is allowed to use the command: killWindow
+  to remove the window, but in that case the window will not exist for any
+  other activateHooks which are to be called.  Note that activateHook and 
+  deactivateHook events always occur in pairs.  Any window that has the
+  activateHook called on it will always, at some point in the future,
+  have deactivateHook called (either when the window is closed or another
+  window is brought to the front).
+
+¥ closeHook             proc: closeHook                 full window name
+
+  Called after a window has been closed.  When the hook is called, the
+  window no longer exists (so getWinInfo will fail, and the window should
+  not appear in the 'winNames' list, and [win::Current] will certainly not
+  refer to it), but any extra AlphaTcl-attributes stored with the proc:
+  win::setInfo will still be available through proc: win::getInfo (they
+  will be cleaned up directly when this hook returns).  Many uses of
+  closeHook might perhaps be better implemented through preCloseHook.
+  After all the closeHooks are called, AlphaTcl will arrange for any
+  relevant requireOpenWindowHook menu dimming to be carried out to take
+  account of the window's disappearance.
+
+¥ deactivateHook        proc: deactivateHook            full window name
+
+  Called when a window ceases to be the frontmost window, for any reason
+  (e.g. is sent to back, or the user switches attention to another window,
+  or it is hidden or minimized, or the window was frontmost but is closed).
+  Note that activateHook and deactivateHook events always occur in pairs.
+  Any window that has the activateHook called on it will always, at some
+  point in the future, have deactivateHook called (either when the window
+  is closed or another window is brought to the front).
+
+¥ openHook              proc: alpha::openHook           full window name
+
+  Called when a window is opened, once the contents are available, and
+  before any activateHook is called.  All window operations are available.
+  Older versions of Alpha prohibited the calling of the command: killWindow
+  from this hook, but it should now be allowed in newer versions.  Note
+  that, if one hook has called killWindow, then the window will no longer
+  exist in any other hook.  Therefore, for full reliability, openHooks
+  should not actually assume the window exists.  Before any openHooks are
+  called, AlphaTcl will arrange for any relevant requireOpenWindowHook menu
+  dimming to be carried out to take account of the new window's existence.
+
+¥ preCloseHook          proc: preCloseHook              full window name
+
+  Called just before a window is closed, but after the user has been asked
+  if a dirty window should be saved (so we know for certain the window is
+  going to disappear).  This hook should not attempt to change any window
+  contents or file information.  However, all such contents is available
+  when the hook is called, and the window will still appear in the
+  'winNames' list.  If the window was frontmost, then [win::Current] will
+  still refer to it.  Any uses of win::getInfo or getWinInfo will work.
+  Basically the window exists in all respects.  This hook cannot be used to
+  abort the closing of the window, and any errors thrown by a hook are
+  considered bugs in the hook.
+
+¥ saveHook              proc: saveHook                  full window name
+
+  Called when a window is saved, just before its contents are written
+  to disk.  A useful hook to, for example, update a last-modified date
+  in a file's header.
+
+¥ savePostHook          proc: savePostHook              full window name
+
+  Called after a window is saved (whether by 'save' or 'saveAs').
+
+¥ titlebarPathHook      proc: titlebarPathHook          full window name
+
+  Called when the titlebar title is clicked.  Hook must build a menu and
+  return its name.
+  
+¥ winChangedNameHook     proc: winChangedNameHook         newName, oldName
+
+  Called when a window's name has changed (e.g. by 'save as'), and after
+  any change in mode which may have resulted from the new name.  The
+  mode for which this hook is called is the final mode for the window
+  (where that differs from the original mode).  This hook is also called
+  if a file is moved outside of Alpha (e.g. it is dragged from one location
+  in the OS to another, or it is renamed in the OS).  (In consistency with
+  the usage in the other window hooks, the first argument is the name of
+  the calling window (i.e. the new name), whereas the old name is just a
+  secondary information.)
+  
+¥ winChangeModeHook     proc: winChangeModeHook         name, oldmode, newmode
+
+  Called when a window's mode is changed (e.g. by 'save as', or the
+  user's direct intervention).  This hook is not mode-specific, at
+  least at present (we have only one user of this hook - the latexAccents
+  package, so we could consider changing this with more widespread use).
+
+	  	 	Alpha Hooks
+
+  Hook                  Calling Code                    Parameter(s)
+  ----                  ------------                    ------------
+
+¥ quitHook              proc: quitHook                  (none)
+
+  Called when quitting Alpha
+
+¥ resumeHook            proc: resumeHook                (none)
+
+  Called when switching to Alpha from another application.
+  
+¥ startupHook           file: "runAlphaTcl.tcl"         (none)
+
+  Called at the end of startup.
+
+¥ suspendHook           proc: suspendHook               (none)
+
+  Called when switching to another application.
+
+	  	 	Mode Hooks
+
+  Hook                  Calling Code                    Parameter(s)
+  ----                  ------------                    ------------
+
+¥ changeMode            proc: alpha::finishChangingMode new mode
+
+  Called when the mode is changed, after the new mode has been activated and
+  all features/menus have been adjusted and the new mode's variables/prefs
+  are in place.
+
+¥ changeModeFrom        proc: alpha::removePreviousMode old_mode new_mode
+
+  Called when the mode is about to change, before the new mode has been 
+  activated; no features/menus have yet been adjusted, and the old mode's 
+  variables/prefs are still in place.
+
+¥ mode::editPrefsFile   proc: mode::editPrefsFile       (none)
+
+  Called when a mode prefs file is opened for editing.
+  
+¥ mode::init            proc: alpha::finishChangingMode (none)
+
+  Called the first time a mode is loaded.  Note that the mode exists, but
+  its variables have not yet been made global, and its menus have not yet
+  been inserted into the menu bar.
+
+	  	 	Keyboard Hooks
+
+  Hook                  Calling Code                    Parameter(s)
+  ----                  ------------                    ------------
+
+¥ keyboard              file: "runAlphaTcl.tcl",        (none)
+                        proc: keys::keyboardChanged
+
+  Called at startup and when the keyboard prefs is changed.
+
+¥ removekeyboard        proc: keys::keyboardChanged     (none)
+
+  Called when the keyboard prefs is changed by the user.
+  
+The keyboard hooks use the keyboard name (the ones in the keyboard popup menu
+in the preferences: International dialog) rather than the mode to determine
+when to be called.  Thus to register a keyboard or removekeyboard hook use
+lines like:
+
+	hook::register 'hook-name' 'your proc' 'keyboard name' ?... 'keyboard name'?
+
+	  	 	Miscellaneous Hooks
+
+  Hook                  Calling Code                    Parameter(s)
+  ----                  ------------                    ------------
+
+¥ launch                proc: app::ensureRunning        (none)
+
+  Called when a helper app is launched by calling [app::ensureRunning].
+  
+  The launch hook uses the application signature rather than the mode to
+  determine when to be called.  Thus to register a launch hook use a line
+  like:
+
+	hook::register launch 'your proc' 'signature' ?... 'signature'?
+
+¥ requireOpenWindowsHook proc: alpha::menuAdjustForOpenWins (none)
+
+  Called when opening and closing windows.
+
+  This hook is used to en-/disable meaningless menu items which would
+  require the presence of a certain number of windows to be active.  You
+  can register your own menu items using a line like:
+
+	hook::register requireOpenWindowsHook [list ?-m? menu item] N
+
+  where 'N' is the number of windows required (1 or 2 usually)
+
+  As an example, this is a line from Diff mode registering the item
+  'Compare Windows' to require 2 open windows to be enabled, followed
+  by a line from HTML mode (which shows the use of the '-m' menu flag
+  in this hook):
+
+	hook::register requireOpenWindowsHook [list compare windows] 2
+	hook::register requireOpenWindowsHook [list -m Browsers "Send File to Browser"] 1
+
+	
+	  	 	Hooks continued...
+
+(this section needs combining with the above).  The flexibility of Tcl enables
+one to over-ride or otherwise intercept almost any operation in Alpha(tk).
+However, to make it much easier for your code to take action on common events,
+a number of 'hooks' are provided.  It is better if you can use these hooks
+rather than do all the 'rename saveHook mySaveHook'...  stuff.  To have a
+script called when under a particular circumstance, you just use
+
+	hook::register <hookName> <script> ?<context>? ?<context>...?
+
+The file "hook.tcl" contains the implementation of these calling mechanisms
+(if you need to look further), but it is more important to know exactly what
+hooks are available, under exactly what circumstances they are called, what
+contexts are available, and, of course, what arguments will be added to your
+script before it is evaluated.  In almost all cases it does not really matter
+whether your script returns successfully or throws an error, but, some hooks
+do have a particular behaviour dependent on the return code, and it is good
+practise not to throw errors unnecessarily!
+
+Here are some examples of hook registration:
+
+	hook::register saveHook modified "C" "C++"
+	hook::register saveHook modified "Pasc"
+	hook::register saveHook htmlLastModified HTML
+	hook::register savePostHook codeWarrior_modified "C++" "C"
+	hook::register savePostHook ftpPostHook
+	hook::register saveasHook htmlLastModified HTML
+
+For these hooks, as with many others, the general form is:
+
+	hook::register 'hook-name' 'your script' 'mode' ?... 'mode'?
+
+So, the context is the mode for which you would like your script evaluated
+(and more than one mode can be provided).  If you don't include a 'mode', then
+your proc will be called no matter what the current mode is.  Avoid this
+unless absolutely necessary.
+
+You can get a list of all hooks for which something has already been
+registered with the proc: hook::information .  For example:
+
+	Welcome to Alpha's Tcl shell.
+	ÇÈ hook::information
+	titlebarSelectHook saveHook electricBindings vcsSystemModified
+	activateHook uninstallHook enterSearchString titlebarListHook
+	fileset-current fileset-delete fileMovedHook startupHook
+	contextualMenuHook unlockHook fileset-file-opening
+	contextualPostBuildHook preCloseHook closeHook fileset-uncache
+	preOpeningHook keyboard winChangeModeHook lockHook deactivateHook
+	fileset-new openHook requireOpenWindowsHook changeMode quitHook
+	saveasHook fileset-update menuBuild diskModifiedHook titlebarPathHook
+	dirtyHook specialKeys savePostHook removekeyboard editHook
+	ÇÈ 
+	
+However, other hooks which do not occur in this list may also be available
+(this happens if they are simply not used anywhere).  For example,
+'suspendHook' is one which is called whenever the user shifts the focus from
+Alpha to another application.
+
+While one set of hooked scripts (e.g. all 'openHooks') is being evaluated, any
+action which results in further hooks being called will be queued, and not
+take place until the first set of hooks is complete.
+
+	  	 	Hook Definitions
+
+After each hook we list the parameters with which your hooked script is
+called.  If your script is in the variable script, these will be evaluated
+like this:
+
+	eval $script [list $param1 $param2 ...]
+
+Where a parameter is given the name 'winName', it may include the ' <2>'
+duplicate window markers.  Where it is given as 'path', it is the name of a
+file (which may or may not exist on disk).
+
+¥ 'saveHook $winName' is called just _before_ a window is saved, whether that
+save is through 'save' or 'saveAs'.  This is the last chance to modify the
+contents of the window (e.g. a modification date) before the contents is
+committed to disk.  (NOTE: Alpha 7 didn't call this for 'saveAs')
+
+¥ 'savePostHook $winName' is called just _after_ a window is saved, whether
+that save is through 'save' or 'saveAs'.  (NOTE: Alpha 7 didn't call this for
+'saveAs').
+
+¥ 'openHook $winName' is called when a new window has opened.  The window
+fully exists and has just been made visible to the user when this hook is
+called.  This hook is allowed to call 'killWindow' to destroy the window, but
+that is not very advisable.  Under those circumstances, other users of the
+hook will be called with a window that has already been destroyed.  So, users
+of this hook should use 'win::Exists' to check if it does exist.
+
+¥ 'winChangedNameHook $newWinName $oldWinName' is called when some action has
+been taking which results in a window having a new name (this is usually 'Save
+As...').  This may also result in the mode of the window changing (so
+'changeMode' hook may also be called).  Alpha(tk) ensures, just before this
+hook is called that the new file exists on disk (even if only as a dummy file
+with size 0).
+
+¥ 'mode::init' is called the first time a mode is started up.  Note that at
+that time, the mode exists, but its variables have not yet been made global,
+and its menus have not yet been inserted into the menu bar.
+
+¥ 'startupHook' is called when Alpha starts up, but after all other
+initialization has taken place (before any files are opened though)
+
+¥ 'launch' is called when Alpha launches another application (register with
+hook::register launch yourproc $sig).
+
+¥ ...more hook documentation needed
+
+There are some subtleties associated with these hooks, and the additional
+parameters your hook receive are not directly documented anywhere.  We suggest
+you look at existing code and ask on the alphatcl-developers mailing list for
+further information.  Contributed explanations will be added to this file.
+
+
+	====================================================================
+
+
+	  	Copyright
+
+This document has been placed in the public domain.  All AlphaTcl code has
+license information specific to the packages/authors, assume that it can be
+distributed under a Tcl-style license unless otherwise specified.
+
+Author:	Vince Darley, some pieces by Tom Fetherston and Pete Keleher
+E-mail:	<vince@santafe.edu>
+  mail:	317 Paseo de Peralta, Santa Fe, NM 87501, USA
+   www:	<http://www.santafe.edu/~vince/>
+

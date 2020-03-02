@@ -1,0 +1,285 @@
+
+Macros Help
+
+                                          help version: 2.0
+                                               created: 05/19/2000 {11:44:50 am}
+                                           last update: 01/06/2006 {04:06:30 PM}
+
+	  	Abstract
+
+This help file describes the "Macros" package.  Once this package has been 
+turned on by selecting "Config > Global Setup > Features"
+
+Preferences: Features
+
+two submenus named "Utils > Macro Recording" and "Utils > Saved Macros" are
+created which provide several tools for recording, saving, renaming, and
+executing macros in Alpha.
+
+
+	  	Table Of Contents
+
+
+"# What Is a Macro?"
+"# Defining a Macro"
+"# Saving Macros and Macro Utilities"
+
+"# Writing Good Macros"
+"# Things That Don't Work"
+"# Differences Between Alpha and Emacs"
+
+<<floatNamedMarks>>
+
+
+	  	What Is a Macro?
+
+A macro is a sequence of recorded keystrokes that can be played back again.
+Unlike other macro packages you might be familiar with in other Mac
+applications, keyboard macros in Alpha do not record mouse movement or entries
+in system dialogs -- only keystrokes or menu selections are recorded.  Even
+with these limitations, you will discover that macros can save you time
+through easy automation of repetitive tasks.
+
+Macros can also be used to attach any (previously unassigned) keyboard
+shortcut to any menu item.
+
+When do you make a macro?  Whenever you find yourself typing the same
+keystrokes over and over again, then a light should go off in your brain
+telling you its time to make a macro.  Once you make a macro, you can name it
+(that is, save it) for future use.  Over time you will build up a library of
+Saved Macros that you can invoke any time you need them.
+
+Things you can do with macros:
+
+	*   basic textual markup
+	*   reformat tables and files
+	*   complex copying and pasting between edit windows
+
+Alpha's implementation of macros is similar to that of Emacs, but there are
+subtle differences.  Remember, Alpha is not Emacs!  You don't need to be an
+Emacs guru to use keyboard macros in Alpha.  Since macros are a simple way of
+creating valid Alpha text manipulation commands, every user will benefit from
+a basic working knowledge of how to use macros.
+
+See this "Macros Example" hyperlink for a little macros tutorial.
+
+
+	  	Defining a Macro
+
+Defining keyboard macros can be done with the "Utils > Macro Recording" menu.
+This submenu has the following items:
+
+	Menu Item          | Keyboard Shortcut      | Action
+	_________________________________________________________________________
+	Begin Recording    | "Control-X ("  or  F13 | Start recording keystrokes.
+	End Recording      | "Control-X )"  or  F14 | End recording.
+	Execute Last Macro | "Control-X E"  or  F15 | Invoke Last Recorded Macro.
+
+
+If you don't have an extended keyboard (or even if you do), you can change the
+default F13, F14 and F15 keyboard shortcuts for Macro Recording commands by
+selecting "Utils > Macro Recording > Recording Shortcuts".
+
+Begin recording a macro by selecting the "Begin Keyboard Macro" menu item,
+pressing its keyboard shortcut equivalent, or by pressing "Control-X (" -- the
+message "Defining Keyboard Macro ..."  will appear in the status bar to inform
+you that your subsequent keystrokes will be recorded.  Once you have started a
+keyboard macro Alpha will record everything you type: commands and literal
+text.  Remember, nothing you do with the mouse is recorded, so you should move
+the point with cursor movement shortcuts.  (See "Emacs Help" for a list of
+Emacs cursor movement shortcuts.)
+
+To end the macro, use the "End Keyboard Macro" menu item, its keyboard
+shortcut, or press "Control-x )" -- this tells Alpha to stop recording your
+keystrokes.  A recording session will terminate automatically if there is an
+error or if you abort the macro by typing Control-G (abortEm).
+
+During macro recording, Alpha behaves normally responding to commands and
+keystrokes; thus you will be able to see if your keystrokes are appropriate.
+If you make a mistake, unless it is a fatal one, you can probably just type
+some extra corrective keystrokes and continue.  Macros run so quickly that
+executing a few superfluous keystrokes will not noticeably effect your macro's
+performance.
+
+Of course you can always abort the macro recording if you can remember the
+keystrokes you need, or end the recording in the normal way and select the
+menu command "Utils > Macro Recording > Display Last Macro" -- this will open
+the contents of the Last Recorded Macro and allow you to edit the contents of
+the script.  Saving this window will save the new script.
+
+To invoke your macro after you have recorded it, press "Control-X E" (or use
+the menu or keyboard shortcut ...).  Alpha will play back your keystrokes.
+"Control-X E" invokes only the Last Recorded Macro.  If you record a new macro
+without naming the Last Recorded Macro, the Last Recorded Macro will be
+overwritten and lost.  Any macro you want to save should be named.
+
+The "Macros Example" hyperlink is still available for a tutorial !
+
+
+	  	Saving Macros and Macro Utilities
+
+The "Utils > Macro Recording" menu includes several Macro Utilities which
+allow you to save the Last Recorded Macro that you created, and manipulate
+the collection of Saved Macro Scripts that are stored in your preferences
+files.  The preference names "Macros Menus Locations" determines if these are
+placed at the top or the bottom of the Utils menu.
+
+Preferences: macros
+
+The menu items include:
+
+	Display Last Macro
+
+Opens a new window displaying all of the commands in the Last Recorded Macro.
+If you edit the contents of this script and then save the window, the menu
+item "Utils > Macro Recording > Execute Last Macro" will use this new script.
+
+	Save Last Macro
+
+Save the Last Recorded Macro.  Prompts you to enter a name for your new
+macro, and inserts this new name into the "Saved Macros" menu.  All Saved
+Macros will be remembered upon subsequent restarts of Alpha.  Names should
+only contain alpha-numeric characters and spaces.  All saved macros are
+retained as files in your "Alpha Support/Macros" folder.  Select the menu
+command "Utils > Saved Macros > Show Macros Folder" to see the current file
+in this folder.  In between editing sessions, the contents of your last
+recorded macro are also stored in this folder.
+
+	--------------------------------------------------------------------
+
+Once you have saved a macro, it is listed in the "Utils > Saved Macros" menu.
+Your collection of Saved Macros can be manipulated in the following ways,
+using the following "Utils > Macro Recording" utility commands.
+
+(These items are dimmed if there are no currently Saved Macros.)
+
+	Edit Saved Macro
+
+Opens a dialog allowing you to select any Saved Macro to be edited.  Once you
+have made your selection, the Saved Macro's script will be displayed in a new
+window.  Any time that you save the window, the contents of the Saved Macro's
+script will be saved as well.  You can edit the Saved Macro as much as you
+like, testing it as you go to see if the new version behaves in the ways that
+you want.
+
+The contents of the script contain AlphaTcl and Alpha core commands.  Knowing
+a little something about the Tcl programming language might be useful for
+editing the Macro Script, but in most cases you can figure out the minor
+changes that you need to make.  Feel free to experiment as much as you like!
+
+	Copy Saved Macro
+
+Opens a dialog allowing you to select any Saved Macro to be copied.  Once you
+have made your selection, you are prompted for a new Macro Name.  After the 
+Saved Macro has been copied, you can edit it to change its script.
+
+	Rename Saved Macro
+
+Offers a dialog allowing you to select any Saved Macro to be renamed.  Once
+you have made your selection, you are prompted for a new Macro Name.  Any
+keyboard shortcut associated with the old Macro Name will be transferred to
+the new one.
+
+	Delete Saved Macro
+
+Offers a dialog allowing you to delete any previously Saved Macros.  These
+will be permanently removed from the "Utils > Saved Macros" menu.
+
+
+	--------------------------------------------------------------------
+
+
+Once you have saved a macro, it is listed in the "Utils > Saved Macros" menu.
+Selecting a Saved Macro Name from this menu will execute it in the active
+window.  The appearance of these Saved Macros in the "Saved Macros" menu can
+be changed by selecting the following commands.
+
+	Hide Saved Macros
+
+(This item is dimmed if all Saved Macros are hidden.)
+
+Removes any Saved Macros from the "Saved Macros" menu, but does not delete
+them permanently.  Any Hidden Macros can be shown again with ...
+
+	Show Hidden Macros
+
+(This item is dimmed if there are no currently Hidden Macros.)
+
+Re-inserts any previously Hidden Macros into the "Saved Macros" menu.
+
+	Assign Shortcuts
+
+(This item is dimmed if there are no Saved Macros.)
+
+Opens a dialog allowing you to assign/change the keyboard shortcut associated
+with any Saved Macro.  Saved Macros that are hidden and subsequently re-shown
+will retain any assigned keyboard shortcut.
+
+Note that keyboard shortcuts set by other menus or modes may take precedence
+over the shortcut that you have selected.  Before choosing a shortcut, you
+should use the "Config > Describe Binding" menu item to ensure that the
+shortcut that you want is available.  See the file "Keyboard Shortcuts" for
+more information.
+
+	Remove Shortcuts
+
+(This item is dimmed if there are no Saved Macros with keyboard shortcuts.)
+
+Offers a dialog allowing you to remove any previously assigned keyboard
+shortcuts that you assigned to your Saved Macros.
+
+
+	====================================================================
+
+
+	  	Writing Good Macros
+
+With practice you will become proficient at constructing macros which work in
+all situations.  The most important principle in creating good macros is the
+use of absolute, rather than relative commands.  In the double-space example
+used in the "Macros Example", we pressed "Control-E" to move to the end of the
+line rather than spacing to the end of the line with a series of "Control-F"
+keypresses.  A good macro will successfully work on the target text and
+prepare itself to be repeated.  In this example, the last command in the macro
+moved the cursor to the next line, precisely where it needs to be for the a
+repeat performance.
+
+While macros are an easy way to automate repetitive typing tasks, they are not
+an alternative for writing your own procedures.  There are many things that
+you can't do with a macro.  Loops, if-then conditionals, and searches cannot
+be recorded with a macro (although they can be easily added.)  Some macros
+might be good starting points, however, for scripting your own procedures.
+
+
+	  	Things That Don't Work
+
+Emacs users will be used to setting up a macro with a search by pressing
+"Control-S".  Alpha is not Emacs!  Text typed into the status bar is not
+recorded.  The command "Control-S" (quickFind) is recorded, but none of the
+search text is.  In order to couple your macro with a search you will have to
+learn a little Tcl (as shown above).
+
+Recursive edits do not work in Alpha.  All keystrokes you type during macro
+recording are a collected.  (A recursive edit in Emacs is invoked with
+"Control-X Q" or "Control-U Control-X Q" and provides a way to pause the macro
+for user enterable text.  While in the recursive edit, the keystrokes are not
+recorded.  During the macro playback, the macro will pause for the user to
+enter text when the recursive edit is encountered.)
+
+
+	  	Differences Between Alpha and Emacs
+
+In the double-space example used in the "Macros Example" tutorial, we used
+"Control-E Control-F" to position the cursor on the next line.  "Control-N" is
+just as good in Alpha; unlike Emacs, Alpha does not add a new line to the
+buffer if "Control-N" is issued on the last line of the file.  If you use
+"Control-N" in Alpha and call the macro more times than there are lines in the
+file no extra lines are added.
+
+
+	--------------------------------------------------------------------
+
+
+ Author: Donavan Hall
+ E-mail: <hall@magnet.fsu.edu>
+

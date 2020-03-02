@@ -1,0 +1,240 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+
+<HTML>
+
+<HEAD>
+
+<TITLE>Word completion</TITLE>
+
+<LINK HREF="../Style%20Sheet/manual.css" REL="stylesheet" TYPE="text/css">
+
+
+</HEAD>
+
+<BODY>
+
+<!-- #INCLUDE INCLPATH="maintop.html" -->
+
+<SCRIPT TYPE="text/javascript">
+<!--
+if (document.body.clientHeight) {
+	height = document.body.clientHeight - 50;
+} else {
+	height = window.innerHeight - 50 ;
+}
+document.write('<div class="main" style="height: ' + height + 'px;">');
+// -->
+</SCRIPT>
+
+
+<!-- /#INCLUDE -->
+
+
+<H1>Word Completion</H1>
+
+<P>
+There is a clever word completion mechanism in HTML mode which saves you 
+keystrokes and time while typing. It also helps you to make sure no tags 
+are misspelt.
+</P>
+
+<P>
+As explained elsewhere you can use either dialog windows or the status bar 
+to insert new tags, but perhaps you prefer simply to type them. Then the 
+word completion mechanism can help you. By default word completion is bound 
+to <SPAN CLASS="item">ctrl-tab</SPAN>. 
+</P>
+
+<P>
+<B>Tip:</B> If you prefer another key binding to ctrl-tab for word 
+completion you 
+can change it using <SPAN CLASS="menuitem">Config-&gt;Special Keys...</SPAN>
+</P>
+
+<P>
+How word completion works is best explained with an example. Let us say you 
+want to type a TABLE tag. First type
+</P>
+
+<P CLASS="code">
+&lt;ta
+</P>
+
+<P>
+If you now hit <SPAN CLASS="itemlight">ctrl-tab</SPAN> this is expanded to
+</P>
+
+<PRE CLASS="code">
+<SPAN CLASS="htmlcode">&lt;TABLE</SPAN>|<SPAN CLASS="htmlcode">&gt;</SPAN>
+    &#8226;
+<SPAN CLASS="htmlcode">&lt;/TABLE&gt;</SPAN>
+&#8226;
+</PRE>
+
+<P>
+Alpha sees that you have typed "ta" and finds that TABLE is the only HTML 
+element beginning by "TA" and therefore completes "TA" to "TABLE". Alpha 
+also automatically inserts a closing tag.
+</P>
+
+<P>
+Alpha now opens an attribute dialog where you can give values to the
+attributes of TABLE. This behavior is customizable. On page 2 in the <A
+HREF="prefs.html#General2">general preference dialog</A> you can tell Alpha
+not to open this dialog by unchecking <SPAN CLASS="item">Open attribute
+dialog after completing an emelent</SPAN>, if you prefer to type also the
+attributes. Clicking Cancel in the attribute dialog leaves the insertion
+point inside the opening tag, while clicking OK moves the insertion point to
+the template stop between the tags. Note that the attribute dialog is only
+opened if the element has any attributes, which you have put in the category
+<SPAN CLASS="item">Always ask about</SPAN> in the <A
+HREF="askedabout.html">Use Attributes</A> dialog. This is the same behavior
+as when you insert a template using a menu item for an element.
+</P>
+
+<P>
+Let us see how you can use word completion to type the attributes. Assume 
+you want the attribute CELLSPACING. Type the first few letters
+</P>
+
+<PRE CLASS="code">
+<SPAN CLASS="htmlcode">&lt;TABLE</SPAN> ce|<SPAN CLASS="htmlcode">&gt;</SPAN>
+    &#8226;
+<SPAN CLASS="htmlcode">&lt;/TABLE&gt;</SPAN>
+&#8226;
+</PRE>
+
+<P>
+and hit <SPAN CLASS="itemlight">ctrl-tab</SPAN> again. In this case there are two attributes beginning by 
+"CE", CELLSPACING and CELLPADDING. If the preference, which is somewhat 
+cryptically called <SPAN CLASS="item">List Pick If Mult Cmps</SPAN> is 
+checked in the dialog <SPAN 
+CLASS="menuitem">Config -&gt; Preferences -&gt; Interface Preferences -&gt; Completions</SPAN> then Alpha opens 
+a window where you can choose which of the two attributes you want. Alpha 
+then completes "ce" to
+</P>
+
+<PRE CLASS="code">
+<SPAN CLASS="htmlcode">&lt;TABLE</SPAN> <SPAN CLASS="attrcode">CELLSPACING=</SPAN><SPAN CLASS="textcode">"</SPAN>|<SPAN CLASS="textcode">"</SPAN>&#8226;<SPAN CLASS="htmlcode">&gt;</SPAN>
+    &#8226;
+<SPAN CLASS="htmlcode">&lt;/TABLE&gt;</SPAN>
+&#8226;
+</PRE>
+
+<P>
+You can now type the value you want for CELLSPACING hit <SPAN
+CLASS="itemlight">tab</SPAN> and write the 
+next attribute.
+</P>
+
+<P>
+If <SPAN CLASS="item">List Pick If Mult Cmps</SPAN> is not checked Alpha 
+will only complete "ce" to "CELL" as it does not know which attribute you 
+want.
+</P>
+
+<PRE CLASS="code">
+<SPAN CLASS="htmlcode">&lt;TABLE</SPAN> CELL|<SPAN CLASS="htmlcode">&gt;</SPAN>&#8226;
+    &#8226;
+<SPAN CLASS="htmlcode">&lt;/TABLE&gt;</SPAN>
+&#8226;
+</PRE>
+
+<H3>Word completion when typing attribute values</H3>
+
+<P>
+You can also use word completion to expand some attribute values. The types 
+for which this is possible are:
+</P>
+
+<UL>
+	<LI><SPAN CLASS="item">Predefined choices</SPAN> Alpha attempts to 
+	match against the list of predefined choices.
+	<LI><SPAN CLASS="item">URL</SPAN> Alpha attempts to match against  
+	your URL cache.
+	<LI><SPAN CLASS="item">Target window</SPAN> Alpha attempts to match 
+	against your window cache.
+	<LI><SPAN CLASS="item">Color</SPAN> Alpha attempts to match against the 
+	list of color names.
+	<LI><SPAN CLASS="item">Content type(s)</SPAN> Alpha attempts to match 
+	against the list of content types. If you type a list of content types 
+	Alpha will attempt to complete the one after the last comma.
+	<LI><SPAN CLASS="item">Media descriptors</SPAN> Alpha attempts to match 
+	against the list of media descriptors. If you type a list of media descriptors
+	Alpha will attempt to complete the one after the last comma.
+	<LI><SPAN CLASS="item">Link types</SPAN> Alpha attempts to match 
+	against the list of link types. If you type a list of link 
+	types Alpha will attempt to complete the one after the last space.
+</UL>
+
+<P>
+Let us illustrate this with an example. Say you want the color "yellow" as 
+the value of the COLOR attribute of a FONT element. Hitting <SPAN
+CLASS="itemlight">ctrl-tab</SPAN> after 
+you have typed
+</P>
+
+<P CLASS="code">
+<SPAN CLASS="htmlcode">&lt;FONT </SPAN><SPAN CLASS="attrcode">COLOR=</SPAN><SPAN
+CLASS="textcode">"ye</SPAN>|<SPAN CLASS="textcode">"</SPAN><SPAN
+CLASS="htmlcode">&gt;</SPAN>
+</P>
+
+<P>
+makes Alpha complete this to
+</P>
+
+<P CLASS="code">
+<SPAN CLASS="htmlcode">&lt;FONT </SPAN><SPAN CLASS="attrcode">COLOR=</SPAN><SPAN
+CLASS="textcode">"#FFFF00"</SPAN><SPAN
+CLASS="htmlcode">&gt;</SPAN>
+</P>
+
+<H3>Word completion when editing CSS and JavaScript</H3>
+
+<P>
+Word completion can also help you when you are editing CSS and JavaScript. 
+See the <A HREF="completionscss.html">CSS</A> and <A 
+HREF="javascript.html">JavaScript</A> sections.
+</P>
+
+<!-- #INCLUDE INCLPATH="mainbottom.html" -->
+
+<DIV STYLE="height: 50px">
+</DIV>
+
+<SCRIPT TYPE="text/javascript">
+<!--
+document.write('<\/DIV>');
+// -->
+</SCRIPT>
+
+
+<!-- /#INCLUDE -->
+
+
+<!-- #INCLUDE INCLPATH="navigation.html" PREV="[manualPrevPage layout.html]" 
+NEXT="[manualNextPage electrics.html]" -->
+
+<P>
+<script type="text/javascript">
+<!--
+document.write('<div class="navigation" style="top: ' + height + 'px; height: 50px">');
+// -->
+</script>
+<A HREF="layout.html">Previous page</A>
+<A HREF="electrics.html">Next page</A>
+<SCRIPT TYPE="text/javascript">
+<!--
+document.write('<\/DIV>');
+// -->
+</SCRIPT>
+</P>
+
+<!-- /#INCLUDE -->
+
+
+
+</BODY>
+
+</HTML>

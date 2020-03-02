@@ -1,0 +1,11 @@
+# Tcl autoload index file: each line identifies a file (nowrap)
+
+set "Perl Mode_index" {
+{perl4.tcl perl4.tcl Perl::DblClick }
+{perl5.tcl perl5.tcl Perl::DblClick podFindMark }
+{perlEngine.tcl perlEngine.tcl perlExecuteFile perlExecuteScript perl getMacPerlError getBatchError showPerlDiag gotoPerlError getPerlDiag perlScriptFlags perlScriptArgs perlDoScript perlDoScriptBatch perlDisplayReply perlDoScriptDebug parseDiagErrf parseDiagSrcs parseDiagMesg parseReplyResult parseReplyOutp parseReplyDiag parseReplyErob parseReplySrcs parseReplySrce parseReplyErrn openPerlOutput }
+{perlFilters&Misc.tcl perlFilters&Misc.tcl perlFindRequire openPerlFile buildPerlSearchPath textFiltersProc repeatLastFilter selectFileAsFilter selectBufferAsFilter perlBufferAsFilter wrapFilterScript pasteFilterResult perlFileAsFilter perlTextFilter perlOpenFile getCmdlineArgs wrapSelectScript completeSelection writeStdin writeScript }
+{perlMenu.tcl perlMenu.tcl menu::buildPerl menu::buildgeneralOptions menu::buildfilterOptions rebuildFilterMenu disableRepeatLastFilter shadowPerl perlHelpProc retrieveOutput useDebugger autoSwitch perlFlip overwriteSelection applyToBuffer promptForArgs macperl perlTellProc perlSaveProc openInMacperl saveThruMacperl quitMacperl runTheSelection runTheBuffer runAFile saveAndRun }
+{perlMode.tcl dummyPerl perlMenu macperlFolder stdinPath scriptPath Perl::insertDivider Perl::parseFuncs Perl::MarkFile Perl::electricLeft Perl::electricRight }
+{perlVersionHistory.tcl }
+}

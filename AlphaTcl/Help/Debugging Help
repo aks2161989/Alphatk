@@ -1,0 +1,543 @@
+
+Known Bugs
+
+                                       help version: 8.1a3
+                                            created: 03/08/1994 {01:47:03 PM}
+                                        last update: 05/15/2006 {02:13:27 PM}
+
+This file includes some tips for debugging AlphaTcl that can help track
+down an observed problem or even point out a solution to fix it.  If you're
+looking at this file wondering whether to report a bug, you might want to
+take a look at the "Known Bugs" help file first.
+
+
+	  	Table Of Contents
+
+"# Introduction"
+"# Help Us Help You"
+"# Version Numbers"
+
+"# Re-installing Alpha or Tcl"
+"# Looking at 'errorInfo'"
+"# Rebuilding Tcl Indices"
+"# Removing Preference Settings"
+"# Removing Preference Files"
+
+"# Debugging AlphaTcl Procedures"
+"#   Which Procedure To Debug?"
+"#   Creating Debugging Windows"
+"#   Finding The Error"
+"#   Catching Errors"
+"#   Forced Shell Dumps"
+"#   More Tcl Shell Debugging Tricks"
+"# Tracing Procedures"
+"#   Which Procedure To Trace?"
+"#   Performing A Stack Trace"
+"#   Starting the Trace"
+"#   Tracing via the Tcl Menu"
+"#   Tracing Tips"
+"# Crash versus Freeze"
+"# Copyright"
+
+<<floatNamedMarks>>
+
+
+	  	Introduction
+
+Alpha has a sophisticated bug-tracking database named "Alpha-Bugzilla" in
+which all of the bugs described in this file are stored.  Please use it, since
+it will help us (and you) to keep track of bugs, potential workarounds, and
+when they are finally fixed.  To use the system, go to
+
+<http://www.purl.org/net/alpha/bugzilla/>.
+
+See the "Alpha-Bugzilla Help" window for more information about this system,
+and how to use Alpha's <<reportABug>> interface to file new bugs.
+
+If you're lucky, simply describing the problem with a reproducible set of
+circumstances will be enough to attract the attention of an Alpha developer
+who will replicate your bug and track down the problem.  If the problem is in
+AlphaTcl, the changes will then be committed to the cvs and included in the
+next release.  (You will often be given a set of code that you could also
+include in a "prefs.tcl" file so that you don't have to live with the bug any
+longer.)
+
+If the bug cannot be replicated, however, you might be asked to provide the
+"errorInfo" associated with a buggy operation, or perform a "Stack Trace" or
+do some other tests to help identify what is taking place in your localized
+installation.  (It is not necessary to create a stack trace in order to file
+a new bug report, but you might be asked to do so later.)  This help file
+provides some guidance on how to perform some of these operations.
+
+
+	  	Help Us Help You
+
+Alpha is maintained by a dedicated corps of volunteers.  Providing them with
+complete information from the outset will always lead to a quicker resolution
+of the issue/bug that you are experiencing.
+
+Note that "Alpha" might refer to Alpha8, AlphaX, or Alphatk throughout the
+documentation (including this file.)  Always identify which program you are
+using, your OS, and all "# Version Numbers" associated with this product.  It
+is also useful to distinguish between a "# Crash versus Freeze" if this is
+applicable.  Perhaps the most annoying comment is "this doesn't work" -- it
+is much more useful to report what does happen, including any status bar
+messages or alert dialog information.  (If there are no messages or dialogs,
+state that explicitly.)  Following these guidelines will help reduce the
+number of posts/questions required to address and fix the problem.
+
+
+	  	Version Numbers
+
+Whenever you are reporting a bug, either in a formal bug report or to one of
+the mailing lists described in the "Readme" file, you should include the
+version numbers of Alpha and other packages that you are using.  If they are
+not the latest you should consider upgrading first too.  (If you use the
+<<reportABug>> procedure to generate the report, this information will be
+automatically included at the bottom of the report.)
+
+To determine the version information for your installation, you can open the
+"Installed Packages" help file and click on the <<global::listPackages>>
+hyperlink to rebuild it.  Current version information will then be listed at
+the top of this window.
+
+It is usually worth checking if there is a newer release available: the
+problem may already have been fixed.  The "Help > AlphaTcl Home Page" menu
+item will open a url in your local browser; the latest versions are always
+announced there.
+
+
+	====================================================================
+
+
+	  	Re-installing Alpha or Tcl
+
+Many users report bugs and explain that they have attempted to re-install
+Alpha or the Tcl scripting software, but that these steps did not address
+their problem.  This is not a surprise.  In general, operational bugs result
+from bad code within the Alpha binary or in the AlphaTcl library of files.
+Re-intalling buggy software won't address any performance issues, but the
+amount of time you spend downloading, unpacking, installing, configuring,
+etc.  will likely be frustrating, especially if it doesn't solve the problem
+that you're experiencing in the first place.
+
+Before you attempt to re-install Alpha, it is recommended that you try some
+of the less intensive debugging measures, such as "# Rebuilding Tcl Indices"
+or "# Removing Preference Files".  Even if you suspect that re-installing
+Alpha will help, you should read some more sections in this help file for
+some techniques that require a lot less time to explore.
+
+Note: your Tcl installation (located in the Library of your OS) is almost
+never to blame for problems that you experience in Alpha, so re-installing
+this is often a complete waste of time -- you should only do this is you have
+a good reason to believe that it is really the problem.  (And even if it is,
+re-installing buggy software still won't help you much.)
+
+
+	  	Looking at 'errorInfo'
+
+Whenever an AlphaTcl procedure encounters a true error in the code, the
+immediate cause is recorded in a global "errorInfo" variable.  
+
+One quick trick you may try is the following.  Open a <<tclShell>> (the
+"Utils > Tcl Shell" menu item) and then repeat the action that caused the
+problem.  Some internal problems are trapped by Alpha and the error
+information is inserted in the shell window if it's open.  If you're lucky,
+your bug is trapped like that and you can report this information.
+
+If that doesn't help you, the "errorInfo" information can be displayed in the
+status bar window, in a dialog, or in a new window.  If you adjust your
+"Display Errors In" preference to the value "new window" then you can copy
+this information into a bug report.
+
+Preferences: Errors
+
+You can obtain the value of the "errorInfo" variable with other methods.
+Each of them assumes that you have just performed the operation that has
+caused the error.
+
+* You can select "Utils > Tcl Shell" to open a <<tclShell>>, and then type
+
+	set errorInfo
+
+and press Return.  The value of the "errorInfo" variable will be inserted
+into the shell window.
+
+* Of course, sometimes opening a shell window (or switching windows) will
+throw an error as well, which will "clobber" the errorInfo that you really
+want.  The "Tcl Menu > Display Error Info" menu item will capture the current
+"errorInfo" variable and display it in a new window -- just activate the Tcl
+menu globally, or for the mode of the active window.
+
+Preferences: Menus
+
+* Another method is to press Escape-X and then type this command into the
+status bar window:
+
+	putScrap $errorInfo
+
+This will place the value of "errorInfo" into the Clipboard.
+
+
+	  	Rebuilding Tcl Indices
+
+With some errors rebuilding your "Tcl indices" might solve the problem;
+select the "Config > Packages > Rebuild Package Indices" command to do this.
+After rebuilding indices, quit and restart Alpha, and then determine if the
+bug is still present.  If you can replicate it, continue reading this file to
+obtain more debugging information.
+
+
+	  	Removing Preference Settings
+
+Sometimes one of your preferences has a faulty value that prevents the proper
+operation of some routine.  If the error message (or a note from an AlphaTcl
+developer) suggests that this might be the case, you can try selecting the
+menu command "Config > Preferences > Remove Saved Setting" to restore a
+preference value to the default value.  You must immediately restart Alpha
+after selecting this command in order for the default value to be restored.
+
+If this doesn't help, you might consider something more drastic...
+
+
+	  	Removing Preference Files
+
+One of the most common problems in any software is a corrupted preferences
+file; removing the file and restarting the program might make a problem
+disappear.  The main disadvantage with this technique is that your previous
+preferences are of course lost, so you must spend some time re-configuring
+all of them.
+
+Alpha stores all of its preferences in a special folder on your hard drive.
+The location of this folder is platform specific, see this wiki page
+
+<http://www.purl.org/net/alpha/wikipages/prefs-folder>
+
+for more information.  To locate your preferences folder right now, click
+here: <<file::showInFinder $PREFS>>.  
+
+Some of the more likely candidates for corrupted preference files that might
+cause a problem during startup include:
+
+	arrdefs.tcl
+	backuparrdefs.tcl
+	backupdefs.tcl
+	defs.tcl
+	earlydefs.tcl
+	prefs.tcl
+	xservdefs.bak
+	xservdefs.tcl
+
+These files will be re-created during startup (or when quitting) if they
+don't already exist.  If you suspect that one of the files in this folder is
+corrupt, you can take the following steps to test your theory:
+
+(1) Quit Alpha
+(2) Move a file from this folder to your desktop
+(3) Restart Alpha
+
+If the problem persists, move the original file to your preferences folder
+and try the above sequence with a different file.  A last resort test would
+involve moving the entire preferences folder to your desktop and restarting.
+Again, if this doesn't fix the problem then you can move the original folder
+back so that at least your old preferences will still be in place as you
+attempt additional debugging methods.
+
+(Mac OS X note: While AlphaX does create a ".plist" file, at present none of
+your user settings are stored there, and removing/editing this file will most
+likely not address a problem in the operation of the software.)
+
+
+	====================================================================
+
+
+	  	Debugging AlphaTcl Procedures
+
+Each distribution of Alpha contains two components: the core application and
+a collection of Tool Command Language (Tcl) open-source files known
+collectively as "AlphaTcl".  Most of the "extra" functionality that makes
+Alpha so useful is implemented by AlphaTcl in various "packages" or
+"extensions" that affect the colors that appear in windows, Keyboard
+Shortcuts, menubar menus, etc.  and other elements of the User Interface.
+
+While you might not have access to "core" routines, all of the .tcl files are
+easily accessible.  AlphaTcl contains a sophisticated "Tcl" mode that allows
+you to not only edit them, but to also "evaluate" them using Alpha's internal
+Tcl interpreter in order to change its behavior (or to "debug" them in order
+to correct the occasional mistake that finds its way into the code.)
+
+The "tclMode.tcl" file is one example of an installed .tcl file that defines
+AlphaTcl's Tcl mode.  Click here <<file::showInFinder [file join $HOME Tcl]>>
+to locate this collection of files in your local disk.  AlphaTcl's Tcl mode
+and the package: alphaDeveloperMenu are used extensively by developers to
+improve Alpha.
+
+Tip: Command-Double-Clicking on any AlphaTcl procedure name in a Tcl mode
+window should open the file that defines it.
+
+
+	  	 	Which Procedure To Debug?
+
+Of course, in order to debug an AlphaTcl procedure, you first have to know
+its name!
+
+If a menu-selection causes a problem, then there are three ways you may be
+able to determine which procedure to trace:
+
+(1) Ask on the alphatcl-developers mailing list; see the information in the
+"Readme # Internet resources" file for more information.
+
+(2) If the menu item has a Keyboard Shortcut (or if the problem occurs with a
+given key-press) , then use "Config > Describe Binding" menu item (which is
+bound to F7) to find the procedure.  For example, Command-I might be bound to
+
+	menu::textEditProc Text fillParagraph
+
+In this case, [menu::textEditProc] is the first procedure to you might want
+to debug.
+
+(3) If the menu item is called "Cmd Double Click", then the procedure might
+be named
+
+	cmdDoubleClick
+
+(i.e. scrunch everything together and make the first character lower case).
+
+Click here: <<procs::pick>> to open a dialog listing all defined procedures
+in the various Tcl "namespaces" -- selecting one will open the file in which
+the procedure is defined.
+
+
+	  	 	Creating Debugging Windows
+		
+Once you know the name of the AlphaTcl procedure that is causing the problem,
+select "Utils > Tcl Shell" to open a <<tclShell>> window and insert the
+following code in the command line:
+
+	procs::debug <procName>
+
+as in
+
+	procs::debug Tcl::MarkFile
+
+This will open a new editable window with body of the procedure's definition
+that you can inspect and manipulate as described below.
+
+If you are editing a .tcl file (in Tcl mode), you can also select the menu
+item "Tcl Menu > Tcl Procedures > Debug Proc" to open a debugging window.  If
+the current selected text is the name of a loaded procedure, that one will be
+used to create the debugging window; otherwise you will be prompted to choose
+the name of a loaded procedure.
+
+
+	  	 	Finding The Error
+
+If the given procedure throws an error before it reaches the end of its
+script, the first debugging step often involves finding out where the error
+occurs.  One common method for this is to place an [alertnote] within the
+body of the procedure, as in
+
+	alertnote "here"
+
+Or you can place a series of these calls in the body of the procedure, as in
+
+	proc testProc {args} {
+	    set value [lindex $args end]
+	    alertnote "beginning value: $value"
+	    incr value
+	    alertnote "new value: $value"
+	    ...
+	}
+
+If an error is thrown when the operation is called, you will then at least
+know how far you got before you ran into a problem.
+
+
+	  	 	Catching Errors
+
+The Tcl command: catch is very useful for determining if some other procedure
+that is called by one in question is causing the error.  Any [catch] script
+returns "1" if an error was thrown, and "0" if the script was fine, and will
+optionally place the "return value" or error code into a variable.  For
+example, you can include this:
+
+	proc testProc {args} {
+	    set value [lindex $args end]
+	    alertnote "beginning value: $value"
+		if {[catch {Tcl::MarkFile} result]} {
+	        alertnote "caught: $result"
+	    }
+	    ...
+	}
+
+This can help you determine why a complicated procedure is failing.
+
+
+	  	 	Forced Shell Dumps
+
+Another way to debug Tcl routines is to insert statements that print values
+to another window.  For example, one could use the following routine:
+
+	proc out {args} {
+		insertText -w {* Tcl Shell *} $args
+	}
+
+to insert the value of the "args" variable that is created by the procedure.
+Or you can use "puts stdout" or "puts stderr" as in
+
+	proc out {args} {
+		puts stdout $args
+	}
+
+Both of these require that the AlphaTcl Shell window be opened before the
+procedure is actually called.
+
+
+	  	 	More Tcl Shell Debugging Tricks
+
+When you want to get a handle on what a proc is doing, you can use a
+combination of the source in one window and the shell in another.
+
+(1) First, figure out what values the parameters of the proc would take on in
+the case you want to investigate, (perhaps from a trace while running things
+normally).
+
+(2) Now go to the shell and set variables with the same names as the
+parameters to the values you discovered through the trace.
+
+(3) Now go to the tcl source file and select a subset of the proc's internal
+code and just load ("Tcl Menu > Evaluate") it.
+
+After each successive part is run you can pop over to the shell and use it to
+check out the state of any variable with a simple set statement, or, even
+easier, just Command-Double-Click on a variable name if you want to inspect
+the variable's value.
+
+
+	  	Tracing Procedures
+
+For Tcl problems, it is also invaluable to have a "Stack Trace".  In fact,
+without a "Stack Trace" it is ALMOST ALWAYS NOT POSSIBLE to track down
+problems in Alpha's Tcl code, unless they lead to very "visual" problems, or
+unless you can give extremely precise instructions on how to reproduce the
+bug.
+
+Assuming a single action triggered the bug, you will need to find out what
+"procedure" that single action is calling, and then perform a trace on that
+procedure.  So there are now two steps to follow:
+
+¥ You need to determine which procedure to trace.
+¥ You need to carry out the actual trace.
+
+
+	  	 	Which Procedure To Trace?
+
+See the "# Which Procedure To Debug?" section above to determine the name of
+the AlphaTcl procedure that should be traced.
+
+
+	  	 	Performing A Stack Trace
+
+A stack trace is a detailed list of each internal command called together with
+the parameters used for that command, and the results of the command.  A stack
+trace records everything that happens inside a given "procedure", so if that
+procedure does something wrong, the stack trace should contain the information
+to understand the problem, and hopefully to fix it.
+
+For experienced Tcl programmers, a stack trace usually lets one diagnose even
+very subtle problems.  More blatant errors can be diagnosed even by
+inexperienced Tcl programmers.  Either way stack traces are a good way of
+beginning to understand what goes on in Alpha's internals.
+
+	  	 	Starting the Trace
+
+The easiest way to start a trace is click on this <<bugzilla::traceProc>>
+hyperlink.  This will prompt you to identify the procedure to be traced, open
+a new window with further instructions, open the Tracing "console" as a
+floating menu palette, and then start the tracing routine.  Click on this
+hyperlink <<bugzilla::floatTracingMenu>> to see what the console looks like.
+
+All that you need to do is perform the action that calls that procedure, and
+then click on the button named "Stop Tracing" that appears in the console.
+Consult the "* Tracing Instructions *" window that is created by the above
+hyperlink for more information.
+
+Note: the first dialog that appears when "Help > Report A Bug" is selected
+(<<reportABug>>) contains a number of options in a pop-up menu, including one
+labelled "Perform a Tcl 'stack trace'" -- select that and then press Continue
+to call this routine.
+
+	  	 	Tracing via the Tcl Menu
+
+If you debug a lot of Tcl code you might want to turn on the "Tcl Menu" a
+global menu -- The items in the "Tcl Menu > Tcl Tracing" menu are for stack
+traces.  Another alternative to activate that menu is to open an AlphaTcl
+Shell window <<tclShell>> -- this will insert the Tcl menu into the menubar.
+To open a Tcl shell, select the "Utils > Tcl Shell" menu item.
+
+To start the trace using the menu items,
+
+(1) Select the "Tcl Tracing > Trace Tcl ProcÉ" menu item.
+
+(2) From the listbox that appears, select the procedure you need to trace.
+
+(3) Go back to a situation in which the bug occurs and repeat the action
+that shows up the bug/causes the problem.
+
+(4) Go back to the Tcl shell, and select "Tcl Tracing > Display Traces" from
+the Tcl Menu.
+
+	  	 	Tracing Tips
+
+* If the trace dump is empty, you probably traced the wrong procedure.  In
+this case ask for help on the alphatcl-developers list.
+
+* If the stack trace is really long, check if it has calls to "unknown" in
+it.  If this is the case, then calling that procedure required the
+"auto_loading" of various files.  Try tracing the procedure again to see if
+the size is then reduced.  Tip: You can also load those procedures manually
+by calling
+
+	auto_load <procName>
+
+in the <<tclShell>> before carrying out the trace, but this shouldn't be
+necessary if you have already traced the procedure once.
+
+* After creating the non-empty trace window is not empty, save it as a file
+on a local disk, and mail the resulting window trace dump to the person
+designated by the alphatcl-developers list (usually stack traces are very
+large, so it is not nice to mail the whole thing to the list), or compress it
+and attach it to a previously filed bug report.  You can do so by clicking on
+this <<bugzilla::createAttachment>> hyperlink, or by selecting the
+appropriate option in the "Help > Report A Bug" dialog.
+
+
+	  	Crash versus Freeze
+
+When you are discussing a bug, whether you are doing so in a file bug report
+or in a listserv message, please try to distinguish between a "crash" in
+which the entire Alpha application quits or your machine locks up, and a more
+typical problem of a "bug/failure/error" in which some operation inside Alpha
+simply doesn't do what you expected (in the latter case you can always make a
+stack trace, in the former that will be quite difficult).  Note that a
+"freeze" is different from a "crash", the former usually resulting from some
+some proc that is caught in an infinite recursive loop.
+
+In any case, one goal is to determine where the crash or freeze occurs.  You
+can use some of the steps outlined above to determine how far a procedure is
+evaluated before the crash/freeze occurs.  One common method for this is to
+place an [alertnote] within the body of the procedure, as in
+
+	alertnote "here"
+
+to find out if you reach that point in the code before your error is
+encountered.  Tip: if the error results in a freeze/crash, you should save
+the file containing the debugging [alertnote] dialog calls before you
+evaluate it, so that it is easier to remember which step caused the bug when
+you restart Alpha!
+
+
+	  	Copyright
+
+This document has been placed in the public domain.
+

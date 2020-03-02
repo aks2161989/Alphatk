@@ -1,0 +1,288 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<HTML>
+
+<HEAD>
+
+<TITLE>Checking links</TITLE>
+
+<LINK HREF="../Style%20Sheet/manual.css" REL="stylesheet" TYPE="text/css">
+
+
+</HEAD>
+
+<BODY>
+
+<!-- #INCLUDE INCLPATH="maintop.html" -->
+
+<SCRIPT TYPE="text/javascript">
+<!--
+if (document.body.clientHeight) {
+	height = document.body.clientHeight - 50;
+} else {
+	height = window.innerHeight - 50 ;
+}
+document.write('<div class="main" style="height: ' + height + 'px;">');
+// -->
+</SCRIPT>
+
+
+<!-- /#INCLUDE -->
+
+
+<H1>Checking links</H1>
+
+
+<P>
+<IMG SRC="../bilder/checklinks.png" ALT="Check Links menu" WIDTH="180"
+HEIGHT="136" CLASS="rightpic">
+The <SPAN CLASS="menu">Check Links</SPAN> menu contains functions to scan 
+files and check that all links, HREFs, SRCs etc. as well as CSS links 
+url("...")  point to files which exist.  The files which are scanned are 
+the HTML and CSS files.  For this to be useful the files in your 
+home page folders must be mirrors of the files at your servers.  If you use 
+this function as intended you never have to worry about dead links between 
+your files anymore.
+</P>
+
+<P>
+It works as follows: In every file scanned Alpha looks for all link 
+attributes: HREFs, SRCs, etc in the file.  If you use the BASE element it 
+will be noticed and used to determine to which URL a link is pointing. 
+Everything inside comments is ignored.
+</P>
+
+<P>
+For each link Alpha first determines where it is pointing. Links to remote 
+servers, which you do not have a home page folder for, are ignored.  Also, 
+if you have a home page folder for http://www.net/~myplace/, links like 
+http://www.net/file.html are ignored, as they are outside your home page.  
+For all other links, Alpha checks if the file exist.
+</P>
+
+<P>
+If any invalid links are found, a 
+window is opened where the lines look as follows:
+</P>
+
+	
+<PRE CLASS="code">
+file.html                Line 8:   HREF="otherfile.html"
+file2.html               Line 23:  (anchor missing) HREF="file.html#anchor"
+folder:file3.html        Line 17:  (BASE used) SRC="pic/coolpic.gif"
+</PRE>
+
+	
+
+<P>
+In the first column is the name of the file with the link, 
+including the path relative to the home page folder.  In 
+the second column is the line number where the invalid link 
+is, and in the third column is the link itself.
+(anchor missing) means that the file exists but that the anchor
+is missing in the file. 
+(BASE used) means that the file contains a BASE element.  
+Use the up and down arrows to select a line in this window, 
+and carriage return to open the file and select the line 
+with the invalid link.
+</P>
+
+<P>
+You can optionally check that the case of the links match the case of the 
+file names on your disk.  This can be useful as Mac file names are not case 
+sensitive, while for example unix file names are.  Therefore a link can 
+work on your Mac but not work on a unix machine. Checking the case makes 
+link checking slower and is therefore not done by default. See below how to 
+enable case sensitive link checking.
+</P>
+
+<H2>Fixing a broken link</H2>
+
+<P>
+You can fix broken links by selecting a new one. To do this
+</P>
+
+<UL>
+	<LI>Browse to the line with the link you want to fix in the window with 
+	invalid links.
+	<LI>Hit <SPAN CLASS="item">option-return</SPAN>. You can now select a 
+	new file from a file dialog.
+	<LI>The link is now changed in your HTML document and the link is 
+	removed from the list of invalid links.
+</UL>
+
+<P>
+When the broken link contains an anchor "file.html#anchor", Alpha checks if 
+the new file contains that anchor. If it does, #anchor is added to the new 
+link, otherwise not.
+</P>
+
+<P>
+Fixing a link works as long as you do not make any other changes to the 
+file first. Then Alpha may not find the line with the broken link.
+</P>
+
+<H2>Checking links with Big Brother</H2>
+
+<P>
+Big Brother is a shareware program by Fran&ccedil;ois Pottier, 
+Francois.Pottier@inria.fr.  You can get Big Brother from his <A 
+HREF="http://pauillac.inria.fr/~fpottier/" TARGET="_top">home page</A>.
+</P>
+
+<P>
+The big advantage with Big Brother is that it can check all your remote 
+links.  It checks local links on your hard disk with about the same speed 
+as Alpha, but Big Brother can run in the background while you do other 
+things. Differences between Alpha and Big Brother are
+</P> 
+
+<UL>
+	<LI>Big Brother understands all HTML 3.2 links, but not things like 
+	&lt;FRAME SRC="url"&gt;
+	<LI>Big Brother does not check anchors.
+	<LI>Big Brother does not check CSS links.
+</UL>
+
+
+<div CLASS="item">Check Remote Links</div>
+
+<DIV CLASS="indent">
+To check remote links in the current window using Big Brother. Big Brother 
+1.2 or later is required to use this function. A list of all remote links 
+in the current window is sent to Big Brother. Big Brother checks the links 
+and sends the result back to Alpha, which displays the result in a window. 
+If a page has moved to a new location the link in your HTML window is 
+automatically updated. Don't make any other changes to the file while 
+checking remote links, because then Alpha may not find the line with the 
+link to update.
+</DIV>
+
+<div CLASS="itempara">Use Big Brother</div>
+<DIV CLASS="indent">Marking this menu item 
+to indicates that link checks will be done with Big Brother instead of 
+Alpha.  If this menu item is checked, files and folders will be sent to Big 
+Brother when you check links.
+
+
+<P>
+Some settings are temporarily changed in Big 
+Brother, when you send a file or folder to it. These are
+</P>
+
+<UL>
+<LI>The URL mapping of your home page folders.
+<LI>If subfolders should be searched or not.
+<LI>If case sensitive link checking should be done.
+<LI>Optionally you can tell Big Brother if it should 
+ignore remote or local links.  By default Big Brother's settings 
+for this are used.
+</UL>
+
+</DIV>
+
+<H2>Link checking preferences</H2>
+
+<P>
+You can set some preferences for how to check links in the dialog box <SPAN
+CLASS="menuitem">Check Links...</SPAN> in the <SPAN 
+CLASS="menu">Preferences</SPAN> menu.
+</P>
+
+<P>
+<img src="../bilder/checklinkprefs.png" alt="Check link prefs" width="489"
+height="361">
+</P>
+
+
+<div CLASS="item">Check anchors</div>
+
+<DIV CLASS="indent">
+When checked, 'Check links' will check that there is an anchor &lt;A 
+NAME="anchor"&gt; in file.html if a link &lt;A HREF="file.html#anchor"&gt; 
+points to it. By default anchors are checked.
+</DIV>
+
+
+<div CLASS="itempara">Case sensitive checking (slower)</div>
+
+<DIV CLASS="indent">
+When checked, 'Check Links' will check that the case in the links match the 
+case in the file and folder names. This can be useful as Mac file names are 
+not case sensitive, while for example unix file names are. Case sensitive 
+checking is slower, and therefore not done by default. If you send the 
+files to Big Brother, Big Brother also uses this setting to decide if case 
+sensitive checking should be made.
+</DIV>
+
+<div CLASS="itempara">Bring Big Brother to front when checking 
+links</div>
+
+<DIV CLASS="indent">
+If you use Big Brother to check links, this will determine if Big Brother 
+stays in the background or not, when you send files to it. By default Big 
+Brother is brought to the front.
+</DIV>
+
+<div CLASS="itempara">Use Big Brother's link check 
+options</div>
+
+<DIV CLASS="indent">
+When not checked, the settings for the two links checking options below 
+will used instead of the corresponding options in Big Brother. By default 
+Big Brother's settings are used.
+</DIV>
+
+
+<div CLASS="itempara">Ignore remote links</div>
+
+<DIV CLASS="indent">
+The same as the corresponding option in Big Brother.
+</DIV>
+
+
+<div CLASS="itempara">Ignore local links</div>
+
+<DIV CLASS="indent">
+The same as the corresponding option in Big Brother.
+</DIV>
+
+<!-- #INCLUDE INCLPATH="mainbottom.html" -->
+
+<DIV STYLE="height: 50px">
+</DIV>
+
+<SCRIPT TYPE="text/javascript">
+<!--
+document.write('<\/DIV>');
+// -->
+</SCRIPT>
+
+
+<!-- /#INCLUDE -->
+
+
+<!-- #INCLUDE INCLPATH="navigation.html" PREV="[manualPrevPage caches.html]" 
+NEXT="[manualNextPage includes.html]" -->
+
+<P>
+<script type="text/javascript">
+<!--
+document.write('<div class="navigation" style="top: ' + height + 'px; height: 50px">');
+// -->
+</script>
+<A HREF="caches.html">Previous page</A>
+<A HREF="includes.html">Next page</A>
+<SCRIPT TYPE="text/javascript">
+<!--
+document.write('<\/DIV>');
+// -->
+</SCRIPT>
+</P>
+
+<!-- /#INCLUDE -->
+
+
+</BODY>
+
+</HTML>

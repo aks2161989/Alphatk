@@ -1,0 +1,6 @@
+// InfoPlist.strings
+// Localized versions of Info.plist keys
+{
+	CFBundleName = "tclAE";
+	NSHumanReadableCopyright = "Copyright © 1990-2002 by Jonathan E. Guyer, Daniel A. Steffen, Peter J. Keleher & Tim Endres.";
+}

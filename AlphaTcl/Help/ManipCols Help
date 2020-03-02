@@ -1,0 +1,544 @@
+This file : manipCols Help 
+        Created : 2000-05-27  08:28:25 
+        Last modification : 2002-08-09 19:40:29
+Author : Bernard Desgraupes 
+e-mail : <bdesgraupes@easyconnect.fr> 
+Web-page : <http://webperso.easyconnect.fr/bdesgraupes/> 
+
+Comments :  help file for the columns manipulation package in Alpha.
+This file should be located in the Help subfolder of Alpha's folder
+to show up automatically in the Help menu when Alpha is loaded.  
+
+(c) Copyright : Bernard Desgraupes 2000, 2001, 2002
+        All rights reserved.
+
+					Abstract
+
+This is "ManipCols Help", help file for the columns manipulation package in
+Alpha. This file should be located in the Help subfolder of Alpha's  folder
+to show up automatically in the Help menu when Alpha is loaded.
+
+
+
+----------------------------------------------------------------------
+1. Introduction
+2. Installation
+   2.1. Automatic installation
+   2.2. Manual installation
+   2.3. Activating the manipCols feature
+   2.4. After installing
+3. Basics
+   3.1. Columns selection
+   3.2. Columns separator
+   3.3. Caveat
+   3.4. Text columnizing
+   3.5. More examples
+4. Menu Items
+   4.1. Main columns menu
+   4.2. Columns formatting submenu
+   4.3. Columns sorting submenu
+   4.4. Columns utilities submenu
+5. Key Bindings
+6. Preferences
+7. Version History
+8. More Cols Package
+9. Known problems
+   9.1. Troubleshooting
+   9.2. Bugs report
+10. License terms
+----------------------------------------------------------------------
+
+
+1. Introduction
+
+The 'manipCols' package is a feature which    allows    to    do    various
+manipulations with the columns of any tabulated material i-e  a  series  of
+lines in which items are separated by a tabulation or by any other specific
+character (like & or a tabulation or a colon, a comma, an  endash  etc.  or
+even the space character). Once it is installed and activated,  it  adds  a
+submenu called Columns to the Text menu in Alpha.  The  items  of  this
+submenu are explained below. Basic manipulations  are  copying,  inserting,
+appending, twiddling,  deleting,  sorting,  numbering  and  (un/)equalizing
+columns, formating text in columns.
+
+2. Installation
+
+2.1. Automatic installation
+Open the "OPEN TO INSTALL" file. Opening this file indicates to Alpha  that
+a new package has to be installed  :  the  procedure  is  automatic.  Alpha
+knows where to store the different elements of your manipCols package.
+
+2.2. Manual installation
+
+
+   1. put the "manipCols.tcl" file in the "Packages" subfolder  of  the  "Tcl"
+folder which is located at the same level as your Alpha application
+
+   2. put the "ManipCols Help" file in the "Help" folder located at  the  same
+level  as your Alpha application. Next time you launch Alpha, you will have
+a "ManipCols Help" item in the Help menu.
+
+   3. launch Alpha. You have to  rebuild  the  package  indices  and  the  Tcl
+indices. Rebuild Package Indices is in  the  Config-Packages  menu,  and
+Rebuild Tcl Indices is in the Tcl menu.
+
+   4. quit Alpha and relaunch it : that's all there is to it.
+
+2.3. Activating the manipCols feature
+Go to "Config->Global Setup->Features" and select  'Manip  Cols'
+in the features list by checking the corresponding checkbox.
+
+2.4. After installing
+Have a look at the Manip Cols preferences in the Packages submenu of  the
+Config menu. More explanations below.
+
+3. Basics
+
+3.1. Columns selection
+to select one or several columns, put the cursor anywhere in  the  text  of
+the top left item (or "cell") you want to select, press  the  mouse  button
+and,  without releasing the button, go to the text of the bottom right item
+you want to select.
+This will hilite a region which is much more than what  you  want  but  the
+package will consider only the columns located between the top  and  bottom
+positions.
+Here is an example (from Romeo and Juliet). We suppose here that each  word
+is separated by a tabulation (any single  character  can  be  chosen  as  a
+separator, even the space character; see below) :
+Gallop  apace,   you      fiery-footed steeds, 
+Towards Phoebus' lodging; such         a       waggoner     
+As      Phaethon would    whip         you     to           the west, 
+And     bring    in       cloudy       night   immediately. 
+
+Put the cursor in the word 'you' (first row, third word), press  the  mouse
+button and, without releasing it, go to the word 'whip' in the  third  row,
+then release : you have selected the following region
+you	fiery-footed
+lodging;	such
+would	whip
+
+even though all the words from 'you' to 'whip' are hilited.  We  have  thus
+selected columns 3-4 and rows 1-3.
+It is sometimes difficult to be sure what has been selected because columns
+are not aligned vertically so  you  can  check  this  using  the  Colorize
+Columns menu item : only the selected columns will be colorized like so
+Gallop  apace,   you      fiery-footed steeds, 
+Towards Phoebus' lodging; such         a       waggoner     
+As      Phaethon would    whip         you     to           the west, 
+And     bring    in       cloudy       night   immediately. 
+
+So dragging the mouse from position (a,b) in a table to position (c,d) 
+selects columns 'a' to 'c' and rows 'b' to 'd'.
+
+If you want to have a better vertical alignment of your columns you can use
+the Equalize Columns menu item. Select the region  as  above  and  select
+Equalize Columns in the Columns menu. The result will be :
+Gallop  apace,   you      fiery-footed steeds, 
+Towards Phoebus' lodging; such         a       waggoner     
+As      Phaethon would    whip         you     to           the west, 
+And     bring    in       cloudy       night   immediately. 
+
+By the way, equalizing makes it very easy to  use  rectangular  hiliting  :
+select a region with the mouse holding the option key down.
+
+
+3.2. Columns separator
+It must NECESSARILY be a SINGLE character. 
+Default is the tabulation character \t. 
+With Latex you might want to choose '&' as a separator for \array or \table
+environments:
+
+	     \begin{tabular}{|c|c|c|}
+	 	\hline
+	     you & fiery-footed \\
+	     lodging; & such \\
+	     would & whip \\
+	 	\hline
+	     \end{tabular}
+
+You can even use the  'space'  character  as  a  separator.  See  also  the
+Columns to Latex item below.
+
+3.3. Caveat
+
+• the cursor can be positioned anywhere in a "cell"  :  the  entire  column
+will always be selected.
+• you do not have necessarily to colorize the selected region. This is just
+handy for visualisation. BEWARE  that  this  procedure  removes  all  other
+colors in your document (this proc might be improved later).
+• columns are numbered from 1 to n (see the messages in the status bar).
+• hiliting must still be there if you want to  apply  a  manipulation  like
+copying, inserting, appending, twiddling, deleting columns.
+• note that (since version 0.5b) you DO NOT have anymore to escape (i-e put
+a backslash before) the special characters like 'backslash' \ or 'dollar' $
+or 'circumflex' ^ or 'endash'  -  etc.  The  package  takes  care  of  this
+internally. The tabulation character though is represented by '\t'.
+• all the actions are undoable (with cmd-Z).
+
+
+3.4. Text columnizing
+There are tools to format text in vertical justified  columns  (single
+or multiple).  This  will  be  very  handy  to  prepare  nice  looking
+documentations, help files, etc. All the  paragraphs  in  the  present
+file have been justified with this tool. Everything is parametrizable:
+number of columns, left margin, text width.
+Here an example of multicolumnizing :
+Gallop  apace,        you to the west, and bring in That runaways'  eyes  may 
+fiery-footed      steeds, cloudy night immediately. wink, and Romeo  leap  to 
+towards Phoebus' lodging; Spread thy close curtain, these arms,  untalk'd-of, 
+such  a    waggoner    as love performing    night! and unseen !              
+Phaethon would  whip  you 
+
+
+3.5. More examples
+You can now select a region and experiment : here are some examples applied
+to the previous selection.
+
+'Deleting'
+Gallop  apace,   steeds,  
+Towards Phoebus' a        waggoner     
+As      Phaethon you      to           the     west,        
+And     bring    in       cloudy       night   immediately. 
+
+'Copying, selecting the first two lines and appending'
+Gallop  apace,   you      fiery-footed steeds, you          fiery-footed 
+Towards Phoebus' lodging; such         a       waggoner     lodging;     such         
+As      Phaethon would    whip         you     to           the          west,        
+And     bring    in       cloudy       night   immediately. 
+
+'Copying, selecting the second column and inserting'
+Gallop  you      fiery-footed apace,       you      fiery-footed steeds, 
+Towards lodging; such         Phoebus'     lodging; such         a       waggoner     
+As      would    whip         Phaethon     would    whip         you     to           the west, 
+And     bring    in           cloudy       night    immediately. 
+
+'Twiddling'
+Gallop  apace,   fiery-footed you          steeds, 
+Towards Phoebus' such         lodging;     a       waggoner     
+As      Phaethon whip         would        you     to           the west, 
+And     bring    in           cloudy       night   immediately. 
+
+'Sorting Columns'
+Gallop  apace,   lodging; such         steeds, 
+Towards Phoebus' would    whip         a       waggoner     
+As      Phaethon you      fiery-footed you     to           the west, 
+And     bring    in       cloudy       night   immediately. 
+
+'Selecting the first two lines and reverse sorting rows'
+you          steeds,  apace,       Gallop       fiery-footed 
+waggoner     Towards  such         Phoebus'     lodging;     a            
+As           Phaethon would        whip         you          to           the west, 
+And          bring    in           cloudy       night        immediately. 
+
+'Selecting all four lines and inserting rows numbers'
+1 Gallop  apace,   you      fiery-footed steeds, 
+2 Towards Phoebus' lodging; such         a       waggoner     
+3 As      Phaethon would    whip         you     to           the west, 
+4 And     bring    in       cloudy       night   immediately. 
+
+etc. etc.
+
+
+
+4. Menu Items
+
+Almost all of these items suppose you have selected columns : see above 
+how to select columns.
+4.1. Main columns menu
+
+<Copy Columns>
+			Copy the selected columns in the MacOS system
+			scrap.  Note  that  if  no  region  has  been
+			selected or hilited,    the    entire    line
+			containing the cursor will be copied.
+<Insert Columns>
+			Insert columns from the system  scrap  BEFORE
+			the first selected column.
+<Append Columns>
+			Append columns contained in the system  scrap
+			to the  right  of  the  selected  lines.  The
+			procedure will append as much as it can :  if
+			you have selected a  region  with  less  rows
+			than the material  contained  in  the  system
+			scrap, it will ignore the remaining lines.
+<Cut Columns>
+			Delete the selected columns and send  a  copy
+			to the system  scrap  so  that  they  may  be
+			pasted, inserted, appended elsewhere.
+			All the columns to the right of the selection
+			will be shifted left.
+<Delete Columns>
+			Delete the selected columns.
+<Twiddle Columns>
+			Exchange the leftmost and right most  columns
+			of your selection. Note that  there  must  be
+			enough elements on each    row    to    allow
+			twiddling : if not the  procedure  will  fail
+			and send  an  alert.  This  can  easily  been
+			solved by using the Complete Rows item.
+<Transpose Columns>
+            Transpose columns and  rows.  All  rows  must
+            have the same number of cells. The entire row
+            is transposed  even  if  you  select  only  a
+            portion.
+<Colorize Columns>
+			Colorize the selected items. This  is  useful
+			to visualize a selected  region  and  control
+			that it contains what you want.  Please  note
+			that you will lose any colorization  you  did
+			previously in your file. This point should be
+			improved later. So use with care.
+
+
+4.2. Columns formatting submenu
+
+<Equalize Columns>
+			This proc calculates the  maximum  length  of
+			each of the selected columns and appends  the
+			necessary amount of blank space so that  each
+			column has a  unique  width.  This  allows  a
+			perfect vertical alignment to make selections
+			easier. Equalizing columns makes it very easy
+			to use rectangular hiliting : select a region
+			with the mouse holding the option key down.
+<Unequalize Columns>
+			This is the opposite of the previous items  :
+			any blank space at the right of a "cell" will
+			be trimed.
+<Complete Rows>
+			In case all the rows do  not  have  the  same
+			"length" (i-e number    of    items),    this
+			procedure will add empty   cells    to    the
+			incomplete rows.
+<Right Justify>
+			To right justify the selected columns.
+<Center>
+			To center the selected columns.
+<Left Justify >
+			To left justify the selected columns.
+<Insert Rows Numbers>
+			Insert the number of the row at the beginning
+			of the selected lines. Numbers are  separated
+			by the current  separator  and  constitute  a
+			separate column.
+<Insert Numbers From...>
+			The same as the previous except that you are
+			prompted to choose the starting  number.  The
+			last number reached in a  previous  numbering
+			is proposed as a default choice.
+<Columnize Text>
+			To justify the selected text  :  it  is  left
+			and right  justified    vertically    in    a
+			rectangle. The values for the left margin and
+			for the total text width can be set with  the
+			Set Margins item. Default  values  in  Text
+			mode are 5 and 75.
+<Multi Columnize Text>
+			To put text in multiple  columns  like  in  a
+			newspaper. You are prompted in the status bar
+			to choose  the  number  of  columns  (default
+			value is 2).
+<Uncolumnize Text>
+			To  undo  the  previous  command  :  all  the
+			columns of a table will be put one  over  the
+			other in a single column.
+			
+
+4.3. Columns sorting submenu
+			
+<Sort Columns >
+
+<Reverse Sort Columns     >
+
+<Num Sort Columns>
+
+<Reverse Num Sort Columns >
+			This allows different  kinds  of  sorting  of
+			columns in the selected region.  Sorting  can
+			be done in increasing or decreasing order, in
+			litteral (1 before 11 before 2) or  numerical
+			order (1 before 2 before 11). Sorting is case
+			insensitive. If several columns are  included
+			in the selected region,  sorting  applies  to
+			the left one.
+<Sort Rows >
+
+<Reverse Sort Rows     >
+
+<Num Sort Rows >
+
+<Reverse Num Sort Rows >
+			This allows different  kinds  of  sorting  of
+			each  entire  row  in  the  selected  region.
+			Sorting can be done    in    increasing    or
+			decreasing order, in litteral  (1  before  11
+			before 2) or  numerical  order  (1  before  2
+			before 11). Sorting is case insensitive.
+			
+
+4.4. Columns utilities submenu
+
+<Set Margins>
+			You will be prompted in  the  status  bar  to
+			set the values for the left  margin  and  the
+			total text width.
+<Columns Separator>
+			Change here the character    considered    as
+			columns separator.  Remember  that  you  must
+			choose a SINGLE character :if not, some procs
+			might not work properly. It can be of  course
+			the tabulation character represented  by  \t.
+			This menu item allows to do temporary changes
+			(as long as you do not quit Alpha). To change
+			the Columns Separator permanently go  to  the
+			manipCols Preferences.
+<Columns Bindings>
+			Brings a window with  information  about  the
+			key bindings  available  when  the  manipCols
+			package is active. See below.
+<Columns Tutorial>
+			Brings a window with a tutorial file.
+
+
+5. Key Bindings
+
+All the key bindings will use 'ctrl-c' (c for columns !) -- on Windows OS,
+ctrl-d is used instead. 
+Hit 'ctrl-c', release, then hit one of the following letters :
+|________|______________________________________________________|
+|ctrl-c a|to append columns                                     |
+|ctrl-c b|to show info about bindings                           |
+|ctrl-c c|to copy columns                                       |
+|ctrl-c d|to delete columns                                     |
+|ctrl-c e|to equalize columns (left justified)                  |
+|ctrl-c f|to insert rows numbers from a certain value           |
+|ctrl-c i|to insert columns                                     |
+|ctrl-c j|to justify text (not columns)                         |
+|ctrl-c k|to kolorize kolumns                                   |
+|ctrl-c m|to center columns (m for middle)                      |
+|ctrl-c n|to insert rows numbers                                |
+|ctrl-c o|to sort each row in increasing order                  |
+|ctrl-c p|to complete rows                                      |
+|ctrl-c r|to right justify columns                              |
+|ctrl-c s|to change the columns separator                       |
+|ctrl-c t|to transpose columns and rows                         |
+|ctrl-c u|to unequalize columns                                 |
+|ctrl-c v|to set the margin values for columnizing              |
+|ctrl-c w|to twiddle columns                                    |
+|ctrl-c x|to cut columns (extract them and copy in system scrap)|
+|ctrl-c z|to uncolumnize                                        |
+|________|______________________________________________________|
+If you use the 'More Cols' package (see  below),  you have four  more  key
+bindings :
+|________|_________________________________________________|
+|ctrl-c h|to convert a table to html code                  |
+|ctrl-c l|to convert a table to a latex tabular environment|
+|________|_________________________________________________|
+
+
+6. Preferences
+
+The Manip Cols Prefs… item in the Packages submenu of the Config
+menu allows you to make a few choices :
+
+• the Columns Color variable allows you to choose the color in which
+to colorize the selected columns.
+• the Columns Separator variable allows you to  choose  the  default
+character used to separate columns : this is the separator which  will
+be used each time you launch Alpha and as long as you do not  override
+this choice with the Columns Separator menu item.
+• the Min Columns Width variable allows you to set the minimum width
+allowed for columns when using the Text Columnizing tool.
+
+
+7. Version History
+
+• 0.1b  -- 05/27/00 -- First writing of this package.                   
+• 0.2b  -- 05/29/00 -- Changed 'ctrl-k' to 'ctrl-c' for  keybindings. Rearranged the menu items.                       
+• 0.3b  -- 05/31/00 -- Added a Cut Columns item.  Added  tools  for text columnizing. Added new key bindings.        
+• 0.4b  -- 06/02/00 -- Corrected  a  bug  in  backward  search.  Made changes for Alphatk compatibility.               
+• 0.5b  -- 06/03/00 -- Made the  problem  of  special  characters  to escape invisible for the user  :  it  is  done internally.              
+• 0.6b  -- 06/03/00 -- Changed the  routine  to  split  a  region  in paragraphs.              
+• 0.7b  -- 07/01/00 -- Added items to convert a table  to  HTML  code or to a LaTeX tabular environment. Items to do the reverse. Html nested tables are handled.     
+• 0.8b  -- 08/17/00 -- The conversion of  tables  to  Html  or  Latex formats are now an independant feature  coming as a complement to manipCols.                    
+• 0.9b  -- 09/20/00 -- Added a "Colums Tutorial" item to link to  the Example file.            
+• 1.0   -- 10/06/00 -- Added procs to  justify  some  columns  (left, right, center). The columns  equalization  now work on the selected columns and  not  on  the entire table.            
+• 1.0.1 -- 07/10/00 -- Change a proc name (help::openExample  instead of file::hyperExampleOpen)                       
+• 1.0.2 -- 16/02/01 -- Corrected a  bug  (misplaced  switch  item  in three procs) which had no effect  in  Alpha  7 but crashes Alpha 8.     
+• 1.1   -- 17/02/01 -- Changed the code  to    store    all    global variables in an array. Changed  the  package's type from extension to feature so that it  now removes  itself    properly.    Changed    all buttonAlert   instructions    for    PreAlpha8 compatibility. Changed license to BSD.           
+• 1.1.1 -- 13/04/01 -- Corrected a binding (broken after rearrangement).
+• 1.1.2 -- 23/06/01 -- Updated colorizing to new text::color proc.
+• 1.2   -- 09/08/02 -- Added transposition of rows and columns.
+					
+
+8. More Cols Package
+
+The 'More Cols' Package (moreCols.tcl) adds a few more  capacities  to
+the 'Manip Cols' Package. It allows conversion of text tables  to  and
+from Html or Latex formats. When it is activated, a new submenu called
+Tables Conversion is added at the bottom of  the  Columns  menu.  It
+contains the following items :
+
+
+<Columns to Html	>
+	Converts an ordinary text table to HTML  code
+	to export to an Html document.
+<Columns to Latex	>
+	Converts an ordinary text table  to  a  LaTeX
+	'tabular' environment.
+<Columns to Html>
+or
+<Latex to Columns	>
+	They convert an HTML table   or    a    Latex
+	'tabular' (or 'array') environment    to    a
+	simple text tabulated  with    the    current
+	'columns separator'. Nested HTML  tables  are
+	handled.
+
+
+9. Known problems
+
+9.1. Troubleshooting
+If sometimes a proc does not do what you expect it to do, it is very  often
+because you have changed the  columns  separator  and  still  think  it  is
+another one. For instance if you change the separator from '\t' to a  blank
+space ' ', any word will be considered in a different  column  whereas  two
+words separated by a tab will be considered in the same  column.  And  vice
+versa. 
+
+9.2. Bugs report
+Please e-mail any problem or bug you encounter : <bdesgraupes@easyconnect.fr>
+
+Visit my Web page for updates and other Alpha utilities :
+
+<http://webperso.easyconnect.fr/bdesgraupes/alpha.html>
+
+ 
+10. License terms
+
+This software is free software distributed under the terms of the  new  BSD
+license :
+Redistribution and  use  in  source  and  binary  forms,  with  or  without
+modification, are permitted provided that the following conditions are met:
+
+• Redistributions of source code must retain the  above  copyright  notice,
+this list of conditions and the following disclaimer.
+• Redistributions in binary form must reproduce the above copyright notice,
+this list of conditions and the following disclaimer in  the  documentation
+and/or other materials provided with the distribution.
+• Neither the name of Bernard Desgraupes nor the names of its  contributors
+may be used to endorse or  promote  products  derived  from  this  software
+without specific prior written permission.
+
+This software is provided by the copyright holders and contributors "as is"
+and any express or implied warranties, including, but not limited  to,  the
+implied warranties of merchantability and fitness for a particular  purpose
+are disclaimed. In no event shall the regents or contributors be liable for
+any direct, indirect,  incidental,  special,  exemplary,  or  consequential
+damages (including, but not limited to, procurement of substitute goods  or
+services; loss of use, data, or profits; or business interruption)  however
+caused and  on  any  theory  of  liability,  whether  in  contract,  strict
+liability, or tort (including negligence or otherwise) arising in  any  way
+out of the use of this software, even if advised of the possibility of such
+damage. 
+

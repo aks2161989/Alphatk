@@ -1,0 +1,75 @@
+!! Filter : Koi8ToCyrlatex.flt
+!! 
+!! To be used with the Filter Menu in Alpha.
+!! Last modification : 18 avril 2000 - 18:49:38
+!! (c) Copyright : Bernard Desgraupes 2000
+
+„	\guillemotleft{}
+…	\guillemotright{}
+†	\CYRNo
+£	\cyryo
+³	\CYRYO
+À	\cyryu
+Á	\cyra
+Â	\cyrb
+Ã	\cyrc
+Ä	\cyrd
+Å	\cyre
+Æ	\cyrf
+Ç	\cyrg
+È	\cyrh
+É	\cyri
+Ê	\cyrishrt
+Ë	\cyrk
+Ì	\cyrl
+Í	\cyrm
+Î	\cyrn
+Ï	\cyro
+Ð	\cyrp
+Ñ	\cyrya
+Ò	\cyrr
+Ó	\cyrs
+Ô	\cyrt
+Õ	\cyru
+Ö	\cyrzh
+×	\cyrv
+Ø	\cyrsftsn
+Ù	\cyrery
+Ú	\cyrz
+?	\cyrsh
+Ü	\cyrerev
+Ý	\cyrshch
+Þ	\cyrch
+ß	\cyrhrdsn
+à	\CYRYU
+á	\CYRA
+â	\CYRB
+ã	\CYRC
+ä	\CYRD
+å	\CYRE
+æ	\CYRF
+ç	\CYRG
+è	\CYRH
+é	\CYRI
+ê	\CYRISHRT
+ë	\CYRK
+ì	\CYRL
+í	\CYRM
+î	\CYRN
+ï	\CYRO
+ð	\CYRP
+ñ	\CYRYA
+ò	\CYRR
+ó	\CYRS
+ô	\CYRT
+õ	\CYRU
+ö	\CYRZH
+÷	\CYRV
+ø	\CYRSFTSN
+ù	\CYRERY
+ú	\CYRZ
+û	\CYRSH
+ü	\CYREREV
+ý	\CYRSHCH
+þ	\CYRCH
+ÿ	\CYRHRDSN

@@ -1,0 +1,367 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+
+<HTML>
+
+<HEAD>
+
+<TITLE>Includes</TITLE>
+
+<LINK HREF="../Style%20Sheet/manual.css" REL="stylesheet" TYPE="text/css">
+
+
+</HEAD>
+
+<BODY>
+
+<!-- #INCLUDE INCLPATH="maintop.html" -->
+
+<SCRIPT TYPE="text/javascript">
+<!--
+if (document.body.clientHeight) {
+	height = document.body.clientHeight - 50;
+} else {
+	height = window.innerHeight - 50 ;
+}
+document.write('<div class="main" style="height: ' + height + 'px;">');
+// -->
+</SCRIPT>
+
+
+<!-- /#INCLUDE -->
+
+
+<H1>Includes</H1>
+
+
+<P>
+<IMG SRC="../bilder/includesmenu.png" ALT="Includes menu" WIDTH="186"
+HEIGHT="117" CLASS="rightpic">
+The <SPAN CLASS="menu">Includes</SPAN> menu contains functions to 
+dynamically include files in your document.  Let's say you have a document 
+where one part contains information which is updated frequently while the 
+rest is almost never changed.  You can let the part which changes often be 
+in another file and insert 'include tags' in the original document.  As 
+another example, let's say some information is used in more than one 
+document, perhaps if you make two versions of your home page, one with 
+frames and one without.  You can then have this information in a separate 
+file and and insert 'include tags' in the other ones.  In this way you only 
+have to make a change at one place.  You can later quickly update your 
+files and replace the text between the 'include tags'.
+</P>
+
+<P>
+Exactly how the include tags look like is explained below, but an example is
+</P>
+
+<PRE CLASS="code">
+<SPAN CLASS="commentcode">&lt;!-- #INCLUDE</SPAN> <SPAN CLASS="attrcode">INCLPATH=</SPAN><SPAN CLASS="textcode">"myfile.html"</SPAN> <SPAN CLASS="commentcode">--&gt;</SPAN>
+content of myfile.html will go here
+<SPAN CLASS="commentcode">&lt;!-- /#INCLUDE --&gt;</SPAN>
+</PRE>
+
+<P>
+When you define a <A HREF="config.html">home page folder</A>, you can also 
+define an include folder for it, where you can put all the 'include files'.  
+Although you can put the include files anywhere you like, the include 
+folder has certain advantages when the include files contain links.  When 
+Alpha inserts the include file it automatically builds the relative links 
+for you.  To see what I mean, consider the following example:
+</P>
+
+
+<UL>
+<LI>Suppose you have a home page folder for http://www.net/ 
+and have defined a corresponding include folder.
+<LI>Open a new file 'include.html' in the include folder.
+<LI>Make a couple of links from include.html.  Use the file 
+dialog and select files in the home page folder.  The links will now be 
+like HREF=":HOMEPAGE:somefile.html".
+<LI>Now open a new file hi.html in the home page folder.  Use 'Insert include 
+tags' and select the file include.html in the include 
+folder.  The part :HOMEPAGE: in the links will now be replaced by the 
+correct relative path to somefile.html.
+</UL>
+
+<P>
+This feature lets you include the same file in many files in different 
+places in the folder hierarchy, without having to worry about that the 
+links are correct. Alpha takes care of that for you.
+</P>
+
+<P>
+Recursive including of files is possible. You can include another file 
+in include.html, which in turn includes another file, which includes
+another file...
+</P>
+
+<P>
+A few of other things:
+</P>
+
+<UL>
+<LI>If you check links in include.html Alpha will look for 
+files in the home page folder.
+<LI>If you cmd-double-click a link in include.html, Alpha 
+will open the file in your home page folder.
+</UL>
+
+<H2>Using place holders</H2>
+
+<P>
+The include file can contain place holders for arbitrary text - and even 
+scripts - which is defined by attributes of the include tags. Let us 
+illustrate this with an example, where we have an include file myfile.html 
+with the content:
+</P>
+
+<PRE CLASS="code">
+My name is ##NAME##. 
+</PRE>
+
+<P>
+##NAME## is the place holder and will be replaced when the file is included 
+in another document. A place holder begins and ends with ## and the text in 
+between is the attribute name which will be used in the include tag. The 
+name is case insensitive.
+</P>
+
+<P>
+An example of include tags which uses this include file is:
+</P>
+
+<PRE CLASS="code">
+<SPAN CLASS="commentcode">&lt;!-- #INCLUDE</SPAN> <SPAN CLASS="attrcode">INCLPATH=</SPAN><SPAN CLASS="textcode">"myfile.html"</SPAN> NAME=<SPAN CLASS="textcode">"Johan"</SPAN> <SPAN CLASS="commentcode">--&gt;</SPAN>
+My name is Johan.
+<SPAN CLASS="commentcode">&lt;!-- /#INCLUDE --&gt;</SPAN>
+</PRE>
+
+<P>
+In this example the place holder ##NAME## was replaced by a text string. It 
+is also possible to use Tcl scripts. Even if you do not know Tcl or do not plan 
+to use scripts in the include tags there is still one technical detail you must be 
+aware of. In order for Alpha to be able to always interpret your text string 
+as text and not as a script, some characters have to be preceded by a \ 
+character. These are $, [, ], and \. To illustrate this consider a case 
+where the place holder ##NAME## should be replaced by "J$h[a]n\s". Then the 
+NAME attribute must be
+</P>
+
+<PRE CLASS="code">
+NAME=<SPAN CLASS="textcode">"J\$h\[a\]n\\s"</SPAN>
+</PRE>
+
+<H3>Using scripts</H3>
+
+<P>
+As mentioned above you can also use scripts as attribute values for the 
+place holders. In fact, the attribute value can be a combination of text 
+and scripts. What Alpha does is to take the attribute value and apply the 
+command <SPAN CLASS="htmlcode">subst</SPAN> to it. Subst does variable, 
+command, and backslash substitution of its argument. To illustrate how subst 
+works let us say you have defined a variable myname by
+</P>
+
+<PRE CLASS="code">
+<SPAN CLASS="htmlcode">set</SPAN> myname Johan
+</PRE>
+
+<P>
+and a Tcl proc myproc by
+</P>
+
+<PRE CLASS="code">
+<SPAN CLASS="htmlcode">proc</SPAN> myproc {} {
+    <SPAN CLASS="htmlcode">return</SPAN> Johan
+}
+</PRE>
+
+<P>
+then
+</P>
+
+<PRE CLASS="code">
+<SPAN CLASS="htmlcode">subst</SPAN> $myname
+</PRE>
+
+<P>
+returns "Johan" which also
+</P>
+
+<PRE CLASS="code"><SPAN 
+CLASS="htmlcode">subst</SPAN> [myproc]
+</PRE>
+
+<P>
+does. 
+</P>
+
+<P>
+You can combine text, variables, and commands in any way you like in the 
+attribute value like in this example:
+</P>
+<PRE CLASS="code">
+<SPAN CLASS="commentcode">&lt;!-- #INCLUDE</SPAN> <SPAN CLASS="attrcode">INCLPATH=</SPAN><SPAN CLASS="textcode">"myfile.html"</SPAN> NAME=<SPAN CLASS="textcode">"$myname and he is another [myproc]"</SPAN> <SPAN CLASS="commentcode">--&gt;</SPAN>
+My name is Johan and he is another Johan.
+<SPAN CLASS="commentcode">&lt;!-- /#INCLUDE --&gt;</SPAN>
+</PRE>
+
+<div CLASS="item">Insert Include Tags...</div>
+<DIV CLASS="indent">Asks you for a 
+file to include, and inserts two tags inside comments. These tags look a 
+little different depending on where the included file is relative to the 
+current document. (<STRONG>Note!</STRONG> In previous versions of HTML 
+mode, these tags were slightly different. The old format is still 
+supported.) We begin with the case where there are no place holders.
+
+<P>
+Included file is in the include folder:
+</P>
+
+<PRE CLASS="code">
+<SPAN CLASS="commentcode">&lt;!-- #INCLUDE</SPAN> <SPAN CLASS="attrcode">INCLPATH=</SPAN><SPAN CLASS="textcode">"path to file relative to include folder"</SPAN> <SPAN CLASS="commentcode">--&gt;</SPAN>
+content of file
+<SPAN CLASS="commentcode">&lt;!-- /#INCLUDE --&gt;</SPAN>
+</PRE>
+
+<P>
+Included file is somewhere else on the same disk.
+</P>
+
+<PRE CLASS="code">
+<SPAN CLASS="commentcode">&lt;!-- #INCLUDE</SPAN> <SPAN CLASS="attrcode">PATH=</SPAN><SPAN CLASS="textcode">"relative path to file"</SPAN> <SPAN CLASS="commentcode">--&gt;</SPAN>
+content of file
+<SPAN CLASS="commentcode">&lt;!-- /#INCLUDE --&gt;</SPAN>
+</PRE>
+
+<P>
+Included file is on another disk.
+</P>
+
+<PRE CLASS="code">
+<SPAN CLASS="commentcode">&lt;!-- #INCLUDE</SPAN> <SPAN CLASS="attrcode">FILE=</SPAN><SPAN CLASS="textcode">"path to file"</SPAN> <SPAN CLASS="commentcode">--&gt;</SPAN>
+content of file
+<SPAN CLASS="commentcode">&lt;!-- /#INCLUDE --&gt;</SPAN>
+</PRE>
+
+<P>
+Depending on your <A HREF="prefs.html#General2">preferences</A>, the content of the 
+file may not be inserted until you update the window.
+</P>
+
+<P>
+If the path contains any of the characters &lt;"&gt;#,
+they are translated like <BR>
+<SPAN CLASS="code"># -&gt; #; <BR>
+&lt; -&gt; #lt;<BR>
+&gt; -&gt; #gt;<BR>
+" -&gt; #qt;<BR></SPAN>
+in order to make the tag unambiguous.
+</P>
+</DIV>
+<H3>Inserting include files with place holders</H3>
+
+<DIV CLASS="indent">
+<P>
+When using <SPAN CLASS="menuitem">Insert Include Tags...</SPAN> to include 
+files with place holders, Alpha scans the file to include and opens a dialog 
+box where you can specify the values of the place holders.
+</P>
+
+<P>
+<img src="../bilder/placeholder.png" alt="Place holder dialog" width="524"
+height="146">
+</P>
+
+<P>
+The include tags with the attributes for the place holders are then 
+inserted.
+</P>
+
+</DIV>
+
+
+<H3>Updating the files</H3>
+
+<DIV CLASS="indent">
+<P>
+If you change the content of the included file, you can quickly 
+update your documents with the update functions below.
+</P>
+</DIV>
+
+<div CLASS="item">Update Window</div>
+<DIV CLASS="indent">Replaces the text 
+between all pairs of 'include tags' with the content of the file specified 
+in the opening tags.</DIV>
+
+<div CLASS="itempara">Update Home Page</div>
+<DIV CLASS="indent">Replaces the text 
+between all pairs of 'include tags' in HTML files in a home page folder with 
+the content of the file specified in the opening tags.</DIV>
+
+<div CLASS="itempara">Update Folder</div>
+<DIV CLASS="indent">The same function for a 
+folder.</DIV>
+
+<div CLASS="itempara">Update File</div>
+<DIV CLASS="indent">The same function for a 
+single file.
+</DIV>
+
+<H3>Note!</H3>
+
+<P>
+If you write anything between the 'include tags', it is only a temporary 
+change.  The next time you update your document everything between the tags 
+is replaced.
+</P>
+
+<P>
+If you remove 'include tags' in a document, make sure you remove both the 
+opening tag and the corresponding closing tag.
+</P>
+
+<P>
+If a file contains 'last modified date' tags, the date is changed if the 
+file has been modified.
+</P>
+
+<!-- #INCLUDE INCLPATH="mainbottom.html" -->
+
+<DIV STYLE="height: 50px">
+</DIV>
+
+<SCRIPT TYPE="text/javascript">
+<!--
+document.write('<\/DIV>');
+// -->
+</SCRIPT>
+
+
+<!-- /#INCLUDE -->
+
+
+<!-- #INCLUDE INCLPATH="navigation.html" PREV="[manualPrevPage checklinks.html]" 
+NEXT="[manualNextPage ftp.html]" -->
+
+<P>
+<script type="text/javascript">
+<!--
+document.write('<div class="navigation" style="top: ' + height + 'px; height: 50px">');
+// -->
+</script>
+<A HREF="checklinks.html">Previous page</A>
+<A HREF="ftp.html">Next page</A>
+<SCRIPT TYPE="text/javascript">
+<!--
+document.write('<\/DIV>');
+// -->
+</SCRIPT>
+</P>
+
+<!-- /#INCLUDE -->
+
+
+</BODY>
+
+</HTML>

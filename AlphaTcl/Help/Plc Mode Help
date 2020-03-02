@@ -1,0 +1,402 @@
+Plc Mode Help
+
+
+Version:		$Revision 1.0 $
+Author:			Bernard DESGRAUPES <bdesgraupes@easyconnect.fr>
+Homepage:		<http://webperso.easyconnect.fr/bdesgraupes/alpha.html>
+Created: 		2003-04-14 16:39:57
+Modified:	 	2003-04-14 16:40:03
+Keywords:		Property List, Compiler, CodeWarrior 
+  
+----------------------------------------------------------------------
+1. Introduction
+2. Installation
+   2.1. Automatic installation
+   2.2. Manual installation
+   2.3. After installing
+3. How it works
+4. Bundle Keys
+   4.1. Standard Bundle Keys
+   4.2. Keys for CFBundleURLTypes dictionaries
+   4.3. Application-Specific Keys
+   4.4. Keys for NSServices dictionaries
+   4.5. Launch Services Keys
+   4.6. Application Package Keys
+   4.7. Keys for APFiles dictionary
+5. Version History
+6. Known problems
+7. License and Disclaimer
+----------------------------------------------------------------------
+
+
+					Abstract
+
+This is a help file for the Plc (Property List Compiler) mode in Alpha.
+This file should be located in the Help subfolder of Alpha's folder to
+show up automatically in the Help menu when Alpha is loaded.
+
+
+1. Introduction
+
+The Property List Compiler lets you  easily  build  property  list  (plist)
+files or resources for Mac OS X. The language  lets  you  have  CodeWarrior
+build the property list files for you instead of having to hand-code XML or
+use the PropertyList Editor application.
+
+Property list compiler  source  files  are  designated  with  the  filename
+extension of ".plc". The input to the compiler is  just  regular  text,  as
+with most any other type of compiler. Separate localization files  mays  be
+designated with the filename extension of ".ploc". Plc mode makes  it  easy
+to create and edit .plc files. It implements syntax colouring, file marking
+and completions.
+
+
+2. Installation
+
+2.1. Automatic installation
+
+Open the "OPEN TO INSTALL" file. Opening this file indicates to Alpha  that
+a new package has to be installed : the procedure is automatic. Alpha knows
+where to store the different elements of your Metapost Mode package.
+
+2.2. Manual installation
+
+• put the "pclMode.tcl" file in the "Modes" subfolder of the "Tcl"
+folder which is located at the same level as your Alpha application
+
+• put the "Plc Mode Help" file in the "Help" folder located at the same
+level as your Alpha application. Next time you launch Alpha, you will have
+a "Plc Mode Help" item in the Help menu to edit this file.
+
+• put the "Plc-Example.plc" file in the "Examples" folder located at 
+the same
+level as your Alpha application.
+
+• launch Alpha. You have to rebuild the package indices and the Tcl 
+indices.
+'Rebuild Package Indices' is in the Config - Packages menu, and 'Rebuild
+Tcl Indices' is in the Tcl menu.
+
+• quit Alpha and relaunch it : that's all there is to it.
+
+
+2.3. After installing
+
+From now on, the opening of any file with a  ".plc"  or  ".ploc"  extension
+will invoke the Plc mode. Have a look at  the  mode  specific  preferences:
+create or open any '.plc' source file and choose "Preferences" in the  "Plc
+Mode Prefs" submenu of the "Config" menu.
+
+
+3. How it works
+
+Most of its editing functionality is available through completions.
+
+In particular you can insert a plist template by typing "plist" and hitting
+the completion key. Ditto for a "localize" template.
+ 
+There is also a complete mechanism for building "key" statements like:
+
+	 key "CFBundleDevelopmentRegion" value string "English"
+
+ 
+For instance, type "key" then hit the completion key. It adds an opening
+quote. Hit the completion key again, a list proposes the possible keys. The
+chosen value is inserted and the line is completed further. Some values
+(like CFBundleDocumentTypes) lead, in one key stroke, to sophisticated
+templates. You can also type the first letters of the key, like in
+
+	 key "LS|
+
+If you hit the completion key after LS, a partial list of choices is
+displayed. 
+The "value" keyword also has a specific completion proc which lets you
+cycle through all possible values. Type "value", then hit the completion
+key several times to see how it works.
+
+Click on this "Plc-Example.plc" link for an example syntax file.
+
+
+
+4. Bundle Keys
+For convenience, here is a list of all the bundle keys defined by Apple 
+(as of april '03).
+
+4.1. Standard Bundle Keys
+
+<CFBundleDevelopmentRegion>
+ (<String> optional)  The native region for the bundle. Usually 
+corresponds to the native language of the author.
+
+<CFBundleDisplayName>
+ (<String> optional) The localized display name of the bundle.
+
+<CFBundleDocumentTypes>
+ (<Array> optional) An array of dictionaries describing the document types 
+supported by the bundle
+
+<CFBundleGetInfoHTML>
+ (<String> optional) A string for displaying richer content in the 
+Finder’s Get Info panel
+
+<CFBundleGetInfoString>
+ (<String> optional) A string for display in the Finder’s Get Info panel 
+
+
+<CFBundleHelpBookFolder>
+ (<String> optional) The name of the folder containing the bundle’s help 
+files.
+
+<CFBundleHelpBookName>
+ (<String> optional) The name of the help file to display when help is 
+launched for the bundle.
+
+<CFBundleURLTypes>
+ (<Array> optional) An array of dictionaries describing the URL schemes 
+supported by the bundle
+
+<CFBundleExecutable>
+ (<String> required) Name of the bundle executable file.
+
+<CFBundleIconFile>
+ (<String> required) File name for icon image file
+
+<CFBundleIdentifier>
+ (<String> required) Unique identifier string for the bundle. This string 
+should be in the form of a java package name, for example com.apple.myapp 
+
+<CFBundleInfoDictionaryVersion>
+ (<String> required) Version information for the Info.plist format.
+
+<CFBundleName>
+ (<String> required) The short display name of the bundle
+
+<CFBundlePackageType>
+ (<String> required) The four-letter code identifying the bundle type
+
+<CFBundleShortVersionString>
+ (<String> required) The marketing-style version string for the bundle
+
+<CFBundleSignature>
+ (<String> required) The four-letter code identifying the bundle creator 
+
+<CFBundleVersion>
+ (<String> required) Build number of the executable.
+
+
+4.2. Keys for CFBundleURLTypes dictionaries
+
+<CFBundleTypeRole>
+ <String> This key specifies the application’s role with respect to the 
+URL type. The value can be Editor, Viewer, Printer, Shell, or None. See 
+“Document Configuration” for descriptions of these values. This key is 
+required.
+
+<CFBundleURLIconFile>
+ <String> This key contains a string entry with the name of the icon image 
+file (minus the extension) to be used for this URL type.
+
+<CFBundleURLName>
+ <String> This key contains a string entry with the abstract name for this 
+URL type. This is the main way to refer to a particular type. To ensure 
+uniqueness, it is recommended that you use a Java-package style 
+identifier. This name is also used as a key in the Inf
+
+<CFBundleURLSchemes>
+ (<Array> This key contains an array of the URL schemes handled by this 
+type. Examples of URL schemes include http, ftp, and so on.
+
+
+4.3. Application-Specific Keys
+
+<CFAppleHelpAnchor>
+ (<String> optional) The bundle’s initial HTML help file.
+
+<NSAppleScriptEnabled>
+ (<String> optional) Specifies whether AppleScript is enabled.
+
+<NSJavaNeeded>
+ (Boolean/String optional) Specifies whether the program requires a 
+running Java VM.
+
+<NSJavaPath>
+ (<Array> optional) An array of paths to classes whose components are 
+preceded by NSJavaRoot.
+
+<NSJavaRoot>
+ (<String> optional) The root directory containing the java classes.
+
+<NSServices>
+ (<Array> optional) An array of dictionaries specifying the services 
+provided by an application.
+
+<NSHumanReadableCopyright>
+ (<String> required) A copyright string used for display in dialog boxes. 
+
+<NSMainNibFile>
+ (<String> required) The name of an application’s main nib file.
+
+<NSPrincipalClass>
+ (<String> required) The name of the bundle’s main class.
+
+			
+4.4. Keys for NSServices dictionaries
+		
+<NSPortName>
+ <String> This key specifies the name of the port your application 
+monitors for incoming service requests.
+
+<NSMessage>
+ <String> This key specifies the name of the instance method to invoke for 
+the service. In Objective-C, the instance method must be of the form 
+messageName:userData:error:. In Java, the instance method must be of the 
+form messageName(NSPasteBoard,String).
+
+<NSSendTypes>
+ <Array> This key specifies an array of data type names that can be read 
+by the service. The NSPasteboard class description lists several common 
+data types. You must include this key, the NSReturnTypes key, or both.  
+
+<NSReturnTypes>
+ <Array> This key specifies an array of data type names that can be 
+returned by the service. The NSPasteboard class description lists several 
+common data types. You must include this key, the NSSendTypes key, or 
+both.
+
+<NSMenuItem>
+ <Dictionary> This key contains a dictionary that specifies the text to 
+add to the Services menu. The only key in the dictionary is called default 
+and its value is the menu item text. This value must be unique. You can 
+use a slash character “/” to specify a submenu.
+
+<NSKeyEquivalent>
+ <Dictionary> This key is optional and contains a dictionary with the 
+keyboard equivalent used to invoke the service menu command. Similar to 
+NSMenuItem, the only key in the dictionary is called default and its value 
+is a single character.
+
+<NSUserData>
+ <String> This key is an optional string that contains a value of your 
+choice.
+
+<NSTimeout>
+ <String> This key is an optional numerical string that indicates the 
+number of milliseconds Services should wait for a response from the 
+application providing a service when a response is required.
+
+	
+4.5. Launch Services Keys
+
+<LSBackgroundOnly>
+ (<String> optional) Specifies whether the application runs only in the 
+background. (Mach-O applications only)
+
+<LSPrefersCarbon>
+ (<String> optional) Specifies whether an application prefers running in 
+the Carbon environment.
+
+<LSPrefersClassic>
+ (<String> optional) Specifies whether an application prefers running in 
+the Classic environment.
+
+<LSRequiresCarbon>
+ (<String> optional) Specifies whether the application must run as a 
+Carbon application.
+
+<LSRequiresClassic>
+ (<String> optional) Specifies whether the application must run in the 
+Classic environment.
+
+<LSUIElement>
+ (<String> optional) Specifies whether the application is a user-interface 
+element, that is, an application that should not appear n the Dock or 
+Force Quit window.
+
+
+4.6. Application Package Keys
+
+<APInstallerURL>
+ (<String> required) A URL-based path to the files you want to install.  
+
+<APFiles>
+ An array of dictionaries describing the files or directories that can be 
+installed.
+
+4.7. Keys for APFiles dictionary
+
+<APFileDescriptionKey>
+ <String> A short description of the item to display in the Finder’s Info 
+window
+
+<APDisplayedAsContainer>
+ <String> If “Yes” the item is shown with a folder icon in the Info panel; 
+otherwise, it is shown with a document icon
+
+<APFileDestinationPath>
+ <String> Where to install the component as a path relative to the 
+application bundle
+
+<APFileName>
+ <String> The name of the file or directory
+
+<APFileSourcePath>
+ <String> The path to the component in the application package relative to 
+the APInstallerURL path.
+
+<APInstallAction>
+ <String> The action to take with the component: “Copy” or “Open”
+
+
+
+5. Version History
+
+• 1.0 -- 14/04/03 -- First release.
+
+
+		
+6. Known problems
+
+Alpha 7.6 or later is required. 
+
+Please e-mail any problem or bug you encounter : 
+<bdesgraupes@easyconnect.fr>
+Visit my Web page for updates : 
+<http://webperso.easyconnect.fr/bdesgraupes/>
+
+7. License and Disclaimer
+
+Copyright : Bernard Desgraupes, 2003
+        All rights reserved.
+
+This software is free software and distributed under the terms of  the  new
+BSD license :
+
+Redistribution and  use  in  source  and  binary  forms,  with  or  without
+modification, are permitted provided that the following conditions are met:
+
+• Redistributions of source code must retain the  above  copyright  
+notice,
+this list of conditions and the following disclaimer.
+• Redistributions in binary form must reproduce the above copyright 
+notice,
+this list of conditions and the following disclaimer in  the  documentation
+and/or other materials provided with the distribution.
+• Neither the name of Bernard Desgraupes nor the names of its  
+contributors
+may be used to endorse or  promote  products  derived  from  this  software
+without specific prior written permission.
+
+This software is provided by the copyright holders and contributors "as is"
+and any express or implied warranties, including, but not limited  to,  the
+implied warranties of merchantability and fitness for a particular  purpose
+are disclaimed. In no event shall the regents or contributors be liable for
+any direct, indirect,  incidental,  special,  exemplary,  or  consequential
+damages (including, but not limited to, procurement of substitute goods  or
+services; loss of use, data, or profits; or business interruption)  however
+caused and  on  any  theory  of  liability,  whether  in  contract,  strict
+liability, or tort (including negligence or otherwise) arising in  any  way
+out of the use of this software, even if advised of the possibility of such
+damage. 
+
+
+

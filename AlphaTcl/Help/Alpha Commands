@@ -1,0 +1,1437 @@
+
+Alpha Commands
+
+                                        help version: 8.0
+                                             created: 06/17/1994 {01:48:53 PM}
+                                         last update: 04/18/2006 {12:04:03 PM}
+
+
+In this list of routines, text between '<' and '>' is a placeholder for a
+required parameter, text between '[' and ']' is a placeholder for an
+optional parameter, and the '|' signifies a choice of two or more
+alternatives.  A '+' signifies that the previous symbol can be present one
+or more times, while a '*" means zero or more times.  Some commands have no
+parameters.
+
+Where '-w <win>' is given as an optional window name, <win> can be any item
+from the lists given by '[winNames -f]', '[winNames]', '[win::CreationOrder]', 
+'[win::StackOrder]', or it can be the current window '[win::Current]' (in
+fact that is the default).  To translate from a file path to possible
+window names, use the command [file::hasOpenWindows $path].  Window names
+are case-sensitive.  A window name may contain a trailing ' <n>' indicator
+to show it is a duplicate, and this cannot be omitted when referring to the
+window.
+
+The following are Alpha-specific tcl routines, defined in the core of the
+binary.  (In addition, of course, all the standard "Tcl 8.4 Commands" are
+available.)  In Alpha8/X, most of these commands are implemented in C,
+while in Alphatk they are implemented entirely in Tcl/Tk (which are
+themselves implemented in C, and have seen some Alphatk-specific
+improvements).
+
+In some cases these 'core' commands are now defined in AlphaTcl or Tcl, see
+the referenced source files for commands coloured magenta, or try to
+Command-Double-Click on their names for more information.
+
+	--------------------------------------------------------------------
+
+Table Of Contents
+
+"# Basic insertion position queries"
+"# Basic insertion position movement"
+"# Basic text manipulation"
+"# Selection manipulation and creation"
+"# Pin manipulation and creation"
+"# Clipboard/scrap handling"
+"# Various textual manipulations"
+"# View/insertion interaction"
+"# Dialogs for querying the user"
+"# Search in a window"
+"# Using search dialog-equivalents from Tcl"
+"# Basic window creation and file-interaction"
+"# Window manager"
+"# Menu creation/manipulation"
+"# Inter-application communication"
+"# Keyboard bindings and codes"
+"# Status window"
+"# Filesystem"
+"# Debugging"
+"# Colours"
+"# Keyboard macros"
+"# Time related"
+"# Marks"
+"# Remaining commands"
+"# Uncommon/unused commands"
+"# Obsolete (and possibly buggy)"
+
+	--------------------------------------------------------------------
+
+= Basic insertion position queries
+
+In Alpha8/X, some of the commands in the 'pos' namespace are actually defined
+in the file "coreFixes.tcl" using global namespace building block commands.
+
+• getPos [-w <win>] - return the current insertion point
+• pos::lineStart [-w <win>] <pos> - return the position of the start of the 
+    line 'pos' is on.
+• matchIt [-w <win>] <brace char> <pos> [<num>] - Return pos of matching brace. 
+    Recognizes parenthesis, square brackets, and curly braces.  Optional
+    third argument specifies how many characters to search.  The brace char
+    passed to this command should be the one whose partner you wish to find
+    (not the one you want to search for).  When searching backwards (i.e.
+    when trying to match a right brace), 'pos' should be the last position
+    which could be a successful match, and not the position of the right
+    brace itself (i.e. it will usually be the position just before the right
+    brace itself).  For example if you have the text "abc ()" so that ')' is
+    at position 5, then 'matchIt ) 5' will fail to match, but 'matchIt ) 4'
+    will correctly return '4'.
+• minPos [-w <win>] - returns the first position in the current window.  
+    This will normally be '0' in Alpha 8/X, but for compatibility with 
+    Alphatk (in which it is 1.0) should not be so assumed.
+• maxPos [-w <win>] - returns the position of the last character in the front
+    window.
+• pos::nextLineStart [-w <win>] <pos> - return the position of the start of the 
+    next line after position 'pos'.
+• pos::diff [-w <win>] <pos1> <pos2> returns the number of characters between the two 
+    positions in the window.  This will be negative if pos1 is after pos2.
+• pos::math [-w <win>] <pos> ?+/- offset? ...  returns that position which is 
+    given by moving the given number of characters backwards or
+    forwards in the current window.  Any number of offset arguments
+    may be given, with or without spaces separating the arguments.
+    For future compatibility pos::math should be used in preference
+    to numerical addition: positions cannot be assumed to be simple
+    integers.
+• pos::compare [-w <win>] <pos1> <comparison> <pos2> returns 1 or 0 depending 
+    on whether the given comparison is true or not.  Valid
+    comparisons include ==, !=, <, >, <=, >= etc.  For future
+    compatibility, pos::compare should be used in preference to a
+    direct, numerical comparison.
+• pos::toRowCol [-w <win>] <pos> - converts from absolute position to row, col.
+• pos::toRowChar [-w <win>] <pos> - converts from absolute position to row, char.
+• pos::fromRowCol [-w <win>] <row> <col> - converts to absolute position.
+    Accepts optional -w parameter that allows window to be specified.
+• pos::fromRowChar [-w <win>] <row> <char> - converts to absolute position.
+    Accepts optional -w parameter that allows window to be specified.
+
+	--------------------------------------------------------------------
+
+= Basic insertion position movement
+
+• backwardChar [-w <win>] - moves insertion one char back
+• backwardWord [-w <win>] - moves insertion one word back
+• backwardWordSelect [-w <win>] - extend selection one word back
+• beginningOfBuffer [-w <win>] - move insertion to the beginning of the buffer
+• beginningOfLine [-w <win>] - move insertion to the beginning of the line
+• endOfBuffer [-w <win>] - move insertion to the end of the buffer
+• endOfLine [-w <win>] - move insertion to the end of the line
+• forwardChar [-w <win>] - move insertion one character forward
+• forwardWord [-w <win>] - move insertion one word forward
+• forwardWordSelect [-w <win>] - extend selection one word forward.
+• goto [-w <win>] <pos> - go to the position 'pos' in the current window.
+• gotoLine - prompt for a line in the current window and jump to it
+    (used by clicking on line/row indicator in the status bar window).
+• gotoMark [-w <win>] mark - go to named mark, use 'mark' in macros.
+• gotoTMark [-w <win>] <name> - go to the temporary mark 'name'.
+• matchBrace [-w <win>] - moves the insertion point to the character that 
+    matches the character after the current insertion point
+• nextLine [-w <win>] - move insertion point to next line
+• nextSentence - go to next sentence ("textFill.tcl").
+• previousLine [-w <win>] - move insertion point to the previous line
+• prevSentence - go to previous sentence ("textFill.tcl").
+
+	--------------------------------------------------------------------
+
+= Basic text manipulation
+
+• deleteText [-w <win>] <pos1> <pos2> - remove text between 'pos1' and 'pos2'
+• getText [-w <win>] <pos1> <pos2> - return the text between 'pos1' and 'pos2'. 
+    '-w' can be used to specify a window.
+• insertText [-w <win name>] <text>* - Insert 'text' at the current insertion
+    point. Mark is unchanged.
+• lookAt [-w <name>] <pos> [<num>] - return the num characters at the
+    'pos'th position of the current file, or the file named by <name> if 
+    the '-w' option is specified. The value for num must be an integer 
+    between 1 and 10 (default value is 1).
+• replaceText [-w <win>] <pos1> <pos2> [text]+ - replaces the text between 'pos1'
+    and 'pos2' with 'text', where 'text' can be any number of arguments. 
+    The insertion position and selection are unaffected by this operation,
+    but 'the mark' is set to pos1.
+
+	--------------------------------------------------------------------
+
+= Selection manipulation and creation
+
+• balance [-w <win>] - selects smallest set of parens, braces, or brackets that
+    encloses the current cursor position, i.e. (), {}, and [], but not <>.
+    If there is initially a selection, [balance] operates on the position
+    that starts the selection.  Starting from the initial position it
+    searches backward until it finds one of the enclosers: (, {, or [.  It
+    ignores any of these characters which is preceded by a backslash.  When
+    (if) it finds one then it looks in the other direction for the matching
+    character, again ignoring escaped characters.  An error is thrown if any
+    of this fails, and the cursor is returned to the initial position.
+• backwardCharSelect [-w <win>] - extends selection one char back
+• beginningBufferSelect [-w <win>] - extend selection to the beginning of the 
+    buffer
+• beginningLineSelect [-w <win>] - extend selection to the beginning of the line
+• deleteSelection [-w <win>] - delete current position, don't save
+• endBufferSelect [-w <win>] - extend selection to the end of the buffer
+• endLineSelect [-w <win>] - extend selection to the end of line
+• forwardCharSelect [-w <win>] - extend selection one character forward
+• getSelect [-w <win>] - return the currently selected text, if any.
+• nextLineSelect [-w <win>] - extend selection to the next line
+• prevLineSelect [-w <win>] - extend selection to the previous line
+• selectText [-w <win>] <pos1> <pos2> - (formerly [select].)  Selects the text
+    between 'pos1' and 'pos2'.
+• selEnd [-w <win>] - returns the end of the hilited selection, or the current
+    insertion point if no text is selected.
+
+	--------------------------------------------------------------------
+
+= Pin manipulation and creation
+
+• exchangePointAndPin [-w <win>] - exchange the current 'pin' w/ the current 
+    insertion point
+• getPin [-w <win>] - return the current pin.
+• hiliteToPin [-w <win>] - This is the 'Hilite' from the 'Edit' menu. If 
+    there is a currently hilited selection, the selection is unhilited, 
+    leaving the pin and the insertion point around the old selection. If 
+    there is not a selection, the region between the insertion point and 
+    the pin is selected.
+• rectangularHiliteToPin [-w <win>] - creates a rectangular selection between 
+    the pin and the insertion point.
+• setPin [-w <win>] - set the pin position to the insertion point
+
+	--------------------------------------------------------------------
+
+= Clipboard/scrap handling
+
+All of [copy] [cut] and [paste] and defined in AlphaTcl.
+  
+• alpha::copyRegion [-w <win>] - copy region
+• alpha::cutRegion [-w <win>] - deletes and saves region
+• alpha::pasteRegion [-w <win>] - insert the last chunk of text created by
+    [alpha::cutRegion] or [alpha::copyRegion]
+• clear [-w <win>] - clear selected text.  ("coreFixes.tcl")
+• getScrap - returns system TEXT scrap.
+• putScrap [<string>]+ - Concatenate strings together into the system 
+    scrap.  The scrap can be appended to through calls of the form 'putScrap
+    [getScrap] " another word"'.
+
+	--------------------------------------------------------------------
+
+= Various textual manipulations
+ 
+Former core commands which are implemented in AlphaTcl are in "textManip.tcl"
+unless stated otherwise.
+
+• backSpace [-w <win>] - delete selection, or a single char if no selection.
+• backwardDeleteWord [-w <win>] - deletes previous word
+• capitalizeRegion [-w <win>] - capitalize first word in selected region 
+• capitalizeWord [-w <win>] - capitalize the character at the cursor location,
+    and downcase the remaining text of the word to the right of the cursor,
+    leaving the cursor at the end of the word.
+• deleteChar [-w <win>] - delete char AFTER cursor
+• deleteWord [-w <win>] - delete word after cursor
+• downcaseRegion [-w <win>] - changes all letters to lowercase in current
+    region.  Original region remains selected.
+• downcaseWord [-w <win>] - changes all letters to lowercase in current word
+    from the cursor position to the end of the word, leaving the cursor at
+    the end of the word.
+• fold [-w <win> (info|hide|show) ?args?] - queries or hides or shows blocks 
+    of text in the given window.  This command is only available in Alphatk.
+• killLine [-w <win>] - kill text from insertion point to the end of the
+    line.  If the line has no text, delete the line and move succeeding lines
+    up one.
+• oneSpace [-w <win>] - converts whitespace surrounding insertion into a
+    single space.
+• openLine [-w <win>] - insert a new line following the current one and move
+    the insertion point to it
+• redo [-w <win>] - redo the next action that has been undone but not redone
+• spacesToTabs [-w <win>] ?from to? - convert spaces in selection to tabs.
+• tab [-w <win>] - insert a tab
+• tabsToSpaces [-w <win>] ?from to? - convert tabs in selection to spaces.
+• undo [-w <win>] - undo the last action that has not been undone
+• upcaseRegion [-w <win>] - convert all letters to uppercase in the current
+    region.  Original region remains selected.
+• upcaseWord [-w <win>] - convert all letters to uppercase in the current word
+	from the cursor position to the end of the word, leaving the cursor at the
+    end of the word.
+• wrapText [-w <win>] <pos0> <pos1> - wrap each line found in the region
+    between the two positions.  (See "textFill.tcl")
+• yank [-w <win>] - insert the last piece of deleted text of less than 1k. 
+    Consecutive deletes are concatenated together.
+• zapNonPrintables [-w <win>] - removes chars < ascii 32, except for LF's 
+    and CR's.
+
+	--------------------------------------------------------------------
+
+= View/insertion interaction
+
+• blink [-w <win>] <pos> - blink cursor at 'pos'
+• centerRedraw [-w <win>] - redraw window with current line in the middle.
+• display [-w <win>] <pos> - move pos's line to top of screen.
+• insertToTop [-w <win>] - make the line that the insertion point is on the
+    first line shown
+• moveInsertionHere [-w <win>] [-last] - move the insertion point to the 
+    first (or last) line displayed
+• pageBack [-w <win>] - display prev screenful, move the insertion point if 
+    'moveInsertion' enabled
+• pageForward [-w <win>] - display next screenful, move the insertion point if
+    'moveInsertion' enabled
+• scrollDownLine [-w <win>] - same action as that which occurs when the down 
+    arrow in the vertical scrollbar is selected
+• scrollLeftCol [-w <win>] - same action as that which occurs when the left 
+    arrow in the horizontal scrollbar is selected
+• scrollRightCol [-w <win>] - same action as that which occurs when the right 
+    arrow in the horizontal scrollbar is selected
+• scrollUpLine [-w <win>] - same action as that which occurs when the up arrow 
+    in the vertical scrollbar is selected
+
+	--------------------------------------------------------------------
+
+= Dialogs for querying the user
+
+• alert [-t stop|caution|note|plain] [-k okText] [-c cancelText] [-o otherText] 
+            [-h] [-K ok|cancel|other|help] [-C ok|cancel|other|help|none]
+            <error_string> [explanation_string]
+    This command will display 'error_string' in a standard alert box. 
+    If present, 'explanation_string' will be displayed in the small
+    System font.  The dialog format will be determined by the flags:
+    The '-t' flag specifies the icon that will be displayed with the
+    dialog.  The '-h' flag specifies that the Help button should be
+    displayed.  The '-k' flag specifies the text of the button in the
+    OK position (default value is "OK").  '-c' flag specifies the text
+    of the button in the Cancel position (default value is "Cancel"). 
+    '-o' flag specifies the text of the button in the leftmost
+    position (default value is "Don't Save").  The '-K' flag specifies
+    which button acts as the default button.  The '-C' flag specifies
+    which button acts as the Cancel button.  If 'cancelText' or
+    'otherText' is an empty string, the corresponding button will be
+    omitted.  There must be a button in the OK position and there must
+    be a default button (setting the default button to 'other' and an
+    empty otherText will remove the default ring, but return or enter
+    will still select the OK button).  The command will return the
+    name of the button that was pressed.
+• alertnote <args> - display a message in a standard OS alert box.  If more
+    than one argument is given, the first is displayed in boldface, and the
+    remaining arguments are joined by " " and displayed in a smaller font
+    below the first.  Otherwise the entire message is in a smaller font. 
+    The only button in the alert box is "OK", and the return value is the
+    empty string.
+• askyesno [-c] <prompt> - display 'prompt' in an OS alert box with the push
+    buttons Yes and No. The command will return the string "yes" or "no". 
+    The '-c' flag specifies that a cancel button be used as well (with 
+    return value "cancel").  On Alphatk, optional arguments '-y name -n
+    name' may be specified, which change the names of the yes/no
+    buttons (but the return strings are unchanged).
+• buttonAlert <prompt> [<button>…] - create a dialog w/ the specified buttons,
+    returning the one selected.
+• colorTriple [<prompt>] [<red> <green> <blue>] - prompts the user to choose 
+    color. If specified, the input RGB value is used as the initial color on 
+    the colorpicker.
+• dialog [<-w width>|<-h height>|<-b title l t r b>|<-c title val l t r b>|
+            <-t text l t r b>|<-e text l t r b>|<-r text val l t r b>|
+            ...
+
+    Create and display a dialog.  '-w' and '-h' allow width and height of
+    dialog window to be set.  '-b', '-c', '-r', '-t', '-e' and '-p' allow
+    buttons, checkboxes, radio buttons, static text, and editable text to be
+    created, respectively.  All control types require specification of a
+    title or text, together with left, top, right, and bottom coordinates.
+    Checkboxes and radioboxes have an additional parameter, the default
+    value.  At least one button must be specified.  The return value is a
+    list containing resulting values for all buttons, radioboxes, checkboxes,
+    and editable textboxes (static text is ignored).  Buttons have value '1'
+    if chosen, '0' otherwise.  The dialog box exits at the first button
+    press.  The arguments listed above are the ones most commonly used, but
+    section 2.1 of the "Dialogs Help" .pdf file has information about the most
+    current set available, as well as the optional "-tag" "-action" etc.
+    arguments that allow for scripts to be called when a control is selected.
+
+    The proc: dialog::make and the proc: dialog::make_paged make it much
+    easier to create dialogs, avoiding the need to wrestle with the core
+    'dialog' command directly, as described in "Dialogs Help".
+
+• findFile [<path>] - open a file in a new window. An optional path parameter
+    specifies a default directory or file.
+• getControlInfo <id> <attribute> - returns the attribute value of the dialog 
+    control associated with <id>, where <id> has been returned by Alpha(tk)'s
+    core.  Valid values for 'attribute' are 'value', 'font', 'state'
+    'contents' or 'help'.
+    (Available in Alphatk and AlphaX >= 8.1a1)
+• getControlValue <id> - returns the value of the dialog control associated
+    with <id>, where <id> has been returned by Alpha(tk)'s core.
+    (Available in Alphatk and AlphaX >= 8.1a1)
+• get_directory ?-p <prompt>? ?-openPackages <num>? \
+      ?-showInvisibleFiles <num>? [<default>]
+    display a GetDirectory navigation dialog and request the user to select
+    a folder. The command will return the selected folder's full path name,
+    or an error if the Cancel button was selected. An optional path
+    parameter specifies a default directory. The -p option specifies a
+    prompt to display in the dialog. The other parameters have the same
+    meaning as with the getfile command.
+• getfile ?-types <typeslist>? ?-openPackages <num>? \
+       ?-showInvisibleFiles <num>? [<prompt>] [<path>]
+    display a GetFile navigation dialog and return the full path name of
+    the selected file, or an error if Cancel button was selected. An
+    optional path parameter specifies a default directory or file. On
+    AlphaX, the -openPackages option specifies whether bundled applications
+    should be seen as a folder (to make their contents accessible) or not
+    and the -showInvisibleFiles option specifies whether invisible files
+    should be listed in the dialog.
+• getline <prompt> <default> - display an OS alert box with prompt displayed, a 
+    text edit field with default initially in the field, and with the push 
+    buttons OK, Cancel.. The command will return the text entered into the 
+    text edit field by the user, or an empty string if the user selected the 
+    Cancel button.
+• listpick [options…] <list> - Display a dialog with the list displayed in a
+    List Manager list.  If the user presses the Cancel button, an error is
+    returned.  If the user selects the OK button, or double clicks an item in
+    the list, that item will be returned.  Valid options include
+
+      -w <width>    - the width of the dialog.
+      -h <height>   - the height of the dialog.
+      -p <prompt>   - the prompt text at the top of the dialog.
+      -l            - allow multiple items to be selected, return a list.
+      -L <def list> - a list of default item(s) to be initially selected.
+                      if accompanied by -l, all items in the -L list will be
+                      specified, otherwise only the first item is selected.
+      -indices      - return a list of the <list> indices chosen
+      --            - next arg is the list.
+
+• prompt <prompt> <default> [<name> <menu item>*] - prompt dialog to 
+    the user with a prompt string and a default value.  The prompt dialog
+    can optionally include a popup menu specified by 'name' and the
+    succeeding strings.  Selection of the popup menu items inserts the item
+    text into the editable dialog item.  'Prompt' returns the value of the
+    editable item.  If the 'Cancel' button is selected, the tcl returns an
+    error and your script will be stopped unless you execute the command
+    from 'catch'.
+• putfile <prompt> <original> - display an SFPutFile() and return the full
+    path name of the selected file, or an empty string if CANCEL button was
+    selected. Original is the default name displayed for the user.
+• setFontsTabs ?-w win? ?-font name? ?-fontsize size? ?-tabsize tab? - if
+    none of the font/fontsize/tabsize attributes are given, then bring up a
+    font and tab dialog for the specified window (or the current window if
+    -w was not given).  Otherwise set the appropriate attribute of the
+    appropriate window to the values given.
+• setControlInfo <id> <attribute> <value> - set the attribute value of the 
+    dialog control associated with <id>, where <id> has been returned by
+    Alpha(tk)'s core.  Valid values for 'attribute' are 'value', 'font',
+    'state' 'contents' or 'help'.  If the attribute is 'value' and if the
+    value given will not fit in the available space, this command throws an
+    error, the value of which is the available width, in pixels.
+    (Available in Alphatk and AlphaX >= 8.1a1)
+• setControlValue <id> <value> - set the value of the dialog control 
+    associated with <id>, where <id> has been returned by Alpha(tk)'s core.
+    If the value will not fit in the available space, this command throws
+    an error, the value of which is the available width, in pixels.
+    (Available in Alphatk and AlphaX >= 8.1a1)
+• setRGB <col> red green blue - define one of Alpha(tk)'s colours.
+
+	--------------------------------------------------------------------
+
+= Search in a window
+
+• search [-w <win>] [options…] <pattern> <pos> - search for 'pattern' from 
+    position 'pos'.  Valid options include
+
+      -f <num>      - go forward?
+      -r <num>      - regular expression?
+      -i <num>      - ignore case?
+      -m <num>      - match words?
+      -all          - return all matches (else just first match)
+      -wrap         - if the search reaches the end of the window wrap
+                      around to the beginning and continue searching 
+                      (similarly when searching backwards, wrap from 
+                      beginning to end).
+      -n            - failed search still returns TCL_OK, but null string.
+      -l <limit>    - limit on how search goes.
+      -s            - save previous search string and search flags (obsolete).
+      --            - next arg is the pattern.
+
+    If the search succeeds, a list of two positions will be returned,
+    unless '-all' was given, when the list will contain 2 positions for
+    each correct match (note: it is a flat list).  The first is the
+    starting position of the match, the second is one past the last
+    character.  If no '-n', an error is thrown if no match was found.
+    For the regular expression syntax which may be used, see 
+    "Regular Expressions".
+
+    To search from the beginning of the buffer, use 'search -s -f 1 ...
+    [minPos]' and to search backwards from the end, use 'search -s -f 0
+    ...  [maxPos]'.  See also 'performSearch' which can be used for
+    simulated interactive searching (where the search result is
+    selected, for example).  
+
+    'pos' is the first position at which a search may match (whether
+    searching forwards or backwards). 'limit', if given, is the first
+    position at which a search will not match.
+
+    Backwards searches: The interpretation of 'pos' is such that
+    backwards searches may match immediately at 'pos', in which case the
+    entire matched range will be outside the apparent [limit,pos] search
+    region.  This is a somewhat controversial behaviour which _may_ be
+    adjusted in the future if steps can be taken to ensure none of the
+    code in AlphaTcl breaks.
+
+    Also, for various reasons, backwards searches (particularly with
+    regexps) are slower than forward searches.
+
+	--------------------------------------------------------------------
+
+= Using search dialog-equivalents from Tcl
+
+Implemented entirely in AlphaTcl, see the source files "supersearch.tcl"
+and "interactiveSearch.tcl".
+
+• enterReplaceString - use current selection, if any, for future replacements
+    (in search dialog).
+• enterSearchString - use current selection, if any, for future searches.
+• find - bring up the find dialog
+• findAgain - repeat search forward
+• findAgainBackward - repeat search backward
+• findInNextFile - search next file.
+• performSearch  [options…] <pattern> <pos> - as for 'search' but also selects
+    the range of characters which are found, and ensures Alpha's internal
+    state is consistent for following replace/replaceAll/...  commands.
+• replace - replace the current selection
+• replaceAll - replace all further occurrences in the current file or set
+    of files.
+• replace&FindAgain - replace the current selection and find next occurrence.
+• replaceString [<str>] - specifies replacement string. Returns current 
+    replacement string if no arg.
+• searchString [<str>] - allows search string to be specified. Returns 
+    current searchstring if no arg.
+• quickFind - incremental search: searches w/o a dialog, searches as you type
+    the search pattern.  Does not do regular expression searches.  'matchWords'
+    automatically set to false.
+• quickFindRegexp - incremental regexp search
+• reverseQuickFind - reverse incremental search, see 'quickFind'.
+
+	--------------------------------------------------------------------
+
+= Basic window creation and file-interaction
+
+• edit [-r] [-c] [-w] [-mode <val>] [-encoding <val>] [-tabsize <val>] 
+    [-g <l> <t> <w> <h>] [--] <name> - Open a file in new window.  '-c'
+    means don't prompt for duplicate win if file already open (just
+    bring to already open window to the front).  '-r' means open the
+    file read-only.  The '-g' option allows left and top coords to be
+    specified, plus width, and height.  All or none.  '-w' allows you to
+    bypass the "Wrap" dialog for files with long rows.  This procedure
+    may also be able to cope with <name> values which are not obviously
+    files (e.g. remote files, .zip archives, etc) if appropriate hooks
+    are activated, and may take a different action (e.g. run an
+    installer) with some <name> values.  To force Alpha to open <name>
+    in a new window, the more fundamental command 'editDocument' could
+    be used.  However that is rarely required.  The return value of this
+    command is the name of the window which was opened (or the existing
+    window if a duplicate was not wanted).  Alphatk supports an
+    additional [-tabbed <tabWinTitle>] argument which, if given, places
+    the window as a tab inside the tabbed window which has title
+    tabWinTitle.
+• new [-g <l> <t> <w> <h>] [-tabsize <val>] [-mode <val>] [-dirty <val>] 
+    [-shell <val>] [-info <val>] [-n <name>] - opens an untitled window. Can
+    optionally provide left and top coordinates, plus width and height.
+    All or none.  Alphatk supports an additional [-tabbed <tabWinTitle>] 
+    argument which, if given, places the window as a tab inside the tabbed
+    window which has title tabWinTitle.  If the "-info" argument is given,
+    the window will be automatically locked, with "<val>" inserted as the
+    text, and the cursor will be placed at the beginning of the new window.
+• revert [-w <win>] - revert the file to its last saved version
+• save ?<win>? - save current window, or given window.  If the window has
+    never been saved, then this will be re-routed, internally, to 'saveAs'.
+• saveAs ?-f? [def name] - save current window with new name. Optionally 
+    takes a default filename.  Returns complete path of saved file, if ok hit,
+    otherwise TCL_ERROR returned.  If '-f' flag given, then we force the save
+    without any standard-file dialog.
+• saveResources [win] - save resource information for current window, or 
+    given window. The window must not be read-only, or a shell window, and
+    needs to have a file associated with it.  The file's modification date 
+    and finder information will not be changed by saving the resource 
+    information. (Only available and relevant for Alpha 8/X).
+
+	--------------------------------------------------------------------
+
+= Window manager
+
+• bringToFront <winName> - Bring named window to front.
+• closeAll - close all windows
+• closeFloat - close the top floating window.
+• float -m <menu> [<-h|-w|-l|-t|-M> <val>] [-n winname] [-z tag] -
+    Takes a created menu (not necessarily in the menubar), and makes a
+    floating window out of it.  Returns integer tag that is used to remove
+    the window.  With no arguments, returns all currently defined menus.
+    -h through -M change width, height, left margin, top margin, and margin
+    between buttons.  -z allows a ten-char tag to be specified for
+    'floatShowHide'.
+• floatIcon [-n <window name>] <resID> [<resID> ...] - make a little floating window
+     containing small icons with the specified resource IDs.
+• floatShowHide <on|off> <tag> - Shows or hides all floats w/ specified tag.
+    Tags of current modes are automatically shown/hidden.
+• getGeometry [-s] [win] - return a Tcl list containing the left, top, 
+    width, and height of the 'content rectangle' of the current or given
+    window (this includes scrollbars and text editing areas, but
+    excludes the window border and title).  With the '-s' flag, returns
+    the entire structure rectangle, including the window border and
+    title.
+• getMainDevice - return a list containing the left, top, right, and bottom
+    of the rectangle defining the main device.
+• getWinInfo [-w <win>] <arr> - Creates an array in current context 
+    containing info about either the current or a specified window.  This
+    array should be considered read-only.  It has fields 'state',
+    'platform', 'read-only', 'tabsize', 'split' (if window is split, it is
+    the percentage of the top pane, 0 otherwise), 'linesdisp' (num lines
+    that can be seen in the window), 'currline' (first line displayed), and
+    'dirty', 'font', 'fontsize' and 'encoding'.  Alphatk will also return a
+    'shell' entry if that is set.  The proc: win::getInfo is the 
+    preferred interface to this information.  Alpha 8/X may also provide the
+    'hasSpurious' (inconsistent line endings), 'needsWrap' (some lines are
+    longer than the paragraph width), 'paneNum' (which pane is active in a
+    split window, 0 for top, 1 for bottom) entries.
+• icon [-f <winName>] [-c|-o|-t|-q] [-g <h> <v>] - Having to do w/ 
+    iconifying windows.  '-c' means close (iconify) window, '-o' open, '-t'
+    toggle open/close, '-q' returns either a '1' for an iconified window or a
+    '0' for an uniconified window, and '-g' moves the icon to horizontal
+    position <h> and vertical position 'v'.  Options are executed as they are
+    parsed, so the '-f' option, if present, should always be first.
+• killWindow [-w <win>] - kill window.  This closes the current window,
+    calling preCloseHook, closeHook, etc as appropriate.  Note that if the
+    window is dirty (has unsaved changes), and the user accepts the closure
+    of the window, then 'dirtyHook' will not be called (AlphaTcl's core 
+    uses 'preCloseHook' to capture the fact that a dirty window is being
+    closed, and thereby keep a correct count of the number of dirty 
+    windows).
+• mousePos - Returns list <row,col> of mouse position, if the mouse is 
+    currently over the active window.  Otherwise, return error (catch w/
+    'catch').
+• moveWin [win name] <left> <top> - moves current or specified window. 
+    The window name can be "StatusWin".  This command attempt to move
+    the window so the top-left corner of the window contents (not
+    including the titlebar) is at the specified position.  Alpha may 
+    constrain the action to ensure the window is onscreen.
+• otherPane [-w <win>] - If window is split, select the other pane.
+• saveAll - save all currently open windows.
+• setWinInfo [-w <win>] <field> <arg> - Sets a piece of data about either 
+    the current or a specified window.  Settable fields:
+     platform     - lineendings for the window (mac/unix/dos)
+     read-only    - is the window editable?
+     tabsize      - character widths used for the tab character (\t)
+     dirty        - does the window contain unsaved changes/edits.
+     font         - the font name used for the window's contents
+     fontsize     - the font size used for the widnow's contents
+     shell        - if set, means that dirty flag and undo/redo is ignored
+     state        - (ignored by Alphatk)
+	 colortags    - list of tags for colouring of keywords
+	 bindtags     - list of tags for keyboard bindings
+	 wordbreak    - the regexp defintion of the end of a word 
+    Alphatk also provides 
+     encoding     - the character encoding which will be used to save this
+                    window to disk
+     linenumbers  - show a margin on the left edge of the window showing
+                    line numbers.
+     horscrollbar - include a horizontal scrollbar in the window
+     wrap         - controls real soft wrapping (none/char/word)
+    The proc: win::setInfo is the preferred interface to this information. 
+    Alpha 8/X may also provide the 'hasSpurious' (inconsistent line endings), 
+    and 'needsWrap' (some lines are longer than the paragraph width) entries.
+• sizeWin [win name] <width> <height> - sets size of current or specified window.
+    The window name can be "StatusWin", although only the width can be changed.
+    This command attempt to adjust the size of the window contents (not
+    including the titlebar) to the specified size.  Including the
+    titlebar, the height will of course be larger than that given.  In 
+    addition, Alpha may have minimum and maximum allowed sizes, which
+    will be applied as constraints to the given width, height.
+• toggleSplitWindow [-w <win>] [percent] - toggle having window split into 
+    two panes. Optional arg specifies percent of window to allocate to the 
+    first pane. 
+• toggleScrollbar [-w <win>] - toggles horizontal scrollbar on frontmost window. 
+    Will not succeed if scrollbar scrolled.
+• unfloat <float num> - removes specified floating window. W/ no options 
+    lists all floating windows.
+• windowVisibility [-w <win>] ?<hidden|normal|minimized>? - get or set the
+    visibility state of a window: it is one of hidden, normal, or
+    minimized. If the last argument is not specified, the command returns
+    the current state.
+• wins - return window boundaries for all windows.
+• winNames [-f] - return a list of all open windows, ordered from 
+    frontmost window to backmost window, followed by any windows which are
+    not really ordered (e.g. minimized, hidden windows, or those which are
+    in the process of being created).  If the '-f' option is specified,
+    complete pathnames are returned.  In both cases, when any window's name
+    (as shown in the Open Windows menu) is not unique, ' <n>' (n = 2,3...)
+    is added to the window name to ensure a unique final path component.
+    This can be removed (on an element by element basis) with
+    'win::StripCount'.  The first element of this list is always the same
+    as [win::Current].  The order of iconified/minimized windows is not
+    necessarily defined, so they may just be listed, for example, in an
+    arbitrary order after all normal windows.
+• win::Current - returns the full name of the current window, or the empty
+    string if no windows are currently open.  This is always the same as
+    [lindex [winNames -f] 0].  Note that if a window is currently in the
+    process of being opened (e.g. this function is called from, e.g., 
+    openHook) then [win::Current] will not necessarily return the new
+    window name (for example it might be being opened in a hidden state).
+• zoom - zooms the current window
+
+	--------------------------------------------------------------------
+
+= Menu creation/manipulation
+
+• addHelpMenu <item> - add 'item' to the OS Help menu. No menu conversion
+    done, i.e. all items appear as given without being massaged in any way.
+    In Alpha8/X/tk, 'item' can be a submenu created with the 'Menu' command.
+• addMenuItem [-m] [-l <meta-characters>] <menu name> <item name> - Convert
+    item to menu form and add to specified menu.  If '-m' specified, menu form
+    conversion not done.  The '-l' option allows you to use menu meta
+    characters as text of menu items.  If the '-l' option is used, the
+    <meta-characters> string is interpreted for menu item attributes, and
+    meta-characters in <item name> are included in the menu item text
+    literally.  For example:
+      addMenuItem -m -l "/B" "Hello/C" 
+    would appear as the text "Hello/C" in the menu, and have "B" as its 
+    command equivalent.
+• deleteMenuItem [-m] <menu name> <item name> - Convert item to menu form 
+    and delete from specified menu.  If '-m' specified, menu form conversion
+    not done.
+• enableMenuItem [-m] <menuName> <item text> <on|off> - Either enable or 
+    disable the menu item of user menu 'menuName' that has text '<item text>'. 
+    Note that unless the menu is not only created, but also already inserted,
+    this command has no effect.
+• insertMenu <name> ?<name>...? - insert the previously created user 
+    menu(s) given by the 'name' argument(s) into the menuBar. 
+• markMenuItem [-m] <menuName> <item text> <on|off> [<mark char>] - 
+    Either mark or unmark the menu item of user menu 'menuName' that has text
+    '<item text>'.  Note that unless the menu is not only created, but also
+    already inserted, this command has no effect.
+• Menu [-i <num][-m] [-M <mode>]  [-n <name|num>] [-p <procname>] [-s] <list> -
+    Defines a new menu named 'name' (if provided w/ '-n' option) with items
+    'list'.  The menu is not yet inserted into the menubar.  The menu
+    commands may be nested for heirarchical menus, such as in the filesets
+    menus.  By default Alpha massages the item names in the 'list' to make them 
+    look better in the menus.
+
+      -c            Ignore any menu meta-chars. Can also be done on a per-item
+                    basis by appending an ampersand ('&') to the end of an item.
+      -m            No menu form. If not supplied, each menu item is split into 
+                    words at each capitalized letter.
+      -M <mode>     Specifies that any bindings created by the menu are 
+                    specific to a given mode.  This is important because
+                    mode-specific bindings over-ride global bindings.
+      -n <name>     Name the menu. Not necessary for submenus.
+      -n <num>      Resource id of icon suite to use for menu title. 'ics#' 
+                    is the only resource that is really necessary.
+      -p <name>     The tcl proc named by 'name' is called w/ the menu's name
+                    and the item's contents when the item is chosen.
+      -s            Use system menu definition proc (faster).
+    
+    See the "Extending Alpha # Menu Creation Syntax" section for more
+    information about meta characters which can be used for individual items.
+
+• menu::inserted <name> - is the given menu 'name' currently inserted into
+    the menubar.
+• removeMenu <name> ?<name>...? - remove menu(s) given by the 'name' 
+    argument(s) from the menubar.
+
+	--------------------------------------------------------------------
+
+= Inter-application communication
+
+-- See TclAE Help
+
+• icGetPref [<-t <type>] <pref name> - Gets preference from 
+    Internet Config.  '-t' allows type to be set, '0' returns a string
+    (default), '1' returns a path name, commonly used for helper apps.  A <pref
+    name> of 'all' returns all valid preferences.
+• icOpen - Opens Internet Config
+• launch -f <name> - launch the named app into the background. Note that 
+    for some yet unexplained reason, some applications (MicroSoft Word) won't
+    launch completely in the background.  'launch'ing such applications won't
+    insert the application into any system menu that specifies running
+    applications (although "About the Finder..."  will list it.  The only way
+    to get to such an app is through Alpha's 'switchTo', after which the
+    application will finish launching.  The '-f' option gets around this by
+    launching the application in the foreground instead.
+• nameFromAppl '<app sig>' - Interrogates the desktop database for the first 
+    existing app that has the desired signature.  <app sig> is four chars
+    inside single quotes.  Returns the full path to the executable.
+• processes - returns info of active processes. A list of lists, each 
+    sublist contain a file-name, an application signature, the application
+    memory size, and the number of ticks the application has been active.
+• switchTo <appName> - Switches to application 'appName'.
+• sendOpenEvent [filler] <app name> <file name> - Send an open doc event to 
+    another currently running application.  If 'filler' is noReply, then a
+    reply is not requested.  Otherwise, we wait for a reply and 'filler' is
+    ignored.
+
+	--------------------------------------------------------------------
+
+= Keyboard bindings and codes
+
+• ascii <char> [<modifier>] <script> [<mode>] - bind the given character
+    with optional modifiers to the specified script, optionally for only
+    a given mode.  <char> is a Tcl integer giving the character code
+    corresponding to that key.  <modifier> is, if it is present, a string
+    specifying which additional modifier keys that must be pressed for
+    the binding to be activated.  The first character of this string must
+    be < and the last must be >.  Remaining characters correspond to
+    modifier keys as follows:
+
+
+          c   - command modifier
+          o   - option modifier
+          s   - shift modifier
+          z   - control modifier
+          e   - escape modifier (activated by the startEscape command)
+          A-Z - any capitalized character, for a control-<char> prefix
+                (activated by the prefixChar command)
+
+
+    <script> is any Tcl script, usually a procedure call, that will be
+    evaluated whenever the bound key combination is pressed.  <mode> is,
+    if present, the name of the mode in which this binding should take
+    effect.  If there is no <mode> argument then the binding will be
+    global.  See "Keyboard Shortcuts" for more information.
+• Bind <char> [<modifier>] <script> [<mode>] - bind the given character
+    with optional modifiers to the specified script, optionally for only a
+    given mode.  <char> specifies one of (1) a Tcl integer with the character
+    code as in 'ascii', (2) a particular key either as an explicit character
+    with a straight single quote (apostrophe) on both sides, such as 'a', or
+    (3) a "special" key such as Enter, Home, etc.  The string '\r' (including
+    the single quotes) can be used to bind the Return key.  The Tab key can
+    only be bound using "0x30" (without the double quotes).  See the
+    explanation under "ascii" for more information, and the help file
+    "Keyboard Shortcuts" for a complete list of special keys and examples.
+• bindingList [<mode>] - return list of bindings. The optional <mode> 
+    argument restricts the output to the bindings specific to that mode.
+    It can be "global" which is equivalent to the command with no option.
+• deleteModeBindings <mode> - Delete all bindings for specified mode.
+• describeBinding - display the binding of the next typed key sequence. 
+• getAscii - displays the ASCII code for character at current insertion point
+• getChar - waits for a keystroke, returns ascii.
+• getModifiers - returns current modifiers mask. "OR" of several values, 
+    cmdKey                      = 0x01,      /* Bit 0 of high byte */
+    shiftKey                    = 0x02,      /* Bit 1 of high byte */
+    alphaLock                   = 0x04,      /* Bit 2 of high byte */
+    optionKey                   = 0x08,      /* Bit 3 of high byte */
+    controlKey                  = 0x10,      /* Bit 4 of high byte */
+    rightShiftKey               = 0x20,      /* Bit 5 of high byte */
+    rightOptionKey              = 0x40,      /* Bit 6 of high byte */
+    rightControlKey             = 0x80,      /* Bit 7 of high byte */
+• insertAscii - prompt for an ASCII code and insert into text.
+• keyAscii - insert ascii representation (in decimal) of the keydown event,
+    plus a modifier string, if necessary.
+• keyCode - insert the key code along w/ a string representing and modifiers
+    into the current window. Used by the Alpha Dev menu to create bindings.
+• prefixChar ?msg msg? - used to further modify the next keystroke
+    combination.  If any arguments are given, they are used to form a 
+    message presented to the user in the status bar when this keystroke
+    is triggered (if none are given then 'Prefix ...' is the message).
+• startEscape - used to further modify the next keystroke combination,
+    in the same manner as using the shift key in the next keystroke
+• unascii <char> [<modifier>] <script> [<mode>] - unbind the ascii
+    character previously bound using 'ascii'
+• unBind <char> [<modifier>] <script> [<mode>] - unbind the keyboard 
+    character previously bound using 'Bind'.
+
+	--------------------------------------------------------------------
+
+= Status window
+
+• displayMode <mode> - Up to four characters of the 'mode' string are 
+    displayed in the status line at the bottom of a window.  Note
+    that in Alpha 8/X at present this will throw an error if passed 
+    the empty string.  In Alphatk an empty string will lead to the removal
+    of the popup mode, wrap, encoding, etc. menus from the status bar.
+• displayPlatform <string> - Sets the text string to show as the label in
+    the menu button which controls the 'platform' popup menu in the status
+    bar.  Typically this is used internally by AlphaTcl to set this label
+    to one of 'mac', 'unix' or 'dos' to reflect the current window's
+    line-endings (mac = CR, unix = LF, dos = CRLF).  To change the
+    line-endings in use for the current window, see 'setWinInfo'.
+• displayWrap <string> - Sets the text string to show as the label in the
+    menu button which controls the 'line wrap' popup menu in the status bar.
+    Typically it is used internally by AlphaTcl to set this label to one of
+    'none', or 'auto' (additionally 'visual-char', 'visual-word' in
+    Alphatk).  To change the actual wrap style of the current window, set
+    your mode's 'Line Wrap' preference.
+• displayEncoding <string> - Sets the text string to show as the label in the
+    menu button which controls the 'encoding' popup menu in the status bar.
+    Typically it is used internally by AlphaTcl to set this label to the
+    current window's encoding ('macRoman', 'utf-8', etc).  This is only
+    available in Alphatk.
+• execute - prompt user for a function or macro. The tab key acts as a
+    "completion" command.
+• status::msg <string> - prints 'string' on the status line.  (This
+    should be used in preference to the older 'message' which conflicts
+    with Tk).
+• statusPrompt <prompt> [<func>] - Prompt in the status window. If 'func' 
+    is present, call this routine at each key-press with the current contents
+    of the status line and the key, insert into statusline whatever is returned
+    by the func.  Command-v pastes the current (<80 char) clipboard contents on
+    the status line.  Also see the proc: status::prompt which is more flexible.
+
+	--------------------------------------------------------------------
+
+= Filesystem
+
+• getFileInfo <file> <arr> - Given a file or folder name, creates an array
+    called 'arr' in the current context, containing fields 'created',
+    'modified', 'creator', 'type', 'datalen', and 'resourcelen'. These last
+    four fields are ignored in the case of a directory. 'created' and
+    'modified' are in a form suitable for the command 'mtime'. On Alphatk
+    with non-MacOS platforms, the 'type' entry is always 'TEXT' and the
+    'creator' entry is just the <file> given. On AlphaX, there is a
+    'bundle' field to tell whether the item is a bundle (directory
+    displayed as a file) or not. There is also a 'hidden' field indicating
+    if the file is visible or not. Most (all in Tcl 8.5) fields of
+    getFileInfo can be accessed through 'file attributes', 'file mtime'
+    etc., which are preferred.
+• ls - unix style directory listing, described in "Shells"
+• setFileInfo <file> <field> [arg] - set some information for files.
+    Settable fields are 'modified', 'created', 'creator', and 'type'. All
+    take an argument except 'resourcelen' which just removes the resource
+    fork. 'file' is a complete pathname. On AlphaX, there is a 'hidden'
+    field to make the file invisible in the Finder. Most (all in Tcl 8.5)
+    fields of setFileInfo can be accessed through 'file attributes', 'file
+    mtime' etc., which are preferred.
+
+	--------------------------------------------------------------------
+
+= Debugging
+
+• echo <string>* - echo the strings (used in shells).
+• evaluate [-w <win>] ?script? - evaluates given text, else hilited text, 
+   or entire window if nothing is hilited.  'evaluat'ing means that whatever 
+   Tcl code (procs, bindings or macro definitions etc) is present in the 
+   evaluated text take effect
+• tclShell - open the Tcl shell.
+
+	--------------------------------------------------------------------
+
+= Colours
+
+• colorTagKeywords [options] <colortag> <keyword list> - Set keywords 
+    to color for the given tag. Valid options are:
+   
+       -a			  Keywords will be *added* to existing <colortag>
+                   keywords.  The new keywords can be a different
+                   color to older keywords.
+       -k <color>		Keyword color.
+       -C          All keywords for this colortag are case-sensitive.
+     
+    No other options are allowed.  This command may be evaluated 
+    repeatedly for a given colortag, to declare multiple sets of
+    color+keywords.  However the '-C' flag applies to all keywords
+    with all colours, and need therefore only be given once -- it
+    should be given (or not, if undesired) the first time that 
+    colorTagKeywords is called for the given colortag.  So a typical
+    usage will be:
+    
+      colorTagKeywords -C foo {}
+      colorTagKeywords -a -k blue foo {list of keywords}
+      colorTagKeywords -a -k magenta foo {list of keywords}
+
+    (This command is only in Alphatk 8.3fc5 and Alpha 8.0b16 or newer,
+    and in Alpha 8/X there is a limit of 20 characters for <colortag> and
+    of 40 characters for any individual keyword)
+• dumpColors - dump current foreground and background colors into the
+    current buffer in Alpha-readable format.
+• getColors [-w <win>] - returns list of colors/hypertext for current document
+    or for the window specified with the -w option. Format is list of lists, 
+    each sublist consisting of file offset, color index, and possibly a 
+    hypertext command.
+• insertColorEscape [-w <win>] <pos> <color ind> [hypertext func] - Create a 
+    color or style "point" for documentation purposes.  Look at the file
+    "colorsMenu.tcl" for examples.  The hypertext func is only used when the
+    "point" is underlined.  See 'getColors' for info about the current file. 
+    You should now use the proc: text::color and the proc: text::hyper instead
+    of this function.
+• refresh [-w <win>] - redraw the window colours, required in Alpha8/X after
+    applying colours with [text::color], this is a dummy proc in Alphatk.
+• regModeKeywords [options] <mode> <keyword list> - Set keywords and comments
+    that Alpha can recognize to color them.  Specifically, in mode <mode>,
+    every keyword specified in the list is colored non-black (blue, by
+    default).  Comments, if specified by '-e' or '-b' below, are colored red by
+    default.    Each keyword must be shorter than 40 characters in Alpha8/X.
+
+      -a              Keywords will be *added* to existing mode keywords.
+                      The new keywords can be a different color than older
+                      keywords.  This flag can also be used to modify other
+                      attributes.
+      -b <beg> <end>  Specify a pair of strings that bracket a comment.
+      -C              Keywords are case sensitive.  When used it should be 
+                      the first regModeKeywords statement done in a mode.  
+                      Use an empty <keyword list> e.g. {}, like
+                      this 'regModeKeywords -C Tcl {}' 
+      -c <color>      Comment color.
+      -e <commentstr> Specify a string that begins comments that last to 
+                      the end of the line.
+      -f <color>      'Function' color, which will color any word preceding '('
+      -i <char>       Specify a character to display differently.
+                      Commonly used for curly braces, etc.
+      -I <color>      Color of above characters.
+      -k <color>      Keyword color.
+      -m <c>          Specify a magic character. Every word beginning with the 
+                      magic character is a keyword.
+      -s <color>      String color. Alpha8/X can color single-line strings only,
+                      using the simple heuristic of assuming the first two double
+                      quotes constitute a string.
+
+• removeColorEscapes [-w <win>] - remove color escapes from topmost window.
+
+	--------------------------------------------------------------------
+
+= Keyboard macros
+
+• iterationCount - allows actions to be repeated many times. 
+    "control-u 44 =" inserts 44 '='s into current window.  Also can be used to
+    execute any function or macro (including the keyboard macro) many times. 
+    Defaults to 4.
+• macro::current - return the most recently recorded keyboard macro as a proc.
+• macro::endRecording - stop recording keyboard macro
+• macro::execute - execute the current keyboard macro
+• macro::startRecording - start recording keyboard macro
+• macro::recording - are we currently recording?
+
+	--------------------------------------------------------------------
+
+= Time related
+
+• cvttime - convert input time to/from some epoch (+/- 0x7c25b080).
+• mtime <time> [long|short|abbrev] - return a date and time string using 
+    the Macintosh International Utilities.  The long/short/abbrev specification
+    corresponds to the date.  These are the following formats:
+
+      short     3/16/92 9:20:46 PM
+      abbrev    Mon, Mar 16, 1992 9:20:49 PM
+      long      Monday, March 16, 1992 9:20:43 PM
+
+    The returned value actually is in the form of a list.  To get text as
+    above, run the result through 'join', as in "join [mtime [now] short]".
+• now - return the current time as Macintosh seconds. This is the number
+    of seconds that have elapsed since Midnight Jan 1, 1904.
+• ticks - return the current TickCount. Ticks are 60ths of a seconds.
+    TickCount is the number of ticks since the Macintosh was started.  The
+    command:
+
+      puts stdout [expr "[ticks] / 60"]
+
+    will print the number of seconds since the Macintosh was booted.
+
+	--------------------------------------------------------------------
+
+= Marks
+
+• createTMark [-w <win>] <name> <pos> - create a temporary 'mark' at 
+    location 'pos'. 
+• getNamedMarks [-w <win>] [-n] - return list of all permanent marks
+    in open files.  Each element of a list describes one mark as a sublist of
+    the mark's name, the complete pathname of the mark's file, the position of
+    the first character in the first line displayed, the current position, and
+    the end of the selection if text is hilited, or the current position again
+    if there is no hilited section.  '-w' allows window name to be applied as
+    filter, '-n' means only names will be returned.
+• getTMarks [-w <win>] - return a list of temporary marks. Each item of the 
+    returned list is a sublist containing the mark name, the complete pathname 
+    of the mark, and the start and finish of the selection named by the mark.  
+    The following is an example of the result:
+
+      {{temp1 External:file.c 1312 1315} {temp2 Internal:it.h 111 111}} 
+
+• removeNamedMark [-w window] [-n name] - remove a mark previously set by 
+     'setNamedMark'.  If neither -w nor -n are specified, presents the user with
+     a dialog containing all marks from all open windows.  If only -w is
+     specified, presents the user with a dialog containing all marks from the
+     specified window.  If both -w and -n are specified, the mark 'name' is
+     removed from 'window'.  If only -n is specified, the mark 'name' is removed
+     from the current window.
+• removeTMark [-w <win>] <name> - remove temporary mark.
+• setNamedMark [-w <win>] [name disp pos end] - set named mark. If 
+    optional arguments are present, the mark is created without prompting
+    user.  'disp' is the character position of the start of the first
+    line to be displayed, while 'pos' and 'end' bracket the text to be
+    selected.
+
+	--------------------------------------------------------------------
+
+= Remaining commands
+
+(in alphabetical order) -- 
+
+  some of these still need placing in other sections of this document.
+
+• abbreviateText <font> <string> <width> - return an abbreviated string that
+    will fit in the given pixel-length specificed by "width".  The "font"
+    argument can be either an integer or a font name.  In the case of an
+    integer, it is precisely a theme font ID. Allowable values include these
+    specified below in the command: getTextDimensions .  It is possible to
+    use either the integer value or its symbolic name.  So, for instance, one
+    can use either:
+
+	abbreviateText kThemeLabelFont $HOME 125
+	abbreviateText 6 $HOME 125
+	
+    Limited support for using Font names (such as monaco or geneva) exists
+    but is discouraged to ensure cross-platform compatibility; integers from
+    the set {0 1 2 3} are fully supported in both AlphaX and Alphatk.
+
+• abortEm - aborts whatever is currently happening
+• addAlphaChars <chars> - Add <chars> to the list of characters that internally 
+    are caught by the 'isalnum' and 'isalpha' calls.  Can be used to augment
+    the list of characters that the \w pattern in a regular expression responds
+    to.  Use w/ care.  (only supported in Alpha 8/X).
+• tags::createFile - In "tags.tcl".
+• tags::find - In "tags.tcl".
+• beep [-volume num] [-list | sndName]? where -volume and -list are switches,
+    while num and sndName are variables. Example:  
+      beep -volume 3 "click in set 5"
+    will play at volume 3 the sound named "click in set 5" in the Alpha's snd
+    resource.  Any sound stored in that resource can be used as well, so feel
+    free to paste a sound (with ResEdit) in the snd resource to have it
+    available.
+• breakIntoLines <string> [fillColumn [leftFillColumn]] - return 'string' 
+    with carriage returns and spaces inserted to satisfy 'leftFillColumn' 
+    and 'fillColumn' variables (unless values are given for these).
+    ("paragraphs.tcl")
+• getTextDimensions [options] <text> - returns the rectangular 
+    bounds of <text> in pixels. Bounds are returned as 
+    {left ascent right descent} around the (0,0) origin 
+    of the line of text. The font, size and display width can be
+    specified with the following options (later options override 
+    earlier ones). If not otherwise specified, the default font 
+    and size are used.  If '-width' is given, then newlines will
+    trigger the creation of a new line in the height calculation, but 
+    otherwise they will be treated just as spaces.  Currently tabs 
+    are treated as the size of an ordinary character.
+
+      -w <win>        Use the font and size of the specified window
+      -font <font>    Use the specified font (integer or name). 
+                      Special Appearance Manager meta fonts (which
+                      affect the font, size, and style) can be 
+                      specified as one of
+
+                         0 or kThemeSystemFont
+                         1 or kThemeSmallSystemFont
+                         2 or kThemeSmallEmphasizedSystemFont
+                         3 or kThemeViewsFont
+
+                The remaining ID's are only available in AlphaX
+
+                         4 or kThemeEmphasizedSystemFont
+                         5 or kThemeApplicationFont
+                         6 or kThemeLabelFont
+                         7 or kThemeSystemFontDetail
+                         8 or kThemeSystemFontDetailEmphasized
+                       100 or kThemeMenuTitleFont
+                       101 or kThemeMenuItemFont
+                       102 or kThemeMenuItemMarkFont
+                       103 or kThemeMenuItemCmdKeyFont
+                       104 or kThemeWindowTitleFont
+                       105 or kThemePushButtonFont
+                       106 or kThemeUtilityWindowTitleFont
+                       107 or kThemeAlertHeaderFont
+
+                The remaining ID's are available in OS 10.2 or greater
+                       108 or kThemeToolbarFont
+					   200 or kThemeCurrentPortFont
+
+      -size <size>    Point size (positive integer). Whether 
+                      given earlier or later, if an Appearance 
+                      Manager meta font is specified, this size
+                      setting is ignored.
+      -width <width>  Measure the text in a box of specified width,
+                      wrapped to as many lines as necessary.
+                      If this option is missing or set to zero, the
+                      bounds of the text as a single line is returned.
+      --              End of tags
+
+    This command introduced in 8.0b9. Not available on 68k.
+• getThemeMetrics <arr> - Fills <arr> with the sizes of the 
+    interface elements in the current environment. This command 
+    introduced in 8.0b9.  It populates the array with the following
+    keys (some of these are not currently produced on Alphatk, but
+    they will be in the future):
+
+    ScrollBarWidth: The width of a scroll bar.  For horizontal scroll
+    bars, this measurement is actually the scroll bar height.
+
+    SmallScrollBarWidth: The width of a small scroll bar.  For
+    horizontal scroll bars, this measurement is actually the scroll bar
+    height.
+
+    CheckBoxHeight: The height of the non-label part of a check box
+    control.
+
+    RadioButtonHeight: The height of the non-label part of a radio
+    button control.
+
+    EditTextWhitespace: The amount of white space surrounding the text
+    rectangle of the text inside of an Edit Text control.  If you select
+    all of the text in an Edit Text control, this white space is
+    visible.  The metric is the number of pixels, per side, that the
+    text rectangle is outset to create the whitespace rectangle.
+
+    EditTextFrameOutset: The thickness of the Edit Text frame that
+    surrounds the whitespace rectangle (which surrounds the text
+    rectangle).  The metric is the number of pixels, per side, that the
+    frame rectangle is outset from the whitespace rectangle.
+
+    ListBoxFrameOutset: The number of pixels that the list box frame is
+    outset from the content of the list box.
+
+    FocusRectOutset: This is a deprecated metric and you should not use
+    it.  This metric describes how far from a control the focus
+    rectangle was drawn, but control focus drawing no longer uses this
+    information.
+
+    ImageWellThickness: The thickness of the frame drawn by
+    DrawThemeGenericWell.
+
+    ScrollBarOverlap: The number of pixels a scrollbar should overlap
+    any bounding box which surrounds it and scrollable content.  This
+    also includes the window frame when a scrollbar is along an edge of
+    the window.
+
+    LargeTabHeight: The height of the large tab of a tab control.
+
+    LargeTabCapsWidth: The width of the caps, or end pieces, of the
+    large tabs of a tab control.
+
+    TabFrameOverlap: The amount you must add to the tab height,
+    kThemeMetricLargeTabHeight, to find the rectangle height to use with
+    the various tab drawing primitives.  This amount is also the amount
+    that each tab overlaps the tab pane.
+
+    TabIndentOrStyle: If less than zero, this indicates that the text
+    should be centered on each tab.  If greater than zero, the text
+    should be justified, according to the system script direction, and
+    the amount is the offset from the edge at which the text should
+    start drawing.
+
+    TabOverlap: The amount of space that every tab's drawing rectangle
+    overlapsthat of the tab on either side of it.
+
+    SmallTabHeight: The height of the small tab of a tab control.  This
+    includes the pixels that overlap the tab pane and/or tab pane bar.
+
+    SmallTabCapsWidth: The width of the caps, or end pieces, of the
+    small tabs of a tab control.
+
+    PushButtonHeight: The height and the width of the push button
+    control.
+
+    ListHeaderHeight: The height of the list header field of the data
+    browser control.
+
+    DisclosureTriangleHeight: The height of a disclosure triangle
+    control.  This triangle is the not the center of the disclosure
+    button, but its own control.
+
+    DisclosureTriangleWidth: The width of a disclosure triangle control.
+
+    LittleArrowsHeight: The height of a little arrows control.
+
+    LittleArrowsWidth: The width of a little arrows control.
+
+    PopupButtonHeight: The height of a popup button control.
+
+    SmallPopupButtonHeight: The height of a small popup button control.
+
+    LargeProgressBarThickness: The height of the large progress bar, not
+    including its shadow.
+
+    PullDownHeight: This metric is not used.
+
+    SmallPullDownHeight: This metric is not used.
+
+    ResizeControlHeight: The height of the window grow box control.
+
+    SmallResizeControlHeight: The width of the window grow box control.
+
+    HSliderHeight: The height of the horizontal slider control.
+
+    HSliderTickHeight: The height of the tick marks for a horizontal
+    slider control.
+
+    VSliderWidth: The width of the vertical slider control.
+
+    VSliderTickWidth: The width of the tick marks for a vertical slider
+    control.
+
+    TitleBarControlsHeight: The height of the title bar widgets (grow,
+    close, and zoom boxes) for a document window.
+
+    CheckBoxWidth: The width of the non-label part of a check box
+    control.
+
+    RadioButtonWidth: The width of the non-label part of a radio button
+    control.
+
+    NormalProgressBarThickness: The height of the normal progress bar,
+    not including its shadow.
+
+    ProgressBarShadowOutset: The number of pixels of shadow depth drawn
+    below the progress bar.
+
+    SmallProgressBarShadowOutset: The number of pixels of shadow depth
+    drawn below the small progress bar.
+
+    PrimaryGroupBoxContentInset: The number of pixels that the content
+    of a primary group box is inset from the bounds of the control.
+
+    SecondaryGroupBoxContentInset: The number of pixels that the content
+    of a secondary group box is from the bounds of the control.
+
+    MenuMarkColumnWidth: The width allocated to draw the mark character
+    in a menu.
+
+    MenuExcludedMarkColumnWidth: The width allocated for the mark
+    character in a menu item when the menu has the attribute
+    kMenuAttrExcludesMarkColumn.
+
+    MenuMarkIndent: The indent into the interior of the mark column at
+    which the mark character is drawn.
+
+    MenuTextLeadingEdgeMargin: The whitespace at the leading edge of
+    menu item text.
+
+    MenuTextTrailingEdgeMargin: The whitespace at the trailing edge of
+    menu item text.
+
+    MenuIndentWidth: The width per indent level of a menu item.  This
+    indent is set by the SetMenuItemIndent function.
+
+    MenuIconTrailingEdgeMargin: The whitespace at the trailing edge of a
+    menu icon, if the item also has text.
+
+    DisclosureButtonHeight: The height of a disclosure button.  (Mac OS
+    X only.)
+
+    RoundButtonSize: The height and the width of the round button
+    control.  (Mac OS X only.)
+
+    SmallCheckBoxHeight: The height of the non-label part of a small
+    check box control.  (Mac OS X only.)
+
+    DisclosureButtonWidth: The width of a disclosure button.  (Mac OS X
+    only.)
+
+    SmallDisclosureButtonHeight: The height of a small disclosure
+    button.  (Mac OS X only.)
+
+    SmallDisclosureButtonWidth: The width of a small disclosure button.
+    (Mac OS X only.)
+
+    PaneSplitterHeight: The height (or width if vertical) of a pane
+    splitter.  (Mac OS X only.)
+
+    SmallPushButtonHeight: The height of the small push button control.
+    (Mac OS X only.)
+
+    SmallRadioButtonHeight: The height of the non-label part of a small
+    radio button control.  (Mac OS X only.)
+
+    RelevanceIndicatorHeight: The height of the relevance indicator
+    control.  (Mac OS X only.)
+
+    LargeRoundButtonSize: The height and the width of the large round
+    button control.  (Mac OS X only.)
+
+    SmallHSliderHeight: The height of the small, horizontal slider
+    control.  (Mac OS X only.)
+
+    SmallHSliderTickHeight: The height of the tick marks for a small,
+    horizontal slider control.  (Mac OS X only.)
+
+    SmallVSliderWidth: The width of the small, vertical slider control.
+    (Mac OS X only.)
+
+    SmallVSliderTickWidth: The width of the tick marks for a small,
+    vertical slider control.  (Mac OS X only.)
+
+    SmallCheckBoxWidth: The width of the non-label part of a small check
+    box control.  (Mac OS X only.)
+
+    SmallRadioButtonWidth: The width of the non-label part of a small
+    radio button control.  (Mac OS X only.)
+
+    SmallHSliderMinThumbWidth: The minimum width of the thumb of a
+    small, horizontal slider control.  (Mac OS X only.)
+
+    SmallVSliderMinThumbHeight: The minimum width of the thumb of a
+    small, vertical slider control.  (Mac OS X only.)
+
+    SmallHSliderTickOffset: The offset of the tick marks from the
+    appropriate side of a small horizontal slider control.  (Mac OS X
+    only.)
+
+    SmallVSliderTickOffset: The offset of the tick marks from the
+    appropriate side of a small vertical slider control.  (Mac OS X
+    only.)
+• linkVar - link a Tcl variable to a preexisting internal variable of the
+    same name (only meaningful on Alpha 7/8/X).
+• pageSetup - display the printing PageSetup dialog.
+• print ?win? - print front window
+• quit - quits ALPHA
+• version - Return string of the form "AlphaX 8.0a8, Sunday, 23 March 2003"
+• watchCursor - turns the cursor into a a watch cursor.
+
+	--------------------------------------------------------------------
+
+= Uncommon/unused commands
+
+Probably best to avoid using these.
+
+• specToPathName [hex data] - given an FSSpec in hex form (as that 
+    returned by AEbuild, for instance), return a complete pathname.
+
+	--------------------------------------------------------------------
+
+= Obsolete (and possibly buggy)
+
+These WILL be removed in Alpha 8.
+
+• AEBuild [<flags>] <app (name|creator)> <aesuite> <aeevent> [<event parameters>]*  -
+    *** Deprecated in favor of [tclAE::send], "TclAE Help" ***
+    Build and send an apple-event.  'AEBuild' is apple's code of the same name. 
+    Each "event parameter" is two parameters, a parameter type and the data for
+    the parameter.  See the "AEGizmos" help file for more details. Flags include:
+
+      -r            Wait for reply.
+      -q            Queue reply, in which case 'handleReply' (in appleEvents.tcl)
+                    is called with the reply as a parameter.
+      -t <timeout>  Specifies the timeout in ticks.
+• dosc [<-c 'sign' | -n appName>] [-k 'clas'] [-e 'evnt'] <-s string | -f fileName> [<-t timeout|-r>]
+    *** Deprecated in favor of [tclAE::send], "TclAE Help" ***
+    Send an AppleEvent, by default class 'misc', event 'dosc'.
+
+      -c 'sign'     "sign" is a four-letter creator signature of a
+                    running application.
+      -n appName    "appName" is the name of a running application.
+      -k 'clas'     "clas" is a four-letter event class.
+      -e 'evnt'     "evnt" is a four-letter event class.
+      -s string     "string" is the text of a script to send to the other app.
+      -f fileName   "fileName" is the complete or relative pathname of a file
+                    the other application should execute.
+      -t timeout    "timeout" is the number of ticks Alpha should wait for
+                    a response. A timeout of "0" means wait forever.
+      -r            Do not wait for reply.
+      -q            Queue reply.
+           
+    If neither of the '-c' and '-n' options is chosen, the PPC Browser is used. 
+    Either '-s' or '-f' must be chosen.  Thus, you can have "Alpha 5.02" and
+    "Alpha 5.02 Copy" sending Apple events to each other, or they can send
+    events to a remote server such as Apple's ToolServer.
+• eventHandler [class] [event] [proc] 
+    *** Deprecated in favor of [tclAE::installEventHandler], "TclAE Help" ***
+    Register 'proc' to handle the class and event specified.  Class and
+    event are each 4 char args.  'proc' takes a single argument that
+    specifies the incoming event according to the syntax here.  There is
+    currently no provision for a reply.
+• icURL <URL> - passes arg to Internet Config, if present. Error if not 
+    present.  You should use 'url::execute' instead (icURL is deprecated).
+• largestPrefix <list> - return the longest prefix contained in all 
+    strings of 'list'.

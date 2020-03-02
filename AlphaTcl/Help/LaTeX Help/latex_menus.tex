@@ -1,0 +1,2011 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% File:      latex_menus.tex
+% Author:    Tom Scavo <trscavo@syr.edu>
+% Requires:  graphics.sty, latexsym.sty, latex_defs.tex
+%            html.sty, htmllist.sty
+% Summary:   Commands (organized by menu) and key bindings defined in 
+%            latex.tcl, version 3.2t
+% Note:      Be sure to typeset this file TWICE!
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[titlepage]{article}
+\usepackage{hyperref}
+\usepackage{latexsym}
+\usepackage{graphics}
+
+\input{latex_defs}
+
+% Page layout:
+\setlength{\topmargin}{-0.6in}
+\setlength{\headheight}{0in}
+\setlength{\headsep}{0in}
+\setlength{\textheight}{9.75in}
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\textwidth}{6.5in}
+\setlength{\marginparsep}{0in}
+\setlength{\marginparwidth}{0in}
+
+% Custom captions:
+\makeatletter
+\long\def\@caption#1[#2]#3{\par\addcontentsline{\csname
+%   ext@#1\endcsname}{#1}{\protect\numberline{\csname
+%   the#1\endcsname}{\ignorespaces #2}}\begingroup
+  ext@#1\endcsname}{#1}{{\ignorespaces #2}}\begingroup
+    \@parboxrestore
+    \normalsize
+    \@makecaption{\csname fnum@#1\endcsname}{\ignorespaces #3}\par
+  \endgroup}
+\setlength\abovecaptionskip{5\p@}
+\setlength\belowcaptionskip{10\p@}
+\long\def\@makecaption#1#2{%
+  \vskip\abovecaptionskip
+%   \sbox\@tempboxa{#1: #2}%
+  \sbox\@tempboxa{#2}%
+  \ifdim \wd\@tempboxa >\hsize
+%     #1: #2\par
+    #2\par
+  \else
+    \global \@minipagefalse
+    \hbox to\hsize{\hfil\box\@tempboxa\hfil}%
+  \fi
+  \vskip\belowcaptionskip}
+\makeatother
+
+% Miscellaneous stuff:
+\renewcommand{\arraystretch}{1.5}
+\renewcommand{\listtablename}{The \LaTeX\ Menu}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+% Definition of title page:
+\title{
+	\includegraphics{logo.eps}  \\[6ex]
+	\Alpha\ \LaTeX\ Menus \\
+        {\large Version~5.0~early draft}
+}
+\author{
+Original manual by Tom Scavo \\
+Updates by the AlphaTcl community
+}
+\date{August 2003}
+\maketitle
+
+\vspace*{0.5in}
+\listoftables
+\vspace*{0.5in}
+\noindent
+\begin{center}
+	\begin{minipage}[t]{5in}
+		Notes:
+		\begin{itemize}
+			\item The command keys listed in these tables assume the flags 
+			\acmd{smartScripts} and \acmd{useDollarSigns} are set to true 
+			and false, respectively.
+		
+			\item  An ellipsis in the first column of a table means that the
+			command requires additional input from the user.
+		
+			\item  An ellipsis in the ``\LaTeX\ Command'' column of a table 
+			indicates that the command \emph{wraps} the current selection or 
+			the chosen file.
+		\end{itemize}
+	\end{minipage}
+\end{center}
+\pagebreak
+
+\begin{table}
+	\begin{minipage}[t]{0.5\linewidth}
+		\vspace{0pt}
+		\begin{center}
+			\begin{tabular}{|l|}
+				\hline
+				\multicolumn{1}{|c|}{\amenu{LaTeX}}  \\
+				\hline\hline
+				\amenu{Process}  \\
+				\hline
+				\amenu{Goto}  \\
+				\hline
+				\amenu{LaTeX Utilities}  \\
+				\hline
+				\amenu{LaTeX Palette}  \\
+				\hline\hline
+				\amenu{Documents}  \\
+				\hline
+				\amenu{Page Layout}  \\
+				\hline
+				\amenu{Sectioning}  \\
+				\hline\hline
+				\amenu{Text Submenus}  \\
+				\hline\hline
+				\amenu{Math Submenus}  \\
+				\hline
+			\end{tabular}
+		\end{center}
+		\caption{The short \LaTeX\ menu}
+	\end{minipage}%
+	\begin{minipage}[t]{0.5\linewidth}
+		\vspace{0pt}
+		\begin{center}
+			\begin{tabular}{|l|}
+				\hline
+				\multicolumn{1}{|c|}{\amenu{LaTeX}}  \\
+				\hline\hline
+				\amenu{Process}  \\
+				\hline
+				\amenu{Goto}  \\
+				\hline
+				\amenu{LaTeX Utilities}  \\
+				\hline
+				\amenu{LaTeX Palette}  \\
+				\hline\hline
+				\amenu{Documents}  \\
+				\hline
+				\amenu{Page Layout}  \\
+				\hline
+				\amenu{Sectioning}  \\
+				\hline\hline
+				\amenu{Text Style}  \\
+				\hline
+				\amenu{Text Size}  \\
+				\hline
+				\amenu{International}  \\
+				\hline
+				\amenu{Environments}  \\
+				\hline
+				\amenu{Boxes}  \\
+				\hline
+				\amenu{Miscellaneous}  \\
+				\hline\hline
+				\amenu{Math Modes}  \\
+				\hline
+				\amenu{Math Style}  \\
+				\hline
+				\amenu{Math Environments}  \\
+				\hline
+				\amenu{Formulas}  \\
+				\hline
+				\amenu{Greek}  \\
+				\hline
+				\amenu{Binary Operators}  \\
+				\hline
+				\amenu{Relations}  \\
+				\hline
+				\amenu{Arrows}  \\
+				\hline
+				\amenu{Dots}  \\
+				\hline
+				\amenu{Symbols}  \\
+				\hline
+				\amenu{Functions}  \\
+				\hline
+				\amenu{Large Operators}  \\
+				\hline
+				\amenu{Delimiters}  \\
+				\hline
+				\amenu{Math Accents}  \\
+				\hline
+				\amenu{Grouping}  \\
+				\hline
+				\amenu{Spacing}  \\
+				\hline
+			\end{tabular}
+		\end{center}
+		\caption{The long \LaTeX\ menu}
+	\end{minipage}
+\end{table}
+
+\begin{table}
+	\begin{center}
+		\begin{tabular}{@{}cc@{}}
+			\begin{tabular}{|l|c|}
+				\hline
+				\multicolumn{1}{|c|}{\amenu{Process}} &
+				\multicolumn{1}{c|}{Key Binding} \\
+				\hline\hline
+				\acmd{Typeset file.tex} & \key{Cmd T} \\
+				\hline
+				\acmd{View file.dvi} & \key{Shf Cmd V} \\
+				\hline
+				\acmd{Print file.dvi} & \key{Shf Cmd P} \\
+				\hline\hline
+				\acmd{Typeset Clipboard} & \key{Shf Cmd T} \\
+				\hline
+				\acmd{Typeset Selection} &  \\
+				\hline\hline
+				\acmd{dvips file.dvi} &  \\
+				\hline
+				\acmd{View file.ps} &  \\
+				\hline
+				\acmd{Print file.ps} &  \\
+				\hline\hline
+				\acmd{bibtex file.aux} &  \\
+				\hline
+				\acmd{makeindex file.idx} &  \\
+				\hline\hline
+				\amenu{Other Files} &  \\
+				\hline\hline
+				\acmd{Remove Auxiliary Files\ldots} &  \\
+				\hline
+				\acmd{Remove Temporary Files} &  \\
+				\hline
+			\end{tabular}
+			& 
+			\begin{tabular}{|l|c|}
+				\hline
+				\multicolumn{1}{|c|}{\amenu{Process}} &
+				\multicolumn{1}{c|}{Key Binding} \\
+				\hline\hline
+				&  \\
+				\hline
+				&  \\
+				\hline
+				&  \\
+				\hline\hline
+				&  \\
+				\hline
+				&  \\
+				\hline\hline
+				\acmd{Open file.ps} &  \\
+				\hline
+				&  \\
+				\hline
+				&  \\
+				\hline\hline
+				\acmd{Open file.bbl} &  \\
+				\hline
+				\acmd{Open file.ind} &  \\
+				\hline\hline
+				&  \\
+				\hline\hline
+				&  \\
+				\hline
+				&  \\
+				\hline
+			\end{tabular}
+		\end{tabular}
+	\end{center}
+	\caption{The \amenu{Process} submenus}
+\end{table}
+
+\begin{table}
+	\begin{center}
+		\begin{tabular}{|l|l|}
+			\hline
+			\multicolumn{1}{|c|}{\amenu{Open\ldots}} & 
+			\multicolumn{1}{|c|}{Key Binding}  \\
+			\hline\hline
+			\acmd{file.log} &  \\
+			\hline
+			\acmd{file.aux} &  \\
+			\hline
+			\acmd{file.toc} &  \\
+			\hline
+			\acmd{file.lof} &  \\
+			\hline
+			\acmd{file.lot} &  \\
+			\hline
+			\acmd{file.idx} &  \\
+			\hline\hline
+			\acmd{file.blg} &  \\
+			\hline
+			\acmd{file.ilg} &  \\
+			\hline\hline
+			\acmd{Any TeX File} & \key{Shf Cmd O}  \\
+			\hline
+		\end{tabular}
+	\end{center}
+	\caption{The \protect\amenu{Open\ldots} submenu}
+\end{table}
+
+\clearpage
+
+\begin{table}
+	\small
+	\begin{center}
+		\begin{tabular}{|l|l|}
+			\hline
+			\multicolumn{1}{|c|}{\amenu{Goto}} & 
+			\multicolumn{1}{|c|}{Key Binding}  \\
+			\hline\hline
+			\acmd{LaTeX} & \key{Shf Cmd S}  \\
+			\hline
+			\acmd{BibTeX} &  \\
+			\hline
+			\acmd{MakeIndex} &  \\
+			\hline\hline
+			\acmd{Next Tab Stop} & \key{Tab}  \\
+			\hline
+			\acmd{Prev Tab Stop} & \key{Shf Tab}  \\
+			\hline
+			\acmd{nth Tab Stop} & \key{Ctl Tab}  \\
+			\hline\hline
+			\acmd{Next Command} & \key{Kpad6}  \\
+			\hline
+			\acmd{Prev Command} & \key{Kpad4}  \\
+			\hline
+			\acmd{Next Command Select} & \key{Shf Kpad6}  \\
+			\hline
+			\acmd{Prev Command Select} & \key{Shf Kpad4}  \\
+			\hline
+			\acmd{Next Command Select With Args} & \key{Shf Opt Kpad6}  \\
+			\hline
+			\acmd{Prev Command Select With Args} & \key{Shf Opt Kpad4}  \\
+			\hline\hline
+			\acmd{Next Environment} & \key{Cmd Kpad6}  \\
+			\hline
+			\acmd{Prev Environment} & \key{Cmd Kpad4}  \\
+			\hline
+			\acmd{Next Environment Select} & \key{Shf Cmd Kpad6}  \\
+			\hline
+			\acmd{Prev Environment Select} & \key{Shf Cmd Kpad4}  \\
+			\hline\hline
+			\acmd{Next Section} & \key{Cmd Kpad2}  \\
+			\hline
+			\acmd{Prev Section} & \key{Cmd Kpad8}  \\
+			\hline
+			\acmd{Next Section Select} & \key{Shf Cmd Kpad2}  \\
+			\hline
+			\acmd{Prev Section Select} & \key{Shf Cmd Kpad8}  \\
+			\hline
+			\acmd{Next Subsection} & \key{Kpad2}  \\
+			\hline
+			\acmd{Prev Subsection} & \key{Kpad8}  \\
+			\hline
+			\acmd{Next Subsection Select} &	\key{Shf Kpad2}  \\
+			\hline
+			\acmd{Prev Subsection Select} & \key{Shf Kpad8}  \\
+			\hline
+		\end{tabular}
+	\end{center}
+	\caption{The \protect\amenu{Goto} submenu}
+\end{table}
+
+\begin{table}
+	\begin{center}
+		\begin{tabular}{|l|l|}
+			\hline
+			\multicolumn{1}{|c|}{\amenu{LaTeX Utilities}} & 
+			\multicolumn{1}{|c|}{Key Binding}  \\
+			\hline\hline
+			\acmd{Choose Command\ldots} & \key{Shf Cmd C}  \\
+			\hline\hline
+			\acmd{Insert Literal Tab} & \key{Opt Tab}  \\
+			\hline
+			\acmd{Insert Tab Stop} & \key{Opt 8}  \\
+			\hline\hline
+			\acmd{Delete Tab Stops} & \key{Cmd Tab}  \\
+			\hline
+			\acmd{Delete Comments} &  \\
+			\hline\hline
+			\acmd{Convert Quotes} &  \\
+			\hline
+			\acmd{Convert Dollar Signs} &  \\
+			\hline\hline
+			\acmd{Short LaTeX Menu} &  \\
+			\hline
+		\end{tabular}
+	\end{center}
+	\caption{The \protect\amenu{LaTeX Utilities} submenu}
+\end{table}
+
+\begin{table}
+	\begin{center}
+		\begin{tabular}{|l|l|l|}
+			\hline
+			\multicolumn{1}{|c|}{\amenu{Documents}} & 
+			\multicolumn{1}{|c|}{\LaTeX\ Command} & 
+			\multicolumn{1}{|c|}{Key Binding}  \\
+			\hline\hline
+			\acmd{New Document\ldots} & & \key{Shf Cmd N}  \\
+			\hline\hline
+			\acmd{article} &	\renewcommand{\arraystretch}{1}
+											\begin{tabular}[t]{@{\hspace{-0.9ex}}l}
+												\verb.\documentclass[]{article}.  \\
+												\verb.\usepackage[]{}.  \\
+												\verb.\begin{document}.  \\
+												\verb+  ...+  \\
+												\verb.\end{document}.
+											\end{tabular} &   \\
+			\hline
+			\acmd{report} &	\renewcommand{\arraystretch}{1}
+											\begin{tabular}[t]{@{\hspace{-0.9ex}}l}
+												\verb.\documentclass[]{report}.  \\
+												\verb.\usepackage[]{}.  \\
+												\verb.\begin{document}.  \\
+												\verb+  ...+  \\
+												\verb.\end{document}.
+											\end{tabular} &   \\
+			\hline
+			\acmd{book} &	\renewcommand{\arraystretch}{1}
+										\begin{tabular}[t]{@{\hspace{-0.9ex}}l}
+											\verb.\documentclass[]{book}.  \\
+											\verb.\usepackage[]{}.  \\
+											\verb.\begin{document}.  \\
+											\verb+  ...+  \\
+											\verb.\end{document}.
+										\end{tabular} &   \\
+			\hline
+			\acmd{letter} &	\renewcommand{\arraystretch}{1}
+											\begin{tabular}[t]{@{\hspace{-0.9ex}}l}
+												\verb.\documentclass[]{letter}.  \\
+												\verb.\address{}.  \\
+												\verb.\date{}.  \\
+												\verb.\signature{}.  \\
+												\verb.\begin{document}.  \\
+												\verb.\begin{letter}{}.  \\
+												\verb.\opening{}.  \\
+												\verb+  ...+  \\
+												\verb.\closing{}.  \\
+												\verb.\end{letter}.  \\
+												\verb.\end{document}.
+											\end{tabular} &   \\
+			\hline
+			\acmd{slides} &	\renewcommand{\arraystretch}{1}
+										\begin{tabular}[t]{@{\hspace{-0.9ex}}l}
+											\verb.\documentclass[]{slides}.  \\
+											\verb.\usepackage[]{}.  \\
+											\verb.\begin{document}.  \\
+											\verb+  ...+  \\
+											\verb.\end{document}.
+										\end{tabular} &   \\
+			\hline
+			\acmd{generic\ldots} &	\renewcommand{\arraystretch}{1}
+														\begin{tabular}[t]{@{\hspace{-0.9ex}}l}
+															\verb.\documentclass[]{<classname>}.  \\
+															\verb.\usepackage[]{}.  \\
+															\verb.\begin{document}.  \\
+															\verb+  ...+  \\
+															\verb.\end{document}.
+														\end{tabular} &    \\
+			\hline\hline
+			\acmd{options\ldots} &	 &   \\
+			\hline
+			\acmd{usepackage} & \verb+\usepackage[]{...}+ & \key{Ctl Opt U}   \\
+			\hline\hline
+			\acmd{filecontents\ldots} &	\renewcommand{\arraystretch}{1}
+																	\begin{tabular}[t]{@{\hspace{-0.9ex}}l}
+																		\verb+\begin{filecontents}{<filename>}+  \\
+																		\verb+  ...+  \\
+																		\verb.\end{filecontents}.
+																	\end{tabular} &  \\
+			\hline
+			\acmd{filecontents All} &	 &  \\
+			\hline\hline
+			\acmd{Rebuild Documents Submenu} &  &  \\
+			\hline
+		\end{tabular}
+	\end{center}
+	\caption{The \protect\amenu{Documents} submenu}
+\end{table}
+
+\begin{table}
+	\begin{center}
+		\begin{tabular}{|l|l|l|}
+			\hline
+			\multicolumn{1}{|c|}{\amenu{Page Layout}} & 
+			\multicolumn{1}{|c|}{\LaTeX\ Command} & 
+			\multicolumn{1}{|c|}{Key Binding}  \\
+			\hline\hline
+			\acmd{maketitle} & \renewcommand{\arraystretch}{1}
+										\begin{tabular}[t]{@{\hspace{-0.9ex}}l}
+											\verb+\title{}+  \\
+											\verb+\author{}+  \\
+											\verb+\date{}+  \\
+											\verb+\maketitle+
+										\end{tabular} &   \\
+			\hline\hline
+			\acmd{abstract} & \renewcommand{\arraystretch}{1}
+										\begin{tabular}[t]{@{\hspace{-0.9ex}}l}
+											\verb.\begin{abstract}.  \\
+											\verb+  ...+  \\
+											\verb.\end{abstract}.
+										\end{tabular} &   \\
+			\hline
+			\acmd{titlepage} & \renewcommand{\arraystretch}{1}
+										\begin{tabular}[t]{@{\hspace{-0.9ex}}l}
+											\verb.\begin{titlepage}.  \\
+											\verb+  ...+  \\
+											\verb.\end{titlepage}.
+										\end{tabular} &   \\
+			\hline\hline
+			\acmd{pagestyle\ldots} & \verb.\pagestyle{}. &   \\
+			\hline
+			\acmd{thispagestyle\ldots} & \verb.\thispagestyle{}. &   \\
+			\hline
+			\acmd{pagenumbering\ldots} & \verb.\pagenumbering{}. &   \\
+			\hline\hline
+			\acmd{twocolumn} & \verb.\twocolumn. &   \\
+			\hline
+			\acmd{onecolumn} & \verb.\onecolumn. &   \\
+			\hline
+		\end{tabular}
+	\end{center}
+	\caption{The \protect\amenu{Page Layout} submenu}
+\end{table}
+
+\begin{table}
+	\begin{center}
+		\begin{tabular}{|l|l|l|}
+			\hline
+			\multicolumn{1}{|c|}{\amenu{Sectioning}} & 
+			\multicolumn{1}{|c|}{\LaTeX\ Command} & 
+			\multicolumn{1}{|c|}{Key Binding}  \\
+			\hline\hline
+			\acmd{part} & \verb+\part{...}+ &   \\
+			\hline
+			\acmd{chapter} & \verb+\chapter{...}+ &   \\
+			\hline
+			\acmd{section} & \verb+\section{...}+ &   \\
+			\hline
+			\acmd{subsection} & \verb+\subsection{...}+ &   \\
+			\hline
+			\acmd{subsubsection} & \verb+\subsubsection{...}+ &   \\
+			\hline
+			\acmd{paragraph} & \verb+\paragraph{...}+ &   \\
+			\hline
+			\acmd{subparagraph} & \verb+\subparagraph{...}+ &   \\
+			\hline\hline
+			\acmd{appendix} & \verb.\appendix. &   \\
+			\hline
+		\end{tabular}
+	\end{center}
+	\caption{The \protect\amenu{Sectioning} submenu}
+\end{table}
+
+\clearpage
+
+\begin{table}
+	\mbox{}
+	\addtocontents{lot}{\protect\vspace{1ex}}
+	\addtocontents{lot}{\hspace{-4pt}\protect\textbf{Text submenus:}}
+	\begin{center}
+		\begin{tabular}{@{}cc@{}}
+			\begin{tabular}{@{}|l|l|l|}
+				\hline
+				\multicolumn{1}{|c|}{\amenu{Text Style}} & 
+				\multicolumn{1}{|c|}{\LaTeX\ Command} & 
+				\multicolumn{1}{|c|}{Key Binding}  \\
+				\hline\hline
+				\emph{emph} & \verb+\emph{...}+ & \key{Ctl Opt E}  \\
+				\hline
+				\underline{underline} & \verb+\underline{...}+ & \key{Ctl Cmd U}  \\
+				\hline\hline
+				\textup{textup} & \verb+\textup{...}+ &  \\
+				\hline
+				\textit{textit} & \verb+\textit{...}+ & \key{Ctl Opt I}  \\
+				\hline
+				\textsl{textsl} & \verb+\textsl{...}+ & \key{Ctl Opt S}  \\
+				\hline
+				\textsc{textsc} & \verb+\textsc{...}+ & \key{Ctl Opt H}  \\
+				\hline\hline
+				\textmd{textmd} & \verb+\textmd{...}+ &  \\
+				\hline
+				\textbf{textbf} & \verb+\textbf{...}+ & \key{Ctl Opt B}  \\
+				\hline\hline
+				\textrm{textrm} & \verb+\textrm{...}+ & \key{Ctl Opt R}  \\
+				\hline
+				\textsf{textsf} & \verb+\textsf{...}+ & \key{Ctl Opt W}  \\
+				\hline
+				\texttt{texttt} & \verb+\texttt{...}+ & \key{Ctl Opt Y}  \\
+				\hline\hline
+				\textnormal{textnormal} & \verb+\textnormal{...}+ &  \\
+				\hline
+			\end{tabular}
+			& 
+			\begin{tabular}{|l|l|l|@{}}
+				\hline
+				\multicolumn{1}{|c|}{\amenu{Text Style}} & 
+				\multicolumn{1}{|c|}{\LaTeX\ Command} & 
+				\multicolumn{1}{|c|}{Key Binding}  \\
+				\hline\hline
+				\emph{em} & \verb+{\em ...}+ & \key{Shf Ctl Opt E}  \\
+				\hline
+				  &  &  \\
+				\hline\hline
+				\textup{upshape} & \verb+{\upshape ...}+ &  \\
+				\hline
+				\textit{itshape} & \verb+{\itshape ...}+ & \key{Shf Ctl Opt I}  \\
+				\hline
+				\textsl{slshape} & \verb+{\slshape ...}+ & \key{Shf Ctl Opt S}  \\
+				\hline
+				\textsc{scshape} & \verb+{\scshape ...}+ & \key{Shf Ctl Opt H}  \\
+				\hline\hline
+				\textmd{mdseries} & \verb+{\mdseries ...}+ &  \\
+				\hline
+				\textbf{bfseries} & \verb+{\bfseries ...}+ & \key{Shf Ctl Opt B}  \\
+				\hline\hline
+				\textrm{rmfamily} & \verb+{\rmfamily ...}+ & \key{Shf Ctl Opt R}  \\
+				\hline
+				\textsf{sffamily} & \verb+{\sffamily ...}+ & \key{Shf Ctl Opt W}  \\
+				\hline
+				\texttt{ttfamily} & \verb+{\ttfamily ...}+ & \key{Shf Ctl Opt Y}  \\
+				\hline\hline
+				\textnormal{normalfont} & \verb+{\normalfont ...}+ &  \\
+				\hline
+			\end{tabular}
+		\end{tabular}
+	\end{center}
+	\caption{The \protect\amenu{Text Style} submenus}
+\end{table}
+
+\begin{table}
+	\begin{center}
+		\begin{tabular}{|l|l|l|}
+			\hline
+			\multicolumn{1}{|c|}{\amenu{Text Size}} & 
+			\multicolumn{1}{|c|}{\LaTeX\ Command} & 
+			\multicolumn{1}{|c|}{Key Binding}  \\
+			\hline\hline
+			{\tiny tiny} & \verb+{\tiny ...}+ & \key{Ctl Opt 1}  \\
+			\hline
+			{\scriptsize scriptsize} & \verb+{\scriptsize ...}+ & \key{Ctl Opt 2}  \\
+			\hline
+			{\footnotesize footnotesize} & \verb+{\footnotesize ...}+ & 
+			\key{Ctl Opt 3}   \\
+			\hline
+			{\small small} & \verb+{\small ...}+ & \key{Ctl Opt 4}  \\
+			\hline
+			{\normalsize normalsize} & \verb+{\normalsize ...}+ & \key{Ctl Opt 5}  \\
+			\hline
+			{\large large} & \verb+{\large ...}+ & \key{Ctl Opt 6}  \\
+			\hline
+			{\Large Large} & \verb+{\Large ...}+ & \key{Ctl Opt 7}  \\
+			\hline
+			{\LARGE LARGE} & \verb+{\LARGE ...}+ & \key{Ctl Opt 8}  \\
+			\hline
+			{\huge huge} & \verb+{\huge ...}+ & \key{Ctl Opt 9}  \\
+			\hline
+			{\Huge Huge} & \verb+{\Huge ...}+ & \key{Ctl Opt 0}  \\
+			\hline
+		\end{tabular}
+	\end{center}
+	\caption{The \protect\amenu{Text Size} submenu}
+\end{table}
+
+\begin{table}
+	\begin{center}
+		\begin{tabular}{|l|l|}
+			\hline
+			\multicolumn{1}{|c|}{\amenu{International}} & 
+			\multicolumn{1}{|c|}{\LaTeX\ Command}  \\
+			\hline\hline
+			{\`{o}} & \verb+\`{...}+   \\
+			\hline
+			{\'{o}} & \verb+\'{...}+   \\
+			\hline
+			{\^{o}} & \verb+\^{...}+   \\
+			\hline
+			{\"{o}} & \verb+\"{...}+   \\
+			\hline
+			{\~{o}} & \verb+\~{...}+   \\
+			\hline\hline
+			{\c{c}} & \verb+\c{c}+   \\
+			\hline
+			{\oe} & \verb.\oe.   \\
+			\hline
+			{\ae} & \verb.\ae.   \\
+			\hline
+			{\aa} & \verb.\aa.   \\
+			\hline
+			{\o} & \verb.\o.   \\
+			\hline\hline
+			{\c{C}} & \verb+\c{C}+   \\
+			\hline
+			{\OE} & \verb.\OE.   \\
+			\hline
+			{\AE} & \verb.\AE.   \\
+			\hline
+			{\AA} & \verb.\AA.   \\
+			\hline
+			{\O} & \verb.\O.   \\
+			\hline\hline
+			{\ss} & \verb.\ss.   \\
+			\hline
+			{?`} & \verb.?`.   \\
+			\hline
+			{!`} & \verb.!`.   \\
+			\hline
+		\end{tabular}
+	\end{center}
+	\caption{The \protect\amenu{International} submenu}
+\end{table}
+
+\clearpage
+
+\begin{table}
+	\footnotesize
+	\begin{center}
+		\begin{tabular}{|l|l|l|}
+			\hline
+			\multicolumn{1}{|c|}{\amenu{Environments}} & 
+			\multicolumn{1}{|c|}{\LaTeX\ Command} & 
+			\multicolumn{1}{|c|}{Key Binding}  \\
+			\hline\hline
+			\acmd{itemize\ldots} &	\renewcommand{\arraystretch}{1}
+														\begin{tabular}[t]{@{\hspace{-0.9ex}}l}
+															\verb.\begin{itemize}.  \\
+															\verb.  \item.  \\
+															\verb.\end{itemize}.
+														\end{tabular} &  \key{Opt F7}  \\
+			\hline
+			\acmd{enumerate\ldots} &	\renewcommand{\arraystretch}{1}
+															\begin{tabular}[t]{@{\hspace{-0.9ex}}l}
+																\verb.\begin{enumerate}.  \\
+																\verb.  \item.  \\
+																\verb.\end{enumerate}.
+															\end{tabular} &  \key{Shf Opt F7}  \\
+			\hline
+			\acmd{description\ldots} &	\renewcommand{\arraystretch}{1}
+																\begin{tabular}[t]{@{\hspace{-0.9ex}}l}
+																	\verb.\begin{description}.  \\
+																	\verb.  \item[].  \\
+																	\verb.\end{description}.
+																\end{tabular} &  \key{Ctl Opt F7}  \\
+			\hline
+			\acmd{thebibliography\ldots} &	\renewcommand{\arraystretch}{1}
+																	\begin{tabular}[t]{@{\hspace{-0.9ex}}l}
+																		\verb+\begin{thebibliography}{}+  \\
+																		\verb.  \bibitem{}.  \\
+																		\verb.\end{thebibliography}.
+																	\end{tabular} &  \\
+			\hline\hline
+% 			\acmd{Index} &	\renewcommand{\arraystretch}{1}
+% 										\begin{tabular}[t]{@{\hspace{-0.9ex}}l}
+% 											\verb.\begin{index}.  \\
+% 											\verb+  ...+  \\
+% 											\verb.\end{index}.
+% 										\end{tabular} &  \key{Opt F11}  \\
+% 			\hline
+			\acmd{slide} &	\renewcommand{\arraystretch}{1}
+										\begin{tabular}[t]{@{\hspace{-0.9ex}}l}
+											\verb+\begin{slide}+  \\
+											\verb+  ...+  \\
+											\verb.\end{slide}.
+										\end{tabular} & \key{Opt F8}  \\
+			\hline
+			\acmd{overlay} &	\renewcommand{\arraystretch}{1}
+										\begin{tabular}[t]{@{\hspace{-0.9ex}}l}
+											\verb+\begin{overlay}+  \\
+											\verb+  ...+  \\
+											\verb.\end{overlay}.
+										\end{tabular} & \key{Shf Opt F8}  \\
+			\hline
+			\acmd{note} &	\renewcommand{\arraystretch}{1}
+										\begin{tabular}[t]{@{\hspace{-0.9ex}}l}
+											\verb+\begin{note}+  \\
+											\verb+  ...+  \\
+											\verb.\end{note}.
+										\end{tabular} & \key{Ctl Opt F8}  \\
+			\hline\hline
+			\acmd{figure} &	\renewcommand{\arraystretch}{1}
+											\begin{tabular}[t]{@{\hspace{-0.9ex}}l}
+												\verb.\begin{figure}.  \\
+												\verb.  \<boxMacroName>{}.  \\
+												\verb.\end{figure}.
+											\end{tabular} &  \key{Opt F9}  \\
+			\hline
+			\acmd{table} &	\renewcommand{\arraystretch}{1}
+										\begin{tabular}[t]{@{\hspace{-0.9ex}}l}
+											\verb.\begin{table}.  \\
+											\verb+  ...+  \\
+											\verb.\end{table}.
+										\end{tabular} &  \key{Shf Opt F9}  \\
+			\hline
+			\acmd{tabular\ldots} &	\renewcommand{\arraystretch}{1}
+														\begin{tabular}[t]{@{\hspace{-0.9ex}}l}
+															\verb+\begin{tabular}{}+  \\
+															\verb.  &  &  &.  \\
+															\verb.\end{tabular}.
+														\end{tabular} &  \key{Ctl Opt F9}  \\
+			\hline\hline
+% 			\acmd{Tabbing} &	\renewcommand{\arraystretch}{1}
+% 											\begin{tabular}[t]{@{\hspace{-0.9ex}}l}
+% 												\verb.\begin{tabbing}.  \\
+% 												\verb+  ...+  \\
+% 												\verb.\end{tabbing}.
+% 											\end{tabular} &  \key{Cmd Opt F9}  \\
+% 			\hline
+			\acmd{verbatim} &	\renewcommand{\arraystretch}{1}
+												\begin{tabular}[t]{@{\hspace{-0.9ex}}l}
+													\verb.\begin{verbatim}.  \\
+													\verb+  ...+  \\
+													\verb.\end{verbatim}.
+												\end{tabular} &  \key{Opt F10}  \\
+			\hline
+			\acmd{quote} &	\renewcommand{\arraystretch}{1}
+										\begin{tabular}[t]{@{\hspace{-0.9ex}}l}
+											\verb.\begin{quote}.  \\
+											\verb+  ...+  \\
+											\verb.\end{quote}.
+										\end{tabular} &  \key{Shf Opt F10}  \\
+			\hline
+			\acmd{quotation} &	\renewcommand{\arraystretch}{1}
+												\begin{tabular}[t]{@{\hspace{-0.9ex}}l}
+													\verb.\begin{quotation}.  \\
+													\verb+  ...+  \\
+													\verb.\end{quotation}.
+												\end{tabular} &  \key{Ctl Opt F10}  \\
+			\hline
+			\acmd{verse} &	\renewcommand{\arraystretch}{1}
+										\begin{tabular}[t]{@{\hspace{-0.9ex}}l}
+											\verb.\begin{verse}.  \\
+											\verb+  ...+  \\
+											\verb.\end{verse}.
+										\end{tabular} &  \\
+			\hline\hline
+			\acmd{center} &	\renewcommand{\arraystretch}{1}
+																	\begin{tabular}[t]{@{\hspace{-0.9ex}}l}
+																		\verb+\begin{center}+  \\
+																		\verb+  ...+  \\
+																		\verb.\end{center}.
+																	\end{tabular} &  \key{Opt F11}  \\
+			\hline
+			\acmd{flushleft} &	\renewcommand{\arraystretch}{1}
+																	\begin{tabular}[t]{@{\hspace{-0.9ex}}l}
+																		\verb+\begin{flushleft}+  \\
+																		\verb+  ...+  \\
+																		\verb.\end{flushleft}.
+																	\end{tabular} &  \key{Shf Opt F11}  \\
+			\hline
+			\acmd{flushright} &	\renewcommand{\arraystretch}{1}
+																	\begin{tabular}[t]{@{\hspace{-0.9ex}}l}
+																		\verb+\begin{flushright}+  \\
+																		\verb+  ...+  \\
+																		\verb.\end{flushright}.
+																	\end{tabular} &  \key{Ctl Opt F11}  \\
+			\hline\hline
+			\acmd{general\ldots} &	\renewcommand{\arraystretch}{1}
+											\begin{tabular}[t]{@{\hspace{-0.9ex}}l}
+												\verb.\begin{<envname>}.  \\
+												\verb+  ...+  \\
+												\verb.\end{<envname>}.
+											\end{tabular} &  \key{Opt F12}  \\
+			\hline
+		\end{tabular}
+	\end{center}
+	\caption{The \protect\amenu{Environments} submenu}
+\end{table}
+
+\clearpage
+
+\begin{table}
+	\begin{center}
+		\begin{tabular}{|l|l|l|}
+			\hline
+			\multicolumn{1}{|c|}{\amenu{Boxes}} & 
+			\multicolumn{1}{|c|}{\LaTeX\ Command} & 
+			\multicolumn{1}{|c|}{Key Binding}  \\
+			\hline\hline
+			\acmd{mbox} & \verb+\mbox{...}+ & \key{Ctl Opt M}   \\
+			\hline
+			\acmd{makebox} & \verb+\makebox[][]{...}+ &   \\
+			\hline
+			\acmd{fbox} & \verb+\fbox{...}+ &   \\
+			\hline
+			\acmd{framebox} & \verb+\framebox[][]{...}+ &   \\
+			\hline\hline
+			\acmd{newsavebox} & \verb+\newsavebox{...}+ &   \\
+			\hline
+			\acmd{sbox} & \verb+\sbox{}{...}+ &   \\
+			\hline
+			\acmd{savebox} & \verb+\savebox{}[][]{...}+ &   \\
+			\hline
+			\acmd{usebox} & \verb+\usebox{...}+ &   \\
+			\hline\hline
+			\acmd{raisebox} & \verb+\raisebox{}[][]{...}+ &   \\
+			\hline\hline
+			\acmd{parbox} & \verb+\parbox[]{}{...}+ &   \\
+			\hline
+			\acmd{minipage} & \renewcommand{\arraystretch}{1}
+														\begin{tabular}[t]{@{\hspace{-0.9ex}}l}
+															\verb+\begin{minipage}[]{}+  \\
+															\verb+  ...+  \\
+															\verb.\end{minipage}.
+														\end{tabular} &   \\
+			\hline\hline
+			\acmd{rule} & \verb.\rule[]{}{}. &   \\
+			\hline
+		\end{tabular}
+	\end{center}	
+	\caption{The \protect\amenu{Boxes} submenu}
+\end{table}
+
+\begin{table}
+	\begin{center}
+		\begin{tabular}{|l|c|l|l|}
+			\hline
+			\multicolumn{2}{|c|}{\amenu{Miscellaneous}} & 
+			\multicolumn{1}{|c|}{\LaTeX\ Command} & 
+			\multicolumn{1}{|c|}{Key Binding}  \\
+			\hline\hline
+			\acmd{verb} && \verb+\verb|...|+ & \key{Ctl Opt V}  \\
+			\hline
+			\acmd{footnote} && \verb+\footnote{...}+ & \key{Ctl Opt F}  \\
+			\hline
+			\acmd{marginal note} && \verb+\marginpar{...}+ & \key{Ctl Opt N}  \\
+			\hline\hline
+			\acmd{label} && \verb+\label{...}+ & \key{Ctl Opt L}  \\
+			\hline
+			\acmd{ref} && \verb+\ref{...}+ & \key{Ctl Opt X}  \\
+			\hline
+			\acmd{pageref} && \verb+\pageref{...}+ & \key{Ctl Opt P}  \\
+			\hline
+			\acmd{cite} && \verb+\cite{...}+ & \key{Ctl Opt C}  \\
+			\hline
+			\acmd{nocite} && \verb+\nocite{...}+ & \key{Shf Ctl Opt C}  \\
+			\hline\hline
+			\acmd{item} && \verb.\item. & \key{Ctl Opt J}  \\
+			\hline\hline
+			\acmd{quotes} && \verb+`...'+ & \key{Ctl Opt \straightquote}  \\
+			\hline
+			\acmd{double quotes} && \verb+``...''+ & \key{Shf Ctl Opt \straightquote}  \\
+			\hline\hline
+			\acmd{ellipsis} & \ldots & \verb.\ldots. &  \\
+			\hline
+			\acmd{en-dash} & -- & \verb.--. &   \\
+			\hline
+			\acmd{em-dash} & --- & \verb.---. &   \\
+			\hline
+			\acmd{TeX logo} & \TeX\ & \verb.\TeX. &   \\
+			\hline
+			\acmd{LaTeX logo} & \LaTeX\ & \verb.\LaTeX. &   \\
+			\hline
+			\acmd{LaTeX2e logo} & \LaTeXe\ & \verb.\LaTeXe. &   \\
+			\hline
+			\acmd{date} & \today & \verb.\today. &   \\
+			\hline\hline
+			\acmd{dag} & $\dag$ & \verb.\dag. &  \\
+			\hline
+			\acmd{ddag} & $\ddag$ & \verb.\ddag. &   \\
+			\hline
+			\acmd{section mark} & \S & \verb.\S. &  \\
+			\hline
+			\acmd{paragraph mark} & \P & \verb.\P. &  \\
+			\hline
+			\acmd{copyright} & \copyright & \verb.\copyright. &  \\
+			\hline
+			\acmd{pounds} & \pounds & \verb.\pounds. &   \\
+			\hline
+		\end{tabular}
+	\end{center}
+	\caption{The \protect\amenu{Miscellaneous} submenu}
+\end{table}
+
+\clearpage
+
+\begin{table}
+	\mbox{}
+	\addtocontents{lot}{\protect\vspace{1ex}}
+	\addtocontents{lot}{\hspace{-4pt}\protect\textbf{Math submenus:}}
+	\begin{center}
+		\begin{tabular}{|l|l|l|}
+			\hline
+			\multicolumn{1}{|c|}{\amenu{Math Modes}} & 
+			\multicolumn{1}{|c|}{\LaTeX\ Command} & 
+			\multicolumn{1}{|c|}{Key Binding}  \\
+			\hline\hline
+			\acmd{TeX Math} & \verb+$...$+ &  \\
+			\hline
+			\acmd{TeX Displaymath} & \verb+$$...$$+ &  \\
+			\hline\hline
+			\acmd{LaTeX Math} & \verb+\(...\)+ & \key{Ctl Cmd M} or \key{Ctl Cmd 4}  \\
+			\hline
+			\acmd{LaTeX Displaymath} & \verb+\[...\]+ & \key{Ctl Opt Cmd M} or
+				\key{Ctl Opt Cmd 4}  \\
+			\hline
+		\end{tabular}
+	\end{center}
+	\caption{The \protect\amenu{Math Modes} submenu}
+\end{table}
+
+\begin{table}
+	\begin{center}
+		\begin{tabular}{|l|l|l|}
+			\hline
+			\multicolumn{1}{|c|}{\amenu{Math Style}} & 
+			\multicolumn{1}{|c|}{\LaTeX\ Command} & 
+			\multicolumn{1}{|c|}{Key Binding}  \\ 
+			\hline\hline
+			$\mathit{mathit}$ & \verb+\mathit{...}+ & \key{Ctl Opt Cmd I}  \\
+			\hline
+			$\mathrm{mathrm}$ & \verb+\mathrm{...}+ & \key{Ctl Opt Cmd R}  \\
+			\hline
+			$\mathbf{mathbf}$ & \verb+\mathbf{...}+ & \key{Ctl Opt Cmd B}  \\
+			\hline
+			$\mathsf{mathsf}$ & \verb+\mathsf{...}+ & \key{Ctl Opt Cmd W}  \\
+			\hline
+			$\mathtt{mathtt}$ & \verb+\mathtt{...}+ & \key{Ctl Opt Cmd Y}\\
+			\hline
+			$\mathcal{MATHCAL}$ & \verb+\mathcal{...}+ & \key{Ctl Opt Cmd C}  \\
+			\hline\hline
+% 			\textsf{Fraktur} & \verb.{\frak }. & \key{Cmd Shf Opt F}  \\
+% 			\hline
+% 			\textsf{Script} & ??? & \key{Cmd Shf Opt S}  \\
+% 			\hline
+% 			\textsf{Blackboard Bold} & \verb.{\Bbb }. & \key{Cmd Shf Opt B}  \\
+% 			\hline
+			\acmd{displaystyle} & \verb+{\displaystyle ...}+ & \key{Ctl Opt Cmd D}  \\
+			\hline
+			\acmd{textstyle} & \verb+{\textstyle ...}+ & \key{Ctl Opt Cmd T}  \\
+			\hline
+			\acmd{scriptstyle} & \verb+{\scriptstyle ...}+ & \key{Ctl Opt Cmd S}  \\
+			\hline
+			\acmd{scriptscriptstyle} & 
+			\verb+{\scriptscriptstyle ...}+ &  \\
+			\hline
+		\end{tabular}
+	\end{center}
+	\caption{The \protect\amenu{Math Style} submenu}
+\end{table}
+
+\begin{table}
+	\begin{center}
+		\begin{tabular}{|l|l|l|}
+			\hline
+			\multicolumn{1}{|c|}{\amenu{Math Environments}} & 
+			\multicolumn{1}{|c|}{\LaTeX\ Command} & 
+			\multicolumn{1}{|c|}{Key Binding}  \\
+			\hline\hline
+			\acmd{math} &	\renewcommand{\arraystretch}{1}
+										\begin{tabular}[t]{@{\hspace{-0.9ex}}l}
+											\verb.\begin{math}.  \\
+											\verb+  ...+  \\
+											\verb.\end{math}.
+										\end{tabular} &  \key{Opt F5}  \\
+			\hline\hline
+			\acmd{displaymath} &	\renewcommand{\arraystretch}{1}
+													\begin{tabular}[t]{@{\hspace{-0.9ex}}l}
+														\verb.\begin{displaymath}.  \\
+														\verb+  ...+  \\
+														\verb.\end{displaymath}.
+													\end{tabular} &  \key{Shf Opt F5}  \\
+			\hline
+			\acmd{equation} &	\renewcommand{\arraystretch}{1}
+												\begin{tabular}[t]{@{\hspace{-0.9ex}}l}
+													\verb.\begin{equation}.  \\
+													\verb+  ...+  \\
+													\verb.\end{equation}.
+												\end{tabular} &  \key{Ctl Opt F5}  \\
+			\hline\hline
+			\acmd{eqnarray$\ast$\ldots} &	\renewcommand{\arraystretch}{1}
+																		\begin{tabular}[t]{@{\hspace{-0.9ex}}l}
+																			\verb.\begin{eqnarray*}.  \\
+																			\verb.  &  &.  \\
+																			\verb.\end{eqnarray*}.
+																		\end{tabular} &  \key{Shf Opt F6} \\
+			\hline
+			\acmd{eqnarray\ldots} &	\renewcommand{\arraystretch}{1}
+															\begin{tabular}[t]{@{\hspace{-0.9ex}}l}
+																\verb.\begin{eqnarray}.  \\
+																\verb.  &  &.  \\
+																\verb.\end{eqnarray}.
+															\end{tabular} &  \key{Ctl Opt F6}  \\
+			\hline\hline
+			\acmd{array\ldots} &	\renewcommand{\arraystretch}{1}
+													\begin{tabular}[t]{@{\hspace{-0.9ex}}l}
+														\verb+\begin{array}{}+  \\
+														\verb.  &  &  &.  \\
+														\verb.\end{array}.
+													\end{tabular} &  \key{Opt F6}  \\
+			\hline\hline
+			\acmd{general\ldots} &	\renewcommand{\arraystretch}{1}
+														\begin{tabular}[t]{@{\hspace{-0.9ex}}l}
+															\verb.\begin{<envname>}.  \\
+															\verb+  ...+  \\
+															\verb.\end{<envname>}.
+														\end{tabular} &  \key{Opt F12}  \\
+			\hline
+		\end{tabular}
+	\end{center}
+	\caption{The \protect\amenu{Math Environments} submenu}
+\end{table}
+
+\begin{table}
+	\begin{center}
+		\begin{tabular}{|l|l|l|}
+			\hline
+			\multicolumn{1}{|c|}{\amenu{Formulas}} & 
+			\multicolumn{1}{|c|}{\LaTeX\ Command} & 
+			\multicolumn{1}{|c|}{Key Binding}  \\
+			\hline\hline
+			\acmd{subscript} & \verb+_{...}+ & \key{\_}  \\
+			\hline
+			\acmd{superscript} & \verb+^{...}+ & \key{\^{}}  \\
+			\hline\hline
+			\acmd{frac} & \verb+\frac{...}{}+ & \key{Ctl Cmd F}  \\
+			\hline
+			\acmd{sqrt} & \verb+\sqrt{...}+ & \key{Ctl Cmd R}  \\
+			\hline
+			\acmd{nth root} & \verb+\sqrt[]{...}+ &  \\
+			\hline\hline
+			\acmd{one parameter} & \verb+\{...}+ & 
+				\key{Ctl Cmd 1}  \\
+			\hline
+			\acmd{two parameters} & \verb+\{...}{}+ & 
+				\key{Ctl Cmd 2}  \\
+			\hline
+		\end{tabular}
+	\end{center}
+	\caption{The \protect\amenu{Formulas} submenu}
+\end{table}
+
+\newsavebox{\myheading}
+\sbox{\myheading}{
+	{\renewcommand{\arraystretch}{0.75}
+	\begin{tabular}{@{}c@{}}
+		\raisebox{0ex}[2ex]{\LaTeX}  \\
+		Command 
+	\end{tabular}}
+}
+
+\begin{table}
+	\begin{center}
+		\begin{tabular}{@{}cc@{}}
+			\begin{tabular}{@{}|l|c|l|l|} \hline
+				\multicolumn{2}{|c|}{\amenu{Greek}} & 
+				\multicolumn{1}{|c|}{\usebox{\myheading}} & 
+				\multicolumn{1}{|c|}{Key Binding}  \\ \hline\hline
+				\acmd{alpha} & $\alpha$ & \verb.\alpha. & \key{Ctl M} \key{A} \\ \hline
+				\acmd{beta} & $\beta$ & \verb.\beta. & \key{Ctl M} \key{B} \\ \hline
+				\acmd{gamma} & $\gamma$ & \verb.\gamma. & \key{Ctl M} \key{G} \\ \hline
+				\acmd{delta} & $\delta$ & \verb.\delta. & \key{Ctl M} \key{D} \\ \hline
+				\acmd{epsilon} & $\epsilon$ & \verb.\epsilon. & \key{Ctl M} \key{E} \\ \hline
+				\acmd{zeta} & $\zeta$ & \verb.\zeta. & \key{Ctl M} \key{Z} \\ \hline
+				\acmd{eta} & $\eta$ & \verb.\eta. & \key{Ctl M} \key{H} \\ \hline
+				\acmd{theta} & $\theta$ & \verb.\theta. & \key{Ctl M} \key{Q} \\ \hline
+				\acmd{iota} & $\iota$ & \verb.\iota. & \key{Ctl M} \key{I} \\ \hline
+				\acmd{kappa} & $\kappa$ & \verb.\kappa. & \key{Ctl M} \key{K} \\ \hline
+				\acmd{lambda} & $\lambda$ & \verb.\lambda. & \key{Ctl M} \key{L} \\ \hline
+				\acmd{mu} & $\mu$ & \verb.\mu. & \key{Ctl M} \key{M} \\ \hline
+				\acmd{nu} & $\nu$ & \verb.\nu. & \key{Ctl M} \key{N} \\ \hline
+				\acmd{xi} & $\xi$ & \verb.\xi. & \key{Ctl M} \key{X} \\ \hline
+				\acmd{omicron} & $o$ & \verb.o. & \key{Ctl M} \key{O} \\ \hline
+				\acmd{pi} & $\pi$ & \verb.\pi. & \key{Ctl M} \key{P} \\ \hline
+				\acmd{rho} & $\rho$ & \verb.\rho. & \key{Ctl M} \key{R} \\ \hline
+				\acmd{sigma} & $\sigma$ & \verb.\sigma. & \key{Ctl M} \key{S} \\ \hline
+				\acmd{tau} & $\tau$ & \verb.\tau. & \key{Ctl M} \key{T} \\ \hline
+				\acmd{upsilon} & $\upsilon$ & \verb.\upsilon. & \key{Ctl M} \key{U} \\ \hline
+				\acmd{phi} & $\phi$ & \verb.\phi. & \key{Ctl M} \key{F} \\ \hline
+				\acmd{chi} & $\chi$ & \verb.\chi. & \key{Ctl M} \key{C} \\ \hline
+				\acmd{psi} & $\psi$ & \verb.\psi. & \key{Ctl M} \key{Y} \\ \hline
+				\acmd{omega} & $\omega$ & \verb.\omega. & \key{Ctl M} \key{W} \\ \hline\hline
+				\acmd{varepsilon} & $\varepsilon$ & \verb.\varepsilon. & \key{Ctl M} \key{Ctl E} \\ \hline
+				\acmd{vartheta} & $\vartheta$ & \verb.\vartheta. & \key{Ctl M} \key{Ctl Q} \\ \hline
+				\acmd{varpi} & $\varpi$ & \verb.\varpi. & \key{Ctl M} \key{Ctl P} \\ \hline
+				\acmd{varrho} & $\varrho$ & \verb.\varrho. & \key{Ctl M} \key{Ctl R} \\ \hline
+				\acmd{varsigma} & $\varsigma$ & \verb.\varsigma. & \key{Ctl M} \key{Ctl S} \\ \hline
+				\acmd{varphi} & $\varphi$ & \verb.\varphi. & \key{Ctl M} \key{Ctl F} \\ \hline
+			\end{tabular}
+			& 
+			\begin{tabular}{|l|c|l|l|@{}} \hline
+				\multicolumn{2}{|c|}{\amenu{Greek}} & 
+				\multicolumn{1}{|c|}{\usebox{\myheading}} & 
+				\multicolumn{1}{|c|}{Key Binding}  \\ \hline\hline
+				 &  &  &  \\ \hline
+				 &  &  &  \\ \hline
+				\acmd{Gamma} & $\Gamma$ & \verb.\Gamma. & \key{Ctl M} \key{Shf G} \\ \hline
+				\acmd{Delta} & $\Delta$ & \verb.\Delta. & \key{Ctl M} \key{Shf D} \\ \hline
+				 &  &  &  \\ \hline
+				 &  &  &  \\ \hline
+				 &  &  &  \\ \hline
+				\acmd{Theta} & $\Theta$ & \verb.\Theta. & \key{Ctl M} \key{Shf Q} \\ \hline
+				 &  &  &  \\ \hline
+				 &  &  &  \\ \hline
+				\acmd{Lambda} & $\Lambda$ & \verb.\Lambda. & \key{Ctl M} \key{Shf L} \\ \hline
+				 &  &  &  \\ \hline
+				 &  &  &  \\ \hline
+				\acmd{Xi} & $\Xi$ & \verb.\Xi. & \key{Ctl M} \key{Shf X} \\ \hline
+				 &  &  &  \\ \hline
+				\acmd{Pi} & $\Pi$ & \verb.\Pi. & \key{Ctl M} \key{Shf P} \\ \hline
+				 &  &  &  \\ \hline
+				\acmd{Sigma} & $\Sigma$ & \verb.\Sigma. & \key{Ctl M} \key{Shf S} \\ \hline
+				 &  &  &  \\ \hline
+				\acmd{Upsilon} & $\Upsilon$ & \verb.\Upsilon. & \key{Ctl M} \key{Shf U} \\ \hline
+				\acmd{Phi} & $\Phi$ & \verb.\Phi. & \key{Ctl M} \key{Shf F} \\ \hline
+				 &  &  &  \\ \hline
+				\acmd{Psi} & $\Psi$ & \verb.\Psi. & \key{Ctl M} \key{Shf Y} \\ \hline
+				\acmd{Omega} & $\Omega$ & \verb.\Omega. & \key{Ctl M} \key{Shf W} \\ \hline\hline
+				 &  &  &  \\ \hline
+				 &  &  &  \\ \hline
+				 &  &  &  \\ \hline
+				 &  &  &  \\ \hline
+				 &  &  &  \\ \hline
+				 &  &  &  \\ \hline
+			\end{tabular}
+		\end{tabular}
+	\end{center}
+	\caption{The \protect\amenu{Greek} submenus}
+\end{table}
+
+\clearpage
+
+\begin{table}
+	\small
+	\begin{center}
+		\begin{tabular}{|l|c|l|l|}
+			\hline
+			\multicolumn{2}{|c|}{\amenu{Binary Operators}} & 
+			\multicolumn{1}{|c|}{\LaTeX\ Command} & 
+			\multicolumn{1}{|c|}{Key Binding}  \\ 
+			\hline\hline
+			\acmd{pm} & $\pm$ & \verb.\pm. &  \\
+			\hline
+			\acmd{mp} & $\mp$ & \verb.\mp. &  \\
+			\hline
+			\acmd{times} & $\times$ & \verb.\times. &  \\
+			\hline
+			\acmd{div} & $\div$ & \verb.\div. &  \\
+			\hline
+			\acmd{ast} & $\ast$ & \verb.\ast. &  \\
+			\hline
+			\acmd{star} & $\star$ & \verb.\star. &  \\
+			\hline
+			\acmd{circ} & $\circ$ & \verb.\circ. &  \\
+			\hline
+			\acmd{bullet} & $\bullet$ & \verb.\bullet. &  \\
+			\hline
+			\acmd{cdot} & $\cdot$ & \verb.\cdot. &  \\
+			\hline
+			\acmd{cap} & $\cap$ & \verb.\cap. &  \\
+			\hline
+			\acmd{cup} & $\cup$ & \verb.\cup. &  \\
+			\hline
+			\acmd{uplus} & $\uplus$ & \verb.\uplus. &  \\
+			\hline
+			\acmd{sqcap} & $\sqcap$ & \verb.\sqcap. &  \\
+			\hline
+			\acmd{sqcup} & $\sqcup$ & \verb.\sqcup. &  \\
+			\hline
+			\acmd{vee} & $\vee$ & \verb.\vee. &  \\
+			\hline
+			\acmd{wedge} & $\wedge$ & \verb.\wedge. &  \\
+			\hline
+			\acmd{setminus} & $\setminus$ & \verb.\setminus. &  \\
+			\hline\hline
+			\acmd{diamond} & $\diamond$ & \verb.\diamond. &  \\
+			\hline
+			\acmd{bigtriangleup} & $\bigtriangleup$ & \verb.\bigtriangleup. &  \\
+			\hline
+			\acmd{bigtriangledown} & $\bigtriangledown$ & \verb.\bigtriangledown. &  \\
+			\hline
+			\acmd{triangleleft} & $\triangleleft$ & \verb.\triangleleft. &  \\
+			\hline
+			\acmd{triangleright} & $\triangleright$ & \verb.\triangleright. &  \\
+			\hline
+			\acmd{lhd} & $\lhd$ & \verb.\lhd. &  \\
+			\hline
+			\acmd{rhd} & $\rhd$ & \verb.\rhd. &  \\
+			\hline
+			\acmd{unlhd} & $\unlhd$ & \verb.\unlhd. &  \\
+			\hline
+			\acmd{unrhd} & $\unrhd$ & \verb.\unrhd. &  \\
+			\hline\hline
+			\acmd{oplus} & $\oplus$ & \verb.\oplus. &  \\
+			\hline
+			\acmd{ominus} & $\ominus$ & \verb.\ominus. &  \\
+			\hline
+			\acmd{otimes} & $\otimes$ & \verb.\otimes. &  \\
+			\hline
+			\acmd{oslash} & $\oslash$ & \verb.\oslash. &  \\
+			\hline
+			\acmd{odot} & $\odot$ & \verb.\odot. &  \\
+			\hline\hline
+			\acmd{bigcirc} & $\bigcirc$ & \verb.\bigcirc. &  \\
+			\hline
+			\acmd{dagger} & $\dagger$ & \verb.\dagger. &  \\
+			\hline
+			\acmd{ddagger} & $\ddagger$ & \verb.\ddagger. &  \\
+			\hline
+			\acmd{amalg} & $\amalg$ & \verb.\amalg. &  \\
+			\hline
+			\acmd{wr} & $\wr$ & \verb.\wr. &  \\
+			\hline
+		\end{tabular}
+	\end{center}
+	\caption{The \protect\amenu{Binary Operators} submenu}
+\end{table}
+
+\begin{table}
+	\begin{center}
+		\begin{tabular}{@{}cc@{}}
+			\begin{tabular}{@{}|l|c|l|l|}
+				\hline
+				\multicolumn{2}{|c|}{\amenu{Relations}} & 
+				\multicolumn{1}{|c|}{\LaTeX\ Command} & 
+				\multicolumn{1}{|c|}{Key Binding}  \\ 
+				\hline\hline
+				\acmd{leq} & $\leq$ & \verb.\leq. &  \\
+				\hline
+				\acmd{prec} & $\prec$ & \verb.\prec. &  \\
+				\hline
+				\acmd{preceq} & $\preceq$ & \verb.\preceq. &  \\
+				\hline
+				\acmd{ll} & $\ll$ & \verb.\ll. &  \\
+				\hline
+				\acmd{subset} & $\subset$ & \verb.\subset. &  \\
+				\hline
+				\acmd{subseteq} & $\subseteq$ & \verb.\subseteq. &  \\
+				\hline
+				\acmd{sqsubset} & $\sqsubset$ & \verb.\sqsubset. &  \\
+				\hline
+				\acmd{sqsubseteq} & $\sqsubseteq$ & \verb.\sqsubseteq. &  \\
+				\hline
+				\acmd{in} & $\in$ & \verb.\in. &  \\
+				\hline
+				\acmd{vdash} & $\vdash$ & \verb.\vdash. &  \\
+				\hline\hline
+				\acmd{equiv} & $\equiv$ & \verb.\equiv. &  \\
+				\hline
+				\acmd{sim} & $\sim$ & \verb.\sim. &  \\
+				\hline
+				\acmd{simeq} & $\simeq$ & \verb.\simeq. &  \\
+				\hline
+				\acmd{asymp} & $\asymp$ & \verb.\asymp. &  \\
+				\hline
+				\acmd{approx} & $\approx$ & \verb.\approx. &  \\
+				\hline
+				\acmd{cong} & $\cong$ & \verb.\cong. &  \\
+				\hline
+				\acmd{neq} & $\neq$ & \verb.\neq. &  \\
+				\hline
+				\acmd{doteq} & $\doteq$ & \verb.\doteq. &  \\
+				\hline
+				\acmd{propto} & $\propto$ & \verb.\propto. &  \\
+				\hline\hline
+				\acmd{models} & $\models$ & \verb.\models. &  \\
+				\hline
+				\acmd{perp} & $\perp$ & \verb.\perp. &  \\
+				\hline
+				\acmd{mid} & $\mid$ & \verb.\mid. &  \\
+				\hline
+				\acmd{parallel} & $\parallel$ & \verb.\parallel. &  \\
+				\hline
+				\acmd{bowtie} & $\bowtie$ & \verb.\bowtie. &  \\
+				\hline
+				\acmd{Join} & $\Join$ & \verb.\Join. &  \\
+				\hline
+				\acmd{smile} & $\smile$ & \verb.\smile. &  \\
+				\hline
+				\acmd{frown} & $\frown$ & \verb.\frown. &  \\
+				\hline
+			\end{tabular}
+			& 
+			\begin{tabular}{|l|c|l|l|@{}}
+				\hline
+				\multicolumn{2}{|c|}{\amenu{Relations}} & 
+				\multicolumn{1}{|c|}{\LaTeX\ Command} & 
+				\multicolumn{1}{|c|}{Key Binding}  \\ 
+				\hline\hline
+				\acmd{geq} & $\geq$ & \verb.\geq. &  \\
+				\hline
+				\acmd{succ} & $\succ$ & \verb.\succ. &  \\
+				\hline
+				\acmd{succeq} & $\succeq$ & \verb.\succeq. &  \\
+				\hline
+				\acmd{gg} & $\gg$ & \verb.\gg. &  \\
+				\hline
+				\acmd{supset} & $\supset$ & \verb.\supset. &  \\
+				\hline
+				\acmd{supseteq} & $\supseteq$ & \verb.\supseteq. &  \\
+				\hline
+				\acmd{sqsupset} & $\sqsupset$ & \verb.\sqsupset. &  \\
+				\hline
+				\acmd{sqsupseteq} & $\sqsupseteq$ & \verb.\sqsupseteq. &  \\
+				\hline
+				\acmd{ni} & $\ni$ & \verb.\ni. &  \\
+				\hline
+				\acmd{dashv} & $\dashv$ & \verb.\dashv. &  \\
+				\hline\hline
+				 &  &  &  \\
+				\hline
+				 &  &  &  \\
+				\hline
+				 &  &  &  \\
+				\hline
+				 &  &  &  \\
+				\hline
+				 &  &  &  \\
+				\hline
+				 &  &  &  \\
+				\hline
+				 &  &  &  \\
+				\hline
+				 &  &  &  \\
+				\hline
+				 &  &  &  \\
+				\hline\hline
+				 &  &  &  \\
+				\hline
+				 &  &  &  \\
+				\hline
+				 &  &  &  \\
+				\hline
+				 &  &  &  \\
+				\hline
+				 &  &  &  \\
+				\hline
+				 &  &  &  \\
+				\hline
+				 &  &  &  \\
+				\hline
+				 &  &  &  \\
+				\hline
+			\end{tabular}
+		\end{tabular}
+	\end{center}
+	\caption{The \protect\amenu{Relations} submenus}
+\end{table}
+
+\begin{table}
+	\begin{center}
+		\begin{tabular}{@{}cc@{}}
+			\begin{tabular}{@{}|l|c|l|}
+				\hline
+				\multicolumn{2}{|c|}{\amenu{Arrows}} & 
+				\multicolumn{1}{|c|}{\LaTeX\ Command}  \\ 
+				\hline\hline
+				\acmd{leftarrow} & $\leftarrow$ & \verb.\leftarrow.  \\
+				\hline
+				\acmd{rightarrow} & $\rightarrow$ & \verb.\rightarrow.  \\
+				\hline
+				\acmd{leftrightarrow} & $\leftrightarrow$ & \verb.\leftrightarrow.  \\
+				\hline
+				\acmd{longleftarrow} & $\longleftarrow$ & \verb.\longleftarrow.  \\
+				\hline
+				\acmd{longrightarrow} & $\longrightarrow$ & \verb.\longrightarrow.  \\
+				\hline
+				\acmd{longleftrightarrow} & $\longleftrightarrow$ & \verb.\longleftrightarrow.  \\
+				\hline\hline
+				\acmd{uparrow} & $\uparrow$ & \verb.\uparrow.  \\
+				\hline
+				\acmd{downarrow} & $\downarrow$ & \verb.\downarrow.  \\
+				\hline
+				\acmd{updownarrow} & $\updownarrow$ & \verb.\updownarrow.  \\
+				\hline\hline
+				\acmd{mapsto} & $\mapsto$ & \verb.\mapsto.  \\
+				\hline
+				\acmd{longmapsto} & $\longmapsto$ & \verb.\longmapsto.  \\
+				\hline
+				\acmd{leadsto} & $\leadsto$ & \verb.\leadsto.  \\
+				\hline\hline
+				\acmd{leftharpoonup} & $\leftharpoonup$ & \verb.\leftharpoonup.  \\
+				\hline
+				\acmd{rightharpoonup} & $\rightharpoonup$ & \verb.\rightharpoonup.  \\
+				\hline
+				\acmd{leftharpoondown} & $\leftharpoondown$ & \verb.\leftharpoondown.  \\
+				\hline
+				\acmd{rightharpoondown} & $\rightharpoondown$ & \verb.\rightharpoondown.  \\
+				\hline
+				\acmd{rightleftharpoons} & $\rightleftharpoons$ & \verb.\rightleftharpoons.  \\
+				\hline
+				\acmd{hookleftarrow} & $\hookleftarrow$ & \verb.\hookleftarrow.  \\
+				\hline
+				\acmd{hookrightarrow} & $\hookrightarrow$ & \verb.\hookrightarrow.  \\
+				\hline
+				\acmd{nearrow} & $\nearrow$ & \verb.\nearrow.  \\
+				\hline
+				\acmd{searrow} & $\searrow$ & \verb.\searrow.  \\
+				\hline
+				\acmd{swarrow} & $\swarrow$ & \verb.\swarrow.  \\
+				\hline
+				\acmd{nwarrow} & $\nwarrow$ & \verb.\nwarrow.  \\
+				\hline
+			\end{tabular}
+			& 
+			\begin{tabular}{|l|c|l|@{}}
+				\hline
+				\multicolumn{2}{|c|}{\amenu{Arrows}} & 
+				\multicolumn{1}{|c|}{\LaTeX\ Command}  \\ 
+				\hline\hline
+				\acmd{Leftarrow} & $\Leftarrow$ & \verb.\Leftarrow.  \\
+				\hline
+				\acmd{Rightarrow} & $\Rightarrow$ & \verb.\Rightarrow.  \\
+				\hline
+				\acmd{Leftrightarrow} & $\Leftrightarrow$ & \verb.\Leftrightarrow.  \\
+				\hline
+				\acmd{Longleftarrow} & $\Longleftarrow$ & \verb.\Longleftarrow.  \\
+				\hline
+				\acmd{Longrightarrow} & $\Longrightarrow$ & \verb.\Longrightarrow.  \\
+				\hline
+				\acmd{Longleftrightarrow} & $\Longleftrightarrow$ & \verb.\Longleftrightarrow.  \\
+				\hline\hline
+				\acmd{Uparrow} & $\Uparrow$ & \verb.\Uparrow.  \\
+				\hline
+				\acmd{Downarrow} & $\Downarrow$ & \verb.\Downarrow.  \\
+				\hline
+				\acmd{Updownarrow} & $\Updownarrow$ & \verb.\Updownarrow.  \\
+				\hline\hline
+				 &  &   \\
+				\hline
+				 &  &   \\
+				\hline
+				 &  &   \\
+				\hline\hline
+				 &  &   \\
+				\hline
+				 &  &   \\
+				\hline
+				 &  &   \\
+				\hline
+				 &  &   \\
+				\hline
+				 &  &   \\
+				\hline
+				 &  &   \\
+				\hline
+				 &  &   \\
+				\hline
+				 &  &   \\
+				\hline
+				 &  &   \\
+				\hline
+				 &  &   \\
+				\hline
+				 &  &   \\
+				\hline
+			\end{tabular}
+		\end{tabular}
+	\end{center}
+	\caption{The \protect\amenu{Arrows} submenus}
+\end{table}
+
+\begin{table}
+	\begin{center}
+		\begin{tabular}{|l|c|l|l|}
+			\hline
+			\multicolumn{2}{|c|}{\amenu{Dots}} & 
+			\multicolumn{1}{|c|}{\LaTeX\ Command} & 
+			\multicolumn{1}{|c|}{Key Binding}  \\ 
+			\hline\hline
+			\acmd{bullet} & $\bullet$ & \verb.\bullet. &  \\
+			\hline
+			\acmd{cdot} & $\cdot$ & \verb.\cdot. &  \\
+			\hline\hline
+			\acmd{ldots} & $\ldots$ & \verb.\ldots. &  \\
+			\hline
+			\acmd{cdots} & $\cdots$ & \verb.\cdots. &  \\
+			\hline
+			\acmd{vdots} & $\vdots$ & \verb.\vdots. &  \\
+			\hline
+			\acmd{ddots} & $\ddots$ & \verb.\ddots. &  \\
+			\hline
+		\end{tabular}
+	\end{center}
+	\caption{The \protect\amenu{Dots} submenu}
+\end{table}
+
+\clearpage
+
+\begin{table}
+	\begin{center}
+		\begin{tabular}{|l|c|l|l|}
+			\hline
+			\multicolumn{2}{|c|}{\amenu{Symbols}} & 
+			\multicolumn{1}{|c|}{\LaTeX\ Command} & 
+			\multicolumn{1}{|c|}{Key Binding}  \\ 
+			\hline\hline
+			\acmd{aleph} & $\aleph$ & \verb.\aleph. &  \\
+			\hline
+			\acmd{hbar} & $\hbar$ & \verb.\hbar. &  \\
+			\hline
+			\acmd{imath} & $\imath$ & \verb.\imath. &  \\
+			\hline
+			\acmd{jmath} & $\jmath$ & \verb.\jmath. &  \\
+			\hline
+			\acmd{ell} & $\ell$ & \verb.\ell. &  \\
+			\hline
+			\acmd{wp} & $\wp$ & \verb.\wp. &  \\
+			\hline
+			\acmd{Re} & $\Re$ & \verb.\Re. &  \\
+			\hline
+			\acmd{Im} & $\Im$ & \verb.\Im. &  \\
+			\hline
+			\acmd{mho} & $\mho$ & \verb.\mho. &  \\
+			\hline\hline
+			\acmd{angle} & $\angle$ & \verb.\angle. &  \\
+			\hline
+			\acmd{backslash} & $\backslash$ & \verb.\backslash. &  \\
+			\hline
+			\acmd{bot} & $\bot$ & \verb.\bot. &  \\
+			\hline
+			\acmd{emptyset} & $\emptyset$ & \verb.\emptyset. &  \\
+			\hline
+			\acmd{exists} & $\exists$ & \verb.\exists. &  \\
+			\hline
+			\acmd{forall} & $\forall$ & \verb.\forall. &  \\
+			\hline
+			\acmd{infty} & $\infty$ & \verb.\infty. &  \\
+			\hline
+			\acmd{nabla} & $\nabla$ & \verb.\nabla. &  \\
+			\hline
+			\acmd{neg} & $\neg$ & \verb.\neg. &  \\
+			\hline
+			\acmd{partial} & $\partial$ & \verb.\partial. &  \\
+			\hline
+			\acmd{prime} & $\prime$ & \verb.\prime. &  \\
+			\hline
+			\acmd{surd} & $\surd$ & \verb.\surd. &  \\
+			\hline
+			\acmd{top} & $\top$ & \verb.\top. &  \\
+			\hline\hline
+			\acmd{Box} & $\Box$ & \verb.\Box. &  \\
+			\hline
+			\acmd{Diamond} & $\Diamond$ & \verb.\Diamond. &  \\
+			\hline
+			\acmd{triangle} & $\triangle$ & \verb.\triangle. &  \\
+			\hline
+			\acmd{clubsuit} & $\clubsuit$ & \verb.\clubsuit. &  \\
+			\hline
+			\acmd{diamondsuit} & $\diamondsuit$ & \verb.\diamondsuit. &  \\
+			\hline
+			\acmd{heartsuit} & $\heartsuit$ & \verb.\heartsuit. &  \\
+			\hline
+			\acmd{spadesuit} & $\spadesuit$ & \verb.\spadesuit. &  \\
+			\hline\hline
+			\acmd{flat} & $\flat$ & \verb.\flat. &  \\
+			\hline
+			\acmd{natural} & $\natural$ & \verb.\natural. &  \\
+			\hline
+			\acmd{sharp} & $\sharp$ & \verb.\sharp. &  \\
+			\hline
+		\end{tabular}
+	\end{center}
+	\caption{The \protect\amenu{Symbols} submenu}
+\end{table}
+
+\begin{table}
+	\begin{center}
+		\begin{tabular}{|l|l|l|}
+			\hline
+			\multicolumn{1}{|c|}{\amenu{Functions}} & 
+			\multicolumn{1}{|c|}{\LaTeX\ Command} & 
+			\multicolumn{1}{|c|}{Key Binding}  \\ 
+			\hline\hline
+			\acmd{arccos} & \verb.\arccos. &  \\
+			\hline
+			\acmd{arcsin} & \verb.\arcsin. &  \\
+			\hline
+			\acmd{arctan} & \verb.\arctan. &  \\
+			\hline
+			\acmd{arg} & \verb.\arg. &  \\
+			\hline
+			\acmd{cos} & \verb.\cos. &  \\
+			\hline
+			\acmd{cosh} & \verb.\cosh. &  \\
+			\hline
+			\acmd{cot} & \verb.\cot. &  \\
+			\hline
+			\acmd{coth} & \verb.\coth. &  \\
+			\hline
+			\acmd{csc} & \verb.\csc. &  \\
+			\hline
+			\acmd{deg} & \verb.\deg. &  \\
+			\hline
+			\acmd{det} & \verb.\det. &  \\
+			\hline
+			\acmd{dim} & \verb.\dim. &  \\
+			\hline
+			\acmd{exp} & \verb.\exp. &  \\
+			\hline
+			\acmd{gcd} & \verb.\gcd. &  \\
+			\hline
+			\acmd{hom} & \verb.\hom. &  \\
+			\hline
+			\acmd{inf} & \verb+\inf_{...}+ &  \\
+			\hline
+			\acmd{ker} & \verb.\ker. &  \\
+			\hline
+			\acmd{lg} & \verb.\lg. &  \\
+			\hline
+			\acmd{lim} & \verb+\lim_{...}+ & \key{Ctl Cmd L}  \\
+			\hline
+			\acmd{liminf} & \verb+\liminf_{...}+ &  \\
+			\hline
+			\acmd{limsup} & \verb+\limsup_{...}+ &  \\
+			\hline
+			\acmd{ln} & \verb.\ln. &  \\
+			\hline
+			\acmd{log} & \verb.\log. &  \\
+			\hline
+			\acmd{max} & \verb+\max_{...}+ &  \\
+			\hline
+			\acmd{min} & \verb+\min_{...}+ &  \\
+			\hline
+			\acmd{Pr} & \verb.\Pr. &  \\
+			\hline
+			\acmd{sec} & \verb.\sec. &  \\
+			\hline
+			\acmd{sin} & \verb.\sin. &  \\
+			\hline
+			\acmd{sinh} & \verb.\sinh. &  \\
+			\hline
+			\acmd{sup} & \verb+\sup_{...}+ &  \\
+			\hline
+			\acmd{tan} & \verb.\tan. &  \\
+			\hline
+			\acmd{tanh} & \verb.\tanh. &  \\
+			\hline\hline
+			\acmd{bmod} & \verb.\bmod. &  \\
+			\hline
+			\acmd{pmod} & \verb+\pmod{...}+ &  \\
+			\hline
+		\end{tabular}
+	\end{center}
+	\caption{The \protect\amenu{Functions} submenu}
+\end{table}
+
+\begin{table}
+	\begin{center}
+		\begin{tabular}{|l|c|l|l|}
+			\hline
+			\multicolumn{2}{|c|}{\amenu{Large Operators}} & 
+			\multicolumn{1}{|c|}{\LaTeX\ Command} & 
+			\multicolumn{1}{|c|}{Key Binding}  \\ 
+			\hline\hline
+			\acmd{sum} & $\sum$ & \verb.\sum_{}^{}. & \key{Ctl Cmd S}  \\
+			\hline
+			\acmd{prod} & $\prod$ & \verb.\prod_{}^{}. & \key{Ctl Cmd P}  \\
+			\hline
+			\acmd{coprod} & $\coprod$ & \verb.\coprod_{}^{}. &  \\
+			\hline
+			\acmd{int} & $\int$ & \verb.\int_{}^{}. & \key{Ctl Cmd I}  \\
+			\hline
+			\acmd{oint} & $\oint$ & \verb.\oint_{}^{}. &  \\
+			\hline\hline
+			\acmd{bigcap} & $\bigcap$ & \verb.\bigcap_{}^{}. &   \\
+			\hline
+			\acmd{bigcup} & $\bigcup$ & \verb.\bigcup_{}^{}. &   \\
+			\hline
+			\acmd{bigsqcup} & $\bigsqcup$ & \verb.\bigsqcup_{}^{}. &   \\
+			\hline
+			\acmd{bigvee} & $\bigvee$ & \verb.\bigvee_{}^{}. &   \\
+			\hline
+			\acmd{bigwedge} & $\bigwedge$ & \verb.\bigwedge_{}^{}. &   \\
+			\hline
+			\acmd{bigodot} & $\bigodot$ & \verb.\bigodot_{}^{}. &   \\
+			\hline
+			\acmd{bigotimes} & $\bigotimes$ & \verb.\bigotimes_{}^{}. &   \\
+			\hline
+			\acmd{bigoplus} & $\bigoplus$ & \verb.\bigoplus_{}^{}. &   \\
+			\hline
+			\acmd{biguplus} & $\biguplus$ & \verb.\biguplus_{}^{}. &   \\
+			\hline
+		\end{tabular}
+	\end{center}
+	\caption{The \protect\amenu{Large Operators} submenu}
+\end{table}
+
+\begin{table}
+	\begin{center}
+		\begin{tabular}{|l|l|l|}
+			\hline
+			\multicolumn{1}{|c|}{\amenu{Delimiters}} & 
+			\multicolumn{1}{|c|}{\LaTeX\ Command} & 
+			\multicolumn{1}{|c|}{Key Binding}  \\ 
+			\hline\hline
+			\acmd{parentheses} & \verb+(...)+ &  \\
+			\hline
+			\acmd{brackets} & \verb+[...]+ &  \\
+			\hline
+			\acmd{braces} & \verb+\{...\}+ &  \\
+			\hline
+			\acmd{vertical bars} & \verb+|...|+ &  \\
+			\hline
+			\acmd{other delims\ldots} & \verb+<delim>...<delim>+ &  \\
+			\hline\hline
+			\acmd{half-open interval} & \verb+(...]+ &  \\
+			\hline
+			\acmd{half-closed interval} & \verb+[...)+ &  \\
+			\hline\hline
+			\acmd{big parentheses} & \verb+\left(...\right)+ &  \\
+			\hline
+			\acmd{big brackets} & \verb+\left[...\right]+ &  \\
+			\hline
+			\acmd{big braces} & \verb+\left\{...\right\}+ &  \\
+			\hline
+			\acmd{big vertical bars} & \verb+\left|...\right|+ &  \\
+			\hline
+			\acmd{other big delims\ldots} & \verb+\left<delim>...\right<delim>+ &  \\
+			\hline\hline
+			\acmd{big left brace} & \verb+\left\{...\right.+ &  \\
+			\hline
+			\acmd{other mixed big delims\ldots} & \verb+\left<delim1>...\right<delim2>+ &  \\
+			\hline
+		\end{tabular}
+	\end{center}
+	\caption{The \protect\amenu{Delimiters} submenu}
+\end{table}
+
+\begin{table}
+	\begin{center}
+		\begin{tabular}{|l|l|l|}
+			\hline
+			\multicolumn{1}{|c|}{\amenu{Delimiters}} & 
+			\multicolumn{1}{|c|}{\LaTeX\ Command} & 
+			\multicolumn{1}{|c|}{Key Binding}  \\ 
+			\hline\hline
+			&  &  \\
+			\hline
+			&  &  \\
+			\hline
+			&  &  \\
+			\hline
+			&  &  \\
+			\hline
+			 &  &  \\
+			\hline\hline
+			&  &  \\
+			\hline
+			&  &  \\
+			\hline\hline
+			\acmd{multi-line big parentheses} &	\renewcommand{\arraystretch}{1}
+											\begin{tabular}[t]{@{\hspace{-0.9ex}}l}
+												\verb.\left(.  \\
+												\verb+  ...+  \\
+												\verb.\right).
+											\end{tabular} &    \\
+			\hline
+			\acmd{multi-line big brackets} &	\renewcommand{\arraystretch}{1}
+											\begin{tabular}[t]{@{\hspace{-0.9ex}}l}
+												\verb.\left[.  \\
+												\verb+  ...+  \\
+												\verb.\right].
+											\end{tabular} &    \\
+			\hline
+			\acmd{multi-line big braces} &	\renewcommand{\arraystretch}{1}
+											\begin{tabular}[t]{@{\hspace{-0.9ex}}l}
+												\verb.\left\{.  \\
+												\verb+  ...+  \\
+												\verb.\right\}.
+											\end{tabular} &    \\
+			\hline
+			\acmd{multi-line big vertical bars} &	\renewcommand{\arraystretch}{1}
+											\begin{tabular}[t]{@{\hspace{-0.9ex}}l}
+												\verb.\left|.  \\
+												\verb+  ...+  \\
+												\verb.\right|.
+											\end{tabular} &    \\
+			\hline
+			\acmd{other multi-line big delims\ldots} &	\renewcommand{\arraystretch}{1}
+											\begin{tabular}[t]{@{\hspace{-0.9ex}}l}
+												\verb.\left<delim>.  \\
+												\verb+  ...+  \\
+												\verb.\right<delim>.
+											\end{tabular} &    \\
+			\hline\hline
+			\acmd{multi-line big left brace} &	\renewcommand{\arraystretch}{1}
+											\begin{tabular}[t]{@{\hspace{-0.9ex}}l}
+												\verb.\left\{.  \\
+												\verb+  ...+  \\
+												\verb+\right.+
+											\end{tabular} &    \\
+			\hline
+			\acmd{other multi-line mixed big delims\ldots} &	\renewcommand{\arraystretch}{1}
+											\begin{tabular}[t]{@{\hspace{-0.9ex}}l}
+												\verb.\left<delim1>.  \\
+												\verb+  ...+  \\
+												\verb.\right<delim2>.
+											\end{tabular} &    \\
+			\hline
+		\end{tabular}
+	\end{center}
+	\caption{The alternate \protect\amenu{Delimiters} submenu}
+\end{table}
+
+\begin{table}
+	\begin{center}
+		\begin{tabular}{|l|c|l|l|}
+			\hline
+			\multicolumn{2}{|c|}{\amenu{Math Accents}} & 
+			\multicolumn{1}{|c|}{\LaTeX\ Command} & 
+			\multicolumn{1}{|c|}{Key Binding}  \\ 
+			\hline\hline
+			\acmd{acute} & $\acute{x}$ & \verb+\acute{...}+ & \key{Ctl Cmd A}  \\
+			\hline
+			\acmd{bar} & $\bar{x}$ & \verb+\bar{...}+ & \key{Ctl Cmd B}  \\
+			\hline
+			\acmd{breve} & $\breve{x}$ & \verb+\breve{...}+ &   \\
+			\hline
+			\acmd{check} & $\check{x}$ & \verb+\check{...}+ & \key{Ctl Cmd C}  \\
+			\hline
+			\acmd{dot} & $\dot{x}$ & \verb+\dot{...}+ & \key{Ctl Cmd D}  \\
+			\hline
+			\acmd{ddot} & $\ddot{x}$ & \verb+\ddot{...}+ &  \\
+			\hline
+			\acmd{grave} & $\grave{x}$ & \verb+\grave{...}+ & \key{Ctl Cmd G}  \\
+			\hline
+			\acmd{hat} & $\hat{x}$ & \verb+\hat{...}+ & \key{Ctl Cmd H}  \\
+			\hline
+			\acmd{tilde} & $\tilde{x}$ & \verb+\tilde{...}+ & \key{Ctl Cmd T}  \\
+			\hline
+			\acmd{vec} & $\vec{x}$ & \verb+\vec{...}+ & \key{Ctl Cmd V}  \\
+			\hline\hline
+			\acmd{widehat} & $\widehat{xxx}$ & \verb+\widehat{...}+ &  \\
+			\hline
+			\acmd{widetilde} & $\widetilde{xxx}$ & \verb+\widetilde{...}+ &  \\
+			\hline\hline
+			\acmd{imath} & $\imath$ & \verb.\imath. &  \\
+			\hline
+			\acmd{jmath} & $\jmath$ & \verb.\jmath. &  \\
+			\hline
+		\end{tabular}
+	\end{center}
+	\caption{ The \protect\amenu{Math Accents} submenu}
+\end{table}
+
+\begin{table}
+	\begin{center}
+		\begin{tabular}{|l|l|l|}
+			\hline
+			\multicolumn{1}{|c|}{\amenu{Grouping}} & 
+			\multicolumn{1}{|c|}{\LaTeX\ Command} & 
+			\multicolumn{1}{|c|}{Key Binding}  \\ 
+			\hline\hline
+			$\underline{\mbox{\acmd{underline}}}$ & \verb+\underline{...}+ & 
+				\key{Ctl Cmd U}  \\
+			\hline
+			$\overline{\mbox{\acmd{overline}}}$ & \verb+\overline{...}+ & 
+				\key{Ctl Cmd O}  \\
+			\hline
+			$\underbrace{\mbox{\acmd{underbrace}}}$ & \verb+\underbrace{...}+ & 
+			\key{Ctl Opt Cmd U}  \\
+			\hline
+			$\overbrace{\mbox{\acmd{overbrace}}}$ & \verb+\overbrace{...}+ & 
+			\key{Ctl Opt Cmd O}  \\
+			\hline\hline
+			$\overrightarrow{\mbox{\acmd{overrightarrow}}}$ & 
+			\verb+\overrightarrow{...}+ &  \\
+			\hline
+			$\overleftarrow{\mbox{\acmd{overleftarrow}}}$ & 
+			\verb+\overleftarrow{...}+ &  \\
+			\hline\hline
+			\acmd{stackrel} & \verb.\stackrel{}{}. &  \\
+			\hline
+		\end{tabular}
+	\end{center}
+	\caption{The \protect\amenu{Grouping} submenu}
+\end{table}
+
+\begin{table}
+	\begin{center}
+		\begin{tabular}{|l|l|l|}
+			\hline
+			\multicolumn{1}{|c|}{\amenu{Spacing}} & 
+			\multicolumn{1}{|c|}{\LaTeX\ Command} & 
+			\multicolumn{1}{|c|}{Key Binding}  \\ 
+			\hline\hline
+			\acmd{neg thin} & \verb.\!. &  \\
+			\hline
+			\acmd{thin} & \verb.\,. &  \\
+			\hline
+			\acmd{medium} & \verb.\:. &  \\
+			\hline
+			\acmd{thick} & \verb.\;. &  \\
+			\hline\hline
+			\acmd{quad} & \verb.\quad. &  \\
+			\hline
+			\acmd{qquad} & \verb.\qquad. &  \\
+			\hline\hline
+			\acmd{hspace} & \verb+\hspace{...}+ &  \\
+			\hline
+			\acmd{vspace} & \verb+\vspace{...}+ &  \\
+			\hline\hline
+			\acmd{hfill} & \verb.\hfill. &  \\
+			\hline
+			\acmd{vfill} & \verb.\vfill. &  \\
+			\hline\hline
+			\acmd{smallskip} & \verb.\smallskip. &  \\
+			\hline
+			\acmd{medskip} & \verb.\medskip. &  \\
+			\hline
+			\acmd{bigskip} & \verb.\bigskip. &  \\
+			\hline
+		\end{tabular}
+	\end{center}
+	\caption{The \protect\amenu{Spacing} submenu}
+\end{table}
+
+\end{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

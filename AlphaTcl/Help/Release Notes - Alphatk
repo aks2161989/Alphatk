@@ -1,0 +1,913 @@
+-*-Help-*-
+
+Release Notes - Alphatk
+
+                                            version: 8.4
+                                            created: 04/12/1998 {22:45:38 PM} 
+                                        last update: 05/24/2006 {12:43:55 PM}
+
+	  	Table Of Contents
+
+"# About Alphatk"
+"# Supported Platforms"
+
+"# Known Keyboard Issues"
+"# Known Mac OS X Limitations"
+"# Changes between Major Releases"
+"#   Changes between 8.4 and 8.3"
+"#   Changes between 8.2 and 8.3"
+"#   Changes between 8.1 and 8.2"
+"#   Changes between 8.0 and 8.1"
+"#   Changes between 7.3 and 8.0"
+
+"# Registration"
+"# License and Disclaimer"
+
+<<floatNamedMarks>>
+
+
+	  	About Alphatk
+
+We are pleased to announce this release of Alphatk.
+
+Alphatk is a powerful text editor that has been designed for working with 
+a variety of different source files, including LaTeX, HTML, C++, Tcl, and 
+many other programming languages.
+
+For more information and other download options please visit Alphatk's home 
+page, located at
+
+<http://www.purl.org/net/alphatk>
+
+or check out the "AlphaTcl Wiki", a collaboratively edited web site at
+
+<http://www.purl.org/net/alpha/wiki/>.
+
+New development versions are released frequently, so please check for updates
+if you are experiencing problems.
+
+This file contains information about any known issues with this release, as
+well as significant "# Changes between Major Releases".  Many references are
+made below to automatically installed Help files -- if you are not reading
+this document in Alphatk, you can always review it again after launching the
+application by selecting the "Help > Release Notes - Alphatk" menu item.
+
+Once Alphatk has been installed, please see the "Readme" file for additional
+information about some of the Alphatk's many features, and how to obtain more
+help about using the application.  
+
+Alphatk shares a suite of Tcl script files (collectively known as "AlphaTcl")
+with the Macintosh-native application named "Alpha", and and many of its
+improvements are undertaken by unpaid volunteers.  Note that throughout the
+documentation, the term "Alpha" also refers to "Alphatk" unless specified
+otherwise.
+
+
+	  	 Supported Platforms
+
+Alphatk.exe - executable runs on any Win 95/98/NT/2000/ME/XP system
+Alphatk.dmg - executable runs on Mac OS X 10.2 or newer
+Alphatk.kit - starkit runs on any platform with TclKit 8.4.2 or newer 
+			  (TclKit is a separate download).
+
+In addition, one can also use a pure tcl script-based version of Alphatk,
+which is supported on any platform on which Tk 8.4 or newer runs (if you wish
+to use older versions of Tcl/Tk, please try Alphatk 8.2).  This means it
+should run smoothly on any Windows, Unix or MacOS system!  Alphatk is
+currently known to run on:
+
+alphatk.tar.gz/alphatk.zip non-executable distributions:
+
+	Windows NT 4.0sp3,sp5,sp6, with any 8.4.x
+	Windows 2000sp1/2 with any Tcl 8.4.x
+	Windows XP with Tcl 8.4.x
+	Solaris running X-windows, with Tcl/Tk 8.4
+	RedHat Linux with Tcl/Tk 8.4.x
+	Mac OS X with Tk on Aqua 8.4.x
+	Mac OS X with Tcl/Tk 8.4.x and DarwinX
+
+We assume it will also run under many more platforms, but this may not have
+been tested.  Please do report what other platforms you've got it running on,
+and they'll be added to the list above.  It is also known to work well with
+development versions of Tcl/Tk 8.5.
+
+
+	====================================================================
+
+
+	  	Known Keyboard Issues
+
+Alphatk's documentation is written from a cross-platform perspective.  In
+these documents the 'Command' key is equivalent to 'Alt' on Windows/Unix, and
+the 'Option' key is equivalent to 'Meta', when available.  There is also
+confusion because on some MacOS keyboards, Apple prints 'alt' in small letters
+on the 'Option' key.  Please do not consider that key to be the Alt key.  We
+will hopefully clean up this confusion in a future release.
+
+Macs have Command, Shift, Option and Control keys.  Windows machines seem
+only to have Shift, Control and Alt keys (the 'Fn' and 'Windows' keys are
+not accessible as modifiers from Tk, I believe).  This means on windows
+there is a 'Meta' modifier in some menu items which cannot be used.  If you
+run Linux on a PC, the 'Windows' key becomes the Meta key, so you can then
+use it.  Perhaps there is some way (or some utility) which can translate
+that key when running Windows too?  Any suggestions welcome.
+
+
+	  	Known Mac OS X Limitations
+
+The "Known Bugs" Help file contains lists of all known problems that have
+been submitted to the "Alpha-Bugzilla" database.  These include
+
+Bug# 765    Tear off menus becoming black when mouse over - 8.2fc6
+
+Tear-off menus, also known as "floating palettes", often turn black when you
+pass the mouse over them.  In general, tear-off menus shouldn't be used until
+this bug has been properly addressed.
+
+Bug# 1242   Alphatk's [url::execute] requires open browser
+
+Sometimes it is necessary to first open your web browser before Alphatk is
+able to send it a url.
+
+Bug# 1202   More OSX (10.3) Keyboard Shortcut conflicts
+
+Mac OS X 10.3 (Panther) introduced a number of new OS shortcuts that
+interfere with key-combinations that Alphatk has used for years, including
+Command-Option-D ("Text > Uncomment Line").  Please see the Help file
+"Keyboard Shortcuts # MacOSX 10.3 notes" for more information about possible
+solutions.  This will hopefully be addressed in the next release.
+
+	--------------------------------------------------------------------
+
+	  	Changes between Major Releases
+
+The lists below are certainly not comprehensive, but outline the major changes
+in Alphatk's behavior and User Interface between public releases -- in
+general, they do not include references to any previously known bugs which
+have been fixed.  In addition to these changes, there have of course been many
+internal fixes and enhancements that improve the software "behind the scenes".
+The "Changes - Alphatk" and "Changes - AlphaTcl" files contain more specific
+and technical information.
+
+	--------------------------------------------------------------------
+
+	  	 	Changes between 8.4 and 8.3
+
+In development, no scheduled release date.
+
+(1) There has been a major update regarding how "Helper Applications" are
+assigned.  Rather than defining an application "signature" for a preference
+named something like "Browser Sig", there are a number of different
+"services" defined which can make use of particular applications, such as a
+service to view urls.
+
+Preferences: HelperApplications
+
+The change here allows command-line programs to be specified in addition to
+"normal" applications.
+
+(2) While internal "core" changes to the Alphatk binary are rarely mentioned
+here, one of them is likely to have a large impact on users who have modified
+AlphaTcl source files through the package: smarterSource mechanism.  The core
+command "select" has been renamed to be the command: selectText .  If you
+have "prefs.tcl" files or "Smarter Source" files that use the old command,
+these should now be updated.
+
+This hyperlink: <<procs::findAllProcUsage $PREFS [list "select"]>> will open
+a new browser window listing all possible current uses of [select] that
+should be updated; press Return on any item in the browser window to open the
+source file, and replace "select" with "selectText" when necessary.
+
+Click here: << procs::findAllProcUsage $smarterSourceFolder [list "select"]>>
+if you have "Smarter Source" files; again, this will open a new browser
+window listing all possible current uses of [select] that should be updated.
+
+The only occurrences of "select" that need to be changed are those that 
+attempt to select text in a window.  Such usages will look something like
+
+	select $pos1 $pos2
+
+or
+
+	select -w $w $pos1 $pos2
+
+If you're not sure what should be updated, send a note to one of the mailing
+lists described in the "Readme" file.
+
+(For a full explanation of why this change was necessary, see bug# 1979.)
+
+(3) The "Help > Report A Bug" routines have been updated to make it easier
+for users to report problems with Alphatk and the AlphaTcl suite of files.
+The initial <<reportABug>> dialog includes options for starting a "stack
+trace" for any defined procedure as well as attaching a local file to a
+previously reported bug that is logged in the Alpha-Bugzilla database.
+
+The "Known Bugs" and "Debugging Help" files have also been updated; the
+latter contains more information about what to do (and what not to do) if you
+encounter problems with this distribution.
+
+(4) Alphatk now makes use of the canonical System "Support" folders.  Users
+will be able to modify Alphatk's default behavior by adding files to the
+Support Folder in the "user" domain.
+
+<<file::showInFinder $SUPPORT(user)>>
+
+System administrators can over-ride some of Alphatk's default behavior by 
+adding files to the Support Folder in the "local" domain.
+
+<<file::showInFinder $SUPPORT(local)>>
+
+Several AlphaTcl packages make use of these Support Folders, and will explain
+more in their documentation.
+
+(5) The package: specialCharacters is now always turned on; it creates an
+"Edit > Special Characters" menu allowing you to insert non-ascii characters
+into the active window.
+
+(6) The package: speech creates an "Edit > Speech" menu that allows text to
+be spoken using Mac OS X speech facilities.  (Mac OS X only.)
+
+(7) The "Recent Files Menu" and "Recent Files Multi Menu" packages have been
+combined into a single package: recentFiles , which is always turned on and
+creates a "File > Open Recent" submenu.
+
+(8) When the new package: autoWrapComments is turned on, text that is typed
+in in a commented line will be automatically wrapped even if the current
+"Wrap" setting is "None".  This feature was previously enabled by the
+package: autoContinueComment .
+
+(9) Alphatk's "Mail Menu" has been updated, and now supports the viewing of
+incoming messages and the sending of composed messages without the use of
+any "helper" application (such as Eudora.)  See the "Mail Help" file for
+more information.
+
+(10) "Fortran" mode has always provided support for fixed-format Fortran
+files.  A new "Fortran90" mode now supports free-format Fortran files as
+well.  See the "Fortran Mode Help" for more information.
+
+(11) Alphatk's "Utils > Tcl Shell" window is now in "Tcl" mode, which supports
+keyword colorizing.  This is one example of a subtle change that most users
+won't notice -- several packages which made use of "Shel" mode for shell
+windows have been updated to use "minor-mode" technology.  If you're really
+interested in this change, see the "Extending Alpha" help file.
+
+(12) A new global "EE" menu (for Extract and Evaluate) menu has been added,
+which can be added to the global menu bar.
+
+Preferences: Menus
+
+This menu helps with development of .dtx documents, see the package: eeMenu
+help window for more information.
+
+(13) The package: copyRing now inserts an "Edit > Swap Clipboard" menu command
+that trades the current selection for the Clipboard contents.
+
+(14) Several new features have been added, including
+
+    package: identities       (personalize your AlphaTcl installation)
+    package: licenseTemplates (supports package: documentProjects templates)
+    package: openDocument     (open files using a variety of methods)
+
+(15) As is always the case with a major release, several AlphaTcl modes, menus
+and features have been updated as well, including
+
+    package: calculator
+    package: documentProjects
+    package: Fort
+    package: mailMenu
+
+See their respective Help windows for more information.
+
+(16) Some AlphaTcl packages have been classified as obsolete and removed from
+the standard distribution:
+
+	Experimental Tcl Shell
+	Recent Files Menu
+	Recent Files Multi Menu
+
+Their archived source files can still be found in the AlphaTcl CVS "Attic".
+
+
+	  	 	Changes between 8.2 and 8.3
+
+Released November, 2004
+
+(1) Mouse scroll-wheels now work properly in both windows and dialogs.
+
+(2) Macro Recording has been improved, all items selected from menus as well
+as functions invoked by keyboard shortcuts are now included in macro scripts.
+
+(3) Preliminary support for "Tabbed Windows".  You can select the menu item
+"File > Use Tabbed Window" to explore this.
+
+(4) Increased support for "split" windows.
+
+(5) Pressing Return in a large entry field in a dialog will not trigger the
+default button.
+
+(6) The keyboard shortcut for the "Search > Replace And Find Again" menu
+command is now Alt-J rather than Alt-H. This is due to a conflict with a Mac
+OS X system shortcut for "Hide Application" that is active in all open
+applications.  The global Appearance preference named "Don't Use Command H"
+has also been removed.
+
+(7) The feature named "Electric Return" has been removed.  Most editing modes
+now have a preference named "Indent On Return" which toggles the automatic
+indentation of text associated with pressing the Return key.
+
+Preferences: Mode
+
+Pressing Control-Return still creates a new line without any indentation.
+
+Similarly, the "Electric Braces" and "Electric Semi" features are no longer
+available "globally".  For those modes in which such functionality might be
+useful, you can turn on/off the mode preferences of the same name.
+
+(8) The feature named "Electric Tab" has been removed due to its confusing
+implementation.  Use the "Config > Special Keys" dialog to map any functions
+that use the Tab key, with or without modifiers.
+
+Preferences: SpecialKeys
+
+(9) Alphatk's Help menu has been re-organized, and now includes items for
+
+    "More Modes Help"
+    "More Menus Help"
+    "More Features Help"
+
+Selecting these will open a list-pick dialog with options for all installed
+AlphaTcl packages.
+
+Additional new Help menu items available include
+
+    "Search Help"
+    "Modes Menus & Features"
+    "Search e-mail archives"
+    "Make a suggestion"
+
+Suggestions are logged as Requests For Enhancement (RFEs) in Alpha-Bugzilla,
+and listed in the "Known Bugs" help file.
+
+The "WWW faq" item has been removed, since it has not been actively
+maintained.  The AlphaTcl Wiki and the mailing list archives are the best
+spots to get questions answered until we have a dedicated site.
+
+The "Changes - Alpha" and "Changes - AlphaTcl" files are no longer included
+in the main Help menu, since they list the technical changes that won't
+interest most users.  They are still available via hyperlinks in this file,
+as well as in the AlphaDeveloper menu.
+
+(10) The default "Word Wrap" preference for each mode has been exposed, and
+can be changed by selecting "Config > Mode Prefs > Preferences".  This
+preference determines the initial "Wrap" setting for all windows which are
+opened in that mode.
+
+Preferences: Mode
+
+The "Wrap" pop-up menu in the status bar now changes the setting only for
+the active window.  When the package: autoContinueComment is turned on,
+text that is typed in in a commented line will be automatically wrapped
+even if the current "Wrap" setting is "None".
+
+Preferences: Electrics
+
+Pressing Control-Return still creates a new line without any automatic
+indentation or insertion of comment characters.
+
+(11) The "File Format" pop-up menu in the status bar allows you to change
+the font, font-size, tab-size, and indentation amount of the active window.
+In Mac OS X, you can also change its TYPE and CREATOR codes.  (Most files
+that you edit are of type "TEXT", and Alphatk's creator code is "AlTk".)
+
+(12) The package: versionControl is now "always-on" and the "lock/pencil" icon
+in each window's sidebar is always a pop-up menu.  Version control (VC)
+systems keep track of multiple versions of a source file.  They provide a
+more powerful alternative to keeping backup files.  Examples of VC systems
+supported by Alphatk include
+
+    package: vcPerforce
+    package: vcCvs
+    package: vcVoodoo and 
+    package: vcLocal
+
+The pop-up menu provides access to various VC options as well as information
+for the fileset (if any) to which the active window belongs.  You must
+normally specify a "VC tool" to use for the fileset containing the active
+window.  If a 'CVS' directory is present in the folder containing the active
+window and no other VC system has been established for that file, the VC menu
+will automatically assume that you're using CVS as your VC tool.
+
+(13) A new "DiffBOA" (Diff Background Only Application) is distributed with
+the Mac OS X version of Alphatk in the "Tools" directory for use as a "Diff"
+helper.  See the "Diff Help" file for more information.
+
+(14) Some of Alphatk's menubar menus (File through OpenWindows) have been
+re-organized.  In particular, "Indent" is now in the "Edit" menu in the
+"Shift Right/Left" section, and all of the "All Tabs To Spaces" etc.  items
+are in a new "Edit > Tab Conversions" submenu.  "Edit > Indent" replaces
+the previous "Indent Line/Indent Selection" commands, and indents the
+entire selection (if any) and not just the line containing the cursor.
+
+The "OpenWins > Iconify" menu item has been renamed "Minimize Window."
+
+Some of Alphatk's global keyboard shortcuts have also been adjusted.
+
+    "Edit > Indent"                 is Control-I
+    "Search > Find In Next File"    is Command-Control-F    (was Command-M)
+    "OpenWins > Minimize Window"    is Command-M            (was Control-I)
+
+(15) The new "Utils > Compare > Diff Prefs" menu item can be used to adjust 
+any Diff preferences/flags before performing window etc. comparisons.
+
+(16) Additional command-line support, enabled via the package: alphaServer .
+See the "Alpha Manual # The Command Line" Help window for more information.
+
+(17) The "Config > Mode Prefs > Features" dialog now only lists those items
+which are actually useful for the current mode.  Several features that used to
+appear in these dialogs can now only be turned on/off "globally", using the
+"Config > Global Setup > Features" menu item.
+
+Preferences: Features
+Preferences: Mode-Features
+
+(18) Added XHTML support to HTML mode.
+
+(19) In TeX mode, "Shift-Command-R" will invoke a new smooth interface to
+teTeX, with support for most dvi/pdf viewers, and featuring error browsing,
+synchronisation, and auto-next-action.  See the "teTeX Help" file for
+further description and instructions.  This web page
+
+<http://www.purl.org/net/alpha/wikipages/typesetting-files>
+
+provides additional information about typesetting LaTeX documents using
+Alphatk, and the various preferences that need to be properly set.
+
+(20) Previous versions included "CodeWarrior Menu" and "CodeWarrior2 Menu".
+These have now been combined into a single package, and updated for MacOSX.
+For more information on how it works see the "CodeWarrior Menu Help" window.
+
+(21) The "File Utils" feature has been updated and renamed, for more
+information see the help window for the package: windowUtilities .  This
+update also created a new package: fileCompression , which allows you to
+create .sit .zip, and .tar archives from within Alphatk.
+
+(22) The "Cut And Copy Using Pin" preference has been incorporated into a new
+package: clipboardPreferences .  The "Smart Cut Paste" preference previously
+defined by the package: copyRing has been renamed "Cut Paste Whitespace" and
+moved into this new package as well, along with a new "Select After Paste"
+preference.  This "Clipboard Preferences" package must be turned on in the
+preferences: Features dialog to make these options available.  Once it is
+turned on, select "Config > Preferences > Interface Preferences > Text" to
+change their values.
+
+Preferences: Text
+
+The package: copyRing has also received a major update, and now offers a new
+"Edit > Clip Recorder" menu which maintains a Clipboard History.
+
+(23) The "Switch To Menu" package has been deemed obsolete and removed from
+the standard distribution.  The new package: favoritesMenu allows you to
+specify Files, Folders, and Applications to be opened by Alpha.
+
+Preferences: Features
+
+(24) The "Vcs" package has been renamed "Version Control".  When this package
+is turned on, the "V" icon in the upper right corner of every window will
+serve as a "Version Control" pop-up menu.  See the "Version Control Help"
+window for more information.
+
+Preferences: Features
+
+(25) The packages "Tkcon" and "Remote Tcl Shell" have been incorporated into
+the Tcl menu, and are no longer features that need to be turned on.  The menu
+item "Utils > Toolserver Shell" has been removed, and is now only available
+in the "MPW Menu".  The menu item "Utils > Shell" is now "Utils > Tcl Shell".
+
+(26) Several new modes have been added, including
+
+    package: bat  (for Windows ".bat" batch files)
+    package: InSh (for "INteractive SHells")
+    package: Mp   (for Metapost files)
+    package: Plc  (for CodeWarrior's "Property List Compiler" language)
+    package: Ruby (for "Ruby" object-oriented programming files)
+    package: Vlog (for "Verilog HDL" files)
+    package: VB   (for Microsoft "Visual Basic" files)
+    package: dot  (for files in the dot language (for automatic graph design))
+
+
+See their respective Help windows for more information.
+
+(27) Several new features have been added, including
+
+    package: alphaServer (command-line support for opening files in Alphatk)
+    package: clipboardPreferences (additional preferences for cut/copy/paste)
+    package: favoritesMenu (open favorite files/folders/apps from Alphatk)
+    package: fileCompression (for archiving windows/files/folders)
+    package: latexColors (support for additional TeX mode coloring)
+    package: windowUtilities (various handy window tools, formerly "fileUtils")
+    package: windowZoom  (keyboard shortcuts for manipulating active windows)
+    package: xserv       (internal system code for external app interactions)
+
+See their respective Help windows for more information.
+
+(28) As is always the case with a major release, several AlphaTcl modes, menus
+and features have been updated as well, including
+
+    package: alphaDeveloperMenu
+    package: colorMenu
+    package: copyRing
+    package: HTML
+    package: M2
+    package: macros
+    package: newDocument
+    package: sourceforgeMenu
+    package: Tcl
+    package: Terminal
+
+See their respective Help windows for more information.
+
+(29) Several AlphaTcl packages are now turned on by default (and can never be
+turned off), including
+
+"Electric" packages :
+
+    package: electricCompletions
+    package: electricExpansions
+
+Both of the "Electric" features are now enabled by assigning keyboard
+shortcuts to their respective functions using "Config > Special Keys", and
+they are disabled by assigning "No Binding" to them.
+
+Preferences: SpecialKeys
+
+"Fileset Information" packages :
+
+    package: filesetEncodingPreference
+    package: filesetFtpMirror
+    package: filesetIndentationPreference
+    package: filesetTabPreference
+
+All of the "Fileset Information" packages add preferences that can be turned
+on when you <<editAFileset>> and click on the "Attach/Detach Info" button.
+
+"Tk Pref" packages :
+
+    package: tkdiffControl
+    package: tkhtmlViewer
+
+These packages simply provide additional options for preferences that already
+exist in AlphaTcl.
+
+"Version Control" packages :
+
+    package: versionControl
+    package: vcCvs
+    package: vcLocal
+    package: vcPerforce
+    package: vcVoodoo
+
+The "Version Control" support packages add <<editAFileset>> options to use
+a particular VC tool when editing a window contained in a fileset.
+
+Other "always-on" packages include
+
+    package: alphaServer
+    package: ODBEditor
+
+(30) Several AlphaTcl packages have been classified as obsolete and removed
+from the standard distribution, including
+
+	Electric Bindings
+	Http Handler
+	Remote Tcl Shell
+	Switch To Menu
+	Think Menu
+	Tkcon
+	Version Control Menu
+
+Their archived source files can still be found in the AlphaTcl CVS "Attic".
+
+	--------------------------------------------------------------------
+
+	  	 	Changes between 8.1 and 8.2
+
+Released January, 2003
+
+(1) The package: rememberWindows can remember the mode and tab size of windows
+for which they are manually adjusted.  This can be turned off in the
+preferences dialog for "Remember Windows".
+
+Preferences: rememberWindows
+
+(2) A new Appearance preference named "Don't Use Command H" is turned on by
+default in Mac OS X. If set, the "Search > Replace & Find Again" menu command
+has the keyboard shortcut Command-Shift-H. This is in response to the presence
+of a Mac OS X "Command-H" shortcut that is active in all applications.
+
+(3) A new "User Packages" folder can be used for user-added AlphaTcl packages.
+Use the "Config > Preferences > Edit User Packages" menu command to open this
+folder in the OS Finder.  Any new files placed in this folder will prompt
+Alphatk to rebuild all necessary Cache files upon the next restart.
+
+(4) A new function named "Typewriter Tab" has been added to the list of
+options in the "Config > Special Keys" dialog.  This function will add a space
+string extending to the next "tab" column.
+
+Preferences: SpecialKeys
+
+(5) The package: wwwMenu can now render remote urls.  Several "Open Url" 
+functions will pay attention to the "Open Url Using" WWW preference to 
+optionally fetch and render the url in Alphatk.
+
+Preferences: Helpers-viewURL
+Preferences: Helpers-viewHTML
+
+(6) The package: contextualMenu allows you to specify which items should be
+included in Contextual Menus, including mode-specific CM modules.  The CM is
+invoked pressing the right button on your mouse.  The "Context" can include
+the surrounding word, selection, or information regarding the current window.
+
+(7) The new "Help > AlphaTcl Home Page" menu item opens the "AlphaTcl Wiki"
+page in your local browser.  This site will contain notices of all future
+updates to Alpha, Alphatk, and AlphaTcl.
+
+<http://www.purl.org/net/alpha/wiki/>
+
+This site is collaboratively edited.
+
+(8) The "Electric Colon" pref has been renamed "Special Indent For Case Label"
+since there was no true "electric" behavior associated with the ":" key.
+
+(9) Alphatk's "TeX" mode has undergone a major update, which might disable
+some user-defined modifications.  If you are having any troubles, please ask
+about how to update your code in one of the mailing lists described in the
+"Readme".
+
+(10) References to "the Mark" have been changed to "the Window Pin".  The Pin
+is a temporary position marker found in every file, and based on similar
+functionality in Emacs.  Various editing actions reset the Pin automatically,
+see the "marks Help" window for more information.
+
+(11) A new "Cut And Copy Using Pin" Text preference determines if Cut/Copy
+operations use the "Window Pin" when there is no selection.  This is turned
+off by default.
+
+Preferences: Text
+
+(12) Several new modes have been added, including
+
+    package: C#   (for Microsoft's "C Sharp" language)
+    package: xml  (for "eXtended Markup Language" files)
+    package: Wiki (for editing local/remote "Wiki" web sites)
+
+See its Help window for more information.
+
+(13) Several new features have been added, including
+
+    package: addressBook        (maintain e-mail address lists within Alphatk)
+    package: autoSaveOnSwitch   (auto-save windows when switching from Alphatk)
+    package: bibDelimited       (convert to/from .bib and tab delimited files)
+    package: dictionary         (access to locally installed dictionaries)
+    package: changeLogHelper    (edit ChangeLog windows)
+    package: embrace            (keyboard shortcuts to add chars surrounding word)
+    package: odbEditor          ("Edit in Alphatk" support for Interarchy, etc.)
+    package: projectBuilderMenu (for Apple's "Project Builder IDE")
+    package: sourceforgeMenu    (access to SourceForge projects and cvs files)
+    package: tcl/TkExtendedC    (support for Tcl/Tk extended C files)
+    package: terminal           (terminal and log file support for tclsh)
+    package: wwwDictionary      (open on-line dictionaries for selected word)
+
+See their respective Help windows for more information.
+
+(14) As is always the case with a major release, several AlphaTcl modes, menus
+and features have been updated as well, including
+
+    package: Bib
+    package: bibConvert
+    package: HTML
+    package: internetConfigMenu
+    package: latexSizes
+    package: notes
+    package: Tcl
+    package: TeX
+    package: wikiMenu
+    package: wwwMenu
+
+See their respective Help windows for more information.
+
+	--------------------------------------------------------------------
+
+	  	 	Changes between 8.0 and 8.1
+
+Released February, 2002
+
+(1) The default key binding for "Electric Completion" has been changed to
+Control-Tab.  It was previously Command-Tab.  The change was made to avoid the
+conflict with Mac OS's program switcher.
+
+Preferences: SpecialKeys
+
+(2) If the "Vcs" package is turned on the "V" icon in the upper right corner
+of every window can now serve as a "Version Control" pop-up menu.  See the
+"Version Control Help" window for more information.
+
+Preferences: Features
+
+(3) Improved syntax coloring for all modes.
+
+(4) Balloon Help is enabled in Alphatk.
+
+(5) Improved interactive search, which allows Delete to remove one character
+from the search (and move to the previous match).  Note that a side-effect of
+this is that clicking the mouse no-longer aborts the search.  There are
+various new keyboard shortcuts available as well (e.g. Control-I switches the
+case-sensitivity of the search, Control-W extends search to next word,
+"Control-S Control-S" continues the last search.)  For more information, see
+the "incrementalSearch Help" window.
+
+(6) A new "Comments Continuation" Text preference has been added, which is
+used to determine when comments should be continued when Return is pressed.
+Options are based on the presence of the comment character at the start of the
+line, as the first non-whitespace character, or anywhere.  Many modes also
+define a preference with the same name for mode-specific behavior.
+
+Preferences: Text
+Preferences: Mode
+
+(7) A new "Twiddle Adjusts" preference determines which characters are 
+affected by the "Edit > Twiddle" menu command.
+
+Preferences: Text
+
+(8) A new "Help > Report A Bug" menu item will guide you through a series of
+dialogs to report bugs in the Alpha-Bugzilla database.  Bug reports can now be
+filed via e-mail.
+
+(9) The package: wwwMenu can now renders local .html files much better and
+faster.  Several internal "Open HTML File" functions will pay attention to the
+"Open Html Using" WWW preference to optionally render the file in Alphatk.
+
+Preferences: Helpers-viewHTML
+
+(10) Several new modes have been added, including
+
+    package: clan (for for "Computerized Language Analysis" files)
+    package: M2   (for "Modula-2" files)
+    package: mapl (for "Maple" files)
+    package: Objc (for "Objective C" files)
+    package: PHP  (for ".php" files)
+    package: sh   (for unix shell script files)
+
+See their respective Help windows for more information.
+
+(11) Several new features have been added, including
+
+    package: macMenu           (manipulate your OS from within Alphatk)
+    package: recentDirs        (access to recently accessed folders)
+    package: rememberWindows   (last position/selection used when opening)
+    package: reportABug        (create Alpha-Bugzilla bug reports in Alphatk)
+    package: specialCharacters (insert diacritics and other symbols)
+
+See their respective Help windows for more information.
+
+(12) As is always the case with a major release, several AlphaTcl modes, menus
+and features have been updated as well, including
+
+    package: Bib
+    package: bibToHtml
+    package: ftpMenu
+    package: newDocument
+    package: Perl
+    package: PS
+    package: Scrp
+    package: wwwMenu
+
+See their respective Help windows for more information.
+
+(13) All versions of AlphaTcl source files are archived in the "AlphaTcl CVS",
+AlphaTcl developers/users can obtain the latest, cutting-edge version of
+AlphaTcl by updating all of their source files to those with the "HEAD" tag.
+
+	--------------------------------------------------------------------
+
+	  	 	Changes between 7.3 and 8.0
+
+Released May, 2001
+
+(1) A new "Examples Help" file contains hyperlinks to open example files in a 
+specified mode to examine its syntax coloring and other various features.
+
+(2) The "Eudora Menu" has been renamed "Mail Menu", and has preliminary
+support for mail programs other than Eudora.
+
+(3) Some Help files are now available in .html or .pdf formats.  The new
+"Config > Preferences > System Preferences > Help" dialog pane allows you to
+specify your viewing preferences.
+
+Preferences: Help
+
+(4) Command-Return will now always indent the newly created line, while
+Control-Return will insert a new line without any indentation.  In some modes,
+this behavior might be over-ridden with other functions.
+
+(5) A new "Config > Global Setup > Create New Mode" menu command will prompt
+you to add a new file for mode-specific syntax coloring, etc.
+
+(6) Several new modes have been added, including
+
+    package: Lisp (for Lisp files, used in Emacs packages)
+    package: man  (for unix-style reference manual pages)
+    package: Mf   (for Metafont files)
+    package: S    (for S+/R statistical files)
+    package: Stta (for Stata statistical files)
+    package: SPSS (for SPSS/PSPP statistical files)
+    package: SAS  (for SAS statistical files)
+    package: TIP  (for Tcl Improvement Proposal requests)
+
+See their respective Help windows for more information.
+
+(7) Several new features have been added, including
+
+    package: alphaDeveloperMenu (a collection of AlphaTcl development tools)
+    package: elecCorrections    (automatic correction of typos)
+    package: filtersMenu        (advanced Search And Replace functions) 
+    package: manipCols          (advanced tab-delimited columnizing functions)
+
+See their respective Help windows for more information.
+
+(8) As is always the case with a major release, several AlphaTcl modes, menus
+and features have been updated as well, including
+
+    package: Bib
+    package: Scm
+    package: Setx
+    package: voodooMenu
+
+See their respective Help windows for more information.
+
+(9) See the "Changes - AlphaTcl # 7.3" and "Changes - Alphatk" Help files for
+all other prior changes.
+
+
+	====================================================================
+
+
+	  	Registration
+
+Alphatk is shareware, please register with the author Vince Darley.
+
+<http://order.kagi.com/?1GU>
+
+Note that Alpha and Alphatk require two separate licenses.
+
+
+	  	License and Disclaimer
+
+
+The core Alphatk implementation (all files in the AlphaCore directory and its
+subdirectories) is Copyright (c) 1998-2004 Vincent Darley.  All rights are
+reserved to this code, with the exception of those few pieces which carry
+other explicit license agreements.  That code cannot be copied, or distributed
+in full or in part, in any form, EXCEPT as part of a complete Alphatk
+distribution, carrying this exact license.
+
+Alphatk may be distributed, without charge, provided it is distributed as a
+complete distribution (archived in whatever way is convenient).  A complete
+distribution is the entire Alphatk folder and all of its (recursive) contents.
+
+The use of Alphatk is governed by purchased licenses.  The standard single
+license may be used either as 'per human' or as 'per computer' but not both.
+For example, a single user can install Alphatk on multiple personal machines
+for their own personal use, or it can be installed on one machine for use by
+multiple users.  Therefore, concurrent use of Alphatk by more than one user
+(presumably on more than one machine) requires the purchase of additional
+licenses.  "Site" and "Worldwide" licenses provide for unlimited concurrent
+users at either a single location or multiple locations, respectively.
+
+The following terms apply to all files in the core Alphatk software unless
+explicitly disclaimed in individual files.
+
+IN NO EVENT SHALL THE AUTHORS OR DISTRIBUTORS BE LIABLE TO ANY PARTY FOR
+DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES ARISING OUT OF
+THE USE OF THIS SOFTWARE, ITS DOCUMENTATION, OR ANY DERIVATIVES THEREOF, EVEN
+IF THE AUTHORS HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+THE AUTHORS AND DISTRIBUTORS SPECIFICALLY DISCLAIM ANY WARRANTIES, INCLUDING,
+BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+PARTICULAR PURPOSE, AND NON-INFRINGEMENT. THIS SOFTWARE IS PROVIDED ON AN "AS
+IS" BASIS, AND THE AUTHORS AND DISTRIBUTORS HAVE NO OBLIGATION TO PROVIDE
+MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
+
+GOVERNMENT USE: If you are acquiring this software on behalf of the U.S.
+government, the Government shall have only "Restricted Rights" in the software
+and related documentation as defined in the Federal Acquisition Regulations
+(FARs) in Clause 52.227.19 (c) (2).  If you are acquiring the software on
+behalf of the Department of Defense, the software shall be classified as
+"Commercial Computer Software" and the Government shall have only "Restricted
+Rights" as defined in Clause 252.227-7013 (c) (1) of DFARs.  Notwithstanding
+the foregoing, the authors grant the U.S. Government and others acting in its
+behalf permission to use and distribute the software in accordance with the
+terms specified in this license.
+
+This document has been placed in the public domain.
+

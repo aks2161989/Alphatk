@@ -1,0 +1,906 @@
+<HTML>
+<HEAD>
+<TITLE>Mac Menu Help</TITLE>
+<META NAME=GENERATOR CONTENT="Aida Mode">
+</HEAD>
+<BODY>
+<!--  (nowrap) --><P><HR><BLOCKQUOTE><P><I> 
+This is a help file for the Mac Menu in Alpha.
+This file should be located in the Help subfolder of Alpha's folder to
+show up automatically in the Help menu when Alpha is loaded. It documents 
+version 2.3 of the package.
+</I></P></BLOCKQUOTE><HR><P><HR>
+<UL>
+<LI><A HREF="#M1">Introduction</A>
+<LI><A HREF="#M2">Installation</A>
+<UL><LI><A HREF="#M3">Automatic installation</A></UL>
+<UL><LI><A HREF="#M4">Manual installation</A></UL>
+<UL><LI><A HREF="#M5">After installing</A></UL>
+<LI><A HREF="#M6">Quick start</A>
+<LI><A HREF="#M7">Dialogs description</A>
+<UL><LI><A HREF="#M8">Main selection dialogs</A></UL>
+<UL><LI><A HREF="#M9">Renaming dialog</A></UL>
+<UL><LI><A HREF="#M10">Particular dialogs</A></UL>
+<UL><LI><A HREF="#M11">Information dialog windows</A></UL>
+<LI><A HREF="#M12">Menu Items Description</A>
+<UL><LI><A HREF="#M13">Main menu</A></UL>
+<UL><LI><A HREF="#M14">Get Info submenu</A></UL>
+<LI><A HREF="#M15">Mac Shell Syntax</A>
+<UL><LI><A HREF="#M16">Shell prompt</A></UL>
+<UL><LI><A HREF="#M17">'help' command</A></UL>
+<UL><LI><A HREF="#M18">'files' command</A></UL>
+<UL><UL><LI><A HREF="#M19">Options for the files command</A></UL></UL>
+<UL><UL><LI><A HREF="#M20">Subcommands of the 'files' command</A></UL></UL>
+<UL><LI><A HREF="#M21">'infos' command</A></UL>
+<UL><LI><A HREF="#M22">Commands for browsing</A></UL>
+<UL><LI><A HREF="#M23">Other commands</A></UL>
+<UL><LI><A HREF="#M24">Unix commands</A></UL>
+<UL><LI><A HREF="#M25">Commands history</A></UL>
+<UL><LI><A HREF="#M26">Extending Mac Shell</A></UL>
+<LI><A HREF="#M27">MacMenu programming interface</A>
+<LI><A HREF="#M28">Completion mechanism</A>
+<LI><A HREF="#M29">Getting info</A>
+<LI><A HREF="#M30">Key Bindings</A>
+<LI><A HREF="#M31">Preferences</A>
+<LI><A HREF="#M32">Version History</A>
+<LI><A HREF="#M33">Known problems</A>
+<LI><A HREF="#M34">License and Disclaimer</A>
+</UL>
+<HR><P><H2><A NAME="M1"></A>Introduction</H2><P>Mac Menu for Alpha allows you to achieve all kinds of  files  manipulations
+from Alpha and  to  interact  with  the  MacOS  file  system  with  maximum
+flexibility.<P>You can act upon selections of files taken out of a folder or  a  hierarchy
+of folders  and  subfolders:  the  selection  is  made  using  a  regular
+expression (regexp) and setting various  additional  conditions.  You  have
+thus full and extended control on which files you want to manipulate.<P>Actions executed on the selected files are:  copying,  moving,  renaming,
+duplicating, trashing/untrashing, locking  or  unlocking,  making  aliases,
+selecting or unselecting, listing, changing creator type.<P>You can also get complete system information about all  kinds  of  elements
+such as files, folders, disks,  processes  etc.  and  set  new  values  for
+certain properties (change a type, a creator, a modification date,  sharing
+status etc.). Commands  are  also  provided  for  basic  Finder's  tasks:
+emptying the trash, restarting the computer etc.<P>All the commands are available from a menu called Mac Menu but the  package
+also implements a 'shell' to execute all these  functions  from  a  command
+line. For instance, just type 'empty' at the prompt of Mac Shell  to  empty
+the trash. A very simple syntax  is  provided  to  write  commands  and  to
+navigate in the MacOS files system.<P>All these actions are executed  without  leaving  the  Alpha  editor.  The
+package is almost exclusively based on Apple Events sent to the system.<P>See the tutorial file and  read  more  information  below  for  a  complete
+description of all the items available in Mac Menu.<P>Starting from version 2.3, Mac Menu runs only with AlphaX on OSX. To run it
+under OS8 or OS9 you must get an older version of the package.<P><H2><A NAME="M2"></A>Installation</H2>
+<A NAME="M35"></A>
+<H3><A NAME="M3"></A>Automatic installation</H3><P>If you received Mac Menu with a regular distribution of Alpha, there's
+nothing particular to do: it is already installed and you just have to turn
+it on (see <I>After installing</I> below). Otherwise, the simplest way of
+installing the package is to use the automatic installation facility. Just
+double-click on the <I>OPEN TO INSTALL</I> file. Opening this file tells Alpha
+that a new package has to be installed: the procedure is automatic. Alpha
+knows where to store the different elements of your 'Mac Menu' package.<P><H3><A NAME="M4"></A>Manual installation</H3><P>If you prefer a manual installation, take the following steps:
+<OL>
+	<LI> put the <I>macMenu</I> folder in the <I>Menus</I> subfolder of the
+<I>Tcl</I> folder which is located at the same level as your Alpha
+application<P>	<LI> put the <I>Mac Menu Help</I> files in the <I>Help</I> folder located at the same
+level as your Alpha application. Next time you launch Alpha, you will see a
+<I>Mac Menu Help</I> item in the Help menu.<P>	<LI> put the <I>MacMenu-Example</I> and <I>MacMenu-Example.tcl</I> files in thefolder
+called <I>Mode  Examples</I>  and  located  at  the  same  level  as  the  Alpha
+application.<P>	<LI> launch Alpha. You have to  rebuild  the  package  indices  and  the  Tcl
+indices. <I>Rebuild Package Indices</I> is in  the  Config / Packages  menu,  and
+<I>Rebuild Tcl Indices</I> is in the Tcl menu.<P>	<LI> quit Alpha and relaunch it: that's all there is to it.
+</OL><P><H3><A NAME="M5"></A>After installing</H3><P>Have a look at the Mac Menu preferences in the <I>Packages</I>  submenu  of  the
+<I>Config</I> menu. You can set various flags there. More explanations below.<P><P><IMG SRC="../Images/macmenu.gif" ALIGN=bottom></P><P><H2><A NAME="M6"></A>Quick start</H2><P>Suppose you have a folder containing all the pages of a Web  site  and  you
+want a list of the image files having extension gif or jpeg. 
+In the <I>List Files</I> dialog window, specify the folder and click on the
+<I>Extensions</I> button. In the new window check gif and jpeg and press OK.
+This brings back to the previous window in which the Files Filter is now
+set like this:
+<PRE>
+    .*\.(jpeg|gif)
+</PRE>
+Click OK and you get the list you wanted. You could have specified 
+<I>In all Subfolders</I> in the <I>Process</I> popup menu to get a list including
+files in the nested subfolders.<P>Suppose now you want to send to another folder a copy of  the  files  taken
+out of this structure whose names meet the following requirements:
+<UL>
+	<LI> first letter is A or P
+	<LI> the extension is htm or html
+	<LI> the name contains a suffix _XY
+	<LI> the files were modified after Dec 25, 2000
+	<LI> their size is less than 128k (to exclude big images for instance)
+</UL>
+You have to  build  a  regular  expression  representing  the  first  three
+conditions. In the <I>Copy Files</I> dialog window, the Files Filter should be:
+<PRE>
+    [AP].*_XY\.html?
+</PRE>
+Then click on the <I>Add conditions</I> button and in the new  window,  set  the
+last two contitions like so:
+<PRE>
+    Modification date after 2000-12-25
+    Size greater than 128k
+</PRE>
+leaving the other fields blank.
+Clicking on <I>Apply</I> brings back to the previous dialog in which you set the
+paths of the source and the target folders. In the  <I>Process</I>  popup  menu,
+choose <I>in all Subfolders</I>. Now click on <I>Copy</I> and there you go. The  copy
+sent to the target folder will reproduce  exactly  the  same  hierarchy  of
+folders and subfolders but will contain only the files corresponding to the
+required scheme.<P>Now suppose you want to rename the selected files. You want the new name to
+be like this:
+<UL>
+	<LI> first letter Q instead of A or P
+	<LI> following letters unchanged
+	<LI> no _XY suffix
+	<LI> extension <I>old</I>
+	<LI> all file names in uppercase letters
+</UL>
+Unless you cancelled in the <I>Copy Files</I> dialog window, all  your  settings
+will have been preserved when you open the <I>Rename Files</I> window. You  have
+just one modification to do in the Files Filter regular expression: add  a
+pair of parentheses to capture the .* part which will be refered to  as  \1
+in the substitution expression:
+<PRE>
+    [AP](.*)_XY\.html?
+</PRE>
+The replacement string will then be:
+<PRE>
+    Q\1\.old
+</PRE>
+To have uppercase letters, click on the <I>Add options</I> button.  In  the  new
+window, click on the <I>Casing</I> checkbox and choose UPPERCASE  in  the  popup
+menu. Click <I>Apply</I> then click <I>Rename</I>. That's all there is to it.<P><H2><A NAME="M7"></A>Dialogs description</H2>
+<A NAME="M36"></A>
+Almost all the  dialog  windows  in  which  you  specify  the  options  and
+conditions related to some kind of file manipulation share common elements.<P><H3><A NAME="M8"></A>Main selection dialogs</H3>
+<A NAME="M37"></A>
+The top part of the dialog is an edit field in which you  write  a  regular
+expression describing the naming scheme of the files you want to act  upon.
+It is very important to note that it obeys the regular  expressions  syntax
+and not the so-called 'globbing syntax' used in some Tcl commands. For more
+info about the regular expressions, read the <I>Regular Expressions</I> file  in
+the Help Menu. Regular expressions are a very powerful syntax  designed  to
+describe abstractly almost any kind of strings.<P>The top part of the dialog windows also contains  two  check  boxes  called
+<I>case sensitive</I> and <I>negate filter</I>: check or uncheck them as  you  want.
+If the <I>negate filter</I> checkbox is checked, Mac Menu will search for  files
+which do NOT correspond to the files  filter  regular  expression.  If  the
+<I>case sensitive</I> checkbox is unchecked, Mac Menu will not take casing  into
+account: uppercase and lowercase letters will be considered equivalent.
+The <I>Add Conditions</I> button calls a new dialog  window  in  which  you  can
+specify additional options concerning the MacOS  type  or  creator  of  the
+files, the date of creation or modification and the size (in kbytes). Dates
+are indicated in the ISO format (yyyy-mm-dd).<P>NB: the <I>negate  filter</I>  flag,  if  set,  negates  the  filtering  regular
+expression but NOT the additional conditions. They are... additional.<P>A pop-up menu lets you specifiy whether an action should be  taken  on  all
+the files corresponding to the filter in the current directory,  or  should
+be extended to the subfolders down to a specified level as well or even  to
+all subfolders, subsubfolders etc.<P>Almost all the dialog windows contain an edit field to specify  the  source
+folder: the folder in which to look for files or the folder at the top  of
+the hierarchy if subfolders are concerned too. You can write  the  complete
+path of the source folder in the edit field or  use  the  <I>Set</I>  button  to
+browse through the file system with a standard dialog.<P>When relevant (to copy or move files), an additional edit  field  lets  you
+choose a target folder.  If  files  are  taken  out  of  a  hierarchy,  the
+hierarchy will be transported to  the  target  folder:  if  corresponding
+subfolders do not  exist  in  the  target  folder,  they  will  be  created
+automatically. If the target folder itself does not exist,  it  is  created
+too so you can specify the name of a non existing folder in the edit field.
+Use the <I>Set</I> button to choose an existing folder.<P>All the dialog windows have at least two buttons  at  the  bottom:  one  to
+execute the desired action, one to cancel.<P><H3><A NAME="M9"></A>Renaming dialog</H3>
+<A NAME="M38"></A>
+The <I>Rename Files</I> dialog window contains  a  specific  field  to  set  the
+renaming scheme: it uses the substitution syntax of  regular  expressions.
+So you can use the special substitution symbols: & to designate the entire
+match, \1, \2 etc. to designate sub-expressions corresponding to  pairs  of
+parentheses in the files filtering regular expression.
+A button called <I>Add Options</I> brings up a new dialog window  in  which  you
+can choose more options. They concern  casing,  incremental  numbering  and
+truncating. Tey have the following meaning:
+<UL>
+	<LI> the casing option is  self  explanatory:  change  to  <I>UPPERCASE</I>  or
+<I>lowercase</I>, <I>Capitalize Words</I> or <I>Capitalize first</I> letter only.<P>	<LI> the numbering facility has various settings: numbering  from  zero  or
+from one, appending the number at the beginning or at the  end  of  the  new
+file name, number in increasing or decreasing order. The <I>padd  with  zeros</I>
+option corresponds to the insertion of zeros at the left of the number  when
+necessary: such as in 01, 02 etc. or 001, 002 etc.<P>	<LI> the truncating facility lets you specify a format for the new file 
+names.
+The default value  is  8.3  which  corresponds  to  the  MS-DOS  limitation
+concerning file names: eight letters at most, a dot, three letters at  most
+after the dot. The general syntax is m[.n] which means a single integer  or
+two integers separated by a dot as in the 8.3 example. In  the  first  case
+all file names will be truncated to a maximum of m  characters  whereas  in
+the second case, if a file name has an extension, the part before  the  dot
+will be truncated to a maximum of m characters and the part after  the  dot
+to a maximum of n characters.
+</UL><P><H3><A NAME="M10"></A>Particular dialogs</H3>
+<A NAME="M39"></A>
+The <I>Trash Files</I> dialog has no target folder field:  the  target  is  the
+trash. The <I>Untrash Files</I> dialog is different from the others and proposes
+two options: <I>last trashed</I> or <I>all</I>. In the first case, will be untrashed
+(i-e sent back to their original position in the  files  system)  only  the
+files most recently trashed from the <I>Trash Files</I> item in  the  Mac  Menu.
+This is a sort of 'undo' facility if you have accidentally trashed files or
+have a remorse. With the <I>all</I> option, all the files currently in the trash
+will be untrashed.<P><A NAME="M40"></A>
+The <I>Change Creator</I> dialog has an additional button called <I>Other</I>: if  a
+creator type is not in the popup menu, you can specify  another  one.  This
+button brings up a new dialog with an edit field to enter the  new  creator
+type (four chars maximum). If you do  not    know    the    creator    type
+corresponding to an application, use the <I>Same as</I> button and indicate  the
+application or any document created  with  this  application.  The  <I>Apply</I>
+button selects the new type and brings back the <I>Change Creator</I>  dialog  ;
+the <I>Add&Apply</I> button has the same effect but additionally records the new
+type in the popup menu to make it available for future  use  (the  list  is
+reset though each time Alpha is relaunched: to make an addition  permanent
+use the Mac Menu Preferences. See section below about preferences).<P><A NAME="M41"></A>
+The <I>Extensions</I> button is a facility  to  specify  files  with  particular
+extensions. It brings up a new dialog with several checkboxes:  select  the
+extensions you're interested in by checking the corresponding checkbox. The
+corresponding files filter regular expression will be  built  automatically
+in the main dialog  window.  If  an  extension  is  not  mentioned  in  the
+<I>Predefined Extensions</I> dialog window, you have two possibilities:
+<UL>
+	<LI> for a temporary usage, enter it in the <I>Other extensions</I> edit  field.
+A list of space-separated extensions can be entered there.  You  can  enter
+the extensions with or without the dot, this makes no difference.<P>	<LI> for a permanent usage, you  might  want  to  add  your  favorite  file
+extensions to the Mac Menu Preferences (see the section  about  preferences
+below). In this case, the new extensions will have a checkbox of their own.
+ 
+</UL><P><H3><A NAME="M11"></A>Information dialog windows</H3><P><A NAME="M42"></A>
+The information windows display information about  all  kinds  of  items:
+files, folders, volumes, applications, processes or  basic  hardware.  They
+almost all have a <I>Dismiss</I>, a <I>Get Text</I>. The File Infos dialog also has a
+<I>Set</I> button. With the <I>Dismiss</I> button, you simply quit  the  dialog.  The
+<I>Get Text</I> button sends  the  collected  information  to  a  separate  text
+window.
+The <I>Set</I> button allows you to set  some  properties:  the  corresponding
+fields are editable (an edit field for a  variable  or  a  checkbox  for  a
+flag). You validate your modifications with the <I>Set</I> button. Note that  if
+your file is locked the modifications are not appliable:  you  must  first
+unlock it. Be aware of what you are doing: changing low  level  properties
+is potentially dangerous. Don't play with the system files.
+In the case of a shared volume or folder, and if file sharing is on on  the
+system, there is an additional <I>Sharing</I> button which gets and displays the
+complete sharing information about the item.<P><H2><A NAME="M12"></A>Menu Items Description</H2><P>Here is the list of all the menu items of the Mac Menu  with  explanations.
+Certain items are obtained if you hold the Option Key  down  while  opening
+the menu.<P><H3><A NAME="M13"></A>Main menu</H3>
+<DL><P><DT><B>Copy Files</B><DL><DT>
+<A NAME="M43"></A>
+Brings up a dialog  in  which  you  specify  the  files
+filter, the  source  and  target  folders  and  various
+options. Copy the selected files to the target creating
+the same  hierarchy  in  the  destination  folder.  The
+original files remain in the source folder.</DL><P><DT><B>Move Files</B><DL><DT>
+<A NAME="M44"></A>
+Brings up a dialog  in  which  you  specify  the  files
+filter, the  source  and  target  folders  and  various
+options. Move the selected files to the target creating
+the same  hierarchy  in  the  destination  folder.  The
+original files are removed from the source folder.
+Note that, as is the rule with MacOS, moving a file  to
+another volume means in fact copying.</DL><P><DT><B>Rename Files</B><DL><DT>
+<A NAME="M45"></A>
+Brings up a dialog  in  which  you  specify  the  files
+filter, the replacement expression, the  source  folder
+and various renaming options: the <I>Add Options</I> button
+brings a  new  dialog  to  set  casing,  numbering  and
+truncating options. Rename the selected files according
+to the new scheme.</DL><P><DT><B>Duplicate Files</B><DL><DT>
+<A NAME="M46"></A>
+Brings up a dialog  in  which  you  specify  the  files
+filter, the source folder    and    various    options.
+Duplicate the selected files in their original folder.</DL><P><DT><B>Trash Files</B><DL><DT>
+<A NAME="M47"></A>
+Brings up a dialog  in  which  you  specify  the  files
+filter, the source folder and  various  options.  Sends
+the selected files to the trash:  the  files  are  not
+deleted until you empty the trash.</DL><P><DT><B>Alias Files</B><DL><DT>
+<A NAME="M48"></A>
+Brings up a dialog  in  which  you  specify  the  files
+filter, the source folder and various options. You  can
+also optionnally specify a target folder. There are two
+possibilities:</DL>
+<UL>
+	<LI> if no target folder is specified (empty field) or  if
+it is the same as the source folder, then  the  aliases
+are made in the same folders (and  subfolders  if  they
+are in a hierarchy) as the original files
+	<LI> if a target folder is specified then all the  aliases
+are sent to this folder no matter  where  the  original
+files are located in the source folder, i-e even if the
+'In hierarchy' flag is used. If this target folder does
+not exist, it is created.
+</UL><P>When holding the option key down:
+<DL><P><DT><B>Remove Alias Files</B><DL><DT>
+<A NAME="M49"></A>
+Brings up a dialog in  which  you  specify  the  source
+folder and the subfolders  level.  Remove  all  aliases
+found in these folders.</DL>
+</DL><P><DT><B>Lock Files</B><DL><DT>
+<A NAME="M50"></A>
+Brings up a dialog  in  which  you  specify  the  files
+filter, the source folder and various options. Lock the
+selected files in their original folder.</DL><P>When holding the option key down:
+<DL><P><DT><B>Unlock Files</B><DL><DT>
+<A NAME="M51"></A>
+Brings up a dialog  in  which  you  specify  the  files
+filter, the source folder and various  options.  Unlock
+the selected files if they are locked.</DL>
+</DL><P><DT><B>List Files</B><DL><DT>
+<A NAME="M52"></A>
+Brings up a dialog  in  which  you  specify  the  files
+filter, the source folder and various  options.  Simply
+makes a list of the files  selected  according  to  the
+files filter and the various options and display it  in
+a separate window.
+The <I>Sort by</I> pop-up menu allows you to choose  one  of
+five options (or no option) so that the  list  returned
+is sorted according to the selected criterion. You  can
+sort by: <I>Modification date</I>, <I>Creation date</I>, <I>Size</I>,
+<I>Kind</I>, <I>Labels</I>. Check the  <I>Include  Criterion</I>  checkbox  to
+include the value of the criterion for each item in the
+result.</DL><P><DT><B>Change Encoding</B><DL><DT>
+<A NAME="M53"></A>
+Brings up a dialog  in  which  you  specify  the  files
+filter, the source folder, the current encoding of  the
+files, and a target encoding in order to  convert  them
+to this encoding.</DL><P><DT><B>Change Eols</B><DL><DT>
+<A NAME="M54"></A>
+Brings up a dialog  in  which  you  specify  the  files
+filter, the source folder and the environment the files
+belong to in order to convert the line endings  between
+the various plateform specific  types  (mac,  unix  and
+win). For instance if you choose to convert  eols  (end
+of lines) from unix to mac, only Unix type  files  will
+be converted to the Mac  type.  If  you  choose  <I>all</I>,
+conversion applies to all three kinds of files.</DL><P><DT><B>Change Creator</B><DL><DT>
+<A NAME="M55"></A>
+Brings up a dialog  in  which  you  specify  the  files
+filter, the source folder and various options: a popup
+list lets you choose the new creator you want to assign
+to the selected files. Use the  Other  button  to  find
+another creator.</DL><P><DT><B>Change Type</B><DL><DT>
+<A NAME="M56"></A>
+Brings up a dialog  in  which  you  specify  the  files
+filter, the source folder and various options: a popup
+list lets you choose the new type you want to assign to
+the selected  files.  Use  the  Other  button  to  find
+another type.</DL><P><DT><B>Delete Rez Forks</B><DL><DT>
+<A NAME="M57"></A>
+Brings up a dialog  in  which  you  specify  the  files
+filter, the source folder  and  various  options.  This
+will delete the resource fork of the  files.  You  will
+use this typically if you want to transmit  some  files
+to another environment (Unix, Windows) in  which  there
+is no notion of a resource fork.</DL><P><DT><B>Mac Shell</B><DL><DT>
+<A NAME="M58"></A>
+Opens a shell in which all the Mac Menu  functions  can
+be executed from a command  line.  See  below  the  Mac
+Shell section for details on the syntax of this command
+line.</DL><P><DT><B>Empty Trash</B><DL><DT>
+<A NAME="M59"></A>
+Empty the trash.</DL><P><DT><B>Eject</B><DL><DT>
+<A NAME="M60"></A>
+Eject a removable volume (floppy, Zip, CD-ROM etc.). If
+there are several ejectable volumes, a  list  shows  up
+from which you select the one you want  to  eject  from
+its drive ; if there is only one ejectable  volume,  it
+is automatically ejected.</DL><P><DT><B>Sleep</B><DL><DT>
+<A NAME="M61"></A>
+Puts the computer to sleep.</DL><P><DT><B>Restart</B><DL><DT>
+<A NAME="M62"></A>
+Launches the process of restarting the computer.</DL><P><DT><B>Shut Down</B><DL><DT>
+<A NAME="M63"></A>
+Launches the process of shuting down the computer.</DL>
+</DL><P><H3><A NAME="M14"></A>Get Info submenu</H3>
+<P><IMG SRC="../Images/macmenugetinfo.gif" ALIGN=bottom></P><P><DL><P><DT><B>File / Folder / Application</B><DL><DT>
+<A NAME="M64"></A><A NAME="M65"></A><A NAME="M66"></A>
+With these three items, a standard system  window  lets
+you designate the file,  folder  or  application  about
+which you want to get system information.</DL><P><DT><B>Volume / Process</B><DL><DT>
+<A NAME="M67"></A><A NAME="M68"></A>
+With these two items, a list  of  all  mounted  volumes
+(and shared disks on remote computers)  or  a  list  of
+currently running processes lets you choose the one you
+want information about.</DL><P><DT><B>Hardware</B><DL><DT>
+<A NAME="M69"></A>
+(not available on OSX) 
+Provides general hardware  information    about    your
+computer (clock speed, CPU, etc.)</DL><P><DT><B>Mac Menu Bindings</B><DL><DT>
+Shows all the key bindings available with the Mac  Menu
+in a separate window. See the  <I>Key  Bindings</I>  section
+below.</DL><P><DT><B>Mac Menu Tutorial</B><DL><DT>
+Opens the tutorial file.</DL>
+</DL><P><H2><A NAME="M15"></A>Mac Shell Syntax</H2>
+<A NAME="M70"></A>
+The Mac shell provides a command line facility analogous to the  Tcl  shell
+('cmd-y') or the now obsolete Toolsever shell already available in Alpha.
+You can open it with the <I>Mac Shell</I> menu item or with the 'ctrl-cmd-y'  key
+combination. This section lists all  the  commands  available  in  the  Mac
+Shell.
+<P> The main commands are 'help',  'files'  and  'infos'.  There  are  also
+commands which allow you to navigate in the MacOS  files  system:  'pwd',
+'cd', 'ls', 'ld'. Additionally you have a few utility commands:  'empty',
+'eject', 'restart', 'shutdown' which behave  like  the  corresponding  menu
+items. 
+Please see the tutorial (choose <I>Mac  Menu  Tutorial</I>  in  the  <I>Get  Info</I>
+submenu) for real life examples.
+<P> Certain options are not handled from the command line though:  if  you
+want to specify additional  conditions  (as  explained  above)  you  should
+rather use the dialog windows.
+<P> If a command is not a specific Mac Shell command, MacMenu  will  try  to
+evaluate it as a Tcl instruction. If no Tcl command is found, then  it  will
+try to execute it as a Unix command (only on OSX). This means that  you  can
+use Mac Shell as a Tcl shell and that you can execute Unix command  directly
+from Alpha (see more precisions in the <I>Unix commands</I> section below).<P><H3><A NAME="M16"></A>Shell prompt</H3>
+The shell prompt always indicates the  name  of  the  current  folder.  When
+opening the shell, its value defaults to the Alpha application's main folder
+or to the currently logged in user's home directory (see the <I>Default  Home</I>
+preference). <P><H3><A NAME="M17"></A>'help' command</H3>
+<A NAME="M71"></A>
+The 'help' command  can  be  used  alone  or  with  one  of  the  following
+arguments:
+<P><TABLE BORDER=0 CELLPADDING=1>
+<TR><TD>help</TD><TD>to have a list of all available commands</TD></TR>
+<TR><TD>help -options</TD><TD>to have a list of all available options and flags</TD></TR>
+<TR><TD>help [cmdname]</TD><TD>to display info about a specific command</TD></TR>
+</TABLE></P><P><H3><A NAME="M18"></A>'files' command</H3>
+<A NAME="M72"></A>
+The 'files' command is used with a subcommand to specify the type of action
+which is to be executed and flags to specify the conditions and options.<P><H4><A NAME="M19"></A>Options for the files command</H4><P>Here is the  signification  of  the  various  options.  Some  of  them  are
+required, the others  have  default  values  and  can  be  omitted  if  not
+necessary. <P><P><TABLE BORDER=0 CELLPADDING=1>
+<TR><TD>-f <I>filter</I></TD><TD>filtering regular expr</TD><TD>default '.*'</TD></TR>
+<TR><TD>-s <I>folder</I></TD><TD>source folder</TD><TD>default current folder</TD></TR>
+<TR><TD>-l <I>level</I></TD><TD>nesting level (0, 1,... or all) </TD><TD>default 0</TD></TR>
+<TR><TD>-i <I>flag</I></TD><TD>case sensitive? </TD><TD>default 0</TD></TR>
+<TR><TD>-n <I>flag</I></TD><TD>negate? </TD><TD>default 0</TD></TR>
+<TR><TD>-t <I>folder</I></TD><TD>target folder</TD><TD>no default</TD></TR>
+<TR><TD>-t <I>enc</I></TD><TD>target encoding in transcode </TD><TD>default iso8859-1</TD></TR>
+<TR><TD>-t <I>kind</I></TD><TD>target eol in transtype </TD><TD>default mac</TD></TR>
+<TR><TD>-t <I>type</I></TD><TD>file's type </TD><TD>no default</TD></TR>
+<TR><TD>-c <I>type</I></TD><TD>file's creator </TD><TD>no default</TD></TR>
+<TR><TD>-o <I>flag</I></TD><TD>force overwrite? </TD><TD>default: see prefs</TD></TR>
+<TR><TD>-o <I>enc</I></TD><TD>original encoding in transcode </TD><TD>default macRoman</TD></TR>
+<TR><TD>-o <I>kind</I></TD><TD>original eol in transtype </TD><TD>default unix</TD></TR>
+<TR><TD>-r <I>replace</I></TD><TD>regsub expr for renaming </TD><TD>default &</TD></TR>
+<TR><TD>-all </TD><TD>all files (equivalent to '-f .*')</TD><TD>no value</TD></TR>
+<TR><TD>-k <I>flag</I></TD><TD>casing: u, l, w, f </TD><TD>default: not set</TD></TR>
+<TR><TD>-d <I>flag</I></TD><TD>numbering: 0/1 </TD><TD>default: not set</TD></TR>
+<TR><TD>-b (m|c|s|k|l)</TD><TD>sort by</TD><TD>no default</TD></TR>
+<TR><TD>-x <I>m[.n]</I></TD><TD>truncate </TD><TD>default: not set</TD></TR>
+</TABLE></P><P>Note that the -c option is interpreted differently with the <I>files  change</I>
+command than with the other <I>files</I> command: in the first case, it is  the
+required option which tells which new creator should  be  assigned  to  the
+selected files. In the second case, it is an optional argument telling that
+only the files with the type declared by -c should be selected  to  perform
+the action.
+<P> Similarly the -t option is  interpreted  differently  with  the  
+<I>files change</I> command than with the other <I>files</I> command: 
+<UL>
+	<LI> used with <I>files change</I>, it is the required option which tells
+which new type should be assigned to the selected files.
+	<LI> used with <I>files transtype</I>, the -t flag designates the
+type of line endings for the file (<I>mac</I>, <I>unix</I> or <I>win</I>).
+	<LI> used with <I>files transcode</I>, the -t flag designates the target
+encoding of the file.
+	<LI> otherwise, it is the argument to indicate the target folder in a move,
+copy or alias action.
+</UL><P><P> The -b flag (b stands for 'by') is used only by <I>files list</I> and
+allows you to specifiy a sorting option. The option is specified by one of
+the letters <I>m, c, s, k, l</I> which correspond respectively to sorting
+by <I>Modification date</I>, <I>Creation date</I>, <I>Size</I>, <I>Kind</I>, 
+<I>Labels</I>.<P>It is essential that  the  filtering  regular  expression  be  enclosed  in
+brackets if some characters are escaped. The brackets protect  the  escaped
+characters from being iterpreted by the Tcl interpreter before the  regular
+expressions interpreter. For instance, to designate all files ending with a
+dot followed by one single number you want to use the following expression:
+<PRE>
+     .*\.\d
+</PRE>
+so you should write on the command line 
+<PRE>
+    -f {.*\.\d}
+</PRE>
+If you do not enclose the regular expression in brackets, you  must  escape
+the characters twice i-e with a double backslash like this:
+<PRE>
+    -f .*\\.\\d
+</PRE>
+or
+<PRE>
+    -f ".*\\.\\d"
+</PRE>
+This remark concerns  exclusively  the  regular  expressions  used  on  the
+command line: there is no need of brackets when you use the menu items and
+dialog windows.<P>If the -d flag is on (-d 1) the numbering will be done. There is no way  to
+set the numbering options from the command line.  The  last  used  settings
+will be applied.<P><H4><A NAME="M20"></A>Subcommands of the 'files' command</H4><P>Here is the list of the various subcommands you can append to  the  'files'
+command together with the options they accept:<P><P><TABLE BORDER=0 CELLPADDING=1>
+<TR><TD>cmd</TD><TD>subcmds</TD><TD>options</TD></TR>
+<TR><TD>files</TD><TD>copy</TD><TD>Required  -t</TD></TR>
+<TR><TD></TD><TD>        </TD><TD>Optional  -f -s -l -i -n -all</TD></TR>
+<TR><TD>files</TD><TD>move</TD><TD>ditto</TD></TR>
+<TR><TD>files</TD><TD>rename</TD><TD>Optional  -f -s -l -i -n -c -r -all</TD></TR>
+<TR><TD>files</TD><TD>transcode</TD><TD>Optional -f -s -l -i -n -o -t -all</TD></TR>
+<TR><TD>files</TD><TD>transtype</TD><TD>Optional -f -s -l -i -n -o -t -all</TD></TR>
+<TR><TD>files</TD><TD>list</TD><TD>Optional  -f -s -l -i -n -b -all</TD></TR>
+<TR><TD>files</TD><TD>duplicate</TD><TD>Optional  -f -s -l -i -n -all</TD></TR>
+<TR><TD>files</TD><TD>trash</TD><TD>ditto</TD></TR>
+<TR><TD>files</TD><TD>lock</TD><TD>ditto</TD></TR>
+<TR><TD>files</TD><TD>unlock</TD><TD>ditto</TD></TR>
+<TR><TD>files</TD><TD>alias</TD><TD>ditto</TD></TR>
+<TR><TD>files</TD><TD>change</TD><TD>Required  -c and/or -t</TD></TR>
+<TR><TD></TD><TD>        </TD><TD>Optional  -f -s -l -i -n -all</TD></TR>
+<TR><TD>files</TD><TD>rmalias</TD><TD>Optional  -f -l -all</TD></TR>
+</TABLE></P><P><H3><A NAME="M21"></A>'infos' command</H3>
+<A NAME="M73"></A>
+The 'infos' command is used with a subcommand to  specify  the  item  about
+which information is required. Its syntax is:<P><P><TABLE BORDER=0 CELLPADDING=1>
+<TR><TD>infos file <I>path</I></TD></TR>
+<TR><TD>infos folder <I>path</I></TD></TR>
+<TR><TD>infos volume <I>path</I></TD></TR>
+<TR><TD>infos appl <I>path</I></TD></TR>
+<TR><TD>infos process <I>processname</I></TD></TR>
+<TR><TD>infos hardware</TD></TR>
+</TABLE></P><P><H3><A NAME="M22"></A>Commands for browsing</H3><P>Here are the commands which help you browsing in the files hierarchy, 
+or list and edit files:<P><DL><P><DT><B>pwd </B><DL><DT>
+<A NAME="M74"></A>(print working directory) Prints the current  directory.  The  
+name  of  the directory is used in the shell's prompt.</DL><P><DT><B>cd <I>dir</I></B><DL><DT>
+<A NAME="M75"></A>(change directory) The 'cd' command lets you change the  current  directory.
+On OSX, the 'cd' command can resolve tilde and dot symbols at the  beginning
+of a path (to designate the user's home  directory  or  the  current  folder
+respectively like in any Unix shell). In can be used in different manners:
+lt)) 
+<DL><P><DT><B>cd</B><DL><DT>
+change to Alpha's folder or to the user's home directory depending on 
+how the <I>Default Home</I> preference is set (see the <I>Preferences</I> section 
+below)</DL><P><DT><B>cd .</B><DL><DT>
+change to directory of second to frontmost window (ie the window which is 
+just behind the shell window). If there is no such window or if the window 
+does not correspond to a file on disk, the command is equivalent to cd with 
+no argument.</DL><P><DT><B>cd ..</B><DL><DT>
+change to parent directory.</DL>
+</DL>
+To go several levels up, type .. followed by several separators (thus, .. is 
+equivalent to ../). E-g:
+<PRE>
+     cd ..:::
+     cd ..///
+</PRE>
+The following syntax is also accepted (except for [cd /] which changes 
+directly to the root folder)
+<PRE>
+    cd :::         etc.
+    cd ///         etc.
+</PRE>
+<DL><P><DT><B>cd <I>blah</I></B><DL><DT>
+change to subfolder <I>blah</I> of current folder (if <I>blah</I> exists of course)</DL><P><DT><B>cd <I>abs_path</I></B><DL><DT>
+change to directory corresponding to the absolute path <I>abs_path</I></DL>
+</DL><P><DT><B>mkdir <I>dir</I></B><DL><DT>
+(make directory) Create a new subfolder in the current 
+folder. If no name is specified, it will be Untitled.</DL><P><DT><B>edit <I>file</I></B><DL><DT>
+(edit a file) Specify the name of the  file:  if  it  is  in  the  current
+directory, the proc will complete the  path.  You  can  use  the  completion
+mechanism to enter the name of the file: type the first letters,  then  hit
+the Tab key. If the 'edit'  command  is  used  with  no  argument,  you  are
+prompted to select a file to edit.</DL><P><DT><B>ls</B><DL><DT>
+(list) Returns a list of all the files and folders contained in the  current
+folder. On OSX, this command calls the ls Unix command, so you can  use  all
+its flags just like in a Terminal window.</DL><P><DT><B>ld	 </B><DL><DT>
+(list directory) Returns a list of the subfolders contained in  
+the current folder.</DL>
+</DL><P><H3><A NAME="M23"></A>Other commands</H3>
+<A NAME="M76"></A><A NAME="M77"></A><A NAME="M78"></A>
+<A NAME="M79"></A><A NAME="M80"></A><A NAME="M81"></A>
+<A NAME="M82"></A><A NAME="M83"></A>
+<P><TABLE BORDER=0 CELLPADDING=1>
+<TR><TD>empty</TD><TD>to empty the trash</TD></TR>
+<TR><TD>eject</TD><TD>to eject a mounted removable volume</TD></TR>
+<TR><TD>restart</TD><TD>to restart the computer</TD></TR>
+<TR><TD>sleep</TD><TD>put the computer in sleeping mode</TD></TR>
+<TR><TD>shutdown</TD><TD>to shutdown the computer</TD></TR>
+<TR><TD>tutorial</TD><TD>to open the tutorial</TD></TR>
+<TR><TD>bindings</TD><TD>to display a summary of the MacMenu key bindings</TD></TR>
+<TR><TD>version</TD><TD>to get macMenu's version number</TD></TR>
+</TABLE></P><P><H3><A NAME="M24"></A>Unix commands</H3>
+<A NAME="M84"></A>
+On OSX, if a command hasn't been defined as a specific MacShell command  and
+fails to be executed as a Tcl command, then MacShell attempts to  invoke  it
+as a Unix command. It does this using the <B>exec</B>  Tcl  command:  this  means
+that it will work only if it is a non interactive Unix command, i-e if it is
+a command which returns its result immediately  without  waiting  for  input
+from the user and which does not  have  to  be  terminated  (by  ctrl-D  for
+instance). Otherwise Alpha will enter in an infinite loop.
+<P> Typical examples of commands which can be  executed  from  MacShell  are
+<B>cal</B>, <B>date</B>, <B>df</B>, <B>ls</B>,  <B>who</B>,  <B>ps</B>  etc.  
+But  don't  try  to  execute
+commands such as <I>top</I>, <I>stats</I> etc.<P><H3><A NAME="M25"></A>Commands history</H3>
+<A NAME="M85"></A>
+As with any Alpha shell, you can move through  commands  history  with  the
+'up' and 'down' arrow keys while holding the 'control key' down.
+If you option-click in the title bar of the Mac shell, you also have a list
+of the last twenty command lines and you can select any of them which  will
+be inserted in the shell.<P><H3><A NAME="M26"></A>Extending Mac Shell</H3>
+<A NAME="M86"></A>
+You can create your own commands to use in  Mac  Shell.  To  create  a  new
+command called <I>mycmd</I>, you must define a proc named macsh::mycmd  and  the
+value returned by this proc should be the text you want to be  inserted  in
+Mac Shell as a reply when the command is executed. If you  want  no  reply,
+just return the empty string "". For instance:
+<PRE>
+    proc macsh::mycmd {} {
+        return "myvalue"
+    }
+</PRE><P>The proc macsh::mycmd can take parameters and arguments depending  on  what
+syntax you  want  for  your  command  (subcommands,  additional  arguments,
+options etc.). Please see various examples in the files macMenuShell.tcl 
+and macMenuInterface.tcl.<P>You can create as many new commands as  you  wish.  These  commands  can  be
+stored in a file like this one. The easiest solution is to locate this  file
+in the MacMenu folder and to rebuild the Tcl indices to register your  procs
+in Alpha. You must put the following instruction at  the  beginning  of  the
+file: 
+<PRE>
+    namespace eval macsh {}
+</PRE><P>You can also provide help info about a command by defining an entry in the 
+macsh_help() array. Its value must be a list of items corresponding to all 
+the subcommands of mycmd.
+For instance, if you define
+<PRE>
+    set macsh_help(mycmd) [list "open [myoptions] [myarguments]" "close"]
+</PRE>
+the following line will be printed in MacShell when typing <I>help mycmd</I>
+<PRE>
+    mycmd open [myoptions] [myarguments]
+    mycmd close
+</PRE>
+    
+See more examples in the file <I>macMenuShellMore.tcl</I>.<P><H2><A NAME="M27"></A>MacMenu programming interface</H2>
+MacMenu provides procedures which can be used in Tcl  scripts  directly  and
+make all the MacMenu capacities available programmatically (instead  of  via
+the dialogs interface). These procedures have exactly the same syntax as the
+commands described in the <I>Mac Shell</I> section: the only difference  is  that
+they must be executed in  the  macsh::  namespace.  For  instance,  you  can
+invoke, in a Tcl script, the command macsh::files like this:
+<PRE>
+	macsh::files copy -f {.*\.tex} -t "/Users/bernardo/thesis"
+</PRE><P>The macsh::files and macsh::infos procs in particular  provide  exactly  the
+same functionalities as  the  dialogs  corresponding  to  the  MacMenu  menu
+commands. <P><H2><A NAME="M28"></A>Completion mechanism</H2>
+<A NAME="M87"></A>
+There is a  pathname  completion  mechanism  bound  to  the  tabulation  key
+(exactly like in most Unix shells).<P>Type the first letters of a file's or folder's name and hit the TAB key: the
+procedure will try to complete, looking either for the relative or  absolute
+path of a file or folder included in the current folder. A complete path  is
+supposed to start with a double quote in order to handle spaces in the path.
+These double quotes will be added automatically when necessary. If there are
+several possible choices, a pick list is displayed.<P>Note that you can use the symbols tilde and dot at the beginning of  a  path
+to designate the user's home directory or the  current  folder  respectively
+like in any Unix shell. Mac Shell will do the substitution automatically.<P><H2><A NAME="M29"></A>Getting info</H2><P>The <I>Get Info</I> submenu allows  you  to  get  (and  set)  information  about
+various kinds of elements:  file,  folder,  volume,  application,  running
+process and the computer itself. The results  are  displayed  in  a  dialog
+window. <P>All these information windows have a button called <I>Get Text</I> to  edit  the
+results in a separate text window.<P>When appropriate, if a specific piece of information has a value which  can
+be set or modified, it is edited in an editable field or with a checkbox so
+that you can change its value. Use the <I>Set</I> button to validate changes.<P>The search of information can be slow on... slow machines.  Note  that  the
+information about hardware will be sought by the  package  only  the  first
+time and recorded since it is not likely to change during a session.<P>Here is a list of the properties you can find in the info windows (not  all
+properties apply to all items of course):<P><P><TABLE BORDER=0 CELLPADDING=1>
+<TR><TD>Owner</TD><TD>Logical size</TD><TD>Modification date</TD></TR>
+<TR><TD>Locked</TD><TD>Version info</TD><TD>Logical page size</TD></TR>
+<TR><TD>Shared</TD><TD>Creation date</TD><TD>Process partition</TD></TR>
+<TR><TD>Comment</TD><TD>Launched from</TD><TD>Largest free block</TD></TR>
+<TR><TD>Creator</TD><TD>Physical size</TD><TD>Minimum memory size</TD></TR>
+<TR><TD>Version</TD><TD>Remote events</TD><TD>Owner's privileges</TD></TR>
+<TR><TD>Capacity</TD><TD>User RAM size</TD><TD>Protected from move</TD></TR>
+<TR><TD>ROM size</TD><TD>Stationery pad</TD><TD>System architecture</TD></TR>
+<TR><TD>RAM size</TD><TD>Is share point</TD><TD>Low memory area size </TD></TR>
+<TR><TD>Ejectable</TD><TD>System version</TD><TD>Allocated memory size</TD></TR>
+<TR><TD>Boot disk</TD><TD>Virtual memory</TD><TD>Everyone's privilege</TD></TR>
+<TR><TD>CPU family </TD><TD>Bus clock speed </TD><TD>Scripting terminology</TD></TR>
+<TR><TD>Free bytes </TD><TD>Hardware vendor </TD><TD>Open Firmware present</TD></TR>
+<TR><TD>Scriptable </TD><TD>Software vendor </TD><TD>Processor clock speed</TD></TR>
+<TR><TD>Access path</TD><TD>Group privileges</TD><TD>Suggested memory size</TD></TR>
+</TABLE></P><P>Hardware info is not available on OSX.<P><H2><A NAME="M30"></A>Key Bindings</H2>
+<A NAME="M88"></A>
+There are a few easy to remember key bindings 'a la emacs'. Press 'ctrl-z',
+release, then hit one of the following letters:
+<P><TABLE BORDER=1 CELLPADDING=1>
+<TR><TD>a</TD><TD>aliases dialog</TD></TR>
+<TR><TD>b</TD><TD>show bindings info </TD></TR>
+<TR><TD>c</TD><TD>copy files dialog</TD></TR>
+<TR><TD>d</TD><TD>duplicate files dialog</TD></TR>
+<TR><TD>e</TD><TD>empty the trash</TD></TR>
+<TR><TD>f</TD><TD>delete resource forks</TD></TR>
+<TR><TD>j</TD><TD>eject a disk</TD></TR>
+<TR><TD>k</TD><TD>lock files dialog</TD></TR>
+<TR><TD>l</TD><TD>list files dialog</TD></TR>
+<TR><TD>m</TD><TD>move files dialog</TD></TR>
+<TR><TD>r</TD><TD>rename files dialog</TD></TR>
+<TR><TD>t</TD><TD>send files to the trash</TD></TR>
+<TR><TD>u</TD><TD>unlock files dialog</TD></TR>
+</TABLE></P><P>You can also use 'ctrl-cmd-y' to open the Mac Shell.
+Use the tabulation key to trigger the completion  mechanism  in  Mac  Shell
+(see above).<P><H2><A NAME="M31"></A>Preferences</H2>
+<A NAME="M89"></A>
+The <I>Mac Menu Prefs...</I> item in the <I>Packages</I> submenu of the <I>Config</I>
+menu allows you to set a few general options:
+<UL> 
+	<LI> the <I>Overwrite If Exists</I> flag concerns already existing files in
+the target folder during a move or a copy action. If this flag is set,
+you will not be warned about it.  If  not,  you  will  have  an  error
+message indicating the name of the already existing file and the  copy
+or move will attempt to proceed on the next subfolder: in  this  case
+no file will be overwritten. It is safer not to set this flag:  there
+is a <I>force overwrite</I> checkbox  in  the  copy  and  move  dialogs  to
+temporarily modify this behaviour when necessary.
+	<LI> the <I>Chunks Size</I> variable is a number:  it  is  the  number  of
+files which will be processed simultaneously during a copy or  a  move
+action. Due to Apple Events  memory  limitations,  files  have  to  be
+processed by chunks. I'm not sure what the optimal value should be.  A
+default of 200 has proven absolutely safe with very long access  paths
+: with shorter pathnames, it can be increased upto 300 and maybe more.
+	<LI> the <I>Additional  Types</I>  variable  lets  you  specify  additional
+application signatures for the <I>Creator</I> popup in the <I>Change Creator</I>
+dialog window.
+	<LI> the <I>Predef Extensions</I> variable lets you specify the  extensions
+which will have a check box of their own in  the  Predef  Exts  dialog
+window. 
+	<LI> the <I>Default Home</I> preference specifies, in Mac Shell, where 
+[pwd] should start from and where [cd] without argument should lead to. 
+The possible choices are <I>Alpha's folder</I> or <I>User's Home</I>.
+</UL><P><H2><A NAME="M32"></A>Version History</H2><P><UL>
+	<LI> 1.0a - 01/01/13 - Created Mac Menu.
+	<LI> 1.0b1 - 01/02/02 - First beta release of Mac Menu.
+	<LI> 1.0b2 - 01/02/02 - Corrected a misplaced key binding.
+	<LI> 1.0b3 - 01/02/26 - Corrected a bug with the 'sharing' button.
+	<LI> 1.0b4 - 01/02/27 - Modified the  make  alias  proc  to  allow  to
+specify a target folder for the alias. Added a menu item to make a new
+folder in the current directory.
+	<LI> 1.0b5 - 01/02/28 - Removed the New Folder item.
+	<LI> 1.0b6 - 01/03/07 - Cosmetic changes: enlarged various fields  in
+the dialog windows which were truncated  with  certain  non-monospaced
+system fonts.
+	<LI> 1.0b65 - 01/04/11 - Added a  'Change  Type'  item.  Modified  the
+'files change' command in MacShell to accept a -t flag to change files
+types. Added an 'edit' command to MacShell.  Added  a  'help  version'
+command. Corrected a bug when a volume was selected as a source  or  a
+target and a folder with the same name was created  in  the  currfold.
+Added new syntax (cd :) in MacShell to 'cd' to parent directory.
+	<LI> 1.0b66 - 01/04/11 - Added ellipses to most menu items.
+	<LI> 1.0b7x - 01/04/04 - Made corrections for compatibility  with  the
+new 'file  join'  and  'file  dirname'  behavior.  Includes  the  same
+features as the 1.0b6x series. Requires Alpha 7.5.
+	<LI> 1.0b8  -  01/06/19  -  Modifications  for  Alpha8  compatibility.
+Modified the behaviour of the AddOptions check box in renaming dialog.
+	<LI> 1.0b81  -  01/06/19  -  Bug  fixed  in  mac::relFilename  (thanks
+Frederic). 
+	<LI> 1.0b82 - 01/08/12 - Added a "Transtype  Files"  item  to  convert
+line endings (borrowed   from    Johan's    file::convertLineEndings).
+Corrected a bug in mac::getItemSize which  did  not  handle  very  big
+sizes (more than 0x7fffffff) due to Tcl arithmetic limitations:  big
+sizes are now reported in megabytes. Corrected a  bug  when  a  target
+folder had to be created and intermediate subfolders did not  exist:
+they are now all created.
+	<LI> 1.0b83 - 01/08/23 - Reversed the order of Cancel and OK buttons in 
+all dialogs for HIG-compliance. Minor correction in mac::pathLine 
+(thanks Johan). 
+	<LI> 1.09 - 01/09/01 - First non beta release (for Alpha 7.4). See 1.1.
+	<LI> 1.1 - 01/09/01 - First non beta release (for Alpha 7.5). Added 
+capacity of sorting the list returned by 'list files' according to one 
+of five criteria .
+("modif date", "kind" etc.) Added a corresponding new -b flag in Mac Shell.
+	<LI> 1.1.1  - 01/09/01 - Added error control in emptyTrash. 
+	<LI> 1.2 - 02/11/08 - Redefined doTranstype for compatibility with Alpha8. 
+Added item to delete the resource fork of selected files. 
+	<LI> 2.0 - 03/08/22 - Major overhaul to upgrade to Alphax on OSX. 
+	<LI> 2.1 - 03/11/03 - Bug fixes with the Set button of File Info window. 
+	<LI> 2.2 - 03/11/18 - Eliminated unneeded -r flags in tclAE::send which 
+slowed down some commands. Better error checking. Modified the syntax for 
+the cd command in MacShell: it is simpler and more robust, it resolves 
+tilde paths. New "Default Home" pref on OSX. Correctly 
+quotes extensions in filter when they contain metachars. Fixed popup width 
+problem introduced by OS Panther. Support for non-interactive Unix 
+commands. New MacShell commands. 
+	<LI> 2.3 - 05/06/19 - Eliminated all OS8/9 specific code. Streamlined and 
+factored the code for dialogs. Added transcoding facilities.
+</UL><P><H2><A NAME="M33"></A>Known problems</H2>
+<UL>
+	<LI> I decided not to implement any erase command because it is potentially
+too dangerous: if you want to erase your disks, choose another tool ;-)
+	<LI> It may happen that, though an action has been performed  
+succesfully, its
+effect is not displayed immediately by the Finder.
+	<LI> After long and intensive use, it happens that Alpha seems not to  
+execute the Apple Events any more: it is a problem of memory management in 
+old versions of Alpha.
+Just quit and relaunch the application to refresh it.
+</UL>
+Please e-mail any problem or bug you encounter: <A HREF="mailto:bdesgraupes@easyconnect.fr">bdesgraupes@easyconnect.fr</A><P>Goto the Alpha utilities page:
+<P> <A HREF="http://webperso.easyconnect.fr/bdesgraupes/alpha.html">http://webperso.easyconnect.fr/bdesgraupes/alpha.html</A><P><H2><A NAME="M34"></A>License and Disclaimer</H2><P>(c) Copyright Bernard Desgraupes, 2001-2005
+        All rights reserved.
+This software is free software distributed under the terms of the  new  BSD
+license:
+Redistribution and  use  in  source  and  binary  forms,  with  or  without
+modification, are permitted provided that the following conditions are met:
+<UL>
+	<LI> Redistributions of source code must retain the  above  copyright  
+notice,
+this list of conditions and the following disclaimer.
+	<LI> Redistributions in binary form must reproduce the above copyright 
+notice,
+this list of conditions and the following disclaimer in  the  documentation
+and/or other materials provided with the distribution.
+	<LI> Neither the name of Bernard Desgraupes nor the names of its  
+contributors
+may be used to endorse or  promote  products  derived  from  this  software
+without specific prior written permission.
+</UL>
+This software is provided by the copyright holders and contributors "as is"
+and any express or implied warranties, including, but not limited  to,  the
+implied warranties of merchantability and fitness for a particular  purpose
+are disclaimed. In no event shall the regents or contributors be liable for
+any direct, indirect,  incidental,  special,  exemplary,  or  consequential
+damages (including, but not limited to, procurement of substitute goods  or
+services; loss of use, data, or profits; or business interruption)  however
+caused and  on  any  theory  of  liability,  whether  in  contract,  strict
+liability, or tort (including negligence or otherwise) arising in  any  way
+out of the use of this software, even if advised of the possibility of such
+damage. <P><UL>
+<LI><A HREF="#M48">Alias Files</A>
+<LI>Application
+<UL><LI><A HREF="#M66">Info</A></UL>
+<LI><A HREF="#M88">Bindings</A>
+<LI><A HREF="#M82">bindings (shell command)</A>
+<LI><A HREF="#M75">cd (shell command)</A>
+<LI><A HREF="#M55">Change Creator</A>
+<LI><A HREF="#M53">Change Encoding</A>
+<LI><A HREF="#M54">Change Eols</A>
+<LI><A HREF="#M56">Change Type</A>
+<LI><A HREF="#M87">Completion</A>
+<LI><A HREF="#M43">Copy Files</A>
+<LI><A HREF="#M57">Delete Rez Forks</A>
+<LI><A HREF="#M36">Dialogs</A>
+<UL><LI><A HREF="#M40">Change Creator</A></UL>
+<UL><LI><A HREF="#M41">Extensions</A></UL>
+<UL><LI><A HREF="#M42">Information</A></UL>
+<UL><LI><A HREF="#M37">Main</A></UL>
+<UL><LI><A HREF="#M38">Renaming</A></UL>
+<UL><LI><A HREF="#M39">Trash Files</A></UL>
+<LI><A HREF="#M46">Duplicate Files</A>
+<LI><A HREF="#M60">Eject</A>
+<LI><A HREF="#M77">eject (shell command)</A>
+<LI><A HREF="#M76">empty (shell command)</A>
+<LI><A HREF="#M59">Empty Trash</A>
+<LI>File
+<UL><LI><A HREF="#M64">Info</A></UL>
+<LI><A HREF="#M72">files (shell command)</A>
+<LI>Folder
+<UL><LI><A HREF="#M65">Info</A></UL>
+<LI>Hardware
+<UL><LI><A HREF="#M69">Info</A></UL>
+<LI><A HREF="#M71">help (shell command)</A>
+<LI><A HREF="#M85">History</A>
+<LI><A HREF="#M73">infos (shell command)</A>
+<LI><A HREF="#M35">Installation</A>
+<LI><A HREF="#M52">List Files</A>
+<LI><A HREF="#M50">Lock Files</A>
+<LI>Mac Shell <A HREF="#M58">1</A>, <A HREF="#M70">2</A>
+<UL><LI><A HREF="#M86">Extending</A></UL>
+<LI><A HREF="#M44">Move Files</A>
+<LI><A HREF="#M89">Preferences</A>
+<LI>Process
+<UL><LI><A HREF="#M68">Info</A></UL>
+<LI><A HREF="#M74">pwd (shell command)</A>
+<LI><A HREF="#M49">Remove Alias Files</A>
+<LI><A HREF="#M45">Rename Files</A>
+<LI><A HREF="#M62">Restart</A>
+<LI><A HREF="#M78">restart (shell command)</A>
+<LI><A HREF="#M63">Shut Down</A>
+<LI><A HREF="#M80">shutdown (shell command)</A>
+<LI><A HREF="#M61">Sleep</A>
+<LI><A HREF="#M79">sleep (shell command)</A>
+<LI><A HREF="#M47">Trash Files</A>
+<LI><A HREF="#M81">tutorial (shell command)</A>
+<LI><A HREF="#M84">Unix commands</A>
+<LI><A HREF="#M51">Unlock Files</A>
+<LI><A HREF="#M83">version (shell command)</A>
+<LI>Volume
+<UL><LI><A HREF="#M67">Info</A></UL>
+</UL>
+
+</BODY>
+</HTML>

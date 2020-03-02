@@ -1,0 +1,152 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+
+<HTML>
+
+<HEAD>
+
+<TITLE>Option-click in titlebar</TITLE>
+
+<LINK HREF="../Style%20Sheet/manual.css" REL="stylesheet" TYPE="text/css">
+
+
+</HEAD>
+
+<BODY>
+
+<!-- #INCLUDE INCLPATH="maintop.html" -->
+
+<SCRIPT TYPE="text/javascript">
+<!--
+if (document.body.clientHeight) {
+	height = document.body.clientHeight - 50;
+} else {
+	height = window.innerHeight - 50 ;
+}
+document.write('<div class="main" style="height: ' + height + 'px;">');
+// -->
+</SCRIPT>
+
+
+<!-- /#INCLUDE -->
+
+
+<H1>Option-click in titlebar</H1>
+
+<DIV>
+<IMG SRC="../bilder/optionclick.png" ALT="Option-click menu" WIDTH="119"
+HEIGHT="108" CLASS="rightpic">
+</DIV>
+
+<P>
+If you put the insertion point at an opening tag and hold down the option 
+key while you click in the window's titlebar, a menu appears with 
+attributes which you can insert. Select an attribute from the menu and it 
+will be inserted in the tag. If you for example put the insertion point at 
+a &lt;STYLE&gt; tag
+</P>
+
+<P CLASS="code">
+<SPAN CLASS="htmlcode">&lt;STYLE</SPAN> <SPAN 
+CLASS="attrcode">TYPE=</SPAN><SPAN CLASS="textcode">"text/css"</SPAN><SPAN 
+CLASS="htmlcode">&gt;</SPAN>
+</P>
+
+<P>
+the menu to the right appears when you option-click in the titlebar. Note 
+that the TYPE attribute does not appear in the menu as it is already used. 
+Let us say you select MEDIA from the menu. This attribute is then inserted 
+into the tag with the insertion point between the quotes to let you type 
+the attribute value.
+</P>
+
+<P CLASS="code">
+<SPAN CLASS="htmlcode">&lt;STYLE</SPAN> <SPAN 
+CLASS="attrcode">TYPE=</SPAN><SPAN CLASS="textcode">"text/css"</SPAN> <SPAN 
+CLASS="attrcode">MEDIA=</SPAN><SPAN CLASS="textcode">"</SPAN>|<SPAN 
+CLASS="textcode">"</SPAN>&#8226;<SPAN CLASS="htmlcode">&gt;</SPAN>
+</P>
+
+<DIV>
+<IMG SRC="../bilder/optionclick2.png" ALT="Option-click again" WIDTH="113"
+HEIGHT="89" CLASS="rightpic">
+</DIV>
+
+<P>
+But before you type the value of the MEDIA attribute, option-click again in 
+the titlebar, and select TITLE from the menu shown to the left. This 
+attribute is now inserted into the tag, but the insertion point is still 
+between the quotes of the MEDIA attribute. 
+</P>
+
+<P CLASS="code">
+<SPAN CLASS="htmlcode">&lt;STYLE</SPAN> <SPAN 
+CLASS="attrcode">TYPE=</SPAN><SPAN CLASS="textcode">"text/css"</SPAN> <SPAN 
+CLASS="attrcode">MEDIA=</SPAN><SPAN CLASS="textcode">"</SPAN>|<SPAN 
+CLASS="textcode">"</SPAN> <SPAN CLASS="attrcode">TITLE=</SPAN><SPAN 
+CLASS="textcode">"&#8226;"</SPAN>&#8226;<SPAN 
+CLASS="htmlcode">&gt;</SPAN>
+</P>
+
+<P>
+You can now continue to insert more attributes and when you are done 
+type their values one after each other and use the tab key to jump between 
+them.
+</P>
+
+<H3>Option-click in home page window</H3>
+
+<P>
+You can also option-click in the titlebar of <A 
+HREF="homepagewins.html">home page windows</A> to navigate between them. 
+This is explained in detail in the section about home page windows.
+</P>
+
+<H3>Files in option-click menu</H3>
+
+<P>
+There is one more thing to note about the option-click menu. If there are 
+fewer attributes than <SPAN CLASS="item">Min Items In Title Popup</SPAN> in the dialog box <SPAN
+CLASS="menuitem">Config-&gt;Preferences-&gt;Interface Preferences-&gt;Window</SPAN> then Alpha adds 
+the names of the files in the window's folder. Selecting a file from the 
+menu opens the file.
+</P>
+
+<!-- #INCLUDE INCLPATH="mainbottom.html" -->
+
+<DIV STYLE="height: 50px">
+</DIV>
+
+<SCRIPT TYPE="text/javascript">
+<!--
+document.write('<\/DIV>');
+// -->
+</SCRIPT>
+
+
+<!-- /#INCLUDE -->
+
+
+<!-- #INCLUDE INCLPATH="navigation.html" PREV="[manualPrevPage contextmenu.html]" 
+NEXT="[manualNextPage cmddoubleclick.html]" -->
+
+<P>
+<script type="text/javascript">
+<!--
+document.write('<div class="navigation" style="top: ' + height + 'px; height: 50px">');
+// -->
+</script>
+<A HREF="contextmenu.html">Previous page</A>
+<A HREF="cmddoubleclick.html">Next page</A>
+<SCRIPT TYPE="text/javascript">
+<!--
+document.write('<\/DIV>');
+// -->
+</SCRIPT>
+</P>
+
+<!-- /#INCLUDE -->
+
+
+</BODY>
+
+</HTML>

@@ -1,0 +1,686 @@
+
+Title:			MetafontHelp
+Project:        	Metafont mode doc
+Author:			Bernard DESGRAUPES <berdesg@easynet.fr>
+Homepage:		<http://perso.easynet.fr/~berdesg/alpha.html>
+Alpha-Version:		7.4
+AlphaTcl-Version:	7.5d13
+Modified:	 	2001-05-28 09:33:36
+  
+
+----------------------------------------------------------------------
+1. Introduction
+2. Installation
+   2.1. Automatic installation
+   2.2. Manual installation
+   2.3. After installing
+3. Description
+   3.1. Choose Metafont Mode  submenu
+   3.2. Processing Options submenu
+   3.3. Source Files  submenu
+   3.4. Convert Files submenu
+   3.5. Other Files submenu
+4. File marking
+5. The Mark pop-up menu
+6. The Functions pop-up menu
+7. Command double clicking a word
+8. Option clicking the title bar
+9. Completions
+10. Key bindings
+11. Metafont Mode preferences
+12. Version History
+13. Known problems
+14. License and Disclaimer
+----------------------------------------------------------------------
+
+
+----------------------------------------------------------------------
+
+					Abstract
+
+This is a help file for the Metafont mode in Alpha.
+This file should be located in the Help subfolder of Alpha's folder to
+show up automatically in the Help menu when Alpha is loaded.
+
+
+1. Introduction
+
+MetafontMode is a mode for the text editor Alpha: it is  designed  to  make
+writing, processing and testing  of  Metafont  source  files  much  easier.
+Metafont is the programming language written, as a  companion  to  TeX,  by
+Donald Knuth in  order to create characters, fonts, font families (and many
+other things). 
+
+Once Metafont mode is installed, the opening of a Metafont source file (i-e
+with extension ".mf") invokes a new menu (called Metafont !)  in  the  menu
+bar with the following features :
+
+¥ easy insertion of all the basic  Metafont  commands  (with  electric stops) 
+¥ syntax coloring
+¥ capacity to process a source file from  within  Alpha  with  various
+  flags, printer modes, input base files
+¥ editing of the log file
+¥ capacity to make the pk file, to make the dvi from the generic font,
+  to view the dvi;
+¥ creating and editing the property list for a font
+¥ capacity to manage ordinary and virtual fonts metrics, converting files 
+  with tftopl, pltotf, vptovf and vftovp
+¥ processing all the source files in a folder
+¥ file marking
+¥ ready to use template for new fonts
+¥ key bindings to choose the processing mode, process files etc.
+¥ word completion
+¥ command clicking on keywords and commands (to bring their definition)
+¥ option clicking on the title bar of a window to bring a list of .mf
+  and .log files located at the same level or in a  selected  folder  and
+  allowing to edit them.
+
+
+As of this release, both CMacTeX Metafont and OzMetafont are supported.
+
+
+2. Installation
+
+2.1. Automatic installation
+
+Open the "OPEN TO INSTALL" file. Opening this file indicates to Alpha  that
+a new package has to be installed  :  the  procedure  is  automatic.  Alpha
+knows  where to store the different elements of your Metafont Mode package.
+ 
+2.2. Manual installation
+
+¥ put the "Metafont Mode" folder in the "Modes" subfolder  of  the  "Tcl"
+folder which is located at the same level as your Alpha application
+
+¥ put the "Metafont Help" file in the "Help" folder located  at  the  same
+level  as your Alpha application. Next time you launch Alpha, you will have
+a "Metafont Help" item in the Help menu to edit this file.
+
+¥ launch Alpha. You have to  rebuild  the  package  indices  and  the  Tcl
+ones. "Rebuild Package Indices" is  in  the  Config--"Packages  menu,  and
+"Rebuild Tcl Indices" is in the Tcl menu.
+ 
+¥ quit Alpha and relaunch it : that's all there is to it. 
+
+
+2.3. After installing
+
+From now on, the opening of any file with the ".mf" extension  will  invoke
+the Metafont menu. Have a look at the mode specific  preferences  :  create
+or open any  Metafont source file and choose "Preferences..." in the "Mode 
+Prefs" submenu of the "Config" menu. You can set, for instance, the  name  
+of  the  printer mode corresponding to your printer, or indicate the path  
+of a working folder. More explanations below.
+
+
+
+3. Description
+
+Description of the Metafont Menu items :
+
+
+<Switch To Metafont>
+Launches the Metafont application in front
+<Run The Buffer>
+Calls up the Metafont application and processes the 
+current window
+<Save And Run>
+Saves the current window and calls up the Metafont 
+application to process it.
+<Run a File>
+Prompts you for a "mf" file to run.
+<Run a Folder>
+When pressing the option key "Run a File" becomes "Run a Folder"
+Prompts you for a folder of "mf" files to run.
+<Run Current Folder>
+When pressing the control key "Run a File" becomes "Run Current Folder"
+Metafont will execute all the "mf" files in the currently 
+selected folder if any. Its name is reflected at the bottom 
+of the "Other Files" submenu.
+
+
+3.1. Choose Metafont Mode  submenu
+The word mode has a different meaning for Alpha and
+for Metafont : here it means the Metafont's printer mode, the 
+one you specify when you (or Maketexpk) process a font.
+As usual with Metafont if no mode is specified, the 
+default is proof. You can choose among the following
+list. User Defined should be set in the Current
+Mode Prefs : it is the printer mode at your installation.
+If you do not know which mode corresponds to your
+installation, look in the modes.mf file which comes with your
+TeX distribution. You can edit this file directly in Alpha 
+from this Metafont Menu (see below).
+
+
+
+<Proof>
+To make proof characters at 2602 resolution (36 pixels per 
+point). No tfm file is produced in this mode.
+<Smoke>
+To make black proof characters. No tfm file 
+is produced in this mode.
+<Localfont>
+Use this mode when you do not know the printer mode's 
+name of your installation : if your administrator did his 
+job well, the "localfont variable" contains the printer mode.
+<User Defined>
+Comes as default as canonex : you set here what you want.
+
+	
+3.2. Processing Options submenu
+Define here any particular processing option allowed 
+by Metafont.
+
+
+
+<Mag...>
+Default value is 1, which means no magnification.
+<Magstep...>
+Default value is 0, which means no magnification
+Note that you choose a magnification either in mag or in magstep : 
+if you choose the magstep syntax, any choice you previously made 
+with mag will be omitted (and vice versa).
+<Base File...>
+You can specify a particular file (a base file for instance)
+which should be input before the file you want to process. Like in
+the command line :
+
+	 mf \mode=foo ; input somebasefile.mf ; input currentwindowfile.mf
+
+To cancel an input file you have to clear all options (see below the 
+menu item "Clear All Options")
+<Gfcorners>
+Option to draw corners at the corners of the box 
+containing each character. Works in smoke mode.
+<Imagerules>
+Option to draw the box of each character.
+<Nodisplays>
+Don't show the characters on the monitor : to build fonts 
+faster
+<Notransforms>
+Don't calculate any transformation if currenttransform is
+identity. To run faster.
+<Screenchars>
+Show each character once it has been calculated.
+<Screenstrokes>
+Show each character stroke after stroke while it is calculated
+<Clear All Options>
+Cancel all previously selected options.
+
+
+3.3. Source Files  submenu
+This submenu contains a hierarchical list of mf source files. You must set the 
+path to the folder containing the mf's in the Mode Prefs : the "Source Files"
+submenu reproduces the hierarchical structure of this folder.  The
+depth of nested subfolders can be set in the Prefs with the "Nesting Depth"
+variable. You can change it at any moment. If your main folder is to 
+big, you might run into memory problems : this can be solved by 
+increasing the memory allocated to Alpha. Choose a folder 
+corresponding to your needs, not necessarily the top one.
+Choosing any item in the "Source Files" menu will edit the corresponding file.
+
+
+<Rebuild Source List >
+In case new Otp's have been added, you can update the Otp List 
+		with this menu item.
+
+	
+	
+3.4. Convert Files submenu
+
+
+
+<Convert gf to pk>
+Invokes gftopk to transform the "gf" file produced after a run of
+Metafont to the "pk" (packed) format. This procedure reads in the
+log file to find the name of the gf file (which  depends  on  the
+mode chosen and the mag) : if the log file is missing,  it  won't
+work. Note that  with  OzMetafont,  pk  fonts  are  automatically
+produced when a source file is processed.
+<Convert gf to dvi>
+Invokes gftodvi to transform the "gf" file produced after  a  run
+of Metafont to a "dvi" (device independant) file. This  procedure
+reads in the log file to find the name  of  the  gf  file  (which
+depends on the mode chosen and the mag) :  if  the  log  file  is
+missing, it won't work. This item  is  present  only  when  using
+CMacTeX Metafont.
+<View dvi file>
+If a dvi file has been produced (see previous item) you can  view
+it with the dvi  previewer  (dvipreview  with  CMacTeX,  built-in
+previewer with Oz).
+
+
+The following items allow you to process a single file or all the 
+files in a selected folder :
+
+<Tfm to pl...>
+Prompts the user for a "tfm" file to convert  to  human  readable
+format : extension of these files will be "fpl"
+<Vf to vpl...>
+Prompts the user for a "vpl" file to convert to the corresponding
+"tfm" and "vf"
+<Pl to tfm...>
+Prompts the user for a "pl" file  in  human  readable  format  to
+compile a tfm file
+<Vpl to vf...>
+Prompts the user for "tfm" and  "vf"  files  to  convert  to  the
+corresponding "vpl"
+
+
+3.5. Other Files submenu
+
+
+<Open Log File>
+Edit in Alpha (read-only)  the  log  file  corresponding  to  the
+currentwindow and produced by a run of Metafont on  this  current
+window.
+<Open Property List >
+Open the property list file related to the current window (if  it
+exists, i-e if you have already converted the tfm to pl)
+<Open Modes.mf>
+Edit (read-only) the modes.mf file. It is the file containing the
+printer mode definitions for allmost all the available printers.
+<Open Plain.mf>
+Edit (read-only) the plain.mf file. It is the file containing the
+definition of all the basic Metafont macros.
+Note : you have to set the paths  to  these  files  in  the  mode
+specific preferences when you first use the Metafont Mode.
+<Remove Files>
+Sub menu to delete several types of files in the current folder :
+log, gf, pk, dvi, tfm, vf, pl, vpl. The pl files will be  removed
+only if they  have  the  plf  extension  (to  avoid  accidentally
+destroying Perl script files)
+<Select A Folder...>
+Use the "Select A Folder..." item to select another folder. 
+If a folder has already been 
+selected, its name will be recalled at the bottom of the "Other Files" 
+submenu. It says either
+<No Folder Selected>
+If no folder is currently selected.
+<Current Folder Is:>
+followed by the name of the currently selected folder otherwise.
+
+
+					
+<New Font Template>
+Builds a template for a complete new font source  file.  User  is
+asked for the number of characters in the font.
+<Make Short Menu / Make Long Menu>
+Toggle between short and long menu. The long menu adds  a  series
+of submenus containing  all  Metafont  commands  (primitives  and
+macros from the plain format).
+
+
+Any item you  choose  will  be  inserted  in  your  file  at  the
+cursor's current position with electric tabs for  those  commands
+which need arguments. In some cases, you will be asked to enter a
+number (see "makegrid" for instance). All the macros relevant  to
+a particular aspect have been    collected    together    in    a
+(supposedly) logical way:
+
+¥ "Boolean"
+¥ "Characters"
+¥ "Conditions"
+¥ "Debugging"
+¥ "Definitions"
+¥ "Displaying"
+¥ "Drawing"
+¥ "Font Internals"
+¥ "Functions"
+¥ "Internal Variables"
+¥ "Miscellaneous"
+¥ "Output"
+¥ "Paths"
+¥ "Pens"
+¥ "Pictures"
+¥ "Pixellisation"
+¥ "Positioning"
+¥ "Strings"
+¥ "Transformations"
+¥ "Modes Definitions"
+¥ "Variables"
+
+
+ NB : make use of the  option,  shift  and  command  keys  to  get
+variants of the macros. For instance, if you hold the option  key
+down, "addto contour" will become "addto contour withpen" ;  with
+the command key you will get "addto contour withweight"
+
+
+4. File marking
+
+Various elements are marked   :    macros    definitions,    character
+definitions, related  files,  input  files  etc.  and  can  be  easily
+accessed through pop-up menus and option or command clicking.
+
+
+5. The Mark pop-up menu
+
+If you choose to mark your file from the "M" pop-up menu (top right of
+your editing window), all the def, vardef and  beginchar  declarations
+in your source file  will  be  marked.  Remember  that  the  beginchar
+command is customizable (in the Mode Prefs) and any  change  you  make
+there will be taken into account for marking.
+If the 'Auto Mark' checkbox is checked  in  the  Prefs,  the  file  is
+automatically marked at opening.
+
+6. The Functions pop-up menu
+
+The "{}" pop-up menu  (top right of your editing window)  contains the
+functions and macros defined in your source file. We list here all the
+def, primarydef, secondarydef, tertiarydef and vardef  definitions  as
+well as the files input with an "input" command.
+
+7. Command double clicking a word
+
+If you Command-Double-Click on a keyword you  access  its  definition.
+This procedure looks first  for  a  definition  in  the  current  file
+itself, then in the list of primitives, then  in  the  plain  Metafont
+macros file and finally in the other text files located  in  the  same
+folder and  called  in  the  current  file  by  an    'input'  command
+(typically they are macros files).
+
+8. Option clicking the title bar
+
+If you Option-Click on a the title bar, you get a list of all the  .mf
+and .log files located :
+
+¥ in the "local" folder (folder of your current window). 
+¥ in the "selected" folder (selected when you process an entire folder 
+    with "Run A Folder" or in the "Remove Files" sub menu)
+
+
+Selecting any item in this list will open it in a window or bring  its
+window to front if it is already open.
+
+
+9. Completions
+
+There is a set of completion procedures in Metafont  Mode.  To  enable
+them, you must activate the "elecCompletion"  package  (in  "Config--"
+Preferences--" Menus and Features") and  choose  your  completion  key
+(default is F1).
+
+Completion will behave differently depending on the context.
+
+¥ First we have a set abbreviations and contractions.  Just  type  the
+following abbreviations and  hit  the  completion  key  to  have  them
+expanded to the entire word or to a complete structure :
+bc   	beginchar   endchar                
+bg   	begingroup    endgroup             
+dbp  	define_blacker_pixels              
+dcp  	define_corrected_pixels            
+dgxp 	define_good_x_pixels               
+dgyp 	define_good_y_pixels               
+dhcp 	define_horizontal_corrected_pixels 
+dp  	 define_pixels                      
+dwp 	 define_whole_pixels                
+dwvp 	define_whole_vertical_pixels       
+sc  	 screen_cols                        
+sr  	 screen_rows                        
+
+for      for    endfor;          
+def      def    enddef;          
+prim     primarydef    enddef;   
+sec      secondarydef    enddef; 
+ter      tertiarydef    enddef;  
+vardef   vardef    enddef;       
+forever  forever  endfor;        
+forsuffixes forsuffixes    endfor;  
+if       if    fi                
+
+cu'n 	currentpen        
+cu'p 	currentpicture    
+cu't 	currenttransform  
+cu'w 	currentwindow     
+di'p	 directionpoint    
+di't 	directiontime     
+re'a 	reflectedabout    
+ro'a 	rotatedaround     
+
+¥ You can  also  type  the  first  letters  of  a  word  and  hit  the
+completion key.  If  it  is  recognized  as  a  keyword,  it  will  be
+completed. If there are different possible completions, they  will  be
+listed in the status bar : hit the completion key again and  you  will
+have a list of all the possibilities from which you   can  select  the
+one you want.
+¥ With 'input' instructions : type 'input xx' and the proc  will  look
+for a known mf file whose name starts with 'xx'.  This  proc  searches
+among the mf files in the source directory defined in the  mode  prefs
+(and in ALL its subfolders).  If  the  source  directory  hasn't  been
+defined, it searches in the current folder and its subfolders.
+
+
+
+
+10. Key bindings
+
+A few key bindings are defined in Metafont mode. For all of them you have 
+to hit 'ctrl-m', release, then hit one of the following letters :
+'p', 's', 'l' or 'u'
+       to select respectively "p"roof, "s"moke, "l"ocalfont 
+       or "u"ser defined modes
+'b' to process the "b"uffer                      
+'f' to process a "f"ile                          
+'d' to process a "d"irectory                     
+'n' to create a "n"ew font template              
+'m' to edit the "m"odes file 'modes.mf'          
+'c' to edit the macro "c"ommands file 'plain.mf' 
+'g' to edit the lo"g" file                       
+'t' to convert "t"fm file to pl                  
+'i' to convert gf file to dv"i"                  
+'k' to convert gf file to p"k"                   
+'i' to "v"iew the d"v"i                          
+
+11. Metafont Mode preferences
+
+The "Preferences..." item in the "Mode Prefs" submenu  of  the  "Config"
+menu allows you to edit specific preferences for  the  Metafont  Mode.
+All of them should be self-explanatory.
+You can specify there :
+
+¥ the paths to the modes.mf and plain.mf files.
+¥ the name of the output folder in which to put the  files  produced  by
+Metafont, gftopk of tftopl
+¥ a "User Beginchar" : it is  customary  in  Metafont's  font  files  to
+modify the definition of the beginchar/endchar routine and  to  give  it  a
+different name : for  instance  "beginlogochar"  in  the  logo.mf  font  or
+"cmchar" in Computer Modern fonts or whatever. You can  specify  here  this
+modified name in order to get a correct file marking from  the  little  "M"
+pop-up menu on the top right corner of the current window.
+¥ the "Use Work Fold" flag can  be  set  if  you  want  to  designate  a
+different folder for output (with the "Mfwork Folder"  pref).  By  default,
+the output folder is the folder of the current window.  This  feature  will
+work only if you have CMacTeX Metafont version 2.2.1 or later.
+
+
+12. Version History
+
+
+- 1.0b1 -- 03/28/99 -- Created the Metafont Mode including the following
+features : new Metafont menu, submenus to insert  Metafont  macros  with
+electric stops, syntax colorizing.
+
+- 1.0b2 -- 03/30/99 -- Added file marking  :  all  the  def  and  vardef
+declarations are marked. All the beginchar environments are  marked  too
+(beginchar can be changed by the user).
+
+- 1.0b3 -- 04/02/99 -- Added submenu to choose  the  processing  options
+(screenchars, screenstrokes etc) and the Metafont  printer  mode.  Added
+direct editing of the modes.mf and plain.mf files. The  paths  to  these
+files is stored in the Current Mode Prefs.
+
+- 1.0b4 -- 04/06/99 -- Added Apple event to  have  CMaCTeX  process  the
+current window or any mf file. Added building of the entire command line
+that will be sent to Metafont.
+
+- 1.0b5 -- 04/07/99 -- Added error messages for  noncompatible  options.
+Problems of compatibility between mag and magstep resolved.  Editing  of
+the property list file (human readable translation of the tfm file)
+
+- 1.0b6 -- 04/08/99 -- Added conversion of gf file to pk file  from  the
+Metafont menu.
+
+- 1.0b7 -- 04/09/99 -- Improved error handling. Corrected a few bugs.
+
+- 1.0b8 -- 04/15/99 -- Made "Other Files" submenu dynamic. Includes  the
+name of the current files and rebuilds each time it is necessary :  when
+a window is changed, when a file has been processed etc.
+
+- 1.0b9 -- 04/17/99 -- Added alternate items in the menu : when pressing
+the option key, "Run a File" becomes "Run a  Folder"  etc.  We  can  now
+process a whole folder, convert all the processed files to pk;  all  the
+tfm to pl...
+
+- 1.0b10 -- 04/19/99 -- Added New Font Template.
+
+- 1.0b11 -- 04/21/99 -- Added T. Kiffe's  new  Apple  event  syntax  for
+CMacTeX Metafont to take the output folder into account.
+
+- 1.0b12 -- 04/27/99 -- Added support for OzMetafont.  Since  OzMetafont
+cannot receive a complete Mf command line  through  an  Apple  event,  a
+temporary make file is created and processed by the built-in MakeTeXPk
+
+- 1.0b13 -- 04/29/99 -- Extended the "make file" technique to a complete
+folder. Extended it to CmacTeX too. Runs much faster : the user  doesn't
+have anymore to confirm between each run of Metafont.
+
+- 1.0b14 -- 05/25/99 -- Corrected a bug concerning conversion of tfm  to
+pl. 
+
+- 1.0 -- 05/27/99 -- First public release of metafontMode (version 1.0).
+ 
+
+- 1.01 -- 05/29/99 -- Corrected a minor bug for  the  Metafont  menu  to
+build correctly with the newly released Alpha 7.2.
+
+- 1.01a -- 09/19/99 -- Corrected a bug due to new Alpha 7.2 syntax : old
+proc isPositiveInteger is replaced now by is::PositiveInteger.
+
+- 1.1.1 --  09/21/99  --  Started  a  Metapost  Mode.  This  will  be  a
+standalone mode so I have to change the name of the procedures  in  both
+modes to avoid interferences  :  all  procs  follow  the  "Mf::"  naming
+convention. rearranged the sub-menus.
+
+- 1.1.2 -- 12/02/99 -- Added a "Convert Gf to Dvi"  command  (only  with
+CMacTeX) along with a "View Dvi" command  in  the  submenu  "OtherFiles"
+Corrected a bug concerning the paths with  the  tfm  to  pl  conversion.
+Corrected multiple tftopl conversion routines.
+
+- 1.1.3 -- 12/16/99 -- Rewritten code to clarify the outputfolders'mess.
+A new flag "useWorkFold" has been added : if not set the  output  folder
+defaults to the current folder ; if  set  you  can  choose  a  different
+folder for the output (only with CMacTeX Metafont 2.2.1 or later)
+
+- 1.1.4 -- 01/12/00 -- Redesigned  the  "Other  Files"  menu  :  it  now
+indicates which is the currently selected folder. Added a few  items  to
+the "Remove Files" submenu. Added a  userEndchar  in  the  prefs  (since
+there was already a userBeginchar, this is logical) : they are  used  in
+the New Font Template (default values are  beginchar  and  endchar)  and
+with the "beginchar...endchar" menu item.
+
+- 1.1.5 -- 02/12/00 -- Corrected a bug : the vftovp menu  item  did  not
+work because of a typing error. Added a few keywords met in the pl files
+for syntax colorizing.
+
+- 1.1.6 -- 03/07/00 -- Added some menu items  concerning  pencircle  and
+pensquare : press the option or the command key to get variants. Added a
+proc to build a penstroke command : use  the  penstroke  item  with  the
+option key.
+
+- 1.1.7 -- 04/18/00 -- Added missing primitives to  the  Keywords  list.
+Improved the mark file procedure.
+
+- 1.1.8 -- 05/03/00 -- Added a lot of key bindings. Changed  some  basic
+code for future compatibility with Alpha 8 and AlphaTk.
+
+- 1.2 -- 05/08/00    --    Added    Mf::DblClick,    Mf::OptionTitlebar,
+Mf::OptionTitlebarSelect  and  Mf::parseFuncs  ad  hoc  procs.  Modified
+syntax colorizing to distinguish Metafont primitives from  plain  format
+macros. 
+
+- 1.2.1 -- 05/20/00 -- Added a "Source Files" subfolder to list  the  mf
+source files on the installation : top level folder  is  chosen  in  the
+mode prefs. Added a flag to en/dis-able this feature.  Added  completion
+procs. 
+
+- 1.2.2 -- 06/06/00 -- Improved the file marking proc  :  now  mark  the
+description string of a char if there is one or its character code.  Def
+and beginchar instructions are separated.
+
+- 2.0 -- 02/13/01 -- Rewritten Metafont Mode to make it compatible  with
+Alpha 7.4 and future Alpha 8. Modernised the Apple Events to make use of
+the new tclAE library.  Reorganized  the  menu  structure  and  added  a
+Convert File submenu. Possibility to switch between a short and  a  long
+menu. Changed license to BSD.
+
+- 2.0.1 -- 04/04/01 -- Suppressed unnecessary setmode in ShowBindings.
+
+- 2.0.2 -- 15/07/01 -- Update of  obsolete  removeArrDef  and  addArrDef
+procs. Corrected a bug at startup when user cancels choice of mf app.
+
+
+
+13. Known problems
+
+With versions of CMacTeX Metafont OLDER  than  2.2.1  (this  is  Metafont's
+version number, not CMacTeX version number), the output folder defaults  to
+the current window's folder. In this case, don't  change  it  in  the  mode
+specific preferences.
+
+The file extension for property lists (corresponding to fonts  metrics)  is
+'pl' which is the same as the extension of Perl script files :  this  means
+that when you open a pl file, it invokes automatically the Perl  menu.  The
+only thing you can do is to set Mf mode in the  popup  menu  at  the  right
+bottomof the screen.
+
+Due to a CMacTeX limitation concerning the tftopl, pltotf  etc.  programms,
+it is necessary to quit and relaunch the programms each time they are used.
+This leads to a semi-automatic processing of an entire  folder  :  user  is
+asked to click each time to guarantee that delays are  sufficient  for  the
+applications to perform their tasks. Mf itself is not concerned by this.
+So far only CMacTeX Metafont and OzMetafont are supported :  I'll  try
+to add support for Textures in the future if there is a demand for it.
+
+
+Please e-mail any problem or bug you encounter : <berdesg@easynet.fr>
+
+Visit my Metafont Web page for updates and the utilities for Alpha page:
+
+<http://perso.easynet.fr/~berdesg/metafont.html>
+
+<http://perso.easynet.fr/~berdesg/alpha.html>
+
+14. License and Disclaimer
+
+Copyright : Bernard Desgraupes, 2000, 2001
+        All rights reserved.
+
+This software is free software and distributed under the terms of  the  new
+BSD license :
+
+Redistribution and  use  in  source  and  binary  forms,  with  or  without
+modification, are permitted provided that the following conditions are met:
+
+¥ Redistributions of source code must retain the  above  copyright  notice,
+this list of conditions and the following disclaimer.
+¥ Redistributions in binary form must reproduce the above copyright notice,
+this list of conditions and the following disclaimer in  the  documentation
+and/or other materials provided with the distribution.
+¥ Neither the name of Bernard Desgraupes nor the names of its  contributors
+may be used to endorse or  promote  products  derived  from  this  software
+without specific prior written permission.
+
+This software is provided by the copyright holders and contributors "as is"
+and any express or implied warranties, including, but not limited  to,  the
+implied warranties of merchantability and fitness for a particular  purpose
+are disclaimed. In no event shall the regents or contributors be liable for
+any direct, indirect,  incidental,  special,  exemplary,  or  consequential
+damages (including, but not limited to, procurement of substitute goods  or
+services; loss of use, data, or profits; or business interruption)  however
+caused and  on  any  theory  of  liability,  whether  in  contract,  strict
+liability, or tort (including negligence or otherwise) arising in  any  way
+out of the use of this software, even if advised of the possibility of such
+damage. 
+

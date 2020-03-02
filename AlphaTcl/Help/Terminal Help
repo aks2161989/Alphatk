@@ -1,0 +1,531 @@
+###################################################################
+  Terminal package - help file
+ 
+  FILE: "Terminal Help"
+                                    created: 2001-07-21 17.52.59 
+                                last update: 2004-05-07
+  Author: Lars Hellström
+  E-mail: Lars.Hellstrom@math.umu.se
+  
+  History
+ 
+  modified   by  rev reason
+  ---------- --- --- -----------
+  2001-07-21 LH  1.0 original
+  2002-05-30 LH  1.1 updated for terminal v1.3
+  2002-12-29 LH  1.2 updated for terminal v1.4
+  2003-12-18 LH      updated for terminal v1.5
+  2004-05-07 LH      updated for terminal v1.5.1
+ ###################################################################
+
+
+	  	Abstract
+
+  The terminal package is a collection of Tcl routines and data structures
+  for providing a terminal and log file (similar to those of TeX) that can
+  be used both with the embedded interpreter of the Alpha text editor and
+  with a standard tclsh shell. terminal does not provide any mechanisms by 
+  which the user can provide direct input, so it can only emulate TeX's
+  \nonstopmode and \batchmode interaction modes.
+
+	  	Note
+
+  The full documentation for the terminal package are integrated with its 
+  sources, which (if you have them installled) can be opened and typeset 
+  by clicking on the following link: 
+               <<help::openSource {terminal terminal.dtx}; TeX::typeset>>
+  In the AlphaTcl CVS repository, these sources can be found in the
+  Developer/Source/terminal directory.
+
+
+
+	  	Introduction
+
+Most of the code in AlphaTcl is of the type which makes little or no sense
+outside the context of a text editor with Tcl as built-in command language,
+but some code is more generally useful and would make sense also if run by
+e.g. tclsh (the Tcl shell); such code very often performs the function of
+converting some data in one format to another format. Most programs
+performing such functions do however need to occasionally convey some
+information to the user -- usually some error or warning message although
+other kinds of information can also be useful, even if not quite as
+necessary -- but this is not easy when the code has to run on both Alpha
+and tclsh, due to the lack of a suitable communication channel. In tclsh,
+the obvious choice is the stdout (or possibly stderr) output stream, but
+this is hardly the case in Alpha. (Alpha 7 crashed when one tried to 
+puts stdout.) For Alpha, the logical channel would instead be text that is 
+inserted into a "shell" document window, but that makes no sense in tclsh. 
+In short, these are two quite different worlds.
+
+The solution to the dilemma is of course to introduce an API which lets 
+the calling program handle both cases uniformly and this is precisely what
+terminal is about. terminal provides procedures for printing text, and
+whether that means writing to an output stream or inserting the text into
+an editor window is something that the calling program should not worry
+about. In addition to this abstraction of the communication with the user,
+terminal also provides for recording what is printed on a “log” file, and
+some higher level procedures which provide more convenient operations than
+the mere printing of a string, even though that is of course available as
+well. Right now the communication is limited to textual messages from the
+program to the user as that is the most immediate need, but additions could
+be made if the need arises (and a suitable implementation is found). In
+particular, some way of asking the user to choose a file could be a
+valuable addition.
+
+As a Tcl package, terminal consists of the file "terminal.tcl". This is 
+installed as any normal Tcl package and should work on both Tcl 7 and 8 
+interpreters. From Tcl 8 the package is preferably loaded using the 
+command
+
+	package require terminal
+
+whereas on Tcl 7 it is up to the user to make sure that the file is 
+sourced. There is also a file "terminalPrefsAlpha.tcl" which is only 
+useful with Alpha. It allows the user to set preferences for the position 
+and size of the terminal window when terminal is run under Alpha, but it 
+does not define any of the terminal package commands.
+
+
+	  	Usage
+
+The terminal package deals with two targets for the output it conveys: the
+terminal and the log file. The terminal is either an Alpha window or an
+output stream (by default stdout). The log file is simply something opened 
+for writing using open; whether that then is a file on disk or something 
+else is up to the file system to sort out.  By default output goes
+identically to both targets, but that can be overridden both in specific
+cases and in general.  This is mainly used to let some output (such as
+verbose traces) go only to the log file, but it can be done the other way
+round too.  Furthermore a target must first be opened before any output is
+actually printed on it; this is primarily to accommodate for programs where
+keeping a log file would seem overly elaborated -- if you do not want it
+then you should not be forced to open it either.
+
+
+	  	 Commands for printing
+
+proc: terminal::print_word
+The main command one uses to print some text is the print_word procedure, 
+which has the syntax
+
+  terminal::print_word {before} {string} {after} {target}? {flush}?
+
+The {string} argument is the string that will be printed. There is no 
+restriction as to which characters the {string} may contain; the `word' 
+part of the command name refers instead to the fact that there is 
+generally some amount of whitespace (that is managed by the command) 
+around the {string}. The {before} and {after} arguments are used to 
+request that the {string} is separated from surrounding text by at least 
+some grade of whitespace: the possible values are none, space, newline, 
+and emptyline. If the entire {string} does not fit on what remains of 
+the line, then print_word will see to that it is printed on the beginning 
+of a line. The {flush} argument is a boolean for whether the target 
+should be flushed after the {string} has been printed. It defaults to 1 
+(flush).
+
+The {target} argument can be used to specify to what the string should be
+printed. This argument can be `term' (the terminal), `log' (the log file),
+`both', or `none' (which essentially turns the print_word command into a
+no-op). The most common value is probably log, for information considered
+too verbose to print on the terminal. If the {target} argument is omitted
+then the value of the terminal::selector variable is used. This is 
+initialized to both by default, but changing it to log would make a decent 
+emulation of TeX's \batchmode.
+
+proc: terminal::print
+Besides print_word, there is also a lower-level printing procedure which is
+part of the interface to terminal, namely terminal::print. It is similar to
+print_word, but it lacks the {before} and {after} arguments, and it never
+inserts any whitespace before or after the string it prints. I suspect that
+it is usually more efficient to do one print_word on a concatenated string
+than to do several prints on the parts, so it is not unlikely that you will
+never have to use print directly.
+
+Since some programs do not like very long lines, the terminal package 
+generally puts a bound on how long lines can be and inserts a line break 
+if they become too long. The bound is kept in the terminal::max_print_line
+variable and can be changed at any time. The default value is 79, which 
+limits the line width to 79 characters. The print and print_word procedures 
+do however react slightly differently to this limit. If the entire {string} 
+to print does not fit on what remains of the line, then |print_word| will 
+see to that it is printed on the beginning of the following line, but 
+|print| makes no such adjustment. If either procedure prints the 
+$max_print_line'th character on a line then they break the line after that 
+character and put the next character in the {string} first on the following 
+line.
+
+proc: terminal::print_block
+Another command which is occasionally useful is terminal::print_block. 
+It has the syntax
+
+  terminal::print_block {before} {indent} {line-list} {after} {target}? {flush}?
+
+The {line-list} argument is a list of lines that will be printed and the 
+{indent} is a string (which of course can be empty) that will be inserted 
+first in each line. The main difference to print_word is that these lines 
+are not broken no matter how long they are -- this is mainly useful if one 
+is given a block of preformatted text and has to print it as given no 
+matter how long the lines are. If anything but emptyline is given as 
+{before} or {after} then it is treated as newline.
+
+
+	  	 Opening and closing
+
+proc: terminal::term_open
+As was mentioned above, a target must be opened before anything can be
+printed on it, as output to closed targets is silently ignored. The
+terminal is opened using the procedure terminal::term_open, which has the
+syntax
+
+  terminal::term_open {clear} {title}? {file}?
+
+The {clear} argument is a flag for whether the terminal should be cleared 
+after opening; 1 means clear, 0 means leave as it was. Whether clearing 
+actually does anything depends on whether there is some way of defining and 
+doing that with whatever serves as the terminal; it currently has no effect 
+when the terminal is an output channel such as stdout. The {title} argument 
+can be used to specify a title for the terminal (again provided that there 
+is some way of defining and setting that for whatever serves as the 
+terminal). The {title} defaults to `*terminal*'. The {file} argument is 
+an identifier for an open channel to use for terminal output instead of 
+the default stdout. (An obvious alternative is stderr.) In Alpha, where 
+the terminal isn't a channel anyway, this argument is ignored. 
+ 
+proc: terminal::term_autoopen
+A convenient variation on this procedure is terminal::term_autoopen, which
+has the syntax
+
+  terminal::term_autoopen {banner} {clear} {title}? {file}?
+
+When run in tclsh, this is equivalent to
+
+	terminal::term_open $clear $title $file
+	terminal::print_block newline {} $banner newline term
+
+but when run in Alpha it tries to be more sophisticated. If the terminal
+window isn't already open, then nothing will be shown until something else
+is written to the terminal, but at that time the above code will indeed be
+executed. This is intended mainly for programs which only write something
+when an error occurs, since opening a terminal window to which nothing
+interesting will be written can look rather odd.
+
+proc: terminal::log_open
+The log file is similarly opened using the procedure terminal::log_open,
+which has the syntax
+
+  terminal::log_open {name}
+
+where {name} simply is the file system's name of the file to which the log
+shall be written. The file is opened in access mode w, so any previous
+contents in the file are deleted.
+
+proc: terminal::term_close
+proc: terminal::log_close
+proc: terminal::cleanup
+These opening procedures naturally have closing counterparts: the
+terminal::term_close and terminal::log_close procedures. Neither procedure
+takes any arguments. The log_close procedure actually effectuates a file
+close, but what term_close does is more of a disconnection (you usually
+don't want the text written to a terminal to disappear just because the
+program that wrote it doesn't have to write anything more). In either case
+though both terminal and log file should be closed if they are opened. To
+simplify this in case there has been any errors there is a procedure
+terminal::cleanup, which effectuates whatever closing operations are
+necessary.
+
+
+	  	 Printing error messages
+
+proc: terminal::print_err
+Since an important class of things written to the terminal will be error
+messages, there is some point in combining all the related printing actions
+in a single procedure call. This is what the terminal::print_err procedure
+is for. The syntax is
+
+  terminal::print_err {message} {location} {help}?
+
+where {message}, {location}, and {help} are all lists of strings, each of
+which correspond to one line of output. The {message} is the ``official''
+message that identifies the error and the {location} is something which
+specifies where the error was detected. The purpose of this argument is to
+give some clue to where something should be changed (usually a position in
+some input file) to avoid the error. The {help}, finally, can be used to
+give some clue to what one should probably do to fix the error. This
+argument is optional, but can be quite helpful if there is a good value for
+it. The {help} lines are only written to the log file. The print_err
+procedure adds a "! " to the beginning of each {message} line (BTW, one
+such line is usually sufficient) and it also adds a period to the end of
+the last line of the {message}. The print_err procedure ends by flushing
+the output.
+
+Each time print_err is called, it increments the terminal::error_count
+variable by one. When the value becomes greater than that of the
+terminal::max_error_count variable, print_err will generate the Tcl error
+`That makes <error_count> errors, please try again.'. The purpose of this
+is to stop programs that run amok generating an endless stream of error
+messages. If your program normally generates quite a lot of error messages,
+you might want to increase max_error_count; it is 100 by default, but it
+will not be overwritten if the value was already set when the terminal
+package is loaded. You can also clear the error_count whenever you want,
+even though it is probably a good idea to do so only in places where you
+know you're making progress. error_count is automatically cleared when you
+close the terminal or log file.
+
+
+
+	  	 Printing progress messages
+
+Another class of things written to the terminal are messages whose primary
+purpose is to show the user that some progress actually is being made on
+some lengthy job. In a communication channel where the contents can be
+updated this is rather straightforward, but in e.g. stdout where text is
+just being added one has to find a balance between printing something
+frequently enough to show that progress is being made and keeping the
+total amount to text written at a reasonably low level. The progress
+procedures have a number of features which facilitate maintaining this
+balance.
+
+The idea is to only print one character most of the time, but occasionally
+(by default every tenth time) print something more which gives some numeric
+information about how much work has been done. Thus a progress message
+might look something like
+
+	Processing. ---------- [40%] ---------- [80%] ----- Done.
+
+where `Processing.' and `Done.' are printed to mark the beginning and end
+of the message, whereas the hyphens are printed one at a time as the
+processing progresses. The bracketed expressions interrupting the sequence
+of hyphens are called markers.
+
+proc: terminal::make_progress
+The most commonly used command here is terminal::make_progress, which has
+the syntax
+
+  terminal::make_progress {amount}? {goal}?
+
+It is called to inform the user that progress has been made; the {amount}
+and {goal} numbers are integers telling how much has been done and how much
+should be done in total. The percentages in the example above are the
+quotients of {amount} to {goal} at that particular point.
+
+proc: terminal::begin_progress
+proc: terminal::end_progress
+Besides make_progress, there are also the terminal::begin_progress and
+terminal::end_progress procedures; these print the `Processing.' and
+`Done.' (both these strings may be changed by giving proper arguments to
+the procedures) in the above example.
+
+A typical example of how these procedures are used is
+
+	proc do_file {fname} {
+	   terminal::begin_progress -title "Reading `$fname'."\
+	     -percent [file size $fname] -mintime 300
+	   set fid [open $fname r]
+	   while {[gets $fid line]>=0} {
+	      ##
+	      # Do some processing of $line
+	      ##
+	      terminal::make_progress [tell $fid]
+	   }
+	   close $fid
+	   terminal::end_progress
+	}
+
+Here there is no {goal} argument to make_progress since the goal never
+changes; instead that number is given after the -percent option to
+begin_progress. This options is one of the three begin_progress options
+that select the marker format:
+
+• -absolute
+  Selects the absolute marker format `[<amount>]', where the numerical
+  values printed are simply the {amount} argument of make_progress. In 
+  this format, the {goal} amount is never used.
+
+• -percent {goal}
+  Selects the percentage marker format (as shown above), with {goal} as 
+  the goal amount. 
+
+• -fraction
+  Selects the fraction marker format `[<amount>/<goal>]'.
+
+If none of these options are used then make_progress prints hyphens, but
+never any markers. This is mainly useful if there is no quantity which can
+serve as {amount}. The fraction marker format is mainly intended for cases
+where the goal amount can change -- this occurs for example when the amount
+is a some number of files to process and files can include other files with
+the effect that these too will have to be processed -- and the goal amount
+is then updated using the {goal} argument of make_progress (if there is no
+such argument, then the most recently specified goal amount is used). It is
+always possible to initialise the goal amount in the call begin_progress,
+by using the -goal option:
+
+• -goal {goal}
+  Sets the goal amount to {goal}.
+
+Another lone option is:
+
+• -title {beginning}
+  Sets the string printed at the beginning of a progress message. 
+  Defaults to `Processing.' if not given.
+
+A companion of this option is however that end_progress takes as 
+an optional argument a string to print at the end of the processing 
+message. The default for this argument is `Done.'.
+
+The following three options are used to control how often make_progress 
+will print a marker.
+
+• -callsep {call separation}
+  This requests that make_progress must print at least {call separation}
+  hyphens between each marker printed. The default is 10. Setting this to 0
+  removes this restriction.
+   
+• -relsep {relative separation}
+  This requests that the quotient of {amount} to {goal} must have increased
+  by at least {relative separation} between two successive markers. The
+  default value is 0, which means nothing is requested. A {relative
+  separation} of 0.01 means that it has to increase by at least one
+  percentage point. This condition is ignored if no {goal} value has been
+  given.
+   
+• -abssep {absolute separation}
+  This requests that {amount} must have increased by at least {absolute
+  separation} between two successive markers. The default value is 0, which
+  means nothing is requested.
+
+Finally, there are three options which can reduce the amount of time spent 
+reporting progress (and thus in particular the number of hyphens printed by 
+make_progress). The mechanism behind these is that make_progress begins 
+with a test related to these options, and if that test fails then 
+make_progress returns without printing a hyphen or even interpreting its 
+arguments; the make_progress call is (so to say) effective only if the 
+test succeeds. Exactly which tests are performed depends on the Tcl 
+version used, and therefore a calling program might be best off specifying 
+two options to cover all cases.
+
+• -mintime {milliseconds}
+  This option controls a test used in Tcl 8. The {milliseconds} is a 
+  bound on the wall clock time that should elapse between two effective 
+  make_progress calls. (Internally the test is implemented using the after 
+  and update commands.)
+
+• -mincmds {command count}
+  This option controls a test based on [info cmdcount] (the number of 
+  Tcl commands that have been evaluated in the interpreter); this test 
+  is used in all Tcl versions. The {command count} value is the minimal 
+  number of commands that should be evaluated between two effective 
+  make_progress calls.
+
+• -period {period}
+  This option used to control a test based on the number of times 
+  make_progress has been called since the last effective call to it, 
+  but now it controls the same test as the -mincmds option. To make 
+  the effect somewhat comparable however, the {period} number is 
+  multiplied by 100 before it is used as a {command count}.
+
+
+All of the above has described what is written to the log file and stdout
+(when that serves as terminal), but when the terminal is an Alpha window,
+only the beginning and end strings are written to it. The user is instead
+given numerical information about the progress through a message shown on
+the status bar. The exact format of this message depends on which marker
+format is selected, but it is generally more verbose than the markers (as
+the information doesn't accumulate, there is no need to keep it short).
+
+Printing other things between the corresponding calls to begin_progress and
+end_progress is not a problem, but it is probably a good idea to ensure
+that this material is separated from what is before and after it by
+newlines. This is automatically the case for material printed using
+print_err.
+
+
+	  	 The AlphaTcl package and its preferences
+
+There are in fact two AlphaTcl packages associated with the terminal 
+Tcl package--the terminal library and the terminalPuts feature. This 
+division stems from their respective inpacts on the Alpha user 
+environment; terminal provides some code and preferences which do nothing 
+unless explicitly called upon, whereas terminalPuts redefines the puts 
+command to use the *terminal* window for the stdout and stderr channels. 
+Since terminalPuts is secondary, the deinstallation information is tied 
+to the terminal library.
+
+There are three AlphaTcl preferences associated with the terminal 
+package. These become available for editing in the 
+"Config > Preferences > Package Preferences > Terminal Prefs" dialog 
+when the terminalPuts package is activated. They are also available as 
+the mode preferences when the terminal window is the current.
+
+Window Geometry:
+    This preference can be used for setting a default size and 
+    position for the terminal window.
+
+Max Print Line:
+    This is a default value for the maxPrintLine variable, that places
+    a limit on how long the lines written using print_word and friends 
+    may be. This is useful if you set the terminal window to be narrow.
+
+Take Over Puts:
+    This flag is only declared if terminalPuts is active. It controls 
+    a hack that redefines [puts stdout] and [puts stderr] so that text 
+    written to these files will instead show up in the terminal window. 
+    When the flag is on, terminal redefines the puts command. Turning 
+    the flag off (or deactivating the terminalPuts feature) restores 
+    the default definition.
+
+    Since the built-in [puts stdout] crashes Alpha7, this flag 
+    noticably improves the puts command in that program.
+
+All windows opened by terminal::term_open and terminal::term_autoopen 
+have "Term" as mode (although there is no declaration of that mode as 
+an Alpha package; it turns out that isn't needed). This can be useful 
+if you want to add for example syntax colouring to terminal windows.
+
+
+	  	 Notes
+
+In their current state, the mechanisms provided by terminal (with the
+exception of the progress message stuff) are modelled after how TeX behaves
+when it is in the \nonstopmode interaction mode. If ways for the user to
+interact with the program are added then it might be possible to simulate
+the \scrollmode and \errorstopmode as well.
+
+The progress stuff has no immediate counterpart in TeX, though -- if it 
+looks terrible then I am to blame.
+
+The terminal commands do not give special treatment to linefeed or 
+carriage return characters in the string printed, meaning these are 
+passed straight through as any other character, but there usually are 
+underlying mechanisms which use either of these characters to signify 
+a new line. Thus if the terminal commands are asked to print strings 
+containing linefeeds or carriage returns then new lines may start at 
+times where you did not expect it. The general cure to this is to 
+[split] any string that may contain newlines into a list of lines and 
+then print this list using terminal::print_block.
+
+
+	  	An example
+
+An example of what the terminal package can do can be found in the file
+"Terminal-Example.tcl". This file contains a script which finds the 
+undocumented Tcl commands that are built into Alpha, using the terminal 
+package to report its finds.
+
+
+
+	  	Licence
+
+The terminal package is Copyright (C) 2001 2002 2003 Lars Hellström  
+<Lars.Hellstrom@math.umu.se>
+
+Tcl-style license:
+The author hereby grants permission to use, copy, modify, distribute,
+and license this software and its documentation for any purpose, provided
+that existing copyright notices are retained in all copies and that this
+notice is included verbatim in any distributions. No written agreement,
+license, or royalty fee is required for any of the authorized uses.
+Modifications to this software may be copyrighted by their authors
+and need not follow the licensing terms described here, provided that
+the new terms are clearly indicated on the first page of each file where
+they apply.
+

@@ -1,0 +1,261 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+
+<HTML>
+
+<HEAD>
+
+<TITLE>Document type declaration</TITLE>
+
+<LINK HREF="../Style%20Sheet/manual.css" REL="stylesheet" TYPE="text/css">
+
+
+</HEAD>
+
+<BODY>
+
+<!-- #INCLUDE INCLPATH="maintop.html" -->
+
+<SCRIPT TYPE="text/javascript">
+<!--
+if (document.body.clientHeight) {
+	height = document.body.clientHeight - 50;
+} else {
+	height = window.innerHeight - 50 ;
+}
+document.write('<div class="main" style="height: ' + height + 'px;">');
+// -->
+</SCRIPT>
+
+
+<!-- /#INCLUDE -->
+
+
+<H1>Document type declaration</H1>
+
+<P>
+A valid HTML or XHTML document has to include a document type declaration, which 
+specifies which version of HTML or XHTML is used in the document. There is usually 
+no harm in leaving it out as browsers ignores this information, but other 
+tools such as validators often require a document type declaration. 
+</P>
+
+<P>
+Alpha 
+also uses the document type declaration to only let you use the HTML elements 
+and attributes belonging to the HTML or XHTML version specified. If a document 
+contains a document type declaration then Alpha does the following.
+</P>
+
+<UL>
+	<LI>The menu items for those elements not in the HTML or XHTML version specified 
+	are disabled.
+	<LI>The attributes not in the HTML or XHTML version specified are treated as if 
+	they belonged to the category <SPAN CLASS="item">Never ask about</SPAN> 
+	as discussed on the <A HREF="askedabout.html">previous page</A>. Thus 
+	Alpha treats them as non-existing.
+</UL>
+
+<P>
+<STRONG>Note.</STRONG> Alpha understands the document type declarations
+for HTML 4.0 and 4.01 and XHTML 1.0 and 1.1 and ignores all other ones.
+</P>
+
+<P>
+The specification for HTML 4.0 was released 18 December 1997 and HTML 
+4.01, which is a small update was released 24 December 1999. HTML 4.01 is the 
+current [July 2003] official version of HTML. The specification for XHTML 
+1.0 was released 26 january 2000, and the specification for XHTML 1.1 was 
+released 31 May 2001. 
+</p>
+
+<P>
+HTML 4.01 and XHTML 1.0 both specifies three 
+document type definitions (DTDs), which vary in the elements they support.
+</P>
+
+<DIV>
+<SPAN CLASS="item">Strict</SPAN>
+</DIV>
+
+<DIV CLASS="indent">
+Includes all elements and attributes that have not been deprecated (<A 
+HREF="#deprecated">see below</A>) or do not appear in frameset documents. 
+For HTML documents that use this DTD, use this document type declaration:</DIV>
+
+<P CLASS="codeindent">
+&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"&gt;
+</P>
+
+<DIV CLASS="indent">
+For XHTML documents that use this DTD, use this document type declaration:</DIV>
+
+<P CLASS="codeindent">
+&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"&gt;
+</P>
+
+<DIV>
+<SPAN CLASS="item">Transitional</SPAN>
+</DIV>
+<DIV CLASS="indent">Includes everything in the strict DTD plus deprecated
+elements and attributes (most of which concern visual presentation such as 
+alignment and colors). For HTML documents that use this
+DTD, use this document type declaration:
+</DIV>
+
+<P CLASS="codeindent">
+&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"&gt;
+</P>
+
+<DIV CLASS="indent">
+For XHTML documents that use this DTD, use this document type declaration:</DIV>
+
+<P CLASS="codeindent">
+&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"&gt;
+</P>
+
+<DIV>
+<SPAN CLASS="item">Frameset</SPAN>
+</DIV>
+
+<DIV CLASS="indent">
+Includes everything in the transitional DTD plus frames as well. For HTML
+documents that use this DTD, use this document type declaration:
+</DIV>
+
+<P CLASS="codeindent">
+&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN"&gt;
+</P>
+
+<DIV CLASS="indent">
+For XHTML documents that use this DTD, use this document type declaration:</DIV>
+
+<P CLASS="codeindent">
+&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN"&gt;
+</P>
+
+<P CLASS="indent">
+This document type declaration must be used and should only be used for 
+documents defining the frames layout, i.e. documents containing FRAMESET and 
+FRAME elements. For documents defining the content of the frames use either 
+the strict or transitional DTD. If you want to use the attribute TARGET, 
+then you have to use the transitional DTD.
+</P>
+
+<H3>XHTML 1.1</H3>
+
+<P>
+XHTML 1.1 is very similar to XHTML 1.0 Strict, but has been defined to be 
+module-based. Its document type declaration is
+</P>
+
+<P CLASS="code">
+&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"&gt;
+</P>
+
+<H3><A NAME="deprecated">Deprecated elements and attributes</A></H3>
+
+<P>
+Some elements and attributes are defined as deprecated in the HTML 4.01 and 
+XHTML 1.0 specifications. A deprecated element or attribute is one that has been 
+outdated by newer constructs such as style sheets. Deprecated elements may 
+become obsolete in future versions of HTML.
+</P>
+
+<P>
+The deprecated elements are APPLET, BASEFONT, CENTER, DIR, FONT, ISINDEX, 
+MENU, S, STRIKE, and U. The deprecated attributes are mostly the ones which 
+concerns presentation, such as alignment and colors.
+</P>
+
+<H3>Extensions to HTML 4.01</H3>
+
+<P>
+Alpha support some extensions to HTML 4.01 which were introduced by Netscape 
+or Microsoft. For documents with a HTML 4.01 document type declaration these 
+are obviously disabled. If you want to use extensions do not use a document 
+type declaration in your documents. The elements which are extensions are 
+MULTICOL, SPACER, NOBR, WBR, MARQUEE, BLINK, BGSOUND, EMBED, NOEMBED, 
+KEYGEN, SERVER, LAYER, ILAYER, and NOLAYER.
+</P>
+
+<H3>Preferences related to DTDs</H3>
+
+<DIV>
+<IMG SRC="../bilder/attrsglobally.png" ALT="DTD related prefs" WIDTH="404"
+HEIGHT="181">
+</DIV>
+
+<P>
+In the global attribute preferences dialog you can specify two preferences 
+which are related to the DTDs.
+</P>
+
+<DIV>
+<SPAN CLASS="item">Don't use extensions to HTML 4.01</SPAN>
+</DIV>
+
+<DIV CLASS="indent">
+HTML elements not included in HTML 4.01 will be disabled in the menu, and 
+attributes not included in HTML 4.01 will not be asked about. Exactly the 
+same set of elements and attributes are used as if the document had 
+included a frameset document type declaration.
+</DIV>
+
+
+<DIV CLASS="itempara">Don't use deprecated elements and 
+attributes</DIV>
+
+
+<DIV CLASS="indent">Deprecated elements will be disabled in the menu and 
+deprecated attributes will not be asked about (this includes the 
+extensions). The set of elements and attributes and those in the strict DTD 
+plus the ones used for frames. Use this setting when you are defining 
+frames documents but don't want to use deprecated elements or 
+attributes.</DIV>
+
+
+<P>
+When any of these two settings apply and there is also a document type 
+declaration in the document, the largest set of elements and attributes 
+allowed both by the settings and the DTD is used.
+</P>
+
+<!-- #INCLUDE INCLPATH="mainbottom.html" -->
+
+<DIV STYLE="height: 50px">
+</DIV>
+
+<SCRIPT TYPE="text/javascript">
+<!--
+document.write('<\/DIV>');
+// -->
+</SCRIPT>
+
+
+<!-- /#INCLUDE -->
+
+
+<!-- #INCLUDE INCLPATH="navigation.html" PREV="[manualPrevPage askedabout.html]" 
+NEXT="[manualNextPage templatestops.html]" -->
+
+<P>
+<script type="text/javascript">
+<!--
+document.write('<div class="navigation" style="top: ' + height + 'px; height: 50px">');
+// -->
+</script>
+<A HREF="askedabout.html">Previous page</A>
+<A HREF="templatestops.html">Next page</A>
+<SCRIPT TYPE="text/javascript">
+<!--
+document.write('<\/DIV>');
+// -->
+</SCRIPT>
+</P>
+
+<!-- /#INCLUDE -->
+
+
+</BODY>
+
+</HTML>

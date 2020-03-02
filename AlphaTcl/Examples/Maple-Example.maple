@@ -1,0 +1,200 @@
+# -*-Mapl-*- (nowrap)
+# ====================================================================
+#### GROMOV-WITTEN INVARIANTS FOR PROJECTIVE SPACE
+#### Reference:  M. Kontsevich & Yu. Manin, Gromov-Witten classes, quantum 
+#### cohomology, and enumerative geometry, Comm. Math. Phys. 164, (1994), 
+#### 525--562,  (hep-th/9402147)
+#### 
+#### r is the dimension of the projective space
+#### d is the degree
+#### classlist is a list of non-negative integers: for example the
+#### number 3 denotes the class h^3.
+#### Example: GW(3,3,[3,3,3,3,3,2,2]) = 5 is the number of twisted
+#### cubics passing through 5 points and incident to 2 lines (in P^3).
+# ====================================================================
+GW := proc( r::posint, d::nonnegint, classlist::list(nonnegint) )
+  local n, class, totalcodim, i, dimofM, gamma, res, lambda1, lambda2, S, s,
+  Amarks, Bmarks, codimA, nA, e, dA, dB;
+  option remember;
+  n := nops(classlist);
+  
+  #### Special case of d = 0:  ##############################################
+  if d = 0 then
+    if n = 3 then
+      totalcodim := sum(classlist[i],i=1..n);
+      if totalcodim = r then
+	RETURN (1)
+      fi;
+    else
+      RETURN (0)
+    fi;
+  fi;
+  
+  #### There are no 0-pointed or 1-pointed GW-invariants: ###################
+  if n = 0 or n = 1 then
+    RETURN (0)
+  fi;
+  
+  #### The only 2-pointed GW-invariant is "One line through two points" #####
+  if n = 2 then
+    if d = 1
+      and classlist[1] = r
+      and classlist[2] = r then
+      RETURN (1);
+    else
+      RETURN (0)
+    fi;
+  fi;
+  
+  #### SO FROM HERE ON: n \geq 3
+  
+  #### First we make a simple dimension check: ##############################
+  for class in classlist do
+    if class > r then
+      RETURN (0)
+    fi; 
+  od;
+  totalcodim := sum(classlist[i],i=1..n);
+  dimofM := r*d + r + d + n - 3;
+  if totalcodim <> dimofM then
+    RETURN (0)
+  fi;
+  
+  #### sort the list so the lowest codimension comes last
+  gamma := sort( classlist , omvendt);
+  
+  #### if the lowest codimension is 0 or 1, we can reduce: ##################   
+  if gamma[n] = 0 then
+    if n <> 3 then
+      RETURN (0)
+    fi;
+    if totalcodim <> r then
+      RETURN (0)
+    fi;
+    if d = 0 then
+      RETURN (1)
+    fi;
+  fi;
+  if gamma[n] = 1 then
+    res := d * GW(r,d, [op(1..n-1, gamma)]);
+    RETURN (res);
+  fi;
+  
+  #### If we are in \P^2, use Kontsevich's formula: #########################
+  if r = 2 then
+    if classlist = [ seq( 2, i=1..(3*d-1)) ] then
+      RETURN( planeN(d) );
+    else
+      RETURN( 0 );
+    fi;
+  fi;
+  
+  #### THE MAIN COMPUTATION (recursion step) ################################
+  
+  # We place ourselves in the space $\ov M_{0,n+1}(\P^r,d)$.
+  # Here we consider the "curve" given as the pull-back of the following
+  # classes: gamma[1] ,..., gamma[n-1] , lambda1 , lambda2 , where
+  
+  lambda1 := gamma[n] - 1;
+  lambda2 := 1;
+  
+  # Intersect with the two equivalent divisors
+  # LHS:   D(  lambda1,lambda2   | gamma[n-1],gamma[n-2] )
+  # RHS:   D( lambda1,gamma[n-1] | lambda2,gamma[n-2]    )
+  #
+  # The result is a big sum
+  # The first n-3 marks gamma[1],...,gamma[n-3] must be distributed on A and B
+  # We must sum over all such partition, and all partitions dA + dB = d
+  # (and over all i=0,...,r to account for the gluing point)
+  #  
+  # The only contribution with dA=0 are:
+  # LHS:   GW(lambda1,lambda2,r-gamma[n]) * GW(gamma)  (the number we want...)
+  # RHS:   GW(lambda1,gamma[n-1],r-lambda1-gamma[n-1]) * 
+  #                GW(lambda2,op(1..n-2,gamma),lambda1+gamma[n-1]
+  # so (for the time being):
+  
+  res := GW(r,d,[ lambda2,op(1..(n-2),gamma),lambda1+gamma[n-1] ]);
+  
+  # Here comes the big sum:
+  S := BiPart([op(1..n-3, gamma)]);  #the marks we can distribute freely
+  for s in S do
+    Amarks := s[1];
+    nA := nops(Amarks);
+    codimA := sum( Amarks[jj], jj=1..nA );
+    Bmarks := s[2];
+    for dA from 1 to d do
+      dB := d - dA;
+      e := r*dA + r + dA + nA - codimA - lambda1 - gamma[n-1];
+      if e >= 0 and e <= r then
+	res := res + GW(r,dA,[lambda1,gamma[n-1],op(Amarks),e]) *
+	GW(r,dB,[lambda2,gamma[n-2],op(Bmarks),r-e]);
+      fi;
+      e := r*dA + r + dA + nA - codimA - lambda1 - lambda2;
+      if e >= 0 and e <= r then
+	res := res - GW(r,dA,[lambda1,lambda2,op(Amarks),e]) *
+	GW(r,dB,[gamma[n-1],gamma[n-2],op(Bmarks),r-e]);
+      fi;
+    od;
+  od;
+  RETURN (res);
+end:
+
+#=====================================================================
+planeN := proc(d::posint)
+  local dA, dB, res;
+  option remember;
+  if d > 1 then
+    res := 0;
+    for dA from 1 to d-1 do
+      dB := d-dA;
+      res := res + planeN(dA) * planeN(dB) * dA * dB *
+      ( dA*dB*binomial(3*d-4,3*dA-2) - dA^2*binomial(3*d-4,3*dA-1) );
+    od;
+    RETURN( res );
+  fi;
+  planeN(1) := 1;
+end:
+
+
+
+
+#=====================================================================
+omvendt := proc(a,b) 
+  if a>b then 
+    RETURN (true) 
+  else 
+    RETURN (false)
+  fi;
+end:
+
+
+#=====================================================================
+# This proc makes a list of pairs: each pair is a partition of L into two 
+# disjoint subsets (lists)
+BiPart := proc(L)
+  local n,k,R,r,res,i;
+  option remember;
+  n := nops(L);
+  if n = 0 then
+    RETURN ( [[[],[]]] );
+  elif n = 1 then
+    k := L[1];
+    RETURN ( [  [[],[k]]  ,  [[k],[]]  ] )
+  else #recursion
+    R := BiPart( [op(1..n-1, L)] );
+    r := nops(R);    # it should be 2^{n-1}:
+    res := [
+    op( [ seq( [ app( R[i][1],L[n] ) , R[i][2] ] , i=1..r )  ] )  ,
+    op( [ seq( [ R[i][1] , app( R[i][2],L[n] ) ] , i=1..r )  ] )
+    ];
+    if nops(res) <> 2^n then
+      ERROR (`SOMETHING WENT WRONG`)
+    fi;         
+    RETURN (res);
+  fi;
+end:
+
+#=====================================================================
+app := proc(LL,aa)  [op(LL),aa] 	end:
+
+

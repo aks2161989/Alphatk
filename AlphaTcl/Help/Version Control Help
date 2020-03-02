@@ -1,0 +1,245 @@
+
+Version Control Help
+
+
+                                              created: 03/03/1997 {11:44:50 AM}
+                                          last update: 12/15/2004 {11:39:05 AM}
+
+
+This help file describes the "Version Control" package.
+
+
+	  	Table Of Contents
+
+
+"# Introduction"
+"# The VCS Menu"
+"# Filesets and VC Systems"
+"# Version Control Preferences"
+"#   Global Preferences"
+"#   Fileset Preferences"
+
+"# VC operations"
+"# VC 'state'"
+"# VC Limitations"
+
+"# Copyright"
+
+<<floatNamedMarks>>
+
+
+	  	Introduction
+
+
+The core AlphaTcl library incorporates the rudiments of a general version
+control package.  This allows you to use Alpha to open, check out, check in,
+diff, merge,...  files with respect to some local or remote file repository.
+The version control support is designed to allow you to use many different
+version control packages (cvs, voodoo, perforce, etc) at the same time.
+
+The package named "Version Control" is always turned on, but you will need
+to do a little configuring to make it work for a given window.  Other
+packages are provided to plug in to the general vc system.
+
+Currently four such packages are available:
+
+    package: vcPerforce
+    package: vcCvs
+    package: vcVoodoo and 
+    package: vcLocal
+
+This last package is basically a means to keep two file trees, both a
+'repository' and a working-tree.  Files are edited in the working tree, and
+checked in/out of the repository tree.
+
+Version Control is only available for files that are part of a currently
+recognized fileset, see "# Filesets and VC Systems" below.
+
+
+	  	The VCS Menu
+
+
+Each window has a version control popup-menu, towards the top right corner,
+above the marks menu.  The icon of this menu might be a padlock, a pencil,
+or simply "V".
+
+The VCS menu can also be accessed via the package: contextualMenu.  Just
+adjust your Contextual Menu preferences by checking the box which is next
+to "VCS Menu".
+
+Preferences: ContextualMenu
+
+This new Contextual Menu menu will simply be a mirror of the one found in
+each window's sidebar.
+
+
+	  	Filesets and VC Systems
+
+
+The VC code needs to know what version control system to use for a given
+file.* (A particular version control package is associated with a given set
+of files, so any one file must of course only be under one kind of version
+control.)  The way you associate files with a specific VC tool in Alpha is
+via the package: filesets.  If you don't already have a fileset which
+includes the files you want to use a version control system on, you need to
+create one.  If you'd like the files to be in the Fileset Menu, you
+probably should use a 'From Hierarchy' or 'From Directory' fileset.  You
+can also create a simpler 'Recurse In' fileset, which will allow Alpha to
+know about the fileset ('behind the scenes', as it were), though other
+fileset actions might not then be available.  See "Filesets Help" for more
+information.
+
+The VCS pop-up menu always includes an "Edit Fileset" item in the bottom
+section which will open the settings for the fileset associated with the
+current window.
+
+* If a 'CVS' directory is present in the folder containing the active
+window and no other VC system has been established for that file, the VC
+menu will automatically assume that you're using CVS as your VC tool.
+
+
+	  	Version Control Preferences
+
+
+There are two types of preferences that you might need to set in order to
+properly use this feature.
+
+
+	  	 	Global Preferences
+
+The first type of preferences are 'global' ones associated with this package,
+use the "Config > Preferences > Packages > Version Control" dialog pane to
+inspect/change them.  This dialog is also available by selecting the pop-up
+menu item "VCS Menu > Version Control Prefs".
+
+Preferences: versionControl
+
+Some of these preferences are for the location of your CVS/Perforce/Voodoo
+applications.
+
+Another global 'flag' preference is named
+
+	Add Name Of System To Popup
+
+If this is set, then the name of the current VC tool is listed in the VC
+pop-up menu as a quick reminder -- this is mainly useful only if you use
+different VC tools for different filesets.
+
+
+	  	 	Fileset Preferences
+
+The second type of preferences are associated with the fileset of the current
+window.  Each fileset you define can have various additional pieces of
+information attached to it.  One of these is the version control system.
+After activating the "Version Control" feature, you need to use the menu item
+"Filesets > Utilities > Edit A Fileset" and take a look at the popup menu from
+which you can select one of the VC tools such as Cvs, Perforce, Voodoo etc.
+
+<<editAFileset>>
+
+This dialog is also available by selecting the "VCS Menu > Fileset Prefs"
+pop-up menu item.
+
+Depending on the VC tool that you have selected, you might need to set
+additional information -- see these package help file hyperlinks for more
+information:
+
+    package: vcPerforce
+    package: vcCvs
+    package: vcVoodoo and 
+    package: vcLocal
+
+Note that in some cases you must perform an <<editAFileset>> change, close the
+dialog, and then edit the fileset again to see the new options that are
+available.  Yes, this is somewhat cumbersome, and we'll see if we can clean up
+this user interface to make it easier to set the appropriate information.
+
+Once you have a fileset associated with a given file, Alpha automatically
+places relevant version control actions in the VCS pop-up menu that will be
+specific to each window.
+
+
+	====================================================================
+
+
+	  	VC operations
+
+
+Currently you may carry out any of the following operations:
+
+	add 
+	checkIn 
+	undoCheckout 
+	makeWritable 
+	checkOut
+	refetchReadOnly 
+	fetchReadOnly
+	showDifferences
+    
+although some may not be 100% implemented yet.  The specific items in the menu
+will usually reflect the terminology used by the VCS tool.
+    
+to be continued...
+
+
+	  	VC 'state'
+
+
+On the Mac, the version-control state of a file may be indicated by a 'ckid'
+resource.  This resource is added by the VCS tool and contains information
+about the check-out status of the file.
+
+If you wish Alpha to respect this resource (you should!), select the menu
+item "Config > Preferences > Input-Output Prefs > Files" and turn on the
+preference named "Version Control Aware".
+
+Preferences: Files
+
+This preference also affects the default "Version-Control Aware" checkbox 
+in Alpha's "File > Open" dialog, as in <<findFile>>.
+
+Alpha8/X will warn you if this 'ckid' resource is inconsistent with your
+selected VCS system.  There are very few reasons why you should wish to
+track a single file with more than one VCS tool.
+
+The 'ckid' resource can indicate three basic states of the file:
+
+	Writable,
+	Read-Only, and
+	MRO ("Modify-Read-Only")
+
+These states are reflected in the VCS popup by a pencil, a pencil with a line
+through it, and a pencil with a dashed line through it, respectively.  In
+addition to these states, Alpha verifies that a file is writable when it opens
+it.  A file might not be writable because it is already opened by another
+application or because it was opened from the Help menu.  In this event, even
+if the 'ckid' resource indicates that the file is writable or MRO, Alpha will
+mark the VCS popup with a locked icon, to indicate that the read-only state is
+caused by something other than version control.  You can use the VCS popup to
+unlock the file, allowing changes, but you will still probably not be able to
+save changes until the external conflict is resolved.
+
+
+	  	VC Limitations
+
+
+Most of the current plug-ins cannot be used to setup a particular version
+control system; they rely on a pre-existing configuration.  (For example, the
+CVS version control tool might need a server, password, etc).  Hence you will
+probably have to use a cvs client, perforce client etc to configure the system
+before Alpha will be able to use it effectively.
+
+
+	====================================================================
+
+
+	  	Copyright
+
+This document has been placed in the public domain.
+
+See the source files for the various VC tools for their copyright info.
+
+Author:	Vince Darley
+E-mail:	<vince@santafe.edu>
+  mail:	317 Paseo de Peralta, Santa Fe, NM 87501, USA
+   www:	<http://www.santafe.edu/~vince/>

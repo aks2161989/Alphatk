@@ -1,0 +1,405 @@
+
+Calculator Help
+
+                                            version: 1.0fc1
+                                            created: 08/06/1999 {05:55:36 PM}
+                                        last update: 06/10/2005 {05:40:01 PM}
+
+
+	  	Abstract
+
+Alpha has its own <<calculator>>.  This is a sophisticated RPN stack
+calculator, which works on both signed and unsigned decimals, hex integers,
+and floating point.  (You might wonder, "# What does 'RPN' mean?"  ...)
+
+It can also serve as an "# Equation Editor".
+
+This "Calculator Example" hyperlink will return the result of typing  
+
+	1<Space>1<Space>+4.2*
+
+or
+
+	1
+	Space
+	1
+	Space
+	+
+	4.2
+	*
+
+It first calculates adds "1, 1" to the stack, adds them, and then calculates
+(1 + 1) * 4.2 .
+
+
+	  	Table Of Contents
+
+"# Basic Usage, RPN modes"
+"# More Keyboard Shortcuts"
+"# The Calculator Window"
+"# Calculator Modes"
+"# Equation Editor"
+"# 'International' Users"
+"# What does 'RPN' mean?"
+
+"# License And Disclaimer"
+
+<<floatNamedMarks>>
+
+
+	  	Basic Usage, RPN modes
+
+The first four Calculator "modes" use the RPN stack method:
+
+	Signed Decimal
+	Unsigned Decimal
+	Unsigned Hexadecimal
+	Floating Point
+
+* Open the <<calculator>> by selecting "Utils > Calculator".
+* The default mode is "Floating Point".
+* The cursor is waiting in the User Input field.
+* Enter some value, and press Space, Enter, or Return to add it to the stack.
+* Enter a new value, and then an operator key (such as +, - *, / ...)
+
+As you perform additional operations, they are recorded in the History
+section at the bottom of the window, and the User Input field is cleared for
+the next entry.  Click on the 'Clear' hyperlinks to reset the current Value,
+Input, or to remove all history items.
+
+As you perform operations, any value in the Current Input field is used as
+the primary operator value.  For example, enter "123" and select the menu
+item "Calculator > Other Math Functions > sqrt" and you will get
+
+	sqrt(123.0)      11.09053651
+
+If the operation requires two values, then the Current Input and the last
+item in the stack will be used.  For example, if your Calculator looks like
+
+	Stack :         «Clear»
+
+	44
+	_______________________
+
+	Input :         «Clear»
+
+	123
+	_______________________
+
+	History :       «Clear»
+
+	Pushed Stack :   44.0
+
+and you press "/" (for divide) then you will get
+
+	Stack :         «Clear»
+
+	0.3577235772
+	_______________________
+
+	Input :         «Clear»
+
+
+	_______________________
+
+	History :       «Clear»
+
+	Pushed Stack :   44.0
+	44.0 / 123.0     0.3577235772
+
+If, however, the Input field is empty when you perform a "binary" operation
+requiring two value, then the last two values in the stack will be used.  For
+example, if the stack contains
+
+	Stack :         «Clear»
+
+	22
+	44
+	87
+	_______________________
+
+
+then pressing "/" (with the Input field empty) will produce this:
+
+	Stack :         «Clear»
+
+	22
+	0.5057471264
+	_______________________
+
+	Input :         «Clear»
+
+
+	_______________________
+
+	History :       «Clear»
+
+	Pushed Stack :   22.0
+	Pushed Stack :   44.0
+	Pushed Stack :   87.0
+	44.0 / 87.0      0.5057471264
+
+If you have never used an RPN stack calculator before, this might seem a bit
+inintuitive at first, but this method is really very flexible.  For example,
+if you wanted to calculate
+
+	(4 + 5) * (78 - 6)
+
+you would use these keystrokes:
+
+	4
+	Space (or Enter or Return)
+	5
+	+
+	78
+	Space
+	6
+	-
+	*
+
+In this case, your final Calculator History section would look like
+
+	History :       «Clear»
+
+	Pushed Stack :   4.0
+	4.0 + 5.0        9
+	Pushed Stack :   78.0
+	78.0 - 6.0       72
+	9.0 * 72.0       648
+
+If you want to remove the last item in the stack, move the cursor to the
+start of the Input field and press Delete.
+
+If this still seems confusing, you might rather use the "# Equation Editor"
+mode for the Calculator as described below.
+
+These are some of the basic operations, where "y" indicates the current
+value, and "x" indicates the entry in the User Input field.
+
+	+,-,*,/,|,&,%   Calculates "<Value> <Operation> <Input>"
+	~               bitwise NOT
+	^               y to the power of x
+	<               x << y
+	>               x >> y
+	n               change y's sign
+
+Additional utility items include
+
+	q               Place the current "y" value in the User Input field.
+	i               Swap x and y, i.e. the current value and input fields.
+	Space/Enter     Enter the current input value.    
+
+	m               Switch amongst signed/unsigned/hex/floating-point modes.
+	x               Show the current mode in the status bar.
+	h or ?          Open this window.
+
+
+	  	More Keyboard Shortcuts
+
+The Calculator menu includes a number of operations with their own special
+Keyboard Shortcuts.  Whenever you attempt to call one of these menu commands
+or type something outside of the User Input field, the cursor will be
+returned to the input line without performing any further operation.
+
+
+	  	The Calculator Window
+
+When you move or re-size the Calculator window, the current geometry (i.e.
+the left, top, right, bottom boundaries) are saved and used the next time
+that the Calculator window is created.  There are no preferences to set here,
+this is done automatically.
+
+There are, however, some preferences that you can adjust
+
+	Include History Section
+
+If turned on, every operation will be recorded in a History section at the
+bottom of the Calculator window.  Click the <Clear> hyperlink to reset it.
+
+	Include Function Hyperlinks
+
+If turned on, most of the Calculator menu items will be displayed in the
+window with hyperlinks.  Clicking on them will execute the menu item (in RPN
+modes) or insert the function text (in "# Equation Editor" mode.)
+
+	Include Keypad Hyperlinks
+
+This is a Very Clever feature that has little utility, unless you are
+addicted to the mouse and never want to use your keyboard or keypad to enter
+numerical values or the common "+ - * /" binary function operators.
+
+You can also change the default Font and Font-size used for the window.
+
+
+	  	Calculator Modes
+
+The default "mode" for this calculator is "Floating Point".
+
+Select the "Calculator Menu > Calculator Mode > Change Mode" command to
+change the current mode.  When the Calculator window is active and in an RPN
+mode, you can press 'x' to display the current mode in the status bar, and
+'m' to change it.  Options include
+
+	Signed Decimal
+	Unsigned Decimal
+	Unsigned Hexadecimal
+	Floating Point
+	Equation Editor
+
+All calculations are performed in signed decimal in integer modes.  Floating
+point numbers can be entered as -1.0e-5 (use 'Control--' (Control-Minus) to
+get the minus sign).  
+
+In Floating Point and Equation Editor modes the 'Display Precision'
+preference determines when the stack values are presented in scientific
+notation.  Select the "Calculator Menu > Calculator Prefs" menu item to
+change this value.
+
+The "Calculate Precision" preference is used internally by the Tcl functions
+that perform the operations.
+
+(More information needs to be added for the other RPN modes...)
+
+
+	  	Equation Editor
+
+When the Calculator mode is "Equation Editor" it is no longer uses RPN, and
+the "Value" field no longer maintains a stack.
+
+Instead, you can add an equation in the Input field to have it evaluated
+using the Tcl command: expr .  While you are in "Equation Editor" mode all of
+the "special" keyboard shortcuts are disabled.  For example, pressing the "m"
+key will now insert a real "m" and not offer the dialog to change the
+Calculator mode.
+
+The supported mathematical functions in expressions include
+
+	abs acos asin atan atan2 ceil cos cosh double exp floor fmod hypot int
+	log log10 pow rand round sin sinh sqrt srand tan tanh wide
+
+Some very simple examples include
+
+	History :
+
+	----------------------------------------------
+	1 + abs(-10)    
+					11.0
+	----------------------------------------------
+	rand()          
+					0.151567682229
+	----------------------------------------------
+	rand()          
+					0.398035219125
+	----------------------------------------------
+	(45*90)/10      
+					405.0
+	----------------------------------------------
+	(45*90)/10 + cos(66) 
+					404.000352544
+
+The string "$V" (without the quotes) or "$v" or "${V}" or "${v}" will be
+substituted with the current Value field, as in
+
+	----------------------------------------------
+	1 + 3           
+					4.0
+	----------------------------------------------
+	1 + 3 * $V     
+	1 + 3 * 4.0     
+					13.0
+	----------------------------------------------
+	1 + (3 * ${V})  
+	1 + (3 * 13.0)  
+					40.0
+	----------------------------------------------
+	${V} + (3 * $V)
+	40.0 + (3 * 40.0)   
+					160.0
+
+
+	  	'International' Users
+
+Most of the Keyboard Shortcuts should be automatically adjusted for your
+current Alpha "Keyboard" preference.
+
+Preferences: International
+
+If this is not the case, please inform the maintainer of this package about
+the changes that need to be made.
+
+Users of non-American keyboards need to type a space after the dead keys to
+get ~ and ^.  Note that "," is interpreted as a "."  decimal point for all
+calculations.  This reflects the anglo-centrism of Tcl, not Alpha.
+
+
+	  	What does 'RPN' mean?
+
+In the 1920s, Jan Lukasiewicz developed a formal logic system that allowed
+mathematical expressions to be specified without parentheses by placing the
+operators before (prefix notation) or after (postfix notation) the operands.
+For example the (infix notation) expression
+
+	(4 + 5) * 6
+
+
+could be expressed in prefix notation as
+
+	* 6 + 4 5
+
+or
+
+	* + 4 5 6
+
+
+and could be expressed in postfix notation as
+
+	4 5 + 6 *
+
+or
+
+	6 4 5 + *
+
+Prefix notation also came to be known as Polish Notation in honor of
+Lukasiewicz.  HP adjusted the postfix notation for a calculator keyboard,
+added a stack to hold the operands and functions to reorder the stack.  HP
+dubbed the result Reverse Polish Notation (RPN) also in honor of Lukasiewicz.
+
+<http://www.hpmuseum.org/rpn.htm>
+
+
+	====================================================================
+
+	  	License And Disclaimer
+
+Author: Pete Keleher
+
+Copyright (c) 1996-2005  Pete Keleher, Vince Darley, Craig Barton Upright
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+ • Redistributions of source code must retain the above copyright
+   notice, this list of conditions and the following disclaimer.
+
+ • Redistributions in binary form must reproduce the above copyright
+   notice, this list of conditions and the following disclaimer in the
+   documentation and/or other materials provided with the distribution.
+
+ • Neither the name of Alpha/Alphatk nor the names of its contributors may
+   be used to endorse or promote products derived from this software
+   without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ARE DISCLAIMED. IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE FOR
+ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
+DAMAGE.
+
+This document has been placed in the public domain.

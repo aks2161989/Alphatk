@@ -1,0 +1,377 @@
+<HTML>
+<HEAD>
+<TITLE>AppleScript Help</TITLE>
+<META NAME=GENERATOR CONTENT="Aida Mode">
+</HEAD>
+<BODY>
+<P><HR>
+<UL>
+<LI><A HREF="#M1">Introduction</A>
+<LI><A HREF="#M2">Installation</A>
+<UL><LI><A HREF="#M3">Automatic installation</A></UL>
+<UL><LI><A HREF="#M4">Manual installation</A></UL>
+<UL><LI><A HREF="#M5">After installing</A></UL>
+<LI><A HREF="#M6">Description of the AppleScript menu</A>
+<LI><A HREF="#M7">File name conventions</A>
+<LI><A HREF="#M8">Working directory</A>
+<LI><A HREF="#M9">Memory management</A>
+<LI><A HREF="#M10">The Mark pop-up menu</A>
+<LI><A HREF="#M11">The Functions pop-up menu</A>
+<LI><A HREF="#M12">Option clicking the title bar</A>
+<LI><A HREF="#M13">Completions</A>
+<LI><A HREF="#M14">Key bindings</A>
+<LI><A HREF="#M15">AppleScript Mode preferences</A>
+<LI><A HREF="#M16">Version History</A>
+<LI><A HREF="#M17">Known problems</A>
+<LI><A HREF="#M18">License and Disclaimer</A>
+</UL>
+<HR>
+
+<HR><BLOCKQUOTE><P><I> 
+This is a help file for the AppleScript mode in Alpha. This file should  be
+located in the Help subfolder of Alpha's folder to show up automatically in
+the Help menu when Alpha is loaded.
+</I></P></BLOCKQUOTE><HR><P><H2><A NAME="M1"></A>Introduction</H2><P>AppleScript mode is a mode for the text editor Alpha: it is designed to
+facilitate editing, compiling, decompiling, executing and processing of
+scripts written in the AppleScript language, with all the powerful editing
+facilities provided by Alpha.<P>Once you are in AppleScript mode, there is a new menu  (designated  by  the
+AppleScript editor icon) in the menu bar giving access to all the  features
+described below.<P>AppleScript mode requires the Tclapplescript extension to be present on
+your system. It is, for instance, distributed with the 
+<A HREF="http://tcltkaqua.sourceforge.net/"> Batteries Included Tcl/Tk</A>
+distribution. Note that the AppleScript Editor application does not have to
+be launched or even present on your computer for this mode to work.
+AppleScript mode relies entirely on the Tclapplescript extension which
+interacts directly with the MacOS Open Scripting Architecture.<P>The AppleScript mode is identified, in the modes pop-up menu at the right
+of the status bar, by the four-letters code <I>Scrp</I>.<P><H2><A NAME="M2"></A>Installation</H2><P>If you have Apple Script Mode as a part of the distribution of Alpha, you
+do not have anything to do: it is installed with the whole system. If you
+received it as a separate package, follow the instructions below which
+describe two methods of installation.<P><H3><A NAME="M3"></A>Automatic installation</H3><P>Open the <I>OPEN TO INSTALL</I> file. Opening this file indicates to Alpha  that
+a new package has to be installed: the procedure is automatic. Alpha knows
+where to store the different elements of your AppleScript Mode package.
+ 
+<H3><A NAME="M4"></A>Manual installation</H3>
+<UL>
+	<LI> put the <I>Applescript Mode</I> folder in the <I>Modes</I> subfolder
+of the <I>Tcl</I> folder which is located at the same level as your Alpha
+application<P>	<LI> put the <I>AppleScript Help</I> file in the <I>Help</I> folder
+located at the same level as your Alpha application. Next time you launch
+Alpha, you will have an <I>AppleScript Help</I> item in the Help menu to
+edit this file.<P>	<LI> put the files <I>AppleScript-Example</I> and  <I>AppleScript-Example.tcl</I>  in
+the <I>Examples</I> folder located at the same level as your Alpha application.<P>	<LI> if there is an <I>AppleScripts</I> folder (containing sample
+scripts), it should be located at the same level as Alpha itself.<P>	<LI> launch Alpha. You have to rebuild the package indices and the Tcl
+ones. <I>Rebuild Package Indices</I> is in the Config--Packages menu, and
+<I>Rebuild Tcl Indices</I> is in the Tcl menu.
+ 
+	<LI> quit Alpha and relaunch it: that's all there is to it. 
+</UL><P><H3><A NAME="M5"></A>After installing</H3><P>Read the AppleScript  Tutorial  which  can  be  opened  directly  from  the
+AppleScript menu. For  reference  info,  read  the  AppleScript  Help  file
+accessed from the Help menu. Have a look at the mode specific preferences:
+create or open any AppleScript source file  and  choose  <I>Preferences...</I>  in
+the <I>Mode Prefs</I> submenu of the <I>Config</I> menu (or simply hit  F12  when  in
+AppleScript mode).<P><H2><A NAME="M6"></A>Description of the AppleScript menu</H2><P>Here is the description of the AppleScript menu items:<P><DL><P><DT><B>New Script </B><DL><DT>
+Open a new editing window in AppleScript mode. This does not create a file
+on disk until you save the window.</DL><P><DT><B>Decompile A Script... </B><DL><DT>
+Brings up a dialog to select a compiled script: the script is decompiled
+and edited in a new window in AppleScript mode.</DL><P><DT><B>Run A Script... </B><DL><DT>
+Brings up a dialog to select a compiled script and run it. The result of
+the excution is output in the <B>AppleScript Results</B> window.</DL><P><DT><B>Apple Script Flags</B><DL><DT>
+This submenu contains various flags concerning scripts compilation and some
+preferences. See the AppleScript Mode Tutorial for various examples.  These
+flags  are  synchronized  with  the  corresponding  mode  preferences  (see
+AppleScript mode preferences below).
+<DL><P><DT><B>Augment Context </B><DL><DT>
+This flag supposes that you are compiling the current window as a  context:
+if it has already been compiled and if this  flag  is  set,  then  the  new
+instructions will be added to the already existing context. Otherwise  they
+replace what is already in the context.</DL><P><DT><B>Include Description </B><DL><DT>
+Add an environment at the beginning of  the  source  script  to  specify  a
+descriptive comment which will be stored in the compiled script.</DL><P><DT><B>Inherit From Parent </B><DL><DT>
+When compiling a script as a context, this flag lets  you  specify  another
+context script from which it will inherit: all the  properties,  handlers,
+variables etc. (bindings in the AppleScript parlance) stored in the  parent
+will be available to the new context.</DL><P><DT><B>Launch To Get Terminology </B><DL><DT>
+This flag affects the <I>Open a dictionary</I> command. If it is set, the
+command will first look for dynamic terminology in the application whose
+dictionary you open: if there is dynamic terminology, the application has
+to be launched in order to provide this terminology. This flag lets you
+specify if you accept that the application be launched. Otherwise,
+AppleScript Mode will look for static terminology which does not require
+the application to be launched: if dynamic terminology is available,
+AppleScript mode will print a warning to let you know anyway. Not all
+applications have dynamic terminology: it concerns mainly applications
+supporting plugins and extensions (Alpha8 has dynamic terminology, Alpha7
+does not).</DL><P><DT><B>Make Context </B><DL><DT>
+Compile the current window as a context script. This  script  can  be  used
+later to compile another script in this context. Note that when you compile
+a script with this flag set, it is immediately executed in  order  to  make
+its data available: for an ordinary script, executing  some  action  rather
+than defining data, this is generally not what you want.</DL><P><DT><B>Run In Context </B><DL><DT>
+This flag lets you run a script in a specific context. The context can be
+selected by opening, with the Control key held down, the Scripts submenu in
+the AppleScript menu.</DL>
+</DL></DL><P><DT><B>Compile </B><DL><DT>
+Compile the contents of the current selection (or the entire contents of
+the topmost window if no region is selected). In AppleScript Mode, this
+means compiling as binary code and storing the result on disk. If the
+window does not correspond yet to a file on disk (for instance if it is a
+new script created using the <I>New Script</I> item), the compiled script will
+be written in the AppleScripts folder in Alpha's folder. Otherwise the
+compiled script will be in the same folder as the source file. If there is no
+selection, the entire contents of the current window are compiled;
+otherwise only the selection is compiled.</DL><P><DT><B>Execute</B><DL><DT>
+This is equivalent to compiling and running the script edited in the
+topmost window. In this case the script is just compiled internally: it is
+not written on disk and the compiled script is freed from memory as soon as
+its execution completes. The result of the execution is sent to the 
+<B>AppleScript Results</B> window. If there is no selection, the entire
+contents of the current window are executed; otherwise only the selection
+is executed.</DL><P><DT><B>Run </B><DL><DT>
+Run the script edited in the current window. It must have been previously
+compiled. If it is not compiled yet or if it has been changed since the
+last compilation, Alpha will let you know and offer to compile or recompile
+the script before running it.
+The result is sent to the <B>AppleScript Results</B> window.</DL><P><DT><B>Check Syntax</B><DL><DT>
+Check the syntax of the script edited in the current window. Any error will 
+be reported in the <B>AppleScript Results</B> window.</DL><P><DT><B>Apple Script Utils</B><DL><DT>
+This submenu contains subsidiary features.</DL><P><DL><P><DT><B>Add Description</B><DL><DT>
+Insert a special comment at the beginning of the edited script  to  give  a
+description the script. This comment is stored in the compiled  script.  In
+AppleScript Editor, it is shown in the <I>Description</I> edit field at the  top
+of the editing window. In Alpha, we  display  it  in  a  comment  with  the
+following structure:
+<PRE>
+ (* Description
+ 	    Text of the comment here
+ *)
+</PRE>
+This comment must be located at the beginning of the script  prior  to  any
+instruction. 
+If the <I>Include Description</I> preference is  set  (see  Preferences  below),
+Alpha will display the comment if one is found  when  editing  a
+compiled script or it will write the comment into the  compiled  script  at
+compilation time. If the preference is not  set,  the  description  comment
+will not be taken into account.
+<P> If the Option key is pressed, the item <I>Add Description</I> is changed  to
+<I>Delete Description</I>. This will delete the  descriptive  comment  from  the
+edited script if there is one. You'll have to recompile to have it  deleted
+from the compiled script too.</DL><P><DT><B>Line Continuation</B><DL><DT>
+Insert the line continuation symbol (&#172;) which is not always easy to
+find on the keyboard, especially on international keyboards.</DL><P><DT><B>Open A Dictionary... </B><DL><DT>
+Get the scripting terminology of a scriptable application. This procedure
+takes care of various possible situations which are checked in the
+following order:
+<UL>
+	<LI> does the application accept the <I>Get AETE</I> Apple Event? If yes,
+it means that it has an 'scsz' resource and is able to provide its
+scripting terminology at runtime. This is useful for applications which
+accept external plug-ins which are also scriptable.
+	<LI> does the application have resources of type 'aete'?
+</UL>
+The terminology information (aka scripting dictionary) is output, in human
+readable form, in as many files as there are 'aete' resources reported.</DL><P><DT><B>Colour and Mark Dictionary</B><DL><DT>
+Just as it says. Events, classes, keywords etc. are colored. The events and
+classes are marked: marks are accessible, in alphabetical order, in the
+Marks popup menu on the right border of the window.</DL><P><DT><B>Dump Mem Info</B><DL><DT>
+Output information about the scripts and contexts which have been compiled
+during the current session and stored in memory.</DL><P><DT><B>Clear Memory</B><DL><DT>
+Frees the memory occupied by compiled scripts and contexts. Once the memory
+is cleared, the scripts are not available anymore for immediate execution
+and have to be recompiled. This concerns only the scripts you want to run
+manually with the <I>Run</I> command. Scripts you run from the Scripts
+submenu or with the <I>Run A Script...</I> item are handled directly by
+AppleScript mode.</DL><P><DT><B>AppleScript Bindings</B><DL><DT>
+Display the key bindings available in AppleScript Mode.</DL><P><DT><B>AppleScript Tutorial</B><DL><DT>
+Open the AppleScript Mode tutorial in a shell window.</DL><P></DL><P><DT><B>Scripts Folder</B><DL><DT>
+This submenu contains the names of all the compiled scripts stored in the
+current working folder, i-e the folder designated by the <I>AppleScripts
+Folder</I> preference (by default it is a folder called <I>AppleScripts</I> 
+and located at the same level as the Alpha application itself). The
+submenu behaves differently depending on the modifier key which is pressed
+as you open it:
+<UL>
+	<LI> if no modifier key is pressed, the first item  is  "Rebuild  scripts
+list" which lets you update the menu when the contents of the  AppleScripts
+folder have been modified. If you click on the name of a script, it will be 
+executed.
+	<LI> if the option-key is pressed, all the items are prefixed with the word
+<I>&#8226;edit&#8226;</I>: this allows you to decompile and edit the script instead of
+executing it. In this case the first item in the submenu becomes <I>Reveal
+scripts folder</I> which switches to the Finder and opens the corresponding
+folder.
+	<LI> if the control-key is pressed, the menu lets you specify a script to
+be used as a context script. The selected script is marked with a bullet.
+It will be used if the <I>Run in context</I> flag is set in the Apple
+Script Flags submenu. In this case the first item in the submenu becomes
+<I>Select a context</I> and brings an info dialog window.
+	<LI> if the shift-key is pressed, the menu lets you specify a context
+script to be used as a parent for the script you want to compile. The
+selected script is marked with a diamond. It will be used only if the flags
+<I>Make context</I> and <I>Inherit from parent</I> are both set in the
+Apple Script Flags submenu. In this case the first item in the submenu
+becomes <I>Select a parent context</I> and brings an info dialog window.
+</UL>
+Mnemonic tip: control for context, shift for parent.</DL>
+</DL><P><H2><A NAME="M7"></A>File name conventions</H2>
+By default, when compiling the source of a script, the name of the compiled
+script is set like this:
+<UL>
+	<LI> if it has no extension, an <I>.scpt</I> extension is added;
+	<LI> if it has an extension different from <I>.scpt</I>, this extension is
+replaced by <I>.scpt</I>;
+	<LI> if it already has an <I>.scpt</I> extension, then you are asked to
+give a name yourself for the compiled script.
+</UL><P>This name is remembered by Alpha (until the moment when you quit Alpha), so
+that you are not asked over again each time you recompile your script.<P>When decompiling a script to edit its source code, the editing window is
+named after the name of the script with an additional <I>.scr</I>
+extension. This can be changed if necessary when you decide to save the
+source script.<P>Concerning terminology dictionaries, the output files are named after the
+name of the application followed by a <I>.dict</I> extension and a
+sequential numbering in case there are several Apple Event Terminology
+resources. If the resource has a name (and not only an ID number), this
+name is used.<P>In any case, the file names will be truncated and shortened so that they do
+not excess a 32 chars limit. For instance a script editing window called
+<PRE>
+ GetUSBPrinterSharingVersionNumber.scpt 
+</PRE>
+will be compiled under the name: 
+<PRE>
+ GetUSBPrinterSharingVersi...umber
+</PRE><P><H2><A NAME="M8"></A>Working directory</H2>
+The <I>Scripts</I> submenu shows the contents of the working directory:
+this is the folder where your scripts will be stored when you compile them.
+This folder can be set and modified (see preferences below). The default
+name and location of the working folder is <I>AppleScripts</I> in the same
+folder as Alpha itself.
+<P> If this folder can't be found (if it has been deleted or renamed for
+instance), AppleScript mode will create a new one automatically when
+necessary.<P><H2><A NAME="M9"></A>Memory management</H2><P>When you recompile a script, Alpha warns you if the script has already been
+compiled previously and no changes have been made since the last
+compilation. On the other hand, when you try to run the current window,
+Alpha warns you if the script has not yet been compiled or if it has been
+modified since the last compilation.<P>Each time a script is loaded or compiled, it is kept in memory and a token
+is returned to identify it for later reference. AppleScript Mode keeps
+track of these tokens so that you don't have to bother about them. Thanks
+to this internal mechanism, you don't have to recompile a script each time
+you want to run it. The same is true for scripts compiled as contexts.<P>You can use the <I>Dump Mem Info</I> to know which compiled scripts are
+currently stored in memory: it outputs a list indicating the token and the
+corresponding script file on disk. If you want to free the memory occupied
+by these compiled scripts, use the <I>Clear memory</I> command in the
+Apple Script Utils submenu: this will destroy all the script tokens (except
+for the global context which is never destroyed).<P>To know which scripts or contexts are currently in memory, open  a  Tcl
+shell and type one of the following commands:
+<PRE>
+ AppleScript info scripts
+ AppleScript info contexts
+</PRE> <P><H2><A NAME="M10"></A>The Mark pop-up menu</H2>
+The marking procedure marks all the function definitions (aka handlers in
+AppleScripts parlance), i-e all the statements of the form:
+<PRE>
+ on functname(params)
+     -- instructions
+ end functname
+</PRE>
+The error statements (<I>on  error</I>  etc.)  are  not  marked  though  by  the
+procedure since they do not correspond to function definitions.<P><H2><A NAME="M11"></A>The Functions pop-up menu</H2><P>There is no mode specific behaviour for the functions pop-up menu (top right  of
+your editing window, with a pair of braces icon).<P><H2><A NAME="M12"></A>Option clicking the title bar</H2><P>If you Option-Click on a the title bar, you get a list of all the  compiled
+script files present in the current working folder. Clicking on any of them
+will decompile it and edit it in a new window.<P><H2><A NAME="M13"></A>Completions</H2><P>There is a set of completion procedures in AppleScript mode. 
+To  enable  them,  you  must  activate  the  <I>elecCompletion</I>  package  (in
+"Config--" Preferences--" Features") and choose   your    completion    key
+(default is F1).<P>There is a set of <I>electric</I> abbreviations. Just type one of the  following
+abbreviations and hit the  completion  key  to  have  them  expanded  to  a
+complete structure:
+<UL>
+	<LI> tell
+	<LI> on
+	<LI> if
+	<LI> try
+	<LI> repeat
+</UL>
+For instance <I>tell</I> will result in:
+<PRE>
+ tell application "|"
+ |
+ end tell
+</PRE><P>You can also type the first letters of an AppleScript keyword and  hit  the
+completion key. If it is recognized as a keyword, it will be completed.  If
+there are different possible completions, they will be listed in the status
+bar: hit the completion key again and you will have  a  list  of  all  the
+possibilities from which you can select the one you want.<P><H2><A NAME="M14"></A>Key bindings</H2><P>A few mode specific key bindings are defined in AppleScript mode: all of
+them use the combination 'ctrl-a' followed by a letter. For instance, to
+decompile and edit a script, hit 'ctrl-a' and then the letter 'o'. The
+following bindings are available:
+<P><TABLE BORDER=0 CELLPADDING=1>
+<TR><TD>'ctrl-a b'</TD><TD>to display the info about bindings</TD></TR>
+<TR><TD>'ctrl-a c'</TD><TD>to compile the current window or selection</TD></TR>
+<TR><TD>'ctrl-a d'</TD><TD>to get a scripting dictionary</TD></TR>
+<TR><TD>'ctrl-a e'</TD><TD>to execute (compile and run) the current window</TD></TR>
+<TR><TD>'ctrl-a f'</TD><TD>to free compiled scripts stored in memory</TD></TR>
+<TR><TD>'ctrl-a l'</TD><TD>to insert the line continuation symbol (&#172;)</TD></TR>
+<TR><TD>'ctrl-a m'</TD><TD>to dump memory info</TD></TR>
+<TR><TD>'ctrl-a n'</TD><TD>to create a new script</TD></TR>
+<TR><TD>'ctrl-a o'</TD><TD>to decompile and open a script</TD></TR>
+<TR><TD>'ctrl-a r'</TD><TD>to select and run a script</TD></TR>
+<TR><TD>'ctrl-a s'</TD><TD>to check the syntax of the current window</TD></TR>
+</TABLE></P><P><H2><A NAME="M15"></A>AppleScript Mode preferences</H2><P>The <I>Preferences...</I> item in the <I>Mode Prefs</I> submenu of  the  <I>Config</I>  menu
+allows you to edit specific preferences defined in the AppleScript mode.<P>The <I>AppleScripts Folder</I> preference lets you set  your  working  directory
+where your compiled scripts will be stored. You can access  any  script  in
+this folder from the <I>Scripts</I> submenu  as  described  above.  The  working
+folder can be changed at will. If it has been deleted,  moved  or  renamed,
+Alpha will recreate it as necessary.<P>Set the <I>Include Description</I> preference if you want  AppleScript  mode  to
+take care of the description comment which is stored in  compiled  scripts.
+See above the <I>Add Comment</I> menu item for a description of  the  syntax  of
+this comment.<P>The other preferences are 
+<UL>
+	<LI> <I>Augment Context</I>
+	<LI> <I>Inherit From  Parent</I>
+	<LI> <I>Launch  To  Get  Terminology</I>
+	<LI> <I>Make  Context</I>
+	<LI> <I>Run  In Context</I>
+</UL>
+They have the same meaning as the corresponding flags in the  Apple  Script
+Flags submenu: preferences and submenu  flags  are  synchronized.  Settings
+made in the preferences will be remembered the next time you  launch  Alpha
+and will be reflected by the submenu.<P><H2><A NAME="M16"></A>Version History</H2>
+<UL>
+	<LI> 1.0.1 - 01/03/31 -  Previous versions  of  AppleScript  mode  by  John
+Sarapata <A HREF="mailto:sarapata_john@jpmorgan.com">sarapata_john@jpmorgan.com</A>
+	<LI> 2.0 - 02/03/12 - Complete rewriting of the AppleScript  mode  to  take
+advantage of the Tclapplescript shared library and Alpha8.
+	<LI> 2.1 - 02/06/07 - Added a preference to set the working directory.
+	<LI> 2.2 - 02/09/25 - Modified ASTerminology to rely on TclAE  library  for
+parsing. Enhanced the mode  to  handle  contexts  and  various  compilation
+flags. Choice of format for tutorial. Doc updated.
+</UL><P><H2><A NAME="M17"></A>Known problems</H2>
+<UL>
+	<LI> There is currently no possibility of recording.
+</UL><P>Please e-mail any problem or bug you encounter: 
+<A HREF="mailto:bdesgraupes@easyconnect.fr">bdesgraupes@easyconnect.fr</A><P>Goto the Alpha utilities page:
+<P> <A HREF="http://webperso.easyconnect.fr/bdesgraupes/alpha.html">http://webperso.easyconnect.fr/bdesgraupes/alpha.html</A><P><H2><A NAME="M18"></A>License and Disclaimer</H2><P>(c) Copyright: Bernard Desgraupes, 2002-2004
+        All rights reserved.<P>This software is free software and distributed under the terms of  the  new
+BSD license:
+Redistribution and  use  in  source  and  binary  forms,  with  or  without
+modification, are permitted provided that the following conditions are met:
+<UL>
+	<LI> Redistributions of source code must retain the above copyright notice,
+this list of conditions and the following disclaimer.
+	<LI> Redistributions in binary form  must  reproduce  the  above  copyright
+notice, this list  of  conditions  and  the  following  disclaimer  in  the
+documentation and/or other materials provided with the distribution.
+	<LI> Neither  the  name  of  Bernard  Desgraupes  nor  the  names  of  its
+contributors may be used to endorse or promote products derived  from  this
+software without specific prior written permission.
+</UL>
+This software is provided by the copyright holders and contributors <I>as is</I>
+and any express or implied warranties, including, but not limited  to,  the
+implied warranties of merchantability and fitness for a particular  purpose
+are disclaimed. In no event  shall  the  contributors  be  liable  for  any
+direct, indirect, incidental, special, exemplary, or consequential  damages
+(including,  but  not  limited  to,  procurement  of  substitute  goods  or
+services; loss of use, data, or profits; or business interruption)  however
+caused and  on  any  theory  of  liability,  whether  in  contract,  strict
+liability, or tort (including negligence or otherwise) arising in  any  way
+out of the use of this software, even if advised of the possibility of such
+damage. <P>
+</BODY>
+</HTML>

@@ -1,0 +1,187 @@
+
+
+					Abstract
+
+This is a help file for the User Menu in Alpha. It corresponds to 
+version 0.6 of the menu.
+This file should be located in the Help subfolder of Alpha's folder to
+show up automatically in the Help menu when Alpha is loaded.
+
+
+
+----------------------------------------------------------------------
+   1. Introduction
+   2. Installation
+      2.1. Automatic installation
+      2.2. Manual installation
+      2.3. After installing
+   3. Menu Items Description
+   4. Key Bindings
+   5. Preferences
+   6. Version History
+   7. Known problems
+   8. License and Disclaimer
+----------------------------------------------------------------------
+
+1. Introduction
+
+The User Menu for Alpha is a menu designed to store  your  personal
+Tcl procs.
+
+Once it is installed and activated, you  have  a  new  menu  called  "User"
+(represented by an icon showing an open menu and a user's head)  with  four
+items: Add item..., Modify Item..., Remove Item... and  Refresh
+Bindings.
+
+If you choose Add Item..., a dialog window asks  the  name  of  the
+item you want to add to the menu and the name of the procedure that will be
+triggered by this item. For instance suppose you have defined a proc called
+Conv::HexNum to convert hexadecimal numbers and you want to have  a
+menu item called Convert Hex Numbers in the User Menu: all you have
+to do is to enter ConvertHexNumbers in the first field of  the  dialog  and
+Conv::HexNum in the second field.
+
+To make sure that the Conv::HexNum  proc  is  effectively  executed
+when invoking it with the Convert Hex Numbers menu item, this  proc
+must have been loaded into the  Tcl  interpreter.  This  is  the  case  for
+instance if the  definition  of  this  proc  is  stored  in  the  prefs.tcl
+preferences file, or in any mode specific preference file (like HtmlPrefs.tcl, 
+TeXPrefs.tcl etc.)
+
+Note, in this example, that there is no space in ConvertHexNumbers: 
+this is because the User menu automatically inserts a space before any
+uppercase letter in the name of an item.
+
+2. Installation
+
+2.1. Automatic installation
+
+The simplest way of installing the package is to use the automatic
+installation file: just double-click on the "OPEN TO INSTALL" file coming
+with the distribution.  Opening this file tells Alpha that a new package
+has to be installed : the procedure is automatic. Alpha knows where to
+store the different elements of your User Menu package.
+
+2.2. Manual installation
+
+If you prefer a manual installation, take the following steps :
+    1. put the "UserMenu.tcl" file in the "Menus" subfolder of the  "Tcl" folder
+which is located at the same level as your Alpha application
+
+    2. put the "User Menu Help" files in the "Help" folder located at the same
+level as your Alpha application. Next time you launch Alpha, you will see a
+"User Menu Help" item in the Help menu.
+
+    3. launch Alpha. You have to rebuild the  package  indices  and  the  Tcl
+indices. "Rebuild Package Indices" is  in  the  Config-Packages  menu,  and
+"Rebuild Tcl Indices" is in the Tcl menu.
+
+    4. quit Alpha and relaunch it: that's all there is to it.
+
+
+2.3. After installing
+
+Have a look at the User Menu preferences in 
+"Config -> Preferences -> Package Preferences".
+
+
+3. Menu Items Description
+
+Here is the list of all the fixed menu items which appear at the bottom  of
+the User Menu.
+
+
+<Add Item...>
+Displays a dialog window in which you specify the name of  the  item  which
+will be inserted in the User menu and the name of the proc associated  with
+this item: it is the proc which will be invoked when the item  is  selected
+in the menu.
+There is a "Bindings" button which lets you associate a key combination to 
+the menu item.
+
+<Modify Item...>
+Brings up a list to select an item and then displays a  window  similar  to
+the Add Item window.
+
+<Remove Item...>
+Brings up a list to select an item and removes it from the menu.
+If you press the option key down, this item changes to "Reset Menu" and 
+removes all the items from the User menu. Use with caution, it is not
+undoable.
+
+<Refresh Bindings>
+It can happen that the menu bindings associated with  the  menu  items  get
+overridden by similar bindings defined in other  packages.  Use  this  menu
+item to restore the key combinations associated with items in the User
+menu.
+
+
+
+
+4. Key Bindings
+
+You can associate key bindings to the items  in  the  User  Menu  using  the
+Bindings button in the "Add/Modify Item" dialog windows.
+
+
+5. Preferences
+
+The User Menu Prefs can be accessed via 
+"Config -> Preferences -> Package Preferences":
+    • if the "Sort Alphabetically" flag is not set, the items are listed in 
+the order in which they were defined.
+
+
+6. Version History
+    • 0.1 - 08/06/2000 - Created the User Menu.
+    • 0.2 - 10/03/2000 - Added menu bindings handling.
+    • 0.3 - 14/10/2000 - Added item to refresh bindings (just in case…)
+    • 0.4 - 09/04/2001 - Corrected a bug in "Modify Item" when cancel picklist
+    • 0.5 - 05/11/2002 - Minor fixes. Renamed global variables.
+    • 0.6 - 27/01/2004 - Complete rewriting. 
+
+
+
+7. Known problems
+It can happen that the menu bindings associated with  the  menu  items  get
+overridden by other packages. Use the "Refresh Bindings"  item  to  restore
+the key combinations.
+
+Please e-mail any problem or bug you encounter : <bdesgraupes@easyconnect.fr>
+
+Goto the Alpha utilities page :
+<http://webperso.easyconnect.fr/bdesgraupes/alpha.html>
+
+
+8. License and Disclaimer
+
+© Copyright Bernard Desgraupes, 2001-2004
+        All rights reserved.
+This software is free software distributed under the terms of the  new  BSD
+license :
+Redistribution and  use  in  source  and  binary  forms,  with  or  without
+modification, are permitted provided that the following conditions are met:
+    • Redistributions of source code must retain the  above  copyright  
+notice,
+this list of conditions and the following disclaimer.
+    • Redistributions in binary form must reproduce the above copyright 
+notice,
+this list of conditions and the following disclaimer in  the  documentation
+and/or other materials provided with the distribution.
+    • Neither the name of Bernard Desgraupes nor the names of its  
+contributors
+may be used to endorse or  promote  products  derived  from  this  software
+without specific prior written permission.
+
+This software is provided by the copyright holders and contributors "as is"
+and any express or implied warranties, including, but not limited  to,  the
+implied warranties of merchantability and fitness for a particular  purpose
+are disclaimed. In no event shall the regents or contributors be liable for
+any direct, indirect,  incidental,  special,  exemplary,  or  consequential
+damages (including, but not limited to, procurement of substitute goods  or
+services; loss of use, data, or profits; or business interruption)  however
+caused and  on  any  theory  of  liability,  whether  in  contract,  strict
+liability, or tort (including negligence or otherwise) arising in  any  way
+out of the use of this software, even if advised of the possibility of such
+damage. 
+

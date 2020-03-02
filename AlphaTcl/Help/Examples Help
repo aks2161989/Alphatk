@@ -1,0 +1,1310 @@
+
+Examples Help
+
+
+                                            version: 8.1a4
+                                            created: 04/08/2000 {12:46:41 AM}
+                                        last update: 02/28/2006 {04:51:53 PM}
+                               
+
+	  	Introduction
+
+
+This document describes the contents of the folder Examples, included as a
+part of the Alpha distribution.  
+
+<<file::showInFinder $HOME/Examples>>
+
+This folder is not an essential component of the software.  Removing it,
+however, will not reduce the memory requirements of the program, and will
+only save disk space.  Note that in this file, as in most help files, 'Alpha'
+refers to the family of programs that use the AlphaTcl library, including
+Alpha 8/X and Alphatk.
+
+Alpha is a mode-based text editor.  This means that its behavior can change
+depending on the type of file that one has opened.  A LaTeX file, for example,
+with a file suffix .tex, will induce Alpha to load special LaTeX menus,
+colorize keywords, and adopt a particular indenting scheme.  Other modes are
+specific to html files, or various programming / syntax languages.  Several
+modes have been installed with their own Help files.
+
+The links below open example files in a shell window which you can modify at
+your leisure to explore a mode's schema for colorizing, file marking,
+indenting, etc.  None of the changes you make will affect the actual file.  If
+you close the window and then click on the hyperlink again, you will start
+with the same example as before.  The examples are listed in 7 major sections:
+
+"# LaTeX Modes"
+"# HTML / WWW Modes"
+"# Text Markup Modes"
+"# Programming / Syntax Modes"
+"# Science / Stat / Database Modes"
+"# Alpha -- Specific Modes"
+"# Feature Examples"
+
+In this document, the examples in green are hyperlinks to examples for the
+specified mode.  When you move your mouse over the link, the cursor will turn
+into a magnifying glass, and clicking will load the proper mode and open up
+the file.  Those in black are still waiting for a contribution -- if you have
+a worthy example, the last section of this file contains an e-mail address for
+making submissions.  Other hyperlinks refer to either help manuals installed
+with Alpha, or www links.  If the Example file refers to a mode that is not
+installed, Alpha will open it in 'Text' mode by default.
+
+Some of the annotation comes from the University of Montana "Language Finger"
+at <http://www.lib.umt.edu/guide/lang/langfing.htm> (UMLF).  Most of the rest
+comes from program specific web sites.
+
+
+	  	Determining Window Modes
+
+
+Alpha determines the proper mode of a window/file in one of several ways.  The
+file suffix of the window might be mapped to a particular mode -- see the
+dialog <<suffixMappings>> for examples, or to change the suffix mappings
+associated with given modes.  "Smart mode lines" that appear in the first line
+of a file such as this:
+
+	# -*-Tcl-*-
+
+or this:
+
+	* -*-Stta-*-
+
+will take precedence over file suffixes if such a line exists, or unix style
+application lines such as
+
+	#!/bin/sh
+
+or
+
+	# /usr/stata
+
+will be recognized and mapped to the mode which has internally declared itself
+as the mode for such applications.  If Alpha cannot determine the proper mode
+using these criteria, the default mode is 'Text'.  The mode of the current
+window can also be changed manually using the 'Mode' pop-up menu found in the
+status bar window, the box which currently reads 'Text'.  This menu lists all
+of the modes currently recognized by Alpha.  This file is a special colorized
+example of Text mode.
+
+Many of Alpha's modes have been submitted by users, and are being continually
+revised and updated.  The "Alpha Manual" contains more information on how
+determine what packages you have available, as well as how to find and install
+additional modes that might not be part of the "official" distribution.  The
+file "Extending Alpha" explains how you could write additional modes, menus or
+features yourself.  Although Alpha contains many modes that you might never
+use, uninstalling them will not reduce the memory requirements of the program,
+and will only save disk space.
+
+
+	======================================================================
+
+
+	  	LaTeX Modes
+
+
+The LaTeX example below not only demonstrates Alpha's behavior for TeX mode,
+it also serves as introduction to the markup language.
+
+
+	  	 	LaTeX
+
+TeX mode, for the family of TeX and LaTeX files.
+
+(This includes .tex, .sty, .cls, .bst  etc.  files.)
+                    
+"LaTeX Example.tex"             "TeX Help"
+
+This example is David R. Wilkins' Getting Started with LaTeX, a 45 page
+introduction to Leslie Lamport's set of extensions to Donald Knuth's TeX
+typesetting program.  This is a self-contained LaTeX file, which does not rely
+upon any extra .sty files.  If one has already installed a LaTeX processing
+software package, such as OzTeX or CMacTeX, one could process the actual file
+contained in the Examples folder "LaTeX-Example.tex" (rather than the
+hyperlink above) and obtain an excellent manual for LaTeX.
+
+
+	  	 	BibTeX
+
+Bib mode, for LaTeX bibliography files.
+
+"BibTeX Example.bib"            "Bib Help"
+
+This file is a compendium of books on computer languages and programming.
+
+The Bib mode can also convert .bib files to .html or .refer (EndNote), and can
+also convert some formats such as MARC or ISI to .bib, which is very
+convenient.  You might not have to create a BibTeX entry from scratch ever
+again!!  See "BibTeX Help" for details, or the package: bibConvert help.
+
+
+	  	 	Metafont
+
+Mf mode, to use Alpha as the front end for Metafont (with CMacTeX or OzTeX).
+
+"Metafont Example.mf"           "Mf Help"
+
+Metafont is the programming language written, as a companion to TeX, by Donald
+Knuth in order to create characters, fonts, font families (and many others
+things).  Metafont allows you to write the source files which TeX and Latex
+will invoke at runtime to build the fonts they need: fonts are built according
+to the desired size and to the resolution of your printer in order to get
+printed documents with the highest typographic quality.
+
+                                    -- <http://perso.easynet.fr/~berdesg/>
+
+	  	 	Metapost
+
+Mp mode, to use Alpha as the front end for Metapost (with CMacTeX or OzTeX).  
+
+"Metapost Example.mp"           "Mp Help"
+
+Metapost is a programming language written by John Hobby in order to create
+all kinds of figures, graphs, pictures to include in a document prepared with
+TeX or with Troff.  Its syntax is very much like Metafont's syntax but
+Metapost outputs are Postscript encapsulated files.
+
+                                    -- <http://perso.easynet.fr/~berdesg/>
+
+	  	 	Omega
+
+Omg mode, for (TeX) Omega syntax files.
+
+"Omega Example.opl"             "Omg Help"
+
+OMEGA is the program written, as a superstructure of TeX, by John Plaice and
+Yannis Haralambous in order to extend TeX's capabilities and deal with any
+possible language and script.  It is based internally on Unicode.
+
+                                    -- <http://perso.easynet.fr/~berdesg/>
+
+Omg mode recognizes .tex, .opl, and .otp files.  Some of the mode's features
+(such as file marking) are file extension dependent.  The example-hyperlink
+will not have any such file extension -- for additional Omega examples, try
+these links:
+
+.tex    "Omega-Example.tex"
+.opl    "Omega-Example.opl"
+.otp    "Omega-Example.otp"
+
+
+	  	 	PostScript
+
+PS mode, for PostScript files.  This example is a PostScript version of the
+first four pages of the Getting Started With LaTeX manual.  Alpha's PS mode is
+also useful for seeing the internal contents of PDF files.
+
+(Not specifically in the LaTeX family of modes, but it doesn't really fit well
+in the other categories, either.)
+
+"PostScript Example.ps"         "PS Help"
+
+PostScript is a language, not a graphic file format.  A PostScript file is
+really a program, not graphical data.  The difference is that by looking at a
+PostScript file you (or an application) cannot easily tell what the file
+represents.  Instead, you must run the file to see what it does.  Generally,
+the result of running a PostScript program is to draw marks on a graphical
+page.
+
+                            -- <http://www.glyphic.com/free/macgs.html>
+
+
+	======================================================================
+
+
+	  	HTML / WWW Modes
+
+
+The HTML example below not only demonstrates Alpha's behavior for HTML mode,
+it also serves as an introduction to the markup language.
+
+
+	  	 	HTML
+
+HTML mode, for the family of World Wide Web html files.
+
+(This includes .shtml, .css, .js files.)
+
+"HTML Example.html"             "HTML Help"
+
+HTML stands for HyperText Machine (or Markup) Language.  HTML is a subset of
+SGML. It is a computer language used to create webpages.  A newer version now
+exists, called Dynamic HTML, or DHTML. It allows precisely-controlled page
+layout, animation, new interactivity and much more.
+
+                                                        -- UMLF
+
+This example is the NSCA's A Beginner's Guide to html, which sets forth the
+required elements of a standard html web page, as well as additional tags that
+one might use for stylistic or formatting purposes.  If one opened the actual
+file in the Examples folder "HTML-Example.html" instead of the above
+hyperlink, it could then be sent to the defined web browser.
+
+
+	  	 	CSS
+
+CSS mode, for (html) cascading style sheets.  
+
+"CSS Example.css"               "CSS Help"
+
+
+	  	 	JavaScript
+
+JScr mode, for (html) javascript scripts.  
+
+"JavaScript Example.js"         "JScr Help"
+
+	  	
+	  	 	PHP
+
+PHP mode, for PHP-enabled web pages.
+
+"PHP Example.php"              "PHP Help"
+
+PHP is a tool that lets you create dynamic web pages.  PHP-enabled web pages
+are treated just like regular HTML pages and you can create and edit them the
+same way you normally create regular HTML pages.  PHP is a project of the
+Apache Software Foundation.
+
+                                            -- <http://www.php.net>
+
+	  	 	Wiki
+			
+Wiki mode, for editing collaborative Wiki Wiki Web pages.
+
+"Wiki Example"                 "Wiki Help"
+
+The ideas of 'Wiki' may seem strange at first, but dive in and explore its
+links.  'Wiki' is a composition system; it's a discussion medium; it's a
+repository; it's a mail system; it's a tool for collaboration.  Really, we
+don't know quite what it is, but it's a fun way of communicating
+asynchronously across the network.
+
+The name 'Wiki' may seem strange too - what does it mean?  The WikiWikiWebFaq
+answers this and other questions, but the short answer is that Wiki Wiki is
+Hawaiian for 'quick'.
+
+                                            -- <http://c2.com/cgi/wiki>
+
+Alpha's Wiki mode facilitates the editing of Wiki pages.  There are no 'Wiki'
+file suffix mappings, so if you're cutting and pasting the contents of a wiki
+editing text field from an internet browser window you have to open a new
+window in Alpha and manually change the mode to Wiki.
+
+Selecting an 'edit' hyperlink in a WWW rendering of a wiki page will open a
+new window in Wiki mode, and allow you to post the edited content back to the
+wiki source.  (See the WWW mode section below for more information about
+viewing remote url files in Alpha.)  You can also create a list of 'favorite'
+wiki pages using the Wiki menu, which are remembered between editing sessions.
+
+AlphaTcl has a wiki page at <http://www.purl.org/net/alpha/wiki/>
+
+
+	  	 	WWW
+
+WWW mode -- a display mode for rendering web pages in Alpha.
+
+"WWW Example"                   "WWW Help"
+
+The WWW Menu allows you to render local HTML files directly in an Alpha text
+window.  The hyperlinks in the WWW window can be navigated with the arrow
+keys; the return key takes you to the target of the link if you have your
+preferences set to do that.  All of Alpha8/X/tk support direct browsing of the
+Internet.
+
+If an internet connection is active (you'll be asked) this hyperlink will
+fetch and render the home page for AlphaTcl.  Otherwise it will render the
+first page of the HTML Mode Manual
+
+
+	======================================================================
+
+
+	  	Text Markup Modes
+
+
+Alpha's Text mode is used by default when the mode of a window cannot be
+determined via file extensions of 'smart mode lines'.  There are, however,
+some additional modes which primarily support the markup of text (as opposed
+to the creation of files specific to programming languages.)
+
+
+	  	 	manuals
+
+"man Example.n"                 "man Help"
+
+This mode is for editing unix-style reference manuals, those which are
+generally viewed using the 'man' command.  This example is the manual page for
+Tcl, which describes the basic syntax of Tcl.
+
+
+	  	 	Setext
+
+Setx mode, for the Setext markup language.
+
+"Setext Example.stx"			"Setx Help"
+
+Setext stands for 'S'tructure 'E'nhanced 'Text'.  It is a markup scheme for
+plain text documents such as email messages and e-zines.  Setext's primary
+goal is to provide a way of marking text that is visually unobtrusive, so that
+if you don't have a special setext browser, like EasyView, you can still read
+the text.  -- Donavan Hall
+
+
+	  	 	TIP
+
+TIP mode, for Tcl Improvement Proposal suggestions.
+
+"TIP Example.tip"                   "TIP Help"
+
+This link will open a draft letter for a suggestion, and insert the TIP menu
+into the menu bar.  See the <http://purl.org/tcl/tip/> TIP home page for more
+information.
+
+
+	  	 	Xml
+
+xml mode, for eXtensible Markup Language documents
+
+"xml Example.xml"                   "xml Help"
+
+Extensible Markup Language (XML) is a simple, very flexible text format
+derived from SGML (ISO 8879).  Originally designed to meet the challenges of
+large-scale electronic publishing, XML is also playing an increasingly
+important role in the exchange of a wide variety of data on the Web and
+elsewhere.
+
+                                        -- <http://www.w3.org/XML/>
+
+This link will open a simple xml document.  If you are using Alphatk, you can
+get an interactive tree view of the document with 'View Xml' in the xml menu.
+
+Note that xml mode also creates two support modes -- 'dtd' and 'xsl'.  These
+are used in the "Xml Menu > New Xml Doc" submenu.
+
+
+	======================================================================
+
+
+	  	Programming / Syntax Modes
+
+
+Alpha is a very useful tool for editing a variety of computer language files.
+If you can't find the language that you're looking for, please make a request
+to one of the mailing lists described in the "Readme".
+
+
+	  	 	Ada
+
+Ada mode, for the Ada programming language.
+
+"Ada Example.ada"               "Ada Help"
+
+In the 1960s and 1970s, the United States Department of Defense was using more
+than 2,000 languages for its mission-critical programming.  Most of these were
+languages that were developed for one specific job.  Finally, in 1975, the DoD
+formed the U.S. Department of Defense High-Order Language Working Group
+(HOLWG) to find a solution to what was often called the "software crisis."
+
+Rather than create this new language themselves, they decided to hold a
+contest.  Coincidentally, all of the teams created Pascal-based languages.  In
+the end, the winner was CII Honeywell-Bull in France.  Eventually, the
+language was christened "Ada," in honor of Lady Ada Lovelace, daughter of
+famed poet Lord Byron and assistant to mathematician Charles Babbage, who
+invented the Analytical Machine.  Lady Ada is often considered to be the
+world's first programmer.
+
+By 1990, over 200 validated Ada compilers had been produced, and in 1995 a new
+standard, called Ada 95, was announced.  Ada 95 is object-oriented, and offers
+interfaces to the languages C, FORTRAN and COBOL.
+
+                                        -- <http://www.adahome.com>
+
+	  	 	AppleScript
+
+Scrp mode, for AppleScript scripts.
+
+"AppleScript Example.script"    "Scrp Help"
+
+AppleScript is an English-like language used to write script files which can
+control the actions of the computer and the applications which run on it.
+Scripts can make decisions based on user-interaction or by parsing and
+analyzing data, documents or situations.  Every Macintosh can be automated and
+controlled using AppleScript which comes with and is an integral part of the
+Macintosh operating system.
+
+                                    -- <http://www.apple.com/applescript/>
+
+	  	 	C
+
+C mode, for the C programming language.
+
+"C.Example.r"                   "C Help"
+
+C was developed out of the construction of the UNIX operating system.  It has
+a modular programming structure and is thus useful for functional programming.
+Despite being a rather old language, it still seems to be used extensively for
+much low-level development (other languages such as Tcl, Perl, Python are all
+implemented in C).  C++ is largely a superset of C. Other dialects include
+Small-C and Visual C.
+
+                                                        -- UMLF
+
+	  	 	C++
+
+C++ mode, for the C++ programming language.
+
+"C++ Example.cp"                 "C++ Help"
+
+C++ was designed and implemented by Bjarne Stroustrup at AT&T Bell
+Laboratories to combine the organizational and design strengths of Simula with
+C's facilities for systems programming.  The initial version of C++, called "C
+with Classes," was first used in 1980; it supported traditional system
+programming techniques and data abstraction.  The basic facilities for
+object-oriented programming were added in 1983 and object-oriented design and
+programming techniques were gradually introduced into the C++ community.  The
+language was first made commercially available in 1985.  Facilities for
+generic programming were added to the language in the 1987-1989 time frame.
+
+As the result of widespread use and the appearance of several independently
+developed C++ implementations, formal standardization of C++ started in 1990
+under the auspices of the American National Standards Institute, ANSI, and
+later the International Standards Organization, ISO, leading to an
+international standard in 1998.  During the period of standardization the
+standards committee acted as an important focus for the C++ community and its
+draft standards acted as interim definitions of the language.
+
+                                        -- <http://www.research.att.com/~bs/>
+
+	  	 	C#
+
+C# mode, for the C# programming language.
+
+"C# Example.cs"                 "C# Help"
+
+C# is a newish language from Microsoft, intended to compete with Java.
+
+Microsoft C# (pronounced C sharp) is a new programming language designed for
+building a wide range of enterprise applications that run on the .NET
+Framework.  An evolution of Microsoft C and Microsoft C++, C# is simple,
+modern, type safe, and object oriented.  C# code is compiled as managed code,
+which means it benefits from the services of the common language runtime.
+These services include language interoperability, garbage collection, enhanced
+security, and improved versioning support.
+
+C# is introduced as Visual C# in the Visual Studio .NET suite.  Support for
+Visual C# includes project templates, designers, property pages, code wizards,
+an object model, and other features of the development environment.  The
+library for Visual C# programming is the .NET Framework.
+
+	-- <http://msdn.microsoft.com/library/en-us/cscon/html/vcoriCStartPage.asp>
+
+
+	  	 	Caml
+
+Caml mode, for the Caml programming language.
+
+"Caml Example.ml"               "Caml Help"
+
+ML is a computer language.  Originally designed by Robin Monet, Lockwood
+Morris and Malcolm Newey in the early 1970's, it has undergone several
+revisions, resulting 2 major and differing descendants now: CAML and Standard
+ML.
+
+                                                        -- UMLF
+
+Caml is a programming language, easy to learn, easy to use, and yet amazingly
+powerful.  It has been developed and distributed by INRIA (the main french
+research institute for computer science), since 1984.  It is freely available
+for Unix, PC or Macintosh.  There exist two flavors of Caml: Caml Light and
+Objective Caml.  Caml Light is merely a subset of Objective Caml, especially
+designed for teaching and learning the art of programming.  In addition to the
+Caml Light's core language, Objective Caml features a powerful modules system,
+full support to object-oriented paradigm, and an optimizing compiler.
+
+                                        -- <http://pauillac.inria.fr/caml/>
+
+	  	 	FORTRAN
+
+Fort mode, for the FORTRAN programming language.
+
+"FORTRAN Example.f"             "Fort Help"
+
+FORTRAN was first developed in the 1950's and still used today.  Its name
+comes from "FORmula TRANslation," revealing its early use in processing
+mathematics.  Dialects include FORTRAN 77 and FORTRAN 90.  Versions include
+FORTRAN II, IV, and V, WATFOR, and WATFIV.
+
+                                                        -- UMLF
+	  	 	Fortran90
+
+f90 mode, for the FORTRAN 90 dialect of the FORTAN programming language.
+
+"F90 Example.f90"               "f90 Help"
+
+F90 mode supports the editing of the free-format syntax of Fortran90.
+
+
+	  	 	Java
+
+Java mode, for the Java programming language.
+
+"Java Example.java"             "Java Help"
+
+Java is a computer language, but very powerful, intended to be machine and
+operating-system independent.  Java will enable whatever functions the piece
+you call up or download has, including sound, video, etc., on your screen.  It
+also is interactive, and can produce dynamic images on your screen, not just
+static ones.  It was developed by Sun Micro.  There is a dialect called Hot
+Java; on the other hand, JavaScript is a separate language.
+
+                                                        -- UMLF
+
+	  	 	LISP
+
+Lisp mode, for the LISP programming language.
+
+"Lisp Example.el"               "Lisp Help"
+
+LISP is an acronym for LISt Processing.  Its development history has often
+been associated with symbolic processing and with both computer and human
+languages.  A heterogeneous list data type has always been built into the
+language in order to efficiently deal with arbitrary and changing models.
+Lisp has evolved into a family of languages.  The two major dialects in use
+today are Common Lisp and Scheme.
+
+                                            -- <http://www.lisp.org>
+
+	  	 	makefile
+
+Make mode, for creating/editing/compiling 'makefile' files.
+
+"Makefile Example.m4"            "Make Help"
+
+'Make' is one of the original Unix tools for Software Engineering, by S.I.
+Feldman of AT&T Bell Labs circa 1975.  But there are public domain versions
+(eg.  GNU) and versions for other systems (eg.  Vax/VMS) as well.  Related
+tools are the language compilers (cc, f77, lex, yacc, etc.)  and shell
+programming tools (eg.  awk, sed, cp, rm, etc.).  You need to know how to use
+these.  Important adjuncts are lint (source code checking for obvious errors)
+ctags (locate functions, etc.  in source code) and mkdepend.  These are nice,
+and good programmers use them.
+
+                          -- <http://www.hsrl.rutgers.edu/ug/make_help.html>
+
+See also the 'make' man page at <http://www.ntua.gr/cgi-bin/man-cgi?make>
+
+
+	  	 	MPW
+
+MPW mode, for Macintosh Programmer's Workshop shell windows.
+
+"MPW Example"                   "Shells"
+
+Macintosh Programmer's Workshop (MPW) is a product designed specifically for
+professional Macintosh software developers.  It brings together a
+comprehensive collection of development tools designed to support C, C++, and
+assembly-language programmers who are writing software for Mac OS 7.x/8.x/9.x.
+MPW is an open, configurable, and scriptable development environment which
+provides the flexibility to support complex software development projects for
+68K and Power Macintosh systems.
+
+                             -- <http://developer.apple.com/tools/mpw-tools/>
+
+This link will open a 'ToolServer Shell' window, but requires the MPW
+application to be locally installed.  Toolserver shell windows can also be
+opened using the "Utils > Toolserver Shell" dynamic menu item, bound to
+Control-Command-Y.
+
+
+	  	 	Objective C
+
+Objc mode, for the Objective C programming language.
+
+"ObjectiveC Example.m"          "Objc Help"
+
+Objective-C is a object oriented superset of C with a Smalltalk style (infix)
+message syntax.  It was originally written by Brad Cox and the StepStone
+corporation in the early 1980s.  In 1988, it was adopted as the development
+language for NeXTstep and was made a part of the GNU gcc compiler in 1992.  It
+is currently used as the principle programming language for MacOSX (which is
+based on NeXTstep) and as the language for the GNUstep project on Linux and
+other platforms.  Objective-C's weak typing and runtime features distinguish
+it from C++ and Java.
+
+                                   -- <http://www.dekorte.com/Objective-C/>
+
+	  	 	Pascal
+
+Pasc mode, for the Pascal programming language.
+
+"Pascal Example.p"              "Pasc Help"
+
+The computer language Pascal was developed between 1968 and 1971, from ALGOL.
+It was named for the French mathematician Blaise Pascal.  Its
+highly-structured nature makes it especially well-suited for developing
+algorithms.
+
+                                                        -- UMLF
+
+	  	 	Perl
+
+Perl mode, which can use Alpha as the front end for MacPerl.
+
+"Perl Example.pl"               "Perl Help"
+
+Perl is an interpreted high-level programming language developed by Larry
+Wall.  According to Larry, he included in Perl all the cool features found in
+other languages and left out those features that weren't so cool.
+
+Perl has become the premier scripting language of the Web, as most CGI
+programs are written in Perl.  However, Perl is widely used as a rapid
+prototyping language and a "glue" language that makes it possible for
+different systems to work well together.  Perl is popular with system
+administrators who use it for an infinite number of automation tasks.
+
+Perl's roots are in UNIX but you will find Perl on a wide range of computing
+platforms.  Because Perl is an interpreted language, Perl programs are highly
+portable across systems.
+
+                                            -- <http://www.perl.com>
+
+	  	 	Python
+
+Pyth mode, for the Python programming language.
+
+"Python Example.py"             "Pyth Help"
+
+Python is an interpreted, interactive, object-oriented programming language.
+It incorporates modules, exceptions, dynamic typing, very high level dynamic
+data types, and classes.  Python combines remarkable power with very clear
+syntax.  It has interfaces to many system calls and libraries, as well as to
+various window systems, and is extensible in C or C++.  It is also usable as
+an extension language for applications that need a programmable interface.
+Finally, Python is portable: it runs on many brands of UNIX, on the Mac, and
+on PCs under MS-DOS, Windows, Windows NT, and OS/2.
+
+                                            -- <http://www.python.org>
+
+	  	 	Scheme
+
+Scm mode, for the Scheme programming language.
+
+"Scheme Example.scm"            "Scm Help"
+
+The Scheme dialect of Lisp was created in 1975 by Guy Steele and Gerry Sussman
+to explore ideas in programming-language semantics.  They showed that a
+powerful language can be made "not by piling feature on top of feature, but by
+removing the weaknesses and restrictions that make additional features appear
+necessary".  Scheme pioneered lexical scope in Lisp, first-class
+continuations, and tail recursion, and more recently added an advanced macro
+system.  It's the best-known Lisp dialect after Common Lisp (which it
+influenced).  It is IEEE standardized and widely used in universities and in
+electronic CAD systems.
+
+                                            -- <http://www.lisp.org>
+
+	  	 	sh Scripts
+
+sh mode, for unix, linux, or osx shell scripts.  This example is the script
+used to generate on-line man reference pages, such as those found at this
+site: <http://www.softlab.ntua.gr/~christia/man-cgi.html>.
+
+"sh Example.sh"               "sh Help"
+
+The first version of UNIX was created in 1969 by Kenneth Thompson and Dennis
+Ritchie, system engineers at AT&T's Bell Labs.  It went through many revisions
+and gained in popularity until 1977, when it was first made commercially
+available by Interactive Systems Corporation.
+
+At the same time a team from the University of California at Berkeley was
+working to improve UNIX. In 1977 it released the first Berkeley Software
+Distribution, which became known as BSD. Over time this won favour through
+innovations such as the C shell.
+
+Meanwhile the AT&T version was developing in different ways.  The 1978 release
+of Version 7 included the Bourne Shell for the first time.  By 1983 commercial
+interest was growing and Sun Microsystems produced a UNIX workstation.  System
+V appeared, directly descended from the original AT&T UNIX and the prototype
+of the more widely used variant today.
+
+                                    -- <http://unixhelp.ed.ac.uk/>
+
+	  	 	SQL
+
+SQL mode, for Structured Query Language database operations.
+
+"SQL Example.sql"               "SQL Help"
+
+SQL is an open, freely-based computing language that uses certain terminology
+to extract information from data sets or to perform operations across a whole
+range of data.  The letters stand for Structured Query Language.  Dialects
+include Microsoft SQL, ISQL_w, (Native) Dynamic SQL (or NDS), Jet SQL, and
+T-SQL (or Transact-SQL); the latter is SQL's server.  Data Definition Language
+is a part of SQL.
+
+                                                        -- UMLF
+
+	  	 	Tcl
+
+Tcl mode, the programming language on which Alpha is based.  Tcl has its own
+separate "Tcl 8.4 Commands" and "Tcl-Tk Help" help files.
+
+"Tcl Example.tcl"				"Tcl Help"
+
+Tcl is a string-based command language.  The language has only a few
+fundamental constructs and relatively little syntax, which makes it easy to
+learn.  The Tcl syntax is meant to be simple (and in this respect differs to
+Perl), but this doesn't mean it lacks in power.  Tcl is designed to be a glue
+that assembles software building blocks into applications, and is also used as
+a scripting language and for building graphical interfaces very quickly (with
+the Tk extension).  In addition, Tcl is interpreted when the application runs.
+The interpreter makes it easy to build and refine your application in an
+interactive manner.  Tcl is also available cross-platform.  Programs written
+in Tcl/Tk can run without any changes on Windows, Macintosh (including MacOS
+X) and Unix.
+
+Tcl is also used to construct complex applications.  Tcl is used in some
+mission-critical satellite control systems; an entire ERP system has been
+built in Tcl, and Alphatk is 100% Tcl.
+
+                                            -- <http://www.tcl.tk>
+
+See also the "# Shell" and "# TIP" mode sections below.
+
+	  	
+	======================================================================
+
+
+	  	Science / Stat / Database Modes
+
+
+Many of Alpha's modes have been written to aid in the editing of source files
+used for specific math/statistical/scientific applications.  Many of these
+programs are proprietary software, others are freeware.  In some cases, the
+mode allows Alpha to serve as the 'front end' for these applications.  While
+some of these modes might qualify as a proper computer programming language
+mode, they're included here if they primarily support the
+creation/manipulation of datasets.
+
+
+	  	 	CLAN
+
+Clan mode, for "Computerized Language Analysis" files.
+
+"CLAN Example.cha"              "Clan Help"
+
+CLAN is a program that is designed specifically to analyze data transcribed in
+the format of the Child Language Data Exchange System (CHILDES).  CLAN was
+written by Leonid Spektor at Carnegie Mellon University.  The current version
+uses a graphic user interface and runs on both Macintosh and Windows machines.
+Earlier versions also ran on DOS and Unix without a graphic user interface.
+CLAN allows you to perform a large number of automatic analyses on transcript
+data.  The analyses include fre-quency counts, word searches, co-occurrence
+analyses, mean length of utterance (MLU) counts, interactional analyses, text
+changes, and morphosyntactic analysis.
+
+                                        -- <http://childes.psy.cmu.edu>
+
+
+	  	 	Dot
+
+dot mode, to interact with "graphviz" and edit "dot" files.
+
+"Dot Example.dot"
+
+"graphviz" is open source graph drawing software providing a set of graph
+drawing tools for Unix or MS-Windows (win32) or MacOSX, including a web
+service interface (webdot).  Graph drawing addresses the problem of
+visualizing structural information by constructing geometric
+representations of abstract graphs and networks.  Automatic generation of
+graph drawings has important applications in key technologies such as
+database design, software engineering, VLSI and network design and visual
+interfaces in other domains.
+
+"dot" is a simple format which describes which nodes should connect to
+which other nodes.  Then the sophisticated layout routines quickly render
+it into many different output formats.
+
+                        -- <http://www.pixelglow.com/graphviz/>
+                        -- <http://www.research.att.com/sw/tools/graphviz/>
+
+
+	  	 	Gnuplot
+
+GPLT mode, to use Alpha as the front end for Gnuplot.
+
+"Gnuplot Example.gp"            "GPLT Help"
+
+Gnuplot is a command-line driven interactive function plotting utility for
+UNIX, MSDOS, and VMS platforms.  The software is copyrighted but freely
+distributed (i.e., you don't have to pay for it).  It was originally intended
+as a graphical program which would allow scientists and students to visualize
+mathematical functions and data.
+
+                        -- <http://www.cs.dartmouth.edu/gnuplot_info.html>
+
+	  	 	IGOR
+
+Igor mode, for the IGOR data analysis and graphing package.
+
+"Igor Example.igor"             "Igor Help"
+
+WaveMetrics' IGOR Pro is an extraordinarily powerful and extensible graphing,
+data analysis, and programming tool for scientists and engineers.
+
+With IGOR Pro installed on your Macintosh or Windows computer, you will have
+the power to produce journal-quality scientific graphs, handle large data sets
+with ease, import data from a variety of file formats, use a wide range of
+capabilities for analysis and graphing, present your results effectively, use
+IGOR's built-in programming environment to control all its aspects, and
+acquire data directly from instruments.
+
+                                            -- <http://www.wavemetrics.com/>
+
+	  	 	Maple
+
+mapl mode, for Maple programming files.
+
+"Maple Example.maple"           "mapl Help"
+
+Maple is a functional programming language for doing symbolic computations in
+mathematics.  It is also a commercial program for interpreting code written in
+this language
+
+                                           -- <http://www.maplesoft.com>
+
+
+	  	 	MATLAB
+
+MATL mode, to use Alpha as the front end for MATLAB.
+
+"MATLAB.Example.m"              "MATL Help"
+
+MATLAB is an intuitive language and a technical computing environment.  It
+provides core mathematics and advanced graphical tools for data analysis,
+visualization, and algorithm and application development.  With more than 500
+mathematical, statistical, and engineering functions, engineers and scientists
+rely on the MATLAB environment for their technical computing needs.
+
+                                            -- <http://www.mathworks.com/>
+
+	  	 	Modula-2
+
+M2 mode, for programming in Modula-2 using the RAMSES or MacMETH shell.
+
+"M2 Example.m2"                 "M2 Help"
+
+Modula-2 was designed by Niklaus Wirth, in 1978.  He had earlier designed
+first Pascal, and later the first Modula, both arising out of ALGOL. (All
+versions of Modula are included here.)  Modula-2 programs can be divided into
+modules (program units capable of hiding some entities comprising them); thus
+some modules can make use of low-level computing languages, which may be
+necessary for a specific machine, without requiring the entire program to do
+so.
+
+                                                        -- UMLF
+
+The RAMSES (Research Aids for Modelling and Simulation of Environmental
+Systems) software is a package consisting of a shell, and several so-called
+sessions.  Each session serves a particular purpose, modeling, experiment
+definition, simulation, and post-simulation analysis and can be run from
+within the shell.
+
+Modula-2 for the Macintosh is available as FreeWare, courtesy ETH Zurich as
+part of the software packages RAMSES or MacMETH.
+
+                                    -- <http://www.ito.umnw.ethz.ch/SysEcol/>
+
+	  	 	S / S+ / R
+
+S mode, for S, S-Plus, R statistical syntax files.
+
+"S Example.s"                   "S Help"
+
+S-Plus is the premier solution for exploratory data analysis and statistical
+modeling.  With over 3,800 data analysis functions, including the most
+comprehensive set of robust and modern methods available anywhere, S-Plus
+allows you to perform more insightful analysis, create revealing graphics and
+make more informed business decisions.
+
+                                -- <http://www.insightful.com/products/splus/>
+
+	  	 	SAS
+
+SAS mode, for SAS statistical syntax files.
+
+"SAS Example.sas"               "SAS Help"
+
+SAS/STAT software, an integral component of the SAS System, provides extensive
+statistical capabilities with tools for both specialized and enterprise-wide
+analytical needs.  Ready-to-use procedures handle a wide range of statistical
+analyses, including analysis of variance, regression, categorical data
+analysis, multivariate analysis, survival analysis, psychometric analysis,
+cluster analysis, and nonparametric analysis.
+
+                                            -- <http://www.sas.com>
+
+	  	 	Scilab
+
+Scil mode, for the Scilab scientific software package, used for numerical
+computations in a user-friendly environment.
+
+"Scilab Example.sci"			"Scil Help"
+
+Its features include elaborate data structures (polynomial, rational and
+string matrices, lists, multivariable linear systems,...); sophisticated
+interpreter and programming language with Matlab-like syntax; hundreds of
+built-in math functions (new primitives can easily be added); stunning
+graphics (2d, 3d, animation); open structure (easy interfacing with Fortran
+and C via online dynamic link); and many built-in libraries.
+
+                                    -- <http://www-rocq.inria.fr/scilab/>
+
+	  	 	SPSS
+
+SPSS mode, for SPSS statistical syntax files.
+
+"SPSS Example.sps"              "SPSS Help"
+
+SPSS 10.0 is a modular, integrated product line for data access, data
+preparation, reporting, graphics and advanced analysis through statistical
+techniques.  The new release updates Macintosh users to the latest version and
+delivers significant new capabilities in all areas of the product line,
+including: new modules; predictive capabilities for data mining; and dynamic,
+interactive graphics for the first time on the Macintosh.  The software will
+also be available in a distributed analysis architecture (DAA), which provides
+users with dramatically improved performance with very large datasets.
+
+                                            -- <http://www.spss.com>
+
+	  	 	Stata
+
+Stta mode, for Stata statistical syntax files.
+
+"Stata Example.do"              "Stta Help"
+
+Stata has complete statistical, graphical, and data-management capabilities
+and is also fully programmable.  Stata is an environment for manipulating and
+analyzing data using statistical and graphical methods.  Stata is an
+integrated package — not a collection of separate modules.  You can
+intersperse data management, statistical, and graphical commands.
+
+                                            -- <http://www.stata.com>
+
+
+	======================================================================
+
+
+
+	  	Alpha -- Specific Modes
+
+
+Some of Alpha's mode are not intended for text editing.  They instead support
+different menu items or features.  This section gives examples of how Alpha
+might use some of the modes included in the modes pop-up menu (the menu in the
+status bar that currently reads 'Text').
+
+
+	  	 	Browser
+
+Brws mode.  This provides a way to navigate the results of a batch search.
+During a batch search, a list of all matching lines are displayed in a Brws
+window.  By using the arrow keys and the return key, you can easily jump to
+the correct file and line of the match you desire.
+
+"Browser Example"
+
+This example is a hyperlink to the 'Browse Fileset' menu item.
+
+
+	  	 	Changes
+
+Chng mode, an Alpha Developers tool for editing 'Changes' files.  This link
+will open the latest Alpha - Changes file.
+
+"Changes Example"
+
+
+	  	 	Compare
+
+Diff mode.  This mode allows for powerful side-by-side file comparison and
+patching of changes back and forth between two files or directories.
+
+"Compare Example"               "Diff Help"
+
+This link will compare two versions of a Tcl "trains" example file.
+
+An addition "CompareWordByWord Example" link will demonstrate how the content
+of two files can be compared when one selects the (dynamic) menu command
+"Utils > Compare > Windows Word By Word".
+
+
+	  	 	Filters
+
+'Fltr' mode is enabled by the package: filtersMenu, which allows for
+complicated search and replace functions within Alpha.  For more information,
+see the "# Filters " Example below.
+
+
+	  	 	Install
+
+Inst mode.  This provides support for the Install menu, and is invoked
+whenever you open a file containing an installation script, i.e. whenever you
+are installing a new package.
+
+"Install Example"               "Extending Alpha"
+
+This link will open such a file, presenting you with installation options.
+This script won't actually install anything, and clicking on either 'OK' or
+'Cancel' will close the file.  To see the actual Tcl code contained in this
+script, hold down any modifier key while you click on the hyperlink.  See the
+"Extending Alpha" help file for more installation script information.
+
+
+	======================================================================
+
+
+	  	Feature Examples
+
+
+Many of Alpha's features are best explained with a little tutorial.  This
+section contains a small collection of the tutorials currently available.
+
+
+	  	 	Calculator
+
+This provides a simple calculator for use within Alpha, available from the
+"Utils > Calculator" menu item.
+
+"Calculator Example"            "Calculator Help"
+
+This example will return the result of typing  
+
+	1 <cr> 1 + <cr>
+	1 <cr> 1 + <cr> 4.2 *
+
+It first calculates 1 + 1, then calculates (1 + 1) * 4.2
+
+
+	  	 	Dictionary
+
+"Dictionary.Example"            "Dictionaries Help"
+
+The 'Dictionary' package is a small programme running inside Alpha to look up
+words in plain-text dictionaries.  Once activated, the Dictionary package
+inserts a submenu in the Utils menu.
+
+Preferences: Features
+
+A plain-text dictionary is any text file with one dictionary entry per line,
+and sorted alphabetically.  The file may also contain a header with certain
+auxiliary Tcl procdures to specify the precise sorting criterium, and how to
+format an entry on the screen.  The "Examples/Dictionary-Examples" folder
+contains a file 'dictionary-formats' where the header format is explained,
+and it also contains four example dictionaries, where you can see what these
+headers can look like in practice.  There is also a subfolder with some extra
+tools for dictionary management, and instructions for getting dictionaries.
+
+
+	  	 	Filters
+
+The Filters Menu allows you to do successive Search And Replace operations for
+the current window (in any mode).  All the operations are gathered in files
+called -- filters -- which you can apply to any text file opened in Alpha.
+
+"Filters Example"               "Filters Help"
+
+This link will open a Filters Tutorial shell window.  The actual files
+containing the filter information are opened in 'Fltr' mode, such as the
+"Filters Example.flt" file.  These examples will be much more useful if the
+Filters package is enable via the "Config > Global Setup > Menus" dialog.
+
+Preferences: Menus
+
+
+	  	 	Mac Menu
+
+"MacMenu Example"               "Mac Menu Help"
+
+Mac Menu for Alpha allows you to achieve all kinds of files manipulations from
+Alpha and to interact with the MacOS file system with maximum flexibility.
+
+You can act upon selections of files taken out of a folder or a hierarchy of
+folders and subfolders : the selection is made using a regular expression
+(regexp) and setting various additional conditions.  You have thus full and
+extended control on which files you want to manipulate.  The "Mac Menu"
+package has been designed to activated globally.
+
+Preferences: Menus
+
+
+	  	 	Macros
+
+"Macros Example"                "Macros Help"
+
+A macro is a sequence of recorded keystrokes that can be played back again.
+Unlike other macro packages you might be familiar with in other Mac
+applications, keyboard macros in Alpha do not record mouse movement or entries
+in system dialogs -- only keystrokes or menu selections are recorded.  Even
+with these limitations, you will discover that macros can save you time
+through easy automation of repetitive tasks.  The 'Macros' package is a global
+feature.
+
+Preferences: Features
+
+
+	  	 	Mail Menu
+
+This menu allows Alpha serve as a front end to Eudora and other e-mail
+software packages for reading and sending e-mail.  You can also read and send
+mail using Alpha's internal pop3 and smtp protocols.
+
+"Mail Example"                "Mail Help"
+
+This link will open a mail window and compose a nice note addressed to the
+author of this file.  You will need to configure some Mail Menu settings to
+send it, though.
+
+
+	  	 	Manip Cols
+
+"ManipCols Example"             "ManipCols Help"
+
+The 'manipCols' package is a feature which allows one to do various
+manipulations with the columns of any tabulated material i.e. a series of
+lines in which items are separated by a tabulation or by any other specific
+character (like & or a tabulation or a colon, a comma, an endash etc.  or even
+the space character).  Once it is installed and activated, it adds a new
+submenu named "Text > Columns".  The items of this submenu are explained in
+the "ManipCols Help" file.  The 'Manip Cols' package is a global feature.
+
+Preferences: Features
+
+
+	  	 	Shell Windows
+
+Shel attributes can be attached to other modes to provide an interactive
+command-line shell.  For example, use "Utils > Tcl Shell" to access a Tcl
+shell. <<tclShell>>
+
+"Shell Example"                 "Shells"
+
+This link will open a Tcl shell and issue the commands 
+
+	cd [file join $HOME]
+	cd [file join $HOME "Examples"]
+	glob -dir [file join $HOME "Examples"] *
+	version
+	alertnote "Hello World."
+
+Some of these commands are Tcl commands, others are specific to AlphaTcl. 
+
+Individual shell commands can also be executed using the status bar window by
+first pressing Escape-X. Try typing
+
+	alertnote "This is a test"
+
+and then pressing return for an example.  This is a very handy tool for
+AlphaTcl developers to debug routines without having to first open a
+<<tclShell>> window.
+
+Several packages in AlphaTcl also create shell windows to environments other
+than the internal Tcl shell, such as the package: macMenu (see "# Mac Menu"
+above).  Also see the "# MPW" information above.
+
+
+	  	
+	======================================================================
+
+
+	  	Acknowledgments
+
+
+Alpha is a collaborative project.  This package would not have been possible
+without the suggestions and submitted/authored files from the following:
+
+	ActiveState Tool Corp., Ajuba Solutions, Anders Andersen, Milton
+	Aupperle, Jos Bergervoet, Dale Bickel, James Van Buskirk, Laurent Chéno,
+	Panagiotis J. Christias, Vince Darley, Bernard Desgraupes, Thomas Dunbar,
+	Andreas Fischlin, David Flanagan, David Frank, Jonathon Guyer, Donavan
+	Hall, Yannis Haralambous, Gerrit Huizenga, Johan Linde, John Plaice, Tim
+	Prince, Neil Schemenauer, Daniel K. Schneider, Sandra Silcot, Dorai
+	Sitaram, David Smith, Bjarne Stroustrup, David A. Wheeler, Pierre Weis,
+	David Wilkins, and Jos van der Woude
+        
+	  	Technical Notes
+
+
+Any file with 'Example' in the filename will automatically be installed in the
+Examples folder.  All of the hyperlinks in this help document (as well as
+others) use the proc: help::openExample.  Any Help file can take advantage of
+this procedure to include hyperlinks to any example file included in the
+'Examples' folder.
+
+Important: 'Example' filenames must be '<something>-Example.sfx', where
+<something> is an alpha-numeric string and .sfx is recognized by Alpha in the
+"Config > Global Setup > Suffix Mappings" preference.
+
+The dash in the filename is important and cannot be omitted !!
+
+See the help file "Help Files Help" for more information about creating
+auto-hyperizing help files, and the syntax for automatic hyperlinks.
+
+
+	  	To submit additional examples,
+
+
+or just better ones, please send them via e-mail to the address below.  This
+would include, of course, examples of modes that aren't even listed above.
+Please include information on where one could obtain the mode if it is not
+included in standard distributions.
+
+Feel free to also send me any bugs, comments, or suggestions on this file.
+
+cheers,
+
+
+-- cbu
+
+
+Author: Craig Barton Upright
+E-mail: <cupright@alumni.princeton.edu>
+   www: <http://www.purl.org/net/cbu>
+
+This package is free.  Alpha is shareware ! <<register>>
+
+This document has been placed in the public domain.  Unless otherwise
+noted, the files within the 'Examples' folder have the following license:
+
+
+	  	License and Disclaimer
+
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+ • Redistributions of source code must retain the above copyright
+   notice, this list of conditions and the following disclaimer.
+
+ • Redistributions in binary form must reproduce the above copyright
+   notice, this list of conditions and the following disclaimer in the
+   documentation and/or other materials provided with the distribution.
+
+ • Neither the name of Alpha/Alphatk nor the names of its contributors may
+   be used to endorse or promote products derived from this software
+   without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ARE DISCLAIMED. IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE FOR
+ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
+DAMAGE.
+

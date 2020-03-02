@@ -1,0 +1,297 @@
+-*-Help-*-
+
+Emacs Help
+
+                                               version: 0.3.3
+                                               created: 09/08/1997 {04:32:40 pm}
+                                           last update: 03/06/2006 {08:38:07 PM}
+
+
+This help file describes the "Emacs" package.
+
+
+	  	Table Of Contents
+
+
+"# Introduction"
+"# Emacs Submenu"
+"# Emacs Key Bindings"
+"#   Macros"
+"#   Alpha Shortcuts"
+"#   Window Manipulation"
+"#   Text and Cursor Manipulation"
+"#   Meta Keys"
+"# Recent Changes"
+
+<<floatNamedMarks>>
+
+
+	  	Introduction
+
+
+The emacs package provides a set of keyboard shortcuts that mimic those used
+in the Emacs editor.  The emacs editor enjoys wide-spread popularity on unix
+systems.  Pete Keleher acknowledges it as part of the inspiration for Alpha.
+
+When you turn on the Emacs package using "Config > Global Setup > Features"
+
+Preferences: Features
+
+a number of emacs-like keyboard shortcuts will be made available for every
+editing window.
+
+The procedures and commands that get keyboard shortcuts through this package
+primarily deal with: navigation in the text (buffer), text manipulation, and
+window appearance & positioning for the most part (aside: the use of the word
+"buffer" to refer to a text containing window probably comes from emacs).
+
+A lot of the keyboard shortcuts are unusual compared to those used in 'normal'
+Macintosh editor/word processors, so it if fair to wonder what the advantages
+of these shortcuts are for those not already used to emacs.  Well, the primary
+advantage is in keeping your hands close to the home keys, you rarely have to
+move away from the alpha-numeric portion of the keyboard into the arrow,
+keypad or function key areas if you use this package.
+
+
+	  	Emacs Submenu
+
+
+Since the shortcuts/functionality used by emacs may not yet be second nature
+to you, you can have this package include a submenu under 'Edit' that can
+serve as a handy reference to jog your memory, and as an alternative method of
+invoking a desired operation.  The inclusion of this submenu is the default
+behavior of this package, if they are already second nature to you, or, become
+so, you can remove it by unchecking 'Use Emacs Menu' under the 'Miscellaneous'
+section of the globals dialog.
+
+Preferences: Packages
+
+
+	  	Emacs Key Bindings
+
+
+NB: On MacOS, 'Control' is used for the multi-char sequences.  On windows,
+'Alt-X' and 'Alt-C' are used instead of 'Control-X' and 'Control-C' (to avoid
+clashing with the Cut/Copy shortcuts).
+
+The Control modifier is used in a lot of these shortcuts, this modifier is
+rarely used in other Macintosh applications, but was the first non-ordinary
+modifier available on early keyboards.  Those keyboards had only one Control
+key, and it was located where the capslock key is today.  This kept your hands
+even more tightly concentrated than the current arrangement, you only needed
+to stretch your little finger over a tiny bit and then you could make all your
+Control combinations with ease.  Today's keyboards are pretty well standardize
+with the two Control keys in the lower corners.
+
+This configuration makes these Control combinations a little less convenient,
+it's more of a stretch away from the home row position and makes the use of
+one hand to press both the Control key and the 'regular' key a difficult
+stretch for some combinations.  The reason the Control keys have assumed their
+current configuration is that programmers form a pretty small subset of the
+people who use computers so the keyboard makers moved those mysterious and
+"useless" keys out of harms way.  Perhaps Pete will one day add the ability to
+swap the caps-lock and lefthand Control key functionality while you are using
+alpha.  The keyboard I use (a Datadesk Switchboard) allows you to do this
+physically, I find the emacs shortcuts even more time saving in that
+configuration.
+
+If you do get used to the Control key combinations, there is a bonus as
+regards "Scrolling List" dialogs that you may not be aware of, as long as
+there is a selection in the list, the following key combinations will work:
+
+	Control--' (i.e. Control-Minus) == Down-Arrow
+	Control-L == Page-Down
+	Control-K == Page-Up
+
+
+All of the shortcuts below start with Control-X, and then are followed by the
+indicated key.  In some cases, the key must be also be preceded by the
+modifier key indicated.  For example, "Control-X Control-F" will open a "Open
+File" dialog.  Click on the hyperlink to open the actual Tcl procedure to
+which the key combination is bound.
+
+This is only a partial list of the shortcuts associated with the emacs
+package.  See the "Edit > Emacs" submenu for a complete list of the functions
+and shortcuts.
+
+
+	  	 	Macros
+
+
+	Control-X Shift-(
+
+command: startKeyboardMacro , also bound to F13
+
+	Control-X Shift-)
+
+command: endKeyboardMacro , also bound to F14
+
+	Control-X E
+
+command: executeKeyboardMacro , also bound to F15
+
+
+See the "Macros Help" file for more information.
+
+Note: the shortcut Control-U, optionally followed by a number, is bound to the
+command: iterationCount , and repeats the following action X number of times.
+If no number is specified, If no number is entered, the action will be
+repeated 4 times.
+
+For example, pressing
+
+	Control-U 3 Control-X E
+
+will repeat the most recently defined macro 3 times in succession.
+
+
+	  	 	Alpha Shortcuts
+
+
+	Control-X Control-C
+
+command: quit , also bound to Command-Q
+
+Quits Alpha, prompting to save any open modified files if necessary.
+
+	Control-X Control-F
+
+proc: findFile , also bound to Command-O
+
+Opens an "Open File" standard dialog.
+
+	Control-X M           
+
+proc: matchingLines 
+
+Opens a dialog in which you can enter a regular expression to be searched
+in the current window.
+
+
+	  	 	Window Manipulation
+
+
+	Control-X L
+
+proc: zoom , also bound to Control-/
+
+Toggles the size of the current window from full to default.
+ 
+	Control-X B
+
+proc: chooseWindowStatus , also bound to Control-;
+
+Opens a dialog containing all of the current windows.
+
+	Control-X K
+
+proc: killWindowStatus , also bound to Command-W
+
+Closes the current window, prompting to save if necessary.
+
+	Control-X O
+
+proc: otherThing 
+
+If the current window is not a "split-pane", switches to the last previous
+frontmost window.  If the current window IS a "split-pane", switches to the
+other pane.
+
+	Control-X Control-S
+
+command: save , also bound to Command-S
+
+Saves the current window.
+
+
+	Control-X Control-W
+
+command: saveAs 
+
+Opens a standard "Save As" dialog.
+
+
+	  	 	Text and Cursor Manipulation
+
+
+	Control-X D
+
+proc: killRegion 
+
+Kills the region between the current mark point and the cursor.
+
+	Control-X L
+
+command: currentPosition 
+
+Returns a status message displaying the current position (in bytes).
+
+	Control-X U
+
+command: undo , also bound to Command-Z
+
+Undo the most recent action.
+
+	Control-X Control-X
+
+command: exchangePointAndMark , also bound to Numeric Keypad 5
+
+Exchanges the cursor point and the previous mark.  See the numeric key pad
+section in the help file "Keyboard Shortcuts" for more information.
+
+
+Again, these are only some of the keyboard shortcuts associated with the Emacs
+package.  Many more can be found in the "Edit > Emacs" menu.
+
+
+	  	 	Meta Keys
+
+
+The other modifier keys that emacs had to work with on early keyboards was the
+Escape key, and, if the keyboard provide it, an additional modifier key that
+emacs refers to as the "Meta" key.  Not all keyboards had such a modifier,
+and, if they did, rarely called it the same thing.  In this emac mimicking
+keyset, the Option key is used as the emacs "Meta" key.
+
+
+	  	Recent Changes
+
+
+	NEW OPTION: 
+	
+In the "Config > Preferences > Miscellaneous…" dialog, there is a preference
+named "Emacs Last Word If Touching".  If this preference is turned on, the
+behavior of a few emacs keyboard shortcut procedures changes.  Those
+procedures are:
+
+    proc: upcaseWord
+    proc: downcaseWord
+    proc: capitalizeWord
+    proc: hiliteWord
+
+Preferences: Packages
+   
+Those procedures behave as normal except when the cursor is right at the end
+of a word.  In that case they effect the word they are "touching".  I find
+this convenient as after I have typed a word is the usual point at which I
+realize that I should have capitalized it.  Ditto for the others.
+
+	NEW PROC AND KEY-BINDING: 
+
+There is one navigation shortcut that was not in the previous emacs packages,
+a shortcut for "Beginning Of Logical Line".  That procedure moves the cursor
+to the first non-white character of the current line.  Its emacs-like shortcut
+is Escape-M.
+
+ 
+	----------------------------------------------------------------------
+
+Author: ??
+
+Emacs Help file updated by Craig Barton Upright
+
+Maintainer: Craig Barton Upright
+    E-mail: <cupright@alumni.princeton.edu>
+       www: <http://www.purl.org/net/cbu>
+
+This document has been placed in the public domain.

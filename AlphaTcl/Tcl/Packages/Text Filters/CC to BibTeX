@@ -1,0 +1,144 @@
+#!/usr/local/bin/perl
+#
+#  Translate Current Contents citations into BibTeX article records
+#
+#  Select full-paragraph records and multi-line search
+$/ = "" ;
+$* = 1 ;
+
+#  for each citation ...
+Record:
+while (<>) {
+   @ccLines = split("\n") ;
+   shift(@ccLines) if (! $ccLines[0]) ;
+   next Record if $ccLines[0] !~ /^\s*\d+\.\s+/ ;
+   
+   $authors = shift(@ccLines) ;
+   $authors =~ s/(^\s*\d+\.\s+)// ;
+   $ind = length($1) ;
+   @auths = split("[;\.]",$authors) ;
+   foreach (@auths) {
+      @wds = split(" ") ;
+      $init = pop(@wds) ;
+      $init =~ s/([A-Z])/$1. /g ;
+      $init =~ s/ +$// ;
+      $body = join(" ",@wds) ; 
+      $body =~ s/\b([A-Z])([A-Z]*)\b/\u$1\L$2/g ;
+      $_ = join(" ",($init,$body,"and")) ;
+   }
+   $authors = join(" ",@auths) ;
+   $authors =~ s/others and/et al./ ;
+   $authors =~ s/ and *$// ;
+#   print STDOUT $authors,"\n" ;
+   
+   $title = shift(@ccLines) ;
+   while ($ccLines[0] =~ /^ {$ind}\w/) {
+      $title = join(" ",($title,shift(@ccLines)))  ;
+   }
+   $title =~ s/^ +// ;
+   $title =~ s/  +/ /g ;
+   $title =~ s/\b(\w)(\w+)\b/\u$1\L$2/g ;
+   $title =~ s/\b(And|Or|Of|The|In|A|For)\b/\L$1/g ;
+   $title =~ s/^(\w)(\w*)\b/\u$1\L$2/g ;
+   $title =~ s/([:;\-\.] *)(\w)(\w*)\b/$1\u$2\L$3/g ;
+#   print STDOUT $title,"\n" ;
+   
+   $cite = shift(@ccLines) ;
+   if ($cite =~ /Pub/) { $cite = shift(@ccLines) ; } ;
+   while ($ccLines[0] =~ /^ {$ind}\w/) {
+      $cite = join(" ",($cite,shift(@ccLines)))  ;
+   }
+   $cite =~ s/^ +// ;
+   $cite =~ s/  +/ /g ;
+   ($journal,$when,$where) = split("\s*[,\.]\s*",$cite) ;
+
+   $journal =~ s/^ *// ;
+   $journal =~ s/\b(\w)(\w+)\b/\u$1\L$2/g ;
+
+#  Abbreviate journal title following standard conventions
+   $journal =~ s/\s*\b(And|Or|Of|The|In|For)\b//g ;
+   $journal =~ s/-.*// ;
+   $journal =~ s/Journal\b/J./ ;
+   $journal =~ s/Letters\b/Lett./ ;
+   $journal =~ s/Review\w*/Rev./ ;
+   $journal =~ s/Report\w*/Rep./ ;
+   $journal =~ s/Proceed\w*/Proc./ ;
+   $journal =~ s/Annual\w*/Annu./ ;
+   $journal =~ s/Account\w*/Acc./ ;
+   $journal =~ s/Advance\w*/Adv./ ;
+   $journal =~ s/Annal\w*/Ann./ ;
+   $journal =~ s/Bulletin\b/Bull./ ;
+   $journal =~ s/Transaction\w*/Trans./ ;
+   $journal =~ s/Discussion\w*/Discuss./ ;
+   $journal =~ s/Communi\w*/Comm./ ;
+   $journal =~ s/Progress\w*/Prog./ ;
+   $journal =~ s/Research\b/Res./ ;
+   $journal =~ s/Biolog\w*/Bio./ ;
+   $journal =~ s/Biophysic\w*/Biophys./ ;
+   $journal =~ s/Biochemi\w*/Biochem./ ;
+   $journal =~ s/Biomolec\w*/Biomol./ ;
+   $journal =~ s/Comput\w*/Comp./ ;
+   $journal =~ s/Chemi\w*/Chem./ ;
+   $journal =~ s/Organic\b/Org./ ;
+   $journal =~ s/Inorganic\b/Inorg./ ;
+   $journal =~ s/Mathem\w*/Math./ ;
+   $journal =~ s/Engineer\w*/Eng./ ;
+   $journal =~ s/Statisti\w*/Stat./ ;
+   $journal =~ s/Surface\w*/Surf./ ;
+   $journal =~ s/Magnetic Resonance\b/Magn. Res./ ;
+   $journal =~ s/Struct\w*/Struc./ ;
+   $journal =~ s/Theor\w*/Theo./ ;
+   $journal =~ s/Physi\w*/Phys./ ;
+   $journal =~ s/Photochemi\w*/Photochem./ ;
+   $journal =~ s/Photobiologi\w*/Photobiol./ ;
+   $journal =~ s/Philosoph\w*/Phil./ ;
+   $journal =~ s/Optic\w*/Opt./ ;
+   $journal =~ s/Electronic\w*/Electron./ ;
+   $journal =~ s/Quantum\w*/Quant./ ;
+   $journal =~ s/Appli\w*/Appl./ ;
+   $journal =~ s/Modern\b/Mod./ ;
+   $journal =~ s/National\b/Natl./ ;
+   $journal =~ s/International\b/Int./ ;
+   $journal =~ s/Royal\b/R./ ;
+   $journal =~ s/Faraday\b/Faraday/ ;
+   $journal =~ s/Society\b/Soc./ ;
+   $journal =~ s/Academ\w*/Acad./ ;
+   $journal =~ s/American\b/Am./ ;
+   $journal =~ s/Sciences\b/Sci./ ;
+   $journal =~ s/United States America/U.S.A./ ;
+   $journal =~ s/\bIbm\b/IBM/ ;
+   $journal =~ s/\bIeee\b/IEEE/ ;
+
+#  Abbreviation rules for foreign-language journals
+   $journal =~ s/\s*\b(Et|Und|Der|De|Fur)\b//g ;
+   $journal =~ s/Zeitschrift\w*/Z./ ;
+   $journal =~ s/Berichte\w*/Ber./ ;
+   $journal =~ s/Bunsen Gesellschaft\b/Bunsenges./ ;
+   $journal =~ s/Chimi\w*\b/Chim./ ;
+   $journal =~ s/Biochimi\w*\b/Biochim./ ;
+   $journal =~ s/Chinese\b/Chin./ ;
+   $journal =~ s/Japanese\b/Jap./ ;
+   $journal =~ s/Europhysi\w*/Europhys./ ;
+
+#  Extract year, month and day
+   ($year,$month,$day) = split(' ',$when) ;
+#  Capitalize months   
+   $month =~ s/\b(\w)(\w+)\b/\u$1\L$2/g ;
+
+   if ($where =~ /V(\d+)/ ) { $volume = $1 ; } ;
+   if ($where =~ /N(\d+)/ ) { $issue = $1 ; } ;
+   if ($where =~ /:(\d+)/ ) { $pages = $1 ; } ;
+   
+#  generate output record in BibTeX form
+    print STDOUT '@article{,',"\n" ;
+    print STDOUT "\tauthor = \t\{$authors\},\n" ;
+    print STDOUT "\ttitle = \t\{$title\},\n" ;
+    print STDOUT "\tjournal = \t\{$journal\},\n" ;
+    print STDOUT "\tvolume = \t$volume,\n" ;
+    print STDOUT "\tpages =  \t$pages,\n" ;
+    print STDOUT "\tyear =   \t$year,\n" ;
+    print STDOUT "\tnote =   \t\{\},\n" ;
+    print STDOUT "\}\n" ;
+    
+}
+

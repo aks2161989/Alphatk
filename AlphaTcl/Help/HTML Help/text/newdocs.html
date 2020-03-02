@@ -1,0 +1,169 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+
+<HTML>
+
+<HEAD>
+
+<TITLE>New document</TITLE>
+
+<LINK HREF="../Style%20Sheet/manual.css" REL="stylesheet" TYPE="text/css">
+
+
+</HEAD>
+
+<BODY>
+
+<!-- #INCLUDE INCLPATH="maintop.html" -->
+
+<SCRIPT TYPE="text/javascript">
+<!--
+if (document.body.clientHeight) {
+	height = document.body.clientHeight - 50;
+} else {
+	height = window.innerHeight - 50 ;
+}
+document.write('<div class="main" style="height: ' + height + 'px;">');
+// -->
+</SCRIPT>
+
+
+<!-- /#INCLUDE -->
+
+
+<H1>Creating a new document - templates</H1>
+
+<P>
+In the HTML menu there are two functions <SPAN CLASS="menuitem">New 
+Document...</SPAN> and <SPAN CLASS="menuitem">New with Content...</SPAN>. 
+They have the same functionality with the only difference that the second 
+one creates a new HTML document with the content of the current window. To 
+create a new document with a FRAMESET element use <SPAN CLASS="menuitem">New 
+Doc. with Frames</SPAN> in the <SPAN CLASS="menu">Frames</SPAN> menu.
+</P>
+
+<DIV>
+<img src="../bilder/newdocs.png" alt="New doc" width="384" height="186">
+</DIV>
+
+<P>
+You are first asked to choose a template for the new document, and to give 
+the new document a name. <B>How do you choose a template?</B> 
+</P>
+
+<UL>
+	<LI>To each home page folder you can optionally <A 
+	HREF="config.html">specify a template folder</A> containing all 
+	templates for that home page.
+	<LI>To select the template you want first select the right home page in 
+	the top popup menu.
+	<LI>The second popup menu is now modified to contain the names of all 
+	text files in the template folder of the home page you have chosen.
+	<LI>Now pick a template from the second popup menu. 
+	<STRONG>Note!</STRONG> Using a template is optional.
+</UL>
+
+
+<P>
+A new window is now opened and the template is inserted. Then a second 
+dialog box is then opened where you can:
+</P>
+
+<UL>
+	<LI>give the document a title,
+	<LI>choose elements to insert in the documents HEAD,
+	<LI>insert a <A HREF="doctype.html">document type declaration</A>,
+	<LI>specify the encoding in the XML declaration when XHTML is used.
+</UL>
+
+<DIV>
+<IMG SRC="../bilder/newdocument.png" ALT="New document" WIDTH="474"
+HEIGHT="246">
+</DIV>
+
+<P>
+Alpha now inserts the elements HTML, HEAD, TITLE, BODY, and the ones you 
+have checked in the dialog box into the document asking you about 
+attributes for them. If these elements already appear in the template, their 
+attributes are used as default values.
+</P>
+
+<P>
+<B>Where does the content go when using New with Content?</B> In this case 
+Alpha looks for the string <B>#CONTENT#</B> in the template. If there is 
+such a string it is replaced by the content. If there is no such string the 
+content is put right before the closing BODY tag.
+</P>
+
+<H2>A template example</H2>
+
+<P CLASS="code">
+<SPAN CLASS="htmlcode">&lt;</SPAN>!DOCTYPE HTML PUBLIC <SPAN 
+CLASS="textcode">"-//W3C//DTD HTML 4.01 Transitional//EN"</SPAN><SPAN 
+CLASS="htmlcode">&gt;</SPAN><BR>
+<SPAN CLASS="htmlcode">&lt;HTML&gt;<BR><BR>
+&lt;HEAD&gt;<BR>
+&lt;TITLE&gt;</SPAN>Default title<SPAN CLASS="htmlcode">&lt;/TITLE&gt;</SPAN><BR>
+<SPAN CLASS="htmlcode">&lt;LINK</SPAN> <SPAN CLASS="attrcode">HREF=</SPAN><SPAN
+CLASS="textcode">"mystyle.css"</SPAN> <SPAN CLASS="attrcode">REL=</SPAN><SPAN
+CLASS="textcode">"stylesheet"</SPAN><SPAN CLASS="htmlcode">&gt;</SPAN><BR><BR>
+<SPAN CLASS="htmlcode">&lt;/HEAD&gt;</SPAN><BR><BR>
+
+<SPAN CLASS="htmlcode">&lt;BODY</SPAN> <SPAN CLASS="attrcode">BACKGROUND=</SPAN><SPAN
+CLASS="textcode">"bg.jpg"</SPAN><SPAN CLASS="htmlcode">&gt;</SPAN><BR>
+<BR>
+#CONTENT#<BR>
+<BR>
+<SPAN CLASS="htmlcode">&lt;/BODY&gt;<BR>
+&lt;/HTML&gt;</SPAN>
+</P>
+
+<P>
+In this example "Default title" which be used a the default for the window's 
+title in the above dialog box. "Bg.jpg" will be used as the 
+default value for the background attribute.
+</P>
+
+<P>
+<B>Tip!</B> Put template stops (<SPAN CLASS="code">&#8226;</SPAN>) in your templates. 
+Alpha will automatically  jump to the first one.
+</P>
+
+<!-- #INCLUDE INCLPATH="mainbottom.html" -->
+
+<DIV STYLE="height: 50px">
+</DIV>
+
+<SCRIPT TYPE="text/javascript">
+<!--
+document.write('<\/DIV>');
+// -->
+</SCRIPT>
+
+
+<!-- /#INCLUDE -->
+
+
+<!-- #INCLUDE INCLPATH="navigation.html" PREV="[manualPrevPage funcs.html]" 
+NEXT="[manualNextPage browsers.html]" -->
+
+<P>
+<script type="text/javascript">
+<!--
+document.write('<div class="navigation" style="top: ' + height + 'px; height: 50px">');
+// -->
+</script>
+<A HREF="funcs.html">Previous page</A>
+<A HREF="browsers.html">Next page</A>
+<SCRIPT TYPE="text/javascript">
+<!--
+document.write('<\/DIV>');
+// -->
+</SCRIPT>
+</P>
+
+<!-- /#INCLUDE -->
+
+
+</BODY>
+
+</HTML>

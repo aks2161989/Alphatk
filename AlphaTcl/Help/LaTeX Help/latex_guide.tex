@@ -1,0 +1,2057 @@
+%&LaTeX   (tabsize:4)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% File:      latex_guide.tex
+% Author:		Tom Scavo	<trscavo@syr.edu>
+% Author:		and Vince Darley <vince@santafe.edu>
+% Requires:  graphics.sty, alltt.sty, latex_defs.tex
+%            html.sty, htmllist.sty
+% Summary:   User's Guide to accompany the Alpha LaTeX macros 
+%            in latex.tcl, version 4.0
+% Note:      Be sure to typeset this file THREE TIMES!
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass{report}
+\usepackage{hyperref}
+\usepackage{alltt}
+\usepackage{graphics}
+
+\input{latex_defs}
+
+% Table of contents:
+\setcounter{tocdepth}{3}
+
+% Headers and footers:
+\pagestyle{headings}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\title{
+	\includegraphics{logo.eps}  \\[6ex]
+	User's Guide  \\
+	\Alpha\ \LaTeX\ Macros \\
+	{\large Version~5.0~early draft}
+}
+\author{
+	Original manual by Tom Scavo \\
+        Updates by the AlphaTcl community
+}
+\date{October 2003}
+\maketitle
+
+\tableofcontents
+
+\chapter{Overview}
+
+Welcome to the \Alpha\ \LaTeX\ macros, a library of Tcl code which
+forms a mode for the text editor \Alpha, designed to ease the input and
+processing of \LaTeX\ documents when using any of the Alpha family of
+editors.
+
+This document is still in need of a major update to document changes 
+which have been implemented with versions 5.0 and above.
+
+\section{Features}
+
+\begin{itemize}
+	\item automatically invokes \TeX\ mode when opening or saving a 
+	\filetype{tex} document
+
+	\item single-keystroke typesetting of \LaTeX\ documents (will even 
+	typeset an untitled or unsaved window, or portions of windows)
+
+    \item through the creation of a \TeX\ fileset, provides full
+    support for `master documents' composed of many separate .tex files
+    (which are `input' or `included' into the master document).  This
+    support carries as far as automatically routing all
+    document-centric commands (e.g. `typeset') from sub-documents to
+    the master document.
+    
+	\item with Alpha 7.6, Alpha 8 (on MacOS classic), and Alpha X
+	or Alphatk (on MacOS X), it works with all known Macintosh \TeX\
+	implementations, including \OzTeX, \Textures, \CMacTeX,
+	Euro-\OzTeX, \DirectTeX, \DirectTeX~Pro, TeXshop, iTeXMac.
+
+    \item with Alphatk on any platform (Windows, Unix,
+    MacOS X), it works with all known command-line TeX tools
+    including teTeX, MikTeX, Yap, Xdvi, including the tools
+    running under `cygwin' on Windows.
+
+    \item with Alphatk or Alpha X it can act as an interactive shell
+    for your \TeX\ processing.
+    
+    \item where the TeX system supports it, synchronising back
+    and forth between the source .tex document and a dvi viewer
+    is provided (\Textures, Yap, Xdvi, at least).
+
+	\item additional support provided for \Textures\ version~1.8
+
+	\item dynamic menus and menu items
+	
+	\item choice of long or short \LaTeX\ menu; optional floating menu, 
+	as well
+
+	\item color syntax highlighting of \LaTeX\ keywords
+
+	\item intelligent treatment of highlighted text (called ``wrapping'')
+
+	\item easily creates \LaTeX\ document templates, complete with 
+	indentation and tab stops
+
+	\item handy text-to-\LaTeX\ conversion utilities
+
+	\item quickly navigate and select commands, environments, 
+	subsections, sections, and chapters
+
+	\item ``smart quotes'' and ``smart dots'' with on-the-fly escape; 
+	``smart'' subscripts and superscripts as well
+
+	\item command-double-click feature that chases references and 
+	citations, or opens \cmd{input} and \cmd{include} files; also 
+	opens \cmd{bibliography}, \cmd{includegraphics}, \cmd{usepackage}, 
+	and \cmd{documentclass} files
+
+	\item a handy mark menu for navigating large \LaTeX\ documents
+
+	\item follows closely the terminology and organization of Leslie 
+	Lamport's \textsl{\LaTeX: A Document Preparation System} [Reading, 
+	MA: Addison-Wesley, 1985, 1994 (ISBN 0-201-52983-1)]
+	
+    \item closely integrated with new features of AlphaTcl 7.x and
+    8.x (for example the user can easily add menu items to most TeX
+    menus, and can set user-defined key-bindings to most menu
+    items)
+	
+	\item sophisticated support for Electric Completions and Expansions
+	packages.
+	
+	\item smart indentation of pasted text if the smartPaste package is 
+	activated.
+\end{itemize}
+
+\section{Documentation}
+\label{sec:docs}
+
+Pull down the System help menu and choose the command 
+\acmd{LaTeX Help}.  This will open a new window with a brief 
+introduction to the \Alpha\ \LaTeX\ macros.  From this window, you can 
+access numerous other documentation files using \Alpha's built-in 
+hypertext capability.  Just click on any of the following links in 
+\acmd{LaTeX Help}:
+\begin{flushleft}
+	\begin{tabular}{@{}l@{}}
+		\textbf{User's Guide:}  an introduction to the \Alpha\ \LaTeX\ macros 
+		(this file)  \\
+		\textbf{\LaTeX\ Menus:}  commands and bindings (organized by menu)  \\
+		\textbf{\LaTeX\ Key Bindings:} commands and bindings (organized by 
+		command key)  \\
+	\end{tabular}
+\end{flushleft}
+Note that the User's Guide is available in both \LaTeX\ and \textsc{html} 
+formats.  (The latter is online at URL
+\begin{flushleft}
+    \begin{tabular}{@{}l@{}}
+        \url{no-current-url}
+    \end{tabular}
+\end{flushleft}
+and was created by the program \filespec{TeX4ht}.
+
+In addition to the above \Alpha\ \LaTeX\ documents, there are also the 
+more general Web pages
+\begin{flushleft}
+    \begin{tabular}{@{}l@{}}
+        \textbf{An Introduction to \LaTeX}  \\
+        \url{http://www.latex-project.org/intro.html} \\
+        \textbf{An Introduction to \LaTeX\ and \AmS-\LaTeX}  \\
+        \url{http://where is this}
+    \end{tabular}
+\end{flushleft}
+
+\section{\LaTeXe}
+
+The \Alpha\ \LaTeX\ macros support \LaTeXe.  \Alpha\ no longer
+directly supports
+the 2.09 macros (although many are unchanged in \LaTeXe so if you must
+you could probably still manage).  \LaTeXe\ will typeset a 2.09
+document automatically, using what is called ``compatibility mode''.
+Most of the \LaTeX~2.09 commands and environments have been preserved
+in \twoe, making the transition from 2.09 to \twoe\ relatively painless
+(from the user's point of view, at least).
+
+\section{Installation}
+
+\Alpha\ is configured to use the \LaTeX\ macros right out of the box, 
+so there is no installation process per se.  However, there are a 
+number of flags and variables that control the inner workings of 
+\filespec{latex.tcl} that may be changed at the user's discretion.  
+
+The following \TeX\ mode flags and variables may be accessed by 
+pulling down the \amenu{Config} menu and opening the 
+\acmd{Preferences} dialog on the \amenu{Current Mode} submenu.  See 
+the \acmd{Alpha Manual} (on the System help menu under the question 
+mark) for more information about \Alpha's global preferences.
+
+\subsection{Flags}
+\label{sec:flags}
+
+% {\renewcommand*{\descriptionlabel}[1]{\hspace\labelsep \normalfont #1}
+\begin{description}
+	\item[\acmd{buildPkgsSubmenu}] The \amenu{Packages} submenu is an 
+	optional submenu containing a list of all \filetype{tex} and 
+	\filetype{sty} files in your \TeX\ search path.  Choosing a filename 
+	from the list inserts the corresponding \cmd{usepackage} command 
+	into the preamble of the current document.  By default, however, the 
+	\amenu{Packages} submenu is not built when the \LaTeX\ macro package 
+	is loaded.  To build this submenu on-the-fly, enable the flag 
+	\acmd{buildPkgsSubmenu} as described above, and then choose 
+	\acmd{Rebuild Documents Submenu} on the \amenu{Documents} submenu (see 
+	section~\ref{sec:documentsSubmenu}).  Thereafter, the 
+	\amenu{Packages} submenu will be built automatically along with the 
+	\LaTeX\ menu.
+
+	\item[\acmd{deleteObjNoisily}] One of the basic \filespec{latex.tcl} 
+	operations is to insert an object into the current document.  If, at 
+	the time the insertion command is issued, there is a selection 
+	(i.e., text is highlighted), then the program behaves differently 
+	depending on the value of the flag \acmd{deleteObjNoisily}.  If set 
+	to true, the user will be prompted before any selected text is 
+	deleted.  If, on the other hand, this flag is false, then the 
+	selection is replaced quietly and without warning (although it may 
+	be undone).  By default, \acmd{deleteObjNoisily} is set to true.  
+	NOTE: Not all objects are ``inserted'' into the document since 
+	sometimes there is an attempt to ``wrap'' the current selection.  
+	See section~\ref{sec:basicOps} for more information.
+
+	\item[\acmd{deleteEnvNoisily}] Before an environment is inserted 
+	into the document, the program checks to see if there is a 
+	selection.  If so, and the flag \acmd{deleteEnvNoisily} is set to 
+	true, the user is asked whether or not the current selection should 
+	be replaced; if false, the current selection is deleted without 
+	warning.  Note that the default value of \acmd{deleteEnvNoisily} has 
+	been set to true.  Like objects, environments may wrap, so sometimes 
+	the current selection is treated differently.  See 
+	section~\ref{sec:basicOps} for details.
+
+	\item[\acmd{promptNoisily}] Some environment commands prompt the user for
+	input.  As mentioned below, if \acmd{useStatusBar} is set to true, the
+	prompt is displayed on the thin status bar at the top (or bottom) of the
+	screen.  This is less obtrusive than a dialog, but may go unnoticed at
+	first, so if \acmd{promptNoisily} is set to true (which it is, by
+	default) and \acmd{useStatusBar} is enabled, the program beeps prior to
+	displaying the prompt.  You can turn off this annoying sound by invoking
+	the \acmd{Flags} command on the \amenu{Current Mode} submenu of the
+	\amenu{Config} menu and removing the check on \acmd{promptNoisily}.
+
+	\item[\acmd{runTeXInBack}] If true, typesetting will occur in the 
+	background.  This flag is false by default.  The main 
+	\amenu{Process} menu contains options for both foreground and 
+	background typesetting.  This preference setting simply defines 
+	which of the two is bound to a \key{Cmd-T} keypress, and which to 
+	\key{Shift-Option-T}.
+
+	\item[\acmd{searchNoisily}] Many commands cause 
+	\filespec{latex.tcl} to search the current document.  If a 
+	search fails, and \acmd{searchNoisily} is set to true, the 
+	program displays a message on the status bar and beeps.  If, on 
+	the other hand, \acmd{searchNoisily} is set to false, only 
+	the message is displayed.  By default, \acmd{searchNoisily} 
+	is set to true.
+
+	\item[\acmd{smartDots}] By default, \filespec{latex.tcl} 
+	replaces three consecutively typed dots (\texttt{...}) with the 
+	\LaTeX\ command \cmd{ldots}.  To escape the effect of 
+	\acmd{smartDots}, press the \key{Delete} key on-the-fly.
+
+	\item[\acmd{smartQuotes}] If this flag is set to true, pressing the
+	single quote key \key{\straightquote} will generate \verb/`/ or \verb/'/
+	automatically depending on the context.  Similarly, pressing the double
+	quote key \key{\"} generates \verb/``/or \verb/''/, whichever is
+	required.  Set \acmd{smartQuotes} to false if you want the single and
+	double quote keys to insert \key{\straightquote} and \key{\"} literally,
+	or press the \key{Delete} key to escape the effect of \acmd{smartQuotes}
+	on-the-fly.
+
+	\item[\acmd{smartScripts}] When this flag is enabled (which it is by 
+	default), the \verb|^| and \verb|_| keys on a U.S. keyboard are 
+	bound to the commands \acmd{superscript} and \acmd{subscript}, 
+	respectively, on the \amenu{Formulas} submenu of the \LaTeX\ menu 
+	(see section~\ref{sec:formulasSubmenu}).  Press the \key{Delete} key 
+	to escape the effect of \acmd{smartScripts} on-the-fly.
+
+% 	\item[\acmd{useBoxMacro}] If true, the body of a figure environment 
+% 	includes a call to the box-making macro stored in the variable 
+% 	\acmd{boxMacroName} (see section~\ref{sec:variables} below); if 
+% 	false, the body of a figure environment is left blank, unless there 
+% 	is a current selection, in which case the selection is wrapped.
+
+	\item[\acmd{useBrackets}] In \LaTeX, the \env{displaymath} 
+	environment is equivalent to \cmd{[}\ldots\cmd{]}.  If you prefer to 
+	use the latter, set \acmd{useBrackets} to true.  By default, 
+	\acmd{useBrackets} is set to false, that is, the \env{displaymath} 
+	environment is used to construct multi-line math displays.  Note: By 
+	default, \filespec{latex.tcl} \emph{always} uses 
+	\cmd{[}\ldots\cmd{]} inline (unless \acmd{useDollarSigns} is set to 
+	true---see below).  This setting applies whenever \LaTeX mode 
+	inserts math environments (usually due to a menu selection).
+
+	\item[\acmd{useDollarSigns}] Support is provided for both the \TeX\ 
+	and \LaTeX\ methods of invoking inline math mode (see the 
+	\amenu{Math Modes} submenu in section~ \ref{sec:mathModeSubmenu} for 
+	the various options), but only one of these is bound to command keys 
+	(namely, \key{Ctl Cmd M} and \key{Ctl Opt Cmd M}, by default).  This 
+	is what the flag \acmd{useDollarSigns} does.  If set to true, 
+	\filespec{latex.tcl} uses dollar signs to delimit inline math mode 
+	(\verb|$|\ldots\verb|$| and \verb|$$|\ldots\verb|$$|), whereas if it 
+	is false, \LaTeX\ notation will be used (\cmd{(}\ldots\cmd{)} and 
+	\cmd{[}\ldots\cmd{]}).  By default, \acmd{useDollarSigns} is set to 
+	false---the \LaTeX\ way of doing things.
+
+	\item[\acmd{useStatusBar}] This flag determines whether or 
+	not the status bar is used when prompting for user input.  (The 
+	status bar is a long, thin message area at the bottom of your 
+	screen.)  Use of \Alpha's status bar is enabled in \TeX\ mode, by 
+	default.  See the related flag \acmd{promptNoisily} above.
+\end{description}%}
+ 
+\subsection{Variables}
+\label{sec:variables}
+
+% {\renewcommand*{\descriptionlabel}[1]{\hspace\labelsep \normalfont #1}
+\begin{description}
+	\item[\acmd{boxMacroNames}] This \TeX\ mode variable contains a list 
+	of names of box-making macros used in the body of a figure 
+	environment.  The standard \LaTeX\ commands \cmd{includegraphics} 
+	and \cmd{includegraphics\ttstar} (both part of the \LaTeXe\ 
+	\pkg{graphics} package) are included in this list by default.
+
+	\item[\acmd{citeCommands}] Any command listed as a ``cite'' command 
+	is command-double-clickable (see section~\ref{sec:dblClicking}).  
+	The standard \LaTeX\ commands \cmd{cite} and \cmd{nocite} are 
+	included in this list by default.
+
+	\item[\acmd{fillcolumn}, \acmd{leftFillColumn}] See the \acmd{Alpha
+	Manual} on the menubar's Help menu for more information about these
+	variables.
+
+	\item[\acmd{funcExpr}] In \TeX\ mode, \acmd{funcExpr} is a regular 
+	expression used to search for a subsection header (see the 
+	commands \acmd{Next Subsection} and \acmd{Prev Subsection} 
+	described in section~\ref{sec:gotoSubmenu}) and to build the 
+	\amenu{funcs} pop-up menu (see section~\ref{sec:funcs}).
+
+	\item[\acmd{funcExprAlt}] In \TeX\ mode, \acmd{funcExprAlt} is a 
+	regular expression used to search for a section header (see the 
+	commands \acmd{Next Section} and \acmd{Prev Section} described in 
+	section~\ref{sec:gotoSubmenu}).
+
+	\item[\acmd{lineWrap}] If this variable is set to \acmd{Auto}, the
+	program automatically inserts a carriage return as the cursor
+	nears the end of a line (the length of which is defined by the
+	variable \acmd{fillColumn} described in
+	section~\ref{sec:variables} below); otherwise, the line extends
+	indefinitely to the right (until the \key{Return} key is pressed,
+	of course).  By default, \acmd{lineWrap} is turned on in \TeX\
+	mode.  See the \acmd{Alpha Manual} on the menubar's Help menu for
+	more information.
+
+	\item[\acmd{parseExpr}] The variable \acmd{parseExpr} is a regular 
+	expression used to build the \amenu{funcs} pop-up menu.  See 
+	section~\ref{sec:funcs} for more information.
+
+	\item[\acmd{prefixString}] This variable is used in 
+	conjunction with the \acmd{Comment Line} command on \Alpha's 
+	\amenu{Text} menu.  In \TeX\ mode, this string is set to 
+	``\verb*|% |'' by default, which makes \acmd{comment line} very 
+	useful for commenting out large blocks of \LaTeX\ code.
+
+	\item[\acmd{refCommands}] Any command listed as a ``ref'' command is 
+	command-double-clickable.  The standard \LaTeX\ commands \cmd{ref} 
+	and \cmd{pageref} are included in this list by default.
+
+	\item[\acmd{TeXSearchPath}] Whenever \LaTeX\ mode searches for 
+	files, it examines each directory in this user-defined list.  Such a 
+	search is normally triggered by the user command-clicking on a 
+	citation, reference or input command in a \LaTeX\ document.  In such 
+	cases, \Alpha\ 
+	attempts to find the appropriate document and open it for the user.
+	
+	\item[\acmd{wordBreak}] This variable holds a regular expression
+	that define a ``word'' in \TeX\ mode.  (A ``word'' is any text
+	string that is double-clickable.)  See the \acmd{Alpha Manual} in
+	the help menu for more information.
+
+%	\item[\acmd{wrapBreak}, \acmd{wrapBreakPreface}] These variables are 
+%	similar to \acmd{wordBreak} and \acmd{wordBreakPreface} above, 
+%	except that they are used by \Alpha\ to wrap lines, not delineate 
+%	words.  See the \acmd{Alpha Manual} on the System help menu (under 
+%	the question mark) for more information.
+\end{description}%}
+
+\subsection{Tips and tricks}
+
+A useful installation trick that you might want to put in your 
+\filespec{prefs.tcl} file (opened by choosing \acmd{Edit Prefs} 
+on the \amenu{Global} submenu of the \amenu{Config} menu) 
+is the following key binding:
+\begin{alltt}
+   Bind \straightquote{}n\straightquote <cs> \{TeX::newLaTeXDocument\}
+\end{alltt}
+With this binding, it's easy to bring up a new \LaTeX\ document no 
+matter where you are or what you're doing.  Regardless of the file 
+you're currently editing, simply press \key{Shf Cmd N} to open a new 
+\LaTeX\ document (see the \acmd{New Document} command in 
+section~\ref{sec:documentsSubmenu} for details).  If you use
+\Alpha's `New Document' package, this capability is automatically
+part of the standard `New Document' dialog.
+
+\Alpha\ is completely customizable, but it's not a good idea to 
+modify its Tcl files directly.  Instead, put your modifications in 
+preferences files designed specifically for this purpose.  Besides 
+the global preferences file \filespec{prefs.tcl} mentioned above, 
+there are also mode-specific preferences files.  \TeX\ mode, for 
+instance, has its own prefs file called \filespec{TeXPrefs.tcl}.  To 
+edit this prefs file, open a \filetype{tex} file and choose the 
+command \acmd{Edit Prefs File} on the \amenu{TeX Mode Prefs} submenu of the 
+\amenu{Config} menu.  All \TeX-related modifications should be 
+placed in this preferences file.
+
+Note: All preferences files are stored separate to \Alpha\ and are not
+touched when you upgrade your version of \Alpha.
+
+The \LaTeX\ menu can be modified to suit your needs.  Three different
+methods allow you to insert new commands into any of the \amenu{Text}
+or \amenu{Math} submenus, presented here in increasing order of 
+difficulty.
+
+The first method will define a simple \LaTeX\ ``command'' item that is
+followed by braces.  Select the \acmd{Add Menu Template Item} from the
+\amenu{LaTeX Menu} submenu.  Choose a menu that should contain the new
+item.  A new dialog appears with three text fields.  In the first field
+enter the name of the item as you want it to be presented in the menu.
+The second field contains text looking like 
+\textbf{\\XXX\textbullet\{\textbullet} --- replace \textbf{XXX} with 
+the name of the command as it should appear in the window when the 
+menu item is called.  If you want to include any default text within 
+the braces that will follow this item, you can insert that in either 
+the second or the third text fields.  Click on the ``OK'' button to 
+save the changes.  All menu items added in this way can be changed 
+later using the \acmd{Edit Template Item} command, or deleted using the 
+\acmd{Delete Template Item} command.
+
+The second method requires a little working knowledge of AlphaTcl.
+Suppose, for example, that you want to insert a new \acmd{My Template}
+item to the \amenu{Arrows} menu.  Open your \filespec{TeXPrefs.tcl}
+file by selecting the \acmd{Edit Prefs File} item in the \amenu{Config
+\textgreater TeX Mode Prefs} submenu.  Paste in a command that looks
+like this:
+
+\begin{alltt}
+	menu::insert "Arrows" items 0 "My Template"
+\end{alltt}
+
+Now you need a Tcl procedure that will be evaluated when this item is
+selected.  It should be named \textbf{TeX::MyTemplate}, i.e. scrunch the
+name together by removing all spaces, but retain upper and lower cases
+to match the name of the menu item.  Place this new procedure in your
+\filespec{TeXPrefs.tcl} file, and ``evaluate'' this file by pressing
+\key{Command-L}.  The new item should now appear in the menu.  If it
+does, save the preferences file, and close it.  This file will be
+``sourced'' automatically the next time that Alpha is started and a
+.tex file has been opened.
+
+The third method requires more extensive knowledge of AlphaTcl.  You 
+must turn on the package ``Smarter Source'', and place a copy of the 
+file \filespec{latexMenus.tcl} in your ``Smarter Source'' folder.  Look 
+for the definition of the menu in question, and modify it to include 
+the items that you want.  Restart Alpha, and your customized \LaTeX\ 
+menu should include the items you added.  Unfortunately, you're not 
+done yet.  You must now modify the ``menu procedure'' that is called by 
+the given menu in order for your new item to actually do anything!  
+This procedure is listed in the definition of the menu, and if it is 
+not in the file \filespec{latexMenus.tcl} then you'll have to 
+Command-Double-Click on the name of the procedure to find it, and then 
+copy \emph{that} file to your ``Smarter Source'' folder as well, and 
+then modify it accordingly.
+
+An alternative to this third method would be to simply use the
+``Macros'' package to define a new macro, edit it to do what you want,
+and then assign it a keyboard shortcut so that it can be called
+whenever you want.  Not as elegant, perhaps, but in the end just as 
+effective and less complicated.
+
+Feel free to ask for more help in the AlphaTcl mailing lists.
+
+\section{\TeX\ Filesets}
+
+A very important capability of \Alpha's \LaTeX\ mode is the seamless 
+handling of documents composed of many separate files on disk. 
+Through the one-off action of creating a \TeX-fileset you inform
+\Alpha\ of the relationship between these parts and it automatically
+uses that information from that point onwards.  This means, for
+example, when you attempt to typeset a sub-document, \Alpha\
+notices, retrieves the master document instead and processes it for
+typesetting.  Here is a partial list of the actions which
+are automatically aware of multi-part documents:
+\begin{enumerate}
+    \item Typesetting, \BibTeX'ing and all other actions in the
+    \amenu{Process} menu.
+
+    \item Double-clicking on references to jump to their matching
+    label.
+
+    \item Searching (the standard search dialog provides option to
+    search all files in any defined fileset).
+
+    \item Synchronicity features (.tex to .dvi and .dvi to .tex
+    synchronisation).
+
+\end{enumerate}
+
+In addition all parts of the multi-part TeX/LaTeX document are listed
+in \Alpha's \amenu{Fileset} menu which therefore provides quick and easy
+access to editing these files.
+
+To create a \TeX\ fileset, select \amenu{Fileset \textgreater Utilities
+\textgreater New Fileset}.  When prompted for the type of the new
+fileset, make sure you select \TeX.
+
+There are, however, some known issues involving the proper resolution 
+of \cmd{include} file path names when they don't exist in the same 
+directory as your base file.  You can specify \"Additional Related 
+Files\" for your \TeX fileset to ensure that these are included in 
+the list of files.  Whenever these files are the active \Alpha 
+window, typesetting and other \amenu{Process} commands will still 
+operate on the base \TeX file.
+
+\section{Basic operations}
+\label{sec:basicOps}
+
+The \Alpha\ \LaTeX\ macros revolve around two basic operations called 
+\acmd{insertObject} and \acmd{wrapObject}.  Basically, 
+\acmd{insertObject} is a call to the primitive procedure 
+\acmd{insertText} preceded by the automatic deletion of previously 
+selected text (this behavior is easily changed, however, by resetting 
+the flag \acmd{deleteObjNoisily} described in 
+section~\ref{sec:flags}).  For example, if there is no current 
+selection, choosing the command \acmd{alpha} from the \amenu{Greek} 
+submenu of the \LaTeX\ menu inserts the \LaTeX\ command \cmd{alpha} at 
+the insertion point; otherwise, if there is a selection, it is 
+replaced with the string ``\cmd{alpha}''.  In other words, 
+\acmd{insertObject} works just like the familiar \acmd{Paste} command 
+on the \amenu{Edit} menu.  It turns out that a large number of 
+commands in \filespec{latex.tcl} rely on \acmd{insertObject}, but 
+sometimes it's faster to type the desired \LaTeX\ command directly.  
+(Even faster is to use the corresponding command keys, but more on 
+that later.)  On the other hand, if you forget the syntax of a 
+particular \LaTeX\ command, it's sometimes easier to look it up on the 
+\LaTeX\ menu than it is in a reference manual.
+
+The complementary operation to \acmd{insertObject} is called 
+\acmd{wrapObject}.  The difference between the two is the way the 
+latter treats the current selection, that is, \acmd{wrapObject} 
+inserts its argument at the insertion point (just like 
+\acmd{insertObject}), but if there is a selection, \acmd{wrapObject} 
+cuts it out (without effecting the state of the Clipboard) and inserts 
+it in the middle of the chosen command.  For example, consider the 
+\LaTeX\ menu command \acmd{footnote} on the \amenu{Miscellaneous} 
+submenu (see section~\ref{sec:miscSubmenu}).  This command inserts the 
+string ``\cmdarg{footnote}{}$\bullet$'' (without the double quotes, of 
+course) into the document, positioning the insertion point between the 
+pair of braces.  The user then types the text to be footnoted and 
+presses the \key{Tab} key, after which the tab stop macro finds (and 
+deletes) the bullet $\bullet$ at the end of the string.  (Note: Use 
+\key{Opt Tab} to insert a literal tab character into the document.)  
+On the other hand, if a selection exists at the time the 
+\acmd{footnote} command is issued, the selection itself is surrounded 
+by \LaTeX's \cmd{footnote} command, and the insertion point is brought 
+to the end of the selection automatically.  Some commands, for better 
+or worse, even go so far as to insert the selection into one of 
+several competing positions within the command string.  The 
+\acmd{fraction} command on the \amenu{Formulas} submenu 
+(section~\ref{sec:formulasSubmenu}) is a good example of this type of 
+behavior.  It assumes the current selection (if there is one) is the 
+numerator of the fraction to be typeset, cutting and pasting 
+accordingly.
+
+The concept of wrapping is carried one step further in the case of 
+environments.  Suppose you want to center an existing \env{tabular} 
+environment, for example.  Just select the \env{tabular} environment 
+to be centered and choose the \acmd{center} command from the 
+\amenu{Environments} submenu on the \LaTeX\ menu (see 
+section~\ref{sec:envSubmenu}).  The resulting \env{center} environment 
+will completely surround the existing \env{tabular} environment, 
+indenting the latter one tab stop to the right.
+
+Not all environments wrap, however.  Those environments whose body is 
+very structured (such as \env{enumerate}, \env{itemize}, 
+\env{description}, \env{thebibliography}, \env{tabular}, \env{array}, 
+\env{eqnarray}, and \env{eqnarray*}) do not.  Instead, these 
+environments simply insert text into the document.  If there happens 
+to be a selection at the time one of these commands is issued, an 
+alert appears asking if the selection should be deleted.  To turn this 
+alert off, simply toggle the flag \acmd{deleteEnvNoisily} (see 
+section~\ref{sec:flags}) in the \acmd{Flags} dialog on the 
+\amenu{Current Mode} submenu on the \amenu{Config} menu.
+
+
+\section{Whitespace}
+
+Before continuing, let me say a few words about whitespace.  In 
+virtually all cases, superfluous whitespace in command strings has 
+been deleted.  For example, objects inserted with \acmd{insertObject} 
+(a sizable portion of \filespec{latex.tcl}'s functionality) do not 
+routinely insert a trailing space character.  Instead, the user must 
+decide whether or not space should immediately follow a particular 
+\LaTeX\ control word, since sometimes it's needed and sometimes it's 
+not.  Disabling the \acmd{indentOnReturn} preference for \LaTeX\ mode also 
+prevents a lot of extraneous whitespace from being inserted into your 
+document\ldots but then it won't look so good!
+
+\section{Customising}
+
+\LaTeX\ mode contains a vast array of preferences which can be rather 
+confusing.  Here are some not so obvious ways to customise it.
+
+Always opening the log file? Add a key-binding (here with 
+\key{Opt Cmd O}):
+
+\begin{verbatim}
+Bind `o' <co> {TeX::mp::Processmenu "" "Open .log"} TeX
+\end{verbatim}
+
+Want to add some optional parameters to an automatically inserted
+latex environment? (E.g. you like \env{enumerate} with a parameter in 
+square brackets `[]'), then add the following line to your 
+\filespec{TeXPrefs.tcl} (where the stars are bullets):
+
+\begin{verbatim}
+set TeXbodyOptions(enumerate) "\[*a|i*\]"
+\end{verbatim}
+
+
+\section{Bugs}
+\label{sec:bugs}
+
+Comments, suggestions, and bug reports are certainly welcome.  In 
+fact, many of the improvements and features in this version of 
+\filespec{latex.tcl} were suggested by \Alpha\ \LaTeX\ users.  (Some of 
+them even sent me code!).
+
+Alpha is privileged by an active and helpful user community whose main
+communication channels are two mailing lists you are invited to subscribe 
+to.  The developers' list is for discussing technical issues, while the users' list
+is for all sorts of questions and hints --- it is read also by the developers.
+Questions are usually answered within a day, and often they lead to
+improvements in subsequent versions of Alpha and its documentation.
+Go to:
+
+\url{http://lists.sourceforge.net/lists/listinfo/alphatcl-users}
+    
+\url{http://lists.sourceforge.net/lists/listinfo/alphatcl-developers}
+
+In addition there is the bugzilla bug tracking system which should be
+used to report bugs: 
+
+\url{http://www.purl.org/net/alpha/bugzilla/}
+
+
+The following are known bugs in \filespec{latex.tcl}:
+\begin{itemize}
+	\item When wrapping, the \acmd{frac} command does not remove redundant 
+	parentheses.
+
+	\item The \acmd{options} commands assumes the \cmd{documentclass} 
+	command already has an optional parameter (which it does if the 
+	document template was inserted via the \LaTeX\ menu).  Moreover, the 
+	\acmd{options} command does not check for duplicate options.
+
+	\item The commands \acmd{Prev Command Select With Args} and 
+	\acmd{Next Command Select With Args} will not select \LaTeX\ commands 
+	whose argument(s) contain braces.
+
+	\item  The \amenu{Goto} submenu could be better organized (and will 
+	be, if I can ever think of a good set of command keys!).
+
+	\item The results of \acmd{Delete Comments} can not be undone (but it 
+	works!).
+	
+	\item  The \acmd{Any TeX File} command on the \amenu{Process} 
+	submenu does not open the correct folder.
+	
+	\item  The at-symbol @ is not recognized as a \LaTeX\ command 
+	character in \filetype{sty} files.
+	
+	\item The command keys for \acmd{subscript} and \acmd{superscript} 
+	are not compatible with international keyboards.  However they can be
+	set by the user manually.
+	
+	\item  The marking algorithm should ignore comments.
+	
+	\item The \amenu{Process} submenu gets confused if the current file 
+	has a name containing meta-characters.  The only known fix is to 
+	avoid the characters \verb|<|, \verb|(|, \verb|;|, \verb|!|, 
+	\verb|^|, and \verb|/| in filenames.
+\end{itemize}
+
+
+\section{Acknowledgments}
+
+Tom Scavo wrote most of \LaTeX\ mode and this documentation.  The 
+present author, Vince Darley can take very little credit.
+
+Here are Tom's original acknowledgements.
+
+Numerous people have made significant contributions to the \Alpha\ 
+\LaTeX\ macros.  You will find their names and initials scattered 
+throughout this and other \Alpha\ documents.  
+Tom~Pollard 
+\href{mailto:pollard@cucbs.chem.columbia.edu}{pollard@cucbs.chem.columbia.edu}
+and Vince~Darley 
+\href{mailto:vince@santafe.edu}{vince@santafe.edu}
+have been especially helpful and deserve a lot of credit.  Of course, 
+none of this would have been possible without the support and 
+encouragement of \Alpha's author,
+\begin{flushleft}
+    \begin{tabular}{@{\hspace{1.5em}}ll@{}}
+        Pete~Keleher 
+        & 
+        \href{mailto:keleher@cs.umd.edu}{keleher@cs.umd.edu}
+    \end{tabular}
+\end{flushleft}
+whom I heartily thank.
+
+\chapter{Menus}
+
+\section{The \LaTeX\ menu}
+
+Upon entering \TeX\ mode, either 
+\begin{enumerate}
+	\item \emph{manually} (by choosing \acmd{TeX} from the pop-up mode 
+	menu on the status bar at the bottom of your screen); or
+
+	\item \emph{automatically} (whenever a \filetype{tex} or 
+	\filetype{sty} file is opened or saved);
+\end{enumerate}
+a new menu appears in the menu bar.  The \LaTeX\ menu provides access 
+to scores of procedures loaded automatically the first time \TeX\ mode 
+is entered.
+
+The bulk of the \LaTeX\ menu contains items for marking up ``Text'' and
+``Math'' items.  You can condense the submenus in these two categories by
+selecting the \acmd{Compress Text/Math Menus} command in the \amenu{LaTeX Menus}
+submenu.  All of the commands will be available even if the menus have been 
+compressed, these preferences only affect the path that your mouse will have 
+to take in order to access them.
+\label{pg:compressMenus}
+
+The \LaTeX\ menu follows closely the organization and terminology of 
+Lamport's \textsl{\LaTeX: A Document Preparation System} [second 
+edition, Addison-Wesley, 1994], especially chapter~3.  Many people 
+agree that the \textsl{\LaTeX} book is still the definitive \LaTeX\ 
+reference.  In conjunction with \textsl{The \LaTeX\ Companion} by 
+Goossens, Mittlebach, and Samarin [Addison-Wesley, 1994 (ISBN 
+0-201-54199-8)], these two books constitute the ``official'' \LaTeXe\ 
+documentation.  These books, as well as Knuth's classic \textsl{\TeX 
+book} [Addison-Wesley, 1986 (ISBN 0-201-13448-9)], should be on every 
+serious \LaTeX\ user's desk.
+
+The \LaTeX\ menu is organized into four parts: general commands, 
+document-related commands, paragraph mode commands (that is, text 
+commands), and math mode commands.  Each group of commands is 
+separated by a thin grey line on the \LaTeX\ menu.  The order of the 
+commands on any given submenu is significant insofar as possible.  For 
+example, the various commands on the \amenu{Environments} submenu 
+mirror the corresponding command keys, while other submenus follow the 
+ordering found in the \textsl{\LaTeX} book.  We'll try to point out 
+these organizational aids as we go along.
+
+A brief description of each available command follows.  See  
+section~\ref{sec:docs} for pointers to other help documents.
+
+\subsection{Menu Keyboard Shortcuts}
+
+Most of the \LaTeX\ menu items can be accessed by keyboard shortcuts that are
+specific to \TeX\ mode.  Many of these shortcuts can be changed to any
+combination that might seem more intuitive.  
+
+Before you change a menu item keyboard shortcut, you should probably make sure
+that the new modifier/keystroke combination is not already used by some other
+function.  Select the \acmd{Describe Binding} menu command in the
+\amenu{Config} menu to determine if this is the case.
+
+Once you have decided upon some keyboard shortcuts that you want to change,
+use the \acmd{Assign Menu Bindings} command in the \amenu{LaTeX Menu} submenu
+to first select the relevant menu, and then change the bindings that appear in
+the dialog by clicking on the relevant ``Set'' buttons.  When you have
+finished, click on ``OK'', and then either choose another menu or select
+``Finish'' and press ``OK''.  All changes will take effect immediately, and
+will be remembered between editing sessions.
+
+\subsection{General commands}
+
+The \Alpha\ \LaTeX\ mode can interact with a very large number of
+other applications for typesetting, viewing, converting documents, etc.
+
+In particular recent versions of Alphatk can be used as external
+editors for command-line \LaTeX\ tools.
+
+Most of this interactions occurs through the \amenu{Process} submenu.
+
+\subsubsection{\amenu{Process} submenu}
+
+\begin{commands}
+	\acmd{Typeset file.tex} & \key{Cmd T} \\
+	\acmd{View file.dvi} & \key{Shf Cmd V} \\
+	\acmd{Print file.dvi} & \key{Shf Cmd P}
+\end{commands}
+If you use \Textures, \OzTeX, \CMacTeX, or \DirectTeX, or any
+command-line tool on MacOS X, Windows or Unix, you'll be happy 
+to know that \Alpha\ and \LaTeX\ work well together.  To typeset the 
+file you're currently editing in \Alpha, simply choose \acmd{Typeset} 
+from the \amenu{Process} submenu or press \key{Cmd T}.  \Alpha\ first 
+checks to make sure that any changes to the file have been saved; if 
+not, the user is prompted for the appropriate action.  Note that it is 
+not necessary to save the document to process the window.  Just click 
+the ``No'' button when asked to save the current window, whereupon 
+\Alpha\ will pass the contents of the window to the \LaTeX\ 
+application and typeset the file automatically.  If the flag 
+\acmd{runTeXInBack} is set to true, typesetting will occur in the 
+background.
+
+\paragraph{Inverse search --- jumping to a source file}
+
+The inverse operation, switching from \LaTeX\ to \Alpha, depends on 
+which \LaTeX\ application you're using.  \OzTeX\ users, for example, 
+simply choose the \acmd{Edit} command from \OzTeX's \amenu{Edit} menu 
+or press \key{Cmd E} to return to \Alpha.  (By the way, typing `e' in 
+response to a \LaTeX\ error message in the \OzTeX\ window throws you 
+back into \Alpha\ at the offending line.  The same trick works in 
+\CMacTeX\ and \DirectTeX, too.)
+
+Many TeX-related applications allow the possibility of jumping back
+to the source file corresponding to a certain situation (an error in 
+processing or a mouse click in a dvi window).  This is sometimes
+known a ``inverse search''
+
+For example, the xdvi viewer works very well in OS X. If one clicks on
+an xdvi window then xdvi attempts to execute a unix command that one
+can specify, e,g.  a unix shell script.  Typically, this is used to
+open an editor with a specified file and at a specified place.  Thus,
+if using Alphatk on MacOS X one can set the environment variable
+XEDITOR or EDITOR to
+\begin{verbatim}
+    /Applications/Alphatk.app/Contents/MacOS/Alphatk +%l %f
+\end{verbatim}
+or on Windows:
+\begin{verbatim}
+    C:/Apps/alphatk.exe +%l %f
+\end{verbatim}
+and clicking on an xdvi window opens the tex source file in alphatk at
+the right spot.
+
+If operating with the cygwin environment on Windows (using Xdvi
+running in Xwin on top of cygwin), then one should use 
+\begin{verbatim}
+    C:/Apps/alphatk.exe -cygwin +%l %f
+\end{verbatim}
+so that Alphatk knows to interpret the path as a cygwin-style path
+instead of an ordinary Windows path.
+
+\paragraph{MikTeX}
+
+When using MikTeX, the following should be included in the
+``miktex.ini'' file:
+\begin{verbatim}
+    Editor = C:/Apps/alphatk.exe +"%l" %f
+\end{verbatim}
+
+\paragraph{View synchronization}
+
+This is also known as ``forwards search'' or ``synchronicity''.  When
+editing any particular .tex file, one can jump to that position in the
+typeset document (in a .dvi view, or in \Textures\ view).  This is
+known to work with \Textures\ on MacOS, with Yap and Xdvi on Windows.
+Normally \key{Control `} is bound to this action.
+
+The commands that Alphatk uses for this, internally, are:
+
+\begin{verbatim}
+    yap.exe -1 -s "%l %n" "%P.dvi"
+    xdvi -sourceposition "%l %n" "%P.dvi"
+\end{verbatim}
+where \%l is the linenumber, \%n is the tail of the name of the source
+file, and \%P is the name of the dvi file (the tex master file).
+
+\paragraph{More process menu commands}
+
+\begin{commands}
+	\acmd{Typeset Clipboard} & \key{Shf Cmd T} \\
+	\acmd{Typeset Selection} &
+\end{commands}
+To typeset the contents of the Clipboard, choose the \acmd{Typeset 
+Clipboard} command from the \amenu{Process} submenu or press \key{Shf 
+Cmd T}.  This command is handy for typesetting and viewing \TeX\ or 
+\LaTeX\ code copied to the Clipboard from other applications such as 
+terminal emulators or e-mail clients.
+
+It's also possible to typeset a portion of a document.  Simply select 
+(i.e., highlight) the \LaTeX\ code you'd like to typeset and choose 
+\acmd{Typeset Selection} from the \amenu{Process} submenu.  \Alpha\ will 
+construct a temporary document from the current document's preamble 
+and the highlighted text, and pass this virtual document to the \TeX\ 
+application to be typeset automatically.
+
+\begin{commands}
+	\acmd{dvips file.dvi} & \\
+	\acmd{Open file.ps} & \\
+	\acmd{View file.ps} & \\
+	\acmd{Print file.ps} &
+\end{commands}
+To convert a \filetype{dvi} file to a \filetype{ps} file, choose the 
+\acmd{dvips} command on the \amenu{Process} submenu.  Assuming you 
+have the necessary applications installed on your Macintosh, choose 
+\acmd{View file.ps} or \acmd{Print file.ps} to view or print the 
+resulting \filetype{ps} file.
+
+Once a \filetype{ps} file has been created, you may open a window 
+containing the raw PostScript code by choosing \acmd{Open file.ps} on 
+the \amenu{Process} submenu.  To see this command, press the \key{Opt} 
+key while the \amenu{Process} submenu is down.
+
+\begin{commands}
+	\acmd{bibtex file.aux} & \\
+	\acmd{Open file.bbl} & \\
+	\acmd{makeindex file.idx} & \\
+	\acmd{Open file.ind} &
+\end{commands}
+To run \BibTeX\ or \MakeIndex, choose the corresponding command from 
+the \amenu{Process} submenu.  While the \amenu{Process} submenu is 
+down, press the \key{Opt} key and choose \acmd{Open file.bbl} or 
+\acmd{Open file.ind} to open the file created by \BibTeX\ or 
+\MakeIndex, respectively.
+
+\begin{commands}
+	\acmd{Open file.log} & \\
+	\acmd{Open file.aux} & \\
+	\acmd{Open file.toc} & \\
+	\acmd{Open file.lof} & \\
+	\acmd{Open file.lot} & \\
+	\acmd{Open file.idx} & \\
+	\acmd{Open file.blg} & \\
+	\acmd{Open file.ilg} & \\
+	\acmd{Open Any TeX File\ldots} & \key{Shf Cmd O}
+\end{commands}
+The \amenu{Other Files} submenu on the \amenu{Process} submenu 
+provides convenient access to other \LaTeX\ auxiliary files.  Choose 
+\acmd{Open Any TeX File} on the \amenu{Other Files} submenu to open 
+\emph{any} file in the current directory.
+
+\begin{commands}
+	\acmd{Remove Auxiliary Files\ldots} &  \\
+	\acmd{Remove Temporary Files} &
+\end{commands}
+The utility \acmd{Remove Auxiliary Files} interactively removes all 
+auxiliary files (\filetype{aux} \filetype{bbl} \filetype{dvi} 
+\filetype{glo} \filetype{idx} \filetype{ind} \filetype{lof} 
+\filetype{log} \filetype{lot} \filetype{toc} \filetype{blg} 
+\filetype{clg} \filetype{ilg} \filetype{ps}) in the current directory.  
+Two additional buttons have been added to the dialog: the button 
+labeled ``rm ext'' removes all files with the same extension as the 
+file displayed in the dialog, and ``rm all'' removes all auxiliary 
+files from the current directory without prompting.
+
+\Alpha\ writes all temporary files to \filespec{\$PREFS:tmp:}, which 
+makes them easier to remove.  All temporary files are removed once, at 
+launch; however, the command \acmd{Remove Temporary Files} on the 
+\amenu{Process} submenu removes all temporary files immediately.
+
+\paragraph{Experimental interactive processing}
+
+Not included in the process menu is some new experimental commands
+which allow you to execute interactive LaTeX runs from inside
+Alpha(tk).
+
+Use \key{Shift Command R} to launch such an interactive session inside
+one of Alpha's windows.  If errors occur, you can use `e' to switch
+directly to the offending text.
+
+Once this code is robust and tested, and known to work well across
+Windows and MacOS X, it will be integrated into the standard process
+menu.
+
+\subsubsection{\amenu{Goto} submenu}%
+\label{sec:gotoSubmenu}
+
+\begin{commands}
+	\acmd{LaTeX} & \key{Shf Cmd S} \\
+	\acmd{BibTeX} &  \\
+	\acmd{MakeIndex} &
+\end{commands}
+These commands launch and switch to the corresponding application 
+\emph{without} saving and typesetting the current document.  The 
+\acmd{LaTeX} command, for instance, is identical to the old 
+\acmd{latex} command in \filespec{latex.tcl}~v2.0.
+
+\begin{commands}
+	\acmd{Next Template Stop} & \key{Tab} \\
+	\acmd{Prev Template Stop} & \key{Shf Tab} 
+\end{commands}
+As you write your document using the various commands on the \LaTeX\ 
+menu, templates are inserted into the text along with tab stops 
+(represented by bullets, which may also be inserted with \key{Opt 8}).  
+The idea is to type an argument at the current tab stop, press 
+\key{Tab} to go to the next tab stop, enter another argument, press 
+\key{Tab} again, and so on.  That's what \acmd{Next Tab Stop} and 
+\acmd{Prev Tab Stop} do: they move around from tab stop to tab stop.  
+Since \acmd{Next Tab Stop} and \acmd{Prev Tab Stop} are bound to the 
+\key{Tab} and \key{Shf Tab}, respectively, the menu commands aren't as 
+convenient as simply pressing the tab key, but they're included on the 
+\LaTeX\ menu for completeness.
+
+NOTE:  Press \key{Opt Tab} to insert a literal tab into the document.
+
+\begin{commands}
+	\acmd{Prev Command} & \key{Kpad4} \\
+	\acmd{Next Command} & \key{Kpad6} \\
+	\acmd{Prev Command Select} & \key{Shf Kpad4} \\
+	\acmd{Next Command Select} & \key{Shf Kpad6} \\
+	\acmd{Prev Command Select With Args} & \key{Shf Opt Kpad4} \\
+	\acmd{Next Command Select With Args} & \key{Shf Opt Kpad6}
+\end{commands}
+The \acmd{Prev Command} and \acmd{Next Command} commands move the 
+cursor to the beginning of the previous or next \LaTeX\ command, while 
+\acmd{Prev Command Select} and \acmd{Next Command Select} select the 
+previous or next \LaTeX\ command.  Similarly, \acmd{Prev Command 
+Select With Args} and \acmd{Next Command Select With Args} select the 
+previous or next \LaTeX\ command, along with any command arguments that 
+may be present.  Required arguments containing nested braces will not be 
+selected, however.  See section~\ref{sec:bugs} for more information 
+about this and other \Alpha\ \LaTeX\ bugs.
+
+\begin{commands}
+	\acmd{Prev Environment} & \key{Cmd Kpad4} \\
+	\acmd{Next Environment} & \key{Cmd Kpad6} \\
+	\acmd{Prev Environment Select} & \key{Shf Cmd Kpad4} \\
+	\acmd{Next Environment Select} & \key{Shf Cmd Kpad6}
+\end{commands}
+Like \acmd{Prev Command} and \acmd{Next Command}, these commands 
+either move the cursor to the beginning of the previous or next 
+\LaTeX\ environment, or select the previous or next \LaTeX\ 
+environment.  They are useful for locating or relocating environments.
+
+\begin{commands}
+	\acmd{Prev Section} & \key{Cmd Kpad8} \\
+	\acmd{Next Section} & \key{Cmd Kpad2} \\
+	\acmd{Prev Section Select} & \key{Shf Cmd Kpad8} \\
+	\acmd{Next Section Select} & \key{Shf Cmd Kpad2}
+\end{commands}
+The \acmd{Prev Section} and \acmd{Next Section} commands may be used 
+to navigate large files with many sections.  They use the regular 
+expression \acmd{funcExprAlt} (which, of course, may be modified) 
+discussed in section~\ref{sec:variables}.  The \acmd{Prev Section 
+Select} and \acmd{Next Section Select} commands select the previous or 
+next section, that is, all the text from one \cmd{section} command to 
+the next, and are useful for relocating large blocks of text.
+
+\begin{commands}
+	\acmd{Prev Subsection} & \key{Kpad8} \\
+	\acmd{Next Subsection} & \key{Kpad2} \\
+	\acmd{Prev Subsection Select} & \key{Shf Kpad8} \\
+	\acmd{Next Subsection Select} & \key{Shf Kpad2}
+\end{commands}
+The \acmd{Prev Subsection} and \acmd{Next Subsection} commands are 
+similar to \acmd{Prev Section} and \acmd{Next Section} except that 
+they also stop at each \cmd{subsection} and \cmd{subsubsection} as 
+well.  They use the variable \acmd{funcExpr} discussed in 
+section~\ref{sec:variables}.  In \TeX\ mode, these commands take the 
+place of \Alpha's generic \acmd{Next Func} and \acmd{Prev Func} 
+commands, which are bound to \key{Kpad3} and \key{Kpad1}, 
+respectively, in other modes.  Like \acmd{Prev Section Select} and 
+\acmd{Next Section Select}, the \acmd{Prev Subsection Select} and 
+\acmd{Next Subsection Select} commands select the previous or next 
+\cmd{section}, \cmd{subsection}, or \cmd{subsubsection}.
+
+\subsubsection{\amenu{LaTeX Utilities} submenu}%
+\label{sec:latexUtilsSubmenu}
+
+\begin{commands}
+	\acmd{Choose Command} & \key{Shf Cmd C}
+\end{commands}
+This command has been removed from \LaTeX\ mode version 4, but will 
+hopefully be replaced in the future.
+
+This command provides access to each and every command on the \LaTeX\ 
+menu via the keyboard.  It's a multi-step process, where the number of 
+steps depend on whether you're using the long or short \LaTeX\ menu: 
+first, press \key{Shf Cmd C} and choose a submenu from the list (using 
+the arrow keys or by pressing the first letter of a submenu name).  
+Next, choose another submenu from the list or the desired command, 
+whichever is appropriate.  Continue descending the \LaTeX\ submenus 
+until the desired command is found.
+
+\begin{commands}
+	\acmd{Delete Tab Stops} & \key{Cmd Tab} \\
+	\acmd{Delete Comments} & 
+\end{commands}
+The \acmd{Delete Tab Stops} command deletes all tab stops (bullets) 
+from the current document (or the current selection, if there is one).  
+The \acmd{Delete Comments} command deletes all \emph{unnecessary} 
+comments from a \LaTeX\ document (which is more difficult than you 
+think).  Using the \acmd{Find} dialog, the following three-step manual 
+operation (try it!) will remove all comments from the current document:
+\begin{center}
+	\begin{tabular}{rcc}
+		 & search string & replace string  \\
+		\hline
+		step 1: & \verb*|^[ \t]*%[^\r\n]*\r| & null  \\
+		step 2: & \verb*|[ \t]+%[^\r\n]*| & null  \\
+		step 3: & \verb*|([^\\](\\\\)*)%[^\r\n]*| & \verb*|\1%|  \\
+	\end{tabular}
+\end{center}
+The utility \acmd{Delete Comments} simply automates this process.
+Thanks to Craig Platt
+\href{mailto:platt@cc.umanitoba.ca}{platt@cc.umanitoba.ca} for posting
+this algorithm in the newsgroup \texttt{comp.text.tex}.
+
+WARNING!  The effects of \acmd{Delete Comments} can not be undone.
+
+\begin{commands}
+	\acmd{Convert Quotes} &  \\
+	\acmd{Convert Dollar Signs} & 
+\end{commands}
+If there is a selection, \acmd{Convert Quotes} converts all straight 
+quotes to curved quotes (\LaTeX-style) within the selection; 
+otherwise, it converts the entire document.
+
+Plain \TeX\ uses dollar signs to delimit math mode and displaymath 
+mode.  Since \LaTeX\ inherits most, if not all of plain \TeX's 
+functionality, dollar signs work in \LaTeX\ documents, too.  Identical 
+left and right delimiters are difficult to parse, however, and so any 
+error messages will be misleading at best.  That is why \LaTeX\ has 
+its own math mode delimiters and that's why they should be used.  The 
+\acmd{Convert Dollar Signs} command replaces all dollar signs in the 
+current document (or the current selection, if there is one) with 
+appropriate \LaTeX\ syntax.  It does this by making two passes over 
+the code, and is therefore somewhat slow on large documents.
+
+\begin{commands}
+	\acmd{Compress Text/Math Menus} & 
+\end{commands}
+The \acmd{Compress Text/Math Menus} commands are toggleable menu items that 
+affect the appearance of the \LaTeX\ menu.
+the discussion on page~\pageref{pg:compressMenus} for details.
+
+
+\subsection{Document-related commands}
+
+\subsubsection{\amenu{Documents} submenu}%
+\label{sec:documentsSubmenu}
+
+\begin{commands}
+	\acmd{New Document} & \key{Shf Cmd N}
+\end{commands}
+Use this command to open a new window in \TeX\ mode.  Choose \acmd{New 
+Document} or press \key{Shf Cmd N} to bring up a dialog with a pop-up 
+menu of standard document types.  This will create a new \TeX\ window, 
+insert a document of the requested type, and automatically run the 
+\acmd{options} command (which is still on the \amenu{Documents} 
+submenu).  The old commands \acmd{article}, \acmd{letter}, etc.\ will 
+be found on the \amenu{Insert Document} subsubmenu (discussed below).  
+Each such command behaves as it did before, that is, it inserts a 
+document template into an empty window or wraps the entire contents of 
+the current window.
+
+\begin{commands}
+	\acmd{article} &  \\
+	\acmd{report} &  \\
+	\acmd{book} &  \\
+	\acmd{letter} &  \\
+	\acmd{slides} &  \\
+	\acmd{generic\ldots} & 
+\end{commands}
+Choosing one of these document templates from the \amenu{Documents} 
+submenu either inserts the desired template at the insertion point, or 
+if there is a current selection, the selection is wrapped up inside 
+the chosen template.  In either case, the insertion point is 
+positioned at the beginning of the template where the user may enter 
+any specific document class options that may be required (standard 
+options include \texttt{11pt}, \texttt{twoside} and 
+\texttt{twocolumn}, for example).  If none are desired, simply skip 
+over this part of the template (it's okay to leave the square brackets 
+empty).  See the \acmd{options} command below for more information on 
+document class options.
+
+\begin{commands}
+	\acmd{options\ldots} &  \\
+	\acmd{usepackage} & \key{Ctl Opt U}
+\end{commands}
+The \acmd{options} command presents the user with a dialog box and a 
+list of standard document class options.  Choosing one of these 
+options or typing a name into the text box of the dialog inserts the 
+chosen option into the current document at the appropriate place.  See 
+the bug list in section~\ref{sec:bugs} for a caveat, however.
+
+When you insert a \LaTeX\ document template into the current window, 
+you get one \cmd{usepackage} command by default.  To insert another 
+\cmd{usepackage} immediately after the \cmd{documentclass} command, 
+choose the \acmd{usepackage} command on the \amenu{Documents} submenu 
+or press \key{Ctl Opt U}.
+
+\begin{commands}
+	\acmd{filecontents\ldots} &  \\
+	\acmd{filecontents All} & 
+\end{commands}
+To facilitate file transfer, \LaTeXe\ now has a \env{filecontents} 
+environment that contains the source of a \LaTeX\ auxiliary file or 
+input file.  Issuing this command brings up a standard file dialog.  
+After locating the file to be included, \filespec{latex.tcl} wraps the 
+file inside a \env{filecontents} environment and inserts it at the 
+beginning of the document.
+
+There is also a \acmd{filecontents All} command that scans the 
+current document and prepends one \env{filecontents} environment for 
+each custom package or class file in the current folder.  Local files 
+read by \cmd{input} or \cmd{include} are also attached, as well as 
+\filetype{bib} and \filetype{bst} files.
+
+\begin{commands}
+	\acmd{Rebuild Documents Submenu} & 
+\end{commands}
+This command rebuilds the \amenu{Documents} submenu on-the-fly.  It's 
+a temporary fix until I think of a better way to handle the 
+\amenu{Packages} submenu.  The \amenu{Packages} submenu contains a 
+list of all packages known to the \TeX\ application.  Choosing one of 
+these packages inserts the corresponding \cmd{usepackage} command into 
+the preamble of the current document.  To build this submenu, enable 
+the flag \acmd{buildPkgsSubmenu} as described in 
+section~\ref{sec:flags}, and then choose \acmd{Rebuild Documents 
+Submenu} on the \amenu{Documents} submenu.
+
+\subsubsection{\amenu{Page Layout} submenu}
+
+\begin{commands}
+	\acmd{maketitle} & 
+\end{commands}
+\LaTeX's \cmd{maketitle} command formats a title page with information 
+provided by the user.  Choosing this command from the \LaTeX\ menu 
+inserts a title page template into the current document just after the 
+\cmdarg{begin}{document} command.
+
+\begin{commands}
+	\acmd{abstract} &  \\
+	\acmd{titlepage} & 
+\end{commands}
+The \env{abstract} and \env{titlepage} environments contain the text 
+of an abstract and title page, respectively.  The latter differs from 
+\cmd{maketitle} in that the user is totally responsible for the format 
+of the title page.
+
+\begin{commands}
+	\acmd{pagestyle\ldots} &  \\
+	\acmd{thispagestyle\ldots} &  \\
+	\acmd{pagenumbering\ldots} & 
+\end{commands}
+The \acmd{pagestyle} and \acmd{thispagestyle} commands control what 
+appears in the header and footer of the current document.  The user is 
+presented with a list of standard formats from which to choose.  The 
+\acmd{pagenumbering} command is for choosing the style of the page 
+numbers, and is also interactive.
+
+\begin{commands}
+	\acmd{twocolumn} &  \\
+	\acmd{onecolumn} & 
+\end{commands}
+These are simple declarations that tell \LaTeX\ to begin formatting 
+the output in two or one column format, respectively.
+
+\subsubsection{\amenu{Sectioning} submenu}
+
+\begin{commands}
+	\acmd{part} &  \\
+	\acmd{chapter} &  \\
+	\acmd{section} &  \\
+	\acmd{subsection} &  \\
+	\acmd{subsubsection} &  \\
+	\acmd{paragraph} &  \\
+	\acmd{subparagraph} & 
+\end{commands}
+All \LaTeX\ sectioning commands are available from the 
+\amenu{Sectioning} submenu, the most common commands being the 
+\acmd{chapter}, \acmd{section}, and \acmd{subsection} commands.  The 
+corresponding \LaTeX\ command is inserted at the insertion point.  The 
+current selection, if there is one, is assumed to be the name of the 
+section and wrapped up inside curly braces.  The resulting declaration 
+is \emph{not} automatically followed by a carriage return since the 
+user has the option of putting a label (or whatever) on the same line.
+
+\begin{commands}
+	\acmd{appendix} & 
+\end{commands}
+Unlike the other sectioning commands, this command does not have an 
+argument.  It simply tells \LaTeX\ to start numbering differently.  
+The \cmd{appendix} declaration only makes sense in the context of a 
+long document such as a book.
+
+
+\subsection{Paragraph mode commands}
+
+\subsubsection{\amenu{Text Style} submenu}
+
+The following text style commands each take an argument, namely, the 
+text to be formatted in the given style.  For large amounts of text, 
+use the corresponding declarations listed on p.~37 of the \LaTeX\ 
+book.
+
+\begin{commands}
+	\acmd{emph} & \key{Ctl Opt E} \\
+	\acmd{underline} & \key{Ctl Cmd U}
+\end{commands}
+Short for ``emphasized'', the \acmd{emph} command is perhaps the most 
+often used \LaTeX\ text style.  If the surrounding text has the 
+upright shape (see below), then \LaTeX\ typesets emphasized text in 
+italics.  If the surrounding text is italicized, then emphasized text 
+will be upright.  The so-called ``italic correction'' is handled 
+automatically by this command.
+
+Although underlined text is not used much anymore, the corresponding 
+command is included here for completeness.  The \acmd{underline} 
+command may also be used in math mode and therefore also appears on 
+the \amenu{Grouping} submenu.  See section~\ref{sec:groupingSubmenu}.
+
+\begin{commands}
+	\acmd{textup} &  \\
+	\acmd{textit} & \key{Ctl Opt I} \\
+	\acmd{textsl} & \key{Ctl Opt S} \\
+	\acmd{textsc} & \key{Ctl Opt H}
+\end{commands}
+These four commands specify the \emph{shape} of their respective 
+arguments.  They call for upright text, italics, slanted text, and 
+small caps, respectively.  Upright is the default.
+
+\begin{commands}
+	\acmd{textmd} &  \\
+	\acmd{textbf} & \key{Ctl Opt B}
+\end{commands}
+These commands specify an attribute called the \emph{series} of the 
+corresponding font.  They call for medium and boldfaced text, 
+respectively.  Medium is the default.
+
+\begin{commands}
+	\acmd{textrm} & \key{Ctl Opt R} \\
+	\acmd{textsf} & \key{Ctl Opt W} \\
+	\acmd{texttt} & \key{Ctl Opt Y}
+\end{commands}
+The third and final component of any given font is the \emph{family}.  
+There are three families: roman, sans serif, and typewriter.  Roman is 
+the default.
+
+\begin{commands}
+	\acmd{textnormal} & 
+\end{commands}
+Regardless of the surrounding text, the argument of \cmd{textnormal} 
+is typeset in the default style, that is, upright, medium, and roman.
+
+\begin{commands}
+	\acmd{em} & \key{Shf Ctl Opt E} \\
+	\acmd{upshape} &  \\
+	\acmd{itshape} & \key{Shf Ctl Opt I} \\
+	\acmd{slshape} & \key{Shf Ctl Opt S} \\
+	\acmd{scshape} & \key{Shf Ctl Opt H} \\
+	\acmd{mdseries} &  \\
+	\acmd{bfseries} & \key{Shf Ctl Opt B} \\
+	\acmd{rmfamily} & \key{Shf Ctl Opt R} \\
+	\acmd{sffamily} & \key{Shf Ctl Opt W} \\
+	\acmd{ttfamily} & \key{Shf Ctl Opt Y} \\
+	\acmd{normalfont} & 
+\end{commands}
+These commands are the declarative counterparts of the previously 
+mentioned text style commands.  Typically, they are used for large 
+chunks of text, say, entire paragraphs.  (Note: the declarative 
+versions do not apply an italic correction.  See the \LaTeX\ manual 
+for usage and examples.)  To access these commands, press the \key{Shf} 
+key with the \amenu{Text Style} submenu down.
+
+\subsubsection{\amenu{Text Size} submenu}
+
+\begin{commands}
+	\acmd{tiny} & \key{Ctl Opt 1} \\
+	\acmd{scriptsize} & \key{Ctl Opt 2} \\
+	\acmd{footnotesize} & \key{Ctl Opt 3} \\
+	\acmd{small} & \key{Ctl Opt 4} \\
+	\acmd{normalsize} & \key{Ctl Opt 5} \\
+	\acmd{large} & \key{Ctl Opt 6} \\
+	\acmd{Large} & \key{Ctl Opt 7} \\
+	\acmd{LARGE} & \key{Ctl Opt 8} \\
+	\acmd{huge} & \key{Ctl Opt 9} \\
+	\acmd{Huge} & \key{Ctl Opt 0}
+\end{commands}
+These commands declare the text font size.  They affect the entire 
+document unless surrounded by braces, so the menu commands 
+automatically insert braces.  If you want the entire document set in a 
+certain font size, insert a class option with the \acmd{options} 
+command (see section~\ref{sec:documentsSubmenu}).
+
+\subsubsection{\amenu{International} submenu}
+
+\filespec{latex.tcl} implements about half of \LaTeX's full palette of 
+international symbols and accents (if you can think of ways to get the 
+rest of these on the \LaTeX\ menu, please let me know!).  See 
+Tables~3.1 and 3.2 on pp.~38--39 of the \LaTeX\ book for a complete 
+list.
+
+\subsubsection{\amenu{Environments} submenu}%
+\label{sec:envSubmenu}
+
+\begin{commands}
+	\acmd{itemize\ldots} & \key{Opt F7} \\
+	\acmd{enumerate\ldots} & \key{Shf Opt F7} \\
+	\acmd{description\ldots} & \key{Ctl Opt F7} \\
+	\acmd{thebibliography\ldots} &  \\
+	\acmd{slide} & \key{Opt F8} \\
+	\acmd{overlay} & \key{Shf Opt F8} \\
+	\acmd{note} & \key{Ctl Opt F8} \\
+	\acmd{figure} & \key{Opt F9} \\
+	\acmd{table} & \key{Shf Opt F9} \\
+	\acmd{tabular\ldots} & \key{Ctl Opt F9} \\
+	\acmd{verbatim} & \key{Opt F10} \\
+	\acmd{quote} & \key{Shf Opt F10} \\
+	\acmd{quotation} & \key{Ctl Opt F10} \\
+	\acmd{verse} &  \\
+	\acmd{center} & \key{Opt F11} \\
+	\acmd{flushleft} & \key{Shf Opt F11} \\
+	\acmd{flushright} & \key{Ctl Opt F11} \\
+	\acmd{general\ldots} & \key{Opt F12}
+\end{commands}
+One of the most useful of \filespec{latex.tcl}'s many features is its 
+ability to insert skeletal templates for multi-line environments (that 
+is, \LaTeX\ constructs delimited by a \cmd{begin}\ldots\cmd{end} pair).  
+These may be inserted anywhere in the document (even in the middle of 
+a line), complete with tab stops and appropriate indentation.  In some 
+cases (like \acmd{itemize}), the user is asked to specify the number 
+of rows desired, after which the program generates the corresponding 
+environment body complete with indentation and tab stops.  Some 
+environment commands (like \acmd{tabular}) also prompt the user for 
+the desired number of columns.  There's even a \acmd{general} command 
+for inserting user-defined environments on-the-fly.
+
+The \acmd{figure} command deserves special mention.  Choosing this 
+command from the \amenu{Environments} submenu (or by pressing \key{Opt 
+F9}) brings up a dialog with a pop-up menu of box-making macros, one 
+for every macro name stored in the \TeX\ mode variable 
+\acmd{boxMacroNames} (see section~\ref{sec:variables}).  With the 
+mouse or arrow keys, choose one of these macro names and click ``OK'' 
+to insert the corresponding \env{figure} environment at the insertion 
+point, or leave the text box blank to wrap a \env{figure} environment 
+around the current selection (if there is one).  If only one macro 
+name is stored in \acmd{boxMacroNames}, the dialog is automatically
+circumvented and the \env{figure} environment is inserted at the 
+insertion point without prompting.
+
+Note: The \amenu{Environments} submenu seeks to mimic the 
+corresponding command keys.  Each group of environments on this 
+submenu has been assigned a different function key, beginning with 
+\key{F7}.  The \acmd{general} environment, for instance, is bound to 
+\key{Opt F12}.  See section~\ref{sec:keys} for more information.
+
+\subsubsection{\amenu{Boxes} submenu}
+
+\begin{commands}
+	\acmd{mbox} & \key{Ctl Opt M} \\
+	\acmd{makebox} &  \\
+	\acmd{fbox} &  \\
+	\acmd{framebox} & 
+\end{commands}
+Perhaps the most useful box-making command is \cmd{mbox}, which 
+formats its argument in LR mode, a restricted form of paragraph mode 
+impervious to line breaks.  The \cmd{mbox} command is especially 
+useful for inserting a bit of plain text in the middle of a math 
+formula (see the \textsl{\LaTeX} book for examples).  The \cmd{makebox} 
+command is a generalized form of \cmd{mbox}, which takes the width and 
+height of the box as additional arguments.
+
+The commands \cmd{fbox} and \cmd{framebox} are analogous to \cmd{mbox} 
+and \cmd{makebox} except that a rectangular frame is drawn around the 
+box.
+
+\begin{commands}
+	\acmd{newsavebox} &  \\
+	\acmd{sbox} &  \\
+	\acmd{savebox} &  \\
+	\acmd{usebox} & 
+\end{commands}
+A ``savebox'' is a bin for storing text, graphics, formulas, or 
+whatever.  The argument to \cmd{sbox} or \cmd{savebox} is typeset 
+\emph{once} and may be recalled later, any number of times, via 
+\cmd{usebox}.
+
+\begin{commands}
+	\acmd{raisebox} & 
+\end{commands}
+This box-making command takes a vertical offset as one of its arguments.
+
+\begin{commands}
+	\acmd{parbox} &  \\
+	\acmd{minipage} & 
+\end{commands}
+The primary argument of \LaTeX's \cmd{parbox} command or 
+\env{minipage} environment is typeset in paragraph mode.  \cmd{parbox} 
+is for small amounts of text, while the \env{minipage} environment is 
+for large blocks of text.
+
+\begin{commands}
+	\acmd{rule} & 
+\end{commands}
+The \cmd{rule} command makes a box filled with ink.  For example,
+\begin{verbatim}
+  \newcommand{\filledsquare}{\rule[0.125ex]{1.3ex}{1.3ex}}
+\end{verbatim}
+makes a black square approximately the same size as \LaTeX's open \cmd{Box}.  
+(There is an analogous command called \cmd{blacksquare} defined in the AMS 
+symbol package.)
+
+\subsubsection{\amenu{Miscellaneous} submenu}%
+\label{sec:miscSubmenu}
+
+\begin{commands}
+	\acmd{verb} & \key{Ctl Opt V} \\
+	\acmd{footnote} & \key{Ctl Opt F} \\
+	\acmd{marginal note} & \key{Ctl Opt N}
+\end{commands}
+All the above commands wrap the current selection, if there is one.
+
+\begin{commands}
+	\acmd{label} & \key{Ctl Opt L} \\
+	\acmd{ref} & \key{Ctl Opt X} \\
+	\acmd{pageref} & \key{Ctl Opt P} \\
+	\acmd{cite} & \key{Ctl Opt C} \\
+	\acmd{nocite} & \key{Shf Ctl Opt C}
+\end{commands}
+These commands do more than simply insert the corresponding \LaTeX\ 
+command.  For instance, press \key{Ctl Opt X} or \key{Ctl Opt P} to 
+insert a \cmd{ref} or \cmd{pageref} command, respectively.  The 
+inserted command will contain the argument of the nearest \cmd{label} 
+command.  Continue pressing \key{Ctl Opt X} or \key{Ctl Opt P} to cycle 
+through all the \cmd{label} commands in your document.
+
+\begin{commands}
+	\acmd{item} & \key{Ctl Opt J}
+\end{commands}
+Simply press \key{Ctl Opt J} inside an \env{itemize}, \env{enumerate}, 
+\env{description}, or \env{thebibliography} environment to insert an 
+item of the appropriate type at the insertion point.
+
+\begin{commands}
+	\acmd{quotes} & \key{Ctl Opt \straightquote} \\
+	\acmd{double quotes} & \key{Shf Ctl Opt \straightquote}
+\end{commands}
+The \filespec{latex.tcl} macro package incorporates a ``smart quotes'' 
+feature originally implemented by an unknown author (see the code in 
+\filespec{latexSmart.tcl}) that makes the typing of quoted material 
+totally transparent.  Just use the quote key as you would for plain 
+text files.  Consequently, the \acmd{quotes} and \acmd{double quotes} 
+commands are primarily used for quoting existing text.
+
+\begin{commands}
+	\acmd{ellipsis} &  \\
+	\acmd{en-dash} &  \\
+	\acmd{em-dash} &  \\
+	\acmd{TeX logo} &  \\
+	\acmd{LaTeX logo} &  \\
+	\acmd{Latex2e logo} &  \\
+	\acmd{date} & 
+\end{commands}
+These are a few of the text-related \LaTeX\ commands that I've found 
+useful from time to time.
+
+\begin{commands}
+	\acmd{dag} &  \\
+	\acmd{ddag} &  \\
+	\acmd{section mark} &  \\
+	\acmd{paragraph mark} &  \\
+	\acmd{copyright} &  \\
+	\acmd{pounds} & 
+\end{commands}
+The previous six commands may be used in any mode, including math mode.
+
+
+\subsection{Math mode commands}
+
+\subsubsection{\amenu{Math Mode} submenu}%
+\label{sec:mathModeSubmenu}
+
+\begin{commands}
+	\acmd{TeX math} &  \\
+	\acmd{TeX displaymath} &  \\
+	\acmd{LaTeX math} & \key{Ctl Cmd M} or \key{Ctl Cmd 4} \\
+	\acmd{LaTeX displaymath} & \key{Ctl Opt Cmd M} or \key{Ctl Opt Cmd 4}
+\end{commands}
+Math mode may be invoked in a number of ways.  Many \TeX nical typists 
+rely exclusively on \TeX's use of dollar signs and almost always key 
+in their documents horizontally from left to right.  Others have 
+adopted \LaTeX's tendency to prefer vertical constructions 
+(environments).  Still others have settled on some combination of 
+these, using whichever seems comfortable or convenient at the time.  
+Whatever your approach to mathematical typesetting, there's something 
+for everybody in \filespec{latex.tcl}, designed to simplify the input 
+of complex mathematical formulas.
+
+Four math modes are available for normal, left-to-right input.  These 
+are called \acmd{TeX math} \verb|$|\ldots\verb|$| and \acmd{TeX 
+displaymath} \verb|$$|\ldots\verb|$$|, along with their 
+corresponding \LaTeX\ equivalents called \acmd{LaTeX math} 
+\cmd{(}\ldots\cmd{)} and \acmd{LaTeX displaymath} 
+\cmd{[}\ldots\cmd{]}.  The \LaTeX\ versions are logically equivalent 
+to the multi-line \env{math} and \env{displaymath} environments (see 
+below).  The latter have the advantage that 1) they are often more 
+readable in source form, and 2) they are more easily changed (by 
+simply replacing keywords) as the document evolves.
+
+NOTE: The above command keys automatically switch from 
+\acmd{LaTeX math} and \acmd{LaTeX displaymath} to \acmd{TeX math} and 
+\acmd{TeX displaymath}, respectively, when the flag 
+\acmd{useDollarSigns} is set to true.
+
+\textbf{Tip:} Get into the habit of pressing \key{Ctl Cmd M} or 
+\key{Ctl Opt Cmd M} when composing in-line equations, since there is 
+less chance of inadvertantly omitting a dollar sign if you do.
+
+\subsubsection{\amenu{Math Style} submenu}
+
+\begin{commands}
+	\acmd{mathit} & \key{Ctl Opt Cmd I} \\
+	\acmd{mathrm} & \key{Ctl Opt Cmd R} \\
+	\acmd{mathbf} & \key{Ctl Opt Cmd B} \\
+	\acmd{mathsf} & \key{Ctl Opt Cmd W} \\
+	\acmd{mathtt} & \key{Ctl Opt Cmd Y} \\
+	\acmd{mathcal} & \key{Ctl Opt Cmd C} \\
+	\acmd{displaystyle} & \key{Ctl Opt Cmd D} \\
+	\acmd{textstyle} & \key{Ctl Opt Cmd T} \\
+	\acmd{scriptstyle} & \key{Ctl Opt Cmd S} \\
+	\acmd{scriptscriptstyle} & 
+\end{commands}
+The next submenu on the \LaTeX\ menu is called \amenu{Math Style}, 
+with commands for math italic, roman, boldface, sans serif, typewriter 
+and calligraphic typefaces, as well as declarations for 
+\cmd{displaystyle}, \cmd{textstyle}, \cmd{scriptstyle}, and 
+\cmd{scriptscriptstyle}.  The latter command quartet are sometimes 
+needed to override \LaTeX's default math style.  (The \env{array} 
+environment, for example, insists on enabling \cmd{textstyle} 
+regardless of the surrounding environment.)
+
+\subsubsection{\amenu{Math Environments} submenu}
+
+\begin{commands}
+	\acmd{math} & \key{Opt F5} \\
+	\acmd{displaymath} & \key{Shf Opt F5} \\
+	\acmd{equation} & \key{Ctl Opt F5} \\
+	\acmd{eqnarray\texttt{*}} & \key{Shf Opt F6} \\
+	\acmd{eqnarray} & \key{Ctl Opt F6} \\
+	\acmd{array} & \key{Opt F6} \\
+	\acmd{general} & \key{Opt F12}
+\end{commands}
+Besides the \env{math} and \env{displaymath} environments discussed in 
+section~\ref{sec:mathModeSubmenu}, other multi-line math environments 
+(\env{equation}, \env{array}, \env{eqnarray}, and \env{eqnarray*}) are 
+also available.  Each is mutually exclusive (that is, one may not be 
+nested inside the other) except for the \env{array} environment which 
+\emph{must} be nested inside some other math environment.  (It took me 
+a long time to come to grips with this apparent anomaly).  There's 
+also a \acmd{general} environment command, which is exactly the same 
+command found on the \amenu{Text Style} submenu.
+
+\subsubsection{\amenu{Formulas} submenu}%
+\label{sec:formulasSubmenu}
+
+\begin{commands}
+	\acmd{subscript} & \key{\_} (if \acmd{smartScripts} is true) \\
+	\acmd{superscript} & \key{\^{}} (if \acmd{smartScripts} is true) \\
+	\acmd{frac} & \key{Ctl Cmd F} \\
+	\acmd{sqrt} & \key{Ctl Cmd R} \\
+	\acmd{nth root} &  \\
+	\acmd{one parameter} & \key{Ctl Cmd 1} \\
+	\acmd{two parameters} & \key{Ctl Cmd 2}
+\end{commands}
+The \amenu{Formulas} submenu contains \LaTeX\ commands commonly used 
+to build up even the simplest mathematical expressions.  There are 
+commands for typesetting subscripts and superscripts, fractions (which 
+used to be difficult to typeset), square roots, and arbitrary $n$th 
+roots.  There are also one and two-parameter \LaTeX\ commands, which 
+allow the user to type in a command name on-the-fly.  Next to 
+\filespec{latex.tcl}'s environment commands, the formula commands are 
+most useful.  (In fact, it pays to memorize their command key 
+equivalents.)
+
+While we're talking about the \amenu{Formulas} submenu, let me say a 
+little bit about \filespec{latex.tcl}'s ability to parse fractions.  
+How many times have you found yourself wanting to recast a 
+horizontally typeset fraction such as 
+\begin{verbatim}
+  $x = (-b \pm \sqrt{b^2 - 4ac})/(2a)$
+\end{verbatim}
+in a corresponding ``vertical'' form 
+\begin{verbatim}
+  $$x = \frac{(-b \pm \sqrt{b^2 - 4ac})}{(2a)}$$
+\end{verbatim}
+Obviously, such an operation involves a lot of cutting and pasting, 
+and I used to avoid it like the plague.  Well, now all you have to do 
+is select the text you want converted (in this case, all the text 
+inside the dollar signs except ``\texttt{x = }``) and then choose the 
+\acmd{frac} command from the \amenu{Formulas} submenu on \LaTeX\ menu.  
+The rest is automatic.  (Now if only I could get it to automatically 
+remove the redundant parentheses\ldots)
+
+\subsubsection{\amenu{Greek} submenu}
+
+One of the longest of \filespec{latex.tcl}'s submenus contains the 
+entire Greek alphabet, including both lower and upper-case letters 
+(hold down the \key{Opt} key while the \amenu{Greek} submenu is down 
+to see the latter), plus a handful of lower-case ``italicized'' 
+letters (\cmd{varepsilon}, \cmd{vartheta}, \cmd{varpi}, \cmd{varrho}, 
+\cmd{varsigma}, and \cmd{varphi}).  To type a \amenu{Greek} command at 
+the keyboard, press \key{Ctl M} \key{letter}, where \key{letter} is 
+the same key assigned to that letter by the Macintosh Symbol font.  See 
+the file \filespec{latex\_bindings.tex} for a useful summary.
+
+NOTE: There are two \amenu{Greek} submenus.  While one is down, press 
+a modifier key (such as \key{Opt}) to see the alternate menu.
+
+\subsubsection{\amenu{Binary Operators} and \amenu{Relations} submenus}
+
+Plain \TeX\ defines an incredible variety of mathematical symbols, 
+each transparently available to the \LaTeX\ user.  All of these 
+symbols have been implemented in this version of \filespec{latex.tcl}.
+
+There are two \amenu{Relations} menus.  While one is down, press 
+a modifier key (such as \key{Opt}) to see the alternate menu.
+
+\subsubsection{\amenu{Arrows}, \amenu{Dots}, and \amenu{Symbols} submenus}
+
+A quick glance at the \LaTeX\ book shows a wide assortment of arrows, 
+dots, and miscellaneous mathematical symbols.  Starting with v2.2, all 
+of these have been implemented in \filespec{latex.tcl}.  See the 
+\amenu{Arrows}, \amenu{Dots}, and \amenu{Symbols} submenus for 
+exhaustive lists of available commands.
+
+NOTE: There are two \amenu{Arrows} menus.  While one is down, press a 
+modifier key (such as \key{Opt}) to see the alternate menu.
+
+\subsubsection{\amenu{Functions} submenu}
+
+All of \TeX's so-called ``log-like'' functions (\cmd{exp} and 
+\cmd{sin}, for instance) have been implemented in this version of 
+\filespec{latex.tcl}.  Some of these commands (\acmd{lim}, \acmd{inf}, 
+\acmd{sup}, \acmd{liminf}, \acmd{limsup}, \acmd{max}, and \acmd{min}) 
+automatically insert a subscript.  Only \acmd{lim} has a command key, 
+namely, \key{Ctl Cmd L}.
+
+\subsubsection{\amenu{Large Operators} submenu}
+
+\begin{commands}
+	\acmd{sum} & \key{Ctl Cmd S} \\
+	\acmd{prod} & \key{Ctl Cmd P} \\
+	\acmd{coprod} &  \\
+	\acmd{int} & \key{Ctl Cmd I} \\
+	\acmd{oint} &  \\
+	\acmd{bigcup} &  \\
+	\acmd{bigcap} &  \\
+	\acmd{bigsqcup} &  \\
+	\acmd{bigvee} &  \\
+	\acmd{bigwedge} &  \\
+	\acmd{bigodot} &  \\
+	\acmd{bigotimes} &  \\
+	\acmd{bigoplus} &  \\
+	\acmd{biguplus} & 
+\end{commands}
+The \filespec{latex.tcl} macro package also provides support for 
+\TeX's so-called ``large operators''.  Commands such as \acmd{sum} 
+\key{Ctl Cmd S}, \acmd{prod} \key{Ctl Cmd P}, \acmd{int} \key{Ctl Cmd 
+I}, \acmd{bigcup}, \acmd{bigcap}, \acmd{bigvee}, and \acmd{bigwedge} 
+may be found on the \amenu{Large Operators} submenu.
+
+\subsubsection{\amenu{Delimiters} submenu}
+
+\begin{commands}
+	\acmd{parentheses} &  \\
+	\acmd{brackets} &  \\
+	\acmd{braces} &  \\
+	\acmd{vertical bars} &  \\
+	\acmd{other delims\ldots} &  \\
+	\acmd{half-open interval} &  \\
+	\acmd{half-closed interval} &  \\
+	\acmd{big parentheses} &  \\
+	\acmd{big brackets} &  \\
+	\acmd{big braces} &  \\
+	\acmd{big vertical bars} &  \\
+	\acmd{other big delims\ldots} &  \\
+	\acmd{big left brace} &  \\
+	\acmd{other mixed big delims\ldots} & 
+\end{commands}
+\TeX\ is particularly adept at ``delimiting'' arbitrary-sized 
+mathematical expressions.  Examples include parenthesized equations, 
+matrices, and determinants.  Since the left and right delimiters need 
+not be of the same type, there are a host of options from which to 
+choose, which presents an interesting design problem.  A workable 
+compromise was achieved by implementing a handful of common delimiters 
+explicitly, and then providing access to other more esoteric 
+combinations via dialogs.  Consequently, commands for \acmd{big 
+parentheses}, \acmd{big brackets}, \acmd{big braces}, and \acmd{big 
+vertical bars} (i.e., absolute value signs) will be found on the 
+\amenu{Delimiters} submenu, along with a \acmd{big left brace} 
+(commonly used to define multi-part functions or systems of 
+equations), as well as commands called \acmd{other big delims} and 
+\acmd{other mixed big delims}.  The latter two commands are 
+interactive---the user either types the delimiter name directly into a 
+text box or chooses the desired name from a pop-up menu of available 
+options.  Also on the \amenu{Delimiters} submenu are normal-sized 
+\acmd{parentheses}, \acmd{brackets}, \acmd{braces}, \acmd{vertical 
+bars}, and other fixed-size delimiters.
+
+\begin{commands}
+	\acmd{multi-line big parentheses} &  \\
+	\acmd{multi-line big brackets} &  \\
+	\acmd{multi-line big braces} &  \\
+	\acmd{multi-line big vertical bars} &  \\
+	\acmd{other multi-line big delims\ldots} &  \\
+	\acmd{multi-line big left brace} &  \\
+	\acmd{other multi-line mixed big delims\ldots} & 
+\end{commands}
+All of the big delimiters have multi-line counterparts (i.e, a 
+vertical, as opposed to a horizontal construct).  To access these 
+commands, press the \key{Opt} key while the \amenu{Delimiters} submenu 
+is down.
+
+\subsubsection{\amenu{Math Accents} submenu}
+
+\begin{commands}
+	\acmd{acute} & \key{Ctl Cmd A} \\
+	\acmd{bar} & \key{Ctl Cmd B} \\
+	\acmd{breve} &  \\
+	\acmd{check} & \key{Ctl Cmd C} \\
+	\acmd{dot} & \key{Ctl Cmd D} \\
+	\acmd{ddot} &  \\
+	\acmd{grave} & \key{Ctl Cmd G} \\
+	\acmd{hat} & \key{Ctl Cmd H} \\
+	\acmd{tilde} & \key{Ctl Cmd T} \\
+	\acmd{vec} & \key{Ctl Cmd V} \\
+	\acmd{widehat} &  \\
+	\acmd{widetilde} &  \\
+	\acmd{imath} &  \\
+	\acmd{jmath} & 
+\end{commands}
+Math accents (not to be confused with diacritical marks used in 
+paragraph mode) are accessed from a submenu of the same name.  There 
+are commands for hats, bars, tildes, vectors, dots, etc., plus wide 
+hats and tildes, most of which have command keys.  There are also 
+commands for dotless versions of the letters ``$i$'' and ``$j$'' used 
+in conjunction with these accents.  Insofar as possible, the macros 
+check to make sure that only single characters are being accented, or 
+in the case of wide accents, three or fewer characters.
+
+\subsubsection{\amenu{Grouping} submenu}%
+\label{sec:groupingSubmenu}
+
+\begin{commands}
+	\acmd{underline} & \key{Ctl Cmd U} \\
+	\acmd{overline} & \key{Ctl Cmd O} \\
+	\acmd{underbrace} & \key{Ctl Opt Cmd U} \\
+	\acmd{overbrace} & \key{Ctl Opt Cmd O} \\
+	\acmd{overrightarrow} &  \\
+	\acmd{overleftarrow} &  \\
+	\acmd{stackrel} & 
+\end{commands}
+The \amenu{Grouping} submenu has commands for underlining and 
+overlining, and related commands that produce underbraces and 
+overbraces.  There's also a command called \acmd{stackrel} used to 
+construct compound operators via vertical stacking (see p.~50 of the 
+\LaTeX\ book for more information).
+
+\subsubsection{\amenu{Spacing} submenu}
+
+\begin{commands}
+	\acmd{neg thin} &  \\
+	\acmd{thin} &  \\
+	\acmd{medium} &  \\
+	\acmd{thick} &  \\
+	\acmd{quad} &  \\
+	\acmd{qquad} &  \\
+	\acmd{hspace} &  \\
+	\acmd{vspace} &  \\
+	\acmd{hfill} &  \\
+	\acmd{vfill} &  \\
+	\acmd{smallskip} &  \\
+	\acmd{medskip} &  \\
+	\acmd{bigskip} & 
+\end{commands}
+The \amenu{Spacing} submenu provides for various types of horizontal 
+and vertical spacing.  There are commands for negative thin, thin, 
+medium, and thick amounts of whitespace, and additional commands for 
+inserting the traditional typesetter's quad (1em) and double quad.  
+Arbitrary horizontal whitespace, defined via \LaTeX's \cmd{hspace} 
+command, and vertical whitespace via \cmd{vspace}, may also be 
+inserted from the \amenu{Spacing} submenu.  \LaTeX's ``fill'' commands 
+will also be found on this submenu, as well as \cmd{smallskip}, 
+\cmd{medskip}, and \cmd{bigskip}.
+
+\section{The \amenu{funcs} menu}
+\label{sec:funcs}
+
+The pop-up menu activated by pressing the ``\{\}'' icon on the tool 
+bar at the right of each window is called the \amenu{funcs} menu.  In 
+\TeX\ mode (and other modes as well), the \amenu{funcs} menu gives an 
+outline of the current document and provides a way to quickly navigate 
+a long file.  Simply press the ``\{\}'' icon to build the 
+\amenu{funcs} pop-up menu on-the-fly.  The current document will be 
+scanned and the titles of all sections and subsections will be placed 
+on the menu.
+
+\section{The \amenu{mark} menu}
+\label{sec:mark}
+
+The pop-up menu activated by pressing the ``\texttt{M}'' icon on the 
+tool bar at the right of each window is called the \amenu{mark} menu.  
+In \TeX\ mode (and other modes as well), the mark menu gives an 
+outline of the current document and provides a way to quickly navigate 
+a long file.  Simply press the ``\texttt{M}'' icon and choose the 
+\acmd{Mark File} command.  The contents of the current document will 
+be scanned and the titles of all chapters, sections, and subsections 
+will be placed on the menu.  Files that are \cmd{include}'d or 
+\cmd{input}'ed will also appear on the \amenu{mark} menu.  Note that 
+the mark menu is static, that is, if you change the structure of the 
+current document, you must choose the \acmd{Mark File} command 
+again.
+
+Note: Currently, there is considerable overlap between the 
+\amenu{funcs} menu and the \amenu{mark} menu in terms of 
+functionality.  This will change in future versions of \Alpha.
+
+
+\chapter{Command Keys}
+
+Menus are great at first, but eventually the tendency is to move away 
+from menus towards commands keys.  This can significantly speed the 
+input process.  Few of us, however, are inclined to memorize more than 
+a couple dozen such keystrokes unless continually prompted with 
+reminders.  Thus most command key equivalents are displayed on the 
+\LaTeX\ menu in full view.
+
+\section{Tips}
+\label{sec:keys}
+
+A few remarks will help you remember the many command key sequences.  
+All paragraph mode commands (\cmd{textbf}, \cmd{footnote}, etc.)  
+begin with \key{Ctl Opt} or \key{Shf Ctl Opt}, whereas all math mode 
+commands begin with \key{Ctl Cmd} or \key{Ctl Opt Cmd}.  All 
+environments are bound to some modified function key.  Sometimes the 
+\key{Shf} key reverses the orientation of an existing key (as in the 
+case of \acmd{Next Tab Stop} and \acmd{Prev Tab Stop} described in 
+section~\ref{sec:gotoSubmenu}) or acts as a selection key (see, for 
+example, \acmd{Next Environment} and \acmd{Next Environment Select} in 
+section~\ref{sec:gotoSubmenu}).  Knowing these simple facts helps 
+tremendously.
+
+See section~\ref{sec:docs} for pointers to useful command key summaries.
+
+\section{Double-clicking}
+\label{sec:dblClicking}
+
+The arguments of certain \LaTeX\ commands are 
+command-double-clickable, that is, you hold down the \key{Cmd} key 
+while double-clicking the argument of certain \LaTeX\ commands.  
+These commands are underlined and therefore easily recognized in 
+your document.  When you command-double-click the required argument 
+of a \cmd{ref} command, for example, the cursor jumps to the 
+corresponding \cmd{label}.  (Note: Press \key{Ctl .} to return to 
+the original cursor position.)  Similarly, when you cmd-dbl-click 
+the required argument of a \cmd{cite} command, the cursor jumps to 
+the corresponding \cmd{bibitem} if the document contains a 
+\env{thebibliography} environment; otherwise, the arguments of a 
+\cmd{bibliography} command are sequentially searched until the 
+\filetype{bib} file containing the target item is found.  This 
+\filetype{bib} file is then opened and the cursor jumps to the 
+target item.
+
+\textbf{Tip:} By default, \cmd{ref}, \cmd{pageref}, \cmd{cite}, and 
+\cmd{nocite} commands are cmd-dbl-clickable.  If you use a package 
+that defines other \cmd{ref}-like or \cmd{cite}-like commands, modify 
+the \TeX\ mode variables \acmd{refCommands} or \acmd{citeCommands} 
+discussed in section~\ref{sec:variables}.
+
+Other \LaTeX\ commands may also be command-double-clicked, for 
+example, \cmd{input}, \cmd{include}, \cmd{includegraphics} (or rather 
+the commands specified in the \TeX\ mode variable \acmd{boxMacroNames} 
+mentioned in section~\ref{sec:variables}), \cmd{bibliography}, 
+\cmd{usepackage}, and \cmd{documentclass}.  Note that the required 
+arguments of these commands are files, and so command-double-clicking 
+such an argument opens the corresponding file.  Unless the filename 
+includes a Macintosh path (which is not recommended, since it's not 
+portable), the current folder is searched first.  If the file is not 
+found in the current folder, the algorithm next checks the hierarchy 
+of folders under the user-specified ``TeX Inputs Folder'', which is 
+optionally set by choosing \acmd{App Paths} on the \amenu{Config} menu.  
+If the file is still not found, all folders whose name contains the 
+string ``inputs'' in the \TeX\ application folder are checked next.  
+For example, all folders in the \TeX\ folder with names such as 
+\filespec{TeX-inputs}, \filespec{TeX-inputs2}, and 
+\filespec{My-TeX-inputs} will be searched.
+
+\textbf{Tip:} A command-double-click operation may be simulated with a 
+keystroke.  With the cursor inside the required argument of a 
+cmd-dbl-clickable \LaTeX\ command, press \key{F6} to activate the 
+algorithm.
+
+\Alpha\ has another modified double-click that will be of interest 
+to \LaTeX\ users.  You may already know that double-clicking a 
+delimiter (parenthesis, bracket, or brace) selects the text between 
+it and its matching delimiter.  Moreover, if you hold down the 
+\key{Ctl} key while double-clicking a delimiter, the text \emph{and} 
+the delimiters will be selected.  These commands are very handy for 
+cutting and pasting blocks of delimited text, especially in a 
+\LaTeX\ document where braces, for example, run rampant.
+
+\chapter{Technical tips}
+
+\textbf{Tip:} To see what \TeX\ applications are currently supported 
+for typesetting, viewing, or printing, type
+\begin{verbatim}
+  array names texAppSignatures
+\end{verbatim}
+or
+\begin{verbatim}
+  array names viewDVIAppSignatures
+\end{verbatim}
+or
+\begin{verbatim}
+  array names printDVIAppSignatures
+\end{verbatim}
+respectively, in the Tcl shell.  (To invoke the shell, choose the 
+\acmd{Shell} command from \Alpha's \amenu{File} menu or press 
+\key{Cmd Y}.)
+
+\textbf{Tip:} To see what applications are currently supported for 
+creating, viewing, or printing \filetype{ps} files, type
+\begin{verbatim}
+  array names dvipsAppSignatures
+\end{verbatim}
+or
+\begin{verbatim}
+  array names viewPSAppSignatures
+\end{verbatim}
+or
+\begin{verbatim}
+  array names printPSAppSignatures
+\end{verbatim}
+respectively, in the Tcl shell.
+
+\textbf{Tip:} To see what \BibTeX\ or \MakeIndex\ applications are 
+currently supported, type
+\begin{verbatim}
+  array names bibtexAppSignatures
+\end{verbatim}
+or
+\begin{verbatim}
+  array names makeindexAppSignatures
+\end{verbatim}
+respectively, in the Tcl shell.
+
+\end{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

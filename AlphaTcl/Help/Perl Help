@@ -1,0 +1,864 @@
+-*-Help-*-
+
+Perl Mode Help
+
+                                               version: 3.7
+                                               created: 07/18/1995 {06:15:07 pm} 
+                                           last update: 03/06/2006 {08:34:34 PM}
+
+This document describes the use of the Perl menu in Alpha.
+
+
+	  	Table Of Contents
+
+
+"# Introduction"
+"# Installation"
+"#   Perl application and library"
+"#   Text Filters Setup"
+"#   Perl Preferences"
+
+"# Perl Mode"
+"#   Basic language support"
+"#   Command-Double-Clicking"
+"#   Mode Preferences"
+
+"# Perl Menu"
+"#   Perl Interaction"
+"#   Tell Perl ..."
+"#   Quick Save As ..."
+"#   Perl Help"
+"#   Running Perl Scripts"
+"#   Applying Text Filter Scripts"
+"#   Perl Filter Options"
+"#   Perl Mode Options"
+"#   Perl Insertions"
+"#   Perl Navigation"
+
+"# Running Scripts"
+"#   Input and Output"
+"#   Current Directory"
+"#   Command-line Args"
+"#   Error Messages"
+"#   Interrupting a Script"
+"# Text Filters"
+"#   Applying a Text Filter"
+"#   Perl Scripts Menus"
+"# MacPerl Application"
+"# Bugs, etc."
+
+"# Version History"
+
+<<floatNamedMarks>>
+
+
+	  	Introduction
+
+
+The Perl menu was written to allow Alpha to act as a front end for Matthias
+Neeracher's standalone MacPerl application and to make it possible to "attach"
+Perl scripts to Alpha.  It provides a number of features designed to make the
+use and development of Perl scripts on the Mac more convenient.  These are
+detailed in the rest of this document (most easily navigated using the "M"
+menu on the sidebar), but here's a quick overview:
+
+	Editing Perl scripts...
+
+• Perl keywords and special variables are colorized in Perl mode.
+
+• The Perl 4 man page is provided as an on-line reference, 
+  available as the file "Perl Commands" in Alpha's Help menu; it has 
+  been colorized and indexed to make it easy to read and navigate.
+
+• The man page can be referenced by command-double-clicking a 
+  highlighted Perl keyword or special variable in your Perl script.
+  
+• Source files mentioned in require statements can be opened by 
+  command-double-clicking as well. 
+ 
+	Running Perl Scripts...
+
+• Perl scripts can be run directly from Alpha - a script can be a text
+  window in Alpha, a highlighted selection from a window, or a disk file.
+
+• You can save scripts as MacPerl droplets and runtime applications 
+  directly from Alpha.
+
+• Perl scripts that read from standard input and write to standard 
+  output may be used to process text in Alpha's text windows.
+
+	Debugging Perl scripts...
+
+• When a script fails, the error messages are displayed and the 
+  script is brought up with the line that caused the error highlighted.
+
+• A Perl mode preference can be set to cause scripts to run under the Perl 
+  debugger (without modifying the script).
+
+
+Instructions for obtaining the "# MacPerl Application" are given below. 
+
+For more general information about Perl, go to <http://www.perl.com/>.
+
+
+	  	Installation
+
+
+No special installation procedure is required before using this package.
+However, there are a couple of things that you may want to do to configure
+things for your particular machine.
+
+
+	  	 	Perl application and library
+
+Alpha needs to know where to find your local Perl application in order to
+interact with it, and will automatically prompt you to locate it if it doesn't
+know where it is.  You can always check and/or change the path that Alpha uses
+by selecting the "Perl Sig" preference, available by selecting the menu item
+"Config > Mode Prefs > Preferences" (while in Perl mode).
+
+Preferences: Mode-Perl
+
+When opening "require"d source files via the Command-Double-Click mechanism,
+Alpha will always look in the "lib" folder in the local Perl application
+directory.  To have Alpha look for library files elsewhere, you can specify an
+additional personal library folder, using the "Perl Lib Folder" preference in
+Mode Prefs dialog.  You can also specify Perl mode search paths using the
+package: searchPaths -- see the section on "# Text Filters" below.
+
+
+	  	 	Text Filters Setup
+
+The Perl menu contains a hierarchical submenu of preattached scripts to be
+used as text filters.  A sample collection of such scripts is distributed with
+Alpha in the ":Tcl:UserCode:Text Filters:" folder.  You can specify your own
+folder of scripts using "Perl Lib Folder" preference in the Mode Prefs dialog.
+
+If you want to use Perl scripts to process Alpha text buffers (see Text
+Filters), you'll need to arrange that the Perl menu is a global feature.  Use
+the "Config > Global Setup > Menus" dialog to do so.  Or, you could make the
+Perl menu a mode specific feature for Text (or any other) mode.
+
+Preferences: Menus
+
+	  	 	Perl Preferences
+
+There are a handful of flags you can set to modify the way Alpha and your
+local Perl application interact while running Perl scripts.  These can be set
+from either the Perl menu or the Mode Prefs dialog.  They're described in more
+detail below in the "# Perl Menu" section.
+
+	  	
+	======================================================================
+
+
+	  	Perl Mode
+
+
+Perl mode is entered automatically whenever you open a file with a ".pl" or
+".ph" suffix; you can also invoke it explicitly using the modes menu in the
+status bar.  A "Perl Example.pl" syntax file is available for exploring some
+of the mode's features and the Perl menu.
+
+Perl mode offers a number of features supporting the editting and debugging of
+Perl scripts:
+
+
+	  	 	Basic language support
+
+
+• Perl keywords and special variables appear in blue in Perl mode.
+
+• A single line or a selected block of lines may be commented out by 
+  using the "Comment Line" command under the "Text" menu.  Lines
+  are uncommented using "Uncomment Line", which appears in the "Text" 
+  menu when the option key is held down.
+
+• Alpha will create an index of all subroutines in your Perl script when 
+  you select "Mark File" from the Marks menu on the sidebar (the "{}" 
+  button).  Once created this index is saved with your file.  
+
+  When you open a Perl script that hasn't already been marked, an index 
+  is automatically created if the "Auto Mark" preference is set.
+
+
+	  	 	Command-Double-Clicking
+
+
+A simple form of hypertext help is invoked by Double-Clicking on certain
+pieces of text while pressing the Command modifier:
+
+• The online man page can be referenced by Command-Double-Clicking a 
+  highlighted Perl keyword or special variable in your Perl script.
+  
+  Most of the clickable keywords and variables will be colored blue.
+  Special variables containing alphabetic characters, .e.g. @ARGV,
+  are also clickable but are not colored.
+
+  If you are using Perl 5, you probably want to download an additional set
+  of help files from here:
+
+      <ftp://ftp.ucsd.edu/pub/alpha/Perl_5_Docs.sit.hqx>
+
+  After you have unpacked the archive, use the Mode Prefs dialog to locate 
+  the folder so that command double-clicking will know where to find it. 
+  If the "Click Searches On-line" preference is set, then a manual page url
+  will be sent to your local browser instead.
+  
+• Command-double-clicking on the name of the source file in a require
+  statement will cause that file to be opened by Alpha.  
+
+  Alpha will look for the file in the current script's folder, in your local
+  library folder, in the local Perl application's lib folder, and in any
+  folder set as a Perl mode search path (in that order).  The local lib
+  folder may be specified interactively by the user using the Mode Prefs
+  dialog (see the section on "# Installation" below).
+ 
+
+	  	 	Mode Preferences
+
+
+A more complete set of Perl option flags are also settable through the menu
+item "Config > Mode Prefs > Preferences " menu item (while you're in Perl
+mode).  Most of these are explained below in the "# Perl Mode Options" section
+below, but one additional 'variable' preferences is also available:
+
+	Perl Cmdline Args 	
+
+Contains the last command-line options supplied.
+
+Note that these are only passed to scripts when the "Prompt for Args" option
+is active.
+
+	  	
+	======================================================================
+
+	  	Perl Menu
+
+
+Alpha's Perl menu allows a number of actions that include interaction with a
+local Perl application, or aids to write Perl scripts.  These include ...
+
+
+	  	 	Perl Interaction
+
+
+	Swith to Perl  				
+
+Switch to the local Perl application.
+
+
+	  	 	Tell Perl ...
+
+	
+	Open This File		
+
+Open the current document in the local Perl application.
+	
+	Save As Droplet		
+
+Save the current document as a MacPerl droplet.
+	
+	Save As Droplet		
+
+Save the current document as a MacPerl runtime script.
+	
+	Save As CGI			
+
+Save the current document as a MacPerl CGI applet.
+	
+(A bug in the AEGizmos package makes it impossible to create CGI applets
+directly from Alpha at this point.  You will have to open the script in
+MacPerl and save it from there.)
+	
+	Open Output Window 	
+
+Retrieve the contents of MacPerl's main output window into a new window
+under Alpha.
+	
+	Close Output Window	
+
+Close MacPerl's main output and debugger windows.
+	
+	Quit  				
+
+Force the local Perl application to quit. 
+
+
+	  	 	Quick Save As ...
+
+Save the current window as a Droplet, Runtime, or a CGI file.
+
+	  	 	Perl Help
+
+	Perl Home Page
+
+Sends the "Perl Home Page" url preference to your local browser.
+
+	Perl Mode Help
+
+Opens this file.
+
+	MacPerl Help
+
+Opens the "MacPerl Help" help file.
+
+	Perl 4 Manual
+
+Opens the "Perl Commands" help file.
+
+	Perl 5 Manual (local)
+
+Opens the 'perl' file located in the Perl 5 Help Docs folder.  This folder is
+not distributed with Alpha, but can be easily downloaded from here:
+
+    <ftp://ftp.ucsd.edu/pub/alpha/Perl_5_Docs.sit.hqx>
+
+Once you have unpacked the archive, set the "Perl 5 Help Docs Folder"
+preference so that Alpha will know where to look for it.
+
+	Perl 5 Manual (www)
+
+Sends the Perl Help url preference to your local browser.
+
+	Local Command Help
+
+Opens a dialog asking for a command for which you would like a manual page.
+If the Perl Version preference is set to '4', then this command will be looked
+up in the "Perl Commands" help file.  Otherwise, the command will be looked up
+in the Perl 5 Help Docs folder if that is available.
+
+	WWW Command Help
+
+Opens a dialog asking for a command for which you would like a manual page.
+If an on-line manual page exists, the url for it will be sent to your local
+browser.
+
+
+	  	 	Running Perl Scripts
+
+
+	Run The Selection  	
+
+Execute the selected text as a Perl script.
+
+	Run The Buffer  	
+
+Execute the current text window as a Perl script.
+
+	Save And Run  		
+
+Save the current window and run the saved file as a Perl script.
+
+	Run A File  		
+
+Run a selected disk file as a Perl script.  
+
+
+	  	 	Applying Text Filter Scripts
+
+
+	Select File As Filter	
+
+Select a file to use as the text filter script.
+
+	Select Buffer As Filter	
+
+Select one of the open text windows to use as the text filter script.
+
+	Repeat Last Filter		
+
+Run again the last filter that was used.
+
+If the contents of the file or buffer has changed, the new script is run.
+
+	Perl Text Filters
+
+This is a hierarchical menu of "preattached" scripts to use as text filters.
+When a script is selected from this menu, it is immediately applied to the
+current text window.
+
+The menu is built from the contents of a user-selected folder.  The folder is
+chosen using the "Perl Text Filters Folder" preference in the Mode Prefs
+dialog.  The default location is a set of filters included with the AlphaTcl
+library.
+			
+Additional submenus containing scripts in user-defined folders can also be
+added to the main Perl menu.  See the section on "# Perl Filter Menus" below
+for more information.
+
+
+	  	 	Perl Filter Options
+
+Flags controlling the behavior of text filters mechanism.
+				
+	Apply To Buffer		
+
+Apply the filter to the entire current text window; otherwise, only the
+selected text is used.
+					
+	Overwrite Selection	
+
+When checked, the output from the text filter script will replace the input
+text in the original window.  Otherwise, the output is written into a new
+window.
+
+	Run Without Confirmation
+
+By default, you will be prompted to continue whenever you select a script to
+be run.  To bypass this dialog, check this preference.
+	
+	Include Local Lib Menu
+
+Include an additional Perl Filters submenu, based upon scripts found in the
+folder specified by the "Perl Lib Folder" preference.  See the section below
+on "# Perl Filter Menus" for more information.
+
+	Include Perl Path Menu
+
+Include an additional Perl Filters submenu, based upon scripts found in the
+folders specified by the "Perl Search Paths" preference.  Selecting this menu
+item will add additional Filter Options menu items for manipulating Perl mode
+search paths.  See the section below on "# Perl Filter Menus" for more
+information.
+
+	Rebuild Filter Menu  
+
+Reconstruct the "Perl Filters" menu(s) based upon the various preferences.
+Shouldn't be necessary, since changing the preferences will usually
+automatically rebuild these menus.
+
+
+	  	 	Perl Mode Options
+
+	
+This menus allows you to change the values of various "flag" preferences
+that control Alpha's behavior when executing ordinary scripts (not text
+filters).
+
+ 	
+	Auto Switch			
+
+Switch to MacPerl while scripts are being executed.  Otherwise, Alpha remains
+frontmost until the script finishes.
+
+	Prompt For Args		
+
+Have Alpha prompt you for command-line arguments to be passed to the script.
+
+	Retrieve Output		
+
+Automatically retrieve any output written to the MacPerl output window and
+display it in a new window under Alpha.
+
+If the mode variable "Recycle Output" is set, the previous output window is
+overwritten.
+ 						
+	Use Debugger 		
+
+Force the script to run under the MacPerl debugger.
+
+Control is automatically switched to MacPerl when the debugger is used.
+
+	Click Searches On-line
+
+When command double-clicking, try to open an on-line manual page for a command
+if one exists.
+
+	Structural Marks
+
+To recognize strings embedded in 
+
+#### some text ####
+
+as section dividers, turn this preference on.  Note that if 'some text' is
+just a string of dashes, as in
+
+#### ---- ####
+
+an actual divider will be placed in the Marks menu.  If this preference is not
+turned on, then all marks will be presented alphabetically, similar to using
+the {} 'Parse Funcs' item.
+
+
+	--------------------------------------------------------------------
+	
+	Collect Identifiers
+
+Searches the current window to find any string starting with $ @ % or *, and
+any string embedded in <>.  Results are put into the OS clipboard.
+
+This is useful when you want to check for spelling mistakes in identifiers
+(can be used with "cannonize").  Also, provides a handy way to make all the
+identifiers available to another file so you can use the completion /
+expansion routines.  Just paste them in whatever file you like.
+
+	Regular Expression Colors
+
+Alters the coloring scheme of Perl mode to better visually parse regular
+expressions.  (The 'string' and comment colors are set to 'none', and any
+special symbols such as * or \ are colored red.)
+
+	Default Colors
+
+Restores the default colors for Perl mode.
+
+
+	--------------------------------------------------------------------
+
+	  	 	Perl Insertions
+
+This submenu contains a few useful items for editing Perl scripts.
+
+	Add Remove @
+
+Either adds @ to or removes @ from the beginning of the word in which the
+cursor currently resides.
+
+	Add Remove $
+
+Either adds $ to or removes $ from the beginning of the word in which the
+cursor currently resides.
+
+	Insert Divider
+
+Adds this text:
+
+##### | #####
+
+at the beginning of the current line.  This string is recognized as a special
+type of file mark.
+
+	New Comment
+
+Inserts a 'paragraph-style' comment at the beginning of the current command,
+as determined by indentation.
+
+	Edit Comment
+
+Allows the comment inserted by the 'New Comment' menu item to be customized.
+Simply type a template for a new comment, highlight, and then select this menu
+item.  To enter • template stops (known as bullets), press "Option-8" -- be
+sure to include TWO bullets for every stop.
+
+
+	  	 	Perl Navigation
+
+Navigation in Perl mode is determined by indentation.  The start of any
+command is indicated by a non-comment character in column 1 of any row.  The
+command continues until the next non-comment character appears in col 1.
+
+	Next Command
+
+Advance the cursor to the next command.  If any text is highlighted, the
+selection will be extended to the next command.  Also bound to the arrow keys
+when 'control' and 'shift' are pressed at the same time.
+
+	Prev Command
+
+Back up the cursor to the previous command.  If any text is highlighted, the
+selection will be extended to the start of the previous command.  Also bound
+to the arrow keys when 'control' and 'shift' are pressed at the same time.
+
+	Select Command
+
+Highlight the entire command in which the cursor currently resides.
+
+	Reformat Command
+
+Select the entire command (if there is no current selection), and properly
+indent it.  At the end of this procedure the cursor is advanced to the next
+command.
+
+	  	
+	======================================================================
+
+
+	  	Running Scripts
+
+
+Running scripts using the MacPerl menu is pretty straightforward.  You can
+send the current selection, the entire current buffer, or a disk file to
+MacPerl for execution as a Perl script; the result will be the same as if you
+ran the script from MacPerl itself.  Here are listed some important points to
+remember when running Perl scripts using the MacPerl menu.
+
+	  	 	Input and Output
+
+
+• Except for text filter scripts, the standard input for your script 
+  is taken from the keyboard (while MacPerl is in the foreground) and
+  standard output goes to MacPerl's output window.
+    
+  If you need to interact with the script while it's running, make sure
+  that you've selected the "Auto Switch" flag under "Perl Mode Options".
+
+• To get the output from your script, select the "Retrieve Output" 
+  flag under "Perl Mode Options", this will cause Alpha to copy any output to
+  Macperl's standard output window back into Alpha after your script has
+  completed.  You can always do this manually by using the "Get Output
+  Window" command under the "Tell Macperl…" submenu.
+    
+  Again, if you need to see the results while the script is running, use
+  AutoSwitch" to bring MacPerl to the foreground during script execution.
+
+	  	 	Current Directory
+
+
+For the purpose of resolving relative file references, etc., within your
+script, it's important to understand how the current directory of the running
+script (as returned by `pwd` ) is determined.
+
+• If you run a script file (using "Run A File"), then the folder containing
+  that file is the current folder.
+
+• If you run a script from a text buffer (using "Run The Buffer" or "Run 
+  The Selection") , it is as though you ran it directly from a window in
+  the local Perl application, and so the current directory your script sees
+  is the local Perl application folder.
+    
+• If you run a script from a buffer using the "Save and Run" command, 
+  then the script is first saved to disk and then executed as a script
+  file.  In this case, the current directory is that of the script file.
+
+
+	  	 	Command-line Args
+
+
+• If the menu flag "Prompt For Args" is checked, then the user is prompted 
+  for command-line arguments at the time the script is run.  These will be 
+  available inside the script through the @ARGV array, as usual.  They are 
+  also saved in the Perl-mode variable "Perl Cmdline Args", and become the 
+  default arguments the next time the script is executed.
+
+	  	 	Error Messages
+
+
+• If the script fails for some reason, Alpha will read the error messages 
+  returned by MacPerl and write them back into a new text window, called 
+  "* Perl Errors *".  
+
+• The script that generated the error is brought up and the first line 
+  specifically referenced in an error message is highlighted.
+
+  Note that error-trapping remains active whether "Retrieve Output" is set 
+  or not.
+
+
+	  	 	Interrupting a Script
+
+
+When you run a Perl script from Alpha, Alpha will display the watch cursor and
+wait for the reply from Macperl before doing anything else.  There may be
+times when this is inappropriate, for instance, if you expect the script to
+run for a long time or if you think the script is misbehaving for some reason.
+
+• You can always tell Alpha to stop waiting for a script to finish by 
+  hitting "Cmd-.".  
+  
+  This does not abort the script itself; to do that you'll have to switch 
+  over to MacPerl to terminate the script there, as well.
+
+• When you interrupt a script in this way, Alpha will no longer 
+  automatically get the output or error messages from MacPerl, when and if 
+  the script does finally terminate.
+  
+  You can always retrieve the contents of the output window yourself using
+  "Get Output Window" from the "Tell Perl" submenu or simply by switching
+  over to MacPerl itself.
+
+There are some simple causes for a hung script.  For instance, if MacPerl is
+configured to check for "#!"  lines in scripts and yours doesn't have one, it
+will put up a dialog asking whether or not to procede.  If you didn't switch
+over to MacPerl when the script was run, you have know way of knowing this,
+and so you and Alpha may end up just sitting there waiting.
+
+
+	  	Text Filters
+
+
+Perl is, among other things, a powerful tool for extracting and rewriting data
+from text files.  On a Unix system, one would typically write text-processing
+scripts to read from "standard input" and write to "standard output", taking
+advantage of command-line i/o redirection to specify the actual input and
+output files used at any given time.  On the Mac, the typical absence of a
+command-line interface makes it harder to use this elegant method.
+
+The MacPerl menu in Alpha makes it possible to use scripts that read from
+standard input and write to standard output to process text buffers in Alpha
+directly.  Any text window can be used as standard input and standard output
+can either be directed back to that same window or to a newly created one.
+The script used may either be a disk file or yet another Alpha text window.
+
+
+	  	 	Applying a Text Filter 
+
+
+The procedure for using Perl text filters in Alpha is simple:
+
+1. Bring the text window you want to operate on to the front and select 
+   (highlight) the text that will be the input to the script.
+   
+ • If the "Apply To Buffer" option is selected, then the entire text 
+   window will be used as input and any text selection is ignored.
+   
+ • Only complete lines are used as input.  The text used will be extended 
+   to include all of the lines on which the selected text lies.
+
+2. Select a Perl script using one of the commands, "Select Buffer As 
+   Filter", "Select File As Filter" or "Repeat Last Filter" from the Perl 
+   menu, or by choosing one of the scripts listed in the "Text Filters" 
+   submenu.
+
+ • You can see the name of the last script used by examining the 
+   variable "Perl Last Filter" in the Mode Prefs dialog. This
+   is the script that will be used if you use "Repeat Last Filter" 
+     
+ • If the "Prompt For Args" option has been selected, you'll be given 
+   a dialog box to type in the command-line arguments for the script. 
+
+3. The output of the script is written back out, either in the place of 
+   the input text (if the "Overwrite Selection" option is selected) or into 
+   a new text window.
+        
+ • As always, Alpha's unlimited undo capability let's you recover if you 
+   accidently overwrite the input text when you didn't want to.
+    
+ • If the script halts on an error, the filter operation is aborted 
+   and any error messages are displayed in a new window.
+
+
+The ability to take the script itself from a text window allows simple
+one-time scripts to be created and applied on the fly.  This can be very
+useful because, even with the overhead to start up MacPerl, large-scale global
+search-and-replace operations (hundreds of replaces) can be substantially
+faster in MacPerl than in Alpha.  Also, you might find it easier to apply a
+series of regular expression substitutions using a single, short Perl script,
+rather than a number of separate "Find" and "Replace All" commands in Alpha.
+
+
+	  	 	Perl Scripts Menus
+
+
+Frequently used text filter scripts can be conveniently accessed in one of
+several ways, each of which has a "Perl Filters/Scripts" menu associated with
+it.  When the Perl menu is first created, it looks in various folders and
+builds a hierarchical submenu from the names of the scripts that it finds.  If
+the "Run Without Prompting" preference is set, selecting any of these scripts
+will IMMEDIATELY run them, without any explicit prompting, so please use the
+items with care if you are not familiar with the script being called.
+
+(Tip: holding down any modifier key while selecting the menu item will open
+the script in Alpha for previewing or editing.)
+
+
+	Perl Text Filters
+
+The first collection is a sampling of very useful :-) Perl scripts distributed
+with Alpha in the folder ":Tcl:UserCode:Text Filters".  The "Perl Text
+Filters" submenu contains all of these scripts -- selecting any of them will
+automatically run the script in the local Perl application.
+
+The "Text Munging" scripts in this collection ("shuffle", "sort lines",
+"travesty", and "wordcount") were taken from the Camel book (Programming
+Perl).
+
+The "s2p" script is Tom Pollard's adaptation of the standard code that
+converts Unix "sed" scripts to Perl (it was modified to work without using the
+C preprocessor.)
+
+"Strip Mail Headers" takes e-mail files and edits out any header lines but the
+few that one would typically care about ("From:, "Date:", etc..).
+
+"CC To BibTeX" is a script Tom uses that takes listings from the online
+"Current Contents" database and rewrites them as BibTeX database entries.  To
+try it out, select (highlight) the sample Current Contents citation below and
+choose "CC To BibTeX" from the "Text Filters" submenu (make sure that "Apply
+To Buffer" is _not_ checked before you do!)
+
+288. VOS MH; LAMBRY JC; ROBLES SJ; YOUVAN DC; and others.
+       FEMTOSECOND SPECTRAL EVOLUTION OF THE EXCITED STATE OF BACTERIAL
+     REACTION CENTERS AT 10-K.
+       PROCEEDINGS OF THE NATIONAL ACADEMY OF SCIENCES OF THE UNITED STATES OF
+     AMERICA, 1992 JAN 15, V89 N2:613-617.
+
+	Perl Lib Scripts
+
+The second collection is associated with the preference named "Perl Lib
+Folder".  Use the Mode Prefs dialog to set or change this preference.  To
+include this menu, you must check the "Include Lib Filters Menu" preference,
+available as a toggleable item in the "Perl Filters Options" menu.  Unlike the
+"Perl Text Filters" menu, only files with the Perl mode file extensions (as
+determined by Alpha's <<suffixMappings>>) will be included in the menu.
+
+Note: if any of the folders in this preference are named 'File', 'Edit',
+'Text' or 'Search' then these menus in the menu bar will be over-written !!
+Please check to make sure this is not the case before adding the Perl Lib
+Scripts menu.
+
+	Perl Path Scripts
+
+The third location for scripts can contain multiple folders associated with
+Perl mode using the package: searchPaths.  Note that it is not necessary to
+activate the "Search Paths" feature in order to create such a menu, simply
+check the "Include Path Filters Menu" preference, available as a toggleable
+item in the "Perl Filters Options" menu.
+
+Once the menu has been included, use the "Perl Filter Options > Paths" menu
+items to view, add, or remove Perl mode search paths.  Note that the frontmost
+window must be in Perl mode in order to set these paths.  Unlike the "Perl
+Text Filters" menu, only files with the Perl mode file extensions (as
+determined by Alpha's <<suffixMappings>>) will be included in the menu.
+
+Note: if any of the folders in this preference are named 'File', 'Edit',
+'Text' or 'Search' then these menus in the menu bar will be over-written !!
+Please check to make sure this is not the case before adding the Perl Path
+Scripts menu.
+
+
+	  	MacPerl Application
+
+
+MacPerl was written (ported to the Mac) by
+
+          Matthias Neeracher <neeri@iis.ee.ethz.ch>, and 
+          Tim Endres <time@ice.com>.
+
+If you don't already have MacPerl, it's available following the links found at
+<http://www.macperl.com/>.
+
+See also Alpha's "MacPerl Help" file for more information about the
+differences between MacPerl and a typical Unix perl implementation
+       
+For more general information about Perl, go to <http://www.perl.com/>.
+
+
+	  	Bugs, etc.
+
+
+Comments and suggestions regarding this package are always welcome.  If
+there's something that bothers you, or some additional capability that you'd
+like to see, let us know and we'll see what we can do.
+
+Bug reports and any other comments should be directed to the AlphaTcl
+developers (or users) mailing list.  See the file "Readme" for details.
+
+Author:       Tom Pollard          <pollard@chem.columbia.edu>
+
+Contributors: Dan Herron           <herron@cogsci.ucsd.edu>
+              David Schooley       <schooley@ee.gatech.edu>
+              Vince Darley         <vince@santafe.edu>
+              Martijn Koster       <m.koster@nexor.co.uk>
+              Rob Calhoun          <rcalhoun@alum.mit.edu> 
+              Craig Barton Upright <cupright@alumni.princeton.edu>
+
+	  	
+	--------------------------------------------------------------------
+
+
+	  	Version History
+
+
+See the "perlVersionHistory.tcl" file for the latest changes.
+
+This document has been placed in the public domain.

@@ -1,0 +1,40 @@
+To Install:
+
+Provided you have Tcl/Tk installed, you don't have to do anything (else see
+below).  Place the downloaded hierarchy wherever you like.  Then, if your
+environment is set up nicely, just double-click on 'alphatk.tcl' to run
+Alphatk.  To open a document with Alphatk do: 'wish runalpha.tcl document'.
+
+On Unix systems, you may wish to rename or make a symlink to alphatk.tcl
+called 'alphatk', and make the file executable.  Then a simple 'alphatk' in
+your shell will run everything.  You should also make sure that alphatk.tcl
+file has Unix eols (i.e. not '\r\n' but '\n' at the end of each line),
+otherwise your shell is unlikely to be able to run it correctly (but 'wish
+alphatk.tcl' should still work in any case).
+
+On MacOS X, you should make "alphatk.aqua" executable, and should then be
+able to use it to run Alphatk.  However, even better is to use the
+separate 'Alphatk.dmg' standalone version of Alphatk which behaves
+like a proper OS X application. 
+
+Other scripts are provided which might be of interest (alphatk.ksh,
+alphatk.tcsh).
+
+Alphatk comes with documentation (in its Help menu).
+
+Installing Tcl/Tk
+-----------------
+
+You need to have Tcl 8.4.2 or newer.  
+
+You can download from these links:
+
+Tcl 8.4: http://www.tcl.tk/software/tcltk/downloadnow84.tml
+
+You can get learn more about Tcl at <http://www.tcl.tk/>
+
+Other Tcl-related packages: Alphatk makes use of some standard Tcl
+extensions (TclX, ftp, http, tkdnd, tclvfs) if you have them available.
+Some of these, for some platforms, are also packaged with Alphatk (in the
+Tclextensions directory in the distribution).
+

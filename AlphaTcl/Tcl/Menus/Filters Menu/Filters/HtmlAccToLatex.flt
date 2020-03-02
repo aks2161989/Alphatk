@@ -1,0 +1,69 @@
+!! This file : HtmlAccToLatex.flt 
+!! Convert accented letters in HTML format to LaTeX macros
+!! To be used with the Filters Menu in Alpha.
+!! Last modification : 18 avril 2000 - 0:02:53
+!! (c) Copyright : Bernard Desgraupes 2000
+
+
+&aacute;		\'{a}	0
+&acirc;		\^{a}	0
+&aelig;		\ae{}	0
+&agrave;		\`{a}	0
+&aring;		\a{a}	0
+&atilde;		\~{a}	0
+&auml;		\"{a}	0
+&ccedil;		\c{c}	0
+&eacute;		\'{e}	0
+&ecirc;		\^{e}	0
+&egrave;		\`{e}	0
+&euml;		\"{e}	0
+&iacute;		\'{\i}	0
+&icirc;		\^{\i}	0
+&igrave;		\`{\i}	0
+&iuml;		\"{\i}	0
+&ntilde;		\~{n}	0
+&oacute;		\'{o}	0
+&ocirc;		\^{o}	0
+&ograve;		\`{o}	0
+&oslash;		\^{o}	0
+&otilde;		\~{o}	0
+&ouml;		\"{o}	0
+&szlig;		\s{s}	0
+&uacute;		\'{u}	0
+&ucirc;		\^{u}	0
+&ugrave;		\`{u}	0
+&uuml;		\"{u}	0
+&yuml		\"{y}	0
+&AElig;		\AE{}	0
+&Aacute;		\'{A}	0
+&Acirc;		\^{A}	0
+&Agrave;		\`{A}	0
+&Aring;		\A{A}	0
+&Atilde;		\~{A}	0
+&Auml;		\"{A}	0
+&Ccedil;		\c{C}	0
+&Eacute;		\'{E}	0
+&Ecirc;		\^{E}	0
+&Egrave;		\`{E}	0
+&Euml;		\"{E}	0
+&Iacute;		\'{I}	0
+&Icirc;		\^{I}	0
+&Igrave;		\`{I}	0
+&Iuml;		\"{I}	0
+&Ntilde;		\~{N}	0
+&Oacute;		\'{O}	0
+&Ocirc;		\^{O}	0
+&Ograve;		\`{O}	0
+&Oslash;		\^{O}	0
+&Otilde;		\~{O}	0
+&Ouml;		\"{O}	0
+&Uacute;		\'{U}	0
+&Ucirc;		\^{U}	0
+&Ugrave;		\`{U}	0
+&Uuml;		\"{U}	0
+&#338;		\OE{}	0
+&#339;		\oe{}	0
+&#376;		\"{Y}	0
+%		\%	0
+_		\_	0
+&		\&	0

@@ -1,0 +1,232 @@
+
+Mail Help
+
+                                               version: 2.0b7
+                                               created: 12/27/1995 {06:44:55 AM}
+                                           last update: 01/13/2005 {01:02:27 PM}
+
+	  	Abstract
+
+This help file describes the "Mail Menu".  This package allows you to compose
+e-mail messages in Alpha, and then send it using one of the various mail
+handler services provided.  Some sophisticated AlphaTcl mail handlers also
+allow you to read your e-mail in Alpha.
+
+
+	  	Table Of Contents
+
+"# Introduction"
+"# Mail Menu"
+"# Keyboard Shortcuts"
+"# Mailbox Browser Windows"
+"# Mail Viewing Windows"
+"# Composing and Sending Mail"
+"# Remembered E-mail Addresses"
+"# Mail Attachments"
+"# Summary"
+
+<<floatNamedMarks>>
+
+
+	  	Introduction
+
+Alpha allows you to compose your email using Alpha and then send it using one
+of the "Mail Handler" services provided.  This "Mail Example" hyperlink will
+insert the Mail menu in the menu bar, and demonstrate the use of the "New
+Message" menu item.
+
+To turn on the Mail Menu, select the "Config > Global Setup > Menus" item and
+click the checkbox next to "Mail Menu".
+
+Preferences: Menus
+
+The default Mail Handlers in Alpha's standard distribution include
+
+	Eudora
+
+If you use the Eudora mail client (MacOS only), Alpha provides a reasonably
+complete mail handling system, communicating with Eudora by apple-events.
+You can view messages previously downloaded by Eudora, transfer them to
+different Eudora mailboxes, or delete them.
+
+	OS Mailer
+
+This is a very simple Mail Handler -- after you have composed a new Mail
+message you can compile its contents and send it to your OS defined emailer
+client, opening a new window.  You must use your client's UI to actually send
+the new message.
+
+	Tcl - smtp
+
+This Mail Handler allows you to send your new e-mail internally from Alpha,
+provided that you have an "smtp" server account available.
+
+
+To obtain more information about these different Mail Handlers, select this
+<<Mail::handlerHelp>> hyperlink.
+
+You can also instruct Alpha to automatically open "mailto:..."  hyperlinks in
+a new Mail Menu window.  These hyperlinks appear in many Help files.  Just
+adjust your "Compose Email Using" preference that appears in the dialog
+"Config > Preferences > Input - Output Preferences > WWW".
+
+
+	  	Mail Menu
+
+The Mail menu always includes the items listed below.  Some Mail Handlers
+will add more commands, as described in their <<Mail::handlerHelp>> windows.
+note that some of the Keyboard Shortcuts associated with these menu items can
+be changed, select "Mail Menu > Mail Menu Prefs" to open a dialog that
+includes the various options.
+
+	New Message
+	
+Create a new message.  Use tabs to move between fields.
+
+	New Message To
+
+This menu includes all previously e-mail addresses that you've saved using
+the "Mail Menu > New Message To > Add New E-mail" command.  Selecting any one
+of them will open a new message window with the "To:" field filled in.
+
+	Add Cc                          
+
+Create a 'Cc:' line.
+
+	Add Bcc
+
+Create a 'Bcc:' line.
+
+	Select Next Field
+
+Use the Keyboard Shortcut for this item (the default is Tab) to navigate the
+current Mail window fields, i.e. "To:" "Cc: "Subject:" and the body of the
+message.
+    
+	Send
+
+Send the message using the protocol defined by your Mail Handler.
+
+
+	  	Keyboard Shortcuts
+
+The Mail Menu includes a number of default Keyboard Shortcuts that you can
+change via the "Mail Menu > Mail Menu Prefs > Menu Shortcuts" dialog pane.
+All changes will take place immediately, without the need for a restart.
+
+Important: These Keyboard Shortcuts are only available when the mode of the
+active window is "Mail".  Even if the Mail Menu has been turned on "globally"
+you will have to select menu items 'manually' using your mouse until the menu
+command has opened a window in Mail mode.
+
+
+	  	Mailbox Browser Windows
+
+If your Mail Handler supports the reading of e-mail messages (and not just
+the sending of new ones you have composed), summaries of mailboxes and
+incoming messages are displayed in a Mailbox Browser Window, a read-only
+window that displays the originator and subject of each messages.
+
+Move down the list by using the Down-Arrow, Control-N, or Space.  Move up the
+list by using the Up-Arrow, Control-P, or Delete.
+
+View the entire message by pressing Return or Enter.
+
+While viewing messages, Space scrolls down the message, closing the window
+when the end is reached.  Delete scrolls up the message.
+
+You can change the default window parameters (geometry) of Mailbox browsing
+windows via the "Mail Menu > Mail Menu Prefs > Mail Windows" dialog pane.  If
+the preference for "Remember Window Geometry" is turned on, then whenever you
+re-size the browsing window 'manually' the new parameters will be used for
+all future browsing windows.  Otherwise, the geometry preference is only
+changed when you do so explicitly via the preferences dialog.
+
+
+	  	Mail Viewing Windows
+
+If your Mail Handler supports the reading of e-mail messages (and not just
+the sending of new ones you have composed), pressing Return or Enter in the
+"# Mailbox Browser Window" will open a new viewing window in Mail mode.  All
+of the relevant e-mail header fields will be listed at the top of the window,
+along with some handy hyperlinks to "Reply/Reply To All" and "Trash" the
+message in the active window.  The body of the message is displayed beneath a
+divider line that looks like this:
+
+	>========================================<
+
+You can change the default window parameters (geometry) of Mail viewing
+windows via the "Mail Menu > Mail Menu Prefs > Mail Windows" dialog pane.  If
+the preference for "Remember Window Geometry" is turned on, then whenever you
+re-size the viewing window 'manually' the new parameters will be used for all
+future browsing windows.  Otherwise, the geometry preference is only changed
+when you do so explicitly via the preferences dialog.
+
+You can also change the default Font and Font-size for viewing windows.
+
+
+	  	Composing and Sending Mail
+
+Select the "Mail Menu > New Message" menu item to open a "New Mail" window.
+If you want to postpone the composition, select "Mail Menu > Save As Draft"
+to place the contents in your "Drafts" folder and close the window.
+
+If you attempt to close a New Mail window that has not been sent, you will
+first be presented with the standard "Save Changes before closing?"  dialog.
+If you press the "Save" button then you must select a folder in a local disk
+in which to save the message as a new file.  If you press the "Don't Save"
+button in this initial dialog, then another one will appear asking if you
+want to save this message in your special "Drafts" folder.  (Yes, this
+two-step dialog business is a bit awkward, we'll see if we can clean it up in
+a future release.)
+
+After composing a new e-mail message, select "Mail Menu > Send" to instruct
+your current Mail Handler to send the message.  You have the option to save
+all sent e-mail messages in your Mail Mode "Sent Folder" and to automatically
+close the window.  
+
+Use the "Mail Menu > Sent Mail" submenu to set any of the options associated
+with sending mail, or to open a previously sent message in a new window.
+
+
+	  	Remembered E-mail Addresses
+
+The "Mail Menu > New Message To" menu contains a list of e-mail addresses 
+that you can automatically include in the "To:" field for new messages.  You 
+can assign a unique menu name for each address.
+
+Turn on the "Remember Recipient Email" preference to add the sendee's address
+to the "Mail Menu > New Message To" list of options whenever you send mail.
+
+This list of remembered addresses will also be offered when you select the
+"Mail Menu > Add Cc / Add Bcc / Forward" menu item.
+
+Once you have created a list of remembered e-mail addresses, you can rename 
+the menu item associated with them, edit the addresses, or delete them.
+
+	  	Mail Attachments
+
+As of this writing, it is not possible to send attachments with your e-mails.
+When you receive e-mails that have attachments they will be displayed as a
+one-line message, but it is not possible to download or view/save them.
+
+
+	  	Summary
+
+To send a message:
+
+    ¥ "Mail Menu > New Message"
+    ¥ Tab (to subject line), type "subject" of message
+    ¥ Tab (to body), type "body" of message
+    ¥ "Mail Menu > Send"
+
+To reply to a message (assuming a message is open and your Mail Handler
+supports the viewing of messages from your server):
+
+    ¥ "Mail Menu > Reply"
+    ¥ Continue as above.
+
+	--------------------------------------------------------------------
+
+Author: originally Pete Keleher, some additions by others.
+

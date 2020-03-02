@@ -1,0 +1,309 @@
+
+Document Projects Help
+
+                                            version: 2.0
+                                            created: 01/08/1997 {02:22:17 pm}
+                                        last update: 01/03/2006 {03:01:46 PM}
+
+	  	Abstract
+
+This help file describes the AlphaTcl package "Document Projects", a feature
+that aims to simplify the creation of new documents with shared templates.
+One can define multiple projects, as well as an unlimited number of project
+templates.  This package complements others in the AlphaTcl library.
+
+
+	  	Table Of Contents
+
+"# Introduction"
+"# Quick Start"
+"# New Document Windows"
+"# Projects"
+"# File Headers"
+"# Templates"
+"# Preferences"
+"# Additional Menu Items"
+
+"# License and Disclaimer"
+
+<<floatNamedMarks>>
+
+
+	  	Introduction
+
+In order to make use many of this package, you must first turn it on
+
+Preferences: Features
+
+You can then define different Document Projects.  "# Projects" allow you to
+have separate templates for different things on which you work, and to
+associate different projects with specific AlphaTcl modes.
+
+Document "# Templates" save you the labour of typing in the same sort of
+basic information for every file you create, and to give your files a
+standard look.  Document headers can also contain modification and creating
+dates, version numbering, etc., all of which may be updated very easily.
+
+Before you read any further, you should confirm that you have properly
+defined some identity fields for Alpha.  The package: identities can be
+accessed via the "Config > Preferences > Current Identity" menu.  Information
+from your Current Identity settings are used by this feature to create many
+of its templates.
+
+
+	  	Quick Start
+
+Follow these steps to see Document Projects in action.  The major concepts
+are explained in further detail below.  You should be able to complete this
+process without changing any settings beyond those specified below.
+
+(1) Select "Config > Preferences > Current Identity > Edit Identity" to enter
+personal information to be included in file headers.
+
+<<userInfo::menuProc "" "Edit Identity">>
+
+(2) Select "Config > Global Setup > Features" to activate the package
+"Document Projects".
+
+Preferences: Features
+
+(3) Select "Config > Preferences > Document Projects > New Project" to 
+define a new project.
+
+<<docProj::menuProc "" "New Project">>
+
+(4) Select "Config > Global Setup > Features" to activate the package
+"New Document".
+
+Preferences: Features
+
+(5) Change your New Document "New Document Handler" preference setting to
+"Document Projects"
+
+Preferences: newDocument
+
+(6) Create a new document window using "File > New > New Text Window"
+
+<<file::newDocument>>
+
+using some window name that includes a mode-specific file extension, such as 
+"test.tex" or  "test.h"
+
+This final step should create a window with a standardized header including 
+information from your Current Identity and about the Current Project.
+
+
+	  	New Document Windows
+
+This feature allows you to easily insert document templates into new windows,
+templates that are specific to your Current Identity, the Current Project,
+and the type of file that you are creating.  The template can include not
+only a standardized "# File Header", but also a basic TeX document, a web
+page, a C++ source file, etc.
+
+Assuming that you have already activated this package, there are just two 
+more steps to take advantage of new document window functionality.
+
+(1) Select "Config > Global Setup > Features" to activate the package
+"New Document".
+
+Preferences: Features
+
+(2) Change your New Document "New Document Handler" preference setting to
+"Document Projects"
+
+Preferences: newDocument
+
+Once these settings have been changed, the "File > New > New Text Window"
+command will prompt you to specify Project and Template information.
+
+
+	  	Projects
+
+One of the core concepts introduced by this feature is the Document Project.
+A Project simply defines some field values that are used to create new
+documents.  You might have one Project defined for a web site, another for
+your thesis, and a third for programming your favorite open-source software.
+
+Each project has the following components:
+
+	Short Descriptive Name
+	Longer Descriptive Name
+	License Type
+	License Owner
+	License Organisation
+	Additional Text for File Headers
+	Associated AlphaTcl Modes
+
+Use the "Config > Preferences > Document Projects > New Project" menu item to
+set these fields for a new Project.  The dialog looks like
+
+<<docProj::newProject>>
+
+All but the last item (associated modes) are used to create "# File Headers".
+The License can be one of any pre-set types, and you can modify these
+templates or add new ones.  See the package: licenseTemplates for more
+information.  The "License Owner/Organisation" fields are used when creating
+the license templates.
+
+The list of modes is used to verify that the Current Project should be used
+when a new document is actually created.  If the new document is to be opened
+in a mode that is _not_ associated with the Current Project, you will be
+asked if you want to switch projects.
+
+
+	  	File Headers
+
+A file header is just a commented block of code inserted at the top of the
+new window.  Click here <<docProj::exampleHeader>> to see the basic format.
+If you adjust settings for your identity or the current project, the content
+of the header will change.
+
+File headers will be included in all new document windows created so long as
+
+(1) "Document Projects" remains your "New Document Handler", and
+(2) The chosen template is not "Empty".
+
+If you are working with a document created without a header and you want to 
+add one, activate the package: electricMenu
+
+Preferences: Menus
+
+and select the "Electric Menu > Templates > Create Header" menu command.
+
+Note that the style of the file header will vary slightly depending on
+whether the active window is a "source" or "header" file.  (Sorry for any
+confusion here with the use of the term "header", it can't be avoided.)  This
+feature will do its best to figure that out based on the file name, and on
+the "File Type" defined for the "# Templates" that you use.
+
+
+	  	Templates
+
+For each of your different projects and modes you might probably want a
+standard document template, perhaps with some code/text already filled in or 
+inserted as template prompts.
+
+This package defines several default templates for you
+
+<<listpick -p "Current Templates" [docProj::listTemplates]>>
+
+that you might find useful.  Each template has several settings that you can
+adjust; see the "Config > Preferences > Document Projects > Edit Template" 
+command for the standard dialog.
+
+<<docProj::menuProc "" "Edit Template">>
+
+The settings include:
+
+	Descriptive Name
+	Associated Modes
+	Procedure Name
+	File Type
+	Project
+	Sub-types Handled by the Procedure
+
+The "Procedure" in an AlphaTcl [proc] that is called whenever the template is
+inserted into the active window.  If there are several different sub-types
+available, these will be offered to you when you select the template, and
+then the name of the chosen sub-type will be passed along to the procedure as
+an argument.
+
+When you create a new template, if you specify a Procedure name you will be
+prompted to add that to one of your "prefs.tcl" files.
+
+Template procedures can be arbitrarily complex, and while they do require a
+little knowledge of Tcl (and AlphaTcl) to create you can start small and
+build them as you become more familiar with the syntax.  Some examples of
+pre-defined templates that you could use as models include
+
+    proc: t_default
+    proc: t_latex
+    proc: t_package
+
+It is not necessary, by the way, to name your procedures with a leading "t_",
+but this might be an easy way for you to remember what these are for!
+
+
+	  	Preferences
+
+Using the "Config > Packages > Document Project Prefs" menu item, 
+
+Preferences: documentProjects
+
+you can set the following:
+
+	Auto Update Copyright Year
+
+Would you like to auto-update the copyright year in the header of a file 
+whenever it is saved?
+
+	Auto Update Header
+
+Would you like to auto-update the time-stamp in the header of a file 
+whenever it is saved?
+
+	Confirm Project Mode
+
+If the mode of the active window doesn't match the Current Project, would 
+you like to be warned?
+
+	Doc Templates Mode Specific
+
+Would you like to only be offered mode-specific document template options in
+when new document windows are created?  (This is useful if you have a lot of
+templates defined.)
+
+	Include Header Description
+
+Do you want a "Description:" field in your file headers?  The initial
+document creation dialog will allow you to enter some text for this
+description, which you can of course modify later.
+
+	Header Divider Character
+
+Do you want the header divider strings to look like one of
+
+	========================================
+	----------------------------------------
+	########################################
+
+? You can set the character you want used for the divider.
+
+	Update File Version
+
+The keyboard shortcut for the "Utils > Win Utils > Update File Version" menu
+command.
+
+
+	  	Additional Menu Items
+
+In addition to the package: newDocument , Document Projects interacts with 
+other AlphaTcl features and menus.
+
+(*) A new "Utils > Win Utils > Update File Version" menu item will add a new
+entry if your header was created with a "History" section.
+
+(*) The "Electric Menu > Templates" menu will include some mode-specific
+commands, including "Create Header" and "New Document".  See help for the
+package: electricMenu for more information about different template options.
+
+
+	====================================================================
+
+	  	License and Disclaimer
+
+This documentation file has been placed in the public domain.
+
+See the file "license.terms" for information on usage and redistribution of
+"Docprojects.tcl", and for a DISCLAIMER OF ALL WARRANTIES.
+
+
+Copyright (c) 1997-2005  Vince Darley, Craig Barton Upright
+
+Author: Vince Darley
+E-mail: <vince@santafe.edu>
+  mail: 317 Paseo de Peralta
+        Santa Fe, NM 87501, USA
+   www: <http://www.santafe.edu/~vince/>
+

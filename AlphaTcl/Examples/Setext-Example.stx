@@ -1,0 +1,811 @@
+.. -*-Setx-*-
+
+Setext Concepts by Ian Feldman
+==============================
+
+  From setext-info Thu, 5 Mar 92 19:56:00 +0100 (CET)
+  Subject: setext_concepts_Mar92.etx
+  Status: RO
+
+  # Message from   Ian Feldman, the Current Setext Oracle
+  # Date:          Thu, 5 Mar 92 19:56:00 +0100 (CET)
+  # Reply-to:      setext-info@random.se (Keepers of The Setext Flame[tm])
+  # X-new-address: no more mail to <not.bad.se> please
+  # Lines: 229
+  # Subject:       setext_concepts_Mar92.etx
+
+  Thank you for your interest in the setext format.  Enclosed is
+  an advance sheet that will remain in effect until the first
+  public release of the setext format package (originally planned
+  for around March 1st, 1992, now delayed).
+
+  If you recognize some of the arguments presented here then that
+  is the price that you are paying for having been an early bird. 
+  ;-)) Please note that my email address may change in the near
+  future; consult the trailer of weekly issues of TidBITS for the
+  most current one.
+
+
+What is setext
+--------------
+
+  As originally explained in TidBITS\#100 and mentioned there from
+  now on, that publication now comes "wrapped as a setext."  The
+  noun itself stands for both a method to wrap (format) texts
+  according to specific layout rules and for a single
+  _structure_enhanced_ text.  The latter is a text which has been
+  formatted in such a fashion that it contains clues as to the
+  typographical and logical structure of its source
+  (word-processed) document(s), if any.  Those clues, which I call
+  "typotags," facilitate later automatic detection of that
+  structure so it can be validated and extracted/ processed/
+  transformed/ enhanced as needed, if needed.
+
+  It follows that setexts, being nothing but pure text (albeit
+  with a special layout), are eminently readable using ANY editor
+  or word processor in existence today or tommorrow, and not only
+  on the Macintosh either.  ANY computer, any computer program
+  that is capable of opening and reading text files can be used
+  for reading setexts.  By default all properly setext-ized files
+  will have an ".etx" or ".ETX" suffix.  This stands for an
+  "emailable/ enhanced text", the ExtraTerrestial overtones
+  nothwistanding ;-))
+
+  Unlike other forms of text encoding that use explicit, visible
+  tag elements such as <this> and <\that>, the setext format
+  relies solely on the presence of _implicit_ typotags, carefully
+  chosen to be as visually unobtrusive as possible.  The
+  underlined word above is one such instance of the defacto
+  "invisible" coding.  Inserted typotags will at worst appear as
+  mere "typos" in the text.
+
+  Similarly, just to give an example, here is a short description
+  of the four types of word emphasis typotags that setexts MAY
+  contain, limited to one emphasis type ONLY per word or word
+  group:
+
+  -------------------  ----------------------------  --------------
+        **aBoldWord**  **multiple bold words**       ; bold-tt
+  _anUnderlinedWord_    _multiple underlined words_  ; underline-tt
+      ~anItalicWord~    ~multiple italicised words~  ; italic-tt
+           aHotWord_     multiple_hot_words_         ; hot-tt
+  -----------------------------------------------------------------
+  the 'hot-tt' is synonymous with the 'grouped' style of HyperCard
+
+  Please note, however, that the <end> strings previously found in
+  TidBITS\#100-109 were not part of the format as such, but were
+  added by Adam Engst for a specific setext-raterrestrial purpose.
+
+
+Why is setext
+-------------
+
+  Data formats like the RTF (Rich Text Format) and SGML (Standard
+  Graphic Markup Language) have been designed for processing ONLY
+  by software.  Setext, on the other hand, has been _optimized_
+  for reading directly by human eyes on what probably is still the
+  lowest common denominator of today's computer hardware, an 80-
+  character by 24-line terminal screen (or, in effect, any
+  computer screen).  It follows that the format is intended
+  chiefly for smaller texts, those of a size that a human reader
+  might find within her capacity of overview.
+
+  I need to state explicitly that although TidBITS is currently
+  the only setext publication in wide distribution, the setext is
+  NOT synonymous with that of TidBITS's layout.  Many other
+  distinctive layouts are possible.  TidBITS is therefore just an
+  _instance_ of the format, not THE setext format.  More
+  specifically, that also means that any of you thinking of
+  writing a "TidBITS browser" should in reality be considering a
+  "setext browser."  Otherwise your program will in all
+  probability be able to recognize only today's
+  specifically-formatted TidBITS and no other future setext
+  publications (which are in the making), including that of a
+  future possibly changed or modified TidBITS.
+
+
+How come is setext
+------------------
+
+  The idea of a common format for online-distributed publications
+  grew in my mind since approximately 1986-87.  It came into focus
+  after I started corresponding with Adam C. Engst, following my
+  April, 1990 criticism of the original TidBITS presented as a
+  HyperCard stack.  Gradually it ceased to be a redesign effort
+  for the TidBITS and became instead a generic format for all
+  kinds of electronic publications (which I affectionately call
+  "the compu- rags" ;-)).  I hit on the current "tagless" version
+  of the format in the winter of 1990 and the first internal beta
+  product -- a setext encoder for TidBITS -- saw the light of the
+  day in July of 1991.  Later Adam wrote a setext-encoding Nisus
+  macro for his personal use, the one he now uses to wrap the
+  weekly issues of TidBITS (he isn't putting all those spaces and
+  dashes in there entirely by hand!  ;-))
+
+  As can be seen from the above setext is not some quickie
+  project, though up and finalized in a few afternoons.  A lot of
+  thought has gone into it and some of it has survived to the
+  present day.  Needless to say the format definition will be
+  placed in the public domain and its use actively promoted by the
+  many parties that have expressed an interest in adopting it for
+  their own use.
+
+
+What for is setext
+------------------
+
+  The setext (data) format is intended primarily for use by
+  online- distributed periodic publications.  It is particularly
+  well-suited to all kinds of electronic digests and other types
+  of repetitively disseminated text information.  Despite its
+  formal appearance as "mere stream of unenhanced ASCII characters
+  on a computer screen" setext is rich enough and unambiguous
+  enough to permit construction of fairly complex encoding engines
+  for specific application purposes (also on top of the format)
+  and to allow easy implementation of a countless number of
+  front-end browsers/ decoders and other reading/
+  archiving-enhancement tools.
+
+  While setext does, indeed, allow the preservation of a source
+  text's structure it does not, by definition, guarantee the 100%
+  ability to recreate it at the destination.  Any word originally
+  styled as **bold** may in effect end up as Yellow-On-Black or be
+  set in a different font, or considered a candidate for a
+  cumulative keywords list or be deemphasized at will.  There are
+  not now and never will be any rules to govern how decoded
+  setexts should be presented at the receiving end.  It will be up
+  to each front-end's author to ensure that decoded
+  (no-longer-)setexts are presented in a fashion that's agreeable
+  to his/ her end users.  There is plenty of sound advice and
+  recommendations on how to achieve that but that's an entirely
+  different matter.
+
+  Those principles also apply to decoding of a setext's logical,
+  rather than merely its typographical, structure.  The format
+  does not rely on some large set of predefined, unambiguous,
+  mutually- exclusive rules.  Rather, it "knows of" just the
+  barest set of typotags (currently 14), knows their symbolic
+  purpose and what criteria to use when looking for and validating
+  them in a setext.  This approach differs some from the commonly
+  heard programmers' wish for clearly-delimited data patterns that
+  can be scanned for quickly and their position used as an offset
+  to the text to be displayed.
+
+  Setext has those patterns too but, since it relies primarily on
+  defacto "invisible" elements that could also be part of the text
+  itself, it must validate them first before proceeding with any
+  enhancements.  Writing a real setext decoder is therefore
+  conceptually much closer to (though nowhere near as hard as)
+  writing an SGML application than it is to writing a macro
+  routine to munge some data in one predefined fashion.  In spite
+  of all that, setext tools should be easily implementable with,
+  and no more complex than, typical HyperTalk, sed, awk and perl
+  scripts.  The barest minimum required for such an attempt is an
+  intelligent search/ replace function in a programmable macro
+  editor.  Though yet to be proven, conceptually there is nothing
+  in the format to prevent implementation of real-time setext
+  browsers written in, say, some advanced pattern-matching macro
+  language of a terminal emulator program.
+
+
+Where is setext
+---------------
+   
+  There are yet no known setext tools in existence.  I have a
+  working prototype of a browser, which is not far from
+  completion.  I've also submitted a paging macro routine for rn
+  (a popular newsreader under unix) to TidBITS (\#110), which
+  should ease jumping between the topics.  I've also opened a
+  mailing list for developers and future setext publishers:
+  <setext-list@random.se> If you received this letter in your mail
+  then you're already a subscriber of it.  Otherwise please send
+  me a short note, stating whether you're interested in writing a
+  setext tool or merely just an interested observer/ future user
+  and your Internet-accessible email address and I will put you on
+  the list and/ or reply as soon as possible.
+
+
+When is setext
+--------------
+
+  Due to a varying work load and other distractions between the
+  original announcement of the planned release and the actual date
+  of it, the browser that I am writing is not yet ready.  I do not
+  intend to repeat the mistake of preannouncing it again.  Instead
+  please feel free to join the mailing list through which the rest
+  of the specifications will be published.  The full release will
+  contain approximately 150K worth of setexts on setext along with
+  a demo browser written in HyperCard (2.0) that will permit
+  showing of the format's capabilities in a dynamic rather than
+  the strictly textual and sequential fashion.  Those of you who
+  know me, know also of the high standards of coding that I try to
+  adhere to.
+
+  If you're among those that have already written a prototype
+  that's based mainly on a reverse-engineered layout of the
+  current TidBITS then you'd be well advised not to release it
+  without prior validation of it by me.  Please do not call your
+  product a "setext browser" (or whatever) UNLESS it is truly
+  capable of parsing all (future) setextized docs, not solely
+  TidBITS.
+
+
+How is setext
+-------------
+
+  A lot can (and will) be said about it but there is one claim no
+  other text encoding method can make: "there is a lot more of me
+  than meets the eye" ;-))
+
+
+Who is setext
+-------------
+
+  The setext format and its underlying philosophy isBroughtToYouBy
+  Ian Feldman <ianf@random.se>.  I live in Stockholm, Sweden,
+  Europe.  I used to work as and describe myself variously over
+  the years but now simply contend myself with being just a free
+  Human Factors thinker and tinkerer.
+
+
+.. last line contains a twodot-tt, a tag signifying the logic end of
+.. text while those three lines are all suppress-typotagged ones, i.e.
+.. can be suppressed (hidden) by a front-end application by default.
+..
+
+
+------------------------------------------------------------------
+
+
+Setext Sermon #1
+================
+
+  This information brought to you by the TidBITS Fileserver,
+  conveniently located near you at <fileserver@tidbits.uucp>.  To
+  speak with a human, send email to Adam C. Engst at
+  <ace@tidbits.uucp>.  Enjoy!
+
+  From setext-list Sun, 15 Mar 14:55:00 1992 +0100 (CET)
+  Subject: what makes a setext (sermon #1)
+  Status: RO
+
+    ermons etexts
+    rmonse textse
+    monset extser
+    onsete xtserm
+    nsetex tsermo
+    setext sermon
+
+    920315     #1
+
+
+  Hi everybody
+
+  Welcome.  Here's the first installment of the setext mailing
+  list.  My intention is to serve a lively mix of format
+  specifications, questions-and-answers and browser implementation
+  trivia ("quick!  which of Macintosh word processors was first
+  with a built-in outliner?"  ;-)) Please be forgiving of Muddy
+  English[tm], if any; I now run without the benefit of a spelling
+  checker but even if I had one, it would hardly matter,
+  comprehension- or otherwise.
+
+  ---Ian
+
+
+What makes a setext?
+--------------------
+
+  As mentioned in the concepts document (available from TidBITS
+  fileserver; details on how to obtain it last in any TidBITS
+  issue) the setext format relies on a small number of highly
+  unobtrusive tagging elements to encode the logical structure of
+  source documents.  This structure can later be restored at the
+  receiving end, according to rules supplied by each particular
+  front-end's writer.  It follows that it is entirely possible to
+  treat the same setext differently depending on rules embedded it
+  the particular application that is used for reading of it. 
+  Indeed, presence of key typotags in the same setext may in one
+  instance be understood only as flags for change of typefaces and
+  sizes and in another as logic markers signalling that flagged
+  elements be entered into a local database.  This formal
+  decoupling of logical structure from typography during the
+  online-transport stage is part of the beauty of setext.
+
+  Still, before any decoding can take place a text has first to be
+  verified whether it is a setext and not some arbitrarily-wrapped
+  stream of characters.  Although there are more ways than one to
+  achieve that goal there is one _primary_ test that has to be
+  passed with colors or else the text being tested cannot be a
+  setext.  What ought to be done with thus "rejected" texts will
+  be discussed in an upcoming notice.  This one is all about
+  finding out whether to proceed with parsing at all.
+
+  Chief among the typotags are two that signal presence of setext
+  titles and subheads inside the text.  A setext document can be
+  formatted more or less properly, may contain or lack any other
+  of its "native" elements but it has to have at least one proper
+  subhead or a title in order to be declared as "a certified
+  setext."
+
+
+Here are few sample setext subheads:
+------------------------------------
+
+_ _ _ _ Which Share Just One _ _ _ _
+------------------------------------
+
+        ----------> UnifyinG FeaturE
+------------------------------------
+
+of EQUAL RIGHTMOST VISIBLE character
+------------------------------------
+
+  length as that of its subhead-tt's
+------------------------------------
+
+[this line is called subhead-string]
+------------------------------------
+
+[the one below is called subhead-tt]
+------------------------------------
+
+[together they make a valid subhead]
+------------------------------------
+
+    (!) and of course, subheads do not have to be of the same length ;-)
+------------------------------------------------------------------------
+
+   (nor have to begin in column 1)
+----------------------------------
+
+  although it is recommended that they stay below 40 characters
+---------------------------------------------------------------
+
+
+Second Setext In This File
+==========================
+
+  ((end of examples))
+  -------------------
+  ((_not_ a subhead))
+
+  Chief among the reasons why one should first look for presence
+  of subheads rather than titles is that it is fully conceivable
+  that a setext might have been created without an explicit
+  title-tt in order to allow decoder programs to distinguish
+  between part one and any subsequent ones in a possible
+  multi-part mailing.  This absence of a title-tt could be enough
+  of a signal to start looking for possible "part x of y" message
+  in either the subject line, filename or anywhere "above" the
+  first detected subhead of the current text.
+
+  Therefore, here's a formal definition of what makes a setext:
+
+  a text that contains at least one verified setext subhead or
+  setext title
+
+
+RIGHTMOST VISIBLE char length of subheads and titles
+----------------------------------------------------
+
+  What, pray, is meant by that?  It is a very important point: a
+  properly-formatted setext subhead is made up of a
+  subhead-string, (less than 80 characters long), followed by a
+  line consisting of an equal number of dash characters, (ASCII
+  45/ hex 2d) counted from column 1 to the RIGHMOST subhead-string
+  column, including possible leading white space.  For instance,
+  the subhead above is made up of a subhead-string with a total
+  length of 56 characters, of which 1 is a leading and 4 are
+  trailing ("invisible") blanks.  Rightmost visible length of both
+  the subhead-string and its all-dash-typotag line is 52
+  characters however.  This is what makes that pair of lines into
+  a verified setext subhead.
+
+  Indeed, this positive-vetting mechanism is the basis on which
+  the setext format rests...  all-dash or all-equal-sign lines
+  doing the double duty of being both machine-recognizable flags
+  for detection of subheads or titles AND visual underline
+  elements in their own right.  Trailing blanks and tabs are
+  simply a nuisance which has to be taken into the account.  They
+  may have been inserted there inadvertedly or appeared as a
+  result of either line been pasted in from another source and
+  survived the encoding process.  Automatic setext-assembly
+  routines will create 100%-clean subheads but since setexts are
+  so easy to code wholly by hand the possibility of a subheads
+  with in reality invisible trailing tabs or spaces cannot be
+  discounted entirely, as is the case with several among the
+  sample subheads above).  Therefore the only proper way to
+  validate a subhead (or a title) is to do it in like fashion:
+
+
+  (a) scan forward for a line that's made up of at least 2 leading
+      dash characters (=minimum length; a practical consideration)
+      with possible trailing white space (spaces, tabs and other
+      defacto invisible [control] characters).  If applicable,
+      grep all such lines globally using the pattern
+      "^-+[-\s\t]*$"
+
+  (b) if no lines found, repeat the search for title-typotags ("=").
+
+  (c) if no lines found then the text is not a setext. Display it
+      using the default behavior. End of verification process.
+
+  (d) if either (a) or (b) returns one or more lines, then each of
+      these will have to be checked for being part of a setext
+      subhead or title.
+
+  (f) if first returned line is equal to the first physical line in
+      the buffer or file then proceed with the next instance. First
+      possible line number on which a typotag could be present is 2.
+      As long as the list is not empty repeat for each line in the
+      returned list:
+
+  (g) calculate which line it is, counting from the chosen index (like
+      the beginning of file or the text buffer).  Assign this value to
+      a variable "ttPtr."
+
+  (h) strip (a copy of) line ttPtr of the text of any _trailing_ tabs,
+      spaces and possible other invisible characters
+
+  (i) extract the character length (count the number of dash chars);
+      store it in a local variable "ttLength"
+
+  (j) strip (a copy of) line ttPtr-1 of the text of any _trailing_
+      tabs, spaces and possible other invisible characters; store the
+      trailing-blankless result in a local variable "sString"
+
+  (k) extract the number of characters in sString (incl possible
+      _leading_ indent); store it in a local variable "sLength"
+
+  (l) compare ttLength to sLength; if they match then declare line
+      ttPtr-1 to be a subhead; output sString to display (with chosen
+      typographical enhancements if needed; line ttPtr itself doesn't
+      have to be displayed of course).
+
+  (m) start the next parsing loop
+
+
+an example in HyperTalk
+-----------------------
+
+  Though the above appears complicated in reality it is a sequence
+  of very simple, straightforward operations.  Here is how it may
+  be implemented in HyperTalk using just one recursive grep() XFCN
+  call (v 3.1 by Greg Anderson):
+
+  get greptts("-") ---result is EITHER a verified list of subheads or
+  --------------------titles OR empty --> the text cannot be a setext
+  ----a second greptts("=") call is required for detection of titles!
+  ----text being verified is assumed to have been read into a global;
+  ----it takes 6-8 seconds on an SE to verify a sample 44KB file made
+  ----up of 2 titles + 12 subheads incl. a few confusing non-subheads
+
+  function greptts ttchar ------------ttchar may be either "-" or "="
+    global myText
+    get "^" &ttchar &ttchar --first grep pattern is 2 leading ttchars
+    put "[" &quote &char offset(ttchar,"-=") of "=-" ~~ --second pass
+    &"!-,\./A-Za-z;<>?@[-~]" into pattern ----required to account for
+    get grep(v,pattern,grep(n,it,myText)) ---grep XFCN implementation
+    if it<>empty then return topicList(it,ttchar="=") else return ""
+  end greptts --else: no RAW title/ subhead-typotags were encountered
+
+  function topicList ttList,titleflag --controls type of verification
+    global myText
+    if char 1 to offset(":",ttList)-1 of ttList =1
+    then delete line 1 of ttList
+    put empty into verifiedList -----------initialize return variable
+    if ttList<>empty then
+      repeat with i=1 to number of lines in ttList
+        get line i of ttList
+        put (char 1 to offset(":",it)-1 of it)-1 into ttptr
+        get length(word 2 of it) ----------------------------ttLength
+        put blankLess(line ttptr of myText) into sString
+        if length(sString)=it then
+          put ttptr &"," after verifiedList
+          if param(2) then get return else get pure(sString) &return
+          put it after verifiedList
+        end if
+      end repeat
+    end if
+    return verifiedList
+  end topicList
+
+  function blankLess aStr ----string stripped of trailing white space
+    get space &numtochar(9) ---------------assign a space-tab pattern
+    repeat with i=length(aStr) down to 1 -----to  local variable "it"
+      if char i of aStr is not in it then return char 1 to i of aStr
+    end repeat
+    return empty
+  end blankLess
+
+  function pure aStr --string stripped of leading and trailing blanks
+    return word 1 to 99999 of aStr -----an arbitrarily large value is
+  end pure -----decoded faster by HyperTalk than "number of words in"
+
+
+Administrivia 920315
+--------------------
+   
+  There are 35 names on this mailing list, all of you who have
+  expressed interest either as front-end writers or present/
+  future setext publishers.  I've heard of a few TidBITS browsers
+  having already been written in HyperCard, none of them a proper
+  setext tool, however, but most probably decoders of some of the
+  more easily-recognizable layout elements of it.  I hope that the
+  above example is enough to demonstrate that doing it properly
+  isn't all that more difficult than doing it in a quickie-hack
+  fashion.
+
+
+  ------------------------------------------> end of setext sermon #1
+  edited <----- Ian Feldman <ianf@random.se>
+  inquiries --> setext-list@random.se
+  ------------> setext, the structure-enhanced text concepts document
+  (last changed March 92) may be requested by sending "setext" alone
+  on the subject line, no quotes, to <fileserver@tidbits.halcyon.com>
+..
+
+
+------------------------------------------------------------------
+
+
+Setext Sermon #2
+================
+
+  From setext-list Sun, 29 Mar 23:48:00 1992 +0100 (CET)
+  Subject: setext_sermon#2.txt
+  Status: RO
+
+    ermons etexts
+    rmonse textse
+    monset extser
+    onsete xtserm
+    nsetex tsermo
+    setext sermon
+
+    920329     #2
+
+
+Two types of setext
+-------------------
+
+  The fact that the format has been optimized for requirements
+  (and vagaries!)  of online-transported text publications can
+  easily lead one to believe that all setexts are by necessity
+  confined to pure ASCII (7-bit) text.  Actually, it is not so. 
+  The setext has been named for what it is primarily about,
+  structural enhancement of any text, not just that of the ASCII
+  text.  Therefore none of the typotags chosen for encoding of the
+  structure either rely on or care about whether the text being
+  wrapped is of the 7- or 8-bit variety.
+
+  Both types of source documents can be made equally structured,
+  with the only difference being their final suitability for the
+  intended transport route.  If a setext is to be distributed via
+  the 7-bit electronic mail then, of course, no other option
+  remains than to make sure that it contains nothing but ASCII
+  characters.  On the other hand, if it's to become part of an
+  otherwise encoded package (such as a binhexed archive in which
+  documentation files have been setextized) then there may be no
+  clear-cut reason not to use the full 8-bit character set where
+  so called for.
+
+
+Other considerations
+--------------------
+
+  Once a decision has been reached to use 8-bit characters in a
+  setext a possibility arises to keep the paragraph text
+  unwrapped, rather than folded uniformly at the 66th character
+  mark.  After all, if the setext is primarily to be displayed
+  inside an editor, rather than on an 80-character terminal
+  screen, then there is not much sense in prior folding of the
+  lines to a specific guaranteed- to-fit-on-a-TTY-screen length. 
+  The editor/ word processor program will fit the unwrapped text
+  to window or the available display area, and might actually
+  prefer to have to deal with whole unwrap- ped paragraphs rather
+  than with otherwise relatively-short lines.
+
+  Most text-processing programs with native word-wrap capabilities
+  actually consider return-terminated lines to be paragraphs in
+  their own right.  Besides, if a setext is not to travel via
+  email anyway (because of it being distributed differently or
+  making use of accented characters) then it might as well arrive
+  in unfolded state so that no extra time need to be spent on
+  making the paragraphs "whole again."
+
+  Do observe, however, that it is not the state of the paragraph
+  text that makes or breaks a setext.  No, the sole criterion of
+  whether a text is a setext is the presence of at least one
+  verified subhead, as described in the previous sermon (#1). 
+  Thus even texts with unfolded paragraphs (i.e. terminated by
+  carriage returns, similar to lines in HyperTalk that can be up
+  to 30000 characters in length) are setexts if they contain at
+  least one subhead-tt.
+
+  The sole mechanism used in setext to encode which of such lines
+  are in reality paragraphs (as opposed to those that shouldn't be
+  folded mechanically) is the character indent.  In fact, the
+  second (after the subhead-tt) most important typotag is the
+  indent-tt, made up of exactly two space characters, which
+  denotes thus indented lines as ready-candidates for reflowing by
+  so inclined front-ends (either on their own or as part of
+  like-indented lines above and below it).  So any
+  potentially-long line of a setext that has been indent-tted will
+  be understood (by any validated setext front-end) to be ready
+  for wrapping-to-length if so required.
+
+
+An example of unwrapped paragraph
+---------------------------------
+  
+  For instance, this paragraph has specifically been unfolded to demonstrate the
+ validity of the concept: indent-tted, yet still-unwra 
+pped line in a setext
+  piece makes it into a paragraph of its own.  Depending on the type of the
+  terminal software at your end it will most probably be folded at some
+  "mechanical 79-th character mark" and fill the available window's width.
+  Imported into a word processor it will end up word-wrapped and thus 
+become easy
+  to add to or delete from, since the program will simply r
+
+
+Primary setext-type distinction
+-------------------------------
+
+  Still, if all the texts that fulfill the sole basic validated-
+  subhead requirement are to be considered setexts then the need
+  arises to distinguish between the "pure" variety of them, those
+  encoded for 7-bit transport duty (no accented characters AND
+  with ready-folded paragraphs), and all the other ones.  Indeed,
+  this is an important point which also has been addressed.
+
+  As originally explained setext documents in online distribution
+  should be denoted by the ".etx" suffix (which stands for both
+  "emailable" and "enhanced text.")  In reality this suffix should
+  ONLY be used for setexts of that "pure" variety, as are the
+  current TidBITS that carry it at sumex and elsewhere.  All the
+  other setexts, either the not-fully-7-bit ones, or those with
+  unfolded paragraphs (as the one above) may carry a more common
+  ".txt" suffix, but not an ".etx" one.  They are setexts too but
+  as they definitely are _not_ guaranteed to fare well in
+  electronic mail transport then their titles should not signal
+  that special "setext.etx" status either (to readers and
+  front-ends that are aware of the distinction).  It is enough
+  that their titles be indicative of them being simply
+  "text_documents.txt."
+
+  Therefore: fully 7-bit/ 66-char-folded setexts may carry the
+  .etx suffix.  All the other setexts: .txt ONLY suffix, please,
+  as does this issue of the sermon (on account of the unwrapped
+  paragraph).._.
+
+
+
+Change of topic: delete functions
+---------------------------------
+
+  Akif Eyler, <eyler@trbilun.bitnet>, who's adapting an existing
+  document browser for setexts (a MacApp hack) writes on the
+  subject of by me suggested point to allow selective deletion of
+  parts of a browsed setext:
+
+  > We are talking about a browser, not an editor. I don't think
+  > text modification should be allowed here.
+
+  This is an important point that deserves a little more comment
+  than that.  I believe that we may be talking about two different
+  things.  Although it is true that a "browser" is basically an
+  application for structured paging of text there is nothing to
+  prevent such applications from offering additonal services that
+  may be appropriate or of great value to its users.
+
+  So while technically we both may be right, in this respect, when
+  speaking of "browsers", I mean "setext tools" rather than the
+  more traditional, straigh-browse-function-only, implementations.
+
+  You should keep in mind the basic difference between a
+  traditional browser, designed for navigation in a potentially
+  VERY LARGE data mass and that of a setext front-end, meant to be
+  used with texts of limited size (<50K mainly).  Such short texts
+  are inherently easier to read without assistance of any special
+  tools, even if using one is to be recommended.  But let us not
+  believe that people will start using a browser only because one
+  is available.  After all, a "typical" setext might contain
+  20-odd "pages" of text, which are not that hard to browse using
+  the standard ways and means of ANY application (scrollbars on
+  the Mac etc).
+
+  For that reason alone I feel that setext browsers should offer a
+  few other facilities in order to make using them worthwhile to
+  the users...  with the prime among such values-added functions
+  being a method to delete portions of read setexts, in as simple
+  a manner as possible.  After all setexts are not guaranteed to
+  survive editing and the format as such is intended for periodic
+  online publications.  And what do we do with interesting
+  articles in print magazines?  We clip them out and discard the
+  rest.  So any such Easy-Delete[tm] function wouldn't entirely be
+  out of place in setext reading (while definitely an unwanted
+  proposition when browsing of [large] _reference_ works etc).
+
+  So what constitutes such "Easy-Delete"?  In my view a browser
+  should allow _unobtrusive_ deletion of text in either or both of
+  the following ways:
+
+  (a) a whole current topic may be flagged for deletion.  That
+      does not take place until browsing of the setext is terminated,
+      however (by reading in of another setext or closing of the
+      application), at which time the originally-read-in setext gets
+      written back to disk less the flagged portions.  It goes without
+      saying that such flagging actions should be undoable before the
+      rewritting takes place.  The latter should happen automatically,
+      without prior and explicit replace-confirmation? dialogs.
+
+  (b) selected text-chunk onscreen may simply be deleted by
+      pressing the delete or clear keys.  It should disappear from the
+      display at once but _could_ be removed from file first upon
+      termination of the browsing-of-current-setext operation (as per
+      above).  This function does not have to be undoable as the text
+      may be preserved by reading-in of it once again.
+
+  i.e. the browser keeps track of opened file(s) and if one such
+  is opened again then it simply forgets about any queued
+  selective deletes in current text and replaces the contents of
+  the buffer with a clean copy from the disk.
+
+  As above, no explicit confirmation should be required first.  If
+  you delete something then you delete something, and there should
+  be no need to explain it once again to the machine that you did
+  it on purpose.  On the other hand care should be taken to
+  prevent inadvertent destruction of browsed setexts, perhaps by
+  requiring that selection of text be made with the option (or
+  command) key pressed down, or that Command-Delete be required to
+  flag a whole topic for removal.  On top of that the
+  really-important documents, those not intended to be rewritten
+  during browsing, should be kept locked on disk anyway.
+
+
+  ------------------------------------------> end of setext sermon #2
+  edited <----- Ian Feldman
+  inquiries --> setext-list@random.se
+  ------------> setext, the structure-enhanced text concepts document
+  (last changed March 1992; do not reorder if you've already seen it)
+  may be requested by sending "setext" alone on the Subject: line, no
+  quotes, empty message body to ----------> <fileserver@tidbits.uucp>
+
+  
+------------------------------------------------------------------
+
+
+Setext Markup Specification v9
+==============================
+
+  current (online) use  setext form          shown as in a        name of
+  of text emphasis      of same              setext frontend  the typotag [?]
+  ~~~~~~~~~~~~~~~~~~~~  ~~~~~~~~~~~~~~~~~~~  ~~~~~~~~~~~~~~~ ~~~~~~~~~~~~ ~~~
+  Internet mail header  From <source>        Subject: shown     header-tt [a]
+  (start of a message)  minimal mail header  [Date: & From:]
+  --------------------  -------------------  --------------- ------------ ---
+  title (1 per text)   "Title                a title             title-tt [b]
+  in a distinct style   ====="               in chosen style
+  --------------------  -------------------  --------------- ------------ ---
+  heading (1+/ text)   "Subhead              a subhead         subhead-tt [c]
+  in a distinct style   -------"             in chosen style
+  --------------------  -------------------  --------------- ------------ ---
+  body text               66-char lines in-  lines undented     indent-tt [d]
+  [plain not-indented]    dented by 2 space  and unfolded
+  --------------------  -------------------  --------------- ------------ ---
+  1+ bold word(s)           **[multi]word**  1+ bold word(s)      bold-tt [e]
+  a single italic word               ~word~  1 italic word      italic-tt [f]
+  1+ underlined words        [_multi]_word_  underlined text underline-tt [g]
+  hypertextual 1+ word        [multi_]word_  1+ hot word(s)        hot-tt [h]
+  >followed by text     >[space][text]       > [mono-spaced]     quote-tt [i]
+  bullet-text in pos 1  *[space][text]       [bullet] [text]    bullet-tt [j]
+  --------------------  -------------------  --------------- ------------ ---
+  end of first? setext  $$ [last on a line]  [parse another]   twobuck-tt [k]
+                        ..[space][not dot]   [line hidden]    suppress-tt [l]
+  logical end of text   ..[alone on a line]  [taken note of]    twodot-tt [m]
+  ====================  ===================  =============== ============ ===
+
+..

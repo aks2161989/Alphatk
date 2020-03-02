@@ -1,0 +1,66 @@
+!! This file : AccentsToRtf.flt 
+!! Convert accents to Rtf.
+!! To be used with the Filters Menu in Alpha.
+!! Last modification : 8 avril 2000 - 19:21:38
+!! (c) Copyright : Bernard Desgraupes 2000
+
+
+á	\'87
+â	\'89
+æ	\'be
+à	\'88
+å	\'8c
+ã	\'8b
+ä	\'8a
+ç	\'8d
+é	\'8e
+ê	\'90
+è	\'8f
+ë	\'91
+í	\'92
+î	\'94
+ì	\'93
+ï	\'95
+ñ	\'96
+ó	\'97
+ô	\'99
+ò	\'98
+ø	\'bf
+õ	\'9b
+ö	\'9a
+ß	\'a7
+ú	\'9c
+û	\'9e
+ù	\'9d
+ü	\'9f
+ÿ	\'d8
+Æ	\'ae
+Á	\'e7
+Â	\'e5
+À	\'cb
+Å	\'81
+Ã	\'cc
+Ä	\'80
+Ç	\'82
+É	\'83
+Ê	\'e6
+È	\'e9
+Ë	\'e8
+Í	\'ea
+Î	\'eb
+Ì	\'ed
+Ï	\'ec
+Ñ	\'84
+Ó	\'ee
+Ô	\'ef
+Ò	\'f1
+Ø	\'af
+Õ	\'cd
+Ö	\'85
+Ú	\'f2
+Û	\'f3
+Ù	\'f4
+Ü	\'86
+Œ	\'ce
+œ	\'cf
+Ÿ	\'d9

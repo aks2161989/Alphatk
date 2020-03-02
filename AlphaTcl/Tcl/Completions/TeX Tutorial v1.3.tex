@@ -1,0 +1,214 @@
+
+Title:                  TeX Electrics
+Author:                 Vince Darley <vince@santafe.edu>
+Author:                 Craig Barton Upright <cupright@alumni.princeton.edu>
+
+    created: 05/11/2001 {05:48:23 pm}
+last update: 03/06/2006 {08:05:18 PM}
+
+
+	  	% Table Of Contents
+
+"# Abstract"
+"# Description"
+"# TeX reference completion"
+"# Electric completion"
+"# Electric environment completion"
+"# Word completion:"
+"# TeX command word expansion from acronyms"
+
+"# Copyright"
+
+
+	======================================================================
+
+
+	  	% Abstract
+
+This document provides examples of TeX mode electric completions.
+
+
+	  	% Description
+
+This file contains examples of "electric completions".  Completions are
+ways in which Alpha attempts to complete what you're typing in a mode
+specific way (in this case TeX specific).
+
+The " Config --> Special Keys ...  " menu item will display your current
+completion key-binding, and will give you the option to change it if you
+desire.
+
+In this tutorial, you can use the back-quote key ( ` ) to jump to the next
+completion example.  Once at the correct position, imagine that you had
+just typed the preceding text.
+
+Then hit the completion invoking key.  Alpha attempts to complete what you
+typed -- eliminating a lot of keystrokes, avoiding the need for
+copy/pasting, and reducing the possibility of typos.
+
+Technical note: the presence of un-used stops can interfere with the 
+completion/expansion of the next shortcut, so each jump via the 
+back-quote key first clears all stops.
+
+
+	  	% TeX reference completion 
+
+The reference completion is called by inserting \ref{} (by selecting the menu
+item "TeXMenu > Miscellaneous > ref" or its Keyboard Shortcut.)  The
+available labels are cycled using your completion key.
+	
+	% A figure evironment that the is going to be found and used as 
+	% a 'reference' by the next completion:
+	\begin{figure}
+	    \centerline{\includegraphics{nk-n15kv-nodes.eps}}
+	    \caption{For fixed $N$, but increasing $K$, the duration of search 
+	    increases very quickly.}
+	    \protect\label{fig:nk-n15kv-nodes}
+	\end{figure}
+
+	for an explanation of this phenomenon,
+	please refer to Figure \ref{<>}
+	
+	(or...)
+	
+	please refer to Figure \ref<>
+
+	% Text and an equation evironment that the is going to be found and used as 
+	% a 'reference' by the next completion:
+	Now a standard approximation is 
+	\begin{equation}
+	    I = \frac{1}{\sqrt{2 \pi}} e^{-\frac{{\xi^{*}}^{2}}{2}} 
+	    \left(\frac{1}{|\xi^{*}|} + O(\frac{1}{|\xi^{*}|^{3}}) \right)
+	    \label{eq:NK-integral-approx}
+	\end{equation}
+
+	\begin{equation}
+	    I = \frac{1}{\sqrt{2 \pi}} e^{-\frac{{\xi^{*}}^{2}}{2}} 
+	    \left(\frac{1}{|\xi^{*}|} + O(\frac{1}{|\xi^{*}|^{3}}) \right)
+	    \label{eq:NK-integral-exact}
+	\end{equation}
+
+	Please see Eq. (<>)
+
+
+	  	% Electric environment completion
+
+To insert an environment:
+
+	\begin<>
+  
+then fill in the evironment's name and invoke another completion.
+
+You can specialise the environment too --- stay in the above template and 
+type 'equation' and then hit invoke a completion again.
+
+	\begin<>
+
+Try it with a 'description' this time ('invoke a completion', type 
+'description' and then 'invoke a completion' again):
+
+	\begin<>
+	
+or a 'figure' (note that this environment has extra helping dialogs 
+to set the options and choose common formats):
+
+	\begin<>
+	
+You can save a bit of typing using a 'contraction' shorthand:
+	
+	b'equation<>
+	b'quota<>
+
+If the TeX mode preferences for "Electric Left Contractions" and
+"Electric Braces" are turned on (yes, you need both), then typing a
+left brace '{' after a contraction will also complete it.
+
+	b'quote<>
+
+For environments which have normally occurring subcomponents,
+additional instances of the 'item' can be inserted automatically by
+the menu item "Text Environments > Add Item" (bound by default to
+Option-Shift-I).  Note that you can get a specific number of
+sub-components by preceding the key bindings by 'iterationCount' --
+this is done by typing Control-U <num_of_components_desired>, then
+Option-Shift-I.  Try it with these environments:
+
+	b'itemize<>
+	b'enum<>
+
+
+	  	% Word completion:
+
+Here's a paragraph in which I use the word paragraph many times.  If I 
+become bored of typing the word paragraph, I can just type par<>
+
+This also works with TeX commands so if I have \biglongcommand which I
+don't wish to retype, I can just do \bigl<>
+
+
+	  	% TeX command word expansion from acronyms
+
+NOTE: these require the "elecExpansions" package to be active.
+
+In these type of completions you type the initials of each word in a TeX
+command (i.e. its "acronym"), and hit the "expansion" -invoking key
+combination (by default 'cmd-<space>' although you can change it to
+whatever key combination feels most comfortable).
+ 
+Try one:
+
+	\ab<>
+	
+Note: you don't always have to type the "\", e.g.:
+
+	ab<>
+	
+When there is more than one possible expansion, you get the first choice 
+inserted into the text, and, a list of choices is presented in the 
+statusline.  Now you can either tab to the one you want and then type a 
+<space>, <return>, or <backslash>, or, you can just type the number 
+associated with the command you want.
+
+try picking out command words using some of the above mentioned ways:
+
+	aa<>
+	aa<>
+	aa<>
+
+There is another way to pick a command word other than typing the number 
+associated with it on the statusline.  If, instead of reaching up and typing 
+digit on the top row of the keyboard, you type the key on the "home row" 
+that is in the same column.  So instead of '1', you can type 'a', instead 
+of '2', you can type 's', and so on...
+
+try it:
+
+	aa<>
+	
+If there are more choices than the statusline can hold at one time, you can 
+get the next set of choices by typing 'm' (for more).  If you want to get 
+to the set you had at the beginning, type 'b'.  You can also just keep 
+typing <tab>, it will cycle through all the choices eventually.
+
+try it:
+
+	ss<>
+	sp<>
+	
+What if you are really just trying to expand an acronym of a term already 
+in the text?  In that case you can cancel the TeXexpansion and move on to 
+regular expansion by hitting the <esc> key.
+
+try:
+
+	shortStuff <== word in text we are trying to avoid having to retype.
+	ss<>
+
+
+	======================================================================
+
+	  	% Copyright
+
+This document has been placed in the public domain.
+
+

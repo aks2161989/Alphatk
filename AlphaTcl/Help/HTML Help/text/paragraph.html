@@ -1,0 +1,170 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+
+<HTML>
+
+<HEAD>
+
+<TITLE>Paragraph utilities</TITLE>
+
+<LINK HREF="../Style%20Sheet/manual.css" REL="stylesheet" TYPE="text/css">
+
+
+</HEAD>
+
+<BODY>
+
+<!-- #INCLUDE INCLPATH="maintop.html" -->
+
+<SCRIPT TYPE="text/javascript">
+<!--
+if (document.body.clientHeight) {
+	height = document.body.clientHeight - 50;
+} else {
+	height = window.innerHeight - 50 ;
+}
+document.write('<div class="main" style="height: ' + height + 'px;">');
+// -->
+</SCRIPT>
+
+
+<!-- /#INCLUDE -->
+
+
+<H1>Paragraph utilities</H1>
+
+
+<P>
+<IMG SRC="../bilder/paragraph.png" ALT="Block and Dividers menu" WIDTH="196"
+HEIGHT="85" CLASS="rightpic">
+The menu <SPAN CLASS="menu">Blocks and Dividers</SPAN> contains some 
+functions for manipulating paragraphs.
+</P>
+
+<div CLASS="item">Insert Line 
+Breaks</div>
+<DIV CLASS="indent">Inserts a &lt;BR&gt; tag at the end of each line in a 
+selection.  To use this, first select the text where you want the 
+&lt;BR&gt; tags. For example, the text
+
+<PRE CLASS="code">
+one line of text
+another line of text
+a third line of text
+</PRE>
+
+<P>
+will be changed to
+</P>
+
+<PRE CLASS="code">
+one line of text<SPAN CLASS="htmlcode">&lt;BR&gt;</SPAN>
+another line of text<SPAN CLASS="htmlcode">&lt;BR&gt;</SPAN>
+a third line of text<SPAN CLASS="htmlcode">&lt;BR&gt;</SPAN>
+</PRE>
+
+</DIV>
+
+<div CLASS="item">Remove Line Breaks</div>
+
+<DIV CLASS="indent">
+Removes all &lt;BR&gt; elements in a selection (not only the ones at end of 
+lines).  To use this, first select the text where you want to remove the 
+&lt;BR&gt; tags. This is the opposite of the functions above. For example, 
+the text
+
+<PRE CLASS="code">
+one line of text<SPAN CLASS="htmlcode">&lt;BR&gt;</SPAN>
+another line of text<SPAN CLASS="htmlcode">&lt;BR&gt;</SPAN>
+a third line of text<SPAN CLASS="htmlcode">&lt;BR&gt;</SPAN>
+</PRE>
+
+<P>
+will be changed to
+</P>
+
+<PRE CLASS="code">
+one line of text
+another line of text
+a third line of text
+</PRE>
+
+</DIV>
+
+
+<div CLASS="item">Insert Paragraphs</div>
+
+<DIV CLASS="indent">
+Inserts &lt;P&gt; elements at each empty line in a selection, and one just 
+before the selection.  To use this, first select the text where you want 
+the &lt;P&gt; elements. For example, the text
+
+<PRE CLASS="code">
+blah blaha
+more text
+
+and yet some more 
+and <SPAN CLASS="htmlcode">&lt;B&gt;</SPAN>this is bold<SPAN CLASS="htmlcode">&lt;/B&gt;</SPAN>
+</PRE>
+
+<P>
+will be changed to
+</P>
+
+<PRE CLASS="code">
+<SPAN CLASS="htmlcode">&lt;P&gt;</SPAN>
+blah blaha
+more text
+<SPAN CLASS="htmlcode">&lt;/P&gt;</SPAN>
+&nbsp;
+<SPAN CLASS="htmlcode">&lt;P&gt;</SPAN>
+and yet some more 
+and <SPAN CLASS="htmlcode">&lt;B&gt;</SPAN>this is bold<SPAN CLASS="htmlcode">&lt;/B&gt;</SPAN>
+<SPAN CLASS="htmlcode">&lt;/P&gt;</SPAN>
+</PRE>
+
+<P>
+Alpha will recognize if you have chosen not to use closing tags for the P 
+element and in this case not insert any closing tags.
+</P>
+
+</DIV>
+
+<!-- #INCLUDE INCLPATH="mainbottom.html" -->
+
+<DIV STYLE="height: 50px">
+</DIV>
+
+<SCRIPT TYPE="text/javascript">
+<!--
+document.write('<\/DIV>');
+// -->
+</SCRIPT>
+
+
+<!-- /#INCLUDE -->
+
+
+<!-- #INCLUDE INCLPATH="navigation.html" PREV="[manualPrevPage browsers.html]" 
+NEXT="[manualNextPage lists.html]" -->
+
+<P>
+<script type="text/javascript">
+<!--
+document.write('<div class="navigation" style="top: ' + height + 'px; height: 50px">');
+// -->
+</script>
+<A HREF="browsers.html">Previous page</A>
+<A HREF="lists.html">Next page</A>
+<SCRIPT TYPE="text/javascript">
+<!--
+document.write('<\/DIV>');
+// -->
+</SCRIPT>
+</P>
+
+<!-- /#INCLUDE -->
+
+
+</BODY>
+
+</HTML>

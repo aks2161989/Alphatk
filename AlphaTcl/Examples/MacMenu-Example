@@ -1,0 +1,387 @@
+-*-Setx-*-
+
+
+# Mac Menu Tutorial
+===================
+
+This is a tutorial that demonstrates the "Mac Menu".  
+
+In order to use it, you must first activate the menu by going to  the  menu
+item "Config --> Preferences --> Menus..."  and  selecting  'Mac  Menu'  by
+checking the corresponding checkbox.
+
+The Mac Menu allows you to achieve with maximum flexibility  all  kinds  of
+files manipulation from within Alpha and to interact with  the  MacOS  file
+system in a very sophisticated manner.
+
+This Tutorial, when opened through a hyperlink, is a "shell"  window.  None
+of the changes you make will affect the  actual  file.  If  you  close  the
+window and then click on the hyperlink again, you will start with the  same
+example as before. Note that "Undo" is not available in shell windows.
+
+This tutorial is in Setx mode to take advantage of some  file  marking  and
+colorizing procedures. The MacMenu menu can work in any mode.
+
+
+# Files Filters
+===============
+
+The heart of this file manipulation system is the Files Filter  :  all  the
+dialog windows in which you set your options contain a files filter. It  is
+a regular expression which describes the names of the files you want to act
+upon. 
+Regular expressions  are  a  very  powerful  syntax  designed  to  describe
+abstractly almost any kind of strings. For  more  info  about  the  regular
+expressions, read the "Regular Expressions" file in the Help Menu. They are
+not to be confused with  the  so-called  "globbing  syntax"  used  on  some
+systems and in some Tcl commands.
+As we shall see with a few examples, regular expressions give  you  maximal
+flexibility to describe filenames.
+
+# First example
+---------------
+Suppose you just want to get ridd of backup  files  (all  the  files  which
+contain the previous version of a certain file). This means all  the  files
+whose name ends with a tilde ~. The files filter in this case  will  simply
+be :
+    .*~
+
+# Second example
+----------------
+Suppose you want all the files meeting the following requirements :
+- first letter is A or P
+- the extension is html or jpeg (we want text and images)
+- the filename contains a suffix _XY or _XYZ
+According to the basic rules  of  regular  expressions,  the  files  filter
+should be in this case :
+
+    [AP].*_XYZ?\.(html|jpeg)
+
+# Third example
+---------------
+If you are only concerned in selecting files with specific extensions,  you
+should use the "Predef Exts" button which is present  in  allmost  all  the
+dialog windows. Just check the boxes corresponding to  the  extensions  you
+are interested in and click on the OK button : the  files  filter  will  be
+built automatically.
+If some extension is not in the list of checkboxes, you can enter it  (with
+or without the dot) in the edit field called "Other  Extensions".  You  can
+enter a list of extensions separated by a blank space.
+You can alternatively add new checkboxes to the "Predef Exts" dialog window
+if your favorite extensions are not already there. This can  be  done  with
+the Mac Menu Preferences. Open the preferences which the menu  item  called
+"Mac Menu Prefs..." in the "Packages" submenu of Alpha's "Config" menu.
+ 
+
+# MacMenu Examples
+==================
+
+Using the menu items
+--------------------
+All the mac Menu items bring up a dialog window in which you  can  set  the
+required information to perform a  certain  action.  Many  options  can  be
+chosen additionally.
+
+First example
+---------------
+# Setting other conditions
+--------------------------
+Not all conditions of course can be described by a regular expression.  The
+files filter concerns only the name of the files you want to select. In all
+the dialog windows, there is an "Add conditions" button  which  displays  a
+new window. All the settings in this window should be self-explanatory : it
+allows you to specify the file's type and creator, its modification and its
+creation dates, its size.
+
+Second example
+----------------
+# Selecting the remaining files
+-------------------------------
+Sometimes it is easier to select files telling that they do NOT  correspond
+to a certain scheme : for instance you want all the files which do not have
+a tex or a sty extension. This can  be  easily  achieved  with  the  option
+called "Negate Filter" : simply write the following files filter
+    .*\.(tex|sty)
+and then check the checkbox called "Negate Filter".
+
+Third example 
+---------------
+# Case sensitivity
+------------------
+If you are looking for files corresponding  to  a  certain  scheme  and  if
+casing does not matter, uncheck the checkbox called ""case sensitive".
+
+Fourth example
+----------------
+# Files in a hierarchy
+----------------------
+"Negate Filter" All the actions can be performed on  all  the  files  whose
+name correspond to the files filter :
+- in the current folder (called source folder)
+- in the current folder and in its subfolders down to a certain level
+- in the current folder and in all its hierarchy of subfolders
+This can be set in all the dialog  windows  using  the  popup  menu  called
+"Process". In the second case, you will have to enter  the  level  down  to
+which the package will have to look for corresponding files.  Looking  only
+in the current directory corresponds to level 0.
+If you move or copy files taken out of a hierarchy, this hierarchy will  be
+transported to the target folder : this comes in very handy if you want  to
+extract a certain type of files out of a  hierarchy  of  folders.  All  the
+necessary subfolders will be created in the target folder if  they  do  not
+already exist.
+
+Fifth example
+---------------
+# Untrashing files
+------------------
+The untrashing action deserves some explanations. When you hold the  option
+key down and open Mac Menu, some items change  to  the  opposite  action  :
+Select becomes Unselect, Lock becomes Unlock,  Trash  becomes  Untrash  and
+Alias Files becomes Remove Aliases.
+Untrashing files means sending files from the trash back  to  the  location
+they come from : you might have accidentally sent files to  the  trash  and
+want to 'undo' that. This is what Untrash does. Its dialog window lets  you
+specify one of two actions : you can untrash  only  the  files  which  were
+trashed by the last Trash action performed from the Mac  Menu  or  the  Mac
+Shell, or you can untrash all the files located in the trash no matter  how
+and when they were trashed.
+
+Sixth example
+---------------
+# Renaming files
+----------------
+The syntax for the renaming scheme is the same as for  substituion  strings
+in regular expressions. Subexpressions of the source regular expression can
+be delimited by a pair of parentheses and refered to  in  the  substitution
+string by \1, \2 etc. The entire name described by the  regular  expression
+can be refered to as &.
+For instance let us suppose we want to ad a suffix _XY at the  end  of  all
+the files names in a folder. The regulear expression should be .*  and  the
+replacement expression cuold simply be &_XY
+Now if we want to suppress the _XY suffix we can just define  the  original
+regular expression to be (.*)_XY and the replacement string \1
+Suppose now we just want to transform  all  the  file  names  to  uppercase
+letters. The original string is .*, the replacement  string  is  &  and  we
+click on the Add Options button. In the new window,  click  on  casing  and
+choose UPPERCASE in the popup submenu.
+
+
+Mac Shell Examples
+==================
+
+All the actions of the Mac Menu items have an  equivalent  on  the  command
+line of Mac Shell. Not all options and conditions can be specified but most
+of them do. Mac shell has a few commands of its own.  All  of  them  accept
+arguments in a Unix-like style.
+Furthermore you can use Mac shell as a Tcl shell and  enter  plain  vanilla
+Tcl commands to be interpreted.
+
+# Opening the shell
+-------------------
+You open Mac shell from the corresponding menu item or  from  the  keyboard
+typing "opt-cmd-y" (this is easy to remember if you are used to  the  other
+Alpha shells : Tcl shell is called  by  "cmd-y"  and  Toolserver  shell  by
+"ctrl-cmd-y"). Alternatively you  can  use  the  key  combination  "ctrl-z"
+followed by "h".
+The prompt at the beginning of the command line always contains the name of
+the current folder. When you open  Mac  shell  for  the  first  time  after
+launching Alpha, it is set to  Alpha's  home  directory  which  is  usually
+called "Alpha Ä". When you change directory the prompt changes accordingly.
+For instance type 
+    pwd
+on the command line then press return : you will have the full path name of
+the current directory.
+You can experiment with a few other basic commands such as : "eject"  which
+will eject a currently mounted disk (Zip, CD-Rom, floppy) if  any,  "empty"
+which will empty the trash if it  is  not  already,  "restart"  which  will
+attempt to restart your computer.
+Type
+    ls
+on the command line to have a list of all files and  folders  contained  in
+the current directory.
+Type
+    ld
+to have a list of only the folders in the current directory.
+
+# Getting help
+--------------
+Type
+    help
+on the command line to have a list of all available commands.
+If you want to know the meaning of the various flags used with the "files" 
+command then type :
+    help options
+If the info provided is not sufficient, type :
+    help more
+If you want to open this tutorial, type :
+    help tutorial
+If you want info about available key bindings, type :
+    help bindings
+If you want the version number of macMenu, type :
+    help version
+
+# Getting info
+--------------
+If you want to have system information about a file, a folder, a  disk,  an
+application, a currently running process or the computer's hardware you can
+use the "infos" command. It has to be followed by a subcommand  telling  the
+kind of item you want info about and by the absolute or relative path  name
+of the item (or just its name in the case of a process).
+Experiment with one of the following :
+    infos hardware
+    infos process Alpha
+If your hard disk is called MyHD, try
+    infos disk MyHD
+If you have a file called Myfile in the current directory, try :
+    infos file "Myfile"
+So if a file is in the current directory you can type just ist name. If  it
+is located elsewhere you'll have to enter its full pathname (or  to  change
+directory to its location).
+    
+# Browsing in the file system
+-----------------------------
+To change the current directory you use the cd command. This command can be
+used in different ways.
+To change directory to the directory of  the  document  you  are  currently
+working on (i-e your frontmost window, not  including  the  shell  window),
+just type :
+    cd .
+To change to a subfolder of the current directory type cd followed  by  the
+name of this subfolder. If you are not sure which folders are therein, type
+ld to have the list.
+To move up in the hierarchy of folders, type
+    cd ..
+If the current directory is "MyHD:Programms:Alpha Ä:Tcl:Menus:" it will 
+then be changed to "MyHD:Programms:Alpha Ä:Tcl:"
+To move two levels up type
+    cd ..:..
+and so on.
+If you want to change directory to another location you have to use the 
+full pathname.
+If you type cd with no argument, you go back to Alpha's home directory.
+
+# Completion
+------------
+There is a very nice facility concerning all the Mac shell commands and the
+folders and files names as well : you can type just the first  letters  and
+MacShell will try to complete. This is obtained by using the TAB key  (like
+on most Unix shells).
+For instance type
+    infos ha
+then hit the TAB key : "ha" will be completed to "hardware".
+Suppose you are in the directory "MyHD:Programms:Alpha Ä:Tcl:", type
+    cd Us
+then hit the TAB key. It will be completed to "UserModifications".
+Suppose you are in the directory "MyHD:Programms:Alpha Ä:Tcl:Menus:", type
+    infos file fi
+then hit the TAB key. In this case there are several possible  completions.
+A pick list displaying all the possibilities will show up for you to choose
+the one you want.
+
+# More examples
+---------------
+The "files" command is the most elaborate  because  it  accepts  a  lot  of
+options. All these options are specified by an endash followed letter  such
+as -f, -s, -l etc. Most of these options have default values so you are not
+obliged to use all of them : they are needed only if the default  value  is
+not what you want. Type 'help' or 'help options' (without  the  quotes)  on
+the command line to have a list of all available options and their meaning.
+ 
+With the -s flag (source folder) you can enter a relative path name if  you
+want to designate a subfolder of the current folder. Other  wise  you  must
+enter the entire path name.
+
+Here are a few more examples.
+
+To get the list of all files whose name starts with a P, type
+    files list -f P.*
+
+To trash all backup files (files ending with ~) in the  current  directory,
+you can type :
+    files trash -f .*~
+
+If you want the same action to be taken in all the subfolders, type :
+     files trash -f .*~ -l all
+
+If you have a remorse, type :
+    files untrash
+
+If you want to send back all the files currently in the trash, type :
+    files untrash -all
+
+If you want to copy all tex files to directory "HD:blah", type :
+     files copy -f {.*\.tex} -t "HD:blah"
+
+If you want to lock  all  the  files  in  the  current  directory  and  its
+subfolders at the  first  level,  except  for  those  having  htm  or  html
+extension, type the following :
+    files lock -f {.*\.html?} -n 1 -l 1
+
+If you want to make aliases for all the files contained  in  the  subfolder
+"HD:blahblah" :
+    files alias -s "HD:blahblah" -all
+The -all statement overrides any -f option replacing it with ".*".  
+
+If you want to change the creator of all the files whose name ends  with  a
+digit other than 0 or 1 followed by an extension htm or HTM  to  give  them
+Netscape Navigator's creator type (MOSS), then type :
+    files change -f {.*[2-9]\.htm} -i 1 -c MOSS
+    
+In order to change the type use the -t flag like in :
+    files change -f .* -t TEXT -c MOSS
+
+
+Note that regular expressions containing escaped characters  (such  as  \.,
+\w, \d etc.) must be protected by a pair of brackets. Without the  brackets
+the last example should have be written like this
+    files change -f .*\[2-9\]\\.htm -i 1 -c MOSS
+
+Now let us rename all the files in the  current  folder.  If  you  want  to
+uppercase all file names, type :
+    files rename -r & -k u
+In this last example, we do not specify the filter so it is .* by  default,
+i-e all files. -r & means replace the name by itself and -k u means set the
+casing option to u (for uppercase). Since & is the default value for the -r 
+option, we can omit it in the previous command and just write :
+    files rename -k u
+If you want to truncate all filenames to the MS-DOS format, type :
+    files rename -x 8.3
+Numbering of files can be obtained with the -d flag set to 1. The numbering
+scheme can't be specified on the command line so the proc will use the last
+settings made in the Rename Files dialog window (or their default  values).
+Here is a more elaborate example. To append a suffix _XY to all files  with
+an html extension, type :
+	files rename -f {(.*)(\.html)} -r {\1_XY\2}
+	
+
+
+# MacMenu Key Bindings
+======================
+
+Most of the actions can be triggered from the keyboard instead  of  opening
+Mac Menu. All of them are obtained by typing 'ctrl-z'  on  the  keyboard  :
+MacMenu then expects you to enter a letter to specify which action you  are
+interested in. For instance, to empty the trash without leaving Alpha press
+'ctrl-z', release, then hit 'e'.
+Here is the meaning of the different letters you can use with 'ctrl-z' :
+  'a'	to make <a>liases
+  'b'	to show the <b>indings info window
+  'c'	to <c>opy files
+  'd'	to <d>uplicate files
+  'e'	to <e>mpty the trash
+  'f'	to <f>ree (unlock) locked files
+  'h'	to open Mac s<h>ell
+  'j'	to <e>ject a disk
+  'k'	to change files <k>reator
+  'l'	to <l>ock files
+  'm'	to <m>ove files
+  'p'	to show the cli<p>board in the Finder
+  'r'	to <r>ename files
+  's'	to <s>elect files
+  't'	to send files to the <t>rash
+  'y'	to change files t<y>pe
+  'u'	to <u>ntrash files
+
+
+# End of Tutorial.
+# Last modification : 2001-04-14 19:26:16

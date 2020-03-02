@@ -1,0 +1,490 @@
+# -*-Tcl-*- (nowrap)
+# Cache v1.2 created on 06/02/2006 {11:06:59 PM}
+set maintainer(changeLogHelper) {0.1 {
+    {Vince Darley} vince@santafe.edu http://www.santafe.edu/~vince/
+}}
+set maintainer(thinkRefMenu) {1.1 {
+}}
+set maintainer(electricMenu) {1.3.7 {
+    "Vince Darley" vince@santafe.edu <http://www.santafe.edu/~vince/>
+}}
+set maintainer(openDocument) {1.2.1 {
+    "Craig Barton Upright" <cupright@alumni.princeton.edu>
+    <http://www.purl.org/net/cbu>
+}}
+set maintainer(aeom) {1.3 {
+    "Jon Guyer" <jguyer@his.com> <http://www.his.com/jguyer/>
+}}
+set maintainer(InSh) {1.3.6 {
+  "Fr\u00e9d\u00e9ric Boulanger"  <Frederic.Boulanger@supelec.fr>  <http://wwwsi.supelec.fr/fb/fb.html>
+}}
+set maintainer(javadocComment) {0.1 {
+    {Vince Darley} <vince@biosgroup.com> <http://www.biosgroup.com/>
+}}
+set maintainer(C) {1.4.5 {
+}}
+set maintainer(Stta) {2.3b1 {
+    "Craig Barton Upright" <cupright@alumni.princeton.edu>
+    <http://www.purl.org/net/cbu>
+}}
+set maintainer(MPW) {0.6.1 {
+    "Bernard Desgraupes" <bdesgraupes@easyconnect.fr> <http://webperso.easyconnect.fr/bdesgraupes/alpha.html> 
+}}
+set maintainer(bibToHtml) {3.0 {
+    "Pierre Basso" <basso@lim.univ-mrs.fr>
+}}
+set maintainer(mailTcllib) {2.0 {
+    "Craig Barton Upright" <cupright@alumni.princeton.edu>
+    <http://www.purl.org/net/cbu>
+}}
+set maintainer(elecCompletions) {9.1.3 {
+    "Vince Darley" <vince@santafe.edu> <http://www.santafe.edu/~vince/>
+}}
+set maintainer(helpMenu) {1.8.4 {
+    "Craig Barton Upright" <cupright@alumni.princeton.edu>
+    <http://www.purl.org/net/cbu>
+}}
+set maintainer(VB) {0.1 {
+}}
+set maintainer(internationalMenus) {0.4.1 {
+}}
+set maintainer(statusPopupMenus) {1.1 {
+    "AlphaTcl Development Community"
+}}
+set maintainer(emacs) {0.3.3 {
+}}
+set maintainer(m4) {0.1 {
+    {Bernard Desgraupes} <bdesgraupes@easyconnect.fr> <http://webperso.easyconnect.fr/bdesgraupes/>
+}}
+set maintainer(rememberWindows) {0.4.0 {
+    "Vince Darley" vince@santafe.edu <http://www.santafe.edu/~vince/>
+}}
+set maintainer(identities) {0.3 {
+    {Craig Barton Upright} <cbupright@earthlink.net>
+}}
+set maintainer(calculator) {1.0 {
+    "Craig Barton Upright" <cupright@alumni.princeton.edu>
+    <http://www.purl.org/net/cbu>
+}}
+set maintainer(vfsFileset) {0.3.7 {
+    {Vince Darley} vince@santafe.edu http://www.santafe.edu/~vince
+}}
+set maintainer(makeMenu) {0.2 {
+    "No-one" 
+}}
+set maintainer(Scil) {1.0 {
+}}
+set maintainer(reportABug) {1.7.4 {
+    "Craig Barton Upright" <cupright@alumni.princeton.edu>
+    <http://www.purl.org/net/cbu>
+}}
+set maintainer(colorMenu) {1.2.3 {
+    "Craig Barton Upright" <cupright@alumni.princeton.edu>
+    <http://www.purl.org/net/cbu>
+}}
+set maintainer(macros) {2.0.1 {
+    "Craig Barton Upright" <cupright@alumni.princeton.edu>
+    <http://www.purl.org/net/cbu>
+}}
+set maintainer(tkhtmlViewer) {0.2 {
+    "Vince Darley" <vince@santafe.edu> <http://www.santafe.edu/~vince/>
+}}
+set maintainer(marks) {1.0.1 {
+}}
+set maintainer(Clan) {1.1 {
+}}
+set maintainer(versionControl) {0.3.1 {
+    {Jon, Vince and others}
+}}
+set maintainer(speech) {1.3.2 {
+    "Craig Barton Upright" <cupright@alumni.princeton.edu>
+    <http://www.purl.org/net/cbu>
+}}
+set maintainer(mailSystem) {2.0 {
+    "Craig Barton Upright" <cupright@alumni.princeton.edu>
+    <http://www.purl.org/net/cbu>
+}}
+set maintainer(incrementalSearch) {1.2.1 {
+}}
+set maintainer(newDocument) {1.0.3 {
+    "Craig Barton Upright" <cupright@alumni.princeton.edu>
+    <http://www.purl.org/net/cbu>
+}}
+set maintainer(elecExpansions) {9.1.3 {
+    "Tom Fetherston" "<ranch1@earthlink.net>"
+}}
+set maintainer(toolboxRefMenu) {1.1 {
+}}
+set maintainer(filesetMenu) {2.1.6 {
+    "Vince Darley" vince@santafe.edu <http://www.santafe.edu/~vince/>
+}}
+set maintainer(wikiMenu) {1.2b8 {
+}}
+set maintainer(Igor) {1.1.1 {
+}}
+set maintainer(copyRing) {1.7.4 {
+    "Craig Barton Upright" <cupright@alumni.princeton.edu>
+    <http://www.purl.org/net/cbu>
+}}
+set maintainer(voodooMenu) {2.0.2 {
+    {Jonathan Guyer} <jguyer@his.com> <http://www.his.com/jguyer/>
+}}
+set maintainer(S) {2.3 {
+    "Craig Barton Upright" <cupright@alumni.princeton.edu>
+    <http://www.purl.org/net/cbu>
+}}
+set maintainer(recentFiles) {1.3 {
+    "Vince Darley" <vince.darley@gmail.com> <http://www.santafe.edu/~vince/>
+}}
+set maintainer(ODBEditor) {1.0b3 {
+    "Jon Guyer" <jguyer@his.com> <http://www.his.com/jguyer/>
+}}
+set maintainer(elecCorrections) {1.1b2 {
+    "Craig Barton Upright" <cupright@alumni.princeton.edu>
+    <http://www.purl.org/net/cbu>
+}}
+set maintainer(man) {0.1.5 {
+}}
+set maintainer(windowZoom) {1.0.1 {
+    "Joachim Kock" <kock@math.unice.fr>
+}}
+set maintainer(Pyth) {1.0.3 {
+}}
+set maintainer(MATL) {2.0.8 {
+    "Stephen M. Merkowitz" <Stephen.Merkowitz@lnf.infn.it>
+}}
+set maintainer(Objc) {1.4.2 {
+}}
+set maintainer(autoSaveOnSwitch) {0.1.1 {
+    "Craig Barton Upright" <cupright@alumni.princeton.edu>
+    <http://www.purl.org/net/cbu>
+}}
+set maintainer(filesets) {2.1b1 {
+    "Vince Darley" <vince@santafe.edu> <http://www.santafe.edu/~vince/>
+}}
+set maintainer(tags) {0.3.1 {
+}}
+set maintainer(recentDirsMenu) {1.3.8 {
+    "Craig Barton Upright" <cupright@alumni.princeton.edu>
+    <http://www.purl.org/net/cbu>
+}}
+set maintainer(f2cMenu) {2.0 {
+    "Jon Guyer" <jguyer@his.com> <http://www.his.com/jguyer/>
+}}
+set maintainer(Diff) {4.1 {
+    "Vince Darley" <vince@santafe.edu> <http://www.santafe.edu/~vince/>
+    and "Joachim Kock" <kock@mat.uab.es> <http://mat.uab.es/~kock/>
+}}
+set maintainer(Mf) {2.1 {
+    "Bernard Desgraupes" <bdesgraupes@easyconnect.fr> <http://webperso.easyconnect.fr/bdesgraupes/alpha.html> 
+}}
+set maintainer(terminal) {1.5.1 {{Lars Hellström} Lars.Hellstrom@math.umu.se}}
+set maintainer(smartPaste) {0.7.4 {
+    {Vince Darley} <vince@santafe.edu> <http://www.santafe.edu/~vince/>
+}}
+set maintainer(latexSizes) {1.0 {
+    {Vince Darley} <vince@santafe.edu> <http://www.santafe.edu/~vince/>
+}}
+set maintainer(dtd) {0.4.2 {
+}}
+set maintainer(Setx) {2.6b1 {
+    "Craig Barton Upright" <cupright@alumni.princeton.edu>
+    <http://www.purl.org/net/cbu>
+}}
+set maintainer(contextualMenu) {1.2.1 {
+    "Craig Barton Upright" <cupright@alumni.princeton.edu>
+    <http://www.purl.org/net/cbu>
+}}
+set maintainer(HTML) {3.2b1 {
+	"Johan Linde" <alpha_www_tools@go.to> <http://go.to/alpha_www_tools>
+}}
+set maintainer(supersearch) {1.8.8 {
+    {Vince Darley} <vince@santafe.edu> <http://www.santafe.edu/~vince/>
+}}
+set maintainer(prettyComments) {0.1 {
+    {It could be you!}
+}}
+set maintainer(vcVoodoo) {0.2 {
+    {Jonathan Guyer} <jguyer@his.com> <http://www.his.com/~jguyer/Alpha/>
+}}
+set maintainer(vcPerforce) {0.3 {
+    {Vince Darley} <vince@santafe.edu> <http://www.santafe.edu/~vince/>
+}}
+set maintainer(embrace) {1.1.6 {
+    "Joachim Kock" <kock@math.uqam.ca>
+}}
+set maintainer(SAS) {2.3 {
+    "Craig Barton Upright" <cupright@alumni.princeton.edu>
+    <http://www.purl.org/net/cbu>
+}}
+set maintainer(bat) {0.2 {
+}}
+set maintainer(mailMenu) {2.0 {
+    "Craig Barton Upright" <cupright@alumni.princeton.edu>
+    <http://www.purl.org/net/cbu>
+}}
+set maintainer(Scrp) {2.3 {
+    "Bernard Desgraupes" <bdesgraupes@easyconnect.fr>  <http://webperso.easyconnect.fr/bdesgraupes/alpha.html> 
+}}
+set maintainer(Vlog) {0.2.1 {
+}}
+set maintainer(xserv) {2.0.2 {
+  "Fr\u00e9d\u00e9ric Boulanger"  <Frederic.Boulanger@supelec.fr>  <http://wwwsi.supelec.fr/fb/>  }}
+set maintainer(Lisp) {2.3 {
+    "Craig Barton Upright" <cupright@alumni.princeton.edu>
+    <http://www.purl.org/net/cbu>
+}}
+set maintainer(sourceforgeMenu) {0.3.5 {
+    {Vince Darley} vince@santafe.edu http://www.santafe.edu/~vince/
+}}
+set maintainer(C++) {1.4.5 {
+}}
+set maintainer(clipboardPreferences) {1.3 {
+    "Craig Barton Upright" <cupright@alumni.princeton.edu>
+    <http://www.purl.org/net/cbu>
+}}
+set maintainer(PS) {0.6.3 {
+    "Bernard Desgraupes" <bdesgraupes@easyconnect.fr>  <http://webperso.easyconnect.fr/bdesgraupes/alpha.html> 
+}}
+set maintainer(latexMathbb) {1.3.2 {
+    {Vince Darley} <vince@santafe.edu> <http://www.santafe.edu/~vince/>
+}}
+set maintainer(Wiki) {{for wikiMenu menu} {
+}}
+set maintainer(tclproUtils) {0.4.0 {
+    "Vince Darley" vince@santafe.edu <http://www.santafe.edu/~vince/>
+}}
+set maintainer(betterTemplates) {9.3.1 {
+    "Craig Barton Upright" <cupright@alumni.princeton.edu>
+    <http://www.purl.org/net/cbu>
+}}
+set maintainer(Mp) {2.2 {
+	"Bernard Desgraupes" <bdesgraupes@easyconnect.fr> <http://webperso.easyconnect.fr/bdesgraupes/> 
+}}
+set maintainer(bibConvert) {2.0.2 {
+    "Vince Darley" <vince@santafe.edu> <http://www.santafe.edu/~vince/>
+}}
+set maintainer(searchPaths) {1.2.6 {
+    "Vince Darley" <vince@santafe.edu> <http://www.santafe.edu/~vince/>
+}}
+set maintainer(Brws) {14.1.4 {
+}}
+set maintainer(M2) {4.2.1 { 
+    "Andreas Fischlin" <RAMSES@env.ethz.ch>
+    <http://www.ito.ethz.ch/SysEcol/People/af/Fischlin_Andreas.html>
+    and
+    <http://www.sysecol.ethz.ch/SimSoftware/RAMSES/>
+}}
+set maintainer(colorPrefs) {0.1.1 {
+}}
+set maintainer(latexColors) {0.5 {
+    "Craig Barton Upright" <cupright@alumni.princeton.edu>
+    <http://www.purl.org/net/cbu>
+}}
+set maintainer(PHP) {0.1.2 {
+}}
+set maintainer(documentProjects) {2.0.2 {
+    "Vince Darley" <vince@santafe.edu> <http://www.santafe.edu/~vince/>
+}}
+set maintainer(SPSS) {2.3 {
+    "Craig Barton Upright" <cupright@alumni.princeton.edu>
+    <http://www.purl.org/net/cbu>
+}}
+set maintainer(wwwServices) {1.0 {
+    "Vince Darley" <vince@santafe.edu> <http://www.santafe.edu/~vince/>
+}}
+set maintainer(licenseTemplates) {0.3 {
+    "Craig Barton Upright" <cupright@alumni.princeton.edu>
+    <http://www.purl.org/net/cbu>
+}}
+set maintainer(JScr) {1.1.4 {
+    "Johan Linde" <alpha_www_tools@go.to> <http://go.to/alpha_www_tools>
+}}
+set maintainer(mailEudora) {2.0 {
+    "AlphaTcl Development Community"
+}}
+set maintainer(projectBuilderMenu) {0.1 {
+    "Jon Guyer" <jguyer@his.com> <http://www.his.com/jguyer/>
+}}
+set maintainer(Scm) {2.2 {
+    "Craig Barton Upright" <cupright@alumni.princeton.edu>
+    <http://www.purl.org/net/cbu>
+}}
+set maintainer(coq) {0.1 {
+    "Joachim Kock" <kock@mat.uab.es>
+}}
+set maintainer(Fort) {2.0 {
+    "Craig Barton Upright" <cupright@alumni.princeton.edu>
+    <http://www.purl.org/net/cbu>
+}}
+set maintainer(vcCvs) {0.4.1 {
+    {Vince Darley} <vince@santafe.edu> <http://www.santafe.edu/~vince/>
+}}
+set maintainer(alphaServer) {3.0 {
+    "Fr\u00e9d\u00e9ric Boulanger"
+    <Frederic.Boulanger@supelec.fr>
+    <http://wwwsi.supelec.fr/fb/>
+}}
+set maintainer(bibDelimited) {1.0 {
+    "Craig Barton Upright" <cupright@alumni.princeton.edu>
+    <http://www.purl.org/net/cbu>
+}}
+set maintainer(filtersMenu) {2.1 {
+    "Bernard Desgraupes" <bdesgraupes@easyconnect.fr> <http://webperso.easyconnect.fr/bdesgraupes/> 
+}}
+set maintainer(latexAccents) {1.3.0 {
+    {Dominique d'Humières} <dominiq@physique.ens.fr>
+    {F. Miguel Dionísio}   <fmd@math.ist.utl.pt>
+}}
+set maintainer(xsl) {0.4.2 {
+}}
+set maintainer(favoritesMenu) {1.0.1 {
+    "Craig Barton Upright" <cupright@alumni.princeton.edu>
+    <http://www.purl.org/net/cbu>
+}}
+set maintainer(addressBook) {1.1 {
+    "Craig Barton Upright" <cupright@alumni.princeton.edu>
+    <http://www.purl.org/net/cbu>
+}}
+set maintainer(CSS) {2.2b1 {
+	"Johan Linde" <alpha_www_tools@go.to> <http://go.to/alpha_www_tools>
+}}
+set maintainer(Ruby) {0.1 {
+}}
+set maintainer(fileCompression) {0.4.1 {
+    "Craig Barton Upright" <cupright@alumni.princeton.edu>
+    <http://www.purl.org/net/cbu>
+}}
+set maintainer(Java) {1.23 {
+}}
+set maintainer(mapl) {1.1.5 {
+    "Joachim Kock" <kock@math.unice.fr> 
+}}
+set maintainer(wwwDictionary) {1.0.1 {
+    "Craig Barton Upright" <cupright@alumni.princeton.edu>
+    <http://www.purl.org/net/cbu>
+}}
+set maintainer(Perl) {3.7b1 {
+}}
+set maintainer(sh) {2.0 {
+    "Craig Barton Upright" <cupright@alumni.princeton.edu>
+    <http://www.purl.org/net/cbu>
+}}
+set maintainer(tcl/TkExtendedC) {0.2 {
+    "Craig Barton Upright" <cupright@alumni.princeton.edu>
+    <http://www.purl.org/net/cbu>
+}}
+set maintainer(teXServices) {1.0 {
+    "Frédéric Boulanger" <Frederic.Boulanger@supelec.fr>
+}}
+set maintainer(Bib) {4.4.1 {
+    "Craig Barton Upright" <cupright@alumni.princeton.edu>
+    <http://www.purl.org/net/cbu>
+}}
+set maintainer(TIP) {0.4.4 {
+}}
+set maintainer(dictionary) {2.3.5 {
+    "Joachim Kock" <kock@mat.uab.es>
+}}
+set maintainer(macMenu) {2.3 {
+    "Bernard Desgraupes" <bdesgraupes@easyconnect.fr> <http://webperso.easyconnect.fr/bdesgraupes/> 
+}}
+set maintainer(frontierMenu) {2.2.1 {
+	"Johan Linde" <alpha_www_tools@go.to> <http://go.to/alpha_www_tools>
+}}
+set maintainer(Ada) {1.0.4 {
+}}
+set maintainer(f90) {2.0 {
+    "Craig Barton Upright" <cupright@alumni.princeton.edu>
+    <http://www.purl.org/net/cbu>
+}}
+set maintainer(terminalPuts) {1.5.1 {{Lars Hellström} Lars.Hellstrom@math.umu.se}}
+set maintainer(bibtexLogHelper) {1.8.8 {
+    "Vince Darley" vince@santafe.edu <http://www.santafe.edu/~vince/>
+}}
+set maintainer(specialCharacters) {1.0.1 {
+    "Craig Barton Upright" <cupright@alumni.princeton.edu>
+    <http://www.purl.org/net/cbu>
+}}
+set maintainer(notes) {1.1 {
+    "Craig Barton Upright" <cupright@alumni.princeton.edu>
+    <http://www.purl.org/net/cbu>
+}}
+set maintainer(alphaDeveloperMenu) {1.3 {
+    "Vince Darley" <vince@santafe.edu> <http://www.santafe.edu/~vince/>
+}}
+set maintainer(TeX) {6.0a2 {
+    "Frédéric Boulanger"
+}}
+set maintainer(xml) {0.5.0 {
+}}
+set maintainer(wwwMenu) {2.5.1 {
+    "Craig Barton Upright" <cupright@alumni.princeton.edu>
+    <http://www.purl.org/net/cbu>
+}}
+set maintainer(isoTime) {1.8 {
+    "Frédéric Boulanger" <Frederic.Boulanger@supelec.fr> <http://wwwsi.supelec.fr/fb/fb.html>
+}}
+set maintainer(Tcl) {3.1.1 {
+    "Vince Darley" <vince@santafe.edu> <http://www.santafe.edu/~vince/>
+}}
+set maintainer(vcLocal) {0.2 {
+    {Vince Darley} <vince@santafe.edu> <http://www.santafe.edu/~vince/>
+}}
+set maintainer(functionComments) {0.1.5 {
+    "Vince Darley" vince@santafe.edu <http://www.santafe.edu/~vince/>
+}}
+set maintainer(windowUtilities) {1.3.2 {
+    "Vince Darley" <vince@santafe.edu> <http://www.santafe.edu/~vince/>
+}}
+set maintainer(bibToRefer) {1.3 {
+    "Craig Barton Upright" <cupright@alumni.princeton.edu>
+    <http://www.purl.org/net/cbu>
+}}
+set maintainer(userMenu) {0.7 {
+    "Bernard Desgraupes" <bdesgraupes@easyconnect.fr> 
+}}
+set maintainer(internetConfigMenu) {1.1 {
+    "Craig Barton Upright" <cupright@alumni.princeton.edu>
+    <http://www.purl.org/net/cbu>
+}}
+set maintainer(fileServices) {1.0 {
+    "Vince Darley" <vince@santafe.edu> <http://www.santafe.edu/~vince/>
+}}
+set maintainer(latexBbToViewport) {0.1.1 {
+    {Vince Darley} <vince@santafe.edu>
+}}
+set maintainer(Caml) {1.0.2 {
+    "Patrick Cousot" <cousot@dmi.ens.fr> <http://www.dmi.ens.fr/~cousot/>
+}}
+set maintainer(version) {2.0.4 {
+    "Jon Guyer" <jguyer@his.com> <http://www.his.com/jguyer/>
+}}
+set maintainer(manipCols) {1.2.2 {
+    "Bernard Desgraupes" <bdesgraupes@easyconnect.fr> <http://webperso.easyconnect.fr/bdesgraupes/> 
+}}
+set maintainer(codewarriorMenu) {3.1 {
+    "Bernard Desgraupes" <bdesgraupes@easyconnect.fr> <http://webperso.easyconnect.fr/bdesgraupes/> 
+    "Jon Guyer" <jguyer@his.com> <http://www.his.com/jguyer/>
+}}
+set maintainer(globalM2Bindings) {1.1.1 { 
+    "Andreas Fischlin" <andreas.fischlin@env.ethz.ch> <http://www.ito.ethz.ch/SysEcol> 
+}}
+set maintainer(comments) {1.0.1 {
+    "Vince Darley" <vince@santafe.edu>
+}}
+set maintainer(C#) {0.1.1 {
+}}
+set maintainer(make) {0.2 {
+    {Vince Darley} <vince@santafe.edu> <http://www.santafe.edu/~vince/>
+}}
+set maintainer(eeMenu) {0.3.1 {{Lars Hellström} Lars.Hellstrom@math.umu.se}}
+set maintainer(dot) {0.2 {
+    "Joachim Kock" <kock@math.uqam.ca>
+}}
+set maintainer(GPLT) {2.1.3 {
+    "Jeff Schindall" <jeff@wave.nrl.navy.mil>
+}}
+set maintainer(Plc) {1.0.4 {
+    "Bernard Desgraupes" <bdesgraupes@easyconnect.fr>  <http://webperso.easyconnect.fr/bdesgraupes/alpha.html> 
+}}

@@ -1,0 +1,2624 @@
+ 
+The Alpha Manual
+
+                                               version: 8.1a5
+                                               created: 07/24/1996 {10:12:29 PM}
+                                           last update: 05/23/2006 {11:18:14 AM}
+
+
+	Copyright © 1990-2006 Pete Keleher. All Rights Reserved
+ 
+The Tcl code is copyright its respective authors
+
+	Legal notice
+
+The Author(s) of this product are in no way liable for any direct or indirect
+damage caused by the product.
+
+You may freely copy and distribute Alpha, but please bear in mind that Alpha
+is Shareware.  If you decide to keep it, please <<register>> your copy.  See
+the file "license.terms" for information on usage and redistribution of this
+software, and for a DISCLAIMER OF ALL WARRANTIES.
+
+
+	A few quick notes about AlphaTcl/8/X/tk documentation: 
+
+(1) The manual is always being updated, and is (always) about 90% finished.
+Other parts of the documentation still need a major overhaul.
+
+(2) In this file, we make many references to the "Config > Preferences"
+submenu.  In many cases the leading "Config" is left out of the menu
+directions, because we get very tired of typing that very long string, so note
+that
+
+    "Prefs > Interface > Appearance"
+
+is really just a shorthand for
+
+    "Config > Preferences > Interface Preferences > Appearance"
+
+where "Appearance" refers to a particular pane of that dialog.
+
+If there is possible confusion with the "Config > Mode Prefs" submenu, then
+we'll type the whole string for you.
+
+(3) In many cases, there is a handy hyperlink looking something like this:
+
+Preferences: Appearance
+
+in a section which makes references to the preferences found in that
+particular dialog -- clicking on this hyperlink with your mouse will open the
+preferences dialog for you.  (The dialog that you see is an abbreviated
+version of
+
+Preferences: InterfacePreferences
+
+which, as you might notice, often takes longer to appear.)
+
+Any changes that you make to the various settings will be saved between
+editing sessions.
+
+(4) In this file, as in most Help documents, 'Alpha' refers to the entire
+family of applications using the AlphaTcl library, including all of Alpha8,
+AlphaX, and Alphatk.  Alpha7 is the proud ancestor of these applications, but
+has since been retired -- 7.6 was the final release in the 7.x series, and all
+future development work is now devoted to this next (current!)  generation of
+Text editors.
+
+
+	  	Table Of Contents
+
+"# Introduction"
+"#   How to navigate the documentation"
+"#   Differences between 'Alpha' and 'AlphaTcl'"
+"#   Differences between 'Alpha' and 'Alphatk'"
+
+"# Alpha's Menus"
+"#   File"
+"#   Edit"
+"#   Text"
+"#   Search"
+"#   Utils"
+"#   Config"
+"#   Windows (an icon with three windows)"
+"# Basic editing"
+"#   Help"
+"#   Moving the Cursor"
+"#   Selecting Text"
+"#   Deleting Text"
+"#   Twiddle, Shifting Text"
+"#   The Numeric Keypad"
+"#   Drag and Drop editing"
+"#   Rectangular Editing"
+"# Fill Routines"
+"#   Fill Paragraph"
+"#   Wrap Paragraph"
+"#   Word Breaking"
+"# Keyboard Shortcuts"
+"# International Users"
+"# Undo + Redo"
+"# Text Wrapping"
+"# Indentation"
+
+"# User interface details"
+"#   Horizontal scrollbar"
+"#   Dynamic menus"
+"#   Tear-off menus"
+"#   Status bar"
+"#   Funcs menu"
+"#   Marks menu"
+"#   Icons"
+"#   Title bar"
+"#   Split-pane bar"
+"#   Iconified (minimized) windows"
+"#   Contextual Menu"
+"#   Dialogs"
+"# Tiling windows"
+"#   Vertically"
+"#   Horizontally"
+"#   Unequal Vert and Unequal Hor"
+"# File formats"
+"#   State pop-up menu"
+"#   Format pop-up menu"
+"#   File encodings"
+"#   Open file dialog"
+"#   Paragraph format"
+"# Helper Applications"
+"#   Unix Issues"
+"# Spell Checking"
+"# Command-clicking"
+"# Command-Double-Clicking"
+"# Search and Replace"
+"#   Incremental Searches"
+"#   Browser Windows"
+
+"# Modes"
+"#   Initial Mode Selection"
+"#   Changing Active Window Modes"
+"# Alpha's Preferences"
+"#   Default Prefs Folder"
+"#   User-Defined Prefs Folder"
+"#   Upgrading from 7.x"
+"#   Global and mode preferences"
+"#   Coloring"
+"# Packages"
+"# Menus and Features"
+"# Electrics - automatic typing by Alpha"
+"#   Electric completions"
+"#   Electric expansions"
+"#   Special keys dialog"
+"# Regular Expressions"
+"# File Patterns"
+"# Marks"
+"# File Comparison"
+"# Backups"
+"#   Auto saving"
+"# Tags"
+"# Calculator"
+
+"# Unicode and Encodings"
+"#   Editing files with various encodings"
+"#   Saving in different encodings"
+"#   Specifying encodings"
+"#   Sourcing files"
+
+"# The Command Line"
+"#   AlphaX/Alphatk support"
+"#   Alphatk support"
+"# Using Alpha as a Helper Application"
+
+"# Installing New Packages"
+"#   Where to find new packages"
+"#   What is already installed?"
+"#   Installing"
+"#   If something goes wrong"
+"# Uninstalling Packages"
+"# User Defined Keyboard Shortcuts"
+"# Changing Alpha's behavior"
+"# AlphaTcl-Developers mailing list"
+
+"# Acknowledgments"
+"# Copyright, Credits"
+
+
+	  	Introduction
+
+
+Alpha is a very powerful, multi-purpose text editor.
+
+A central concept in Alpha is that of "Modes".  A mode is a configuration of
+features tailor-made for a specific editing task, and Alpha automatically
+enters the appropriate mode for the sort of document being edited.  For
+example, in HTML mode there are special menus with all sorts of fancy tools
+for editing html documents, and the text is automatically colored according to
+the html syntax to make it easier to read; TeX mode provides all sorts of
+automatic help for tex coding, and also support for seamless communication with
+a tex compiler; and so on.  Alpha has more than 50 different modes, including
+most programming languages.
+
+Alpha determines the mode from the file name extension (e.g. .html); otherwise
+you can change mode manually by selecting "Config > Mode Prefs > Change Mode".
+For help on mode-specific issues, consult the mode help file --- pressing
+Control-Help opens the help file for the active mode.  Selecting the menu item
+"Config > Mode Prefs > Describe Mode" will provide more technical information
+regarding the mode.
+
+Alpha is very customizable.  Much of Alpha's functionality is implemented in
+'packages' or 'extensions'.  The "Config > Global Setup > Features" and
+"Config > Mode Prefs > Features" menu items let you see which items are
+installed, and lets you turn them on and off.
+
+Preferences: Features
+
+
+	  	 	How to navigate the documentation
+
+
+You can quickly jump between different sections of the manual by using the
+"Marks Menu" you find under the "paperclick" icon at the right top of this or
+any other Help window.  Also, Alpha supports a limited form of hypertext.
+Clicking on colored, underlined text executes a command associated with the
+underlined text, usually taking you to other documentation, like this:
+
+    jump to "Quick Start"
+
+When clicking on such a hyperlink, a "bookmark" is placed at the current
+cursor location.  The menu item "Search > Return To Bookmark" or its
+associated keyboard shortcut will bring you back to where you started.
+
+This manual is divided into four major sections.  The first one deals
+primarily with "# Alpha's Menus", "# Basic Editing", and other textual
+manipulation issues.  The second addresses some "# User interface details"
+more specific to Alpha, such as file marking, window management, and 
+information providers like Command-Double-Clicking.
+
+The third section introduces "# Modes" and "# Packages", including some of the
+"# Menus and Features" that are available in the AlphaTcl library.  These are
+the items that sets Alpha apart from most text editors available -- many of
+these features are addressed in greater detail in other Help files/windows.
+Information on "# The Command Line" is also presented.  The final section
+contains information on changing or extending Alpha's behavior.
+
+
+	  	 	Differences between 'Alpha' and 'AlphaTcl'
+
+
+The program Alpha has two parts: one compiled binary part and a big library of
+scripts written in Tcl (Dr.  Ousterhout's Tool Command Language).  The binary
+part handles windows, mouse movements, and all such, and then it has a
+built-in Tcl interpreter which drives the second part AlphaTcl, the vast
+library of Tcl scripts that provide most of Alpha's functionality.  Most
+editing functions, actions taken when a menu item is selected or a key
+combination is pressed, and all of Alpha's packages and extensions are
+implemented in Tcl.  With this design it is easy to configure and extend Alpha
+--- anybody can tweak Alpha's behavior by modifying Tcl functions, or extend
+Alpha by writing a new package!
+
+Of course, you don't have to learn Tcl to use Alpha --- Alpha is designed to
+be operated through a graphical user interface, and in normal operation you
+will never be confronted with Tcl.  But if you want to become a real power
+user, you should consider taking a look at Tcl --- it is one of the easiest
+scripting languages to learn.  Then the possibilities of customizing Alpha are
+unlimited.
+
+
+	  	 	Differences between 'Alpha' and 'Alphatk'
+
+
+Alpha was originally implemented by Pete Keleher on MacOS, and simply used Tcl
+internally as a scripting and extension language.
+
+Alphatk emulates the Tcl commands which Alpha originally exported from C:
+there are several hundred of these which are used to create windows, menus,
+dialogs, and handle editing, searching etc.  All of these had to be written
+from scratch.  Simultaneously, the rest of the Tcl code which had been written
+over the years to make Alpha a sophisticated 'mode-aware' text editor
+underwent extensive work to make it independent of the differences between
+Tk's and Alpha's views of the world.  The result of that work is the
+'AlphaTcl' library of code, which is now more or less shared by all versions
+of Alpha and Alphatk.  The AlphaTcl library is now open source and available
+on sourceforge.net
+
+These two 'users' of the AlphaTcl library are separate products, and each has
+different licensing, copyright and payment methods.  Licensing for one product
+cannot be transferred to the other, see the <<register>> help for information
+on registering the product you are currently using.
+
+In this document, as in most Help files, 'Alpha' refers to whichever
+application you are using.  Also, in the Windows OS there is no "Command" key,
+so you'll have to translate that as "Alt" whenever you see it.
+
+
+	======================================================================
+
+
+	  	Alpha's Menus
+
+
+This section is an explanation of Alpha's main menus, from "File" to "Windows"
+(menu with the window icons).  The menu items listed here are the ones
+available when no features are have been turned on by using the menu item
+"Config > Global Setup > Features".  (Some of these features add new menu
+items or new submenus to Alpha's main menus.)
+
+Preferences: Features
+
+Alpha8/X uses Ramon Felciano's Mercury MDEF to display menus.  In addition to
+allowing other modifiers to be shown in the menu, this MDEF also allows
+alternates, items that change depending on the state of the modifier keys.
+Alternate items are tagged below by the modifier that must be pressed to
+display it.
+
+	  	 	File
+
+
+  New                           New file.
+  Open…                         Open file.
+  Open Via Fileset… (Option)    Open a file via a fileset.
+  Open Remote… (Control)        Open a file from a remote filesystem.
+  Close                         Close file.
+  Close All (Option)            Close all files.
+  Close Float (Shift)           Close a palette.
+
+  Save                          Save file.
+  Save All (Option)             Save all files.
+  Save Unmodified (Control)     Save file without changing the modification 
+                                date.
+  Save As…                      Prompt for name to same file under.
+  Rename To… (Option)           Rename file.
+  Save A Copy As… ()            Save a copy of the open window.
+    
+  Revert To Saved…              Revert to last saved version, 
+                                  throw away undo history. 
+  Revert To Backup (Option)     Revert to last backup copy, if any.
+        
+  File Utils >
+
+    File Remove…                Remove a file.
+    File Info…                  Display/edit info about a file.
+    Text to Alpha…              Set creator of text files in a folder to Alpha.
+    Show in Finder              Select the front window in the Finder.
+    Convert Eols…               Convert end-of-line characters for a selected 
+                                  folder into Mac, Windows, or Unix formats.
+    Hex Dump…                   Display the data of a selected file in hexadecimal
+                                  and ASCII format.
+
+
+  Page Setup…                   Set print options.
+  Print…                        Print window.
+  Print All (Option)            Print all windows.
+
+  Quit                    		Quit Alpha.
+
+
+	  	 	Edit
+
+
+  Undo                          Undo. 
+  Redo                          Redo. 
+
+  Cut                           Cut selection to Clipboard.
+  Copy                          Copy selection to Clipboard.
+  Paste                         Paste from Clipboard.
+  Clear                         Delete selection.
+  Zap Invisibles                 Delete all chars in file with ASCII code 
+                                  < 32, except for LF, TAB and CR.
+
+  Select All                    Select entire file.
+  Select Paragraph (Option)     Select current paragraph.
+  Balance                       Select text out to the next set of 
+								  matching braces.
+  Fold                          Collapse or reveal the current block of text 
+                                (or function), for outlining. (Alphatk only).
+
+  Tab Conversions >
+
+    Leading Tabs To Spaces      Converts leading tabs to space runs.
+    All Tabs To Spaces          Converts all tabs to space runs.
+
+    Leading Spaces To Tabs      Converts leading space strings to tabs.
+    All Spaces To Tabs          Converts all space strings to tabs.
+
+  Indent                        Indent the current line or selection.
+  Shift Left                    Shift selection left one tab.
+  Shift Left Space (Option)     Shift selection left one space.
+  Shift Right                   Shift selection right one tab.
+  Shift Right Space (Option)    Shift selection right one space.
+
+
+	  	 	Text
+
+
+  Fill Paragraph                "Fill" paragraph that contains the cursor.
+  Wrap Paragraph (Option)       Break lines longer than 'fillColumn' in 
+                                  paragraph containing the cursor.
+  Sentence Paragraph            Inserts a line break at the end of each
+                                  sentence in the current paragraph
+  Line To Paragraph             Convert a line to a paragraph.
+  Paragraph to Line (Option)    Convert a paragraph to single line.
+    
+  Sort Lines                    Sort selected lines.
+  Reverse Sort (Option)         Sort selected lines backwards.
+  Sort Paragraphs (Shift)       Sort selected paragraphs.
+  Twiddle                       Exchange characters bracketing the
+								  selection point.
+  Twiddle Words (Option)        Exchange words bracketing the selection point.
+  Upcase Region                 Upcase all chars in region.
+  Downcase Region (Option)      Downcase all chars in region.
+    
+  Strings >
+
+    Insert Prefix               Prepend string 'prefixString' to every line in 
+                                  selection.
+    Remove Prefix (Option)      Remove prefix string from lines in selection. 
+    Insert Suffix               Append string 'suffixString' to every line in 
+                                  selection.
+    Remove Suffix (Option)      Remove suffix string from lines in selection. 
+    Set Prefix                  Change prefix string.
+    Set Suffix                  Change suffix string.
+
+  Comment Line                  Comment out line, considering mode.
+  Uncomment Line (Option)       Un-comment line, considering mode.
+  Comment Box                   Create a comment box around selected text.
+  Uncomment Box (Option)        Remove such a comment box.
+  Comment Paragraph             Comment out a paragraph.
+  Uncomment Paragraph           Uncomment a paragraph.
+
+  (See the package: comments for more information.)
+
+
+	  	 	Search
+
+
+  Find…                         Present a search dialog.
+  Search Start (Option)         Return selection point to where the last search 
+                                  started. 
+  Find Again                    Search forward again with same settings.
+  Find Again Backward (Option)  Search backward again with same settings.
+  Find in Next File             Restart multiple-file search in next file after 
+                                  stopping at a match.
+  Enter Search String           Use the current selection as the search text.
+  Enter Replace String (Option) Use the current selection as replace text.
+
+  Quick Find                    Incremental search forward (grep, match words
+                                  off, ignore case on). Type chars to define 
+                                  string, control-w adds the current word to 
+                                  the search string, control-s/r search for 
+                                  the same string again.
+  Quick Find Regexp (Option)    Same as Quick Find but lets you use a regular
+                                  expression.
+  Reverse Quick Find            Same thing in reverse.
+    
+  Replace                       Replace the selection.
+  Replace and Find Again        Replace the selection and search again forward.
+  Replace All                   Replace all of occurrences of the search string 
+                                  in the rest of the file.
+  Replace in Fileset (Control)  Global replace in fileset.
+    
+  Place Bookmark                Set a book mark at the current position, 
+                                  pushing it onto a "stack".
+  Return to Bookmark            Pop last bookmark from stack and go to it.
+  Goto Line                     Go to specific line number.
+    
+  Matching Lines                Find all lines that match a regular expression 
+                                  and summarize in new window. 
+  Next Match                    Jump to the original text specified by the 
+                                  next line in a "Batch Find" or 
+                                  "Matching Lines" window.
+  Goto Func                     The same as selecting an item in the Funcs menu
+                                  (the one with two curly braces at the right
+                                  top of the window)
+  Goto File Mark                The same as selection an item in the Marks menu
+                                  (the one with the M icon at the right top
+                                  of the window)
+  Mark Hilite                   Select text last manipulated, such as from
+                                   a paste.
+
+  Named Marks >                 Manipulating named marks in the current window.
+  
+    Mark File                   Mark the current window in a mode specific 
+                                   way.  See "# Marks Menu" below.
+    Display Named Marks         Display all marks in a new window.
+    Float Named Marks           Create a 'floating' menu with all of the
+                                   named marks as menu items.
+
+    Set Named Mark…             Create a new mark in the current window.
+    Remove Named Mark…          Remove a previously set mark.
+    Remove All Marks            Remove all marks from the current window.
+
+    Sort Alphabetically         Sort all Marks Menu items alphabetically.
+    Sort By Position            Sort all Marks Menu items by position.
+
+  The Pin >
+
+    Set Pin…                    Set the "Window Pin" to the cursor location.
+    Exchange Point And Pin      Move the cursor to the Pin location, setting 
+                                  the Pin to the previous cursor location.
+    Hilite To Pin               If no selection, highlight the regions between
+                                  the cursor and the Pin, otherwise set the Pin 
+                                  to the end of the selection and move the
+                                  cursor to the beginning of the selection.
+
+
+	  	 	Utils
+
+
+  Compare >
+
+    Windows                     Compare top two windows, sending output to
+                                  a third.  Selecting a line in the third 
+                                  window and hitting return (or enter) moves
+                                  that line to the top of the window.
+    Files…                      Same as above, but prompts for files.
+    Directories…                As above, but works for entire folders. 
+    
+  Win Utils >
+
+    Insert Path Name…           Prompt for a file and insert complete pathname
+                                in window.
+    Insert File…                Insert the text of another file.
+    
+  Ascii Etc >
+
+    Quote Char                  Wait for key press and insert key.
+    Key Code…                   Wait for key press and insert keycode and 
+                                  modifier string suitable for creating a
+                                  new keyboard shortcut.
+    Key Ascii…                  Same as above, but use ascii form.
+    Get Ascii…                  Display ascii code for char to right of cursor.
+    Insert Ascii…               Prompt for ascii code and insert character.
+        
+  Calculator (Shift)            See the "Calculator Help" file.
+  Tcl Shell                     Start up command-line shell that interprets Tcl 
+                                  commands. The shell has a few csh-type
+                                  features, such as 'ls', 'rm', etc. commands,
+                                  as well as file completion with the TAB key. 
+  Spellcheck Window/Selection   See help for the package: spellcheck .
+  Word Count                    Count lines, words, chars in window.
+
+  Send URL                      Send selection as URL to proper internet
+                                  application.
+  Cmd-Double Click              See "# Command-Double-Clicking" below.
+                            
+	  	 	Config
+
+
+  Global Setup                  Set global environment options.
+
+    Menus…                      Change global menus.
+    Features…                   Change global features.
+    Suffix Mappings…            Displays and allows editing of suffixes (really
+                                  filename patterns) for all existing modes.
+    Arrange Menus…              Change the order of globally activated 
+                                  menus that appear in the menu bar
+    Helper Applications…        Set the signature/path of applications with
+                                  which Alpha interacts.
+    Setup Assistant…            Opens the series of dialogs that appeared when
+                                  you launched Alpha for the first time,
+                                  allowing to adjust your global settings.
+    Create New Mode…            Opens a series of dialogs to create a new
+                                  mode that will be permanently saved.
+
+  Preferences >                 Set global preferences.
+
+    Interface Preferences etc.  The first three items are used to set specific
+                                  global preferences.
+    Package Preferences         This item opens a multi-paned dialog which
+                                  contains preferences for different packages
+                                  that you have already activated.  Other
+                                  package might add additional submenus in
+                                  this section as well.
+    View Saved Settings…        Any variables or flags that you modify during
+                                  the course of a session are saved to files
+                                  in the system preferences folder when
+                                  Alpha quits. This function shows all 
+                                  such saved variables.
+    Remove Saved Settings…      This function allows settings to be removed.
+    Save Preferences Now        Save any preferences set during this session.
+    Edit Prefs File             Put your own arbitrary startup code here. 
+                                Loaded after all standard Tcl code. 
+    Edit User Packages          Alpha also allows you to create a new folder
+                                  in which you can add additional packages.
+                            
+  Mode Prefs >                  Set preferences for current mode.
+
+    Menus and Features…         Change current mode's menus and features.
+    Preferences…                Change options for current mode.
+    Edit Prefs File             Edit mode-specific preferences.  Loaded 
+                                  after mode entered for the first time.
+    Load Prefs File               Load current mode's preferences.
+    Describe mode               Describe current mode's variable settings and 
+                                  keyboard shortcuts.
+  List Bindings                 List all current shortcuts for the current mode.
+    Change Mode…                Change the current mode.
+
+  Packages >
+
+    Describe A Package…         Show a description of a package.
+    Read Help For A Package…    Opens the documentation for a package.
+    Uninstall Some Packages…    Uninstall one or more packages.
+    Install A Package…          Opens a dialog prompting for a url which
+                                  contains a new package to install.
+    List Packages               (Re)Create the "Installed Packages" help file.
+    Rebuild Package Indices     The Alpha's index of all installed 
+                                  packages.
+                            
+  Special Keys…                 Set keyboard shortcuts for electric features.
+  Describe Binding…             Wait for a keystroke, then display the AlphaTcl
+                                  procedure bound to the shortcut.
+  List All Bindings             List all current keyboard shortcuts.
+  List Global Bindings (Option) List all current global keyboard shortcuts.
+
+  Redefine Colors >             See help for the package: colorPrefs .
+            
+
+	  	 	Windows (an icon with three windows)
+
+
+  Zoom                          Zoom windows in and out.
+  Default Size (Option)         Resize window to default size.
+  Choose A Window…              Choose window to select from list
+  Shrink Window…                Change the dimensions of the current window.
+  Arrange Windows…              Change the dimensions of the current window
+                                  and the most recent window, i.e. side by
+                                  side, top and bottom, etc.
+
+  Minimize                      Minimize the active window and bring the next
+                                  forward, or (if all windows are minimized)
+                                  un-minimize the active window.
+  Set Font Tabs…                Change font and/or tabs for current file.
+  Split Window                  Split window into two panes, or unsplit.
+  Other Pane (Option)           Switch to the other pane of a split window.
+  Toggle Scrollbar              Toggle the horizontal scrollbar on the
+								  active window. 
+  Toggle Line Numbers           Toggle the display of line number information
+                                  in the left margin of the active window
+                                  (Alphatk only).
+
+	----------------------------------------------------------------------
+
+
+	  	Basic editing
+
+
+The very basics for editing text with Alpha is the same as in any other Mac
+application, but Alpha has a number of keyboard shortcuts to speed up your
+work, and a couple of features not found in similar applications.  See the
+help file "Keyboard Shortcuts" for an extended discussion.
+
+Emacs user will also be happy to know that many of the basic keyboard
+shortcuts used in Emacs are supported by Alpha.  However, this requires that
+you switch on the Emacs package.  Read more in the file "Emacs Help".
+
+The following is a list of some of the most commonly used keyboard shortcuts
+in Alpha's default setup, those that are generally not listed in any menus:
+
+
+	  	 	Help
+
+'Help'									open the "Alpha Manual" help file
+
+Control-'Help'							open any available help for the mode
+                                          of the active window.
+
+	  	 	Moving the Cursor
+
+
+Left-Arrow                              backward character
+Right-Arrow                             forward character
+
+Command-Left-Arrow                      beginning of line
+Command-Right-Arrow                     end of line
+
+Option-Left-Arrow                       backward one word
+Option-Right-Arrow                      forward one word
+
+
+Up-Arrow                                previous-line
+Down-Arrow                              next-line
+
+Command-Up-Arrow     or  'Home'         beginning of window
+Command-Down-Arrow   or  'End'          end of window
+
+Option-Up-Arrow      or  'Page Up'      move one page backward
+Option-Down-Arrow    or  'Page Down'    move one page forward
+
+Control-Up-Arrow                        scroll window up one line
+Control-Down-Arrow                      scroll window down one line
+
+
+
+	  	 	Selecting Text
+
+
+Shift-Left-Arrow                extend selection one char left
+Shift-Right-Arrow               extend selection one char right
+
+Shift-Up-Arrow                  extend selection one line up
+Shift-Down-Arrow                extend selection one line down
+
+Shift-Option-Left-Arrow         extend selection one word left
+Shift-Option-Right-Arrow        extend selection one word right
+
+Control-H                       select next word
+
+Shift-Command-Left-Arrow        select to beginning of line
+Shift-Command-Right-Arrow       select to end of line
+
+
+Command-B                       select smallest set of parentheses, braces, or 
+(Balance in Text menu)          brackets that encloses the current selection
+
+Double-Clicking                 select a word
+Triple-Clicking                 select a line
+
+
+Control-Double-Clicking on any type of parentheses or bracket selects from the
+parentheses or bracket to its mate.  Without the control key held down, only
+the intervening text is selected.
+
+
+	  	 	Deleting Text
+
+
+'Del'      or  Control-D        delete forward char
+'Delete'                        delete backward char
+Option-D                        delete forward word
+Option-H   or  Option-Delete    delete backward word
+Control-K                       delete to end of line
+
+(Control-D, Option-D, Option-H, Option-Delete and Control-K are only available
+after the package: emacs has been turned on.)
+
+	  	 	Twiddle, Shifting Text
+
+
+The following commands are found in the Text menu.  The keyboard shortcuts are 
+not listed, because they are dependent on your keyboard layout.
+
+Twiddle                         Exchange characters surrounding cursor.
+Twiddle Words                   Exchange words surrounding cursor
+
+Note that the characters affected by Twiddle are determined by the Interface 
+preference for "Twiddle Adjusts".
+
+Preferences: Text
+
+Shift Left                      Shift selection left one tab.
+Shift Left Space                Shift selection left one space.
+Shift Right                     Shift selection right one tab.
+Shift Right Space               Shift selection right one space.
+
+
+	  	 	The Numeric Keypad
+
+
+Alpha is able to use numeric keypad as a navigation tool.  Press Shift-Clear
+(or Shift-Numlock) to turn on this feature.  The current status of Alpha's
+internal "numLock" variable is indicated by the "NLCK" button in the status
+bar menu.  Clicking on this button also toggles "numLock" on and off.  Click
+on this hyperlink <<toggleNumLock>> to locate it.
+
+See the "Keyboard Shortcuts # The Numeric Keypad" help file for more
+information about some of the navigation tools available.
+
+As of this writing, Alphatk has no control over the functions that are bound
+to the numeric keypad keys.
+
+
+	  	 	Drag and Drop editing
+
+
+Alpha supports drag and drop cut, copy, clear, and paste.  To use this
+feature, select some text, then move the cursor over the selected text.  The
+cursor should then turn into an open hand.  Mouse down, and move the cursor to
+the place you wish to paste the text.  When the mouse is released, the
+highlighted text is moved to the new location.
+
+Option-mouse dragging and dropping will always "copy" the dropped text,
+leaving the original in place.  You can also drag selections between windows
+and to and from other applications, including the Finder.  Dragging and
+dropping between windows will always copy rather than moving (in analogy with
+dragging a file from one volume to another in MacOS).  Text dragged to the
+Finder is saved in a text clip file.  Text can be deleted by dragging it to
+the trash can.
+
+You can also drag any text file to an Alpha window to insert the content of
+the file in the window.
+
+
+	  	 	Rectangular Editing
+
+
+If the Option key is pressed while the mouse is dragged, a rectangular section
+of text is selected instead of the normal selection.  This rectangular
+selection may extend over multiple lines, but contains only text between the
+column of the drag start and the column of the drag end.  The drag cannot end
+on a column or row less than the start.  This selection can be extended by
+option-shift-mouse, but not dragged further.
+
+The rectangular selection can be deleted, copied, and pasted.  This is very
+useful for tables and arrays, such as in LaTeX. Usually, the operation will be
+intuitive.  However, if you use proportional fonts the selection may appear
+ragged.  If some of the line contain tabs, the result may not be want you
+want.  Converting tabs to spaces in the desired region before attempting
+rectangular selection usually fixes the problems.
+
+
+	  	Fill Routines
+
+
+The 'fill' and 'wrap' routines reformat text to specified line lengths.  This
+is useful in two case.  First, word processors such as Microsoft Word only
+insert carriage returns at the end of paragraphs.  Secondly, while typing and
+inserting text into pre-existing paragraphs, the line lengths become unequal.
+
+The 'wrap' routine handles word processor documents quickly by merely
+inserting carriage returns as necessary to ensure all lines in the selected
+region are shorter than specified by the preference 'Fill Column'.  Alpha asks
+the user if wrapping should be done whenever the user opens files that have
+lines longer than 'Para Column' characters.  This feature can be defeated by
+including the word
+
+	nowrap
+
+anywhere on the first line.  You can also disable this feature if you turn on
+the Input-Output preference named "Never Wrap On Open".
+
+Preferences: Files
+
+The 'fill' routine goes further.  Not only does it break lines, but it also
+coalesces lines to eliminate short lines.  The routine works by stripping the
+relevant text of white space, then re-inserting white space and carriage
+returns so that no line extends past 'Fill Column' characters in length and
+begins with 'Left Fill Column' spaces characters.
+
+The preferences 'Fill Column', 'Para Column', and 'Left Fill Column' can all
+be set in the "Prefs > Interface > Text" dialog.
+
+Preferences: Text
+
+
+	  	 	Fill Paragraph
+
+If there's a selection, then Alpha fills all paragraphs in that selection.  If
+not then Alpha fills the paragraph surrounding the cursor.  The definition of
+a 'paragraph' may be mode dependent, but in Text mode it is the text between
+the closest empty lines.
+
+Fill Paragraph also uses an extra preference 'Double Spaces', which
+determines if an extra space after should be placed after the punctuation
+mark at the end of each sentence, i.e., after '.', '?', or '!'.  Note that
+this also applies when the punctuation mark appears before a closing
+parenthesis, bracket, single or double quote, or two single quotes,
+according the English typographic usage.
+
+Example:
+
+This a simple sentence.  "The rule applies also for a sentence enclosed
+between double quotes."  'As well for single quotes.'  ''Or doubled single
+quotes.''  [When it is enclosed between brackets!]  (Or between
+parenthesis?)  ("But it does not apply in this case!") As you can see.
+
+The "Prefs > Interface > Text" dialog is used to set this preference.
+
+Preferences: Text
+
+
+	  	 	Wrap Paragraph
+
+Wrap the paragraph surrounding the cursor.
+
+
+	  	 	Word Breaking
+        
+Alpha allows you to redefine its internal notion of what a word is, through
+the preference 'Word Break'.  'Word Break' is set to a regular expression that
+defines a word to you.
+
+The value of 'Word Break' is mode dependent, as what is meant by a word may be
+different for different types of text.  For example, in Text mode the default
+definition of 'Word Break' is '\w+'.  This matches any contiguous sequence of
+contiguous alphanumeric characters.
+
+
+	  	Keyboard Shortcuts
+
+
+Many of Alpha's menu items are bound to specific keys.  In general, keyboard
+shortcut icons are given to the right of any menu command.
+
+Alpha includes many keyboard shortcuts that go beyond those found in most
+software applications.  Many of them are bound to specific menu items, and are
+displayed next to the item's name.  Modifier keys (for the Macintosh) include
+"command", "option", "control", and "shift".  As of this writing the option
+key is not available for AlphaTk, although "escape" can serve as a meta-key.
+
+Alpha allows you to customize the keystrokes you use to invoke editor
+functions.  Any Tcl command (or accented characters) can be bound to any
+single keystroke.  See "Keyboard Shortcuts" for more information.
+
+
+	----------------------------------------------------------------------
+
+
+	  	International Users
+        
+
+Since Alpha is intimately linked with Tcl (and is a programming editor) its
+user interface is based on English.  It is unlikely that localization to other
+languages will appear.  The most basic keyboard shortcuts in Alpha are
+designed to work on most keyboard layouts, but some of the shortcuts are
+centric to US/English keyboards.  You can configure Alpha to set up an
+alternative slate of shortcuts specifically adapted to your keyboard, in the
+package: internationalMenus .
+
+
+	----------------------------------------------------------------------
+
+
+	  	Undo + Redo
+
+
+Alpha supports unlimited undo and redo.  This means that most changes can be
+undone, and then redone, at will.  Bear in mind that once you create new
+modifications, all changes that you have undone but not redone are lost.
+Another point to bear in mind is that saving a buffer to disk flushes the undo
+buffer.
+
+
+	  	Text Wrapping
+
+
+Line wrapping refers to Alpha automatically inserting line breaks as you
+type.  The "Config > Mode Prefs" lets you modify several mode-specific
+flags, including the default "Line Wrap" setting.  Each mode decides what
+the default line-wrapping regime should be, but you can change this for any
+given window using a pop-up menu in the status bar window. (A window specific
+setting will remain in effect until that window is closed; the next time that
+file is opened it will again assume the mode's default setting.)
+
+	Line Wrap == "Auto"
+
+When 'lineWrap" is set to "Auto" Alpha automatically inserts a Return when a
+line becomes too long, respecting the value for the current "Fill Column"
+preference.  The "global" value for 'Fill Column' can be changed in the
+"Prefs > Interface > Text" dialog,
+
+Preferences: Text
+
+although many modes have their own values which over-ride this "global" one.
+
+Preferences: Mode
+
+At present the "Left Fill Column" preference value is a legacy from earlier
+versions, and is ignored by most Alpha routines.  It may be removed entirely
+in the future.
+
+	Line Wrap == "None", "Visual-Char", "Visual-Word"
+
+When 'lineWrap' is set to "None" Alpha simply extends text typed in the
+current line until the Return key is pressed.  In the case of 
+"Visual-Char" or "Visual-Word" long lines will be displayed wrapped onto 
+multiple display lines (like a word-processor), but no carriage returns 
+will be inserted.  This 'visual' approach is only available in Alphatk 
+(not Alpha 8/X).
+
+Note: when the package: autoWrapComments is turned on, text that is typed in
+in a commented line will be automatically wrapped even if the current "Line
+Wrap" setting is "None".  If you don't like this behavior, you can turn off
+"Auto Wrap Comments" globally
+
+Preferences: Electrics
+
+or for any given mode.
+
+Preferences: Mode-Features
+
+
+	  	Indentation
+
+
+Alpha can automatically indent the text for you to make it easier to read.
+Text can be indented using the "Edit > Indent" menu command.  In addition,
+many modes have an "Indent On Return" preference that can be turned on and
+off.  When it is turned on, pressing Return will automatically indent the
+new line that is created.
+
+Preferences: Mode
+
+Even if this preference is turned off, pressing Command-Return will always
+indent the new line, while Control-Return will always insert a new line
+without indentation.
+
+How the text is indented is mode dependent.  In programming modes Alpha will
+indent blocks of code, like e.g. an if-else statement in C / C++ / Java /
+JavaScript etc.
+
+	if (a == 5) {
+		b = 5;
+	} else {
+		b = 17;
+	}
+
+How many positions the code is indented is determined by the preference
+'Indentation Amount', set in the "Prefs > Interface > Electrics" dialog.  By
+default the code is indented 4 positions for each level of indentation.  By '4
+positions' here, we mean the code is visually indented by an amount of
+whitespace equal to that achieved by pressing the spacebar four times.
+
+Preferences: Electrics
+
+Whether the code will actually be indented by spaces or tabs is dependent on
+the tab size, set in the "Prefs > Interface > Appearance" dialog.  By default
+the tab size is 8.  Thus with the default setting clearly your code can't be
+indented using tabs alone.  'Odd' indents will require a number of tabs plus 4
+spaces, and 'Even' indents will be ok with just tabs.
+
+Preferences: Appearance
+
+If you want the code to be indented with spaces only, turn on the pref for
+"Indent Using Spaces Only" in the "Prefs > Interface > Electrics" dialog.
+
+Preferences: Electrics
+
+	  	
+	======================================================================
+
+
+This next section ...
+
+deals with Alpha-specific behavior which may be unfamiliar to new users.
+
+
+	  	User interface details
+
+
+Alpha's interface has several non-standard features, which are described in
+this section.
+
+
+	  	 	Horizontal scrollbar 
+
+
+You can remove the horizontal scrollbar from Alpha's windows in order to give
+you more real estate.  You can later get the scrollbar back when you need it.
+The menu item Toggle Scrollbar in the Window menu inserts/removes the
+horizontal scrollbar.  The default for subsequent windows is controlled via
+the preference 'Hor Scroll Bar', which you can set using the dialog found in
+"Prefs > Interface > Window".
+
+Preferences: Window
+
+
+	  	 	Dynamic menus
+
+
+Alpha (but not Alphatk) uses dynamic menus.  This means that some menu items
+are changed if you hold down any of the modifier keys.  Usually the Option key
+is the one which reveals the hidden menu items, but there are also a few items
+which are revealed by holding down the Control or Shift keys.  Try this out by
+pulling down the File menu and holding down one of the option, control, or
+shift keys.  In Alpha 8 and Alpha X there is an option to disable the use of
+dynamic menus (and therefore to show all menu items all of the time).  By
+default this option is set to display menus dynamically.
+
+Preferences: Appearance
+
+
+	  	 	Tear-off menus
+
+
+Alpha's menus can be torn off from the menubar to make floating palettes of
+them.  Clicking on the buttons on the palettes performs the same action as the
+corresponding menu item.  Note that dynamic menu items are separated into
+several buttons, one for each dynamic item.
+
+If the torn off menu has submenus, there will be pop-up submenus on the
+palette.  The submenus can in turn be torn off from the palette (as well as
+directly from the menu in the menubar).
+
+If a torn off menu belong to a specific mode, the palette will disappear /
+reappear whenever you change from/to that mode.
+
+If you do not want to use tear-off menus, you can disable this feature by
+unchecking 'Tearoff Menus' in the "Prefs > Interface > Appearance" dialog.
+
+Preferences: Appearance
+
+(Known bug: Torn off submenus belonging to a specific mode are not hidden
+when you change from that mode, only the main menu.)
+
+
+	  	 	Status bar
+
+
+The stripe across the bottom of the screen, or just under the menubar is a
+floating window which is used to display short messages.  This window is
+called the status bar.  Some functions also use it to prompt for input of some
+text.  The location of the status bar can be changed by setting the preference
+for "Location Of Status Bar".
+
+Preferences: Window
+
+To the right of the status bar there are three menus.
+
+• Wrap menu.  Shows if the lines in the current window are wrapped
+  automatically and if the wrapping is soft or not.  See the section below 
+  on "# Text Wrapping" for more information about text wrapping.
+
+• File Attributes menu (only in Alpha).  Shows various attributes of the
+  current window that can be changed.  What "Mac", "Unix", "IBM", "MPW",
+  "Think", and "None" means are explained in the section "# File formats".
+
+"Read only" lets you toggle if the current window can be edited or not.  Note
+that a file may be read-only for reasons beyond Alpha's jurisdiction (e.g. it
+might reside on a CD-rom or have insufficient write permissions under unix).
+Note that when a file is read-only, the Space key scrolls the window down one
+page (just like 'more' in unix, and similar to web browser behavior).
+Backspace will then scroll the window up one page.
+
+"Show Invisibles" is a toggleable item the determines if invisible characters
+are shown or not.  This only affects the active window.  The global Interface
+preference named "Show Invisibles" sets the default value for showing
+invisible characters.
+
+Preferences: Appearance
+
+"Tab Size: opens a dialog which lets you set the tab size of the active
+window, i.e. how many positions a tab uses.
+
+• Encoding menu (only in Alphatk).  Shows the current textual encoding
+  of the current window, and allows it to be changed.
+ 
+• Mode menu.  Shows the current mode and allows it to be changed.
+
+Finally, to the very right of the status bar the current line and column are
+displayed.  Clicking opens a dialog that allows a specific line to be found.
+
+You can't make the status bar go away.  However, it can be dragged if you use
+dialog "Prefs > Interface Prefs > Window" and uncheck the setting for the
+'Lock Status' preference.
+
+Preferences: Window
+
+Pressing 'Escape-X' will allow you to enter Tcl code within the status bar,
+which will be evaluated by Alpha's Tcl shell when you press Enter/Return.
+This allows expert users to perform almost any action.  Note that the status
+bar is also used for "# Incremental Searches".
+
+
+	  	 	Funcs menu
+
+
+Above the vertical scrollbar on the right is an icon with curly braces ('{}').
+This is the so called "Funcs" menu.  The content of this menu is mode
+dependent, but for modes for programming languages it usually lists function
+definitions of the current window.  In TeX mode it also lists sections and
+subsections.  Select a function/item name in the menu to jump to its
+definition in the window.  See the package: marks for more information about
+'function parsing'.
+
+
+
+	  	 	Marks menu
+
+
+Alpha allows the user to use "marks" to remember positions in files.  Each
+mode defines a different marking scheme specific to the type of file that you
+are working with.  See the package: marks help for more information.
+
+
+	  	 	Icons 
+
+
+Above these pop-up menus is nothing, a red disk icon, or a lock/pencil icon.
+The red disk icon indicates that the window is unsaved; clicking on the icon
+saves the window.  The lock icon indicates that the window is read-only;
+command-clicking toggles the lock icon.  Note, however, that an unsaved window
+cannot be made read-only.
+
+In Alphatk the background of this area is normally a neutral gray colour.
+However, if the background becomes highlighted (in your standard highlight
+colour, usually blue), it means the file (on disk) associated with the current
+window appears to have been modified more recently than the window itself.  In
+this case you may wish to use "File > Revert" to synchronize the window with
+the version on disk.
+
+
+	  	 	Title bar
+
+
+Clicking on the window title in Alpha, or Alt/Cmd-clicking in the window in
+Alphatk pulls down a pop-up menu showing all containing folders of the
+window's file -- or, to put it another way, showing the complete filesystem
+path to where this window's file is located.  Selecting an item in this menu
+puts up a open dialog in the selected folder.  Selecting an item in the menu
+while holding down the shift key opens the folder in the Finder instead of
+putting up a file dialog.
+
+Command-Clicking on the title bar anywhere but right on the title pulls downs
+the Mark menu.  This is also the case you click on the edges of the window
+(only in Alpha8/X).
+
+Tip: In Alpha8, using the sides of the window lets you access a particular
+area of the menu quicker as you can Command-click in the approximate location
+of the menu item you want to select.
+  
+Option-Clicking on the title bar brings down a menu in Alpha.  
+
+In Alphatk this menu is accessed from the 'f' menu below the '{}' funcs menu.
+Generally speaking this menu should contain files 'related to' the current
+window.  The precise content of this menu is mode dependent, and not all modes
+will define the contents.  In that case, the menu will contain a list of all
+files and folders in the open window's folder.  Selecting a file in the menu
+will open it.  Selecting a folder will open the containing folder in the
+Finder.  Note that for windows not saved to the disk there will be no menu
+with files.
+
+Even if the mode will create a menu when option-clicking the title bar, all
+files and folders in the window's folder may be added to the menu.  This
+happens if the number of items in the menu created by the mode is less than
+what is specified by the preference 'Min Items In Title Popup' which you find
+in the dialog "Prefs > Interface Prefs > Window".
+
+Preferences: Window
+
+
+	  	 	Split-pane bar
+
+
+Above the vertical scrollbar, right under the Marks menu ('M') is a dark or
+black "split-pane" bar.  Double-clicking or dragging the split-pane bar splits
+the active window into two separately scrollable panes.  You can also use
+the menu item 'Split Window' in the Window menu.  Either pane can be edited,
+any changes appear in both panes if they show the same text.  Move from one
+pane to the other by clicking in the pane or by typing control-x, then 'o'.
+Go back to a single pane by either double-clicking again or dragging the bar
+back to the top of the window.
+
+
+	  	 	Iconified (minimized) windows
+
+
+You can minimize any open Alpha window using the "OpenWins > Minimize" menu
+command or its equivalent keyboard shortcut.  If all windows are minimized
+then the most recent window is made visible once again.
+
+In MacClassic (Alpha8), "minimized" windows are presented as small icons,
+ordered along the right edge of your screen.
+
+In MacOSX, "minimized" windows are visible in the Dock.
+
+In Windows, "iconified" windows are visible in the OS taskbar.
+
+Checking 'Iconify On Switch' in the "Prefs > Interface > Window" dialog will
+make Alpha do the following:
+
+• Iconify all open windows when you switch to another app.
+• Expand all windows, which were not iconified before switching from Alpha, 
+  when switching back to Alpha.
+
+Preferences: Window
+
+(Yes, we know that this should be renamed "Minimize On Switch" ...
+
+
+	  	 	Contextual Menu
+
+
+Alpha provides sophisticated contextual menu support, obtained by pressing the
+mouse and the Control key simultaneously (or, in Alphatk, by using the right
+mouse button).  This support is based on the context of the mode of the
+current window as well as any text surrounding the 'click' position.  You can
+customize the menus/items that are presented in the CM, and have a different
+set of options for each given mode.  The package: contextualMenu window has
+more information.
+
+Note that in split pane windows you cannot use the selection in one pane to
+manipulate the text in the other.  Invoking the CM in the alternative (i.e.
+non-active) pane should only use the selection/position information that is
+found in that pane beneath the current mouse location.
+
+
+	  	 	Dialogs
+
+
+A few notes on Alpha's dialogs.  It is conventional in dialogs that 'Tab'
+moves to the next field or dialog element, that 'Return' presses the default
+button (typically "OK") in the dialog, and that 'Escape' cancels the dialog.
+
+The first two of these can pose problems if you wish to enter a real 'Tab' or
+'Return' character into a text field in a dialog.  To avoid this problem,
+Alpha specially recognizes 'Option-Tab' and 'Option-Return' and inserts a Tab
+or Return as appropriate.
+
+In dialog boxes with checkboxes, a checkbox can be toggled by pressing
+"Command-<Letter>", where <Letter> is the first character of the name of the
+box that you want to change.
+
+In dialogs without an editable text field, typing the first letter of the name
+of a button is equivalent to pressing the button.  For example, you can press
+"D" for "Discard Changes" when you try to close a window with unsaved changes.
+
+
+	----------------------------------------------------------------------
+
+
+	  	Tiling windows
+
+
+Alpha provides many different ways to move windows around the screen, most of
+which are accessible via the windows menu, i.e the menu with the window icons.
+The first four items of the "Windows > Arrange" menu move windows around a
+virtual box on the screen, defined by the preferences found in the dialog
+"Prefs > Interface Prefs > Tiling".
+
+Preferences: Tiling
+
+
+	  	 	Vertically
+
+Tiles 'Num Wins To Tile' number of windows vertically.  Preferences which
+affects the tiling:
+
+	Tile Top
+
+The position of the upper edge of the top window.
+
+	Def Width
+
+The width of the windows.  (Def Width is set in the Windows preferences
+dialog, preferences: Window .)
+
+	Tile Margin
+
+Controls the gap between the windows.
+
+	Tile Height
+
+Determines the height of the windows by the formula
+
+         (Tile Height + (Tile Margin -1))
+height = ________________________________
+                Num Wins To Tile
+
+
+	  	 	Horizontally
+
+
+Tiles 'Num Wins To Tile' number of windows horizontally.  Preferences which
+affects the tiling:
+
+	Tile Height
+
+The height of the windows.
+
+	Tile Left
+
+The position of the left edge of the left window.
+
+	Hor Margin
+
+Controls the gap between the windows.
+
+	Tile Width
+
+Determines the width of the windows by the formula
+
+         (Tile Width + (Hor Margin -1))
+width = ________________________________
+                Num Wins To Tile
+
+
+	  	 	Unequal Vert and Unequal Hor
+
+
+Tile two window by splitting the space between them, with the proportion
+assigned to the first controlled by 'Tile Proportion'.
+
+
+	----------------------------------------------------------------------
+
+
+	  	File formats
+        
+
+Alpha can read and write files stored in different formats.  In the dialog for
+the menu item 'Save As…' you can specify in which format a file should be
+written through the pop-up menus State and Format.
+
+
+	  	 	State pop-up menu
+
+
+'State' allows you to specify how much extra information should be saved in
+files that you use.
+
+MPW     Window position, current selection, tab sizes, and font 
+        information are saved every time you open and close the file.
+Think   Tab sizes, and font information are saved every time you open 
+        and close the file.
+None    No information is saved when you open and close the file.
+
+The state information is saved in the file's resource fork.  It is saved even
+if you don't modify the file.  Saving this information does not change the
+modification date of the file.
+
+Note that if a given file already has MPW information in it when the file is
+open, Alpha will always update that information when the file is closed.  Note
+also that marks are always saved in the resource fork whenever a file is
+saved, regardless of the 'State'.
+
+
+	  	 	Format pop-up menu
+
+
+This menu specifies the way Alpha terminates lines.  This to make it easier to
+share files with other platforms as lines are terminated differently on
+different platforms.
+
+Mac     Lines end with a carriage return.
+Unix    Lines end with linefeed.
+DOS     Lines end with both carriage return and linefeed. 
+
+Alpha will automatically read and write all three of these formats.  If you
+are not sharing files with other platforms you don't have to worry about the
+format and simply you the default Mac format.  Note that if you are going to
+be sharing files with a Unix or IBM machine, items in the resource fork will
+at best be ignored, so setting the 'State' to 'None' is a reasonable option.
+
+Both the state and format for a file can be change through the File attributes
+pop-up menu in the status bar.
+
+In the dialog "Prefs > Interface > Window" the default 'Saved State' can be
+changed.
+
+Preferences: Window
+
+
+	----------------------------------------------------------------------
+
+
+	  	 	File encodings
+        
+Tcl 8.1 or newer is completely internationalized, which amongst other things
+means it is capable of interacting with files stored in many different
+encodings.  The basic ascii characters (0-127) are identical on most
+platforms/encodings, but any other characters (accented letters, special
+symbols, etc) are encoding-dependent.  If you open a MacOS file containing
+these sorts of characters: •, ä, … on another platform, they will probably not
+be displayed correctly.  This is because MacOS uses the 'macRoman' encoding,
+and other platforms may use 'iso8859-1' (typical unix) or 'cp1252' (windows).
+
+If the Alpha binary contains an 'encoding' pop-up menu in the status bar which
+shows the current window's encoding, that can be used to modify that encoding.
+If this pop-up is not present, then encodings are not well-supported yet, but
+this will hopefully be addressed in future versions.
+
+If the current window has no associated encoding (usually because it is not
+associated with a file on disk), then nothing will be shown in the encoding
+pop-up.  The action of selecting an item from the pop-up menu depends on the
+window's current situation.  There are three possibilities:
+
+If the window doesn't have an encoding, or if the window is not associated
+with a file on disk, then the selected encoding is associated with the window
+(and will be used as a default if the window is subsequently saved to disk).
+
+If the window is dirty (i.e. has unsaved modifications from the current state
+on disk), then again the selected encoding is associated with the window.
+
+If the window is not dirty, and does have a file associated with it on disk,
+then the user is asked whether to reread the current file from disk.  If the
+user answers 'yes', then the contents of the window are re-read from disk
+(like a 'revert' operation), but using the chosen encoding to interpret the
+actual bytes which are read.  If the user answers 'no' then Alpha simply
+associates the new encoding with the window.
+
+Of course after any of these possibilities, the encoding pop-up will change to
+reflect the encoding just selected.
+
+Note that the package: filtersMenu can translate between encodings and do many
+other conversions (TeX accents, html accents...)
+
+See the "Unicode and Encodings Help" file for more encoding information.
+
+
+
+	----------------------------------------------------------------------
+
+
+	  	 	Open file dialog
+
+
+(This information is only for Alpha8/X at the moment ...)
+
+Alpha's open file dialog <<findFile>> is similar to the dialog in any other
+Mac application.  The 'Show' pop-up menu will include options for
+
+	All Readable Documents
+	All Text Documents
+	All Documents
+
+"All Readable Documents" seems to be the default choice no matter what you
+changed this to the last time you opened this dialog.  If you want the default
+to be "All Documents", then you can set the "Open All Files" pref in the
+"Prefs > Input-Output > Files" dialog.  Note that if you set this, then "All
+Documents" will be the _only_ option available to you.  (Technically speaking,
+this means not only those with file type 'TEXT'.)
+
+Preferences: Files
+
+The <<findFile>> dialog include two additional checkboxes at the bottom:
+
+	Read only ...
+
+Opens the file as read only.  That a file is read-only file is indicated by a
+lock icon in the upper right corner of the window.  Read-only status can be
+toggled by command-clicking on the icon.  The default action for 'space' and
+'backspace' when a file is read-only is to page forward (closing at the bottom
+of the file) or backward.
+
+	Version-Control Aware
+
+See the "Version Control Help" file for more information.
+
+
+	  	 	Paragraph format
+
+
+Word processors such as Microsoft Word, AppleWorks, or many mail programs only
+put carriage returns at the end of paragraphs, so that they can wrap the
+paragraphs on the fly.  This is what is referred to as 'Paragraph Format'.
+Alpha does not automatically convert to and from this format because there are
+valid reasons why someone might want to edit a paragraph formatted file while
+not in paragraph mode.
+
+Therefore, when Alpha opens a paragraph-mode file, it asks the user whether or
+not to remap it.  Alpha assumes a file to be in paragraph mode if it contains
+any line longer than the value of 'Para Column', which can be set in the
+"Prefs > Interface Prefs > Text" dialog.  Files can be mapped back to
+paragraph mode by selecting "Text > Paragraph to Line".
+
+Preferences: Text
+
+If you turn on the Input-Output preference named "Never Wrap On Open", then
+you will never be asked about "remapping" the file.
+
+Preferences: Files
+
+
+	----------------------------------------------------------------------
+
+
+	  	Helper Applications
+
+
+Alpha uses many helper application, e.g. a web browser and an ftp client.
+Using by the menu item "Prefs > Helper Applications".  you can choose which
+helpers to use or change.
+
+Preferences: HelperApplications
+
+Now, in some cases a dialog is opened with a pop-up menu with some popular apps
+of the appropriate type.  Either choose one from the pop-up menu, or select
+'Locate manually' and click OK to locate the app on your disk.
+
+In some cases a file dialog is directly opened to let you locate the helper
+app.
+
+	  	 	Unix Issues
+
+If you are running on Unix (either with Alpha X on MacOS X, or Alphatk on any
+brand of Unix) or Windows, under some circumstances it may be difficult for
+you to locate your helper applications.  This is exacerbated under MacOS X
+because the set of disk directories which the system searches for command-line
+executables (the 'PATH' environment variable for the technically savvy) is
+different for command-line and graphical applications.
+
+What you may need to do is add some paths to the 'Exec Search Path' preference
+in the Helper Applications dialog.  To learn which paths you should add, it
+can be helpful to go to the command line in the terminal and execute 'which
+appname', for example 'which latex'.  This will tell you the full path of that
+application.  If you then add the path to AlphaX/tk's preferences it will be
+able to find the application directly.  Another approach is to type, manually,
+in the file-selection dialog, the prefix of the hidden path "/usr/local" for
+example, and then it will be possible to explore within it.
+
+
+	  	Spell Checking
+
+
+See help for the package: spellcheck .
+
+
+	  	Command-clicking
+
+
+Command-Clicking on any text causes Alpha to try find a URL anywhere near
+where you click.  If Alpha finds one it sends it to Internet Config which
+passes it to the right helper application.  For example, place the mouse over
+this text and command-click:
+
+	http://www.purl.org/net/alpha/wiki/
+
+
+	  	Command-Double-Clicking
+
+
+Command-Double-Clicking on a word activates a mode specific function which
+uses the word you clicked on as input.  In several programming modes, Alpha
+tries to find the definition of the word you clicked on.  Some examples:
+
+In HTML mode, if you Command-Double-Click on a valid tag, a dialog will appear 
+offering all possible options for that tag.
+
+Experiment in the "HTML-Example.html" window.
+
+In Tcl mode, if you Command-Double-Click on a variable Alpha displays its
+value, if you click on a command Alpha tries to look it up first in the Tcl
+folders, then in "Alpha Commands", and then finally in "Tcl 8.4 Commands".
+
+Experiment in the "Tcl-Example.tcl" window.
+
+Consult the documentation for the mode in question to see if there is some
+special routine associated with Command-Double-Click.
+
+
+	  	Search and Replace
+        
+
+Alpha has a full repertoire of searching commands.  Consult the help window
+for the package: supersearch which implements Alpha's 'Find' dialog, as well
+as several other items in the "Search" menu.  It allows single / multi-file /
+regexp / batch / word-match / search / replace / replace-all / in-selection
+(whew!)  operations from the same dialog box.
+
+
+	  	 	Incremental Searches
+
+
+Incremental searches bypass the normal search dialog and search for the
+current text after each keystroke.  The result is often much faster and less
+intrusive.  The "Search > Quick Find" and "Search > Reverse Quick Find" menu
+items are the forward and backward incremental searches respectively.  More
+help can be found in the package: incrementalSearch window.
+
+
+	  	 	Browser Windows
+
+
+Browser windows are used to list the result of batch searches, as well as
+other similar lists.  Each line in the browser window refer to a certain line
+in a file, in the case of batch searches the lines where what you searched for
+have been found.  Navigate the windows using the up and down arrows, and jump
+to the match - i.e. the line in the file referred to by the line in the
+browser window - by hitting 'return'.
+
+See help for the package: Brws for more information.
+
+	  	
+	======================================================================
+
+
+This next section deals with ...
+
+
+"Modes" and "Installed Packages" contained in the AlphaTcl library.
+
+
+	  	Modes
+
+
+Alpha is made for editing text of many different kinds.  Therefore Alpha can
+switch between many different modes.  When Alpha switches between the modes
+some of Alpha's functionality changes to better help you to write the
+particular kind of text you are editing.  For example C++ mode is used to
+edit code in the C++ programming language, and HTML mode is used for editing
+web pages.  Alpha comes with more than 25 modes, most of them being modes for
+different programming languages.  The default mode is called Text mode and is
+used for editing plain text, like this manual for example.  Alpha also
+switches to Text mode when you open a new untitled window.  See the file
+"Installed Packages" for a complete list of them and for links for help for
+each of them.  This section is only a general discussion about modes.
+
+Simple examples of functionality which changes between the modes are:
+
+• Coloring of the text.  Programming language all have special keywords.
+Alpha colors these keywords to make the code easier to read, and these words
+are naturally different in different programming languages.
+
+• Alpha indents the code to make it easier to read.  This is also naturally
+done differently for different programming languages.
+
+Most modes also add functionality to Alpha, functionality which is not
+available for the basic Text mode.  Some modes also have there own menu(s)
+which are inserted in the menu bar when switches to the mode in question.
+This menu(s) are removed again when Alpha leaves the mode.  Some simple
+examples of extra functionality in different modes:
+
+• In C++ mode Alpha can help you to quickly type certain language constructs,
+such as for loops.
+
+• In HTML mode there is a function to create a link between two web pages.
+
+It is important to know that Alpha has both global menus and functionality,
+which are always there regardless of the mode, and mode specific menus and
+functionality, which are only there when Alpha is in a specific mode.  For
+instance, the menus from File to Config and the Window menu (the one with the
+three windows icon) are global menus.
+
+	  	 	Initial Mode Selection
+
+When you open a file Alpha always chooses a mode for it.  Alpha does its best
+to choose the mode you want.  Therefore it is important to know how Alpha
+chooses the mode.  The following is considered, in this order:
+
+	File Creator (on MacOS and MacOS X only)
+
+In some cases Alpha can choose the mode depending on which application has
+created the file.  For example, files created by MacPerl (with the "McPl"
+creator code) are opened in Perl mode, while those created by "Ramses" (RAMS)
+open in M2 mode.  Click here <<showVarValue modeCreator>> to see the current
+"Creator Code -> Mode" mappings.
+
+	Unix executable lines
+
+If the first non-empty line reads "#!/dir/subdir/command ..."  then Alpha
+tries to find a mode corresponding to 'command'.  This kind of line is used
+in unix files.  For example, files that include this
+
+    #!/dir/maple
+
+will open in "mapl" mode.  Click here <<showVarValue unixMode>> to see the
+current "Unix Executable -> Mode" mappings.
+
+	'Smart' mode lines
+
+If the first non-empty line contains a string
+
+    -*-Mode: <mode>-*-
+
+or
+
+    -*-<mode>-*-
+
+(usually preceded by comment characters) then Alpha switches to the mode
+<mode>.  For example, if the first non-empty line contains
+
+    <!-- -*-HTML-*- -->
+
+then Alpha opens this file in HTML mode.
+
+	Suffix Mappings
+
+The suffix in the file name is the last item checked if none of the above
+tests determined a mode for the file.  For example, 'file.py' is opened in
+Pyth mode because of the '.py' suffix, 'file.html' is opened in HTML mode
+because of the '.html' suffix.  You can view and edit the suffix mapping
+via the menu item "Config > Global Setup > Suffix Mappings".  In this
+dialog the suffixes for each mode is specified as a list of glob-style file
+patterns.  For example, the wildcard * matches any string of characters,
+while ?  matches any single character.  As an example, for Perl mode the
+default patterns are: *.pl *.ph *.pm meaning that any file with a name
+ending by '.pl', '.ph', or '.pm' will be opened in Perl mode.  Uppercase
+equivalent suffixes are automatcally recognized too, so it is not necessary
+(or recommended) to specify these separately.  (The precise rule is that
+case sensitive matches take precedence over case-insensitive ones, so it is
+possible for example to map '*.c' to C mode and '*.C' to C++ mode, as it is
+custom on certain unix systems.)  (Note that despite the name 'suffix
+mapping', in fact any glob pattern is respected.  For example, one could
+map '*htm*' to HTML mode, thus matching also files like 'test.html.bak5'.)
+
+Preferences: SuffixMappings
+
+If all of these tests fail the window will open in standard "Text" mode.
+
+	  	 	Changing Active Window Modes
+
+Once a mode has been selected for a window (either by Alpha or by you), it is
+'remembered' when you switch amongst your active windows.  You can change the
+mode for a window 'manually' in two ways:
+
+(1) By selecting one in the "Modes" pop-up menu, the rightmost of the three
+menus in the status bar.
+
+(2) By selecting the menu item "Config > Mode Prefs> Change Mode".  
+
+When you change the mode of an active window 'manually', it is remembered so
+long as the window remains open.  When you close it and re-open it, the
+default mode will again be determined using the methods described above.
+
+
+	  	Alpha's Preferences
+
+
+Alpha stores most preferences in the "defs.tcl" and "arrdefs.tcl" files in an
+application specific Preferences Folder.
+
+	  	 	Default Prefs Folder
+
+The preferences folder is named "Alpha-v8" for versions 8.x of your Alpha
+binary, and will be named "Alpha-v9/10/etc" for future versions.
+
+Alpha8 creates this Preferences Folder as 
+
+	:System:Preferences:Alpha-v8: 
+
+AlphaX creates this preferences folder as 
+
+	~/Library/Preferences/Alpha-v8/ 
+
+Alphatk (MacOS X) creates this preferences folder as 
+
+	~/Library/Preferences/Alphatk-v8/ 
+
+Alphatk (Unix) creates this preferences folder as 
+
+	~/.Alpha-v8/ 
+
+Alphatk (Windows) creates this preferences folder as 
+
+	$env(USER_PROFILE)/Alpha-v8/ 
+
+(or if that doesn't exist, then in the same place as on Unix). 
+
+	  	 	User-Defined Prefs Folder
+
+If you create a folder named "AlphaPrefs" and place it at the same level of
+the Alpha application, this folder will be used preferentially.  This will
+allow you to maintain two or more separate versions of Alpha without
+rebuilding indices each time that you switch back and forth amongst them.
+
+If you do maintain multiple AlphaPrefs folders, note that saved preferences
+will not be shared amongst your Alpha applications.
+
+	  	 	Upgrading from 7.x
+
+If you are upgrading to Alpha 8.x from 7.x, some of your old preferences will
+be incompatible/irrelevant to the new Alpha version.  Therefore you shouldn't
+just copy the two prefs files from one folder to the other.
+
+Here's how to copy over just a few preferences from earlier versions: open the
+old 'defs.tcl' or 'arrdefs.tcl' and examine them for lines you wish to copy.
+Open the new "defs.tcl" and "arrdefs.tcl".  Alpha opens them in read-only
+mode, but you can command-click on the 'lock' icon in the window to make the
+windows modifiable.  Now copy and paste as you desire.  Finally save the
+windows and quit and restart Alpha.  If you get an error on startup, you
+probably copied over incompatible preferences and you'll have to delete the
+files and start over (hence it may be a good idea to make a backup copy of the
+originals before you start).
+
+
+	  	 	Global and mode preferences
+
+
+Alpha has two types or preferences, global and mode preferences.
+
+• Global preferences always apply regardless of the mode.  These are set in
+the various dialogs "Config > Preferences".
+
+• Mode preferences only apply to windows in that mode, and are set in the
+dialog "Config > Mode Prefs > Preferences".  Some modes may also have other
+means of setting preferences.  Note that in some cases there are mode
+preferences which coincide with a global preference.  In this case the mode
+preference override the global one.
+
+The is also another way of customizing Alpha than setting preferences in these
+dialogs.  That is using preferences files where you add your own Tcl code.
+There is both a global preferences file, which can be opened / created using
+"Config > Preferences > Edit Prefs File" and a mode specific one created using
+"Config > Mode Prefs > Edit Prefs File".
+
+To learn about writing your own Tcl code for Alpha, see the section below on
+"# Changing Alpha's behavior".
+
+
+	  	 	Coloring
+        
+
+Alpha supports automatic coloring of the text.  The way Alpha colors the text
+depends on the current mode.  See the package: colorPrefs for more
+information.
+
+
+	----------------------------------------------------------------------
+
+
+	  	Packages
+
+
+Alpha has a very flexible mechanism for adding extra functionality.  Much of
+Alpha's functionality has been bundled into a number of so called packages.
+This has two main advantages.  First, the user can choose to activate only
+those packages he or she wants and totally ignore the other ones.  Second,
+anybody can write and distribute new packages for Alpha.
+
+Alpha comes with a large number of packages.  The remainder of this section
+describes some of them, but you can also see the file "Installed Packages"
+for a complete list which includes links for package specific help files.
+
+The menu item "Config > Packages > Read Help For A Package" will also give
+information about specific packages.  To learn how to install new packages see
+the section below on "# Installing New Packages".
+
+The packages come in three flavors:
+
+• Modes. As have been discussed in the previous section, a mode gives Alpha 
+  some functionality useful for editing text for a particular purpose, for 
+  example writing code in various programming languages.
+
+• Menus. A menu is a package which attaches an extra menu to the menu bar.
+
+• Features. A feature gives you some more functionality without attaching a 
+  menu to the menu bar. However, some features adds a new submenu to a menu 
+  or some new menu items to a menu.
+
+In practice the only difference between 'menus' and 'features' is that 'menus'
+have their own menus in the menu bar.
+
+
+Menus and features can be activated and deactivated either globally using the
+menu items
+
+    "Config > Global Setup > Menus"
+    "Config > Global Setup > Features"
+
+Preferences: Menus
+Preferences: Features
+
+or they can be adjusted for the mode of the current window using
+
+	"Config > Mode Prefs > Menus"
+	"Config > Mode Prefs > Features"
+
+Preferences: Mode-Menus
+Preferences: Mode-Features
+
+Some 'packages' are also enabled through "Interface" or "Input-Output"
+preferences under the "Config > Preferences" menu, although in this case they
+will just look like a 'normal' checkbox preference.  (This distinction really
+doesn't matter much for most users ...)
+
+To turn off a globally active preference for a specific mode, use the menu
+item "Config > Mode Prefs > Features" dialog.  (See the dialog pane for "Turn
+Items Off".)
+
+
+	  	Menus and Features
+
+
+Activating a menu or feature makes the functionality provided by the menu or
+feature available until it is deactivated.  Alpha remembers which ones are
+active next time you run Alpha.  Once a menu or feature is deactivated it does
+not affect Alpha's behavior at all.  It is then as if it did not exist.  Note,
+however, that in some cases you the package is not deactivated until you
+restart Alpha.
+
+The preferences: Menus dialog is divided into two sections, the first
+reserved for menus designed to be active globally, the second supporting
+functions for specific modes.  Normally it is a good idea to only choose
+between the menus in the section 'Usual menus'.  Although it is possible to
+activate the other menus globally, they are usually of no use outside the
+mode or modes they are designed for.  See the "Installed Packages" file for
+the current list of menus available.
+
+The preferences: Features dialog is similarly divided into two sections, for
+features that are designed to be used globally, and for "Other Possible
+Features" which are designed to be used in a specific mode or modes.
+
+Also in this case it usually only make sense to choose between the ones in
+the section 'Usual features'.  See the "Installed Packages" file for the
+current list of features available.
+
+
+	----------------------------------------------------------------------
+
+
+	  	Electrics - automatic typing by Alpha
+        
+
+The term "electric" is used in the sense of "automatic, power assisted
+behavior", which is intended to save time, keystrokes, and brainpower.  All
+the "electric" features are features, which makes Alpha do automatic typing
+for you.  The exact behavior is mode dependent.
+
+
+	  	 	Electric completions
+
+
+Enabling the 'Elec Completions' feature gives you a set of features to save
+you key strokes.  When you invoke it Alpha tries to expand what you have just
+typed to give the rest of what you want.  Electric completion is invoked by
+the 'Complete' key specified in the "Config > Special Keys" dialog.
+
+Preferences: SpecialKeys
+
+See the "Electrics Help" file for more information.
+
+
+	  	 	Electric expansions
+
+
+Enabling the 'Elec Expansions' feature provides you with a special kind of
+word completion.  When you find yourself typing a lot of variable and function
+names over and over, and these names are word-combinations where the name is
+formed by either capitalizing each word or separating them with an underscore,
+just type the initial letter of each word and invoke electric expansion
+instead.  This is often shorter and more natural than typing a few letter and
+using electric completions to make a word completion.  Electric expansion is
+invoked by typing command-space.
+
+See help for the package: elecExpansions for more information.
+
+
+	  	 	Special keys dialog
+
+
+The dialog "Config > Special Keys" is used to define the keys which activate
+the electric completion and expansion functions and which let you jump between
+the template stops.  See the package: elecBindings help window for more
+information about the function to which you can bind keypresses for different
+'electric' behavior, or set your preferences: specialKeys to change the
+keyboard shortcuts for your various 'electric' operations.  These shortcuts
+are saved between editing sessions.
+
+	----------------------------------------------------------------------
+
+
+	  	Regular Expressions
+
+
+Many packages use Regular Expressions in their procedures.  While it isn't
+necessary to know anything about Regular Expressions (commonly referred to as
+"regexps") in order to use Alpha, they provide a very powerful method for
+searching for any number of textual variations within a document.  See the
+"Regular Expressions" help file for more information.  Regular Expression 
+searching is available in the <<find>> dialog.
+
+
+	----------------------------------------------------------------------
+
+
+	  	File Patterns
+        
+
+Some functions require that you give a file pattern which specifies a set of
+file names, e.g. if you want to change the suffix mappings you must give a
+pattern specifying which files should be opened in a certain mode, and as
+another example if you want to create a fileset you must give a pattern
+specifying which files should belong in the fileset.
+
+A file pattern is given as a string including special characters, which allow
+automatic substitution of characters in file names.
+
+    ?           Matches any single character.
+
+    *           Matches any sequence of zero or more characters.
+
+    [chars]     Matches any single character in chars. If chars contains a 
+                sequence of the form a-b then any character between a and b 
+                (inclusive) will match. To match '-' give it as the first 
+                character between the brackets.
+
+    \x          Matches the character x. This is useful if you want to 
+                match any of the special characters, e.g to matching '*' is 
+                done by the pattern '\*'.
+    
+    {a,b,...}   Matches any of the strings a, b, etc.
+
+Some examples of how to use file patterns:
+
+• To match any file ending by '.c' use the pattern '*.c'.  This will match
+files with names like 'blah.c' 'bladdity.c' 'gghjcdhj.c'.
+
+• To match any file ending by '.c' or '.h' use the pattern '*.{c,h}'.  This
+will match files with names like 'blah.c' 'blah.h' 'bladdity.c' 'bladdity.h'.
+
+• Lets say you have files with names 'chapter1.tex', 'chapter2.tex' through
+'chapter50.tex'.  To match the first 9 chapters you could use the pattern
+'chapter?.tex' This will match the files 'chapter1.tex' through
+'chapter9.tex'.  Another pattern which would match the same files is
+'chapter[1-9].tex'.
+
+• To match the files 'chapter1.tex' through 'chapter9.tex' and simultaneously
+files 'chapter1.log' through 'chapter9.log' you can use the pattern
+'chapter[1-9].{tex,log}'
+
+A technical point to raise here is that the {a,b,...} style patterns are 
+only supported where 'glob style' matching is used.  In many cases, for
+example the 'Suffix Mappings' dialog, standard string matching is used,
+in which case the {a,b,...} style patterns are not supported.  This
+is typically because in such cases you are allowed to enter a list of
+patterns, which can be used to achieve the same aim.
+        
+
+	  	Marks
+
+
+Alpha allows the user to use "marks" to remember positions in files.  Marks
+"float".  That is, if a mark is initially at position 312 and then five
+characters are inserted at location 297, the mark's new value will be 317.
+Alpha uses three different types of marks.  The are several different types of
+marks available, see the package: marks for more information about permanent,
+named marks, the window pin, bookmarks, and the Funcs Menu.
+
+
+	  	File Comparison
+
+
+With Alpha you can compare files and display the differences in them.  Among
+other things, this allows you to easily pinpoint what has changed between two
+different versions of the same file.  The "Utils > Compare" menu items allow
+you to either compare the two topmost windows, or two arbitrary files or two
+entire folders.  In the case of two folders each pair of files with identical
+names in the two folders are compared.  It is also indicated which files are
+only found in one of the folders.
+
+The comparison is done using a port of the unix GNU diff program, or whichever
+helper you have selected for the Diff service.
+
+Alpha opens the two files in windows at the top of the screen with the diff
+file at the bottom.  You can navigate between individual differences in the
+diff file by using the Up and Down arrows.  The section of the files which
+differ are then selected in the two files.
+
+This section has only been a short introduction to the use of file comparison
+with Alpha.  Read more in the file "Diff Help".
+
+
+	  	Backups
+
+
+Alpha can automatically make a backup copy for you of the old version of a
+file whenever you save changes.  This is done if you check 'Backup' in the
+preferences dialog "Prefs > Input-Output > Backups".  See the help for the
+package: backup for more information.
+
+Preferences: Backups
+
+
+	  	 	Auto saving
+
+
+Alpha can automatically save the documents for you after a certain number of
+changes.  This is done if you check 'Auto Save' in the preferences dialog
+"Prefs > Input-Output > Backups".  Alpha then saves the documents every
+'Changes Lim' changes.  'Changes Lim' can be set in the same preferences
+dialog.  Note that Untitled windows are not autosaved.
+
+Preferences: Backups
+
+
+	  	Tags
+
+Alpha supports the use of tags to find declarations of functions.  See the
+package: tags help window for more information.  You will need to
+activate this package to make use of this functionality (like the tools
+'ctags' and 'etags' if you are familiar with them).
+
+Preferences: tags
+
+
+	  	Calculator
+
+
+Alpha has its own calculator.  This is just a quick-and-dirty RPN stack
+calculator, which works on both signed and unsigned decimals, hex integers,
+and floating point.  See the "Calculator Help" file for more information.
+
+
+	======================================================================
+
+
+	  	Unicode and Encodings
+
+
+Alphatk and Alpha 8 make use of Tcl's built in support for unicode, Utf-8, and
+in general any well-defined character encoding, including platform dependent
+encodings such as 'macRoman'.
+
+See <http://www.unicode.org> for a general introduction to unicode.
+
+
+	  	  Editing files with various encodings
+
+
+Any text file whose first line contains text of the form '(encoding:xxx)' will
+have its characters read in the encoding 'xxx' when Alpha(tk) tries to edit
+the file, and similarly when the file is saved.  However some encodings, such
+as unicode itself, may use multiple bytes to represent a single character, and
+in this cases Alpha(tk) may not recognise the existence of a string such as
+'(encoding:xxx)' even if it is given!  This is only normally a problem with
+the unicode encoding, but fortunately it can be solved in a different way:
+unicode files always begin with the (hexadecimal) sequence 'fffe' or 'feff'.
+Alpha(tk) will automatically recognise this, read the rest of the file in
+binary form, and treat it as unicode using the appropriate byte-ordering for
+the file (this is an additional complication: some platforms save the high
+byte first, others the low byte!).  When saving unicode files, Alpha(tk)
+currently only saves using the byte-ordering of the host platform.
+
+You can check a window's encoding with
+
+	getWinInfo ?-w win?  arr
+
+and then look at $arr(encoding), or directly with
+
+	win::Encoding ?win?
+
+Note: Alpha 8 probably does not necessarily support all of the above at
+present.  It should all work in Alphatk however.
+
+For example, the current encoding of this window can be seen by clicking here:
+<<alertnote [win::Encoding]>>
+
+
+	  	  Saving in different encodings
+
+
+When you save a window, Alpha will save it using the encoding currently set
+for that window (as shown in the popup encodings menu in the status bar, or as
+available through 'getWinInfo' or 'win::Encoding').  However, if the location
+to which you are saving has a different default encoding specified, Alpha will
+ask you which encoding you will like to use.
+
+
+	  	  Specifying encodings
+
+
+There are various other ways in which you may specify the encoding Alpha(tk)
+should use for a file:
+
+(1) You can set the default encoding for new files in the International
+preferences dialog.
+
+(2) A mode can have a default encoding.  For example you could add the
+following to your prefs.tcl:
+
+	newPref variable defaultEncoding iso8859-1 TeX
+	newPref variable defaultEncoding iso8859-1 Bib
+	newPref variable defaultEncoding iso8859-1 HTML
+	newPref variable defaultEncoding utf-8 C
+	newPref variable defaultEncoding utf-8 C++
+
+(3) The 'Fileset Encoding Preference' feature (turn it on in by selecting
+'Config > Global Setup > Features') can be used to declare a default encoding
+for any fileset.
+
+Preferences: Features
+
+Then choose 'Edit A Fileset...'  <<editAFileset>> and for the fileset you
+want, click on the 'Attach/detach Info' button, and then click the checkbox by
+'Encoding' to indicate you want to attach some encoding information to the
+given fileset, followed by 'OK'.  You will now need to cancel the main dialog
+and re-select 'Edit A Fileset' where you will now have the opportunity to pick
+an encoding.
+
+(4) The popup 'encoding' menu (once a file is open, there is a popup menu in
+the status bar which you can use to select a new encoding to use for the
+file).  If you change the encoding, Alpha(tk) will offer an option to re-read
+the file from disk using the new encoding.
+
+(5) You can place a command:
+
+	alpha::registerEncodingFor path encoding
+
+in your "prefs.tcl", where 'path' is, say, '/home/Users/me' and encoding is
+'macRoman' or 'iso8859-1'.  (The 'encoding names' command will give you the
+list of acceptable encodings).
+
+
+	  	  Sourcing files
+
+
+Alpha(tk) provides some support for sourcing of files in general encodings.
+Tcl itself (before version 8.5) lacks this support in the 'source' command, 
+but it can be emulated. The proc: alpha::registerEncodingFor must be used 
+for this purpose.
+
+	
+	======================================================================
+
+	  	The Command Line
+	
+MacOS X (for Alpha X or Alphatk), and any Unix/Windows system (for
+Alphatk) all make use of a command-line.  It is therefore important to be
+able to use the command-line to ask Alpha X/tk to edit files.  In
+addition, it is useful to be able to 'pipe' information to or from Alpha.
+This section of the manual presents Alpha's support for the command-line.
+Alpha 7 and Alpha 8, being classic MacOS based, have no need to deal with
+the command-line, since no such thing exists on the classic MacOS
+platform.
+
+We should point out that command-line support is a new feature of Alpha (as of
+May 2003), and may therefore not be as well tested as other aspects of the
+editor.
+
+	  	 	AlphaX/Alphatk support
+
+The package: alphaServer enables command line interaction in MaxOS X.
+
+For both AlphaX and Alphatk on MacOS X, one can use the scripts 'alphac' or
+'alphae' (which are located in Alpha's Tools directory) as commands for use in
+the terminal.  For example:
+
+	> alphac my_file.txt
+
+will open the given file inside Alpha X/tk.  You must make sure that 'alphac'
+has executable permissions, of course.  The way this works is that 'alphac'
+communicates with Alpha X/tk and sends it the relevant information so that the
+file is opened for editing.  Alphatk (but not AlphaX) also supports using the
+application itself in this role directly (i.e. one can replace uses of
+'alphac' with direct uses of Alphatk itself).
+
+	  	 	Alphatk support
+
+This section holds for standalone executable versions of Alphatk.  On Windows,
+the executable (and therefore the name to use on the command-line) is
+'alphatk.exe', on MacOS X it is 'Alphatk' (which is located in
+'Alphatk.app/Contents/MacOS/Alphatk').  These executables can be used as
+follows:
+
+	> alphatk.exe my_file.txt
+
+or
+
+	> alphatk.exe file_one.txt file_two.txt file_three.txt
+
+etc.  If you wish to open a particular line of a particular file, it can be
+preceded by '+<linenum>', for example:
+
+	> alphatk.exe +200 my_file.txt
+
+If you want to open a file called '+<linenum>', then you must precede the
+options with '--', after which Alphatk will not interpret any command line
+entries in any special way, for example:
+
+	> alphatk.exe +10 file1 -- +20 file2
+
+will attempt to open 'file1' at line 10, and attempt to open two more files
+called '+20' and 'file2'.  By using 'alphatk.exe -- --' one can even open a
+file called '--', if desired!
+
+For more sophisticated selecting of lines, one can use any pattern matching
+the regular expression "+(from(.index)?)([-,](to(.index)?))?", for example:
+
+	+10,20        -- selects from lines 10 to 20 inclusive
+	+10.2         -- selects from line 10, character 2 to end of line
+	+10.2,13      -- selects from line 10, character 2 to end of line 13
+	                 (can also use +10.2-13)
+	+10,13.5      -- selects from line 10 to character 5 in line 13
+
+Opening a new window.  Use the '-c' flag:
+
+	> alphatk.exe -c myNewWindow
+
+to open a new window (not associated with a file on disk) with a particular
+name.
+
+Alphatk also always attempts to check whether it is already running, and if it
+is already running, a new process will not be created, rather the instructions
+on files to open will be passed to the already running application.
+
+To pipe stdin of one process to Alphatk, use a pipe and '-' as the argument to
+Alphatk, for example (this will place the results of 'ls -l' in a new,
+untitled window in Alphatk):
+
+	> ls -l | alphatk.exe -
+
+In all situations, a single '-' causes Alphatk to attempt to read the standard
+input and place it in a new window.  Currently Alphatk will always attempt to
+read the entire stdin in one go.
+
+
+	  	Using Alpha as a Helper Application
+
+Alpha can be used as a helper application for other programs.  For example,
+Interarchy and Fetch can use Alpha as their "ftp-editor", allowing you to
+choose files from their listing windows, open and edit them with Alpha, and
+then save them back to their remote location.  See the help window for the
+package: ODBEditor for more information.
+
+The "Frontier Help # Opening a Frontier text window in Alpha" help file
+section describes how to edit Frontier files using Alpha.
+
+You can also specify Alpha as the "View Source" application for Netscape, as
+the file-capture reader for MacClassic telnet programs ...
+
+
+	======================================================================
+
+
+This last major section of the Alpha Manual ...
+
+concerns upgrading or otherwise enhancing Alpha, either by installing new
+packages written by various Alpha users and developers, or by writing your own
+packages.
+
+
+	  	Installing New Packages
+        
+
+	  	 	Where to find new packages
+
+
+Currently the best place to look for new packages is 
+
+    <ftp://ftp.ucsd.edu/pub/alpha/>.
+
+For those from Europe, you may wish to try the mirror: 
+
+    <ftp://anu.theologie.uni-halle.de/comp/mac/Alpha>
+
+
+	  	 	What is already installed?
+
+
+It is obviously a waste of time to install something which is already
+installed or - worse - to install an old package replacing a more recent
+version.  The "Installed Packages" help file lists all packages which are
+installed.  The list contains the package names, versions, and maintainers.
+This file can be updated at any time with the "Config > List Packages" menu
+item.
+
+This file lists the version number for every installed package.  Make a sure
+the version number of the package you intend to install is higher than the one
+for the currently installed package.
+
+
+	  	 	Installing
+
+
+How to start the installation depends on if the package you are about to
+install is accompanied by a file 'READ ME TO INSTALL' (or similar) or is just
+a single file someName.tcl.
+
+• If there is a file 'READ ME TO INSTALL', open it (hence the name!).  All
+packages built up of more than one file must actually have such a read me file
+in order to be possible to install.  If there is a file installScript.tcl (or
+similar), don't open it.  It only contains instructions to Alpha what to
+install.
+
+• If there is only a single file someName.tcl, open it.  Some single file
+package are configured to automatically close themselves and open a
+installation dialog.  Otherwise proceed as below.
+
+If there are instructions in the read me file how to install the package,
+follow them (of course!).  In other cases this is how a typical installation
+is made.
+
+• After you have open the read me file or the single someName.tcl, make sure
+Alpha has inserted a menu 'Install' in the menu bar.  This means Alpha is in
+installation mode.  If not, you can manually switch to installation mode by
+selecting 'Inst' in the mode pop-up menu in the statusbar.
+
+• Select 'Install > Install This Package' from the Install menu.
+
+• An installation dialog is now opened.  Here you can choose to make an Easy
+Install or a Custom Install.  The Custom Install lets you choose exactly what
+to install.  The Easy Install installs everything.  If you are not sure which
+files you need use the Easy Install.
+
+• There are also three options in the installation dialog.
+
+If 'Backup removed files' is checked Alpha will save any removed file in a
+folder InstallationBackup in Alpha's folder.  This as a safety measure so you
+can recover any changes you may have made to them or so you can switch back to
+them if the newly installed package doesn't work as you wish.
+
+If 'Show installation log' is checked a window is opened after installation
+showing which files have been put where and which files have been deleted.
+
+If 'Force overwrite, even of newer files' is checked then newer existing files
+will be replaced by those you are about to install.
+
+After Alpha has put the files in there correct location Alpha rebuilds its
+index files.  This make take a little while.  The index files are used by
+Alpha to keep track of where the various packages and function are.
+
+After the installation is completed you must quit and restart Alpha.
+
+
+	  	 	If something goes wrong
+
+
+What to do if you're unlucky and have installed a package which simply doesn't
+work, possibly crashing Alpha when it's launched?  The obvious thing is then
+to uninstall the package.  If Alpha can be launched with the new package
+installed you can uninstalling it using the method in the next section.
+
+If the newly installed package causes Alpha to crash when you launch it, the
+situation is more problematic.  Then you have to manually delete some files to
+make Alpha run again.  First delete the files you've just installed.  During
+the installation the package's files are copied to various locations in the
+folder "Tcl" inside Alpha's folder.  Locate and delete the ones with the same
+names as the ones in the set of files you installed.  Then before you launch
+Alpha again you have to delete a folder from Alpha's preferences folder.
+Alpha's preferences folder is called "Alpha-v7" and is located in the
+Preferences folder in the system folder.  Delete the folder "Cache" inside
+"Alpha-v7".  Deleting the folder "Cache" is harmless.  It will be re-created
+the next time you launch Alpha.  It is very likely, though, that the old
+content was causing Alpha to crash.
+
+If this doesn't help, as a last way out try removing the complete "Alpha-v8"
+from the Preferences folder.
+
+
+	  	Uninstalling Packages
+
+
+Many packages support a mechanism for uninstalling them.  Please note before
+starting to uninstall packages you think you won't ever need that the only
+thing you save by uninstalling a package is disk space - unless you have
+installed some buggy package causing obvious problems.  Installed packages
+which are not in use, i.e. either not enabled through the dialogs 'Config >
+Global Setup > Menus' / 'Config > Global Setup > Features', or modes which are
+not used, are never loaded into Alpha's memory.  Thus you do not save any
+memory by uninstalling packages.  Thus if you have plenty of disk space, there
+is hardly any point in uninstalling anything.
+
+The menu item "Config > Packages > Uninstall Some Packages" uninstalls
+packages.  Select the package you want to uninstall from the pop-up menu in the
+dialog.  All files belonging to the package are now permanently deleted.  Only
+a reinstallation will restore the package.
+
+After the uninstallation you must restart Alpha.
+
+If you can't find the package you want to uninstall in the pop-up menu, it
+means that the package doesn't support the mechanism for automatic
+uninstallation.  In this case the only way uninstall the package is to
+manually find the files belonging to the package and delete them.  Don't use
+this method unless you know what you are doing.  Deleting the wrong files may
+result in all sorts of troubles.
+
+
+	  	User Defined Keyboard Shortcuts
+
+
+Alpha allows you to customize the keystrokes you use to invoke editor
+functions.  Any Tcl command can be bound to any single keystroke.  Keyboard
+shortcuts can be stored in a global "prefs.tcl" file, or if they are mode
+specific, in a <mode>Prefs.tcl file.  The first item is available under the
+menu item "Config > Preferences > Edit Prefs File".  This file will be sourced
+upon every restart of Alpha.  The second type of prefs file, for individual
+modes, can be created/opened for the mode of the current window using the
+"Config > Mode Prefs > Edit Prefs File".  This file is sourced _after_ the
+mode has been initialized, so any code contained in such a file will over-ride
+what is supplied in AlphaTcl.
+
+Please see the help file "Keyboard Shortcuts" for more information.
+
+
+	  	Changing Alpha's behavior
+        
+
+The rest of the manual points you in the right direction to customize Alpha
+even more, by writing some of your own Tcl code.
+
+First of all, where do you put your own Tcl code so that Alpha can find it?
+Alpha has a set of preferences files for this purpose.  There is one global
+preferences file ("prefs.tcl") which is loaded when Alpha is launched.  In
+this file you should put code which should be loaded regardless of which mode
+you're working in.  This preferences file is opened / created using the menu
+item "Config > Preferences > Edit Prefs File".
+
+Then there is one preferences file for each mode.  The file for a mode is
+loaded after as the last code to be loaded when a mode is used the first time.
+This preferences file can be opened /created using the menu item "Config >
+Mode Prefs > Edit Prefs File".
+
+These preferences files are intended for code for personal use.  It is also
+possible to write a completely new package for Alpha, which others can also
+use.
+
+To learn about all of these topics, read the file "Extending Alpha".
+        
+
+	  	AlphaTcl-Developers mailing list
+        
+
+PLEASE use the alphatcl-developers mailing lists to discuss problems,
+suggestions etc with this release.  See the subscription options available at
+
+    <http://www.purl.org/net/alpha/mail>
+
+There are a number of known bugs which will hopefully be corrected in a
+future release.  PLEASE read the "Known Bugs" file for a list of known bugs,
+and for how to give an informative bug report, without which it is unlikely
+any bug you found can be fixed.
+        
+
+	======================================================================
+
+
+	  	Acknowledgments
+
+
+The binary part of Alpha was originally written by Pete Keleher, and it is
+being maintained by the Alpha Cabal, a small group of Alpha users who took
+over when Pete stopped his Alpha activity.
+
+Pete's original acknowledgements: 
+
+    Alpha contains source from many places, but in particular I'm grateful to
+    Ray Johnson and Tim Endres for their working on porting Tcl to the mac,
+    and to Tom Scavo and Tom Pollard for their Tcl code contributions.  The
+    following people have also provided considerable code and/or help
+    debugging the one or two bugs Alpha has had: Masatsugu Nagata, Karl J.
+    Smith, Eric Sink, David C. Black, Richard T. Austin, Henry Spencer, Vince
+    Darley, Johan Linde, Tom Fetherston, Jon Guyer and Jerry Fowler.
+
+The AlphaTcl library is also based on work of Pete, but it is now an open
+source project hosted on SourceForge.  Please see the "Changes - AlphaTcl" for
+a proper list of acknowledgments.
+
+
+	  	Copyright, Credits
+
+
+Author: Peter Keleher
+
+<http://www.purl.org/net/alpha/keleher>
+
+Contributors: This manual has been updated / revised by many helpful users
+and developers over the years, as noted above.

@@ -1,0 +1,127 @@
+% This is a sample (not real life) opl file for the Omega mode with Alpha. 
+% It is an excerpt of ucvtt10.opl.  The features which are herein described
+% will work only if omegaMode has been properly installed.
+% 
+% - the Omega mode is established automatically thanks to the .opl
+% extension in the file's name.
+% 
+% - syntax coloring : the typical Property List keywords are in green.  See
+% the mode preferences to customize this.
+% 
+% - the 'M' pop-up menu helps you to navigate in the file : it lists all
+% the FONTDIMEN, LIGTABLE and all the characters.
+% 
+% Please see the Omega-Example.tex and Opl-Example.opl files for more 
+% examples of Omega Mode.   
+% 
+% Omega Mode is under development (as is Omega itself). 
+% Please check for the latest version of Omega Mode at :
+% 
+% <http://perso.easynet.fr/~berdesg/omega.html>
+% 
+
+
+(OFMLEVEL H 0)
+(FONTDIR TL)
+(FAMILY OMEGA SERIF)
+(FACE F MRR)
+(CODINGSCHEME OMEGA-LGC)
+(DESIGNSIZE R 10.0)
+(COMMENT DESIGNSIZE IS IN POINTS)
+(COMMENT OTHER SIZES ARE MULTIPLES OF DESIGNSIZE)
+(CHECKSUM H 956D535D)
+(SEVENBITSAFEFLAG FALSE)
+(FONTDIMEN
+   (SLANT R 0.0)
+   (SPACE R 0.3)
+   (STRETCH R 0.15)
+   (SHRINK R 0.1)
+   (XHEIGHT R 0.459)
+   (QUAD R 1.0)
+   (EXTRASPACE R 0.111112)
+   )
+(LIGTABLE
+   (LABEL H 41)
+   (KRN H 43 R -0.02917)
+   (KRN H 47 R -0.02917)
+   (KRN H 4F R -0.02917)
+   (KRN H 51 R -0.02917)
+   (KRN H 54 R -0.0875)
+   (KRN H 55 R -0.02917)
+   (KRN H 56 R -0.11667)
+   (KRN H 57 R -0.11667)
+   (KRN H 59 R -0.0875)
+   (KRN H 74 R -0.02917)
+   (KRN H D8 R -0.02917)
+   (KRN H 152 R -0.02917)
+   (STOP)
+   (LABEL H 44)
+   (KRN H 41 R -0.02917)
+   (KRN H 56 R -0.02917)
+   (KRN H 57 R -0.02917)
+   (KRN H 58 R -0.02917)
+   (KRN H 59 R -0.02917)
+   (KRN H C6 R -0.02917)
+   (STOP)
+
+[snip] 
+
+
+   )
+(CHARACTER H 21
+   (CHARWD R 0.29167)
+   (CHARHT R 0.622)
+   )
+(CHARACTER H 22
+   (CHARWD R 0.525)
+   (CHARHT R 0.611)
+   (CHARDP R 0.368)
+   )
+(CHARACTER H 23
+   (CHARWD R 0.875)
+   (CHARHT R 0.611)
+   )
+
+[snip] 
+
+
+(CHARACTER H 41
+   (CHARWD R 0.75833)
+   (CHARHT R 0.623)
+   (COMMENT
+      (KRN H 43 R -0.02917)
+      (KRN H 47 R -0.02917)
+      (KRN H 4F R -0.02917)
+      (KRN H 51 R -0.02917)
+      (KRN H 54 R -0.0875)
+      (KRN H 55 R -0.02917)
+      (KRN H 56 R -0.11667)
+      (KRN H 57 R -0.11667)
+      (KRN H 59 R -0.0875)
+      (KRN H 74 R -0.02917)
+      (KRN H D8 R -0.02917)
+      (KRN H 152 R -0.02917)
+      )
+   )
+(CHARACTER H 42
+   (CHARWD R 0.72917)
+   (CHARHT R 0.611)
+   )
+
+[snip] 
+
+
+(CHARACTER H 1018
+   (CHARWD R 0.29167)
+   (CHARHT R 0.611)
+   (CHARDP R 0.368)
+   )
+(CHARACTER H 1019
+   (CHARWD R 0.29167)
+   (CHARHT R 0.611)
+   (CHARDP R 0.368)
+   (COMMENT
+      (KRN H 21 R 0.11667)
+      (KRN H 3F R 0.11667)
+      )
+   )

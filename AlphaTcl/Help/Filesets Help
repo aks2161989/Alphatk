@@ -1,0 +1,527 @@
+
+Filesets and the Fileset Menu
+
+                                               version: 2.1.6
+                                               created: 07/26/1999 {03:46:54 pm}
+                                           last update: 02/14/2006 {02:34:02 AM}
+
+This help file describes 'filesets' and the "Fileset Menu".
+
+
+	  	Table Of Contents
+
+
+"# Introduction"
+"# Activating the Fileset menu"
+"# Getting started"
+"# Fileset types"
+"# Non-text files"
+"# Fileset menu cache"
+"# Current Fileset"
+
+"# Fileset Utilities Menu"
+"# Fileset Preferences"
+"# TeX filesets"
+"# Binding keys to common fileset operations"
+
+"# Additional fileset information"
+"#   Recent files multi menu"
+"#   Fileset Tab Preference"
+"#   Fileset Indentation Preference"
+"#   Fileset Encoding Preference"
+"#   Fileset Ftp Mirror"
+"# Personalization"
+
+<<floatNamedMarks>>
+
+
+	  	Introduction
+
+
+A "fileset" is simply a method or set of rules to create a list of files.
+This list can then be used for several different purposes.  The most basic
+usage is to present the list of files so that one of them can be opened for
+editing.  The "Fileset Menu" will present the contents of most filesets in a
+drop-down menu; selecting any one of them will open the file in Alpha.
+
+Preferences: Menus
+
+Filesets are also used to create lists of files for multiple-file searches
+and tag searches, among other things.  Typically, a user will set up
+several different file sets, such as:
+
+  • all html files in a web site
+  • all source files in a programming project
+  • a local image of a remote cvs code repository
+  • all files on a remote ftp site
+  • all documents in a multi-part LaTeX document
+
+Each fileset is composed of a set of criteria to create a list.  These
+criteria can be as simple as
+
+	All files recursively contained within a given directory
+
+or
+
+	All of the files in this specific list
+
+or there can be more complex membership rules such as
+
+	All of the files in a given hierarchy
+	Including those whose names begin with "draft"
+	But excluding those whose names end with ".log" and ".aux"
+
+The Fileset Menu allows you to include the listing of your commonly used
+filesets: each one will appear as a submenu whose label is the name of the
+fileset (which you specify when you create the fileset), and whose contents
+are the names of the files within the fileset.  Selecting an item in the
+menu will open the file for editing.  For each fileset you create, you may
+also decide not to place it in the menu but rather to have it hidden.
+Hidden filesets are fully functional in every way to every other part of
+Alpha which interacts with filesets; they are simply not shown in the menu.
+
+In fact Alpha automatically creates some special filesets which you can use,
+but which do not appear in the filesets menu.  One of these is a fileset
+containing all recently used files; another is a fileset containing all
+currently open windows --- these can be very useful for search operations, for
+example.  The reason these filesets are not shown in the filesets menu is that
+they are updated very frequently, and already feature in the Windows and
+Recent-Files menus.
+
+
+	  	Activating the Fileset menu
+
+
+The Fileset menu, like all of Alpha's menus, is activated in the dialog
+"Config > Global Setup > Menus".  
+
+Preferences: Menus
+
+Check the 'Fileset Menu' box among the global menus, and it should appear
+in the menu bar.  For new users it is automatically activated, so it should
+already be in the menu bar.  If icons are used in your menu bar, this menu
+looks like a stack of overlapping documents.  If icons are not used, then
+this menu is simply called 'Fileset'.
+
+
+	  	Getting started
+
+
+As an introductory example this section describes how to create a new fileset
+with all files in a folder.  (See the "# Fileset types" section below for
+information about the proper settings for other types of filesets.)
+
+• Create a new fileset by selecting "Filesets Menu > Utilities > New Fileset"
+  (click here <<newFileset>> for an example.
+
+• You are now asked for the name and type of the fileset you want.  Let's
+  give it the name 'My fileset', and for the type, we'll use 'From Directory'
+  (the default) since we wish to create a fileset with the files in a
+  directory.  Assuming you want to keep this fileset permanently, don't click
+  the box saying this is a temporary fileset.
+
+• You are now presented with a dialog from which you can set all aspects of
+  this fileset.  The most important is to select the folder/directory
+  containing files you might like quick access to.  Click on the 'Set...'
+  button to do this.
+
+• Next you need to give a pattern for the fileset, specifying which files in
+  the folder to include in the fileset.  To include all files use the default
+  pattern '*' (or leave the pattern empty).  See the section File Patterns in
+  the Alpha manual ("Alpha Manual # File Patterns") to learn how to specify
+  file patterns.
+
+• There are a number of other options in the dialog, which we will ignore
+  for the moment.  Once you are done, click on 'OK'.
+
+Alpha now builds a new submenu of the Fileset menu called 'My fileset' with
+all the files in the folder you selected.  Selecting a file in the submenu
+will open the file in Alpha.
+
+Your fileset can also be used for multi-file searching.  In the Find dialog
+when selecting multi file searching, you can choose to search the files in
+your fileset.
+
+You can also do multi file search and replace in your fileset, by selecting
+"Filesets Menu > Utilities > Replace In Fileset".
+
+
+	  	Fileset types
+
+
+Some fileset types require that you give file patterns specifying which files
+to include in the fileset.  Read the Section File Patterns in the Alpha manual
+to learn about how to specify file patterns.
+
+	From Directory          
+
+The basic type: create a fileset of all files in a given folder which match a
+given pattern.  You have to specify:
+
+• The folder with the files.
+• A file pattern matching the files to include.
+• A list of patterns of files to exclude.
+                        
+	From Hierarchy          
+
+Takes the above one step further and allows filesets to include all files in a
+nested set of folders.  You have to specify:
+
+• The base folder with the files.
+• The depth of nested folders.
+• A file pattern matching the files to include.
+• A list of patterns of files to exclude.
+
+	Recurse In              
+
+A simplification of 'From Hierarchy' which includes all files contained in the
+given base folder.  Hence you only need to specify:
+
+• The base folder with the files.
+
+	From Open Windows       
+
+Make a fileset containing all currently open windows.
+
+	Codewarrior             
+
+Query the Codewarrior IDE for a list of all files in the current project (Only
+available on MacOS).
+
+	Tex                     
+
+Make a fileset of all parts of a multi-part TeX/LaTeX document.  Alpha's
+LaTeX mode understands these and will automatically send your TeX application
+the base .tex/.ltx file when you select 'Typeset' on any component part.
+Details about TeX filesets can be found in the LaTeX mode documentation; see
+the "Help > LaTeX Mode Help" menu item for more information.
+
+	Ftp                     
+
+Make a fileset of files at a remote machine via ftp.  You have to specify:
+
+  • Host, path (optional), user id, and password
+  • A regular expression (not a file pattern!) matching the files to include.
+
+	Procedural              
+
+Make a fileset from a Tcl procedure.  This type requires that you write a Tcl
+procedure which returns a list of paths to all files in the fileset.  When you
+create a new procedural fileset Alpha puts an empty procedure (with the
+correct name!)  in your global preferences file.  You must then write the body
+of this procedure.  Procedural filesets are completely dynamic and will not
+appear in the Fileset menu.
+
+
+	  	Non-text files
+
+
+This setting only applies on MacOS and MacOS X. By default only text files
+are included in the fileset (i.e. files whose 'type' attribute is designated
+as 'TEXT').  If the flag 'Include Non Text Files' is set, the fileset menu
+may contain files Alpha is not designed to open; these are sent to the Finder
+which will open them using whichever application created them.  A common use
+of this feature is a hierarchical fileset containing a complete C or C++
+project.  Selecting any project source file will open that file for editing,
+and selecting the project file/debugging symbol file/...  will open that
+using appropriate tool (Symantec Project Manager or Codewarrior IDE or
+Debugger,…) Another use can be to include images in a home page so you can
+quickly open them when you want to change the graphics.
+
+
+	  	Fileset menu cache
+
+
+Rather than rebuilding the Fileset menu every time you launch Alpha, the menu
+is saved in a cache file.  This is to speed up launching of Alpha as building
+the filesets may take a while if there are many of them.  Therefore the
+fileset submenus may become out of date and you have to rebuild them (indeed,
+they may become out of date while you are using Alpha, in any case, if you add
+or remove files from the relevant directories).  You can rebuild a single
+fileset with either 'Update Current Fileset' or 'Update A Fileset…' and
+rebuild them all with 'Rebuild All Filesets'.
+
+
+	  	Current Fileset
+
+
+Some functions that use filesets operate on the 'current' fileset.  The
+current file set can be selected in the 'Choose' submenu of the Utilities
+menu.  There is also a flag 'Auto Adjust Fileset' which will switch the
+current fileset whenever the fileset menu is used to open a file.
+	  	
+	======================================================================
+
+
+	  	Fileset Utilities Menu
+
+
+There are various common fileset-related actions which you may wish to carry
+out.  Some built-in actions are listed in the 'Fileset > Utilities' menu, and
+others may be added by features you have activated.  The first half of the
+menu contains the fundamental fileset operations, and the second half less
+commonly used operations, including operations added by other features.
+
+	Edit Filesets
+
+Allows you to modify all details of all the filesets you have created.  It
+also allows you to edit additional information which some packages might
+attach to each fileset (for example, whether to use a version control system
+for the files, or whether to use a particular tab size setting).
+
+	Edit A Fileset
+
+As above, but asks you to select a single fileset first.  It can be less
+cumbersome to operate directly on a single fileset rather than through all of
+them simultaneously.
+
+	New Fileset          
+
+Create a new fileset of one of the above six standard types (others may be
+added by writing your own Tcl code, see below.)
+
+	Delete Fileset
+
+Remove a fileset, permanently if desired.
+
+	Print Fileset
+
+Print all files in a fileset
+
+	Update Current Fileset
+
+Re-build the current fileset from scratch
+
+	Update A Fileset (hold down Option)
+
+Lets you choose a fileset to rebuild.
+
+	Rebuild All Filesets
+
+Total menu rebuild, including all ftp filesets.
+
+	Choose
+
+A menu from which to set the current fileset.
+
+	Hide Fileset
+
+If you have many filesets, some of which are only used for searching purposes,
+you can remove them from the menu.
+
+	Fileset Flags
+
+See the "# Fileset Preferences" section below for an explanation of the flags
+that can be set.
+
+	Find Tag
+
+See the package: tags help window for more information.
+
+	Create Tag File
+
+See the package: tags help window for more information.
+
+
+The items below may not all work for all types of filesets.
+
+	Browse Fileset
+
+Opens a browser window containing all fileset items, from which any can be
+opened.
+
+	Close Entire Fileset
+
+Close all windows which belong to a given fileset.
+
+	Fileset To Alpha
+
+Convert all text files in a fileset to Alpha's creator.
+
+	Open Entire Fileset
+
+Open all the windows contained in the fileset for editing.
+
+	Open Fileset Folder
+
+Tells the Finder to open the base folder which contains a fileset.
+
+	Rename Fileset
+
+Change a fileset's name
+
+	Replace In Fileset
+
+Global search and replace in all files.  Use this item with care!
+
+	Stuff Fileset
+
+Use 'Drop Stuff' to compress all the files in the fileset.  For filesets which
+are based on a directory hierarchy, you will be given the option of
+compressing the entire hierarchy (as opposed to just the files listed in the
+fileset).
+
+	Word Count
+
+Count all words in a fileset.
+
+
+	  	Fileset Preferences
+
+
+The following preferences can be changed at any time by selecting the
+toggleable items in the "Fileset Menu > Utilities > Fileset Flags" menu:
+
+	Auto Adjust Fileset
+
+Opening a file from the menu will adjust current fileset
+
+	Include Non Text Files
+
+Files not of type 'TEXT' may be in the menu.
+
+	Indent Fileset Items
+
+Visually format submenus if appropriate.
+
+	Sort Fileset Items
+
+Force alphabetical ordering for all filesets
+
+	Sort Filesets By Type
+
+Structure the fileset menu in a user-defined, type- dependent fashion; see the
+"# Personalization" section below.
+
+
+	  	TeX filesets
+
+
+The following items will be added to the utilities menu if you use TeX
+filesets:
+
+	Extract Eps BoxSizes
+
+Search all document parts for included eps graphics, extract bounding box
+information from the .eps files and insert it explicitly into the document
+(can lead to much quicker typesetting).
+
+	Delete Eps Box Sizes
+
+Remove all the above bounding box information
+
+	Hierarchical Bib Files
+
+Bibliography files may \input others, so they should be searched (the default
+is not to do this, because .bib files may be enormous).
+
+
+	  	Binding keys to common fileset operations
+
+
+Different users tend to use filesets in very different ways, so we cannot
+create a useful common set of key bindings for the 'most common' fileset
+operations.  If you wish to create a personalized key-binding for a particular
+item in the utilities menu, then create a "prefs.tcl" file by selecting the
+"Config > Preferences > Edit Prefs File" menu item, and add a line like the
+following to that file:
+
+	Bind 'o' <z> {filesetMenu::utilsProc "" openFilesetFolder…}
+
+When you restart (or immediately if you 'evaluate' the line), your key-binding
+will take effect.  The above will create a 'Control-O' keyboard shortcut to
+the 'Open Fileset Folder' action.
+	  	
+
+	======================================================================
+
+
+	  	Additional fileset information
+
+
+Some packages may attach pieces of data to each fileset.  Examples could be
+the default tab size to use for a fileset (useful if the files use a different
+value to your own global default), or the type of version control under which
+the files are registered.
+
+Authors of Tcl extensions to Alpha use the proc: fileset::attachNewInformation
+to add such data.  It automatically appears in the 'Edit Filesets' dialog.
+The packages which currently attach such information, and/or provide
+additional fileset functionality are as follows (list current only at the time
+of writing):
+
+	  	 	Recent files multi menu
+
+If you use this more sophisticated version of the recent files menu, you will
+find a new checkbox 'Use As Recent Files Group' by each fileset in the 'Edit'
+dialogs.  If ticked for a fileset, then recently edited files from that
+fileset are listed separately in the recent files menu.
+
+	  	 	Fileset Tab Preference
+
+If activated, you can select a default tab size to use for all files in a
+given fileset.
+
+	  	 	Fileset Indentation Preference
+
+Similar to the tab preference, but, if activated, allows you to select tab
+size, indentation amount, and 'indent using spaces only' settings for any
+given fileset.
+
+	  	 	Fileset Encoding Preference
+
+Alphatk and Alpha 8 understand different types of textual encoding in which
+files may be saved.  This feature allows you to specify a default encoding to
+use for editing files in each fileset.
+
+	  	 	Fileset Ftp Mirror
+
+If you would like copies of all files in a fileset to be mirrored on a remote
+ftp site, this feature allows you to attach information about the site (site
+address, path, username and password) to a fileset, and then provides a new
+menu item 'Update Fileset Mirror' in the fileset utilities menu which
+automatically synchronizes the contents of the remote site with any changed
+documents.
+
+
+	  	Personalization
+
+
+As well as adjusting the aforementioned flags, the fileset menu allows
+complete user control of the structure of the menu (at least for users who
+understand a little bit of Tcl) in the following way: Set the 'Sort Filesets
+By Type' flag, and then set the Tcl variable "filesetSortOrder" as follows:
+
+The structure of this variable dictates how the fileset menu is structured:
+       
+	'{pattern p}' 
+    
+Lists all filesets which match 'p'
+
+	'-' 
+
+Adds a separator line
+
+	'{list of types}' 
+
+Lists all filesets of those types.
+
+	'{submenu name sub-order-list}' 
+    
+Adds a submenu with name 'name' and recursively adds filesets to that submenu
+as given by the sub-order.
+           
+Leading, trailing and double separators are automatically removed.
+
+For example, the default value of this variable (more as an example than
+anything else) is:
+
+	set filesetSortOrder { {pattern *Core} {pattern Packages} \
+	  {pattern Menus} {pattern Modes} {pattern Preferences} \
+	  - {tex} - {pattern *.cc} {submenu Headers {pattern *.h}} \
+	  - {fromDirectory think codewarrior ftp \
+	  fromOpenWindows fromHierarchy} * }
+
+You can and should over-ride this in your global preferences file (copy and
+paste from here into your "prefs.tcl" file, then make your changes).
+

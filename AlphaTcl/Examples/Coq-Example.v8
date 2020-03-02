@@ -1,0 +1,130 @@
+(*  -*-coq-*-  *)
+
+(* This is an example file for Alpha's coq mode.  The key feature
+ * of this coq mode is its step console interaction with coqtop.
+ * Press Enter to step through the proof -- provided you have Coq
+ * installed on your system, in your PATH.
+ * )
+
+(* 
+ * This is a Coq 8.0 implementation of the Eckmann-Hilton argument. 
+ * I.e., a proof of the fact that given two compatible monoid 
+ * structures on a set, then these two structures coincide and are 
+ * commutative.
+ *)
+
+(*=======================================================*)
+(* Define the algebraic structure '2-monoid' *)
+(*=======================================================*)
+Record TwoMonoid : Type := {
+    this2monoid :> Type;
+    (* structures: *)
+    comp_vert : this2monoid -> this2monoid -> this2monoid;
+    comp_hor : this2monoid -> this2monoid -> this2monoid;
+    id_vert : this2monoid;
+    id_hor : this2monoid;
+    (* properties: *)
+    ass_vert :
+    forall a b c : this2monoid,
+    comp_vert a (comp_vert b c) = comp_vert (comp_vert a b) c;
+    ass_hor :
+    forall a b c : this2monoid,
+    comp_hor a (comp_hor b c) = comp_hor (comp_hor a b) c;
+    id_bottom : forall a : this2monoid, comp_vert id_vert a = a;
+    id_top : forall a : this2monoid, comp_vert a id_vert = a;
+    id_left : forall a : this2monoid, comp_hor id_hor a = a;
+    id_right : forall a : this2monoid, comp_hor a id_hor = a;
+    interchange :
+    forall a b c d : this2monoid,
+    comp_hor (comp_vert a c) (comp_vert b d) =
+    comp_vert (comp_hor a b) (comp_hor c d)
+}.
+
+Check TwoMonoid.
+
+(*=======================================================*)
+Lemma unique_id_vert :
+    forall (M : TwoMonoid) (x : M),
+    (forall y : M, comp_vert M y x = y) -> x = id_vert M.
+(*=======================================================*)
+
+intros.
+rewrite <- id_bottom with (a := x).
+apply H.
+Qed.
+
+
+(*=======================================================*)
+Lemma ids_coincide : 
+    forall M : TwoMonoid, id_hor M = id_vert M.
+(*=======================================================*)
+
+intros.
+rewrite <- unique_id_vert with (x := id_hor M).
+reflexivity.
+intros.
+
+assert (H :
+  comp_hor M (comp_vert M y (id_hor M)) (comp_vert M (id_hor M) (id_vert M)) =
+  comp_vert M (comp_hor M y (id_hor M)) (comp_hor M (id_hor M) (id_vert M))).
+
+apply interchange.
+rewrite id_top in H.
+rewrite id_right in H.
+rewrite id_left in H.
+rewrite id_right in H.
+rewrite id_top in H.
+exact H.
+Qed.
+
+
+(*=======================================================*)
+Lemma eckmann_hilton_1 :
+    forall (M : TwoMonoid) (x y : M), comp_hor M x y = comp_vert M x y.
+(*=======================================================*)
+
+intros.
+assert (H :
+  comp_hor M (comp_vert M x (id_vert M)) (comp_vert M (id_vert M) y) =
+  comp_vert M (comp_hor M x (id_hor M)) (comp_hor M (id_hor M) y)).
+replace (id_vert M) with (id_hor M).
+apply interchange.
+apply ids_coincide.
+rewrite id_right in H.
+rewrite id_left in H.
+rewrite id_top in H.
+rewrite id_bottom in H.
+exact H.
+Qed.
+
+(*=======================================================*)
+Lemma eckmann_hilton_2 :
+    forall (M : TwoMonoid) (x y : M), comp_vert M x y = comp_hor M y x.
+(*=======================================================*)
+intros.
+assert (H :
+  comp_vert M (comp_hor M (id_hor M) x) (comp_hor M y (id_hor M)) =
+  comp_hor M (comp_vert M (id_vert M) y) (comp_vert M x (id_vert M))).
+
+replace (id_vert M) with (id_hor M).
+
+symmetry  in |- *.
+apply interchange.
+apply ids_coincide.
+rewrite id_right in H.
+rewrite id_left in H.
+rewrite id_top in H.
+rewrite id_bottom in H.
+exact H.
+Qed.
+
+(*=======================================================*)
+Lemma commutativity_hor :
+    forall (M : TwoMonoid) (s t : M), comp_hor M s t = comp_hor M t s.
+(*=======================================================*)
+intros.
+rewrite eckmann_hilton_1.
+rewrite eckmann_hilton_2.
+reflexivity.
+Qed.
+

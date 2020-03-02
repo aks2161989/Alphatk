@@ -1,0 +1,786 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+
+<HTML>
+
+<HEAD>
+
+<TITLE>Version history</TITLE>
+
+<LINK HREF="../Style%20Sheet/manual.css" REL="stylesheet" TYPE="text/css">
+
+
+</HEAD>
+
+<BODY>
+
+<!-- #INCLUDE INCLPATH="maintop.html" -->
+
+<SCRIPT TYPE="text/javascript">
+<!--
+if (document.body.clientHeight) {
+	height = document.body.clientHeight - 50;
+} else {
+	height = window.innerHeight - 50 ;
+}
+document.write('<div class="main" style="height: ' + height + 'px;">');
+// -->
+</SCRIPT>
+
+
+<!-- /#INCLUDE -->
+
+
+<H1>Version history</H1>
+
+<H3>Version 3.2b1, 19 July 2003</H3>
+
+<UL>
+	<LI>Added support for XHTML.
+	<LI>Changed most key bindings in the Editing menu because of a conflict 
+	with OS X.
+	<LI>Fixed a bug in "Upload home page", which prevented Fetch to create 
+	missing folders on the server side.
+	<LI>Fixed a bug in the CSS Voice dialog.
+	<LI>Added some contextual menu support.
+	<li>If there is a &lt;META CHARSET=...&gt; element in the beginning of the 
+	file, the window encoding is set according to this. This works only in 
+	AlphaTk.
+	<LI>When the menus are used globally the menu items are now correctly 
+	enabled and disabled.
+	<LI>Many fixes to make everything work properly in Alpha 8 and X. 
+	There are more such fixes to come.
+</UL>
+
+
+<H3>Version 3.1.5, 9 December 2001</H3>
+
+<UL>
+	<LI>Modified border-left-color, border-top-color, border-right-color, 
+	border-bottom-color, border-left, border-top, border-right, border-bottom, 
+	border-color, and border according to errata of CSS 2.
+	<LI>Fixed a bug in "Tags to uppercase/lowercase".
+</UL>
+
+
+<H3>Version 3.1.4, 4 November 2001</H3>
+
+<UL>
+	<LI>When updating files with "include files", and when moving files, Alpha 
+	can now preserve UNIX and Windows line endings in the files. This feature 
+	is disabled by default as it slows down the updating a little. Enable it in 
+	the General HTML mode Preferences dialog box.
+	<LI>Support for reading the size of PNG image files.
+	<LI>In CSS mode there is now an option to insert HTML element names in 
+	lower case.
+	<LI>"Send file to browser" now works with Apple Help Viewer.
+	<LI>Fixed a bug in the attribute dialog for INS and DEL.
+	<LI>Some updates for the coming Alpha 8.
+</UL>
+
+
+<H3>Version 3.1.3, 12 October 2001</H3>
+
+<UL>
+	<LI>Improvements to "Quote all Attributes", "Tags to Uppercase", and "Tags to Lowercase".
+	<LI>Faster loading of HTML mode when the CSS menu is deactivated.
+	<LI>Fix for browsing in home page windows in Alpha 7.5.
+</UL>
+
+
+<H3>Version 3.1.2, 30 June 2001</H3>
+
+<UL>
+	<LI>Formatting inside "formatting tags" was broken in 3.1.1. Fixed.
+	<LI>Fixed a bug in the attribute dialog for the LI element.
+	<LI>Added support for HTML documents in the "New Document" package.
+	<LI>A couple of other bug fixes.
+</UL>
+
+<H3>Version 3.1.1, 20 May 2001</H3>
+
+<UL>
+	<LI>Support for Smart Paste package.
+	<LI>Support for the setting "Position After Indentation".
+	<LI>A new button "Update Size" in the attribute dialog for IMG to update 
+	the WIDTH and HEIGHT attributes.
+	<LI>Indentation bug fixes.
+	<LI>Table template bug fix.
+	<LI>A couple of other bug fixes.
+</UL>
+
+<H3>Version 3.1, 8 April 2001</H3>
+
+<UL>
+	<LI>Support for Mozilla and Opera icons (requires Alpha 7.4.2).
+	<LI>A couple of bug fixes.
+</UL>
+
+
+<H3>Version 3.1b1, 30 March 2001</H3>
+
+<UL>
+	<LI>Include files can now contain place holders for text or scripts 
+	specified by additional attributes of the include tags.
+	<LI>URL and frame target caches can now be saved in sets much in the same 
+	way as Color sets.
+	<LI>Renamed the Windows menu to Targets, which is a more appropriate name, 
+	as it handles the caches for frame targets.
+	<LI>Color sets can now be renamed.
+	<LI>Typing &gt; of a tag now only auto-indent when the tag is at the 
+	beginning of a line.
+	<LI>Inserting a template now only adjusts the indentation of the current 
+	line when the template is at the beginning of the line. In addition, this 
+	adjustment can be disabled in the General preferences dialog.
+	<LI>When word completing an element an attribute dialog is now automatically 
+	opened. This behavior can be changed in the General preferences dialog.
+	<LI>Added a preference to use old style Comment Paragraph.
+	<LI>Changed key binding for "Untag and Select" because of a conflict with 
+	Mac OS 9.x.
+	<LI>A couple of bug fixes, particularly in CSS mode.
+</UL>
+
+<H3>Version 3.0, 20 January 2001</H3>
+
+<UL>
+	<LI>Generalization of some parts of the code to prepare for a future XML 
+	mode.
+	<LI>Support for CSS 2.0.
+	<LI>Updated to HTML 4.01.
+	<LI>The layout of all elements can be customized.
+	<LI>The use of optional closing tags can be customized for all such elements.
+	<LI>A more flexible setting for which attributes to be asked about.
+	<LI>Improved attribute dialogs with support for more attribute types, charset, media type etc. 
+	<LI>The same improvement for the status bar.
+	<LI>Much improved validation including validation of attributes.
+	<LI>Improved parsing of elements when e.g. changing them, checking links 
+	etc.
+	<LI>Improved word completion.
+	<LI>Compatibility with Better Templates package.
+	<LI>Colors are put in color sets which can be activated/deactivated.
+	<LI>Rewrote menu routines to support menu::insert.
+	<LI>CSS menu is now part of HTML mode.
+	<LI>"New document with content" rather than stupid 
+	dialog.
+	<LI>Better but still simple template function, which is replacing Footers.
+	<LI>Language and ISO (thanks Fr&eacute;d&eacute;ric) support for 'last 
+	modified date'.
+	<LI>Character translation of (most) "other chars".
+	<LI>No character translation inside comments.
+	<LI>New interface for extending HTML mode with new elements.
+	<LI>Include file tags can now use relative paths.
+	<LI>'Rename files' function.
+	<LI>'Rename folder' function.
+	<LI>Cmd-double-click on CSS properties to edit them.
+	<LI>Uploading of complete home page folder to ftp server.
+	<LI>"Save to FTP server" now creates missing directories.
+	<LI>New coloring option for immediate coloring when typing. 
+	<LI>Auto-indentation when completing and when typing &gt; of a tag. 
+	<LI>Replaced "Change Container/Change Opening" with a simpler "Edit Tag".
+	<LI>Replaced "Select Opening" with a more useful "Select Tag" function.
+	<LI>Better compatibility with AlphaTk.
+	<LI>Many, many small improvements...
+</UL>
+
+
+<H3>Version 2.1.5, December 2000 [only bundled with beta versions of Alpha 7.4]</H3>
+
+<UL>
+	<LI>Added "Electrics" preference item in both HTML and CSS modes.
+	<LI>Added Send URL to browser function in Browsers submenu. Sends the URL 
+	of the front window to the browser. Useful if you edit the file directly 
+	on the server and it contains server side scripting.
+</UL>
+
+<H3>Version 2.1.4, 24 April 1999</H3>
+
+<UL>
+	<LI>The package Better Templates is turned off in HTML mode because of 
+	incompatibility. (Only in Alpha 7.1 and above.)
+	<LI>Added support for iCab.
+	<LI>Fixed problem with translation of &#161; and &#191;.
+	<LI>Alpha looks for more than one &lt;!-- LASTMODIFIED --&gt; when saving.
+	<LI>Some few changes to the attributes of some elements according to errata
+	of the HTML 4.0 specification.
+	<LI>A few other minor bug fixes.
+</UL>
+
+<H3>Version 2.1.3, 1 November 1998</H3>
+
+<UL>
+	<LI>In the prefs dialog "Attributes..." the settings in the two checkboxes 
+	weren't saved between sessions. Fixed!
+</UL>
+
+<H3>Version 2.1.2, 2 June 1998</H3>
+
+<UL>
+	<LI>When including the same include file more than once in a document, Alpha 
+	thought there was an infinite loop of includes. Fixed!
+</UL>
+
+<H3>Version 2.1.1, 16 May 1998</H3>
+
+<UL>
+	<LI>HTML mode now recognizes the prefs variable indentationAmount and 
+	doesn't just indent with tabs.
+</UL>
+
+<H3>Version 2.1, 5 April 1998</H3>
+
+<UL>
+	<LI>Added support for HTML 4.0.
+	<LI>The Packages menu is gone. Global preferences for which elements 
+	and attributes to use are set using 'Attributes...' in the Preferences 
+	submenu.
+	<LI>The way to choose which attributes to be asked about has been 
+	modified and simplified (I hope).
+	<LI>The event handlers are treated in the same way as other attributes. 
+	The setting 'Include event handlers in attribute dialogs' is gone.
+	<LI>A document type declaration can now be inserted when creating a new 
+	document. This document type declaration is used by HTML mode to 
+	determine which elements and attributes are allowed.
+	<LI>Relative links in dynamically included 
+	files can now be built when the files are included. No need anymore 
+	to use absolute links in the included files.
+	<LI>Recursive including of files is now supported. One file can include 
+	another file which includes another file which...
+	<LI>Include tags can now be pasted from the home page windows.
+	<LI>By default 'Insert include tags' only inserts the tags and not the 
+	file. This behavior can be changed in the preferences.
+	<LI>Added many new character entities. Key bindings for the entities 
+	can now be defined.
+	<LI>Removed 'Word complete' and the various tab functions from the 
+	Editing submenu. The functionality is still there! HTML mode now uses 
+	global functions for this. If you want to modify the key bindings for 
+	these functions, this is now done using Config -&gt; Global -&gt; 
+	Special Keys...
+	<LI>In Alpha 7.0 word completion now <STRONG>requires</STRONG> that Elec Completions 
+	in activated in the Packages submenu. In Alpha 7.1 it <STRONG>requires</STRONG> 
+	that Elec Completions is checked in the dialog Config -&gt; Global -&gt; 
+	Menus and Features...
+	<LI>Cmd-double-clicking on HREF="file#anchor" now makes Alpha jump to 
+	the anchor.
+	<LI>Added electric completions to JavaScript mode. (They also work in 
+	HTML mode.)
+	<LI>Transformation of all tags to uppercase or lowercase.
+	<LI>To save your ears Alpha now only beeps for the first attribute when 
+	using the status bar.
+	<LI>Alpha can also flash the status bar when asking for attributes.
+	<LI>Setting for case sensitive link checking now also applies to Big 
+	Brother.
+	<LI>Choosing a new browser now also sends the window to the browser 
+	unless the option key is pressed.
+	<LI>Changed the key binding for 'New Document' to make it the same as in 
+	other modes.
+	<LI>Changed default menu icons.
+	<LI>The tab marks are now called template stops, which is the term used 
+	elsewhere in Alpha.
+</UL>
+
+<H3>Version 2.0.5, 2 March 1998</H3>
+
+<UL>
+	<LI>The same as version 2.0.4 but for Alpha 7.1b1.
+</UL>
+
+<H3>Version 2.0.4, 7 February 1998</H3>
+
+<UL>
+	<LI>'Send file to browser' sometimes sent the wrong page in Alpha 7.0. Fixed.
+	<LI>'New element' didn't work with Alpha 7.0. Fixed.
+</UL>
+
+<H3>Version 2.0.3, 3 November 1997 [update of version 2.0.1]</H3>
+
+<UL>
+	<LI>The same as version 2.0.2 but for Alpha 7.0.
+</UL>
+
+<H3>Version 2.0.2, 3 November 1997 [update of version 2.0]</H3>
+
+<UL>
+	<LI>Cmd-double-clicking on a JavaScript keyword makes Alpha jump to a reference 
+	guide. This requires that you install the <A 
+	HREF="http://w1.873.telia.com/~u87306082/Alpha/JSref.html">JavaScript reference for 
+	Alpha</A> by Wolfgang Haeuptli.
+	<LI>Under MacOS 8 Alpha always thought Big Brother was too old. Fixed.
+	<LI>When changing CSS properties using the dialogs, Alpha would delete 
+	text incorrectly. Fixed.
+	<LI>Some other CSS bugs fixed.
+</UL>
+
+<H3>Version 2.0.1, 19 October 1997</H3>
+
+<UL>
+	<LI>Updated to work with Alpha 7.0.
+	<LI>Added icons to the 'Browsers' menu just for fun.
+	<LI>Menu icons can be changed.
+	<LI>Braces bindings use the 'International' prefs.
+</UL>
+
+<H3>Version 2.0, 22 September 1997</H3>
+
+<UL>
+	<LI>'Save to FTP server' didn't work for files in subdirectories. Fixed.
+	<LI>'Save to FTP server' now also works with NetFinder.
+	<LI>Added 'Reload in Browser' to CSS menu.
+	<LI>Redesigned key bindings dialog.
+	<LI>'Last modified' default text can be changed.
+	<LI>Interchanged keybindings for 'Word Complete' and 'Remove marks' for compatibility 
+	with future versions of Alpha.
+	<LI>'Word completion' now calls the general word completion when appropriate.
+	<LI>Fixed problem with electric colon in JavaScript mode.
+	<LI>Worked around the coloring bug when changing coloring.
+	<LI>Fine tuning of word completion and indentation.
+	<LI>A couple of other bugs have been fixed.
+</UL>
+
+<H3>Version 2.0b2, 17 August 1997</H3>
+
+<UL>
+	<LI>When you're using CSS dialogs Alpha is more 
+	clever about where to insert the text and what to delete.
+	<LI>The sizes and positions of home page 
+	windows are remembered when they are closed.
+	<LI>Checking and fixing remote links with Big Brother.
+	<LI>Redefined what is meant by Netscape and IE only: Anything in HTML 
+	4.0 draft are not considered to be Netscape or IE 'only' elements or 
+	attributes.
+	<LI>When using 'Save to Ftp Server' Alpha would freeze waiting for a 
+	reply. Fixed.
+	<LI>When making 'include tags' the path to the file to include begins 
+	with :INCLUDE: if it's in a include folder. This makes it easier to 
+	move the include folder.
+	<LI>Bindings of custom HTML elements now always work in CSS mode.
+	<LI>Added elecColon to JavaScript mode.
+	<LI>HTML words are now be colored in CSS mode.
+	<LI>Slightly changed behavior for 'New Document'.
+	<LI>A couple of bugs introduced in version 2.0b1 have been fixed.
+</UL>
+
+<H3>Version 2.0b1, 20 July 1997</H3>
+
+<UL>
+	<LI>Support for editing of Cascading Style Sheets and a separate CSS 
+	mode.
+	<LI>Lots of new HTML elements. Now possible to hide certain attributes 
+	in the attribute dialogs.
+	<LI>A clever word completion feature to save you time while typing.
+	<LI>Customizable indentation of the code.
+	<LI>A function to reformat messy code to make it more readable.
+	<LI>You can open windows, called "home page windows", with lists of 
+	files from where you can easily copy and paste to make links.
+	<LI>A separate JavaScript mode.
+	<LI>The menu is split into two menus.
+	<LI>When changing packages the menu is no longer rebuilt. Menu items 
+	are disabled or enabled instead.
+	<LI>A userfriendly interface to change the key bindings in the menus.
+	<LI>Coloring more customizable.
+	<LI>Added a 'Preferences' submenu to the HTML menu.
+	<LI>Validation of the code.
+	<LI>Option-click on titlebar brings up popup menu with attributes.
+	<LI>It's now possible to change attributes in the status bar. Ctrl-D to 
+	ignore default value.
+	<LI>'Use Attributes' settings optionally apply to attribute dialogs.
+	<LI>In 'Tabs to Rows' and 'Import Table' multiple tabs can now be 
+	treated as a single one.
+	<LI>Cmd-double-click on a tag to change attributes.
+	<LI>Check links, move files etc. now recognize comments.
+	<LI>Check links, move files etc. understand CSS urls.
+	<LI>A Frontier menu.
+	<LI>Less blank lines are inserted after tags.
+	<LI>Function to create index of document.
+	<LI>Function to remove all tags.
+	<LI>A function to calculate the total document size including images 
+	etc.
+	<LI>Saving to FTP server.
+	<LI>You can fix links by selecting a new file after checking links.
+	<LI>In status bar event handlers are always asked for when 'include 
+	event handlers' is set.
+	<LI>'New Document' can open a new window if window is non-empty.
+	<LI>Braces are only electric between SCRIPT and STYLE tags.
+	<LI>'Help' can open different pages in the manual.
+	<LI>MSIE no longer opens a new window when a file is sent to it.
+	<LI>Now possible to send window to Cyberdog.
+	<LI>Support for custom palettes.
+	<LI>Scanning of files more memory efficient (how about that Netscape?) 
+	when there are very many or very large files.
+	<LI>Now compatible with Vince's Additions (except for a few key 
+	bindings in the menus you may have to change).
+	<LI>A number of other small changes and a few minor bug fixes.
+</UL>
+
+<H3>Version 1.4.1, 2 April 1997</H3>
+
+<UL>
+	<LI>A few changes to the HTML 3.2 package to make it agree with the 
+	final recommendation from W3C 14 January 1997.
+	<LI>Alpha can now optionally save a window without asking when you send 
+	it to your browser.
+	<LI>If you have more than one version of the same browser and one is 
+	running, Alpha no longer tries to launch the second one when you send a 
+	file to the first one.
+	<LI>You can now set the line width of your HTML documents (fillColumn 
+	variable).
+	<LI>A couple of bug fixes. In particular a bug which in a few cases 
+	would extract the wrong width and height of gifs and jpegs has been 
+	fixed.
+</UL>
+
+<H3>Version 1.4, 21 January 1997</H3>
+
+<UL>
+	<LI>Files outside home page folders are considered to have URLs like 
+	file:///path/to/file.html.  This implies that you can now check links 
+	between all files, not only the ones in your home page folders.  
+	Similarly you can make links via a file dialog between all files, and 
+	cmd-double-click now works for all files.
+	<LI>Improved integration with Big Brother. (You need Big Brother 1.1 or 
+	later.)
+	<LI>Each home page folder can have a corresponding include folder, 
+	where you can put all your files to be dynamically included. This 
+	include folder is mapped to the same URL as the home page folder.
+	<LI>Move files works for files 
+	in these new include folders.
+	<LI>'Update folder' and 'update file' for include files.
+	<LI>Case-sensitive link checking.
+	<LI>You can now choose if you want to check anchors when you check 
+	links.
+	<LI>Unsafe characters in URLs are coded when they are inserted, e.g. 
+	space becomes %20.
+	<LI>Long opening tags are wrapped when they are inserted.
+	<LI>Cmd-double-click on an include 
+	tag opens file.
+	<LI>Home page URLs no longer have to be 
+	specified in two pieces.
+	<LI>'Check links' didn't work for anchors with spaces. Fixed.
+	<LI>'Check folder' can now optionally check subfolders.
+	<LI>'Convert NCSA map' couldn't correctly translate circle areas. 
+	Fixed.
+	<LI>When image maps are converted, the default URL is now put last.
+	<LI>color_9 ... color_15 can be used as keyword color.
+	<LI>The predefined colors are replaced by the 16 ones defined in HTML 
+	3.2.
+	<LI>HTML manual can be opened from the menu.
+	<LI>Added onReset to FORM.
+	<LI>Added HEIGHT to TABLE.
+	<LI>SHAPE=DEFAULT removed from HTML 3.2 package.
+	<LI>ALT is now correctly a required attribute of AREA.
+	<LI>A couple of other minor changes and bug fixes.
+</UL>
+
+<H3>Version 1.3, 17 November 1996</H3>
+
+<UL>
+	<LI>New submenu 'Browsers' where you can add all your browsers, and 
+	quickly choose which one to send files to. ('Choose browser' is gone, 
+	and as a consequence changed the key binding for SCRIPT back again.)
+	<LI>'Check links' now checks anchors.
+	<LI>Fixed a bug in 'Check links' for links like HREF="#anchor" in files 
+	containing a &lt;BASE HREF="url"&gt;.
+	<LI>Improved error handling in 'Move files' and 'Update home page'.
+	<LI>Fixed a bug with include tags split into two lines.
+	<LI>'Includes' now works for paths containing the characters "&lt;&gt;.
+	<LI>Similar fix for 'last modified date'.
+	<LI>A few other minor changes and fixes.
+</UL>
+
+<H3>Version 1.3b2, 4 November 1996</H3>
+
+<UL>
+	<LI>The HTML prefs file (if any) sometimes wasn't loaded in 1.3b1. 
+	Fixed.
+	<LI>Modified Table template.
+	<LI>New Tabs to Rows dialog.
+	<LI>Function to import a table from a 
+	file.
+	<LI>Make list can now optionally 
+	insert list tags.
+	<LI>Untitled windows could not be sent to browser. Fixed.
+	<LI>Updating dynamically included files now 
+	changes last modified date.
+	<LI>Importing an exported URL cache missed first URL. Fixed.
+	<LI>You can now go back in 'Clean up cache' dialog.
+	<LI>BASEFONT added to HTML 3.2 package. (Included in the latest draft 
+	from W3C.)
+	<LI>Described in this help file how to easily bind any menu item to any 
+	single keystroke.
+</UL>
+
+<H3>Version 1.3b1, 22 October 1996</H3>
+
+<UL>
+	<LI>You can now define more than one home page folder, each containing 
+	files of different sites.
+	<LI>Support for dynamically included files.
+	<LI>Conversion of NCSA and CERN image map 
+	files to client side image maps.
+	<LI>New interface for defining colors. You can now also define a color 
+	by specifying its hexadecimal number.
+	<LI>New interface for footers.
+	<LI>When selecting a GIF or JPEG file for &lt;IMG&gt; via a file dialog 
+	its width and height are automatically determined. The algorithm for 
+	JPEG is taken from the perl script 'wwwimagesize' by Alex Knowles, 
+	alex@ed.ac.uk, and Andrew Tong, werdna@ugcs.caltech.edu.
+	<LI>The URL cache can be exported to a file for 
+	later use.
+	<LI>You can scan any file for URLs and import them to the URL cache.
+	<LI>The names of the files in a folder can be imported to the URL 
+	cache.
+	<LI>Last modified date can 
+	automatically be inserted when you save a file.
+	<LI>Link checking can be done with Big Brother by Fran&ccedil;ois Pottier.
+	<LI>Function to change choices directly in the document.
+	<LI>Translation of &lt;&gt;&amp;.
+	<LI>A user friendly settings dialog.
+	<LI>Cmd-double-click on a color 
+	attribute brings up a color picker and let you change the color.
+	<LI>Ctrl-q to skip the rest of the attributes in status bar.
+	<LI>Required attributes are asked for again in status bar.
+	<LI>Links checks can be done in the current window.
+	<LI>'Comment' and 'Comment line' insert HTML comment or JavaScript 
+	comment depending on the position.
+	<LI>Funcs menu lists headers H1-6.
+	<LI>Function to select the content of a container.
+	<LI>Shift-ctrl-opt-space bound to &amp;nbsp;
+	<LI>Table template optionally without TABLE tags.
+	<LI>Comment color in JavaScript coloring can be changed.
+	<LI>'Reveal color' has moved to new 'Editing' sub menu, and has got a 
+	new key binding.
+	<LI>Added ARCHIVE and MAYSCRIPT to APPLET.
+	<LI>Some other minor changes.
+</UL>
+
+<H3>Version 1.2.2, 3 October 1996</H3>
+
+<UL>
+	<LI>You can now change browser for preview (option on 'send file to 
+	browser'). As a consequence, the key binding for SCRIPT is changed.
+	<LI>'Check links', 'Move files' and cmd-double-click now correctly 
+	interpret links like HREF="#anchor" as pointing to the file itself and 
+	not to "index.html#anchor".
+	<LI>The same functions now ignores "news:" links like they always have 
+	ignored "mailto:" links.
+</UL>
+
+<H3>Version 1.2.1, 12 September 1996</H3>
+
+<UL>
+	<LI>Move files no longer remove 
+	blank lines in the moved files.
+	<LI>Special window names _self _top _parent _blank correctly set to 
+	lowercase.
+	<LI>'Mark file' didn't find header when opening tag was split into two 
+	lines. Fixed.
+	<LI>HTTP-EQUIV is no longer a required attribute of META.
+	<LI>Value of NAME attribute to A, MAP and FRAME wasn't added to cache 
+	when tags were set in lowercase. Fixed.
+</UL>
+
+<H3>Version 1.2, 3 August 1996</H3>
+
+<UL>
+	<LI>The package HTML 2.0 is removed, since it is out-dated. From now on 
+	there will only be two packages, one with the latest official HTML and 
+	one where extensions have been included.
+	<LI>There is now only two way to input 
+	attributes, the dialogs introduced in 1.1 and the status bar.
+	<LI>Improved behavior when attributes are 
+	given in the status bar.  <SPAN CLASS="itemlight">ctrl-z</SPAN> to 
+	cancel, <SPAN CLASS="itemlight">ctrl-f</SPAN> for a file dialog or new 
+	color. When a value is chosen from a popup window, Alpha immediately 
+	jumps to the next attribute.
+	<LI>A new userfriendly way to add new HTML 
+	elements.
+	<LI>A function to move files 
+	between folders and automatically update all links to and in them.
+	<LI>Changed JavaScript coloring. Only 
+	reserved words are colored, not built in methods and properties. 
+	Comments in JavaScript are now colored.
+	<LI>A window cache just like the URL cache.  Frame names are automatically added to 
+	this cache.
+	<LI>A new submenu with plug-ins.
+	<LI>JavaScript's event handlers can now 
+	optionally appear in the attribute 
+	dialog.
+	<LI>Only one menu item for &lt;A&gt;.
+	<LI>Added SRC to &lt;SCRIPT&gt;.
+	<LI>Added &lt;NOSCRIPT&gt;, &lt;MULTICOL&gt; and &lt;SPACER&gt;.
+	<LI>Added FRAMEBORDER, BORDERCOLOR to &lt;FRAME&gt;.
+	<LI>Added FRAMEBORDER, BORDERCOLOR, BORDER to &lt;FRAMESET&gt;.
+	<LI>Added FACE to &lt;FONT&gt;.
+	<LI>Added onMouseOut to &lt;A&gt;.
+	<LI>Added onAbort, onError, onLoad to &lt;IMG&gt;.
+	<LI>Added onClick, onMouseOver, onMouseOut to &lt;AREA&gt;.
+	<LI>When trying to add a link via a file dialog, windows with ' 
+	&lt;n&gt;' added to the window name were asked to be saved even if they 
+	already were saved. Fixed!
+	<LI>Send file to browser didn't work for windows with ' &lt;n&gt;' 
+	appended. Fixed!
+	<LI>Problems finding the browser fixed.
+	<LI>Reveal color didn't find color attribute if color wasn't quoted. 
+	Fixed!
+	<LI>Check links didn't find BASE if it was split into two lines. Fixed!
+	<LI>Check links and cmd-double-click now correctly interpret paths of 
+	the form "./file.html".
+	<LI>Check links and cmd-double-click now search for a file 
+	index.html when a link points to a folder.
+	<LI>Check links didn't work for files with UNIX or IBM newlines. (All 
+	links were found to be ok.) Fixed!
+	<LI>Some lists couldn't be inserted when using the status bar. Fixed!
+	<LI>'Change opening' didn't work for INPUT elements in lower case. 
+	Fixed!
+	<LI>The variable <SPAN CLASS="itemlight">htmlElemAttrsForAll</SPAN> is no 
+	longer supported.
+	<LI>Some other minor changes and bug fixes.
+</UL>
+
+<H3>Version 1.1.1, 17 June 1996</H3>
+
+<UL>
+	<LI>Rewrote some of the code so that HTML mode loads faster.
+	<LI>The menu Use Attributes is disabled 
+	when it is not needed.
+	<LI>Added &lt;U&gt; and &lt;NOEMBED&gt;.
+	<LI>The new suffix mapping is used to determine if a file is a HTML 
+	file when deciding which files to scan to check the links.
+</UL>
+
+<H3>Version 1.1, 21 May 1996</H3>
+
+<UL>
+	<LI>The HTML elements are put into three 
+	packages, HTML 2.0, HTML 3.2 and Extensions.
+	<LI>Support for JavaScript coloring and 
+	editing.
+	<LI>A function to check that all links 
+	between files in your home page are ok.
+	<LI>Attributes to an element can be input 
+	in one single dialog box, rather that giving the attributes one after 
+	another.
+	<LI>When you are asked about an URL attribute, you can choose a file 
+	via a file dialog. The relative path is automatically inserted.
+	<LI>"Fill paragraph" is now sensitive to HTML elements.
+	<LI>cmd-doubleclick on a relative 
+	URL opens the file, or if it does not exits, it can create a new file 
+	and save it in the right place.
+	<LI>You can define a new color when you are asked about a color 
+	attribute.
+	<LI>You can define files with footers, which can be automatically 
+	inserted when you create a new document.
+	<LI>Control that a value given to a number attribute is valid.
+	<LI>Control that a value given to a color attribute is valid.
+	<LI>New dialog box for "New 
+	document" where you can choose which elements you want in the head, 
+	and also select a file with a footer to insert in the end of the body.
+	<LI>Character translation can be done in 
+	a selection. The translation is also a lot faster.
+	<LI>Tab marks can be removed in a selection.
+	<LI>"Select container" and "Untag" now find the correct pair of tags 
+	when there are elements of the same kind within each other, like a 
+	&lt;TABLE&gt; within a &lt;TABLE&gt;.
+	<LI>"Select container" and "Untag" now ignores all tags without a 
+	closing tag.
+	<LI>A function to select a tag with no closing tag.
+	<LI>A function to untag a element with no closing tag.
+	<LI>A function to untag a container and automatically select the 
+	content.
+	<LI>A function to change an element in the document.
+	<LI>New key binding for untag: ctrl-F1. It has been bundled with the 
+	new functions just mentioned.
+	<LI>Mark file now finds headers with opening and closing tags on 
+	different lines. Each menu item is limited to 30 characters, not to 
+	make them too long.
+	<LI>If you use any of the two old ways of inputting attributes, you can 
+	set a flag for each element, so that you can optionally be asked about 
+	the attributes not chosen in the "Use attributes" menu.
+	<LI>A table template function, to 
+	quickly make tables.
+	<LI>With "Tabs to rows" you can now 
+	optionally put table headers in first row and/or column.
+	<LI>"Rows to tabs" now follow the HTML 
+	code, not the line breaks in the file.
+	<LI>A function to insert &lt;BR&gt; at 
+	the end of every line in a selection.
+	<LI>A function to remove every 
+	&lt;BR&gt; in a selection.
+	<LI>A function to insert &lt;P&gt; at 
+	empty lines in a selection.
+	<LI>A function to make a HTML list from a *'d list.
+	<LI>Undo is now easier, although you sometimes still have to make two 
+	"Undos" to undo something.
+	<LI>For attributes which can take any value, beginning and ending 
+	spaces are no longer removed. Sometimes these spaces are wanted.
+	<LI>When &lt;A NAME="xxx"&gt; or &lt;MAP NAME="xxx"&gt; is inserted, 
+	"#xxx" is added to URL cache.
+	<LI>New dialog box for cleaning up URL cache.
+	<LI>Two identical colors can no longer be defined.
+	<LI>New elements STRIKE and DFN.
+	<LI>New element &lt;INPUT TYPE=BUTTON&gt; in extensions package. To be 
+	used together with JavaScript.
+	<LI>A couple of new attributes added so some elements.
+	<LI>For the AREA element, a check is made that you use one of the 
+	attributes HREF and NOHREF is used, but not both.
+	<LI>The key binding for "Comment line" have been changed to ctrl-C-L to 
+	conform with other modes.
+</UL>
+
+<H3>Version 1.0, 25 March 1996</H3>
+
+<UL>
+	<LI>A lot of new elements are included.
+	<LI>It's possible to define colors to use as background color, text 
+	color etc. from a color picker.
+	<LI>Translation of accented letters (&eacute;, &aacute; etc.) to HTML 
+	entities and vice versa.
+	<LI>The attributes of the elements are divided into required and 
+	optional ones. If you skip a required one, no element is inserted. You 
+	can no longer make elements like &lt;A&gt;&lt;/A&gt;.
+	<LI>For some elements there is a separate key binding as well as menu 
+	item to automatically skip all attributes.
+	<LI>Improved behavior when the status bar is used to input attributes.
+	<LI>Untagging works better.
+	<LI>Marking of the file works better.
+	<LI>Plus a number of other small changes.
+</UL>
+
+<!-- #INCLUDE INCLPATH="mainbottom.html" -->
+
+<DIV STYLE="height: 50px">
+</DIV>
+
+<SCRIPT TYPE="text/javascript">
+<!--
+document.write('<\/DIV>');
+// -->
+</SCRIPT>
+
+
+<!-- /#INCLUDE -->
+
+
+<!-- #INCLUDE INCLPATH="navigation.html" PREV="[manualPrevPage IntroFrames.html]" 
+NEXT="[manualNextPage alphatk.html]" -->
+
+<P>
+<script type="text/javascript">
+<!--
+document.write('<div class="navigation" style="top: ' + height + 'px; height: 50px">');
+// -->
+</script>
+<A HREF="IntroFrames.html">Previous page</A>
+<A HREF="alphatk.html">Next page</A>
+<SCRIPT TYPE="text/javascript">
+<!--
+document.write('<\/DIV>');
+// -->
+</SCRIPT>
+</P>
+
+<!-- /#INCLUDE -->
+
+
+
+</BODY>
+
+</HTML>

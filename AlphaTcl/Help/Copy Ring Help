@@ -1,0 +1,727 @@
+-*-Help-*-
+
+Copy Ring Help
+
+                                       help version: 1.7.4
+                                            created: 02/03/2002 {11:03:23 pm}
+                                        last update: 05/16/2006 {12:41:59 PM}
+
+	  	Abstract
+
+This package maintains a history of all "Clipboard" actions, allowing you to
+retrieve items that were previously cut or copied but are no longer in the
+Clipboard for pasting.  Previous items can be retrieved in a variety of ways,
+including an "Edit > Paste Previous" menu command that will cycle through
+previous Clipboard contents, or through a new "Edit > Clip Recorder" submenu.
+
+See the section below on "# Basic Usage" for more information about these and
+other methods for adding to and accessing items from your Clipboard history.
+The "# Quick Start" section describes the basic features so that you can
+begin using the Copy Ring in two minutes or less.
+
+
+	  	Table Of Contents
+
+"# Quick Start"
+"# Basic Usage"
+
+"# The Clipboard Cache"
+"# Clip Recorder"
+"#   Window Clips"
+"#   Floating Menu"
+"#   Clipboard History Window"
+"#   Contextual Menu Module"
+"# Paste Ring"
+"# paste-pop"
+"# Cut/Copy And Append"
+"# Swap Clipboard"
+
+"# Clip Recorder Utilities Menu"
+"#   Float Menu"
+"#   Add Clipboard Contents"
+"#   History Window"
+"#   Reset List"
+"#   Reset Paste Ring"
+"#   Stop/Resume Recording"
+"#   Set Float Geometry"
+"#   Copy Ring Prefs"
+"#   Copy Ring Help"
+
+"# Copy Ring Preferences"
+"#   Record Clipboard"
+"#   Remember History"
+"#   Use Clip Recorder Menu"
+"#   Use Window Clips Menu"
+"#   Unique History"
+"#   Display Limit"
+"#   History Limit"
+"#   Menu String Length"
+"#   Paste Previous Shortcut"
+"#   Swap Clipboard Shortcut"
+"#   Paste Ring Depth"
+"#   String Limit"
+
+"# Compatibility and Limitations"
+"# Technical notes"
+"# Credits, Copyright"
+
+<<floatNamedMarks>>
+
+
+	  	Quick Start
+
+When this feature is turned on, recent Clipboard strings are saved so that
+you can insert them into the active window even after the current Clipboard
+contents have been replaced.
+
+(1) Turn on "Copy Ring" in the preferences: Features dialog.
+
+(2) The new "Edit > Clip Recorder" menu items include descriptions of the
+most recent Clipboard strings.  This menu is automatically updated whenever
+you select "Edit > Copy" or "Edit > Cut".  Select a menu item to insert that
+string into the active window.
+
+(3) The first time you select the "Edit > Paste Previous" command, the
+current Clipboard string is inserted into the active window, as if you had
+just selected "Edit > Paste".  If you select "Edit > Paste Previous" again
+(without changing the cursor position) then the string you just inserted will
+be replaced by the next item in the Clipboard Cache.  You can continue this
+process until the entire "ring" is cycled.
+
+(4) You can adjust your Copy Ring preferences to change keyboard shortcuts,
+how the Clipboard Cache items are presented or stored, etc.
+
+Preferences: copyRing
+
+These settings are explained in the "# Copy Ring Preferences" section below.
+
+
+	  	Basic Usage
+
+
+In general, your Operating System (OS) maintains a single "global" Clipboard
+that can be used by all windows in a program, or across several different
+programs.  You can change the contents of the Clipboard using Cut or Copy, and
+the previous contents of the Clipboard are lost forever.  The contents of the
+Clipboard can be inserted into the active window using Paste.  These commands
+are generally found in the program's "Edit" menu bar menu.
+
+The purpose of this package is to provide you with a variety of options for
+inserting into the active window those previous Clipboard strings that would
+normally be over-written and inaccessible.  You might not choose to use all of
+the options provided by this package, but hopefully you will find some of them
+both intuitive and useful.
+
+To turn on this package, select "Config > Global Setup > Features" and just
+check the box for "Copy Ring" in the dialog, and click the "OK" button.
+
+Preferences: Features
+
+After this package has been turned on, whenever you execute a Cut or Copy
+command (using either the menu bar or keyboard shortcuts) the contents of the
+current selection are not only placed in the Clipboard but also in a special
+"# Clipboard Cache".  Items from the Clipboard Cache can be pasted into any
+Alpha window at some later time using one of several methods:
+   
+  (1) The "# Paste Ring".  You can cycle through the most recently
+	  added Clipboard Cache items using a new "Edit > Paste Previous"
+	  command created by this package.  If you use this command
+	  immediately following a Paste, without moving the cursor away
+	  from its paste-ending location, the previous "paste" region will
+	  be deleted and the next item in the Clipboard Cache will be
+	  inserted in its place.  You could now use the Paste Previous menu
+	  command again to replace this last region with the 3rd item in
+	  the cache, etc, until the entire ring has been cycled and the
+	  first item appears once more.
+
+  (2) The "# Clip Recorder" submenu.  Select an "Edit > Clip Recorder"
+	  menu item to paste the contents of a Clipboard Cache history item
+	  into the active window, deleting any possible selection.  The
+	  most recent Clipboard Cache items will appear at the top of the
+	  menu, and each time a Cut or Copy is executed all previous items
+	  are cycled down into the next item.
+
+  (3) The "# Floating Menu".  Tear off the "Clip Recorder" menu and
+	  select an item using the mouse to insert it in the active window.
+	  The contents of the floating menu are automatically updated
+	  whenever a new Cut or Copy command is executed.
+
+  (4) The "# Contextual Menu Modules".  Two new submenus based on the
+	  "Clip Recorder" and "Window Clips" features contain items found
+	  in the Clipboard Cache.  Selecting them will insert the history
+	  item into the active window at the click position, after deleting
+	  any selection that might surround this position.
+
+  (5) The "# Clipboard History Window".  Selecting the menu command
+	  "Clip Recorder Utilities > History Window" will create a new
+	  window displaying all items in the Clipboard Cache.  You can
+	  click on one of the hyperlinks in the window to place it into the
+	  OS Clipboard.  Then you can just Paste it into the active window
+	  using your normal keyboard shortcut.
+
+  (6) The "# Window Clips" submenu.  You can optionally create a new
+	  "Edit > Window Clips" submenu that keeps track of all Clipboard
+	  actions for the active window.  This menu is automatically
+	  updated every time you switch windows to reflect the contents of
+	  the Clipboard Cache specific to the new window.  All of features
+	  (2) through (5) described above are also available for this menu.
+	  
+  (7) The "# paste-pop" macro.  Users who are familiar with the Emacs
+	  "killRing" might be interested in a macro based on "yank-pop".
+	  
+  (8) The "# Cut/Copy And Append" menu items.  This package also
+	  creates two new commands in the "Edit" menu that will Cut or
+	  Copy the current region -- but instead of replacing the previous
+	  Clipboard, the new string is appended to the previously existing
+	  contents.
+	  
+  (9) The "# Swap Clipboard" menu item.  This package creates an additional
+      new command in the "Edit" menu that will swap the current selection
+      with the current contents of the Clipboard.
+
+All of these features are fully compatible with the package: smartPaste .
+
+If you want to experiment any of these features in this window, you can click
+on this hyperlink <<copyRing::testPackage>> to temporarily turn it on.  This
+link will also "unlock" this window allowing you to Cut, Copy, and Paste text
+to see how the various new menu items work.
+
+The next sections give more detailed explanations of how one can use the
+various "# Clip Recorder", "# Paste Ring" and "# Cut/Copy And Append"
+features, followed by a description of some of the utility items found in the
+separate "# Clip Recorder Utilities" menu.  The next section describes all of
+the various "# Copy Ring Preferences" associated with this package, including
+those that can change the appearance of the menu.  The last sections include
+technical notes, credits, etc.
+
+
+	====================================================================
+
+
+	  	The Clipboard Cache
+
+
+The package intervenes in all Cut and Copy operations to record the selection
+being placed into the Clipboard in a special Alpha variable referred to in
+this file as the "Clipboard Cache".  It is this cache that provides all of
+the functionality described below.  Several different subsets of this "global"
+cache can be listed or accessed, such as Clipboard strings associated with a
+particular window, or the most recent and unique Clipboard strings.
+
+If you switch to another program, perform some Clipboard commands, and then
+switch back to Alpha, the current Clipboard contents will be automatically
+added to the Clipboard Cache.  (If you perform several Cut and/or Copy
+operations, only the last one will be added.)
+
+You can stop recording Clipboard items into the Clipboard Cache at any time by
+toggling the preference for "Record Clipboard" provided by this package.  This
+will "freeze" the contents of the Clipboard Cache.  All of the menu items will
+still work, i.e. you can still use the Clip Recorder history items to Paste
+them into the active window, but future Cut or Copy commands will not change
+the Clipboard Cache contents.
+
+This package also maintains a separate "Paste Ring Cache", which includes a
+limited number of recent and unique Clipboard strings created from any window.
+This is not affected by the "Record Clipboard" preference, and additional Cut
+or Copy commands will still update the Paste Ring Cache.
+
+
+	  	Clip Recorder
+
+
+The "Edit > Clip Recorder" menu gives you access to all of your recent Cut and
+Copy actions, the strings stored in the "# Clipboard Cache".  Selecting one of
+the history items in the menu will paste that string into the active window.
+This menu is updated after each Cut/Copy action, so that the current Clipboard
+contents should always appear as the first item.  You can select any item from
+the menu using the mouse, but the "# Floating Menu" and "# History Window"
+provide additional ways to insert the contents associated with these menu
+items.  You can also adjust some of the "# Copy Ring Preferences" to change
+the appearance of this menu.
+
+Preferences: copyRing
+
+The presence of this menu might cause a slight delay when executing Cut and
+Copy commands.  If you find this to be the case, and would like to access the
+Clipboard Cache contents using some of the other methods available, turn off
+the "Use Clip Recorder Menu" preference to remove it.
+
+	  	 	Window Clips
+
+This package also allows you to create an "Edit > Window Clips" menu that uses
+a special subset of the Clipboard Cache based upon those items cut or copied
+from the active window.  When you switch windows, the contents of this menu
+are automatically updated to reflect the Clipboard Cache items specific to the
+new window.  This is also available as a contextual menu module.
+
+By default, the "Edit > Window Clips" menu is not inserted when you first turn
+on this package.  You must open the "# Copy Ring Preferences" dialog and turn
+on "Use Window Clips Menu" in order to create it.
+
+Preferences: copyRing
+
+This menu includes a "Window Clips Utilities" menu with a similar set of items
+found in "Clip Recorder Utilities".  The "History Window" menu item will open
+a new window containing the cache of items specific to the active window.
+
+The presence of this menu might cause a slight delay when executing Cut and
+Copy commands.  If you find this to be the case, and would like to access the
+Clipboard Cache contents using some of the other methods available, turn off
+the "Use Window Clips Menu" preference to remove it.
+
+	  	 	Floating Menu
+
+One of the more useful ways to select menu items from the Clipboard Cache is
+to "tear off" the "Clip Recorder" menu to create a floating palette.  The
+"Clip Recorder > Clip Recorder Utilities > Float Menu" menu command is the
+preferred method for doing this because it allows the code in this package to
+control the placement of the palette.  Click here <<copyRing::floatMenu>> for
+an example.  
+
+The parameters of this palette, (mainly the position of the top left corner)
+can be changed by selecting "Clip Recorder Utils > Set Float Parameters" --
+<<copyRing::setFloatGeometry>>.  Move this window to the desired location, and
+then click on the hyperlink for "Save Setting" found in the window.  Try
+experimenting with both of the above hyperlinks to locate the position that
+seems most useful.
+
+Note: If you are using Alpha8 or AlphaX, floating the menu and then adding
+another item to the Clipboard Cache (i.e. cutting or copying text) will always
+update the palette in place.  Both the "Clip Recorder" and the "Window Clips"
+menus can have separate geometries set for them.
+
+As of this writing, the "# Float Menu" utility command is not available to
+users of Alphatk, and "tearing-off" the menu "manually" is not recommended.
+Hopefully some of the issues involved with Alphatk floating menus will be
+addressed in future releases.
+
+	  	 	Clipboard History Window
+
+The Clip Recorder History Window is another useful tool for accessing items in
+the Clipboard Cache.  Click here <<copyRing::historyWindow>> to see an example
+containing the current Clipboard Cache contents.  Any blue hyperlink refers
+to the text just below it -- clicking on the hyperlink will replace the
+current Clipboard contents (cycling them to take position "2" in the history
+cache) with those from the item that you have selected.  You can then use a
+normal "Edit > Paste" command to include them in the active window.
+
+Sometimes it's handy to keep this open while you're editing a document, but
+you'd rather tuck it out of the way a little while keeping some of it visible
+while you're working on your main window.  Simply move the window, and then
+click on the "Update Clipboard History" hyperlink.  This will both update the
+window to include the most recent Clipboard history activity, and also save
+the geometry of the window as the new default to use whenever a history window
+is opened again.  Note that the hyperlinks are always relative to their
+surrounding text, not to a fixed position in the Clipboard Cache.  They should
+continue to work even as the Clipboard Cache evolves, as the links actually
+invoke a search of the surrounding text to determine what string should be
+placed in the Clipboard.
+
+The Clipboard History window is both read-only and temporary, but if you want
+a more permanent record of your recent Clipboard activity you can just save it
+as a file on your local drive.  (Note that the hyperlinks should continue to
+work even after the file has been closed and then reopened, so long as you're
+using a Mac OS and the file's saved-state is MPW.)
+
+	  	 	Contextual Menu Module
+
+This package also creates "Clip Recorder" and "Window Clips" modules for the
+Contextual Menu.  These can be turned on using the Contextual Menu Prefs
+dialog <<contextualMenu::contextualMenuItems>>.  Selecting any of the
+Clipboard Cache history items will insert the text at the Contextual Menu
+click position, rather than at the current cursor position.  If there is any
+selected text surrounding this click position, that region will be deleted
+before pasting.
+
+
+	--------------------------------------------------------------------
+
+
+	  	Paste Ring
+
+
+This package provides an implementation of a Clipboard "paste" ring.  Each Cut
+and Copy operation will record the selection being placed into the Clipboard
+in a "Paste Ring Cache".  The "Edit > Paste Previous" command allows you to
+cycle through the items in this cache.  If you select Paste Previous several
+times in a row (without moving the cursor) each last "Paste Previous"
+insertion will be replaced by the next history item in the cache.  After you
+have inserted the last item in the cache, the next Paste Previous command will
+replace any original selection that was in the pasting region, and another
+Paste Previous command will start the process all over again using the first
+item in the cache.
+
+"Edit > Paste Previous" can be selected at any time -- if it does not
+immediately follow a Paste then the first item in the Paste Ring Cache (i.e.
+the current Clipboard string) will be pasted into the window.
+
+You can adjust the keyboard shortcut for the "Edit > Paste Previous" command
+by adjusting the "# Copy Ring Preferences".  You can also change the value of
+the "Paste Ring Depth" -- the number of items remembered in the Paste Ring
+Cache.
+
+Preferences: copyRing
+
+Tip: You could set the keyboard shortcut for "Paste Previous" to be the one
+normally used for "Edit > Paste", and have both functions attached to this
+single shortcut.  The only caveat here is that if you really do want to
+execute two consecutive Paste commands, you have to first type a space or a
+carriage return or in some way move the cursor at least one position away
+from the ending position of the most recent pasted text.
+
+
+	  	paste-pop
+
+
+Users of Emacs will be very familiar with the concept of the "killRing", in
+which succesive calls to "kill-line" will append the deleted text to the
+killRing cache, and a "yank" will insert the new contents into the window.
+
+(The "# Cut/Copy And Append" menu commands behave in a similar way, appending
+the selected regions to the current Clipboard.  One of the main difference
+between the emacs "killRing" and these functions is that, in the former,
+whenever you change the cursor position the next "killLine" will reset the
+cached string -- "Edit > Cut/Copy And Append" can be used anywhere in the
+active window, or across several different windows.)
+
+A more sophisticated emacs macro is named "yank-pop", allowing you to cycle
+through recent items that were placed (and then over-written) in the killRing.
+It was "yank-pop" that provided the original inspiration for this package.
+
+This package offers a similar macro named "paste-pop".  If there is no current
+selection, the boundaries defined by the cursor and the "window pin" are first
+selected, and then the "# Paste Ring" command is invoked.  Subsequent calls to
+"paste-pop" will then cycle through the Paste Ring Cache, replacing the
+previously pasted string.
+
+This command does not appear anywhere in a menu, but it can be invoked by the
+Meta-Y (or Esc-Y) keyboard shortcut.  Typing "paste-pop" in the status bar
+command line (or a portion of it completed with Tab) will also call this
+macro.
+
+For more information about the Emacs kill-ring, see this manual page:
+
+    <http://www.gnu.org/manual/emacs-21.2/html_chapter/emacs_11.html#SEC59>
+
+This bookmark deals more specifically with "yank-pop":
+
+    <http://www.gnu.org/manual/emacs-21.2/html_chapter/emacs_11.html#SEC66>
+
+This implementation is not an exact port of the "yank-pop" macro, as it uses
+a cache of history items created by successive Cut and Copy commands rather
+than one created by "kill-line".  It is possible that the package: emacs
+might one day implement a truer version of "yank-pop" that uses a proper
+killRing cache, but until then you'll have to settle for this version.
+
+
+	--------------------------------------------------------------------
+
+
+	  	Cut/Copy And Append
+
+
+This package also creates two different menu commands to Cut/Copy the current
+region but append this string to the end of the current Clipboard contents, as
+opposed to replacing the previous contents.  These are dynamic menu items
+named "Edit > Cut/Copy & Append", and are "hiding" under the normal Cut and
+Copy commands.  The keyboard shortcuts are the same as "Cut" and "Copy" with
+the addition of the Shift modifier.
+
+	  	Swap Clipboard
+
+This package also creates a menu command to Cut the current region, while at
+the same time Pasting in the current Clipboard contents.  Thus the selection
+and the Clipboard are "swapped".  This command will fail if there is no
+selection, or if the current Clipboard is empty.  Both items in the swap are
+added to the appropriate Clipboard Caches.  The keyboard shortcut for this
+new "Edit > Swap Clipboard" command can be changed, simply change the
+appropriate "# Copy Ring Preferences" item.
+
+
+	===============================================================
+
+
+	  	Clip Recorder Utilities Menu
+
+
+The "Edit > Clip Recorder > Clip Recorder Utilities" menu includes several
+useful items for manipulating the Clipboard Cache.  Note that many of these
+items are also in the "Edit > Window Clips > Window Clips Utilities" menu.
+
+	  	 	Float Menu
+
+Creates a "# Floating Menu" of the "Clip Recorder" or "Window Clips" menu.
+Using this command rather than simply "tearing-off" the menu will place the
+menu in the location specified by "# Set Float Geometry".
+
+	  	 	Add Clipboard Contents
+
+In Alpha 8/X, whenever you (a) switch to another application, (b) place
+something in the Clipboard, and (c) switch back to Alpha, the new contents of
+the Clipboard are recognized and automatically added to the Clipboard Cache.
+
+In Alphatk, some of the methods used to switch applications don't allow us to
+always trigger this Clipboard check -- it is possible to follow the steps
+outlined above and not have the Clipboard Cache updated, and if you want to
+include the new contents you must use this command to add them to the top of
+the list.
+
+You can assign any keyboard shortcut to this command simply by adjusting your
+"# Copy Ring Preferences" as described below.
+
+Preferences: copyRing
+
+
+	  	 	History Window
+
+Opens a new window containing text of all Clipboard Cache items.  This window
+includes a hyperlink to refresh the window with the current list if additional
+items are placed in the cache.  For more information see the section above on
+the "# Clipboard History Window".
+
+	  	 	Reset List
+
+Flush the entire Clipboard Cache.  This cannot be undone.
+
+	  	 	Reset Paste Ring
+
+Flush the current Paste Ring Cache.  This cannot be undone.
+
+	  	 	Stop/Resume Recording
+
+These items toggle the Copy Ring "Record Clipboard" preference.  When
+recording is stopped, the contents of the Clipboard Cache will be "frozen"
+until recording is resumed.
+
+	  	 	Set Float Geometry
+
+Opens a new window that looks like <<copyRing::setFloatGeometry>> so that you
+can resize it, click on the "Save Settings" hyperlink to save the new
+settings, and the new "# Floating Menu" will automatically use the new
+settings.  You can specify different geometries for the "# Clip Recorder" and
+the "# Window Clips" menus.
+
+	  	 	Copy Ring Prefs
+
+Opens a dialog allowing you to change all of the preferences associated with
+this package.  (This dialog is also available using the package preferences
+dialog by selecting "Config > Preferences > Package Preferences".)
+
+Preferences: copyRing
+
+	  	 	Copy Ring Help
+
+Opens this window.
+
+
+	================================================================
+
+	
+	  	Copy Ring Preferences
+
+
+This package contains a number of different preferences that will change the
+look and behavior of the menu, described below.  Note that some of these
+preferences might slightly increase the delay that occurs whenever you Cut or
+Copy a selection, depending on the relative power of your computer.
+
+Preferences: copyRing
+
+	--------------------------------------------------------------------
+
+The "flag" preferences are described first.  These are turned on and off by
+clicking on the checkboxes next to the preference names.
+
+
+	  	 	Record Clipboard
+
+This enables the recording of Clipboard items into the Clipboard Cache.
+Turning off this preference "freezes" the contents of cache -- the various
+menu items will still work, but Cut/Copy commands will not change the contents
+of the cache.  The "Utilities > Stop/Resume Recording" commands in both of the
+Clip Recorder and Window Clips menus will toggle the preference on and off.
+
+Preferences: copyRing
+
+	  	 	Remember History
+
+Turn on this preference if you want Alpha to remember the Clipboard Cache
+between editing sessions.
+
+Preferences: copyRing
+
+	  	 	Use Clip Recorder Menu
+
+If this preference is turned on, the "Edit > Clip Recorder" menu is created.
+Turning it off removes the menu.  Some users might experience a slight delay
+while executing Cut/Copy commands if the menu has been inserted, because the
+menu is rebuilt after each Clipboard manipulation.  Those who are blessed with
+faster computers should not notice any performance degradation.
+
+Preferences: copyRing
+
+	  	 	Use Window Clips Menu
+
+If this preference is turned on, the "Edit > Window Clips" menu is created.
+Turning it off removes the menu.  Some users might experience a slight delay
+while executing Cut/Copy commands if the menu has been inserted, because the
+menu is rebuilt after each Clipboard manipulation.  The contents of this
+window are automatically updated whenever you switch windows to reflect the
+Clipboard Cache items associated with the active window.
+
+Preferences: copyRing
+
+	  	 	Unique History
+
+Set this preference if you want the menu of recent Clipboard items to only
+contain unique strings.  Otherwise every Clipboard action will be recorded,
+and duplicates will be added to the "Edit > Clip Recorder" menu, as well as
+"Edit > Window Clips".  The Paste Ring Cache will always, however, contain
+unique items.
+
+Preferences: copyRing
+
+	-----------------------------------------------------------
+
+The remaining preferences are for variables.  These values are set either in
+text-editing fields, or by clicking on a "Set" button.  Preferences that
+affect menu appearance or the Clipboard Cache apply to both menus that are
+optionally inserted by this package, "Clip Recorder" and "Window Clips", as
+well as any contextual menu modules.
+
+	  	 	Display Limit
+
+This preference should be a positive integer, and determines the number of
+items displayed in the "Edit > Clip Recorder" menu.  Items might be remembered
+in the Clipboard Cache even if not displayed.  This preference should have
+little noticeable effect on the speed of the Clipboard procedures.
+
+Preferences: copyRing
+
+	  	 	History Limit
+
+This preference should be a positive integer, and determines the number of
+items remembered in the Clipboard Cache.  Theoretically, there is no upper
+limit to the number of items that can be remembered, although if it is quite
+large (i.e. greater than 50) Clipboard procedures may slow down considerably.
+
+Preferences: copyRing
+
+	  	 	Menu String Length
+
+This length is used to truncate the names of Clipboard Cache items that appear
+in the menu.
+
+Preferences: copyRing
+
+	  	 	Paste Previous Shortcut
+
+This is the keyboard shortcut used for the "Edit > Paste Previous" menu
+command.  It can be optionally set to the same shortcut that is normally used
+for the "Paste" command.  If this is the case, when Paste Previous is called
+for the first time at a particular cursor location the first item in the
+Clipboard cache (i.e. the current Clipboard contents) will be inserted into
+the window, and subsequent calls will cycle through the Paste Ring Cache.  If
+you really want to insert the same string twice in a row, you will need to
+move the cursor away from the ending "Paste" position, possibly by typing a
+single Space into the window.
+
+Preferences: copyRing
+
+	  	 	Swap Clipboard Shortcut
+
+The keyboard shortcut used for the "Edit > Swap Clipboard" menu command.
+
+Preferences: copyRing
+
+	  	 	Paste Ring Depth
+
+This determines how many items are remembered in the Paste Ring Cache.
+
+Preferences: copyRing
+
+	  	 	String Limit
+
+Clipboard strings recorded in the Clipboard Cache will be truncated to this
+many characters.  Longer lengths might burden Alpha's memory parameters.  Feel
+free to test your luck and set the value in the millions ...
+
+Preferences: copyRing
+
+
+	===============================================================
+
+
+	  	Compatibility and Limitations
+
+
+"Copy Ring" is compatible with the package: smartPaste .  This package is also
+compatible with the Macintosh extension CopyPaste, although if you use that
+then you might not find much use for the "Clip Recorder" menu.  "CopyPaste" is
+also available for Windows, although it does not seem to work very well with
+Alphatk.  (That was one of the original reasons for enhancing this package to
+include the "Clip Recorder" feature.)
+
+In Alpha 8/X, if you switch to another application, Cut or Copy text, and then
+switch to Alpha, this package will notice that the contents of the Clipboard
+have changed and automatically add the current contents to the Clipboard
+Cache.  However, if you make multiple cuts/copies in the other application,
+only the last one will be noticed when you switch back to Alpha.
+
+In Alphatk, manipulating the Clipboard in other applications and then
+switching back might not automatically update the Clipboard Cache.  You can,
+however, always add such items manually by selecting the menu command named
+"Edit > Clip Recorder > Clip Recorder Utilities > Add Clipboard Contents".
+
+
+	  	Technical notes
+
+
+This package redefines the command: cut and the command: copy as well as the
+command: paste by simply recording the scrap in several different copyRing
+history caches and rebuilding the "# Clip Recorder" / "# Window Clips" menus
+after taking care of the regular business.  This redefinition uses the various
+AlphaTcl procedures provided for this purpose:
+
+    proc: hook::procRename
+    proc: hook::procRevert
+    proc: hook::procOriginal
+
+The Clipboard contents are examined via a "resumeHook" when switching from
+another application back to Alpha, which is how we can update the most recent
+Clipboard action.  In some situations Alphatk might occasionally be resumed
+without calling the resume hook, however, which is why the extra utility
+named "Edit > Clip Recorder Utilities > Add Clipboard Contents" is added.
+
+See the source file "copyRing.tcl" for more information.
+
+
+	  	Credits, Copyright
+
+
+Dominique d'Humieres <dominiq@physique.ens.fr> created the original version of
+this package following ideas from Juan Falgueras <juanfc@lcc.uma.es>.  This
+included an "Edit > Paste Pop" menu command that was roughly based on the
+Emacs "# yank-pop" macro.
+
+Craig Barton Upright added the "# Clip Recorder" and "# Window Clips"
+submenus, and cleaned up the paste ring implementation provided in the
+original, separating them into "# Paste Ring" and "# yank-pop".
+
+The "Clip Recorder" menu was inspired by the Macintosh (and now Windows)
+Extension "CopyPaste", credited to Peter Hoerster and Raimund Jakobsmeyer:
+
+    <http://www.scriptsoftware.com/copypaste/>
+
+Copyright (c) 1994-2006  Juan Falgueras, Dominique d'Humieres, and
+                         Vince Darley and Craig Barton Upright
+All rights reserved.
+
+See the file "license.terms" for information on usage and redistribution of
+this package, and for a DISCLAIMER OF ALL WARRANTIES.
+
+Maintainer: Craig Barton Upright
+    E-mail: <cupright@alumni.princeton.edu>
+       www: <http://www.purl.org/net/cbu>
+
+This document has been placed in the public domain.

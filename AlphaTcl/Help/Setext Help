@@ -1,0 +1,511 @@
+-*-Help-*-
+
+Setext Help
+
+                                         help version: 2.6
+                                              created: 12/07/2000 {11:55:16 AM}
+                                          last update: 03/07/2006 {12:13:15 PM}
+    
+This document describes the Setext mode for the software Alpha.
+
+
+	  	Table Of Contents
+
+"# Table Of Contents"
+
+"# Introduction"
+"# How the file marking works"
+
+"# Setext mode Preferences"
+"#   Marking Preferences"
+"#   Comment Characters"
+"#   Keywords, Colorizing"
+"#   Magic Characters"
+"#   Command-Double-Click"
+"#   Navigation"
+"#   More Preferences"
+
+"# The Setext Menu"
+"#   Setext Templates"
+"#   Setext Marks"
+"#   Setext Text"
+"#   Setext Help"
+"#   Setext Options"
+"#   Setext Keywords"
+"#   Additional Menu Items"
+
+"# License and Disclaimer"
+
+<<floatNamedMarks>>
+
+
+	================================================================
+
+
+	  	Introduction
+
+
+Setext stands for [S]tructure [E]nhanced [TEXT].  It is a markup scheme for
+plain text documents such as email messages and e-zines.  Setext's primary
+goal is to provide a way of marking text that is visually unobtrusive, so that
+if you don't have a special setext browser, like EasyView, you can still read
+the text.  (Have you ever tried to make sense of HTML source without your web
+browswer?)
+
+The "Setext Example.stx" demonstration file is a description of setext
+concepts written by Ian Feldman.  Setext grabbed a foothold in the Mac world
+with the online publication TidBITS.
+
+<http://www.tidbits.com/tb-issues/TidBITS-222.html#lnk5>
+
+Alpha's Setext mode not only facilitates marking of Setext files, but also
+provides a handy menu for file navigation, template insertion, and utilities
+to create Setext mark-up tags.  If you write a lot of text documents and
+wished you could mark them with Alpha's mark menu (the little box up in the
+righthand corner of the window with the M in it), then you might find the
+Setext mode useful.  Or if Alpha doesn't contain a mode for a particular
+programming syntax, Setext could be adapted to provide a quick surrogate
+until a proper mode is written for you.
+
+
+	  	How the file marking works
+
+
+Any two lines that look like this:
+
+Any string of words
+===================
+
+
+will be marked as a Chapter heading.  Any two lines that look like this:
+
+Any other string of words
+-------------------------
+
+
+will be marked as a Section heading.  That's all there is to it.
+
+The keyboard shortcuts Control-Equals (=) and Control-Dash (-) will turn the
+current line into a chapter or section heading, and remark the file.
+
+
+	==================================================================
+
+
+	  	Setext mode Preferences
+
+
+All of the Setext mode preferences can be changed when the active window is
+in Setext mode, by using the "Config > Mode Prefs > Preferences" menu item,
+which is also bound to F12.  Many of the "flag" preferences can also be
+toggled on and off using the "Setext > Setext Options" menu.
+
+Preferences: Mode-Setext
+
+Alpha's Setext mode is useful even if you are not editing Setext documents.
+You can set additional preferences, including comment characters, magic
+characters, keyword definitions, keyword symbols and "string" colors.  In
+some ways, Setext could be thought of as "Text2", with the same
+functionality, but greater customization available.  If Alpha does not have a
+mode that you need, Setext could be adapted to serve as a surrogate until
+you've convinced someone to write one for you.
+
+
+	  	 	Marking Preferences
+
+	Auto Mark
+
+If the "Auto Mark" preference is turned on, then any window opened in Setext
+mode that does not have any saved marks will be automatically marked.  In
+addition, whenever a new mark is created using either the "Setext Marks" menu
+items or their keyboard shortcut equivalents, the file will be re-marked, and
+any floating menu of marks will be updated.
+
+Preferences: Mode-Setext
+
+
+	Mark File As
+
+Setext files can be marked using any scheme available for any other mode.
+Changing this preference affects all of the various ways to mark a file, i.e.
+the Marks menu, "Search > Named Marks > Mark File", the "Re-Mark File" item in
+the floating marks menu ...  If this alternate scheme fails (which might be
+true if the alternative mode's marking routine relies on some preferences
+specific to that mode), you will be notified.
+
+Preferences: Mode-Setext
+
+
+	  	 	Comment Characters
+
+	Comment Character
+	Comment Color
+	Comment Pair1
+	Comment Pair2
+	Prefix String
+	Use Paired Comments
+
+Setext per se has no comment character, but I often use one in my README.TXT
+files.  Setext's Mode Preferences now allows the user to define both a single
+comment character, as well as paired (or bracketed) comment characters.  The
+flag preference "Use Paired Comments" determines which style to use.
+
+When using single comment characters, be sure to adjust the "Prefix String"
+preference as well, adding a single whitespace after the character.  Any
+Section or Subsection heading which is preceded by the single comment
+character will be colorized using the "Comment Color", but the comment
+character (and any leading white-spaces) will be stripped from the mark.
+
+This is an example of /* bracketed comments */, which can also /* extend 
+over 
+several */ lines.
+
+Preferences: Mode-Setext
+
+
+	  	 	Keywords, Colorizing
+
+	Add Keywords1
+	Add Keywords2
+	Add Keywords3
+	Symbols
+	
+	Keyword1 Color
+	Keyword2 Color
+	Keyword3 Color
+	String Color
+	Symbol Color
+
+Colorizing of keywords is available, including a separate symbols category
+(for characters such as @ or %).  While true Setext might not have any special
+keywords that need to be colored, you can easily specify three different lists
+that can be colored individually.  The "String" color will affect all text
+contained within double quotes.  The "Symbol" color is used for all '-' and
+'=' symbols within the window, as well as the list of additional symbols
+specified.
+
+Preferences: Mode-Setext
+
+If the lists of desired keywords is rather long, the user might rather include
+them in a separate "SetxPrefs.tcl" file.  To create such a list, select the
+"Config > Mode Prefs > Edit Prefs File" menu item, and add these lines:
+
+	regModeKeywords -a -k $SetxmodeVars(keyword1Color) \
+	  Setx  {blah bladdity} 
+	
+	regModeKeywords -a -k $SetxmodeVars(keyword2Color) \
+	  Setx  {blah2 bladdity2} 
+	
+	regModeKeywords -a -k $SetxmodeVars(keyword3Color) \
+	  Setx  {blah3 bladdity3} 
+	
+	regModeKeywords -a -k $SetxmodeVars(symbolColor)   \
+	  Setx  {! ^} 
+	
+	Setx::colorizeSetx
+
+Include as many keywords as desired within the braces, separating each keyword
+by at least one space or carriage return.  After editing a SetxPrefs.tcl file,
+you must "Config > Mode Prefs > Load Prefs File".  Alpha will automatically
+load this preferences file when it restarts.
+
+Note that deletions from any user-defined keyword dictionaries will only take
+effect upon restart -- keywords cannot be "unloaded".
+
+The default mode preferences are intended to show off some of Setext's new
+functionality, which can be observed in the "Setext Example.stx" help file.
+All of these preferences could be set empty if desired.
+
+
+	  	 	Magic Characters
+
+	Magic Character
+	Magic Color
+
+The user can also specify one (and only one) "magic character."  Anything
+appearing after the magic character and before the next space will be colored
+according to the "magic color" preference.  In Alphatk, this symbol should
+also be included in the "Word Break" and "Word Break Preface" preferences.
+
+Preferences: Mode-Setext
+
+
+	  	 	Command-Double-Click
+
+	Search Url1
+	Search Url2
+	Search Url3
+	Search Url4
+	Setext Home Page
+
+Setext mode contains four "Search Url" preferences that are initially set to
+four different popular web search engines.  Command-Double-Clicking on any
+text will send it to "Search Url 1".  Holding down any modifier key will send
+the text to a different search url, using the table below:
+
+Option modifier:     Search Url 2
+Control modifier:    Search Url 3
+Shift modifier:      Search Url 4
+
+Note that Command-Double-Clicking with NO modifier keys can also be accessed
+using the F6 keyboard shortcut.  This means that one can first highlight text,
+and then hit F6 to send a phrase to the first search url.  The other
+modifiers, however, can only send the word surrounding the current cursor
+point.
+
+Preferences: Mode-Setext
+
+These urls (as well as that for the "Setext Home Page") are also used by the
+"Setext > Setext Help" submenu.
+
+
+	  	 	Navigation
+
+	Navigate Paragraphs
+
+Setext mode allows for two different styles of window navigation, using the
+"Next/Prev/...  Paragraph" menu items and their keyboard equivalents.
+Navigating "Paragraphs" is the default, and makes the most sense for true
+Setext documents.  Here a paragraph is defined by a block of text separated by
+at least one line which is either empty or only contains whitespace.
+
+If the "Navigate Paragraphs" preference is turned off, then these menu items
+(and their keyboard shortcuts) are changed to "Next/Prev/...  Function", where
+a "Function" is defined by a block of text that starts in the first column of
+a row, and continues until another function starts, as in
+
+set Setx::PrefsInMenu {
+    autoMark keypadFindsMark navigateParagraphs renderOnOpen
+    usePairedComments
+}
+proc Setx::rebuildMenu {{pref ""}} {
+    if {[llength $pref]} {status::msg "Rebuilding the Setext menu É"}
+    menu::buildSome setextMenu
+    requireOpenWindowsHook 1
+    Setx::postEval
+    if {[llength $pref]} {status::msg "The Setext menu has been rebuilt"}
+}
+
+This is of use only if Setext mode is being used as a surrogate for some
+programming language.
+
+Preferences: Mode-Setext
+
+Tip: While the "Next/Prev Paragraph/Function" menu items are bound to
+Control-Shift-N/P, they are also available using the Arrow keys with Control
+and Shift.  'Up/Down' will simply move the cursor, while 'Right/Left' will
+also reposition the window so that the cursor is at the top.  Toggle the
+numeric keypad using 'Shift-Clear'.
+
+Tip: If there is any selection highlighted when using these navigation items,
+the selection is extended to the beginning/end of the prev/next paragraph or
+function.
+
+	Keypad Finds Mark
+
+Alpha has the ability to take over the numeric keypad on extended keyboards,
+and to use various keys for navigation items.  In Setext mode, Keys 1 and 3
+are bound to either navigate the next/prev paragraph/function, or (if the
+preference named "Keypad Finds Mark" is turned on) to find the next/prev mark
+in the active window.
+
+Preferences: Mode-Setext
+
+
+	  	 	More Preferences
+
+	Indent Setx File As
+
+If Setext is being used for a programming mode, its indentation scheme can be
+set to mimic that of any other mode distributed with Alpha.  This will
+probably take some experimentation.
+
+Preferences: Mode-Setext
+
+	Fill Column
+
+This is the length of a row that is allowed before auto-wrapping of the window
+sets in, automatically inserting a carriage return.  This preference is found
+in many modes.
+
+Preferences: Mode-Setext
+
+	Word Break
+
+This preference is a regular expressions that determines when a 'word' ends,
+and is used for various word breaking navigation items.  In general, it is
+not necessary to change these settings unless you are using Setext as a
+programming mode.  In that case, you probably want to include any special
+symbols that can be found in the program's 'word' syntax, such as '-' for
+LISP files, or ':' for Tcl files.  Any magic character used should also be
+included for proper colorizing in Alphatk.
+
+Preferences: Mode-Setext
+
+
+	==================================================================
+
+
+	  	The Setext Menu
+
+Whenever a file is opened in Setext mode, the 'Setext' menu is automatically
+inserted into the menu bar.  This section describes some of the menu items
+available.
+
+
+	  	 	Setext Templates
+
+The 'New Setext Window' menu item will create a new window, using the
+templates described below.  If any of these templates include 'template
+stops', bullets '¥' by default, you can navigate this new window using your
+'next stop' key, set in the "Config > Special Keys" dialog.  This menu item
+inserts the 'Header' and 'Footer' templates.
+
+Both the 'Header' and the 'Footer' templates can be customized by using the
+'Edit Header' etc menu items.  These templates are stored as files in Alpha's
+Prefs folder.  Restoring the templates will remove these files, and use the
+default values set in the "setextMode.tcl" file.  Three additional templates
+can also be defined, and inserted at any time using the items in this submenu.
+
+
+	  	 	Setext Marks
+
+Any line of text can be turned into a Setext mark using the keyboard shortcuts
+found in the "Setext Marks" submenu.  If the text is already a mark, but is
+now a different length that the dash line below it, as in
+
+This mark has changed
+==================
+
+then the keyboard shortcut will readjust the dash line, as in
+
+This mark has changed
+=====================
+
+If the 'Auto Mark' preference is turned on, then the active window will be
+automatically re-marked whenever these shortcuts are employed.
+
+If you are using Setext mode as a surrogate for some other syntax style, you
+can try to mark the active window using any of the other mode file marking
+procedures available using the "Mark File As" menu item.
+
+
+	  	 	Setext Text
+
+This submenu contains some handy keyboard shortcuts for marking Setext windows
+using the (never completed) Setext markup specification.  These shortcuts will
+all work on either highlighted selections, or within the middle of some text.
+The 'Fill Paragraph' menu item preserves the special leading indentation found
+in some Setext files.
+
+
+	  	 	Setext Help
+
+This submenu contains menu items to open the 'Setext Home Page', a user
+customized url, this Help file, or a dialog to send some text to a specific
+search engine.  Both the search engine and the home page url can be modified
+using the "Config > Mode Prefs > Preferences" menu item when the active window
+is in Setext mode.
+
+
+	  	 	Setext Options
+
+Most of the items in this submenu are toggleable menu items that flip various
+'flag' preferences for Setext mode.  See the sections above concerning
+specific preferences.
+
+
+	  	 	Setext Keywords
+
+While Setext doesn't have any keywords per se, I often find it handy to
+colorize a list of keywords that I use often within text documents that I'm
+writing, as in IMPORTANT or NOTE. This menu allows you to manipulate three
+different lists of keywords.  The "Config > Mode Prefs > Preferences" will
+open a dialog allowing you to change the colors used for each list.
+
+Preferences: Mode-Setext
+
+
+	  	 	Additional Menu Items
+
+
+	Next/Prev Paragraph/Function
+
+These items allow you to navigate the active window, moving the cursor to the
+next/previous paragraph or function.  The "Navigate Paragraphs" preference
+determines which style of navigation will be used.  See the section above on
+"# Navigation" for more information.
+
+	Select Paragraph/Function
+
+Highights the paragraph or function surrounding the cursor.
+
+	Reformat Paragraph/Function
+
+If there is no selection currently highlighted, highlights the paragraph or
+function surrounding the cursor.  Then this region is properly indented.  Note
+that this is NOT the same as the "Text > Fill Paragraph" menu item, but is
+instead a simple combination of the "Setext> Select Paragraph/Function" and
+"Text > Indent Selection" menu commands.
+
+	New Comment
+
+Inserts a new comment immediately preceding the current paragraph/function in
+which the cursor resides, respecting all of the comment character preferences
+as well as "Navigate Paragraphs".  A standard "paragraph" style comment is
+inserted, unless you have previously created a template using ...
+
+	Comment TemplateÉ
+
+Creates a new template used in the "New Comment" menu item.  Simply type your
+template in any window, highlight it, and then select this item.  The
+selection will be saved as a Setext mode preference, which can be modified
+(or deleted entirely) using the "Config > Mode Prefs > Preferences" menu
+item.  If you want to include template stops, which can be navigated using
+the keyboard shortcut for "Next Stop" defined in the "Config > Special Keys"
+dialog, enter two bullets '¥¥' using Option-8 for each template stop.
+
+	Render Window
+
+Alpha can be used as a Setext rendering engine, converting all marks and
+'typotags' to stylized text.  See the end of the "Setext Example.stx" window
+for more information on the Setext mark-up specification.
+
+	Setext To Html
+
+Windows which have been marked-up using the Setext specification can also be
+converted to html files, using the package: filtersMenu.  (This package does
+not have to be active to use this item, although it must be installed.  The
+Filters menu is included in the standard AlphaTcl distribution.)
+
+Note that while this item properly converts window marks, it probably needs to
+be refined further to include all of the Setext typotags.
+
+
+	==================================================================
+
+
+	  	License and Disclaimer
+
+
+Author: Craig Barton Upright
+E-mail: <cupright@alumni.princeton.edu>
+   www: <http://www.purl.org/net/cbu>
+
+Author: Donavan Hall
+
+AlphaTcl's Setext mode:
+
+Copyright (c) 1996-2006 Tom Pollard, Craig Barton Upright, Donavan Hall
+All rights reserved.
+
+See the file "license.terms" for information on usage and redistribution of
+this package, and for a DISCLAIMER OF ALL WARRANTIES.
+
+This mode is free.  Alpha is shareware !   <<register>>
+
+cheers,
+
+-- Craig
+
+This document has been placed in the public domain.

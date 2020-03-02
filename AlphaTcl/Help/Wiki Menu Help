@@ -1,0 +1,792 @@
+
+Wiki Menu Help
+
+                                            version: 1.2
+                                            created: 01/26/2006 {06:37:01 PM}
+                                        last update: 02/07/2006 {12:07:04 PM}
+
+	  	Abstract
+
+A "Wiki" is a collaboratively edited web site.  Alpha's Wiki Menu allows you
+to edit pages from such a site and post them back to the remote server.  In
+general, this works well for many wiki sites.  There are, unfortunately, some
+"# Known Limitations" that you should review before reporting a bug.
+
+
+	  	Table Of Contents
+
+"# What is a Wiki?"
+"# Alpha's Wiki Menu"
+"# Quick Start"
+"# Editing Wiki Pages"
+"#   Manual Copy and Paste"
+"#   WWW Menu Hyperlinks"
+"#   Wiki Page Displayed In Browser"
+"#   Saved Wiki Menu 'Favorites'"
+"# Saving Wiki Pages"
+"#   Viewing Results"
+"#   Save In Browser"
+"#   Known Limitations"
+
+"# Wiki Projects"
+"#   Creating New Projects"
+"#   Editing Projects"
+"#   Wiki Systems"
+"#   Default Projects"
+"# Wiki Favorites"
+
+"# Wiki Systems Help"
+"#   Installed Wiki Systems"
+"#   Current Wiki System"
+"#   Wiki System Example"
+"#   Modifying Existing Systems"
+"# Adding New Systems"
+"#   Wiki System Settings"
+"#   Wiki System Name"
+"#   Wiki Example Urls"
+"#   Build Edit Url Patterns"
+"#   Wiki Sites Using System"
+"#   Other Identifying Url Patterns"
+"#   Exporting System Settings"
+
+"# AlphaTcl Developer Notes"
+"#   Wiki Editing Protocols"
+"#   Wiki Posting Protocols"
+
+<<floatNamedMarks>>
+
+
+	  	What is a Wiki?
+
+The ideas of 'Wiki' may seem strange at first, but dive in and explore its
+links.  'Wiki' is a composition system; it's a discussion medium; it's a
+repository; it's a mail system; it's a tool for collaboration.  Really, we
+don't know quite what it is, but it's a fun way of communicating
+asynchronously across the network.
+
+The name 'Wiki' may seem strange too - what does it mean?  The WikiWikiWebFaq
+answers this and other questions, but the short answer is that Wiki Wiki is
+Hawaiian for 'quick'.
+
+                                                -- <http://c2.com/cgi/wiki>
+
+AlphaTcl has a wiki page at <http://www.purl.org/net/alpha/wiki/>
+
+
+	  	Alpha's Wiki Menu
+
+Alpha's Wiki mode and menu facilitate the editing of Wiki pages.  (Try this
+"Wiki Example" hyperlink to see what Wiki pages might look like.)  While any
+file with the suffix ".wiki" will be opened in Wiki mode, since most wiki
+pages exists on a remote server rather than in your local drive this is
+generally not how you enter Wiki mode.
+
+
+	  	Quick Start
+
+If you want a quick demonstration of how you can use Alpha's Wiki Menu, 
+here's two quick methods.  Both require an active internet connection.
+
+(1) Click on this example file: "Wiki Example" to fetch the "Sandbox" page 
+    from the remote AlphaTcl wiki server.
+(2) Make some editing changes.
+(3) Save this window.  The new version will be posted to the web, and should 
+    be opened up for your inspection.
+
+Here's a different method that more closely resembles what you might do to
+open a wiki page for editing:
+
+(1) Open this url using Alpha's WWW Menu: 
+
+    <<WWW::renderUrl http://www.purl.org/net/alpha/wikipages/sandbox>>
+
+(2) Click on the "Edit" link at the bottom of the page.
+(3) Make some changes to the new window.
+(4) Save this window ("File > Save" or its keyboard shortcut).
+
+The new "Sandbox" page should then be updated.  You can confirm your changes
+using your System's browser:
+
+    <http://www.purl.org/net/alpha/wikipages/sandbox>
+
+Wasn't that cool?
+
+
+	  	Editing Wiki Pages
+
+There are four main methods you can use to edit Wiki contents.
+
+	  	 	Manual Copy and Paste
+
+The first involves manually cutting and pasting the contents of a wiki
+editing text field from an internet browser window into a new Alpha window.
+When prompted for the window name you can use something like "temp.wiki", or
+just leave it untitled and manually change the mode to Wiki.  When you're
+done editing, copy and past it back to your web browser page.  This isn't so
+much fun, but at least you'll have access to the "Wiki Menu > Wiki Text" and
+related menus for easy insertion of mark-up tags.
+
+	  	 	WWW Menu Hyperlinks
+
+The second method involves interaction with pages rendered by the WWW menu.
+Selecting an 'edit' hyperlink in a WWW rendering of a wiki page will open a
+new window in Wiki mode, and when you 'Save' the file you will actually be
+posting the edited content back to the wiki source.
+
+(See the "WWW Help" file for more information about viewing remote url files
+in Alpha.)
+
+	  	 	Wiki Page Displayed In Browser
+
+The third method requires that you turn on the Wiki Menu globally.
+
+Preferences: Menus
+
+Use your System's web browser to navigate to the wiki page you want to edit.
+(such as <http://www.purl.org/net/alpha/wikipages/sandbox>).  Do _not_ click
+on any "Edit" link.  Select Alpha's the "Wiki Menu > Edit Wiki Page" command,
+and you should be offered the choice to grab the url from your browser.
+After doing so, and you can then edit the page in the new Wiki mode window
+that is opened.
+
+	  	 	Saved Wiki Menu 'Favorites'
+
+The last method requires the use of "# Wiki Projects".
+
+If you find yourself editing the same pages repeatedly, you can save them in
+your "Wiki Menu > Wiki Favorites" menu.  See "# Wiki Favorites" below for
+more information.  Saved Favorites will always be offered to you in the
+initial "Wiki Menu > Edit Wiki Page" dialog.
+
+
+	  	Saving Wiki Pages
+
+Once an editing window is opened, saving the window in the normal manner
+(i.e. the "File > Save" command or its keyboard shortcut) will automatically
+post the page to the remote server.  Once it has been posted, you should 
+close the editing window; many wikis set a "session id" parameter which only 
+allow you to save once, and then you must click an "Edit" hyperlink once 
+more to create a new editing window.
+
+Even if you close this window, you can always review the most recent changes
+that you posted with the "Wiki Menu > Review Last Post" command.  This will
+ensure that you have access to the text you edited in case the posting
+routine didn't go as expected.
+
+
+	  	 	Viewing Results
+
+After the wiki page has been posted, you probably want to see the new version
+of the wiki page.  This should take place automatically.  If you have turned
+on the preference named "Use WWW Menu For Viewing", then the results will be
+rendered in Alpha using the package: wwwMenu .  
+
+Preferences: Mode-Wiki
+
+Otherwise, they will be sent to your "View URL" helper application.
+
+Preferences: Helpers-viewURL
+
+
+	  	 	Save In Browser
+
+While this package has made every effort to enable the automatic and internal
+posting of Wiki pages to the remote server, some Wiki System implementations 
+are too complicated to figure out how to do this well.  In some cases, the 
+new text can be easily posted but it is difficult to parse the results so 
+that we _know_ that everything went according to plan.
+
+The "Wiki Menu > Save In Browser" command is a fallback operation that you
+might need (or even want) to use; it combines the editing power of Alpha with
+the internet protocols that web browsers are supposed to be good at.  When
+you select this command, the contents of the active window will be copied
+into your Clipboard, and the Wiki page editing url will be opened in your
+browser.  All you have to do is paste it into the appropriate form field and
+click the Save button.
+
+
+	  	 	Known Limitations
+
+This package works very well when it works well, but can be frustrating when
+it doesn't.  In general, the simpler Wiki System implementations are very
+accomodating to what we're trying to accomplish here.  More sophisticated
+systems that register cookies, require authentication, etc.  will pose some
+trouble for you.  Some of the more common problems include:
+
+	Reguired Login To Edit
+
+Some wiki pages require authentication, i.e a registered username and
+password in order to open an "edit" window.  At present Alpha's http routines
+are not able to handle this, and you will not be able to open a page from
+such a site for editing.
+
+	Authentication To Save Changes
+
+Some wiki pages require authentication, i.e a registered username and
+password in order to post changes.  At present only a few wiki systems 
+defined by Alpha's Wiki Menu have such a built in authentication regime.
+
+The "Wikit" system (used by the Tcl wiki) is one; see
+
+<<Wiki::systemInfo {"Wikit"}>>
+
+for more information.  You might want to scan the information for the other 
+wiki systems to see if they mention anything about authentication:
+
+<<Wiki::systemInfo -all>>
+
+For wikis requiring authentication which are not supported by this package,
+you will need to manually copy your edited text from the Alpha window and
+paste it into an "Edit Wiki Page" in your local browser.  We hope to remove
+this limitation in future versions.  In the meantime, you should make use of
+the "# Save In Browser" option.
+
+	Unsupported Protocols
+
+As of this writing (01/31/2006), no urls using the "https" protocol are
+supported by Alpha's Wiki Menu.
+
+	Line Wrapping
+
+In AlphaX, lines that are visually wrapped in your window are actually
+"hard-wrapped" with carriage returns.  In most cases, this won't matter when
+you post the text of the editing window back to the server.  In some cases,
+however, wrapped lines will break formatting.  The only solution is to
+highlight such regions and the select the "Text > Paragraph To Line" command
+before saving the window.  You'll notice this problem very quickly after you
+review the results of your editing.
+
+
+	====================================================================
+
+
+	  	Wiki Projects
+
+A wealth of wiki sites exist on the internet.  If you have visited different
+wiki sites, you will have noticed that there are many different styles
+available, and they do not share a common, unified set of mark-up tags.
+
+Alpha's Wiki Menu allows you to define "Projects" for specific wiki sites.
+Projects allow you to define a home page, formatting rules, and other
+information that makes the editing and posting of wiki pages easier for you
+(and easier for the AlphaTcl package which does all of the major lifting for
+you behind the scenes).
+
+If you regularly contribute to Wiki sites, you might want to turn on Alpha's 
+Wiki Menu "globally" so that you'll have easy access to the menu commands 
+and features described in the rest of this document.
+
+Preferences: Menus
+
+
+	  	 	Creating New Projects
+
+Defining a project is very easy, and you'll find that they are very useful.
+First select the "Wiki Menu > Wiki Projects > New Project" command.
+
+<<Wiki::newProject>>
+
+You'll be able to "clone" an existing project for the formatting tags, or 
+just use the defaults.  You'll be able to edit these as soon as you press 
+the "Continue" button.
+
+
+	  	 	Editing Projects
+
+The "Edit Project" dialog is immediately opened after you have created a new
+project.  The project exists, and will persist even if you cancel this
+dialog.  (Use the "Wiki Menu > Wiki Projects > Delete Project" command to
+permanently remove a defined project.)
+
+Now you'll want to set the "Home Page" for the project.  This is an important
+setting, because all other wiki pages that you edit will be compared to this
+"base url" to determine if they belong to your new project.  You can open the
+project's home page in your browser and then use that location.
+
+The "Wiki Menu > Formatting Rules" menu item will open the url pointed to by 
+the "Formatting Rules" setting.
+
+
+	  	 	Wiki Systems
+
+The "Wiki System" is perhaps the most difficult setting to explain.  Because
+there are many different wiki systems available, it really helps to know
+which one should be used for Alpha's posting protocols.  If this is left as
+"undefined" then Alpha will do its best to determine the correct method by
+parsing the url, but this is not necessarily robust.
+
+For now, the best that you can do (if you don't immediately recognize a 
+system that is appropriate for your wiki) is to review all of the systems 
+currently defined
+
+<<Wiki::systemInfo -all>>
+
+and try to find the one that most closely resembles the display and edit urls
+for your site.  See the "# Wiki Systems Help" information below.
+
+
+	  	 	Default Projects
+
+Alpha's Wiki Menu defines some default projects, but you're welcome to remove
+them at any time.  These projects are (as you might have guessed) for the
+"AlphaTcl" and "Tcl" wiki sites.  These defaults help to provide some of the
+mini-tutorials in this document, and you might want to use the AlphaTcl wiki
+to find out more about your favorite text editor.
+
+One sad truth about the internet is that web site often go out of date.  As a
+shareware program maintained by unpaid volunteers, Alpha has long relied on
+the good-will of its users and affiliated organizations to host different
+projects, including "Alpha-Bugzilla" and the AlphaTcl wiki.  These hosts, 
+however, are subject to change.  It is possible that by the time you're 
+reading this, the urls which are "hard-wired" into Alpha's Wiki Menu are 
+already out of date, in which case the editing and posting of AlphaTcl wiki 
+pages won't work.  If you find this is the case, 
+
+(1) First check to make sure that you have a valid internet connection.
+
+(2) Assuming that you do, the "Wiki Menu > Wiki Projects > Restore Defaults" 
+command will try to reset the urls to the correct values.
+
+(3) If, however, this does not work, or if you are still unable to edit from or 
+post to either the "AlphaTcl" or "Tcl" wiki sites, see this wiki page
+
+<http://www.purl.org/net/alpha/wikipages/wiki-menu-default-projects>
+
+for more information about the correct locations or other modifications you
+might need to make.
+
+
+	  	Wiki Favorites
+
+One advantage of defining a Wiki Project is the ability to also create
+"Favorite" pages associated with that wiki.  Each project has its own set of
+favorites, and the "Wiki Menu > Wiki Favorites" menu is updated every time
+you change the Current Project.
+
+"Favorites" should refer to the url of the _displayed_ wiki page, and not to
+the one that opens an "Edit" page.  When you select an item from the menu
+"Wiki Menu > Wiki Favorites", they will be opened using your desired method,
+showing you the current contents of the page.  If you have turned on the
+preference named "Use WWW Menu For Viewing", then the page will be rendered
+in Alpha using the package: wwwMenu .
+
+Preferences: Mode-Wiki
+
+Otherwise, they will be sent to your "View URL" helper application.
+
+Preferences: Helpers-viewURL
+
+The "Wiki Menu > Edit Wiki Page" command will always offer the list of
+favorites defined for the current project for you to edit.
+
+
+	====================================================================
+
+	  	Wiki Systems Help
+
+This section describes how Alpha's Wiki Menu defines and recognizes the
+different systems used by remote wiki servers.  Many of these systems need
+special handling in order for their pages to be properly edited and posted.
+
+There are many implementations of collaborative "wiki" style web sites.  This
+presented a challenge to develop the editing capacity in Alpha's Wiki Menu
+because different Wiki systems have different idioms to designate the edited
+version of a displayed Wiki page.  If you want to be able to edit a Wiki page
+in Alpha, you must specify an appropriate Wiki System for the given page
+you're trying to edit, and that method must be used by the remote wiki
+server.  Otherwise attempts to edit and post saved changes will fail.
+
+
+	  	 	Installed Wiki Systems
+
+Numerous Wiki engines are listed here: <http://c2.com/cgi/wiki?WikiEngines>
+
+Alpha's Wiki Menu has defined editing and posting protocols for many
+different wiki systems.  Click here:
+
+<<Wiki::systemInfo>>
+
+to obtain information about them.  See the "# Adding New Systems" section
+below if you have run across a system that is not yet recognized and you are 
+interested in adding it yourself.
+
+
+	  	 	Current Wiki System
+
+Alpha's Wiki mode makes it easy for you to do this by defining different
+projects for each wiki site you want to edit; each defined project has an
+"Wiki System" associated with it, and this is used to both fetch and post
+edited wiki pages.  See the "Wiki Menu Help # Wiki Projects" help section for
+more information.  If you are editing a wiki page that is associated with a
+pre-defined project, the Wiki System will be automatically recognized and
+used to fetch and post pages.
+
+If no project is associated with the active wiki-editing window, then the
+source url is used to guess what wiki system should be used.  This routine is
+fairly robust, but not foolproof.  If you intend to repeatedly edit pages
+from a particular site in the future, it is highly recommended that you
+define a project for it so that the system will always be known by selecting
+the "Wiki Menu > Wiki Projects > New Project" command.
+
+If you do not want to specify the Wiki System for a given Wiki, you can
+declare it as "undefined" in the "Wiki Menu > Wiki Projects > Edit Projects"
+dialog; this will disable the editing capacity for this Wiki.
+
+
+	  	 	Wiki System Example
+
+For example, the Wiki system used on the Tcl'ers Wiki is called Wikit and
+adopts the following convention:
+
+* All pages are numbered.  The page containing the Formatting Rules, for
+instance, is page 14 and is stored in a file named 14.html.  Displaying this
+page in a browser means getting the url <http://mini.net/tcl/14.html>.
+
+* The file containing the edited version of a page is named after the number
+of the page followed by an arobase.  In our previous example, it would be
+14@. Editing this page in a browser means getting the url
+
+	http://mini.net/tcl/edit/14@
+
+The identifying pattern that helps Alpha recognize that a given page uses
+the Wikit wiki system is
+
+	.*/wikit/.*
+
+Again, this pattern is only queried if the active wiki-editing page is not
+associated with a defined Wiki Project.
+
+
+	  	 	Modifying Existing Systems
+
+If you want to modify an existing wiki system definition, select the menu
+command "Wiki Menu > Wiki Systems > Edit System".  This will open a new
+dialog containing information about the current settings.
+
+<<Wiki::editSystem>>
+
+In general, there are only two reasons why you might need to adjust the 
+default settings for any system:
+
+(1) Registering new wiki system web sites.
+
+Each system has a "Web site wikis" field that includes a list of known sites
+that make use of that particular system.  This helps Alpha's Wiki Menu
+recognize that a given url should make use of that system for its editing and
+posting protocols.  You can add any number of web sites to this list,
+separating each one with a space.  You don't have to include the full url of 
+the site, and in most cases you're better off not doing so.  For example, 
+rather than adding
+
+	http://www.tcl.tk/wiki/
+
+you should just add
+
+	tcl.tk/wiki
+
+and the internal routines will perform a "string match" to see if a given url
+matches your web site.
+
+(2) Adusting the "Internal Posting" field value.
+
+If you find that Alpha's internal posting mechanism is not working, you are
+better off using the "Wiki Menu > Save In Browser" command when you have
+finished editing a wiki page.  If "Internal Posting" is set to "Not Allowed"
+then this will happen automatically when you save the active wiki window.
+
+Alternatively, if "Internal Posting" is set to "Not Allowed" and you want to 
+test this to see if it actually does work for your particular wiki site, you 
+can change this setting to find out.
+
+TIP: If the "Internal Posting" setting is "Not Recommended" you will always
+be presented with the choice of saving methods.
+
+
+Except for these two settings, most of the system fields should not be
+changed unless you know what you're doing.  These are all explained in more
+detail in the "# Adding New Systems" section below.  If you find that your
+changed settings have somehow disabled the editing or posting of wiki pages,
+select the "Wiki Menu > Wiki Systems > Reset Systems" command to restore the
+default settings of any system distributed with this package.
+
+
+	  	Adding New Systems
+
+If Alpha's Wiki Menu doesn't define a wiki system that you use, you can add
+your own using the "Wiki Menu > Wiki Systems > Add New System" command.  This
+is a somewhat complicated procedure, because you'll have to create some
+regular expression patterns that translate a "view" url to its "edit"
+counterpart.  In order to continue, you will also need some example urls from
+a wiki site in order to help verify your regexp patterns.
+
+TIP: Even though there are many different wiki systems in use, closer
+inspection reveals that many of them use very similar protocols.  Even if
+your system is not included in the default Wiki Menu distribution, there
+might be one that you can still use.
+
+Try to open a wiki display page in your browser, note the url that it uses, 
+and click on an "Edit" link and see what new url is in your location bar.  
+Then click here
+
+<<Wiki::systemInfo -all>>
+
+and see if you can find a system that uses the same syntax.  If so, you might
+be able to define that as your Wiki System for your project.
+
+
+	  	 	Wiki System Settings
+
+Each defined system has (at a minimum) a set of regular expressions that help
+Alpha determine the proper editing url that should be used when given the url
+of the displayed page.  Each system should also define
+
+* Identifying patterns to help recognize the system for a given url.
+* Web sites which are known to use this system.
+* The web site of the wiki system's author or maintaining organization.
+* Example wiki pages for the user to see this system in action.
+
+and, if necessary,
+
+* A specialized posting procedure to add extra information, cookies, etc.
+
+Most of this information is only used internally and you shouldn't have to
+adjust any of the default settings, unless something doesn't work for you!
+If you are running into problems with a system that is already installed by
+the Wiki Menu, you should inspect the code in "wikiMethods.tcl" and copy that
+into your prefs file to modify it.
+
+Assuming that you want to continue creating a new wiki system...
+
+<<Wiki::newSystem>>
+
+Note that you press the "Cancel" button at any time to postpone the process;
+any settings you have entered will be saved and used as the default field
+values if/when you choose to resume the creation of a new system.
+
+
+	  	 	Wiki System Name
+
+You must first choose a name for your system.  Don't choose a name that is
+already used by a different system; this will not be allowed.  You will be
+able to rename it later if desired, after you have finished with all of the
+other settings.  Select "Wiki Menu > Wiki Systems > Rename System" to do so;
+this only allows you to rename systems that you have added.
+
+If you know the web site of this wiki system's maintainer, you should add it 
+in this dialog as well.  This field exists primarily to help you obtain more 
+information about this system later if you need it.
+
+Click here <<Wiki::newSystem>> to continue the adding a new system routine.
+
+
+	  	 	Wiki Example Urls
+
+Now you must enter two different wiki page urls.  The first should be for a
+"view" page; try to find one that can be modified without destroying any
+"real" content on the wiki site, such as a "Sandbox" or "Grafitt" page.
+
+The second url should be the one in your browser's location bar after you
+have clicked on an "Edit" hyperlink.
+
+Why do you need these example urls?  They will appear in the "System Info"
+window created by the "Wiki Menu > Wiki Systems > Wiki Systems Info" command,
+providing you with handy hyperlinks to test your system.  These urls will
+also, however, be used to verify the regular expression patterns that you are
+about to create.
+
+Click here <<Wiki::newSystem>> to continue the adding a new system routine.
+
+
+	  	 	Build Edit Url Patterns
+
+The next step involves creating regular expression patterns that will help
+create an "edit" url from a "view" url of a wiki page that uses this system.
+There are two items here, the initial "pattern" and the "subspec" that will
+be used by the command: regsub .  If you are not familiar with the regular
+expression syntax, please send a note to one of the mailing lists described
+in the "Readme" file and include both of the urls you created in the last
+step and ask for help.  This document assumes that you know at least at
+little something about regular expression syntax.  (For a reminder, you can
+consult the "Help > Regular Expressions" help file.)
+
+For example, if you have these two urls:
+
+	http://awkiawki.bogosoft.com/cgi-bin/awki.cgi/TestPage
+	http://awkiawki.bogosoft.com/cgi-bin/awki.cgi?edit=true&page=TestPage
+
+the patterns should be
+
+	/([^/]*)
+	?edit=true\&page=\1
+
+so that
+
+	% set url "http://awkiawki.bogosoft.com/cgi-bin/awki.cgi/TestPage"
+	http://awkiawki.bogosoft.com/cgi-bin/awki.cgi/TestPage
+	% set pat1 {/([^/]*)}
+	/([^/]*)
+	% set pat2 {?edit=true\&page=\1}
+	?edit=true\&page=\1
+	% regsub -nocase "${pat1}\$" $url $pat2 newUrl
+	1
+	% set newUrl
+	http://awkiawki.bogosoft.com/cgi-bin/awki.cgi?edit=true&page=TestPage
+
+After you enter the patterns, a quick check will be performed to see if the
+first "Wiki Example Url" can be transformed into the second using the
+patterns that you have provided.  If not, you will be informed, and you must
+correct the patterns before continuing.
+
+Note: a trailing "$" will always be added to the first pattern.
+
+Click here <<Wiki::newSystem>> to continue the adding a new system routine.
+
+
+	  	 	Wiki Sites Using System
+
+If you have gotten this far, you have completed the most challenging steps of
+this process.  The next one allows you to identify wiki web sites that use
+your new system.  This helps Alpha's Wiki Menu recognize that a given url
+should make use of your system for its editing and posting protocols.  You
+can add any number of web sites to this list, separating each one with a
+space.  You don't have to include the full url of the site, and in most cases
+you're better off not doing so.  For example, rather than adding
+
+	http://www.tcl.tk/wiki/
+
+you should just add
+
+	tcl.tk/wiki
+
+and the internal routines will perform a "string match" to see if a given url
+matches your web site.
+
+Click here <<Wiki::newSystem>> to continue the adding a new system routine.
+
+
+	  	 	Other Identifying Url Patterns
+
+The last step before a confirmation dialog opens up asks you if there are any
+other unambiguous patterns that would help associate a given url with your
+new system.  "Unambiguous" is the key word here.  While your "edit" urls 
+might end with something like
+
+	&action=edit
+
+that is a fairly common string that is found with many different wiki
+systems.  The idea here is to only add patterns that you know are employed
+only by your system.  While this might appear to require perfect knowledge of
+all possible wiki systems, we are able to make some educated assessments
+here.  For example, a url that includes this
+
+	awki\.cgi?edit=
+
+can be expected to only be used by "Awki Awki" urls, just as
+
+	(/JSPWiki/)|(/Wiki\.jsp\?)
+
+will only be used by "JSP Wiki" urls.  The key here is to be conservative,
+and only add patterns that won't associate wiki pages from other systems to
+the new one you are creating.
+
+Click here <<Wiki::newSystem>> to continue the adding a new system routine.
+
+
+
+	  	 	Exporting System Settings
+
+If you have defined a new Wiki System (or if you have debugged a default
+system) please pass it along to the AlphaTcl development community; your
+changes will be included in the next release of Alpha.  You can select the
+"Wiki Menu > Wiki Systems > Export System" command to display your system
+settings in a new window and then paste that into an e-mail to the current
+maintainer of Alpha's Wiki Menu as listed in the "Installed Packages" file.
+
+
+	====================================================================
+
+
+	  	AlphaTcl Developer Notes
+
+Here's some advanced information, mainly for AlphaTcl developers.
+
+
+	  	 	Wiki Editing Protocols
+
+In the "Wikit" example, the "editing method" regular expressions transform
+'14.html' to '14@'.  This is handled by a proc: Wiki::buildEditPageUrl which
+looks for the editing method and applies it.
+
+All default wiki system definitions can be found in "wikiMethods.tcl", and 
+look something like this:
+
+	set Wiki::defaultSystems(ApacheMiniWiki) [list \
+	  "buildEditUrlPats"    [list {([^/\?]*)(\?[^/]*)?} {(edit)/\1}] \
+	  "viewUrlPattern"      {} \
+	  "editUrlPattern"      {} \
+	  "postUrlPattern"      {} \
+	  "wikiSiteUrls"        [list "nyetwork.org"] \
+	  "postIsEnabled"       "0" \
+	  "wikiExamples"        [list \
+	  "http://www.nyetwork.org/wiki/test" \
+	  "http://www.nyetwork.org/wiki/(edit)/test" \
+	  ] \
+	  "homeSite"            "http://savannah.nongnu.org/projects/miniwiki/" \
+	  "description"         {
+		Simplistic Wiki for Apache written in Perl.
+	} \
+	  ]
+
+Editing methods are stored in the "buildEditUrlPats" field and are built
+using the regsub syntax: you just have to specify the search string and the
+replacement string as a two-elements list.  In the "# Wiki System Example",
+the search string is:
+
+	([0-9]+)\.html
+
+and the replacement string is:
+
+	edit/\1@
+
+If we decide to call this Wiki System "Wikit", the declaration will just 
+be like this:
+
+	set Wiki::defaultSystems(Wikit) [list \
+	  "buildEditUrlPats"    [list {([0-9]+)(\.html)?} {edit/\1@}] \
+	  "..." "..." \
+	]
+
+Note that all these rules are relative to the base url of the Wiki declared
+as the "Home Page" in the "Wiki Menu > Wiki Projects > Edit Projects" dialog.
+In the previous example, the base url is "http://mini.net/tcl/".  You do not
+have to worry about the base part of the url: the editing method is supposed
+to convert the end of the url.  The base part is not affected.
+
+If you want to guess what is the editing mode for a given Wiki, just go to
+one of its pages, note its url, choose "Edit this page" (or any equivalent
+command at the bottom of the displayed Wiki page), note the url of the edited
+page and compare both urls in order to build the editing rule.  Ask for help
+on the Alpha-Users mailing list described in the "Readme" file if you are
+uncomfortable with the syntax of the command: regsub .  The "wikiMethods.tcl"
+file also contains many different examples.
+
+Use the proc: Wiki::verifyBuildUrlPat to check the current patterns, as in
+
+	Wiki::verifyBuildUrlPat -all
+
+issued in a <<tclShell>> window.
+
+
+	  	 	Wiki Posting Protocols
+
+Each wiki system can also define its own unique posting protocal.  The
+standard method can be found in [Wiki::postToServer], but this might be too
+general as it will send all found "query" arguments.  For example, if there
+is a "cancel" argument the new text won't be posted.  If there is a proc
+named [Wiki::<wikiSystem>::postToServer] defined this will be used.  See the
+proc: Wiki::pmWiki::postToServer or the proc: Wiki::Wikit::postToServer for
+some more examples.
+
+	--------------------------------------------------------------------
+
+This document has been placed in the public domain.

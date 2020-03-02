@@ -1,0 +1,1167 @@
+-*-Help-*-
+
+Statistical Modes Help
+
+
+                                       help version: 2.3
+                                            created: 03/07/2000 {01:10:49 am}
+                                        last update: 03/07/2006 {12:06:02 PM}
+
+
+	  	Abstract
+
+This document describes four statistical modes for the software Alpha.  They
+include SAS, S (for S, S-Plus, and R), SPSS, and Stata.
+
+This help manual is rather long, because it deals with all four of these modes
+-- each section assumes that you didn't read anything about the others.  The
+"# General Notes About The Modes" section, however, does contain information
+that relates to all of them.
+
+
+	  	Table Of Contents
+
+
+"# Description of files"
+"# General Notes About The Modes"
+
+"# SAS"
+"#   SAS Keywords"
+"#   SAS Menu"
+"#   SAS Command-Double-Click"
+"#   SAS File Marking"
+"#   Adding an SAS Prefs file"
+
+"# S  (S-Plus, R)"
+"#   S-Plus Keywords"
+"#   S mode Carriage Returns"
+"#   S Menu"
+"#   S Command-Double-Click"
+"#   S File Marking"
+"#   Adding an S Prefs file"
+
+"# SPSS"
+"#   SPSS Keywords"
+"#   Non-ambiguous SPSS keywords"
+"#   SPSS Menu"
+"#   SPSS Command-Double-Click"
+"#   SPSS File Marking"
+"#   Adding an SPSS Prefs file"
+
+"# Stata"
+"#   Stata Keywords"
+"#   Non-ambiguous Stata abbreviations"
+"#   Command line delimiter"
+"#   Stata Menu"
+"#   Stata Command-Double-Click"
+"#     Control, Shift, Option modifiers"
+"#   Stata File Marking"
+"#   Adding a Stata Prefs file"
+"#   Stata mode Known Bugs"
+
+"# Future Versions"
+"# License and Disclaimer"
+
+<<floatNamedMarks>>
+
+
+
+	  	Description of files
+
+
+The first four contain the bulk of each mode's variables and procedures: 
+
+    SAS     "sasMode.tcl"     (version 2.3)
+    S       "sMode.tcl"       (version 2.3)
+    SPSS    "spssMode.tcl"    (version 2.3)
+    Stata   "stataMode.tcl"   (version 2.3)
+
+
+The next eight are for <mode>Completions, and Completion Tutorials:
+
+    "SASCompletions.tcl"
+    "SAS Tutorial.sas"
+            
+    "SCompletions.tcl"
+    "S Tutorial.s"
+            
+    "SPSSCompletions.tcl"
+    "SPSS Tutorial.sps"
+            
+    "SttaCompletions.tcl"
+    "Stta Tutorial.do"
+        
+Finally, there is one help file (the one you're currently reading):
+
+	Statistical Modes Help
+
+
+	  	General Notes About The Modes
+
+
+(1)  These modes serve primarily to make it easier to write statistical 
+     syntax files -- they colorize, and set some electric, word break, 
+     and commenting preferences.  
+     
+     Each mode includes its own menu, allowing Alpha to act as a "front
+     end" for the Macintosh version of the application.  (Note that in some 
+     cases the processing of files or selections may still be in beta stage.)
+
+     The menu for each mode includes "Help", "Keywords", and "Mark As" 
+     submenus that contain items for obtaining command information, 
+     setting mode specific preferences, checking or adding new keywords, and 
+     marking the active window as either source or output files.
+
+(2)  Each mode contains a full set of electric completions, as well as a 
+     Completions Tutorial via the  "Config > Mode Prefs"  menu item.
+
+(3)  Example syntax files are available via the "Examples Help" file. 
+     If you open an example syntax file through the provided hyperlinks, it
+     will open in a "shell" window.  After you close the window, clicking
+     on the hyperlink will return the unblemished original.
+
+(4)  All of these modes allow for user customization of keyword dictionaries 
+     via the  "Config > Mode Prefs > Preferences"  dialog.  New keywords 
+     and color changes will take effect immediately, without the need for 
+     a restart or changing windows.  Keywords can also be added using some 
+     of the menu items found in each menu's "Keywords" submenu -- using the 
+     "Add New Commands" item, you can optionally add all of the "extra" 
+     commands that appear in the active window.
+
+     Each section below includes a brief overview of the statisitical
+     package's nomenclature, and a hyperlink to the installed .tcl file
+     that contains the keyword dictionaries.
+
+(5)  Instructions for editing a <mode>Prefs.tcl file are given in each 
+     section.  Any keywords added will not only be colorized, but included
+     in the completions routines as well.
+
+ (6) All of these modes automatically indent the new line created by the
+     Return key.  Adjust the mode's "Indent On Return" preference if you
+     want to turn off this feature.  Each mode recognizes both the
+     continuation and the end of commands, indenting appropriately.  The
+     indentation amount can be set in the "Config > Electrics" menu.
+
+     Preferences: Electrics
+     
+     One could also take advantage of Alpha's "indent on return override"
+     key binding.  Pressing Control-return will place the cursor on the
+     next line without any indentation.
+
+(7)  Each mode has navigation menu items, bound to Control-Shift N and P.  
+     These items are also bound to Control-Shift Arrrow keys, and to 1 and 3
+     on the keypad when the Num-Lock is turned off.  
+     
+     Control-Shift up and down will find the prev/next command.  The right
+     and left Arrrow keys not only find prev/next commands, but will also
+     place the cursor at the top of the window.
+
+(8)  Each mode has its own indentation scheme, based upon unbalanced braces
+     and (for Stata, SPSS, and SAS) on whether the previous command was
+     properly terminated.  Entire commands can also be highlighted with
+     Control-Shift S, or reformatted (aligning indentation) with
+     Control-Command-I. 
+    
+	 The "Full Indent" mode preference determines if continued commands are
+	 indented to the full "Indentation Amount" (which can be set using
+	 "Config > Preferences > Electrics" menu item), or just half of
+	 this value.
+
+     Preferences: Electrics
+
+(9)  Each mode has Mark Window [M] and Parse Function {} capabilities.  
+     Each marking routine can recognize either source or output files.
+
+	 Selecting the "Auto Mark" preference, available as a toggleable menu
+	 item in each mode's "Mark AsÉ" submenu, will automatically mark a file
+	 when it is opened, assuming that no previous marks yet exist for the
+	 file.
+
+(10) Finally, on-line help is available for each mode through Command- 
+	 Double-Clicking.  The url to which the keywords are sent can be
+	 configured in the "Mode Prefs > Preferences" dialog.  Each menu
+	 also includes a "Home Page" option, using the url set in this dialog.
+
+	  	
+	======================================================================
+
+
+	  	SAS 
+
+
+This is also a goood mode for reading SAS output files.  One could easily add
+a preference in the "Config > Preferences > Suffix Mappings" menu item to
+automatically recognize .lst or .log files.
+
+Preferences: SuffixMappings
+
+Example syntax file:  "SAS Example.sas"
+
+SAS mode preferences include items for indentation, help keys, etc.
+
+Preferences: Mode-SAS
+
+
+	  	 	SAS Keywords
+
+
+SAS seems to have five levels of possible keywords, all of which can be
+reviewed in "sasMode.tcl" :
+
+  1. the top level "proc" command:  anova, freq, varcomp
+  2. sub-level procs, or "subprocs":  rename, value, range
+  2. "arguments", which require no parameters:  ls, missover, in1
+  3. "options", which require parameters:  converge, data, gamma
+  4. "parameters", preset as opposed to user supplied: full, part  
+
+The default setup of this mode is to colorize all of procs and subprocs blue;
+arguments, options, and parameters are magenta.  The user does not have to
+specify all of these different levels -- only Argument, Command, Comment,
+String, and Symbol colors appear in the preferences.
+
+Each of these commands has an electric completion available, and the mode
+comes with a Completions Tutorial, available in the "Config > Mode Prefs" menu
+item.  Using the completion key, which can be defined with the menu item
+"Config > Special Keys", the user can type
+
+	p'ano<complete>
+
+and Alpha will automatically insert the following text:
+
+	proc anova | ;
+	¥
+
+The template stops will allow the user to use the tab key to jump ahead to
+insert the needed variable names, and the last stop will position the cursor
+for the next command.
+
+Additional commands and arguments can be added in two ways, through the Mode
+Preferences menu item, and in a SASPrefs.tcl file.  Extra keywords defined
+(using either method) will be included in the electric completion routines.
+The "Keywords > Add Commands" menu item will give you the option to add all
+"extra" commands in the current file to the "addCommands" mode preference.
+
+Completions Tutorial: "SAS Tutorial.sas"
+
+
+	  	 	SAS Menu
+
+
+	Switch To SAS
+
+Launch SAS into foreground.
+
+	Process File
+	Process Selection
+
+Send window (or the highlighted selection) to SAS for processing.
+
+	Insert Path
+
+Open a dialog to select a file, and then insert the file's pathname.
+
+	Next Command
+	Prev Command
+
+Navigate the active window, defining the next/prev command based upon
+non-commented text in column 1 of any row.
+
+Navigation commands are also bound to Control-Shift Arrrow keys, as well as the
+1 and 3 keys on the keypad when Num-Lock is turned off.
+
+	Select Command
+
+Select the entire command to its termination.
+
+	Reformat Command
+
+Reformat the current command surrounding the cursor, aligning indentation.
+
+
+
+	  	 	SAS Command-Double-Click
+
+
+On-line help is available for SAS commands through Command-Double-Clicking.
+
+SAS provides a help file suite called SAS OnlineDoc.  The license agreement
+suggests that access should be restricted to users within a particular domain.
+If you have access to this set of files (either locally on your hard drive or
+within via a protected domain location), you should set the url preference in
+the mode preferences dialog.
+
+(Occassionally you can find versions that are open to the public.  Try the
+search term "SAS Online Doc".)
+
+Any available syntax information is also available by pressing the Control key
+while Command-Double-Clicking.  This information will appear in the status bar
+window.  In some cases, this information is too long to be read in its
+entirety.  Pressing the Shift key instead of the Control key will insert this
+syntax information as commented text into your active window.
+
+NOTE: These Control-Command and Shift-Command-Double-Click features have not
+been fully implemented.  See the "SASCompletions.tcl" file for additional
+information.
+
+
+
+	  	 	SAS File Marking
+
+
+For SAS mode, Mark Window will return the first 35 characters of each command
+that begins a new line.  Therefore it should not include any indented or
+continued commands.  Headings will be marked, defined by three (and only
+three) comment characters and a space at the start of a line.  Subheadings are
+indicated by four comment characters.
+
+
+	The File                    The Mark
+	________                    ________
+
+    *** Section Heading         ¥ Section Heading
+    **** Subsection Heading     * Subsection Heading
+    command varlist (options)     command varlist (options)
+
+
+Function parsing {} will return only the command name, in alphabetical order.
+
+Mark Window mode will check to see if the active window is a .sas file.  If
+it is not, it will assume that it is an output file, and Alpha will adjust
+its marking and parsing routines accordingly.
+
+
+	  	 	Adding an SAS Prefs file
+
+
+To add additional commands or arguments in a "SASPrefs.tcl" file, select
+"Config > Mode Prefs > Edit Prefs File", and add these lines:
+
+
+	set SASUserCommands {
+	    blah bladdity
+	}
+	
+	set SASUserArguments {
+	    blah2 bladdity2
+	}
+	
+	SAS::colorizeSAS
+
+
+Include as many keywords as desired within the braces, separating each keyword
+by at least one space or carriage return.  Alpha will automatically load this
+preferences file the first that the SAS mode is invoked.
+
+Any keywords contained in these categories will not only be colorized, but
+will also be included as electric completions.
+
+	  	
+	======================================================================
+
+
+	  	S  (S-Plus, R)
+
+
+This mode is for editing S source files.  Keywords are primarily based on
+release number 3.3, taken from the 'common commands' as listed in Venable and
+Ripley's Modern Applied Statistics with S-PLUS, second edition.  This would be
+a good mode for R files, too, but the C mode has already laid claim to the
+suffix .r -- this could be changed in Alpha's suffix mappings.
+
+Preferences: SuffixMappings
+
+Example syntax file:  "S Example.s"
+
+S mode preferences include items for indentation, help keys, etc.
+
+Preferences: Mode-S
+
+
+	  	 	S-Plus Keywords
+
+
+S-Plus is remarkably elegant in structure.  Commands have arguments, and
+rarely does the language use the same names for both.  There are a few
+exceptions, which reside in the Arguments category.  These exceptions could be
+changed to commands through the "Mode Prefs > Preferences" dialog.
+
+The Venable and Ripley MASS library can also be included in keyword lists for
+both colorizing and completions by checking the Use Mass Library preference.
+
+Keywords can be reviewed in "sMode.tcl" .
+
+Each of these commands has an electric completion available, and the mode
+comes with a Completions Tutorial, available in the "Config > Mode Prefs" menu
+item.  Using the completion key, which can be defined with the menu item
+"Config > Special Keys", the user can type
+
+	glm<complete>
+
+and Alpha will automatically insert the following text:
+
+	glm(| ~ ¥)¥
+	¥
+
+The template stops will allow the user to use the tab key to jump ahead to
+insert the needed variable names, and the last stop will position the cursor
+for the next command.
+
+Additional commands and arguments can be added in two ways, through the Mode
+Preferences menu item, and in an SPrefs.tcl file.  Extra keywords defined
+(using either method) will be included in the electric completion routines.
+The "Keywords > Add Commands" menu item will give you the option to add all
+"extra" commands in the current file to the "addCommands" mode preference.
+
+
+Completions Tutorial: "S Tutorial.s"
+
+
+	  	 	S mode Carriage Returns
+
+
+S mode has its own indentation scheme, based upon unbalanced braces, and uses
+the "Indent On Return" preference for automatic indentation of new lines.
+Each time that you start a new line with the Return key, the previous
+non-commented line is evaluated for unmatched ( and ) -- ignoring any braces
+that appear within double quotes or after valid comment characters.
+
+Lines that begin with ) will have their indentation reduced by one level to
+match the line with the matching (, as in
+
+	for (i in 1:length(data03.1$year)){
+	    data03.1$year <- as.vector(data03.1$year)
+	    if(data03.1$year[i] == "1965-70") (
+	        data03.1$year[i] <- c("1965-69")
+	    )
+	}
+
+In some cases, as when you are continuing a command, you might want to
+over-ride this behavior.  For example, if you type
+
+	qqno|
+
+and press the completion key, the command completes to
+
+	qqnorm(|)¥¥
+
+Typing "resid" and pressing the completion key again turns the line into
+
+	qqnorm(resid(|)¥¥)¥¥
+
+If you type some more text and then press Return, the next line will
+automatically indent to
+
+	qqnorm(resid(out3.11), ylab = "deviance residuals",
+	|)¥¥
+
+which is properly indented.  This would be fine if this line actually
+terminated the command, but you might want to continue the command.  To
+over-ride this behavior, which in this case would increase the level of
+indentation for the next line to 1, press Shift-Return instead:
+
+	qqnorm(resid(out3.11), ylab = "deviance residuals",
+	    |)¥¥
+
+and then some more text and a regular carriage return will make the command
+look like
+
+	qqnorm(resid(out3.11), ylab = "deviance residuals",
+	    xlab = "extremities"
+	)
+
+Entire commands can also be reformatted (aligning indentation) with
+Control-Command-I.
+
+To enter a carriage return with no indentation whatsoever, press
+Control-Return.
+
+
+	  	 	S Menu
+
+
+	Switch To S+/R
+
+Launch S+/R into foreground.  
+
+(As of this writing, only available in MacClassic.)
+
+	Process File
+	Process Selection
+
+Send window (or the highlighted selection) to S+/R for processing.
+
+(As of this writing, only available in MacClassic.)
+
+	Insert Path
+
+Open a dialog to select a file, and then insert the file's pathname.
+
+	Next Command
+	Prev Command
+
+Navigate the active window, defining the next/prev command based upon
+non-commented text in column 1 of any row.
+
+Navigation commands are also bound to Control-Shift Arrrow keys, as well as the
+1 and 3 keys on the keypad when Num-Lock is turned off.
+
+	Select Command
+
+Select the entire command to its termination.
+
+	Reformat Command
+
+Reformat the current command surrounding the cursor, aligning indentation.
+
+
+	  	 	S Command-Double-Click
+
+
+On-line help is available for S commands through Command-Double-Clicking.  The
+URL to which the keywords are sent can be changed through the Mode Preferences
+dialog.
+
+Any available syntax information is also available by pressing the Control key
+while Command-Double-Clicking.  This information will appear in the status bar
+window.  In some cases, this information is too long to be read in its
+entirety.  Pressing the Shift key instead of the Control key will insert this
+syntax information as commented text into your active window.
+
+NOTE: These Control-Command and Shift-Command-Double-Click features have not
+been fully implemented.  See the "SCompletions.tcl" file for additional
+information.
+
+
+	  	 	S File Marking
+
+
+For S mode, Mark Window will return the first 35 characters of each command
+that begins a new line.  Therefore it should not include any indented or
+continued commands.  Headings will be marked, defined by three (and only
+three) comment characters and a space at the start of a line.  Subheadings are
+indicated by four comment characters.
+
+
+	The File                    The Mark
+	________                    ________
+
+    ### Section Heading         ¥ Section Heading
+    #### Subsection Heading     * Subsection Heading
+    command varlist (options)     command varlist (options)
+
+
+Function parsing {} will return only the command names, in alphabetical order.
+
+
+	  	 	Adding an S Prefs file
+
+
+To add additional commands or arguments in an "SPrefs.tcl" file, select the
+menu item "Config > Mode Prefs > Edit Prefs File", and add these lines:
+
+
+	set SUserCommands {
+	    blah bladdity
+	}
+	
+	set SUserArguments {
+	    blah2 bladdity2
+	}
+	
+	S::colorizeS
+
+
+Include as many keywords as desired within the braces, separating each keyword
+by at least one space or carriage return.  Alpha will automatically load this
+preferences file the first that the S mode is invoked.
+
+Any keywords contained in these categories will not only be colorized, but
+will also be included as electric completions.
+
+	  	
+	======================================================================
+
+
+	  	SPSS
+
+
+This is also a goood mode for reading SPSS output files.  One could easily add
+a preference in the "Config > Preferences > Suffix Mappings" menu item to
+automatically recognize .out or .log files produced by SPSS.
+
+Preferences: SuffixMappings
+
+Example syntax file:  "SPSS Example.sps"
+
+SPSS mode preferences include items for indentation, help keys, etc.
+
+Preferences: Mode-SPSS
+
+
+	  	 	SPSS Keywords
+
+
+SPSS does a lousy job of naming things, or at least is more than willing to
+give a keyword (as in SPSS keyword) the same name as a function, statement,
+subcommand or command.  There's little point in trying to distinguish amongst
+all of this with different colors, because it just won't work.  Instead, they
+are included one long list, called "commands."  There's also a short list of
+functions (abs, arsin, artan, etc) as well as several operators (all, and, by,
+eq, ge, gt, into, etc).
+
+Keywords can be reviewed in "spssMode.tcl" .
+
+Each of these commands has an electric completion available, and the mode
+comes with a Completions Tutorial, available in the "Config > Mode Prefs" menu
+item.
+
+Additional commands and arguments can be added in two ways, through the Mode
+Preferences menu item, and in an SPSSPrefs.tcl file.  Extra keywords defined
+(using either method) will be included in the electric completion routines.
+The "Keywords > Add Commands" menu item will give you the option to add all
+"extra" commands in the current file to the "addCommands" mode preference.
+
+
+Completions Tutorial: "SPSS Tutorial.sps"
+
+	  	 	Non-ambiguous SPSS keywords
+
+
+SPSS allows .sps files to contain non-ambiguous command and option
+abbreviations.  It would be nice if Alpha could colorize based upon the
+location of keywords, but as of this writing it cannot.  Creating a list of
+all possible abbreviations is also out of the question, which presents a
+challenge for both this mode's maintainer and the user to effectively colorize
+a syntax file.  Fortunately, two solutions are available.
+
+The first is to utilize the electric completions that are available.  Using
+the completion key, which can be defined with the "Config > Special Keys" menu
+item, the user can type
+
+	regr<complete>
+
+and Alpha will automatically insert the following text:
+
+	regression | ¥ ¥ .
+	¥
+
+The template stops will allow the user to use the tab key to jump ahead to
+insert the needed variable names, and the last stop will position the cursor
+for the next command.  This way unambiguous abbreviations need only be typed,
+though the full command will appear and be colorized.  SPSS mode has a
+completions tutorial available, accessed by "Config > Mode Prefs".
+
+The second solution is to define common abbreviations through either the
+"Config > Mode Prefs > Preferences" menu item or a "SPSSPrefs.tcl" file.
+These will be automatically included in the completion routines as well, and
+the actual text to be inserted can be refined by the user by selecting the
+"Config > Mode Prefs > Edit Completions" menu item.
+
+Completions Tutorial: "SPSS Tutorial.sps"
+
+
+	  	 	SPSS Menu
+
+
+	Switch To SPSS/PSPP
+
+Launch SPSS/PSPP into foreground.
+
+	Process File
+	Process Selection
+
+Send window (or the highlighted selection) to SPSS/PSPP for processing.
+
+	Insert Path
+
+Opens a dialog to select a file, and then inserts the file's pathname.
+
+	Next Command
+	Prev Command
+
+Navigate the active window, defining the next/prev command based upon
+non-commented text in column 1 of any row.
+
+Navigation commands are also bound to Control-Shift Arrrow keys, as well as the
+1 and 3 keys on the keypad when Num-Lock is turned off.
+
+	Select Command
+
+Select the entire command to its termination.
+
+	Reformat Command
+
+Reformat the current command surrounding the cursor, aligning indentation.
+
+
+	  	 	SPSS Command-Double-Click
+
+
+On-line help is available for SPSS commands through Command-Double-Clicking.
+The URL to which the keywords are sent can be changed through the Mode
+Preferences dialog.
+
+The default URL is a search engine for the GNU PSPP project.  PSPP is a
+statistical analysis program.  It is an upwardly compatible replacement of the
+proprietary statistical analysis program SPSS. A main goal of the PSPP project
+is compatibility with the SPSS language.  PSPP also aims to be written better
+than the program it replaces.  For more information, see
+
+    <http://www.gnu.org/software/pspp/>
+
+
+Any available syntax information is also available by pressing the Control key
+while Command-Double-Clicking.  This information will appear in the status bar
+window.  In some cases, this information is too long to be read in its
+entirety.  Pressing the Shift key instead of the Control key will insert this
+syntax information as commented text into your active window.
+
+NOTE: These Control-command and Shift-Command-Double-Click features have not
+been fully implemented.  See the "SPSSCompletions.tcl" file for additional
+information.
+
+
+
+	  	 	SPSS File Marking
+
+
+For SPSS mode, Mark Window will return the first 35 characters of each
+command that begins a new line.  Therefore it should not include any indented
+or continued commands.  Headings will be marked, defined by three (and only
+three) comment characters and a space at the start of a line.  Subheadings
+are indicated by four comment characters.
+
+
+	The File                    The Mark
+	________                    ________
+
+    *** Section Heading         ¥ Section Heading
+    **** Subsection Heading     * Subsection Heading
+    command varlist (options)     command varlist (options)
+
+
+Function parsing {} will return only the command names, in alphabetical order.
+
+Mark Window mode will check to see if the active window is a .sps file.  If
+it is not, it will assume that it is an output file, and Alpha will adjust
+its marking and parsing routines accordingly.
+
+There is also a special marking routine for files produced by the FREQ
+command, available in the "SPSS > Mark Spss File As" menu.  Mark Window will
+then contain only the variable names, and list them in alphabetical order.
+Extremely handy for data sets with a lot of variables.  (Note that because
+SPSS output doesn't allow for unambiguous recognition of these variable names,
+some might be lost...  I've done the best I could!)
+
+
+
+	  	 	Adding an SPSS Prefs file
+
+
+To add additional commands or arguments in an "SPSSPrefs.tcl" file, select
+"Config > Mode Prefs > Edit Prefs File", and add these lines:
+
+
+	set SPSSUserCommands {
+	    blah bladdity
+	}
+	
+	SPSS::colorizeSPSS
+
+
+Include as many keywords as desired within the braces, separating each keyword
+by at least one space or carriage return.  Alpha will automatically load this
+preferences file the first that the SPSS mode is invoked.
+
+Any keywords contained in these categories will not only be colorized, but
+will also be included as electric completions.
+
+	  	
+	======================================================================
+
+
+	  	Stata
+
+This is also a goood mode for reading Stata output files.  One could easily
+add a preference in the "Config > Preferences > Suffix Mappings" menu item to
+automatically recognize .out or .log files.
+
+Preferences: SuffixMappings
+
+Keywords are based on release 6.0.
+
+(Thanks to L. Philip Schumm for several contributions, including the Stata
+menu, the Shift-Return key binding, and other useful suggestions.)
+
+Example syntax file: "Stata Example.do"
+
+Stata mode preferences include items for indentation, help keys, etc.
+
+Preferences: Mode-Stata
+
+(Note that "Stata" mode is known internally as "Stta" mode, which is why
+you'll see this in various AlphaTcl file names and instructions below.)
+
+
+	  	 	Stata Keywords
+
+
+Stata has five levels of processes.
+
+  1. commands, subcommands, prefixes:  mlogit, define, quietly, 
+  2. parameters:   textsize, maxobs, width, more,
+  3. functions:    abs(), log(), sin(), ge, lt,
+  4. options: noheader, bar, adjust, iterate
+  5. modifiers:    [weights= ], [frequency= ]
+
+  and, just to help make sure that everything goes smoothly, we have
+ 
+  6. out of date (or "dated") commands:  genrank, grebar
+  
+Keywords can be reviewed in "stataMode.tcl" .
+
+For the most part, Stata is very good about not using the same name for a
+command to refer to a function, parameter, or modifier.  Options, however,
+often have the same names as commands.
+
+The default setup of this mode is to colorize all of commands, subcommands,
+prefixes, parameters, and macros blue.  Options, functions, modifiers, and
+symbols are colorized magenta.  Dated commands are red.  The user does not
+have to specify all of these different levels -- only Command, Comment,
+Option, String, and Symbol colors appear in the preferences.
+
+Additional commands and options can be added in two ways, through the Mode
+Preferences menu item, and in a SttaPrefs.tcl file.  Extra keywords defined
+(using either method) will be included in the electric completion routines.
+The "Keywords > Add Commands" menu item will give you the option to add all
+"extra" commands in the current file to the "addCommands" mode preference.
+
+
+
+	  	 	Non-ambiguous Stata abbreviations
+
+
+Stata allows .do files to contain non-ambiguous command and option
+abbreviations.  It would be nice if Alpha could colorize based upon the
+location of keywords, but as of this writing it cannot.  Creating a list of
+all possible abbreviations is also out of the question, which presents a
+challenge for both this mode's maintainer and the user to effectively colorize
+a syntax file.  Fortunately, two solutions are available.
+
+The first is to utilize the electric completions that are available.  Using
+the completion key, which can be defined with the "Config > Special Keys" menu
+item, the user can type
+
+	mlog<complete>
+
+and Alpha will automatically insert the following text:
+
+	mlogit  | ¥ ¥  ;
+	¥
+
+The template stops will allow the user to use the tab key to jump ahead to
+insert the needed variable names, and the last stop will position the cursor
+for the next command.  This way unambiguous abbreviations need only be typed,
+though the full command will appear and be colorized.  Stata mode has a
+completions tutorial available, accessed by "Config > Mode Prefs".
+
+The second solution is to define common abbreviations through either the
+"Config > Mode Prefs > Preferences" menu item or a SttaPrefs.tcl file.  Both
+methods allow for keywords to be defined as either commands or options.  The
+"Keywords > Add Commands" menu item will give you the option to add all
+"extra" commands in the current file to the "addCommands" mode preference.
+
+These will be automatically included in the completion routines as well, and
+the actual text to be inserted can be refined by the user by selecting the
+"Config > Mode Prefs > Edit Completions" menu item.
+
+Finally, one could always define the Command and Option Colors to be the same,
+which would avoid some (though certainly not all) of these issues.  Setting
+both colors to "none" will remove this issue entirely !!
+
+Completions Tutorial: "Stta Tutorial.do"
+
+
+	  	 	Command line delimiter
+
+
+In Stata, the end of a command line may be indicated with either a carriage
+return or a semicolon.  Carriage return is the default, and most Stata
+programmers (including the official code released by StataCorp) stick with
+this.  This means that splitting a single command into two or more physical
+lines requires using the comment characters /* and */.
+
+The key-binding Shift-Return will insert these characters.
+
+The "Stata > Stata Help" menu includes the item "Semi Delimiter", which should
+be set if you terminate commands with the semicolon.  This preference is used
+in all completion routines, and to determine if the next line should be
+indented following a carriage return.  The "Reformat Command" menu item will
+also respect this preference when re-aligning indentation.  The menu item
+"Indentation Amount" sets the Stata mode preference of the same name, which
+determines how much white space will be inserted when continuing a command.
+
+
+	  	 	Stata Menu
+
+
+Contributed by L. Philip Schumm <pschumm@uchicago.edu>
+
+
+	Switch To Stata         - launch Stata into foreground.
+    
+Launch Stata into foreground.
+
+From within Alpha, Shift-Command-S will take you to Stata.  And if you do not
+have any open applications whose names come before Alpha or after Stata
+(alphabetically, that is), then cmd-Tab will take you from Stata back to Alpha
+(assuming that you have the Application Switcher enabled and configured
+appropriately).  If you need help configuring the Application Switcher, you
+may obtain it by looking under the topic "Switching between open programs" in
+the Macintosh Help Viewer.
+
+Note that launching Stata via the Stata menu has the same result as
+double-clicking on the Stata application (as opposed to clicking on a do
+file).  This means that when Stata comes up the working directory will be the
+same directory in which the Stata application resides, and it is not generally
+advisable to save files there.  The best way around this is to create a
+profile.do file containing a -cd- command, and place it in this directory so
+that it is automatically executed whenever Stata is launched.
+
+	Do File
+	Do Selection
+
+Send window (or the highlighted selection) to Stata for processing.
+
+When Stata processes a do-file, it ignores the last line unless the file ends
+with a carriage return.  Stata's do-file editor is smart about this, and
+automatically adds a carriage return (if necessary) when you save the file.
+Stat mode will add a carriage return (if necessary) when you send a file to
+Stata for processing, but will not do so if you simply save the file.  Keep
+this in mind.
+
+	Insert Path
+
+Open a dialog to select a file, and then insert the file's pathname.
+
+	Program Template
+
+Insert a template for writing a program (useful for simulations and
+bootstrapping).  See the notes below on editing a SttaPrefs.tcl file for
+information on customizing this template.
+
+	Continue Command
+
+Continue the current command, by inserting */
+    */ at the current location of the cursor.
+
+	Next Command
+	Prev Command
+
+Navigate the active window, defining the next/prev command based upon
+non-commented text in column 1 of any row.
+
+Navigation commands are also bound to Control-Shift Arrrow keys, as well as the
+1 and 3 keys on the keypad when Num-Lock is turned off.
+
+	Select Command
+
+Select the entire command to its termination.
+
+	Reformat Command
+
+Reformat the current command surrounding the cursor, aligning indentation.
+
+
+	  	 	Stata Command-Double-Click
+
+
+On-line help is available for Stata commands via Command-Double-Clicking.  The
+URL to which the keywords are sent can be changed through the Mode Preferences
+dialog.
+
+Clicking on a program name that has been defined in the active window will
+move the cursor to that program's definition, as in
+
+	program define dothis ;
+	
+		regress `1' ...
+		...
+		
+	end ;
+
+Pressing Control-.  will return the cursor to its original position.
+
+
+	  	 	 	Control, Shift, Option modifiers
+
+Any available syntax information is also available by pressing the Control key
+while Command-Double-Clicking.  This information will appear in the status bar
+window.
+
+In some cases, this information is too long to be read in its entirety.
+Pressing the Shift key instead of the Control key will insert this syntax
+information as commented text into your active window.
+
+Finally, pressing the option key on a command will open the corresponding
+local Stata application .hlp file if it exists.  Note that you can also set
+Stata so that it automatically performs a search for the command (or word) if
+a .hlp file is not located.  To re-assign Command-Double-Click to local search
+as well (without having to using the option modifier), check the "Local Help
+Only" box in the Mode Preferences.
+
+
+	  	 	Stata File Marking
+
+
+For Stata mode, Mark Window will return the first 35 characters of each
+command that begins a new line.  Therefore it should not include any indented
+or continued commands.  Headings will be marked, defined by three (and only
+three) comment characters and a space at the start of a line.  Subheadings
+are indicated by four comment characters.
+
+
+	The File                    The Mark
+	________                    ________
+
+    *** Section Heading         ¥ Section Heading
+    **** Subsection Heading     * Subsection Heading
+    command varlist (options)     command varlist (options)
+
+
+Function parsing {} will return only the command names, in alphabetical order.
+
+Stata mode will check to see if the active window is a .do or .ado file.  If
+it is not, it will assume that it is an output file, and Alpha will adjust
+its marking and parsing routines accordingly.
+
+There is also a special marking routine for files produced by the .codebook
+> command, available in the "Stata > Mark Stata File As" menu.  Mark Window
+will then contain only the variable names, and list them in alphabetical
+order.  Extremely handy for data sets with a lot of variables.
+
+
+	  	 	Adding a Stata Prefs file
+
+
+To add additional commands or arguments in a "SttaPrefs.tcl" file, select
+"Config > Mode Prefs > Edit Prefs File", and add these lines:
+
+
+	set SttaUserCommands {
+	    blah bladdity
+	}
+	
+	set SttaUserOptions {
+	    blah2 bladdity2
+	}
+	
+	Stta::colorizeStta
+
+
+Include as many keywords as desired within the braces, separating each keyword
+by at least one space or carriage return.  Alpha will automatically load this
+preferences file the first that the Stata mode is invoked.
+
+Any keywords contained in these categories will not only be colorized, but
+will also be included as electric completions.
+
+To modify the text inserted by the "Program Template" menu item, place this
+procedure in a "SttaPrefs.tcl" file, and modify the text defined in the "pt"
+variable:
+
+	proc Stta::programTemplate {} {
+	
+	    Stta::SttaModeMenuItem
+	    
+	    global SttamodeVars
+	    
+	    set end [lindex [Stta::getCommand [getPos]] 1]
+	    if {$end != "-1" && $end > [getPos]} {
+	        goto $end
+	    }
+	    if {$SttamodeVars(semiDelimiter)} {
+	        set eol " ;\r"
+	    } else {
+	        set eol "\r"
+	    } 
+	    
+	    set    pt "program define ¥progname¥${eol}\tversion 6.0${eol}\tif \"`1'\""
+	    append pt " == \"?\" {\r\t\tglobal S_1 \"¥variable names¥\"${eol}\t\t"
+	    append pt "exit${eol}\t}${eol}\t¥¥\r\t* (each result below must correspond"
+	    append pt " to a variable in S_1)${eol}\tpost `1' ¥results¥${eol}end${eol}"
+	    elec::Insertion $pt
+	}
+
+
+
+	  	 	Stata mode Known Bugs
+
+
+If you use a profile.do file to execute a set of commands automatically
+whenever Stata is launched (as is suggested above), then you must wait a few
+moments (depending upon the speed of your computer and what commands are in
+the file) after launching Stata before it is ready to respond to your input.
+Stata mode doesn't know this, and therefore when you send a file or a selection
+to Stata for processing without Stata already running, Stata is launched and
+the file sent so quickly that an error may occur.  If you are experiencing
+this problem, use Shift-Command-S to launch Stata first.
+
+	  	
+	======================================================================
+
+
+	  	Future Versions
+
+
+These modes are submitted to the Alpha community with the hopes that (i)
+somebody else will find them useful, (ii) any errors or updates will be
+reported to the mode's maintainer, and (iii) they might inspire somebody to
+take them even further.  I will continue to maintain them and post updates as
+necessary, but any contributions are certainly welcome.
+
+Commercial statistical packages are updated with some regularity.  Chances are
+that the keyword dictionaries contained herein will need an occasional
+facelift.  Don't be shy, especially if you have a manual for the newer
+versions handy.
+
+Could Alpha be used as a front end for any of SAS or SPSS? I don't know.  To
+be honest, I've never used any of these statisical packages on a Macintosh
+before -- I have always worked in an academic setting that has provided site
+licenses for the Unix versions.  I do all of my text-editing work on a
+Macintosh, however, saving the files in my Unix account.  When I need to
+actually run the syntax files, I do so with a telnet window.
+
+This is admittedly an idiosyncratic arrangement -- but it's all based on
+division of labor needs, for which Alpha is ideally suited.  I have neither
+the Tcl nor the Apple Event knowledge to try to make Alpha interface with
+these programs.  If anybody else wants to give it a try ...
+
+
+	  	License and Disclaimer
+
+
+AlphaTcl's SAS, S, and SPSS modes:
+
+Copyright (c) 2000-2006 Craig Barton Upright
+All rights reserved.
+
+AlphaTcl's Stata mode:
+
+Copyright (c) 2000-2006 Craig Barton Upright and Philip Schumm
+All rights reserved.
+ 
+See the file "license.terms" for information on usage and redistribution of
+these packages, and for a DISCLAIMER OF ALL WARRANTIES.
+
+These modes are free.  Alpha is shareware !   <<register>>
+
+cheers,
+
+-- Craig
+
+Author: Craig Barton Upright
+E-mail: <cupright@alumni.princeton.edu>
+   www: <http://www.purl.org/net/cbu>
+
+This document has been placed in the public domain.

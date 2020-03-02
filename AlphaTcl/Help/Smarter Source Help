@@ -1,0 +1,238 @@
+
+Smarter Source Help
+
+                                            version: 1.0
+                                            created: 10/18/1995 {06:00:07 PM}
+                                        last update: 02/16/2006 {02:27:56 PM}
+
+
+	  	Abstract
+
+This package is intended to help make the process of augmenting Alpha's code
+base with your own changes less awkward, especially in the face of program
+updates.  It eliminates the need to source files containing procedures that
+you may want to override in your global "prefs.tcl" file.
+
+
+	  	Table Of Contents
+
+"# 'Smart Source' vs 'Smarter Source'"
+"# Activating Smarter Source"
+"# Using Smarter Source"
+"# How Does This Work?"
+"# Known Limitations"
+"# Important Notes"
+
+<<floatNamedMarks>>
+
+
+	  	'Smart Source' vs 'Smarter Source'
+
+For most users who are only working with one installation of Alpha, the
+Support Folders "Smart Source" feature is sufficient to modify files from
+Alpha's standard distribution as over-rides.  For more information see the
+"Support Folders Help # 'Smart Source' Support Folders" file.  This package
+extends this type of over-ride functionality even further; the difference
+between the two is somewhat subtle but can be very important.
+
+You only have one Support Folder for Alpha that will be used by all versions
+of Alpha that you might have installed.  "Smarter Source Folders", on the
+other hand, are specific to the particular version of Alpha that you are
+using, because the location of the Smarter Source Folder is defined in your
+preferences, and each Alpha installation is allowed to define its own Prefs
+folder.  Smarter Source files are generally used by AlphaTcl developers who
+need to maintain the latest stable version of Alpha while they are also
+working on the latest, cutting-edge beta version of the application and its
+supporting AlphaTcl library.
+
+
+	  	Activating Smarter Source
+    
+Activating this package
+
+Preferences: Features
+
+creates a new "Smarter Source Folder" preference, which is initially set to
+your Alpha Preferences folder.
+
+<<file::showInFinder $PREFS>>
+
+Select the "Config > Prefererences > Input - Output Preferences > Files" menu
+item to set a different folder.
+
+Preferences: Files
+
+If you have already turned this package on and have set your Smarter Source
+Folder, you can open it with
+
+<<file::showInFinder $smarterSourceFolder>>
+
+This package creates a new "AlphaDev Menu > Smarter Source" submenu with some
+handy commands to add files to your Smarter Source Folder.
+
+Preferences: Menus
+
+These commands include "Open AlphaTcl File" and "Save In Smarter Source".
+
+
+	  	Using Smarter Source
+
+Basically, you designate a directory to contain your files.  Then any time
+Alpha is instructed to source a file named 'filename.tcl', it will first look
+in the directory you have designated, and if there is a file of the identical
+name there (i.e. 'filename.extension') it will source that file instead of
+the original one specified.  If there are any files named
+
+	filename+*.extension
+
+it will source those in the order returned by glob after either the original
+filename.extension or the replacement has been sourced.
+    
+For example, if your Smarter Source directory contains files named
+
+	latex+1.tcl
+	latex+2.tcl
+    
+then when TeX mode is initially loaded Alpha will first source the standard
+'latex.tcl' file, then 'latex+1.tcl', then 'latex+2.tcl'.  If there was also
+a file named
+
+	latex.tcl
+    
+in the Smarter Source directory then that file would be sourced _instead_ of
+the Smarter Source 'latex.tcl', then 'latex+1.tcl', then 'latex+2.tcl'.
+    
+You may just want to use the name 'filename+.extension' for a single
+extension file.
+
+Note that 'latex+10.tcl' would be sourced _before_ 'latex+9.tcl', so you may
+wish to use 'latex+01.tcl' ...  'latex+99.tcl' to make things clearer.
+
+Smarter Source also operates in a more sophisticated, hierarchical way.  If
+the original file is $HOME/Tcl/Modes/myMode.tcl, smarterSource will actually
+look for:
+
+	Smarter Source/myMode.tcl (and '+' files)
+	Smarter Source/Modes/myMode.tcl (and '+' files)
+	Smarter Source/Tcl/Modes/myMode.tcl (and '+' files)
+
+in that order of priority.  Once anything has been found, the search stops.
+
+
+	  	How Does This Work?
+
+The AlphaTcl SystemCode defines a proc: alpha::useFilesFor that will attempt
+to determine if an "over-ride" exists for any installed "$HOME/Tcl" source
+file.  The default locations for such over-rides are the "local" and "user"
+"Support Folder" Tcl directories.  (See "Support Folders Help" for more
+information.)  These directories can be thought of as "Smart Source" folders.
+
+The AlphaTcl SystemCode then redefines the command: source to always query
+[alpha::useFilesFor] to determine the proper location of a file that is about
+to be loaded.  If an over-ride exists, that is used preferentially to the
+version in the installed distribution.
+
+When the Smarter Source package is turned on, the [alpha::useFilesFor] proc
+is redefined so that it first checks your Smarter Source Folder for an
+over-ride, or possibly for two or more files that should be sourced instead
+of the single installed version.  And that's all there is to it!
+
+Note: the [alpha::useFilesFor] procedure is also queried when AlphaTcl 
+package indices are rebuilt, so any initialization/activation/deactivation 
+scripts in your Smarter Source files will be saved and used when Alpha is 
+restarted.  This does, however, bring up...
+
+
+	  	Known Limitations
+
+When AlphaTcl package indices are rebuilt, the initialization, activate, and
+deactive scripts in any [alpha::mode] [alpha::menu] etc package declarations
+will reflect those in your Smarter Source files.  If you change these
+scripts, your new versions will be used.
+
+When Tcl indices are rebuilt, however, your Smarter Source files are _not_
+used to determine what procedures are available.  Smarter Source folders are
+also explicitly excluded from the "auto_path" list, so if you are defining a
+new procedure it will not be sourced by any command: auto_load call, nor by
+any command: unknown call.
+
+What does this limitation mean to you?  If you have a modified initialization
+or activation script in your Smarter Source version of an installed AlphaTcl
+package, you must _not_ attempt to call or auto_load a procedure that is only
+found in your Smarter Source file.  It will not be found, and an error will
+be thrown.  This is a known limitation, and it will not be addressed.  (See
+bug# 847 for a complete discussion of this issue.)
+
+There are several ways to work around this limitation.  The goal here is to
+ensure that your Smarter Source version of a file is properly sourced before
+continuing with any other operation.  Options include:
+
+(1) First call a "dummy" proc found in the original version.
+
+Many AlphaTcl files include a dummy proc which provides no functionality but 
+can ensure that a file is properly sourced.  If you see a proc like
+
+	proc fileName.tcl {} {}
+
+in the original source then this is what you can call in your initialization
+script.  So long as this dummy proc also appears in your Smarter Source
+version, you can be confident that your file has been sourced and any new
+procedures you have defined are in place.
+
+(2) Add a "Smart Source" version of the original with your new procedure.
+
+Alpha's "Support Folders" provides users with a simpler over-ride mechanism.
+You can create a Support Folders version of the original file, add your new
+procedure (or even a dummy procedure as described above), and then you will
+be safe calling this from your package's init scripts.
+
+(This works because, unlike your Smarter Source folder, Support Folder
+folders _are_ included in Tcl index rebuilding and in the auto_path.  This
+means that you can call a procedure that does exist in a Support Folder
+version but then bypass that to use your Smarter Source version(s) instead.
+Very clever, really.)
+
+(3) Attempt to manually [source] the original.
+
+If you include this call
+
+	uplevel \#0 [list source [file join $HOME Tcl <folder> ... <fileName>]
+
+then the magic of the proc: alpha::useFilesFor which this package has
+redefined should ensure that your version has been sourced.
+
+(4) Similarly, you can attempt to manually source your new version, i.e. the 
+file in your Smarter Source folder.
+
+	uplevel \#0 [list source [file join $smarterSourceFolder <folder> ... <fileName>]
+
+A final option would be to convince the AlphaTcl developers to include your
+Smarter Source version in the standard distribution!  If you have some
+modifications which would benefit other users, they will be considered for
+the next public release of Alpha.
+
+
+	  	Important Notes
+
+WARNING: the "Smarter Source Folder" should be located outside AlphaTcl's
+hierarchy of Tcl files (i.e. outside of Alpha's $HOME/Tcl directory),
+otherwise the content some of its files may be sourced before the content of
+the corresponding main file, which is precisely the opposite of what is
+wanted!
+
+NOTE: AlphaTcl will allow smarterSource to over-ride rebuilding of Tcl
+indices and Alpha's package indices to notice the commands and packages which
+are defined in your "Smarter Source Folder".  In particular, changes to
+package init scripts are recognised.
+
+What this does mean, however, is that if you turn Smarter Source on or off
+when you do have over-ridden packages, you may need to rebuild all these
+indices for Alpha to function correctly.  See also the "# Known Limitations"
+section above.
+
+(Developer's note: We may wish to add appropriate warnings/dialogs to prompt
+the user when these situations may occur.)
+
+	--------------------------------------------------------------------
+
+This document has been placed in the public domain.

@@ -1,0 +1,194 @@
+-*-Setx-*-
+
+
+# Filters Tutorial
+==================
+
+This is a tutorial that demonstrates the "Filters" menu.  
+
+In order to use it, you must first activate the menu by going to the menu
+item "Config --> Preferences --> Menus" and selecting 'Filters Menu' by
+checking the corresponding checkbox.
+
+The Filters Menu allows you to do successive "Search And Replace" operations.
+All the operations are gathered in files called << filters >> which you can 
+apply to any text file opened in Alpha.
+
+This Tutorial, when opened through a hyperlink, is a "shell" window.  None
+of the changes you make will affect the actual file.  If you close the
+window and then click on the hyperlink again, you will start with the same
+example as before.  Note that "Undo" is not available in shell windows.
+
+This tutorial is in Setx mode to take advantage of some file marking and
+colorizing procedures.  The Filters menu can work in any mode.
+
+
+# Filter Examples
+=================
+
+
+# First example
+---------------
+
+Suppose your file is full of accented letters and you want to strip all the
+accents (to send an e-mail for instance).  You can select the filter called
+"Strip The Accents".  Once it is selected, you will see its name at the
+bottom of the Filters menu.  Bring your current file's window to the front
+and choose the "Apply to file" menu item.
+
+Alternatively you can use the following key binding: hit control-f,
+release, then hit the f key.  If you convert only a selected region, hit
+control-f, release, then hit the s key.  To pick a filter you can also use
+control-f p.
+
+Experiment with the following sample, full of accented letters (this a 
+french poem by Apollinaire.  We want accented letters, don't we) :
+
+    S'Žtendant sur les c™tŽs du cimetire 
+    La maison des morts l'encadrait comme un clo”tre 
+    Ë l'intŽrieur de ses vitrines 
+    Pareilles ˆ celles des boutiques de modes 
+    Au lieu de rire debout 
+    Les mannequins grimaaient pour l'ŽternitŽ.
+
+
+# Second example
+----------------
+
+Suppose no filter suits your needs.  You'll have to write your own.  This
+is very easy.  Choose the "New Filter" menu item in the "Filters Utilities"
+submenu.  You'll be prompted for a name to give to the new filter.  Let's
+call it "MyNewFilter": this new filter is now the active filter.
+
+Suppose you want to change in a text all the occurences of J.S. Bach in L.
+van Beethoven, then to delete all the occurences of the ¤ character and
+finally to replace multiple tabulations by a single one.  You have to type
+the three following lines (more about the filters syntax later) where the
+arguments are tab-separated:
+
+J.S. Bach	L. van Beethoven
+¤
+\t+	\t	1
+
+Save your filter and apply it as in the preceding example.  You can check the
+syntax of your new filter thanks to the "Check Syntax" menu item in the
+Filters Utilities submenu (or hit control-f c).
+
+Experiment on the following example :
+
+    Works by J.S. Bach :
+    ¤		for organ
+    ¤		for cello
+
+
+# Third example 
+---------------
+
+Suppose you want to apply several filters successively: for instance "Html
+To Accents" then "Accents To Rtf".  This can be done in one run thanks to the
+MultiFilter.  The MultiFilter will be the list of filters you want to apply
+(in the order you want them to be applied).  To build such a list, hold the
+option key down then open the Filters menu: instead of "Pick a filter" its
+first item will now be "Build a multifilter" which brings a list of all the
+filters available.  This list will be brought to you repeatedly until you
+have chosen all the filters you want and have finished with the "cancel"
+button.  To apply the Multifilter to a selection, a file or a folder, hold
+down the option key and select the corresponding item in the Filters menu.
+ 
+To experiment, take the follawing example containing a series of accented
+letters a la LaTex, and build a multifilter with the "Latex To Accents"
+filter followed by the "Strip The Accents" filter :
+
+    \`{a}\`{u}\'{e}\`{e}\^{o}\^{\i}\^{e}\^{a}
+
+
+# Fourth example
+----------------
+
+If you want to do temporary conversions on the fly and do not want to keep
+them in a filter, you have the Temporary Filter.  You use it exactly like
+any other filter.  The only difference is that the instructions you write
+in it will not be saved.  They will remain only as long as you do not quit
+Alpha and do not close it.
+
+Exercise : in the present file, replace all the occurences of the isolated
+word filter by FILTER and all the double quotes by single quotes.
+
+Solution : open a temporary filter and type the following two lines :
+
+filter	FILTER	1im
+"	'
+
+Then save and choose the 'Apply Temp To File' menu item.
+
+
+# More examples
+---------------
+
+Choose the menu item "Filters --> Filter Utilities --> Edit A Filter" and
+choose the filter named 'Example'.  Most of the filters provided with the
+Filters Menu deal with accents conversions but you can imagine many kinds
+of conversions.
+
+A more advanced example is given in the "Convert Html To Latex" filter
+which effectively converts an Html document to a latex source file ready to
+process with LaTeX.
+
+Experiment with the following example :
+
+    <HTML>
+    <HEAD>
+       <TITLE>THE ALPHA TEXT EDITOR</TITLE>
+       <META NAME=GENERATOR CONTENT="Claris Home Page 1.0">
+       <X-SAS-WINDOW TOP=42 BOTTOM=757 LEFT=4 RIGHT=534>
+    </HEAD>
+    <BODY>
+    <H3>WELCOME TO ALPHA</H3>
+    <P>&nbsp;</P>
+    <H4>Introduction</H4>
+    <P>Alpha is a<I> very powerful, </I>multi-purpose text editor. Alpha
+    is <I>multi-modal,</I> which means it switches between different
+    modes depending on which type of document you are editing.</P>
+    <H4>Tutorial</H4>
+    <P>Here is a list of various modes available in Alpha :</P>
+    <UL>
+       <LI>tcl
+       <LI>html
+       <LI>tex
+       <LI>java
+       <LI>perl
+    </UL>
+    </BODY>
+    </HTML>
+
+
+
+# Filters Key Bindings
+======================
+
+
+There are a few easy to remember keybindings "ˆ la emacs".  For all of them
+you have to hit 'ctrl-f', release, then hit one of the following letters:
+
+	-  p  to <p>ick a filter
+	-  s  to filter the <s>election
+	-  f  to filter the current <f>ile
+	-  d  to filter a fol<d>er (or <d>irectory)
+	-  e  to <e>dit a filter
+	-  n  to create a <n>ew filter
+	-  t  to call up the <t>emporary filter
+	-  c  to <c>heck the syntax
+	-  m  to build a <m>ultifilter
+   
+Now if you add the shift key with letters s, f, d, e you get the equivalent
+actions but with Multifilter instead of Filter.  For instance 'ctrl-f
+shift-f' is equivalent to "apply multifilter to the current file" and
+'ctrl-f shift-c' will clear the multifilter.  
+
+There are three more key bindings to use the Temporary Filter.  First hit
+'ctrl-t', release, then hit one of the letters s, f, d to apply the
+temporary filter to a <s>election, to the current <f>ile or to a
+<d>irectory repectively.
+
+
+# End of Tutorial.

@@ -1,0 +1,201 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+
+<HTML>
+
+<HEAD>
+
+<TITLE>Creating lists</TITLE>
+
+<LINK HREF="../Style%20Sheet/manual.css" REL="stylesheet" TYPE="text/css">
+
+
+</HEAD>
+
+<BODY>
+
+<!-- #INCLUDE INCLPATH="maintop.html" -->
+
+<SCRIPT TYPE="text/javascript">
+<!--
+if (document.body.clientHeight) {
+	height = document.body.clientHeight - 50;
+} else {
+	height = window.innerHeight - 50 ;
+}
+document.write('<div class="main" style="height: ' + height + 'px;">');
+// -->
+</SCRIPT>
+
+
+<!-- /#INCLUDE -->
+
+
+<H1>Creating lists</H1>
+
+
+<P>
+<IMG SRC="../bilder/listsmenu.png" ALT="List menu" WIDTH="213" HEIGHT="186"
+CLASS="rightpic">
+The <SPAN CLASS="menu">Lists</SPAN> menu contains a number of functions for 
+creating lists.
+</P>
+
+<div CLASS="item">Make List...</div>
+
+<DIV CLASS="indent">
+Makes a list of the text in a selection.  If you, for example, have a list
+
+
+<PRE CLASS="code">
+* item one
+* item two 
+* item two
+and a half
+* item three
+</PRE>
+
+<P>
+you can make an HTML list of them.  First select the lines with the items, 
+before you choose "Make list" from the menu.  You are then presented with a 
+dialog shown below where you can specify
+</P>
+
+<UL>
+	<LI>a string with which all list items must begin, in this case *.  You 
+	cannot transform a list where the items begins with 1), 2) etc.  All 
+	items must begin with the same string.
+	<LI>Which kind of list you want.  Choose 'None' if you don't want the 
+	list tags to be inserted, for example if you are inserting new items in 
+	an existing list.
+</UL>
+
+<IMG SRC="../bilder/makelist.png" ALT="Make list" WIDTH="221" HEIGHT="169">
+
+<P>
+The result in this case will be
+</P>
+
+<PRE CLASS="code">
+<SPAN CLASS="htmlcode">&lt;UL&gt;</SPAN>
+    <SPAN CLASS="htmlcode">&lt;LI&gt;</SPAN>item one
+    <SPAN CLASS="htmlcode">&lt;LI&gt;</SPAN>item two
+    <SPAN CLASS="htmlcode">&lt;LI&gt;</SPAN>item two and a half
+    <SPAN CLASS="htmlcode">&lt;LI&gt;</SPAN>item three
+<SPAN CLASS="htmlcode">&lt;/UL&gt;</SPAN>
+</PRE>
+</DIV>
+
+<div CLASS="item">Unordered List, Ordered List, Directory, Menu</div>
+
+<DIV CLASS="indent">
+Functions to create list of the types UL, OL, DIR, and MENU respectively.
+
+<P>
+When you make a list you are first asked how many items you want and, in 
+some cases, if you want to be asked about attributes for each list item. 
+You are then asked about attributes for the list element and finally, if 
+you have said so, about attributes for each list item.
+</P>
+
+<img src="../bilder/ullist.png" alt="UL list" width="304" height="156">
+
+<P>
+For example, choosing three list items would insert the template
+</P>
+
+<PRE CLASS="code">
+<SPAN CLASS="htmlcode">&lt;UL&gt;</SPAN>
+    <SPAN CLASS="htmlcode">&lt;LI&gt;</SPAN>|
+    <SPAN CLASS="htmlcode">&lt;LI&gt;</SPAN>&#8226;
+    <SPAN CLASS="htmlcode">&lt;LI&gt;</SPAN>&#8226;
+<SPAN CLASS="htmlcode">&lt;/UL&gt;</SPAN>&#8226;
+</PRE>
+
+<P>
+If you select some text before creating the list it will be inserted as the 
+first list item.
+</P>
+
+</DIV>
+<div CLASS="item">List Item</div>
+
+<DIV CLASS="indent">
+Inserts an &lt;LI&gt; element. Alpha checks in which list this item will 
+appear and ask you about the appropriate attributes.
+</DIV>
+
+<div CLASS="itempara">Definition List</div>
+
+<DIV CLASS="indent">
+Function to create a definition list, DL. As for the other list is ask you 
+how many items you want and then ask you about the attributes for DL, and 
+optionally for each DD and DT.
+
+<P>
+<img src="../bilder/dllist.png" alt="DL list" width="304" height="156">
+</P>
+
+<P>
+Choosing three items would insert the template
+</P>
+
+<PRE CLASS="code">
+<SPAN CLASS="htmlcode">&lt;DL&gt;
+    &lt;DT&gt;</SPAN>|<SPAN CLASS="htmlcode">&lt;DD&gt;</SPAN>&#8226;
+    <SPAN CLASS="htmlcode">&lt;DT&gt;</SPAN>&#8226;<SPAN CLASS="htmlcode">&lt;DD&gt;</SPAN>&#8226;
+    <SPAN CLASS="htmlcode">&lt;DT&gt;</SPAN>&#8226;<SPAN CLASS="htmlcode">&lt;DD&gt;</SPAN>&#8226;
+<SPAN CLASS="htmlcode">&lt;/DL&gt;</SPAN>&#8226;
+</PRE>
+
+</DIV>
+
+<div CLASS="item">Definition Entry</div>
+
+<DIV CLASS="indent">
+Inserts a template for a new entry in a definition list.
+
+<PRE CLASS="code">
+<SPAN CLASS="htmlcode">&lt;DT&gt;</SPAN>|&lt;<SPAN CLASS="htmlcode">DD&gt;</SPAN>&#8226;
+</PRE>
+
+</DIV>
+
+<!-- #INCLUDE INCLPATH="mainbottom.html" -->
+
+<DIV STYLE="height: 50px">
+</DIV>
+
+<SCRIPT TYPE="text/javascript">
+<!--
+document.write('<\/DIV>');
+// -->
+</SCRIPT>
+
+
+<!-- /#INCLUDE -->
+
+
+<!-- #INCLUDE INCLPATH="navigation.html" PREV="[manualPrevPage paragraph.html]" 
+NEXT="[manualNextPage tables.html]" -->
+
+<P>
+<script type="text/javascript">
+<!--
+document.write('<div class="navigation" style="top: ' + height + 'px; height: 50px">');
+// -->
+</script>
+<A HREF="paragraph.html">Previous page</A>
+<A HREF="tables.html">Next page</A>
+<SCRIPT TYPE="text/javascript">
+<!--
+document.write('<\/DIV>');
+// -->
+</SCRIPT>
+</P>
+
+<!-- /#INCLUDE -->
+
+
+</BODY>
+
+</HTML>

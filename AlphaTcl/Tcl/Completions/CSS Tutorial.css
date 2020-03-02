@@ -1,0 +1,90 @@
+
+Title:                   CSS Electrics
+Author:                  Johan Linde <alpha_www_tools@go.to>
+
+	created: 01-11-02 21.44.14
+last update: 01-11-02 22.13.40
+
+
+	  	/* Table Of Contents */
+
+"# Abstract "
+"# Introduction "
+"# Completing HTML Elements "
+"# Completing Properties "
+"# Completing Property Values "
+
+	======================================================================
+
+
+		/* Abstract */
+
+This document provides examples of CSS mode electric completions.
+
+		/* Introduction */
+
+This file contains examples of "electric completions".  Completions are
+ways in which Alpha attempts to complete what you're typing in a mode
+specific way (here we are considering the CSS specific way).
+
+The " Config --> Special Keys ... " menu item will display your current
+completion key-binding (default is ctrl-tab), and will give you the option
+to change it if you desire.
+
+In this tutorial, you can use the back-quote key ( ` ) to jump to the next
+completion example. (Hit ` and then space if ` is a dead key on your
+keyboard.) Once at the correct position, imagine that you had just typed
+the preceding text.
+
+Then hit the completion invoking key (default is ctrl-tab). Alpha attempts
+to complete what you typed -- eliminating a lot of keystrokes.
+
+		/* Completing HTML Elements */
+
+When the insertion point is outside any pair of braces, Alpha tries to
+expand what you have typed to an HTML element. Try these examples.
+
+	blo×
+	le×
+	fie×
+	st×
+
+The option "List Pick If Mult Cmps", which you find in the dialog box
+"Config:Preferences:Completions" determines Alpha's behavior when the
+completion is not unique. If the option is active, Alpha will open a list
+dialog box in this case.
+
+		/* Completing Properties */
+		 
+Alpha can also complete the names of the CSS properties. Try the following examples.
+
+P {
+    vert×    ;
+	cap×     ;
+	text×
+}
+
+Also in this case the option "List Pick If Mult Cmps" will determine if
+Alpha will open a list dialog box, when the completion is not unique.
+
+		/* Completing Property Values */
+
+Alpha can also complete the property value. Many properties can either take
+a value from a list of possible values or some other more general type of
+value. When completing CSS mode tries to match against the values in the
+list. For example 'marker-offset' can either take the values 'auto' or
+'inherit' or a length. When completing the value for marker-offset, CSS
+modes matches against 'auto' and 'inherit'.
+
+When you're typing a URL it can also be expanded using the URL cache, and
+when you type a color it is matched against the color names.
+
+Try the following examples.
+
+P {
+    vertical-align: bas×
+	color: ye×
+	text-transform: ×
+	background: url(×
+}
+

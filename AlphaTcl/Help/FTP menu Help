@@ -1,0 +1,287 @@
+
+FTP Menu Help
+
+                                               version: 1.1.3
+                                               created: 07/26/1999 {03:47:33 PM}
+                                           last update: 10/06/2003 {01:09:42 PM}
+
+
+This help file describes ftp interaction, and the "Ftp Menu".
+
+
+	  	Table of Contents
+
+
+"# Abstract"
+"# Activating the FTP menu"
+"# Basic usage"
+"# Startup problem with Fetch"
+"# Cache"
+"# Mount points"
+"# Titlebar Click"
+"# Ftp filesets"
+"# Passwords and Security"
+"# Ftp Menu Items"
+"# Ftp Menu Utilities"
+
+<<floatNamedMarks>>
+
+
+	  	Abstract
+
+
+The FTP menu allows quick access to files on a remote ftp server, useful for
+those that work on many different systems.  Files downloaded and opened in
+Alpha with the help of the FTP menu are automatically uploaded again when they
+are saved.  The idea is that the user can have the appearance of editing files
+on a remote site.  To set this up, all that is needed is the name of the site,
+and a valid username and password.
+
+The FTP menu works together with the three ftp clients Interarchy, Fetch and
+NetFinder, and with Alpha 8/X/tk can actually access ftp servers without the
+help of any external client by using the ftp package contained in the 'tcllib'
+distribution.
+
+Note: If you actually wish to keep the 'master copies' of some files on your
+local machine and have them mirrored on a remote site, then this can be done
+either through HTML mode's 'Upload Home Page' facility, or for any fileset by
+activating the 'Fileset Ftp Mirror' package.  In this case you will not be
+using the FTP menu directly, and this documentation will not be that useful --
+it is aimed at situations where the master copies of files are on a remote
+system.
+
+
+	  	Activating the FTP menu
+
+
+The FTP menu is activated in the dialog "Config > Global Setup > Menus" .
+Check the checkbox 'Ftp Menu' among the global menus.
+
+Preferences: Menus
+
+If using Alpha8 or AlphaX, you must also choose either Interarchy, Fetch, or
+NetFinder as your ftp helper application.  You can select the menu item
+"Config > Global Setup > Helper Applications" to set/change your helper app as
+necessary.
+
+Preferences: HelperApplications
+
+All of Alpha 8/X/tk can act as ftp clients themselves.  To do this, select
+'Use Tcl Service For Ftp' in the WWW pane of the dialog found by selecting
+"Config > Preferences > Input-Output > WWW" and no external helper application
+is necessary.  This is the default in Alphatk, although it can be turned off.
+
+Preferences: WWW
+
+
+	  	Basic usage
+
+
+The first you need to do is to get a list of the files at a remote site.  This
+can be done by using the menu item 'Browse Remote…'.  A dialog is now opened
+where you fill in the host, path (optional), user id, and password.
+
+Your ftp client (Interarchy, Fetch, or NetFinder) will now get a listing of
+the files at the remote site.  The list is display in a list dialog.
+
+  • Selecting a file in the dialog will download it and open it for editing 
+    in Alpha.  Once you save the changes, Alpha tells your ftp client to
+    upload the file.
+
+  • Selecting a directory in the list (indicating by a trailing / in the 
+    name) will get the listing of that directory and display it in a new
+    list dialog.
+
+  • Selecting '..' in the list will get a listing of the parent directory.
+
+A menu item with your remote machine is added to the FTP menu.  Selecting this
+menu item will the display the file list again.  This allows you to quickly
+download another file from the same place.
+
+
+	  	Startup problem with Fetch
+
+
+If Alpha launches Fetch from the FTP menu, Fetch occasionally get stuck after
+displaying its sign-on dialog.  If this happens you have to switch to Fetch
+and dismiss this dialog before Fetch continues working.  To avoid this problem
+completely uncheck "Show sign-on dialog at startup" in Fetch's Misc preference
+dialog.
+
+
+	  	Cache
+
+
+Alpha saves the directory listing in a cache to be able to quickly display
+them again without having to download them every time.  Whenever new files are
+added to the remote site the cache becomes out of date.  You can clear the
+cache by selecting 'Flush Cache' from the FTP menu.  The cache is also flushed
+when you quit Alpha.  This forces the directory listing to be downloaded
+again.  If you don't want to use a cache at all, uncheck 'Use Cache' in the
+FTP menu.
+
+
+	  	Mount points
+
+
+The point where you start browsing a remote site is called a mount point.
+There are two types of mount points: temporary and permanent.
+
+  • Temporary mount points are mount points which only exist during the
+    current session with Alpha.  Whenever you use 'Browse Remote…' to browse a
+    new site a temporary mount point is created.  All temporary mount points
+    are listed at the bottom of the FTP menu for quick access.
+
+  • Permanent mount points are mount points which are saved between sessions
+    with Alpha.  You create a new permanent mount point by using 'Add Mount
+    Point…' in the FTP Utils menu.  You can later remove it using 'Remove
+    Mount Point…'.  The permanent mount points are listed in the FTP menu just
+    above the temporary ones.
+
+You can always make a temporary mount point permanent by using the menu item
+"Ftp Menu Utils > Make Permanent…".
+
+
+	  	Titlebar Click
+
+
+Clicking on the Titlebar of a window downloaded from a remote site (or in
+Alphatk Right-Clicking anywhere in the window) displays a popup menu with the
+path for the file at the remote site.  Selecting a directory in this popup
+menu opens a directory listing dialog with all files allowing you to download
+another file.  This gives you quick access to the remote files.
+
+
+	  	Ftp filesets
+
+
+An ftp fileset in a set of files in a remote directory, which will be put in a
+submenu in the Fileset menu.  Selecting a file in the Fileset menu will
+download and open it for editing in Alpha.
+
+You create a new ftp fileset by using 'Create Fileset' in the FTP menu or by
+using 'New Fileset…' in the Fileset menu and choosing the type 'ftp'.
+
+  • First you specify a name for the fileset, which will be the name of the 
+    submenu in the Fileset menu, and information about the host, userid etc.
+
+  • Then you are asked to specify a pattern which determines which files to 
+    include in the fileset, e.g. you may only wish to include all .html
+    files.  This pattern must be entered as a regular expression.  Some
+    examples how to specify the pattern:
+
+	.*          all files
+	.*\.html    all .html files
+	.*\.[ch]    all .c files and all .h files
+
+  • You are finally asked if you want to save the fileset. Doing so will 
+    keep it available next time you run Alpha.
+    
+Now the listing of the files in the fileset is downloaded and the fileset is
+inserted in the menu.
+
+
+	  	Passwords and Security
+
+
+All passwords which are saved between sessions are saved as plain text in
+Alpha's preferences folder.  Thus, only give your password when defining
+permanent mount points or filesets if nobody else has access to your computer.
+If you attempt to open a remote site or file for a mount point or fileset that
+has no password, you will be prompted to enter it in a separate dialog.  This
+password will be remembered until Alpha is quit, or until you select the menu
+item "Ftp Menu Utils > Forget Temp Passwords".  No temporary passwords are
+saved between editing sessions.
+
+
+	  	Ftp Menu Items
+
+
+This section lists all menu items in the FTP menu giving a short description
+of their functionality.
+
+	Browse Remote…
+
+Browse a remote site.
+
+	Browse Current… (option)
+
+Browse the mount point of the frontmost window.
+
+	Browse Mounts…
+
+Lets you pick a mount point to browse from a list of all your mount points
+both temporary and permanent.
+
+	Ftp Menu Help
+
+Opens this file.
+
+	Save As At…
+
+Lets you 'Save as' the frontmost window at any of your mount points.
+
+	Save A Copy At…
+
+Lets you save a copy of the frontmost window at any of your mount points.
+
+
+	  	Ftp Menu Utilities
+
+
+	Add Mount Point…
+
+Add a new permanent mount point.  The 'password' field is optional.  After
+adding a mount point, you are given the option to add more if desired.
+
+	Edit Mount Point…
+
+Edit any previously saved mount point.  After editing a mount point, you are
+offered the list of all saved mount points again to select another to edit if
+desired.
+
+	Rename Mount Point…
+
+Rename any previously saved mount point.
+
+	Remove Mount Point…
+
+Remove a permanent mount point.
+
+	Make Permanent…
+
+Make a temporary mount point permanent.
+
+	Create Fileset…
+
+Create an ftp fileset.  The password field is optional.
+
+	Set Defaults…
+
+Lets you set default ftp mount point values, including host, directory,
+username, and password.  Any or all of these values can be set, and will be
+used in the initial "login" dialog.  (If you are adding several mount points
+at once, the login dialog will remember the values from last one added in this
+editing session.)
+
+	Use Cache
+
+If checked, all directory listings are stored in a cache.  Otherwise, the
+remote site is accessed whenever obtaining a listing for a mount point, or to
+reload a remote file which has since been closed.
+
+	Flush Cache
+
+Deletes all files in the cache.  The cache is also flushed whenever you quit
+Alpha.  Note that if you have any currently open remote files, it will only be
+possible to save them after flushing the cache by using the 'Save As At' menu
+item.
+
+	Forget Temp. Passwords
+
+Flush the cache of all temporary passwords remembered this session, those that
+Alpha has specifically prompted you for in a separate dialog when attempting
+to open a remote site or file.
+
+
+

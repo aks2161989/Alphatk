@@ -1,0 +1,1223 @@
+<!-- HTML-Exmple.html                                                    -->
+<!--                                                                     -->
+<!-- included in the Alpha distribution as an example of the html mode   -->
+<!--                                                                     -->
+<!-- Alpha's HTML mode cound be found at                                 -->
+<!--                                                                     -->
+<!-- <"http://www.theophys.kth.se/~jl/Alpha.html">                                                                       -->
+<!--                                                                     -->
+<!--                                                                     -->
+<!-- Note: HTML documents can generally be sent to your browser          -->
+<!-- using "command-shift S".  When this file in a "shell window"        -->
+<!-- it doesn't really exist so this functionality is lost.              -->
+<!-- To send this file to a browser it must be opened as an actual file. -->
+<!--                                                                     -->
+<!-- Original source of adapted document:                                -->
+<!--                                                                     -->
+<!--<"http://www.ncsa.uiuc.edu/General/Internet/WWW/HTMLPrimer.html">    -->
+<!--                                                                     -->
+<!-- copyright (c) 1995-2000                                                  -->
+<!--                                                                     -->
+<!-- Nation Center for Supercomputing Applications                       -->
+<!--                                                                     -->
+<!-- This document has been reproduced in accordance with the copyright  -->
+<!-- restrictions published by the NSCA -- it is distributed for         -->
+<!-- educational purposes only, and is not being sold in any profit      -->
+<!-- making activity.  While it is included in the shareware Alpha       -->
+<!-- distribution,the Examples folder in which it is contained      -->
+<!-- has also been made freely available for distribution.               -->
+
+<HTML>
+
+<HEAD>
+
+<TITLE>A Beginner's Guide to HTML</TITLE>
+
+</HEAD>
+
+<BODY>
+
+<p>
+<HR>
+
+<H1> <A NAME="A1">A Beginner's Guide to HTML</A></H1>
+
+<HR>
+This is a primer for producing documents in HTML, the markup language used 
+by the World Wide Web.
+
+<UL>
+    <LI><A HREF="#A1.1">Acronym Expansion</A>
+    <LI><A HREF="#A1.2">What This Primer Doesn't Cover</A>
+    <LI><A HREF="#A1.3">Creating HTML Documents</A>
+    
+    <UL>
+	<LI><A HREF="#A1.3.1">The Minimal HTML Document</A>
+	<LI><A HREF="#A1.3.2">Basic Markup Tags</A>
+	
+	<UL>
+	    <LI><A HREF="#A1.3.2.1">Titles</A>
+	    <LI><A HREF="#A1.3.2.2">Headings</A>
+	    <LI><A HREF="#A1.3.2.3">Paragraphs</A>
+	</UL>
+	
+	<LI><A HREF="#A1.3.3">Linking to Other Documents</A>
+	
+	<UL>
+	    <LI><A HREF="#A1.3.3.1">Relative Links Versus Absolute Pathnames</A>
+	    <LI><A HREF="#A1.3.3.2">Uniform Resource Locator</A>
+	    <LI><A HREF="#A1.3.3.3">Anchors to Specific Sections in Other Documents</A>
+	    <LI><A HREF="#A1.3.3.4">Anchors to Specific Sections Within the Current 
+	    Document</A>
+	</UL>
+	
+    </UL>
+    
+    <LI><A HREF="#A1.4">Additional Markup Tags</A>
+    
+    <UL>
+	<LI><A HREF="#A1.4.1">Lists</A>
+	
+	<UL>
+	    <LI><A HREF="#A1.4.1.1">Unnumbered Lists</A>
+	    <LI><A HREF="#A1.4.1.2">Numbered Lists</A>
+	    <LI><A HREF="#A1.4.1.3">Description Lists</A>
+	    <LI><A HREF="#A1.4.1.4">Nested Lists</A>
+	</UL>
+	
+	<LI><A HREF="#A1.4.2">Preformatted Text</A>
+	<LI><A HREF="#A1.4.3">Extended Quotes</A>
+	<LI><A HREF="#A1.4.4">Addresses</A>
+	<LI><A HREF="#A1.4.5">Character Formatting</A>
+	
+	<UL>
+	    <LI><A HREF="#A1.4.5.1">Use Logical Tags When Possible</A>
+	    <LI><A HREF="#A1.4.5.2">Using Character Tags</A>
+	    <LI><A HREF="#A1.4.5.3">Logical Styles</A>
+	    <LI><A HREF="#A1.4.5.4">Physical Styles</A>
+	</UL>
+	
+	<LI><A HREF="#A1.4.6">Special Characters</A>
+	
+	<UL>
+	    <LI><A HREF="#A1.4.6.1">Escape Sequences</A>
+	    <LI><A HREF="#A1.4.6.2">Forced Line Breaks</A>
+	    <LI><A HREF="#A1.4.6.3">Horizontal Rules</A>
+	</UL>
+	
+	<LI><A HREF="#A1.4.7">In-line Images</A>
+	
+	<UL>
+	    <LI><A HREF="#A1.4.7.1">Alternate Text for Viewers          That Can't 
+	    Display Images</A>
+	</UL>
+	
+    </UL>
+    
+    <LI><A HREF="#A1.5">External Images, Sounds, and Animations</A>
+    <LI><A HREF="#A1.6">Troubleshooting</A>
+    
+    <UL>
+	<LI><A HREF="#A1.6.1">Avoid Overlapping Tags</A>
+	<LI><A HREF="#A1.6.2">Embed Anchors and Character Formats,        But Avoid 
+	Embedding Anything Else</A>
+	<LI><A HREF="#A1.6.3">Check Your Links</A>
+    </UL>
+    
+    <LI><A HREF="#A1.7">A Longer Example</A>
+    <LI><A HREF="#A1.8">For More Information</A>
+</UL>
+
+<H2><A NAME="A1.1">Acronym Expansion</A></H2>
+
+<DL COMPACT>
+    <DT><I>WWW</I><DD>World Wide Web (or Web, for short).
+    <DT><I>SGML</I><DD>Standard Generalized Markup Language  --  this is a 
+    standard for describing markup languages.
+    <DT><CITE>DTD</CITE><DD>
+    <DT><DD>Document Type Definition  --  this is a specific markup language, 
+    written using SGML.
+    <DT><CITE>HTML</CITE><DD>
+    <DT><DD>HyperText Markup Language  --  HTML is a SGML DTD. In practical 
+    terms, HTML is a collection of styles (indicated by markup tags) that 
+    define the various components of a World Wide Web document.
+</DL>
+
+<H2><A NAME="A1.2">What This Primer Doesn't Cover</A></H2>
+
+This primer assumes that you have:
+
+<UL>
+    <LI>at least a passing knowledge of how to use NCSA Mosaic or some other 
+    Web browser
+    <LI>a general understanding of how Web servers and client browsers work
+    <LI>access to a Web server for which you would like to produce HTML 
+    documents, or that you wish to produce HTML documents for personal use
+</UL>
+
+<H2><A NAME="A1.3">Creating HTML Documents</A></H2>
+
+HTML documents are in plain (also known as ASCII) text format and can be 
+created using any text editor (e.g., EMACS or vi on UNIX machines).  A 
+couple of Web browsers (tkWWW for X Window System machines and CERN's Web 
+browser for NeXT computers) include rudimentary HTML editors in a WYSIWYG 
+environment, and you may wish to try one of them first before delving into 
+the details of HTML.
+
+<BLOCKQUOTE>
+<I>You can preview a document in progress with NCSA Mosaic (and some 
+</I><I>other Web browsers). Open it with the </I><B>Open Local 
+</B><I>command under the </I><B>File</B><I> menu. </I>
+
+<P>
+<I>After you edit the source HTML file, save the changes. Return to NCSA 
+</I><I>Mosaic and </I><B>Reload</B><I> the document. The changes are 
+reflected in the on-</I><I>screen display.</I>
+</BLOCKQUOTE>
+
+<H3><A NAME="A1.3.1">The Minimal HTML Document</A></H3>
+
+Here is a bare-bones example of HTML:
+
+<PRE>   
+&lt;TITLE&gt;The simplest HTML example&lt;/TITLE&gt;
+&lt;H1&gt;This is a level-one heading&lt;/H1&gt;
+Welcome to the world of HTML. 
+This is one paragraph.&lt;P&gt;
+And this is a second.&lt;P&gt;
+</PRE>
+
+<P>
+HTML uses markup tags to tell the Web browser how to display the text.The 
+above example uses:
+
+<UL>
+    <LI>the <SAMP>&lt;TITLE&gt;</SAMP> tag (and corresponding 
+    <SAMP>&lt;/TITLE&gt;</SAMP> tag), which specifies the title of the document
+    <LI>the <SAMP>&lt;H1&gt;</SAMP> header tag (and corresponding 
+    <SAMP>&lt;/H1&gt;</SAMP>)
+    <LI>the <SAMP>&lt;P&gt;</SAMP> paragraph-separator tag
+</UL>
+
+<P>
+HTML tags consist of a left angle bracket (<SAMP>&lt;</SAMP>), (a ``less 
+than'' symbol to mathematicians), followed by name of the tag and closed by 
+a right angular bracket (<SAMP>&gt;</SAMP>). Tags are usually paired,e.g. 
+<SAMP>&lt;H1&gt;</SAMP> and <SAMP>&lt;/H1&gt;</SAMP>. The ending tag looks 
+just like the starting tag except a slash (/) precedes the text within the 
+brackets. In the example, <SAMP>&lt;H1&gt;</SAMP> tells the browser to 
+start formatting a level-one heading; <SAMP>&lt;/H1&gt;</SAMP>tells the 
+browser that the heading is complete.
+
+<P>
+The primary exception to the pairing rule is the <SAMP>&lt;P&gt;</SAMP>tag. 
+There is no such thing as <SAMP>&lt;/P&gt;</SAMP>.
+
+<P>
+<STRONG>NOTE:</STRONG><I> HTML is not case sensitive. 
+</I><SAMP>&lt;title&gt;</SAMP><I>is equivalent to 
+</I><SAMP>&lt;TITLE&gt;</SAMP><I> or </I><SAMP>&lt;TiTlE&gt;</SAMP><I>.</I>
+
+<P>
+Not all tags are supported by all World Wide Web browsers. If a browser 
+does not support a tag, it just ignores it.
+
+<H3><A NAME="A1.3.2">Basic Markup Tags</A></H3>
+
+<H4><A NAME="A1.3.2.1">Title</A></H4>
+
+Every HTML document should have a title. A title is generally displayed 
+separately from the document and is used primarily for document 
+identification in other contexts (e.g., a WAIS search). Choose about half a 
+dozen words that describe the document's purpose.
+
+<BLOCKQUOTE>
+<I>In the X Window System and Microsoft Windows versions of NCSA 
+</I><I>Mosaic, the </I><B>Document Title</B><I> field is at the top of the 
+screen just below the </I><I>pulldown menus. In NCSA Mosaic for Macintosh, 
+text tagged as </I><SAMP>&lt;TITLE&gt;</SAMP><I>appears as the window 
+title.</I>
+</BLOCKQUOTE>
+
+<H4><A NAME="A1.3.2.2">Headings</A></H4>
+
+HTML has six levels of headings, numbered 1 through 6, with 1 being the 
+most prominent. Headings are displayed in larger and/or bolder fonts than 
+normal body text. The first heading in each document should be tagged 
+<SAMP>&lt;H1&gt;</SAMP>. The syntax of the heading tag is:
+
+<P>
+<SAMP>&lt;H</SAMP><VAR>y</VAR><SAMP>&gt;</SAMP><VAR>Text of 
+heading</VAR><SAMP>&lt;/H</SAMP><VAR>y</VAR><SAMP> &gt;</SAMP>
+
+<P>
+where <VAR>y</VAR> is a number between 1 and 6 specifying the level of the 
+heading.
+
+<P>
+For example, the coding for the ``Headings'' section heading above is
+
+<PRE>
+&lt;H3&gt;Headings&lt;/H3&gt;
+</PRE>
+
+<H5><A NAME="A1.3.2.2.1">Title versus first heading</A></H5>
+
+In many documents, the first heading is identical to the title. For 
+multi-part documents, the text of the first heading should be suitable for 
+a reader who is already browsing related information (e.g., a chapter 
+title), while the title tag should identify the document in a wider context 
+(e.g., include both the book title and the chapter title, although this can 
+sometimes become overly long).
+
+<H4><A NAME="A1.3.2.3">Paragraphs</A></H4>
+
+Unlike documents in most word processors, carriage returns in HTML files 
+aren't significant.  Word wrapping can occur at any point in your source 
+file, and multiple spaces are collapsed into a single space.  (There are 
+couple of exceptions; space following a <SAMP>&lt;P&gt;</SAMP>or 
+<SAMP>&lt;H</SAMP><VAR>y</VAR><SAMP>&gt;</SAMP> tag , for example,is 
+ignored.) Notice that in the bare-bones example, the first paragraph is 
+coded as
+
+<PRE>
+Welcome to HTML. 
+This is the first paragraph. &lt;P&gt;
+</PRE>
+
+<P>
+In the source file, there is a line break between the sentences. A Web 
+browser ignores this line break and starts a new paragraph only when it 
+reaches a <SAMP>&lt;P&gt;</SAMP> tag.
+
+<P>
+<STRONG>Important:</STRONG> You must separate paragraphs with 
+<SAMP>&lt;P&gt;</SAMP>.  The browser ignores any indentations or blank 
+lines in the source text.HTML relies almost entirely on the tags for 
+formatting instructions,and without the <SAMP>&lt;P&gt;</SAMP> tags, the 
+document would become one large paragraph.  (The exception is text tagged 
+as ``preformatted,''explained below.)  For instance, the following would 
+produce identical output as the first barebones HTML example:
+
+<PRE>
+&lt;TITLE&gt;The simplest HTML example&lt;/TITLE&gt;
+&lt;H1&gt;This is a level one heading&lt;/H1&gt;
+Welcome to the world of HTML. This is one paragraph.&lt;P&gt;And this is a second.&lt;P&gt;
+</PRE>
+
+<P>
+However, to preserve readability in HTML files, headings should be on 
+separate lines, and paragraphs should be separated by blank lines (in 
+addition to the <SAMP>&lt;P&gt;</SAMP> tags).
+
+<BLOCKQUOTE>
+<I>NCSA Mosaic handles &lt;P&gt; by ending the current paragraph and 
+insert</I><I>ing a blank line. </I>
+</BLOCKQUOTE>
+
+<P>
+In HTML+, a successor to HTML currently in development, 
+<SAMP>&lt;P&gt;</SAMP>becomes a ``container'' of text, just as the text of 
+a level-one heading is ``contained'' within<SAMP>&lt;H1&gt; ... 
+</SAMP><SAMP>&lt;/H1&gt;</SAMP>:
+
+<PRE>
+&lt;P&gt;This is a paragraph in HTML+.&lt;/P&gt;
+</PRE>
+
+<P>
+The difference is that the <SAMP>&lt;/P&gt;</SAMP> closing tag can always 
+be omitted. (That is, if a browser sees a <SAMP>&lt;P&gt;</SAMP>,it knows 
+that there must be an implied <SAMP>&lt;/P&gt;</SAMP> to end the previous 
+paragraph.) In other words, in HTML+, <SAMP>&lt;P&gt;</SAMP>is a 
+beginning-of-paragraph marker.
+
+<P>
+The advantage of this change is that you will be able to specify formatting 
+options for a paragraph. For example, in HTML+, you will be able to center 
+a paragraph by coding
+
+<PRE>
+<SAMP>&lt;P ALIGN=CENTER&gt;</SAMP>
+This is a centered paragraph. This is HTML+, so you can't do it yet.
+</PRE>
+
+<P>
+This change won't effect any documents you write now, and they will 
+continue to look just the same with HTML+ browsers.
+
+<P>
+In fact, starting <EM>every</EM> paragraph with <SAMP>&lt;P&gt;</SAMP>,even 
+currently with HTML, would be a good habit to start acquiring.As noted, 
+it's not required, but it will ease your transition to HTML+.Browsers 
+should ignore any unnecessary <SAMP>&lt;P&gt;</SAMP>s.
+
+<H3><A NAME="A1.3.3">Linking to Other Documents</A></H3>
+
+The chief power of HTML comes from its ability to link regions of text (and 
+also images) to another document. These regions are typically highlighted 
+by the browser to indicate that they are hypertext links (often shorted to 
+<DFN>hyperlinks</DFN> or simply <DFN>links</DFN>).
+
+<P>
+HTML's single hypertext-related tag is <SAMP>&lt;A&gt;</SAMP>, which stands 
+for <DFN>anchor</DFN>. To include an anchor in your document:
+
+<OL>
+    <LI>Start the anchor with the left angle bracket and the anchor directive 
+    followed by a space: <SAMP>&lt;A</SAMP> .
+    <LI>Specify the document that's being pointed to by giving the parameter 
+    <SAMP>HREF=&quot;</SAMP><VAR>filename</VAR><SAMP>&quot;</SAMP> followed by 
+    a closing angle bracket: <SAMP>&gt;</SAMP>
+    <LI>Enter the text that will serve as the hypertext link in the current 
+    document.
+    <LI>Enter the ending anchor tag: <SAMP>&lt;/A&gt;</SAMP>.
+</OL>
+
+<P>
+Here is an sample hypertext reference:
+
+<PRE>
+&lt;A HREF=&quot;MaineStats.html&quot;&gt;Maine&lt;/A&gt;
+</PRE>
+
+<P>
+This entry makes word ``Maine'' the hyperlink to the document 
+<SAMP>MaineStats.html</SAMP>, which is in the same directory as the first 
+document. You can link to documents in other directories by specifying the 
+<DFN>relative path</DFN>from the current document to the linked document. 
+For example, a link  to a file <SAMP>NJStats.html</SAMP> located in the 
+subdirectory <SAMP>AtlanticStates</SAMP>would be:
+
+<PRE>
+&lt;A HREF=&quot;AtlanticStates/NJStats.html&quot;&gt;New Jersey&lt;/A&gt;
+</PRE>
+
+<P>
+These are called <VAR>relative links</VAR>. You can also use the absolute 
+pathname of the file if you wish.
+
+<H4><A NAME="A1.3.3.1">Relative Links Versus Absolute Pathnames</A></H4>
+
+In general, you should use relative links, because
+
+<OL>
+    <LI>You have less to type.
+    <LI>It's easier to move a group of documents to another location, because 
+    the relative path names will still be valid.
+</OL>
+
+<P>
+However, use absolute pathnames when linking to documents that are not 
+directly related.  For example, consider a group of documents that comprise 
+a user manual.  Links within this group should be relative links.  Links to 
+other documents (perhaps a reference to related software) should use full 
+path names.  This way, if you move the user manual to a different 
+directory, none of the links would have to be updated.
+
+<H4><A NAME="A1.3.3.2">Uniform Resource Locator</A></H4>
+
+A Uniform Resource Locator (URL) refers to the format used by World Wide 
+Web documents to locate files on other servers.  A URL gives the type of 
+resource being accessed (e.g., gopher, WAIS) and the path of the file. The 
+syntax is:
+
+<P>
+<VAR>scheme</VAR><SAMP>://</SAMP><VAR>host.domain</VAR><SAMP>[:</SAMP><VAR>port</VAR><SAMP>]/</SAMP><VAR>path</VAR><SAMP>/</SAMP><VAR>filename</VAR>
+
+<P>
+where <VAR>scheme</VAR> is one of
+
+<DL COMPACT>
+    <DT><SAMP>file</SAMP><DD>
+    <DT><DD>a file on your local system, or a file on an anonymous FTP server
+    <DT><SAMP>http</SAMP><DD>a file on a World Wide Web server
+    <DT><SAMP>gopher</SAMP><DD>a file on a Gopher server
+    <DT><SAMP>WAIS</SAMP><DD>a file on a WAIS server
+    <DT><SAMP>news</SAMP><DD>an Usenet newsgroup
+    <DT><SAMP>telnet</SAMP><DD>a connection to a Telnet-based service
+</DL>
+
+<P>
+The port number can generally be omitted.  (Which means, unless someone 
+tells you otherwise, leave it out.)
+
+<P>
+For example if you wanted to insert a link to this primer, you would 
+include
+
+<PRE>
+&lt;A HREF=&quot;http://www.ncsa.uiuc.edu/General/Internet/WWW/HTMLPrimer.html&quot;&gt;
+NCSA's Beginner's Guide to HTML&lt;/A&gt;
+</PRE>
+
+<P>
+in your document. This would make the text ``NCSA's Beginner's Guide to 
+HTML'' a hyperlink leading to this document.
+
+<P>
+For more information on URLs, look at
+
+<UL>
+    <LI>the Addressing document, written by CERN (the high energy physics 
+    people in Switzerland who originated the World Wide Web)
+    <LI><CITE>A Beginner's Guide to URLs</CITE>, located on the NCSA Mosaic 
+    <B>Help</B> menu
+</UL>
+
+<H4><A NAME="A1.3.3.3">Anchors to Specific Sections in Other 
+Documents</A></H4>
+
+Anchors can also be used to move to a particular section in a document. 
+Suppose you wish to set a link from document A and a specific section in 
+document B.  First you need to set up a <DFN>named anchor</DFN> in document 
+B.  For example, to add an anchor named ``Jabberwocky'' to document B, you 
+would insert
+
+<PRE>
+Here's &lt;A NAME=&quot;Jabberwocky&quot;&gt;some text&lt;/a&gt;.
+</PRE>
+
+<P>
+Now when you create the link in document A, you include not only the 
+filename, but also the named anchor, separated by a hash mark (#).
+
+<PRE>
+This is my &lt;A HREF=&quot;documentB.html#Jabberwocky&quot;&gt;link&lt;/a&gt; to document B.
+</PRE>
+
+<P>
+Now clicking on the word ``link'' in document A sends the reader directly 
+to the words ``some text'' in document B.
+
+<H4><A NAME="A1.3.3.4">Anchors to Specific Sections within the Current 
+Document</A></H4>
+
+The technique is exactly the same except the file name is now omitted.
+
+<P>
+For example, to link to the ``Jabberwocky'' anchor from within the same 
+file (Document B), you would use
+
+<PRE>
+This is &lt;A HREF=&quot;#Jabberwocky&quot;&gt;Jabberwocky link&lt;/A&gt;
+from within Document B.
+</PRE>
+
+<H2><A NAME="A1.4">Additional Markup Tags</A></H2>
+
+The above is sufficient to produce simple HTML documents.  For more complex 
+documents, HTML also has tags for several types of lists, extended quotes, 
+character formatting, and other items.
+
+<H3><A NAME="A1.4.1">Lists</A></H3>
+
+HTML supports unnumbered, numbered, and description lists.
+
+<H4><A NAME="A1.4.1.1">Unnumbered Lists</A></H4>
+
+To make an unnumbered list,
+
+<OL>
+    <LI>Start with an opening list <SAMP>&lt;UL&gt;</SAMP> tag.
+    <LI>Enter the <SAMP>&lt;LI&gt;</SAMP> tag followed by the individual item. 
+    (No closing <SAMP>&lt;/LI&gt;</SAMP> tag is needed.)
+    <LI>End with a closing list <SAMP>&lt;/UL&gt;</SAMP> tag.
+</OL>
+
+<P>
+Below an example two-item list:
+
+<PRE>
+&lt;UL&gt;
+    &lt;LI&gt;apples
+    &lt;LI&gt;bananas
+&lt;/UL&gt;
+</PRE>
+
+<P>
+The output is
+
+<UL>
+    <LI>apples
+    <LI>bananas
+</UL>
+
+<P>
+Different viewers display unordered lists differently.  A browser might use 
+bullets, filled circles, or dashes to indicate the items.
+
+<P>
+The <SAMP>&lt;LI&gt;</SAMP> items can contain multiple paragraphs.  Just 
+separate the paragraphs with the <SAMP>&lt;P&gt;</SAMP> paragraph tags.
+
+<H4><A NAME="A1.4.1.2">Numbered Lists</A></H4>
+
+A numbered list (also called an ordered list, from where the abbreviation 
+comes from) uses the <SAMP>&lt;OL&gt;</SAMP> directive to start a list 
+rather than the <SAMP>&lt;UL&gt;</SAMP> directive. The items are tagged 
+using the same <SAMP>&lt;LI&gt;</SAMP> tag as for a bulleted list.  For 
+example,
+
+<PRE>
+&lt;OL&gt;
+    &lt;LI&gt; oranges
+    &lt;LI&gt; peaches    
+    &lt;LI&gt; grapes
+&lt;/OL&gt;
+</PRE>
+
+<P>
+The result is
+
+<OL>
+    <LI>oranges
+    <LI>peaches
+    <LI>grapes
+</OL>
+
+<H4><A NAME="A1.4.1.3">Description Lists </A></H4>
+
+A description list usually consists of alternating a description title 
+(abbreviated as <SAMP>DT</SAMP>) and a description (abbreviated as 
+<SAMP>DD</SAMP>).  Web browsers generally format the description on a new 
+line.
+
+<P>
+The following is an example description list:
+
+<PRE>
+&lt;DL&gt;
+    &lt;DT&gt;NCSA
+    &lt;DD&gt;NCSA, the National Center for Supercomputing Applications, 
+        is located on the campus of the University of Illinois at 
+        Urbana-Champaign. NCSA is a one of the participating institutions 
+        in the National MetaCenter for Computational Science and Engineering.
+    &lt;DT&gt;Cornell Theory Center 
+    &lt;DD&gt;CTC is located on the campus of Cornell University in 
+        Ithaca, New York. CTC is another participant in the National 
+        MetaCenter for Computational Science and Engineering. 
+&lt;/DL&gt;
+</PRE>
+
+<P>
+The output looks like:
+
+<DL COMPACT>
+    <DT>NCSA
+    <DD>NCSA is located on the campus of the University of Illinois at 
+    Urbana-Champaign. NCSA is a one of the participants in the National 
+    MetaCenter for Computational Science and Engineering.
+    <DT>Cornell Theory Center 
+    <DD>CTC is located on the campus of Cornell 
+    University in Ithaca, New York. CTC is another participant in the National 
+    MetaCenter for Computational Science and Engineering.
+</DL>
+
+<P>
+The <SAMP>&lt;DT&gt;</SAMP> and<SAMP> &lt;DD&gt;</SAMP> entries can contain 
+multiple paragraphs (separated by <SAMP>&lt;P&gt;</SAMP> paragraph tags), 
+lists, or other description information.
+
+<H4><A NAME="A1.4.1.4">Nested Lists</A></H4>
+
+Lists can be arbitrarily nested, although in practice you probably should 
+limit the nesting to three levels.  You can also have a number of 
+paragraphs, each containing a nested list, in a single list item, and so 
+on.
+
+<P>
+The display of an unnumbered list varies with the browser.  A browser may 
+not provide successive levels of indentation or modify the bullets used at 
+each level.
+
+<P>
+An example nested list:
+
+<PRE>
+&lt;UL&gt;
+    &lt;LI&gt; A few New England states:        
+        &lt;UL&gt;
+             &lt;LI&gt; Vermont
+             &lt;LI&gt; New Hampshire
+        &lt;/UL&gt;
+    &lt;LI&gt;One Midwestern state:        
+        &lt;UL&gt;
+             &lt;LI&gt; Michigan
+        &lt;/UL&gt;
+&lt;/UL&gt;
+</PRE>
+
+<P>
+The nested list is displayed as
+
+<UL>
+    <LI>A few New England states:
+    
+    <UL>
+	<LI>Vermont
+	<LI>New Hampshire
+    </UL>
+    
+    <LI>One Midwestern state:
+    
+    <UL>
+	<LI>Michigan
+    </UL>
+    
+</UL>
+
+<H3><A NAME="A1.4.2">Preformatted Text</A></H3>
+
+Use the<SAMP> &lt;PRE&gt;</SAMP> tag (which stands for ``preformatted'') to 
+include text in a fixed-width font and to cause spaces, new lines, and tabs 
+to be significant. This is useful for program listings.  For example, the 
+following lines
+
+<PRE>
+&lt;PRE&gt;
+#!/bin/csh 
+cd $SCR
+cfs get mysrc.f:mycfsdir/mysrc.f
+cfs get myinfile:mycfsdir/myinfile 
+fc -02 -o mya.out mysrc.f mya.out                                   
+cfs save myoutfile:mycfsdir/myoutfile      
+rm *                                    
+&lt;/PRE&gt;
+</PRE>
+
+<P>
+display as
+
+<PRE>
+#!/bin/csh 
+cd $SCR
+cfs get mysrc.f:mycfsdir/mysrc.f
+cfs get myinfile:mycfsdir/myinfile 
+fc -02 -o mya.out mysrc.f mya.out                                   
+cfs save myoutfile:mycfsdir/myoutfile      
+rm *                                    
+</PRE>
+
+<P>
+Hypertext references can be used within <SAMP>&lt;PRE&gt;</SAMP> sections.  
+You should avoid using other HTML tags within 
+<SAMP>&lt;PRE&gt;</SAMP>sections, however, because the formatting will 
+differ from browser to browser.
+
+<P>
+Note that because &lt;, &gt;, and &amp; have special meaning in HTML, you 
+have to use their escape sequences (&amp;lt;, &amp;gt;, and &amp;amp;, 
+respectively) to enter these characters.  See the section on special 
+characters below.
+
+<H3><A NAME="A1.4.3">Extended Quotes</A></H3>
+
+Use the <SAMP>&lt;BLOCKQUOTE&gt;</SAMP> tag to include quotations in a 
+separate block on the screen. The formatted text is generally indented to 
+separate it from surrounding text.
+
+<P>
+An example:
+
+<PRE>
+&lt;BLOCKQUOTE&gt;
+I still have a dream. It is a dream deeply 
+rooted in the American dream. &lt;P&gt; 
+I have a dream that one day this nation will rise up and
+live out the true meaning of its creed. We hold these truths 
+to be self-evident that all men are created equal. &lt;P&gt; 
+&lt;/BLOCKQUOTE&gt;
+</PRE>
+
+<P>
+The result is
+
+<BLOCKQUOTE>
+I still have a dream. It is a dream deeply rooted in the American dream.
+
+<P>
+I have a dream that one day this nation will rise up and live out the true 
+meaning of its creed. We hold these truths to be self-evident that all men 
+are created equal.
+</BLOCKQUOTE>
+
+<H3><A NAME="A1.4.4">Addresses</A></H3>
+
+The <SAMP>&lt;ADDRESS&gt;</SAMP> tag is generally used within HTML 
+documents to specify the author of a document and provides a means of 
+contacting the author (e.g., an email address). This is usually the last 
+item in a file and generally starts on a new line.
+
+<P>
+For example, the last line of the online version of this primer is
+
+<PRE>
+&lt;ADDRESS&gt;A Beginner's Guide to HTML / NCSA / pubs@ncsa.uiuc.edu &lt;/ADDRESS&gt;
+</PRE>
+
+<P>
+The result is <BR><BR>
+
+<ADDRESS>A Beginner's Guide to HTML / NCSA / pubs@ncsa.uiuc.edu </ADDRESS>
+
+<H3><A NAME="A1.4.5">Character Formatting</A></H3>
+
+Individual words or sentences can be put in special styles. There are two 
+types of styles: logical and physical. <DFN>Logical styles</DFN>tag text 
+according to its meaning, while <DFN>physical styles</DFN>specify the 
+specific appearance of a section. For example, in the preceding sentence, 
+the words ``logical styles'' was tagged as a ``definition.''  The same 
+effect (formatting those words in italics), could have been achieved via a 
+different tag that specifies merely ``put these words in italics.''
+
+<H4><A NAME="A1.4.5.1">Use logical tags when possible</A></H4>
+
+If physical tags and logical tags produce the same result on the screen, 
+why are there both? We devolve, for a couple of paragraphs, into the 
+philosophy of SGML, which can be summed in a Zen-like mantra: ``Trust your 
+browser.''
+
+<P>
+In the ideal SGML universe, content is divorced from presentation.  Thus, 
+SGML tags a level one heading as a level one heading, but does not specify 
+that the level one heading should be, for instance, 24-point bold Times 
+centered on the top of a page. The advantage of this approach (it's similar 
+in concept to style sheets in many word processors) is that if you decide 
+to change level one headings to be 20-point left-justified Helvetica, all 
+you have to do is change the definition of the level one heading in the 
+presentation device (i.e., the World Wide Web browser).
+
+<P>
+The other advantage of logical tags is that it helps enforce consistency in 
+your documents. It's easier to tag something as <SAMP>&lt;H1&gt;</SAMP> 
+than to remember that level one headings are 24 point bold Times or 
+whatever. The same is true for character styles. For example, consider the 
+<SAMP>&lt;STRONG&gt;</SAMP> tag. Most browsers render it in bold text. 
+However, it is possible that someone would prefer that these sections be 
+rendered in red instead. Logical styles offer this flexibility.
+
+<H4><A NAME="A1.4.5.2">Using character tags</A></H4>
+
+<OL>
+    <LI>Start with <SAMP>&lt;</SAMP><VAR>tag</VAR><SAMP>&gt;</SAMP>, 
+    where<SAMP>    </SAMP><VAR>tag</VAR> is the desired character formatting 
+    tag, to indicate the beginning of the tagged text.
+    <LI>Enter the tagged text.
+    <LI>End the passage with <SAMP>&lt;/</SAMP><VAR>tag</VAR><SAMP>&gt;</SAMP>.
+</OL>
+
+<H4><A NAME="A1.4.5.3">Logical styles</A></H4>
+
+<DL COMPACT>
+    <DT><SAMP>&lt;DFN&gt;</SAMP><DD>for a word being defined. Typically 
+    rendered in italics. (<DFN>NCSA </DFN><DFN>Mosaic</DFN> is a World Wide Web 
+    browser.)
+    <DT><SAMP>&lt;EM&gt;</SAMP><DD>for emphasis. Typically rendered in italics. 
+    (<EM>Watch out for pick</EM><EM>pockets</EM>.)
+    <DT><SAMP>&lt;CITE&gt;</SAMP><DD> for titles of books, films, etc. 
+    Typically rendered in italics. (<CITE>A </CITE><CITE>Beginner's Guide to 
+    HTML</CITE>)
+    <DT><SAMP>&lt;CODE&gt;</SAMP><DD>for snippets of computer code. Rendered in 
+    a fixed-width font.    (The <SAMP>&lt;stdio.h&gt;</SAMP> header file)
+    <DT> <SAMP>&lt;KBD&gt;</SAMP><DD>for user keyboard entry. Should be 
+    rendered in a bold fixed-width    font, but many browsers render it in the 
+    plain fixed-width font. (Enter <KBD>passwd</KBD> to change your password.)
+    <DT><SAMP>&lt;SAMP&gt;</SAMP><DD>for computer status messages. Rendered in 
+    a fixed-width font. (<SAMP>Segmentation    fault: Core dumped.</SAMP>)
+    <DT><SAMP>&lt;STRONG&gt;</SAMP><DD>for strong emphasis. Typically rendered 
+    in bold. (<STRONG>Important</STRONG>)
+    <DT><SAMP>&lt;VAR&gt;</SAMP><DD>for a ``meta-syntactic'' variable. 
+    Typically rendered in italics.    (<VAR>file</VAR><VAR>name</VAR>)
+</DL>
+
+<H4><A NAME="A1.4.5.4">Physical styles</A></H4>
+
+<DL COMPACT>
+    <DT><SAMP>&lt;B&gt;</SAMP><DD>bold text
+    <DT><SAMP>&lt;I&gt;</SAMP><DD>italic text
+    <DT><SAMP>&lt;TT&gt;</SAMP><DD>typewriter text, e.g. fixed-width font.
+</DL>
+
+<P>
+Some browsers support nested character format tags (for example, using 
+<SAMP>&lt;B&gt;&lt;I&gt;some text&lt;/I&gt;&lt;/B&gt;</SAMP> to indicate 
+bold-italic text).  Other browsers, however, use only the innermost tag 
+(here, <SAMP>&lt;I&gt;</SAMP>) to determine the formatting. It is 
+recommended that you do not nest character format tags.
+
+<H3><A NAME="A1.4.6">Special Characters</A></H3>
+
+<H4><A NAME="A1.4.6.1">Escape sequences</A></H4>
+
+Three characters of the ASCII character set  --  the left angle 
+bracket(&lt;), the right angle bracket (&gt;), the ampersand (&amp;) and 
+the double quote(&quot;)  --  have special meaning within HTML and 
+therefore cannot be used ``as is.'' (The angle brackets are used to 
+indicate the beginning and end of HTML tags, and the ampersand is used to 
+indicate the beginning of an escape sequence.)
+
+<P>
+To use one of these characters in an HTML document, you must enter its 
+<DFN>escape </DFN><DFN>sequence</DFN> instead:
+
+<DL COMPACT>
+    <DT><SAMP>&amp;lt;</SAMP> <DD>the escape sequence for &lt;
+    <DT><SAMP>&amp;gt;</SAMP><DD>the escape sequence for &gt;
+    <DT><SAMP>&amp;amp;</SAMP><DD>the escape sequence for &amp;
+    <DT><SAMP>&amp;quot;</SAMP><DD>the escape sequence for &quot;
+</DL>
+
+<P>
+There are additional escape sequences to support accented characters.For 
+example:
+
+<DL COMPACT>
+    <DT><SAMP>&amp;ouml;</SAMP><DD>the escape sequence for a lowercase o with 
+    an umlaut: &otilde;
+    <DT><SAMP>&amp;ntilde;</SAMP><DD>the escape sequence for a lowercase n with 
+    an tilde: &ntilde;
+    <DT><SAMP>&amp;Egrave;</SAMP><DD>the escape sequence for an uppercase E 
+    with a grave mark: &Egrave;
+</DL>
+
+<P>
+Many such escapes exist and are available in a listing from CERN.
+
+<P>
+<STRONG>NOTE:</STRONG> Unlike the rest of HTML, the escape sequences are 
+case sensitive. You cannot, for instance, use &amp;LT; instead of &amp;lt;.
+
+<H4><A NAME="A1.4.6.2">Forced line breaks</A></H4>
+
+The <SAMP>&lt;BR&gt;</SAMP> tag forces a line break. (By contrast,most 
+browsers format the <SAMP>&lt;P&gt;</SAMP> paragraph tag with an additional 
+blank line in order to indicate the beginning the new paragraph more 
+clearly.)
+
+<P>
+One use of <SAMP>&lt;BR&gt;</SAMP> is in formatting addresses:
+
+<PRE>
+National Center for Supercomputing Applications&lt;BR&gt;    
+605 East Springfield Avenue&lt;BR&gt;
+Champaign, Illinois 61820-5518 &lt;BR&gt;
+</PRE>
+
+<H4><A NAME="A1.4.6.3">Horizontal rules</A></H4>
+
+The <SAMP>&lt;HR&gt; tag </SAMP>produces a horizontal line the width of the 
+browser window.
+
+<H3><A NAME="A1.4.7">Inline Images</A></H3>
+
+NCSA Mosaic can display X Bitmap (XBM) or GIF format images within HTML 
+documents.  Each image takes time to process and slows down the initial 
+display of the document.  Using a particular image multiple times in a 
+document causes very little performance degradation compared to using the 
+image only once.
+
+<P>
+To include an inline image in your document, use
+
+<PRE>
+&lt;IMG SRC=<VAR>image_URL</VAR>&gt;
+</PRE>
+
+<P>
+where <VAR>image_URL</VAR> is the URL of the image file. The syntax 
+for<SAMP>IMG SRC </SAMP>URLs is identical to that used in anchors. If the 
+image file is a GIF file, then the file name part of 
+<VAR>image_URL</VAR><STRONG>must</STRONG> end with <SAMP>.gif</SAMP>. 
+Similarly,file names of X Bitmap images must end with <SAMP>.xbm</SAMP>.
+
+<P>
+<IMG SRC = "Graphics/RandomPic.gif" ALT = "">
+By default the bottom of an image is aligned with the text as shown in this paragraph.
+
+<P>
+<IMG SRC = "Graphics/RandomPic.gif" ALT = "" ALIGN=TOP>  
+Use the <SAMP>ALIGN=TOP</SAMP> parameter if you want the browser to align adjacent 
+text with the top of the image as shown in this paragraph. The full inline 
+image tag with the top alignment is:
+
+<PRE>
+&lt;IMG ALIGN=top SRC=<VAR>image_URL</VAR>&gt;
+</PRE>
+
+<P>
+<IMG SRC = "Graphics/RandomPic.gif" ALT = "" ALIGN=MIDDLE>
+<SAMP>ALIGN=MIDDLE</SAMP> aligns the text with the center of the image.
+
+<H4><A NAME="A1.4.7.1">Alternate text for viewers that can't display 
+images</A></H4>
+
+Some World Wide Web browsers, namely those that run on VT100 terminals, 
+cannot display images. However, often there is suitable text to replace the 
+image. The <SAMP>ALT</SAMP> modifier tag allows you to specify text to be 
+displayed when an image cannot be displayed. For example,
+
+<PRE>
+&lt;IMG SRC = &quot;UpArrow.gif&quot; ALT=&quot;Up&quot;&gt;
+</PRE>
+
+<P>
+where <SAMP>UpArrow.gif </SAMP>is the picture of an upward pointing arrow. 
+With NCSA Mosaic and other graphics-capable viewers, the user sees the up 
+arrow graphic.  With a VT100 browser, such as lynx, the user sees the word 
+``Up.''
+
+<H2><A NAME="A1.5">External Images, Sounds, and Animations</A></H2>
+
+You may want to have an image open as a separate document when a user 
+activates a link on either a word or a smaller version of the image that 
+you have inlined into your document.  This is considered an external image 
+and is useful if you do not wish to slow down the loading of the main 
+document.  Even if you include a small version of the image in your 
+document as the link to the larger image, the processing time for the 
+``postage stamp'' image is much less than for the full image.
+
+<P>
+To include a reference to a graphic in an external document, use
+
+<PRE>
+&lt;A HREF = <VAR>image_URL</VAR>&gt;link anchor&lt;/A&gt;
+</PRE>
+
+<P>
+The exact same syntax is used for links to external animations and sounds. 
+For example,
+
+<P>
+<SAMP>&lt;A HREF = &quot;QuickTimeMovie.mov&quot;&gt;link 
+anchor&lt;/A&gt;</SAMP>
+
+<P>
+specifies a link to a QuickTime movie. In fact, the only difference is the 
+file extension of the linked file. Some common file types and their 
+extensions are
+
+<DL COMPACT>
+    <DT><STRONG>File type</STRONG><DD><STRONG>Extension</STRONG>
+    <DT>Plain text<DD><SAMP>.txt</SAMP>
+    <DT>HTML document<DD><SAMP>.html</SAMP>
+    <DT>GIF image<DD><SAMP>.gif</SAMP>
+    <DT>TIFF image<DD><SAMP>.tiff</SAMP>
+    <DT>XBM bitmap image<DD><SAMP>.xbm</SAMP>
+    <DT>JPEG image<DD><SAMP>.jpg</SAMP> or <SAMP>.jpeg</SAMP>
+    <DT>PostScript file<DD><SAMP>.ps</SAMP>
+    <DT>AIFF sound<DD><SAMP>.aiff</SAMP>
+    <DT>AU sound<DD><SAMP>.au</SAMP>
+    <DT>QuickTime movie<DD><SAMP>.mov</SAMP>
+    <DT>MPEG movie<DD><SAMP>.mpeg</SAMP> or <SAMP>.mpg</SAMP>
+</DL>
+
+<P>
+Make sure your intended audience has the necessary viewers.  Most UNIX 
+workstations, for instance, are not able to view QuickTime movies.
+
+<H2><A NAME="A1.6">Troubleshooting</A></H2>
+
+<H3><A NAME="A1.6.1">Avoid Overlapping Tags</A></H3>
+
+Consider this snippet of HTML:
+
+<PRE>
+&lt;B&gt;This is an example of &lt;DFN&gt;overlapping&lt;/B&gt;HTML tags.&lt;/DFN&gt;
+</PRE>
+
+<P>
+The word ``overlapping'' is contained within both the 
+<SAMP>&lt;B&gt;</SAMP>and <SAMP>&lt;DFN&gt;</SAMP> tags.  How will the 
+browser format it?You won't know until you look, and different browsers 
+will likely react differently to this construct. In general, avoid 
+overlapping tags.
+
+<H3><A NAME="A1.6.2">Embed Anchors and Character Formats, But Avoid 
+Embedding Anything Else</A></H3>
+
+It is acceptable to embed anchors within another HTML element:
+
+<PRE>
+&lt;H1&gt;&lt;A HREF=&quot;Destination.html&quot;&gt;My heading&lt;/A&gt;&lt;/H1&gt;
+</PRE>
+
+<P>
+<STRONG>Do not</STRONG> embed a heading or another HTML element within an 
+anchor:
+
+<PRE>
+&lt;A HREF=&quot;Destination.html&quot;&gt; &lt;H1&gt;My heading&lt;/H1&gt; &lt;/A&gt;
+</PRE>
+
+<P>
+Although most browsers will currently handle this, it is forbidden by the 
+official HTML and HTML+ specifications, and it will not work with future 
+browsers.
+
+<P>
+Character formatting tags are used to modify the appearance of other tags:
+
+<PRE>
+&lt;UL&gt;
+    &lt;LI&gt;&lt;B&gt;A bold list item&lt;B&gt;
+        
+&lt;UL&gt;
+    &lt;LI&gt;&lt;I&gt;An italic list item&lt;/I&gt;
+
+&lt;/UL&gt;
+</PRE>
+
+<P>
+However, avoid embedding other types of HTML element tags.  For example,it 
+is tempting to embed a heading within a list, in order to make the font 
+size larger:
+
+<PRE>
+&lt;UL&gt;
+    &lt;LI&gt;&lt;H1&gt;A large heading&lt;/H1&gt;        
+
+&lt;UL&gt; 
+    &lt;LI&gt;&lt;H2&gt;Something slightly smaller&lt;/H2&gt;
+
+&lt;/UL&gt;
+</PRE>
+
+<P>
+Although some browsers, such as NCSA Mosaic for the X Window System,format 
+this quite nicely, it is unpredictable (because it is undefined) how other 
+browsers will handle it. For compatibility with all browsers,avoid these 
+kind of constructs.
+
+<P>
+What's the difference? This is again a question of SGML. The semantic 
+meaning of <SAMP>&lt;H1&gt;</SAMP> is that it's the main heading of a 
+document and that it should be followed by the content of the document.A 
+browser that formats<SAMP> &lt;H1&gt;</SAMP> as centered text on the page 
+is likely to get confused if it finds that tag within a list.
+
+<P>
+Character formatting tags also are generally not additive. You might expect 
+that
+
+<PRE>
+&lt;B&gt;&lt;I&gt;some text&lt;/I&gt;&lt;/B&gt;
+</PRE>
+
+<P>
+would produce bold italic text. On some browsers it does; other browsers 
+interpret only the innermost tag (here, the italics).
+
+<H3><A NAME="A1.6.3">Check your links</A></H3>
+
+In NCSA Mosaic, when an <SAMP>&lt;IMG&gt;</SAMP> tag points at an image 
+that does not exist or cannot be otherwise obtained from whatever server is 
+supposed to be serving it, a dummy image is substituted. For example, 
+entering <SAMP>&lt;IMG 
+HREF=&quot;DoesNotEx</SAMP><SAMP>ist.gif&quot;&gt;</SAMP>(where 
+<SAMP>DoesNotExist.gif</SAMP> is a nonexistent file) causes the following 
+to be displayed: <BR>
+<IMG SRC = "Graphics/DoesNotExist.pict" ALT = ""><BR>
+
+<P>
+If this happens, first make sure that the referenced image does in fact 
+exist, that the hyperlink has the correct information in the link entry, 
+and that the file permission is set appropriately (world-readable).
+
+<H2><A NAME="A1.7">A Longer Example</A></H2>
+
+Here is a longer example of an HTML document:
+
+<PRE>
+&lt;TITLE&gt;A Longer Example&lt;/TITLE&gt;    
+&lt;H1&gt;A Longer Example&lt;/H1&gt;
+
+This is a simple HTML document. This is the first    
+paragraph. &lt;P&gt;
+This is the second paragraph, which shows special effects.
+This is a word in &lt;I&gt;italics&lt;/I&gt;.
+This is a word in &lt;B&gt;bold&lt;/B&gt;.  
+Here is an inlined GIF image: 
+&lt;IMG SRC=&quot;myimage.gif&quot;&gt;. &lt;P&gt;    
+
+This is the third paragraph, which demonstrates links.  
+Here is a hypertext link from the word 
+&lt;A HREF=&quot;subdir/myfile.html&quot;&gt;foo&lt;/A&gt;
+to a document called &quot;subdir/myfile.html&quot;. 
+(If you try to follow this link, you will get an error screen.) &lt;P&gt;
+
+&lt;H2&gt;A second-level header&lt;/H2&gt;
+Here is a section of text that should 
+display as a fixed-width font: &lt;P&gt;    
+
+&lt;PRE&gt;
+On the stiff twig up there       
+Hunches a wet black rook
+Arranging and rearranging its feathers in the rain ...
+&lt;/PRE&gt;
+
+This is a unordered list with two items: &lt;P&gt;
+
+&lt;UL&gt;
+    &lt;LI&gt; cranberries
+    &lt;LI&gt; blueberries
+&lt;/UL&gt;
+
+This is the end of my example document. &lt;P&gt;
+
+&lt;ADDRESS&gt;Me (me@mycomputer.univ.edu)&lt;/ADDRESS&gt;
+</PRE>
+
+
+<HR>
+
+<P>
+copyright &copy; 1995 <A HREF="http://www.ncsa.uiuc.edu/ncsa.html">NSCA</A>
+
+<P>
+<ADDRESS>National Center for Supercomputing Applications / 
+pubs@ncsa.uiuc.edu</ADDRESS>
+
+<P>
+<HR>
+
+<H2> <A NAME="A1.8">For More Information</A></H2>
+
+More information on HTML is available in
+
+<UL>
+    <LI><A HREF="http://www.cc.ukans.edu/~acs/docs/other/HTML_quick.shtml"> the 
+    HTML Quick Reference Guide</A>, which gives a comprehensive listing of HTML 
+    codes
+    <LI><A HREF="http://www.cern.ch/WebOffice/Doc/OtherTools/Converters/">
+    HTML tools and conversion software</A>
+    <LI><A HREF="http://www.w3.org/">
+    World-Wide Web Consortium</A> site 
+    <LI><A HREF="http://vlib.org/">
+    WWW Virtual Library</A>.</P>
+
+</UL>
+
+<P>
+The Web originated with 
+<A HREF="http://www.w3.org/pub/WWW/People/W3Cpeople.html#Berners-Lee">
+Tim Berners-Lee</A> at CERN, the 
+<A HREF="http://www.cern.ch/CERN/">
+European Laboratory for Particle Physics</A>, in 1990.</P>
+
+<P>
+The development of the Web technology is currently driven by the 
+<A HREF="http://www.w3.org/">
+World-Wide Web Consortium</A>, W3C, , which is hosted by 
+<A HREF="http://www.lcs.mit.edu/">
+MIT/LCS</A> in the US, 
+<A HREF="http://www.inria.fr/">INRIA</A> in Europe, and 
+<A HREF="http://www.keio.ac.jp/">
+Keio</A> University in Japan.</P>
+
+<P>
+More information on using Alpha's HTML mode can be found in its manual !!!
+
+</BODY>
+
+</HTML>

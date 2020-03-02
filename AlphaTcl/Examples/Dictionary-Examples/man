@@ -1,0 +1,147 @@
+# -*-tcl-*- nowrap
+
+This is a 'virtual' dictionary.  It contains no data and depends on an
+external man programme.  (Designed for unix.)
+
+This is one of four example files for the Dictionary Package for Alpha.
+The other three files are
+   Tcl-commands
+   Country-codes
+   Whisky-distillers
+
+A dictionary file ideally has three sectors: The first sector is a header
+with a description for human beings --- this is what you are reading now. 
+The third sector is the main one: it is the raw data in alphabetical order. 
+The second sector is a description for the Dictionary Programme, referred
+to as the boot sector.  Here the programme learns how the file is
+structured: how the alphabetical order is defined, and how the result 
+should be presented on the screen.  As illustrated by the example 
+'Whisky-distillers', the two first sectors are not mandatory, if just 
+the file is in standard alphabetical order.  (In this case fallback 
+definitions stand in.  These are defined in the file dictionary.tcl)
+
+This example, which implements an interface to unix man pages, illustrates
+how the data sector can be empty! --- if just the format proc can gather the
+information on its own, in this case by asking unix.  This means that the
+actual lookup engine will always return the empty string, but then the
+format proc (which usually is meant just for formatting the return of
+the lookup programme) takes a 'second round' retrieving the actual data 
+from unix.
+
+Of course, this is a rather atypical dictionary --- if you want to see
+how a typical dictionary works, you should rather look in the example
+dictionary 'Country-codes'...
+
+One draw-back of this dictionary is that you cannot browse it, going back
+and forth.  If you don't give the exact word you just get an error message.
+If this is judged to be a serious short-coming, the solution will be to
+scan the whole MANPATH for man entries, and compile a sorted list of them.
+That version of the dictionary would be very similar to 'Tcl-commands'...
+
+
+Another feature of this particular dictionary is that it specifies
+proprietary window geometry for the dictionary console.  (Every dictionary
+has its own consoleGeometry variable: you can save the current geometry in
+the menu...)
+
+<!-- BEGIN TCL
+
+if { [catch { exec man -w man }] } {
+    error "No man"
+}
+
+proc normalForm { chunk } {
+    return [string trim $chunk]
+}
+
+# This is where the whole functionality of this dictionary is implemented:
+# Just ask groff to format the man page as plain ascii, and then return 
+# this result:
+proc formatOutput { dummy } {
+    variable historyList
+    histlist update historyList
+    set cmd [lindex [histlist back historyList] 1]
+    if { [llength $cmd] == 2 } {
+	if { [regexp {^(\d|n)$} [lindex $cmd 0]] } {
+	    set section [lindex $cmd 0]
+	    set cmd [lindex $cmd 1]
+	} elseif { [regexp {^(\d|n)$} [lindex $cmd 1]] } {
+	    set section [lindex $cmd 1]
+	    set cmd [lindex $cmd 0]
+	}
+	if { [catch { set path [exec man -w $section $cmd] } err] } {
+	    if { [catch { set path [exec man -w $section [string tolower $cmd]] } err] } {
+		return $err
+	    }
+	}
+    } else {
+	if { [catch { set path [exec man -w $cmd] } err] } {
+	    if { [catch { set path [exec man -w [string tolower $cmd]] } err] } {
+		return $err
+	    }
+	}
+    }
+
+    variable currentHeadword $cmd
+    
+    # (A) On my system (OSX 10.2.3 with groff 1.17.2), the following call works 
+    # correctly:  [But is duplicated below, according to Joachim... 12/06/2004]
+
+#     catch { exec groff -man -Tascii -P-b -P-u -P-o $path } res
+
+    # The -P flags are passed to grotty which then removed control chars.
+    # According to the grotty manual, it is not necessary to pipe through col.
+
+    # (B) On newer systems (say 10.2.8 with groff 1.18.1) the above does not 
+    # work.  It is necessary to pipe through col in order to remove control
+    # chars...  It seems to be a new bug in grotty...  Hence this is needed:
+    catch { exec groff -man -Tascii -P-b -P-u -P-o $path | col -b } res
+    # I would like to understand this problem better, because for long man
+    # pages, there is a delay for rendering (time spent in groff) and 
+    # an extra filter is just extra time...
+    
+    # (C) One could also do
+#     catch { exec groff -man -Tascii $path | col -b } res
+    # but even then the thing goes through grotty as postprocessor for groff,
+    # and hence there are still two filter doing the same thing...
+
+    # For some reasons \12 is not rendered properly.  Substitute:
+    regsub -all -- "\12" $res \r res
+    return $res
+}
+
+# Since the output format from groff is a long and narrow column, this 
+# dictionary has chosen to specify a matching window format.  It is 
+# computed from the screen dimensions.
+# 
+# Note: the name of the dictionary (which is chosen by the user, not by
+# this file!) is always equal to the namespace tail of the dictionary,
+# and when the boot sector is sourced we are in that namespace.  Hence
+# we know:
+set nameOfThisDictionary [namespace tail [namespace current]]
+set consoleWidth 503
+set consoleHeight [expr {$::screenHeight - 44}]
+set leftOffset [expr {$::screenWidth - $consoleWidth}]
+global tcl_platform
+if { $tcl_platform(platform) == "macintosh" } {
+    # Correct for window borders:
+    incr consoleHeight -6
+    incr leftOffset -7
+}  
+set topOffset 59
+# (Here we assume statusbar at bottom.  When we actually open the
+# window we check where the statusbar is and adjust correspondingly...)
+
+global DicomodeVars
+::console::create "* $nameOfThisDictionary *" -mode Text -minormode "dictionary" \
+  -font Mondaco -fontsize $DicomodeVars(fontSize) \
+  -g $leftOffset $topOffset $consoleWidth $consoleHeight
+
+unset consoleWidth
+unset consoleHeight
+unset leftOffset
+unset topOffset
+unset nameOfThisDictionary
+
+END TCL -->
+

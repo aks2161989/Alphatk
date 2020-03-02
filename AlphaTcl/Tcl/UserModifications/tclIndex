@@ -1,0 +1,6 @@
+# Tcl autoload index file, version 2.0
+set auto_index(t_default) [list source [file join $dir userTemplates.tcl]]
+set auto_index(t_latex) [list source [file join $dir userTemplates.tcl]]
+set auto_index(t_html) [list source [file join $dir userTemplates.tcl]]
+set auto_index(t_cpp_header) [list source [file join $dir userTemplates.tcl]]
+set auto_index(t_cpp_source) [list source [file join $dir userTemplates.tcl]]

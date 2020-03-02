@@ -1,0 +1,6 @@
+# Tcl autoload index file: each line identifies a file (nowrap)
+
+set "Bibconversion_index" {
+{bibAdditions.tcl dummyBibAdditions vince_parseFileNames vince_findFile vince_print vince_edit vince_askyesno vince_getFile }
+{bibConvert.tcl namespace Bib::convertToBib bibConvert bibconv::confirm_type bibconv::parse_args bibconv::not_new_item bibconv::throw_away bibconv::extract_item bibconv::read_record bibconv::make_item bibconv::clever_printing bibconv::print bibconv::convertfunnytcharstolatex bibconv::breakintolines bibconv::reformat_records bibconv::extract_vnp bibconv::parse_author bibconv::append_item bibconv::find_start bibconv::not_at_end }
+}

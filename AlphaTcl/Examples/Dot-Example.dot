@@ -1,0 +1,122 @@
+/* 
+ * This is an example of a dot file.  It is not very typical as a dot file,
+ * for three reasons: (i) the graph is just a tree, (ii) the nodes have
+ * strange names coming from some XML file, and (iii) there are tons of
+ * redundant node attributes.  (The file was produced by a script, not by
+ * hand editing --- hence it is an awful lot of code to produce something
+ * very simple.)  On the other hand, it does illustrate a few features of
+ * Alpha's dot mode, namely keyword and comment colouring, indentation,
+ * and funcs marking (marks graphs and subgraphs).  In the Graphviz
+ * distribution from http://www.pixelglow.com/graphviz/ there are lots of
+ * other dot file examples.
+ */
+
+graph "opEx" {
+    label="opEx"
+    // Settings for xml2dot
+    // See the dot guide for explanation and further settings
+    // (http://www.research.att.com/sw/tools/graphviz/dotguide.pdf)
+    
+    // Total graph size in inches:
+    size="7.5,4.0"
+    // Center graph:
+    center=true
+    // Font for title:
+    fontname="Palatino-Bold"
+    // Title size:
+    fontsize=14
+    // Min separation between ranks (in inches):
+    ranksep="0.2 equally"
+    // Min separation between nodes within the same rank (in inches):
+    nodesep=0.1
+    // Respect ordering of nodes as given in the input:
+    ordering=out
+    // Font and fontsize for node labels:
+    node [fontname="Palatino-Italic", fontsize=9, fixedsize]
+    
+    
+    // leaves have lowest rank
+    { rank=sink
+	domNode0x56f4190
+	domNode0x56f4214
+	domNode0x56f4240
+	ph1domNode0x56f46b8
+	domNode0x56f42f0
+	domNode0x56f4348
+	domNode0x56f4374
+	ph1domNode0x56f426c
+	domNode0x56f4424
+	domNode0x56f4450
+	domNode0x56f447c
+    }
+    
+    // constellation left 
+    subgraph "left" {
+	domNode0x56f46b8 [shape=none, label="", color=white]
+	// nodes:
+	domNode0x56f46e4 [label="a", shape=circle, height=0.2, style=filled, color=grey] 
+	domNode0x56f4190 [label="", shape=plaintext, height=0.2, width=0.2] 
+	domNode0x56f41bc [label="b", shape=circle, height=0.2, style=filled, color=grey] 
+	domNode0x56f41e8 [label="c", shape=circle, height=0.2, style=filled, color=grey] 
+	domNode0x56f4214 [label="", shape=plaintext, height=0.2, width=0.2] 
+	domNode0x56f4240 [label="", shape=plaintext, height=0.2, width=0.2] 
+	// edges:
+	domNode0x56f46b8 -- domNode0x56f46e4 // left -- a
+	domNode0x56f46e4 -- domNode0x56f4190 // a -- 
+	domNode0x56f46e4 -- domNode0x56f41bc // a -- b
+	domNode0x56f41bc -- domNode0x56f41e8 // b -- c
+	domNode0x56f41e8 -- domNode0x56f4214 // c -- 
+	domNode0x56f41e8 -- domNode0x56f4240 // c -- 
+    }
+    
+    // dummy cluster to produce some horizontal space
+    subgraph phantomdomNode0x56f46b8 {
+	ph0domNode0x56f46b8 [width=0.6 shape=none, label="", color=white] ;
+	ph1domNode0x56f46b8 [width=0.6 shape=none, label="", color=white] ;
+	ph0domNode0x56f46b8 -- ph1domNode0x56f46b8 [style=invis]
+    }
+    
+    // constellation right 
+    subgraph "right" {
+	domNode0x56f426c [shape=none, label="", color=white]
+	// nodes:
+	domNode0x56f4298 [label="p", shape=circle, height=0.2, style=filled, color=grey] 
+	domNode0x56f42c4 [label="y", shape=circle, height=0.2, style=filled, color=grey] 
+	domNode0x56f42f0 [label="a", shape=plaintext, height=0.2, width=0.2] 
+	domNode0x56f431c [label="x", shape=circle, height=0.2, style=filled, color=grey] 
+	domNode0x56f4348 [label="b", shape=plaintext, height=0.2, width=0.2] 
+	domNode0x56f4374 [label="c", shape=plaintext, height=0.2, width=0.2] 
+	// edges:
+	domNode0x56f426c -- domNode0x56f4298 // right -- p
+	domNode0x56f4298 -- domNode0x56f42c4 // p -- y
+	domNode0x56f4298 -- domNode0x56f42f0 // p -- a
+	domNode0x56f4298 -- domNode0x56f431c // p -- x
+	domNode0x56f431c -- domNode0x56f4348 // x -- b
+	domNode0x56f431c -- domNode0x56f4374 // x -- c
+    }
+    
+    // dummy cluster to produce some horizontal space
+    subgraph phantomdomNode0x56f426c {
+	ph0domNode0x56f426c [width=0.6 shape=none, label="", color=white] ;
+	ph1domNode0x56f426c [width=0.6 shape=none, label="", color=white] ;
+	ph0domNode0x56f426c -- ph1domNode0x56f426c [style=invis]
+    }
+    
+    // constellation compositionTree 
+    subgraph "compositionTree" {
+	domNode0x56f43a0 [shape=none, label="", color=white]
+	// nodes:
+	domNode0x56f43cc [label="o", shape=circle, height=0.2, style=filled, color=grey] 
+	domNode0x56f43f8 [label="i", shape=circle, height=0.2, style=filled, color=grey] 
+	domNode0x56f4424 [label="p", shape=plaintext, height=0.2, width=0.2] 
+	domNode0x56f4450 [label="y", shape=plaintext, height=0.2, width=0.2] 
+	domNode0x56f447c [label="x", shape=plaintext, height=0.2, width=0.2] 
+	// edges:
+	domNode0x56f43a0 -- domNode0x56f43cc // compositionTree -- o
+	domNode0x56f43cc -- domNode0x56f43f8 // o -- i
+	domNode0x56f43cc -- domNode0x56f4424 // o -- p
+	domNode0x56f43cc -- domNode0x56f4450 // o -- y
+	domNode0x56f43cc -- domNode0x56f447c // o -- x
+    }
+    
+}

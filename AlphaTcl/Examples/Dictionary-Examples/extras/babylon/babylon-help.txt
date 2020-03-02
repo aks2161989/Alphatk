@@ -1,0 +1,56 @@
+How to get plain text files out of Babylon.
+===========================================
+
+Babylon is a commercial dictionary programme for Windows, translating from
+English to several other languages.  Free dictionary files are available,
+but in a proprietary binary format.  Frédéric Jolliton has written a
+C-programme called babytrans which is a unix command line interface to
+these files.  (This programme is the basis of several linux versions of
+babylon (wordtrans, Qtrans, etc.))
+
+Jolliton's programme is available at 
+http://fjolliton.free.fr/babytrans/babylon-c.tgz
+
+The babylon dictionary files lie at
+ftp://ftp.ac-grenoble.fr/ge/languages/babylon_dict/
+
+You need to take the english.dic (which is a sort of index file needed for
+translation to any other language), and then choose among the EngtoLan.dic
+files (where Lan is one of Fre, Spa, Ger, Por, Ita, Dut, Eng...)
+
+Using this programme you can look up all the words you want, and write
+to a file.  I have written a tcl script to do that: it requires an English
+wordlist: then it looks up all the words in this list, and write a file
+with markup and tcl procs, ready to be used in Alpha.
+
+
+Here are the detailed instructions:
+
+The operation takes place in a unix prompt, and it assumes tclsh is
+installed on the system (as well as a C compiler).
+
+1) Download the dictionary files from 
+       ftp://ftp.ac-grenoble.fr/ge/languages/babylon_dict/
+2) Download and unpack Jolliton's C programme babylon-c from
+       http://fjolliton.free.fr/babytrans/babylon-c.tgz
+3) Compile it. (Just go into the directory and type 'make').
+   The resulting executable 'babylon' should be moved to the
+	 same directory as the dictionary files.
+4) Check that babylon works, looking up some word with the command
+       ./babylon english.dic EngtoLan.dic hammock
+	 This should display the corresponding dictionary entry on the screen
+5) Download a wordlist and leave it in this same directory.
+   (I have compiled one specially for this task --- you can take it at 
+	     http://www-math.unice.fr/~kock/alpha-tcl/aWordlist.gz )
+6) Move the two files drainbab.tcl and norm.tcl into the directory you
+   are working in
+7) open a tclsh and type
+       source drain.tcl; drain aWordlist EngtoLan.dic
+	 (where Lan is one of Fre, Eng, Dut, Spa, Por, Ger, Ita...)
+	 This process may take an hour or so, and it will produce a 
+	 dictionary file called EngtoLan.dictionary
+	 (Exit the tcl shell by saying exit).
+8) It remains to convert \n newlines into \r, and Latin1 encoding into
+   MacRoman.  To do this, open the file EngtoLan.dictionary in Alpha, 
+	 and use filters.
+

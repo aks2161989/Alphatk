@@ -1,0 +1,90 @@
+% Omega Translation Process File
+%
+% This is a sample (not real life) file for the Omega mode with Alpha.  The
+% features which are herein described will work only if omegaMode has been
+% properly installed.
+% 
+% - the Omega mode is established automatically thanks to the .otp
+% extension in the file's name.  See the Otp Syntax submenu of Omega Menu
+% and try the various items.
+% 
+% - syntax coloring : the typical Omega keywords are in magenta.  Tables
+% are in red.  See the mode preferences to customize them.
+% 
+% - the Numbering submenu lets you choose the format for integer values
+% (dec, oct or hex)
+% 
+% - the 'M' pop-up menu helps you to navigate in the file : it lists all
+% the keywords and tables.
+% 
+% Please see the OmegaSample.tex and OplSample.opl files for more examples
+% about Omega Mode.
+
+input: 1;
+
+output: 2;
+
+tables:
+sampTbl_1[@"28] ={
+@"044C, @"044B, @"0437, @"0448, @"044D, @"0449, @"0447, @"044A,
+@"042E, @"0410, @"0411, @"0426, @"0414, @"0415, @"0424, @"0413,
+@"0425, @"0418, @"0419, @"041A, @"041B, @"041C, @"041D, @"041E,
+@"041F, @"042F, @"0420, @"0421, @"0422, @"0423, @"0416, @"0412,
+@"042C, @"042B, @"0417, @"0428, @"042D, @"0429, @"0427, @"042A
+};
+
+
+sampTbl_2[@"111] ={
+@"003d, @"223c, @"2229, @"222a, @"22a5, @"2220, @"221f, @"22bf,
+@"33d2, @"33d1, @"222b, @"222e, @"2235, @"2234, @"2640, @"2642,
+@"2641, @"2609, @"2191, @"2193, @"2192, @"2190, @"2196, @"2197,
+@"2199, @"2198, @"2016, @"002c, @"ff0f, @"ff3c, @"002f, @"005c,
+@"ff04, @"00a5, @"3012, @"00a2, @"00a3, @"ff05, @"ff20, @"2103,
+@"2109, @"0024, @"0025, @"0040, @"33d5, @"339c, @"339d, @"339e,
+@"33ce, @"33a1, @"338e, @"338f, @"33c4, @"00b0, @"5159, @"515b,
+@"515e, @"515d, @"5161, @"5163, @"55e7, @"74e9, @"7cce, @"2581,
+@"2582, @"2583, @"2584, @"2585, @"2586, @"2587, @"2588, @"258f,
+@"258e, @"258d, @"258c, @"258b, @"258a, @"2589, @"253c, @"2534,
+@"252c, @"2524, @"251c, @"2594, @"2500, @"2502, @"2595, @"250c,
+@"2510, @"2514, @"2518, @"256d, @"256e, @"2570, @"256f, @"2550,
+@"255e, @"256a, @"2561, @"25e2, @"25e3, @"25e5, @"25e4, @"2571,
+@"2572, @"2573, @"ff10, @"ff11, @"ff12, @"ff13, @"ff14, @"ff15,
+@"ff16, @"ff17, @"ff18, @"ff19, @"2160, @"2161, @"2162, @"2163,
+@"2164, @"2165, @"2166, @"2167, @"2168, @"2169, @"3021, @"3022,
+@"3023, @"3024, @"3025, @"3026, @"3027, @"3028, @"3029, @"fffd,
+@"5344, @"fffd, @"ff21, @"ff22, @"ff23, @"ff24, @"ff25, @"ff26,
+@"ff27, @"ff28, @"ff29, @"ff2a, @"ff2b, @"ff2c, @"ff2d, @"ff2e,
+@"ff2f, @"ff30, @"ff31, @"ff32, @"ff33, @"ff34, @"ff35, @"ff36,
+@"ff37, @"ff38, @"ff39, @"ff3a, @"ff41, @"ff42, @"ff43, @"ff44,
+@"ff45, @"ff46, @"ff47, @"ff48, @"ff49, @"ff4a, @"ff4b, @"ff4c,
+@"ff4d, @"ff4e, @"ff4f, @"ff50, @"ff51, @"ff52, @"ff53, @"ff54,
+@"ff55, @"ff56, @"ff57, @"ff58, @"ff59, @"ff5a, @"0391, @"0392,
+@"0393, @"0394, @"0395, @"0396, @"0397, @"0398, @"0399, @"039a,
+@"039b, @"039c, @"039d, @"039e, @"039f, @"03a0, @"03a1, @"03a3,
+@"03a4, @"03a5, @"03a6, @"03a7, @"03a8, @"03a9, @"03b1, @"03b2,
+@"03b3, @"03b4, @"03b5, @"03b6, @"03b7, @"03b8, @"03b9, @"03ba,
+@"03bb, @"03bc, @"03bd, @"03be, @"03bf, @"03c0, @"03c1, @"03c3,
+@"03c4, @"03c5, @"03c6, @"03c7, @"03c8, @"03c9, @"3105, @"3106,
+@"3107, @"3108, @"3109, @"310a, @"310b, @"310c, @"310d, @"310e,
+@"310f, @"3110, @"3111, @"3112, @"3113, @"3114, @"3115, @"3116,
+@"3117, @"3118, @"3119, @"311a, @"311b, @"311c, @"311d, @"311e,
+@"311f, @"3120, @"3121, @"3122, @"3123, @"3124, @"3125, @"3126,
+};
+
+
+states: MEDIAL,NUMERAL;
+
+aliases:
+UNIFORM		  = (@"0621 | @"0674 | @"066E | @"066F | @"06EF | @"063F);
+SPECIAL           = (@"FDF2) ;
+BIFORM		  = (@"0622-@"0625 | @"0627 | @"0629 | @"062F-@"0632 | @"0648 | 
+		     @"0649 | @"065D | @"065E | 
+		     @"0671-@"0673 | @"0675-@"0677 | @"0688-@"069A |
+		     @"06BA | @"06C0-@"06CB | @"06CD | @"06D2 | @"06D3 |
+		     @"06FF);
+
+expressions:
+
+@"00-@"7F	=> \1;
+@"C0-@"FF	=> #(sampTbl_1[\1-@"C0]);
+.		=> @"FFFD;

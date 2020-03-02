@@ -1,0 +1,165 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+
+<HTML>
+
+<HEAD>
+
+<TITLE>Property dialogs</TITLE>
+
+<LINK HREF="../Style%20Sheet/manual.css" REL="stylesheet" TYPE="text/css">
+
+
+</HEAD>
+
+<BODY>
+<!-- #INCLUDE INCLPATH="maintop.html" -->
+
+<SCRIPT TYPE="text/javascript">
+<!--
+if (document.body.clientHeight) {
+	height = document.body.clientHeight - 50;
+} else {
+	height = window.innerHeight - 50 ;
+}
+document.write('<div class="main" style="height: ' + height + 'px;">');
+// -->
+</SCRIPT>
+
+
+<!-- /#INCLUDE -->
+
+<H1>CSS property dialogs</H1>
+
+
+
+<P>
+Most menu items in the CSS menu lets you specify CSS 
+properties. What happens when you select such a menu item is the following.
+</P>
+
+<P>
+First Alpha checks if there already are any values for the selected set of 
+properties. Let's say you have the following in your document
+</P>
+
+<PRE CLASS="code">
+<SPAN CLASS="attrcode">H1</SPAN> {
+    <SPAN CLASS="htmlcode">color:</SPAN> #123456;
+    <SPAN CLASS="htmlcode">text-align:</SPAN> right;
+}
+</PRE>
+
+<P>
+and the current position is somewhere between the braces. If you now choose 
+<SPAN CLASS="menuitem">Text</SPAN> from the <SPAN CLASS="menu">CSS</SPAN> 
+menu, Alpha first looks for all text properties between the braces. In this 
+case it would find <SPAN CLASS="item">text-align: right</SPAN>.
+</P>
+
+<P>
+A dialog window is now opened where you can specify the various 
+properties. In the example, 'right' will be the default value for 
+'text-align' as that was the value found. If Alpha finds something it 
+doesn't understand a warning message it shown. Everything Alpha doesn't 
+understand will then be ignored.
+</P>
+
+<P>
+When you have specified the values you want they are inserted and any old 
+values are deleted, in the example 'text-align: right'.
+</P>
+
+<P>
+Because Alpha first inserts the new values and then deletes the old, you 
+may have use 'Undo' more than ones to undo something.
+</P>
+
+<H3>! important</H3>
+
+<P>
+In CSS it is possible to increase the weight of a declaration by adding 
+!&nbsp;important at the end, for example
+</P>
+
+<PRE CLASS="code">
+<SPAN CLASS="attrcode">H1</SPAN> {
+    <SPAN CLASS="htmlcode">color:</SPAN> #FF0000 ! <SPAN CLASS="htmlcode">important</SPAN>;
+}
+</PRE>
+
+<P>
+In the property dialogs there is no way to say that a property should be 
+marked by !&nbsp;important, but if you make a change by using a property 
+dialog Alpha remembers which ones are important and marks the same 
+properties as important after the change.
+</P>
+
+<H3>The property dialogs</H3>
+
+<P>
+General things to note:
+</P>
+
+<UL>
+	<LI>When you specify a length or size, like for font-size, you can type 
+	the unit in the textbox rather than selecting it in the menu (faster). 
+	If you type a unit the one in the menu is  ignored.<BR>
+	<IMG SRC="../bilder/length.png" ALT="Length box" WIDTH="159" 
+	HEIGHT="197">
+	<LI>In some cases there is a shorthand for a set of properties. Then 
+	there are two checkboxes at the bottom of the dialog window.<BR>
+	<IMG SRC="../bilder/inheritall.png" ALT="Inherit all" WIDTH="389"
+	HEIGHT="24"><BR>
+	<SPAN CLASS="item">Inherit all</SPAN> means that you give the value 
+	'inherit' to the shorthand property and ignore the individual values. 
+	Checking <SPAN CLASS="item">Use shorthand form if possible</SPAN> will 
+	make Alpha try to express the properties using the shorthand. Otherwise 
+	all individual properties are inserted into the document.
+	<LI>For some properties, like margin, you can specify values for one or 
+	two sides and let these values also apply to the other sides. For such 
+	properties there will be two radio buttons where you can choose if you 
+	want to set the values individually or if you want the values specified 
+	also apply to the other sides.<BR>
+	<IMG SRC="../bilder/allvalues.png" ALT="All values" WIDTH="324"
+	HEIGHT="41">
+</UL>
+
+<!-- #INCLUDE INCLPATH="mainbottom.html" -->
+
+<DIV STYLE="height: 50px">
+</DIV>
+
+<SCRIPT TYPE="text/javascript">
+<!--
+document.write('<\/DIV>');
+// -->
+</SCRIPT>
+
+
+<!-- /#INCLUDE -->
+
+
+
+<!-- #INCLUDE INCLPATH="navigation.html" PREV="[manualPrevPage CSS.html]" 
+NEXT="[manualNextPage completionscss.html]" -->
+
+<P>
+<script type="text/javascript">
+<!--
+document.write('<div class="navigation" style="top: ' + height + 'px; height: 50px">');
+// -->
+</script>
+<A HREF="CSS.html">Previous page</A>
+<A HREF="completionscss.html">Next page</A>
+<SCRIPT TYPE="text/javascript">
+<!--
+document.write('<\/DIV>');
+// -->
+</SCRIPT>
+</P>
+
+<!-- /#INCLUDE -->
+
+</BODY>
+
+</HTML>

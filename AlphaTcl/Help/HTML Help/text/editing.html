@@ -1,0 +1,339 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+
+<HTML>
+
+<HEAD>
+
+<TITLE>Editing features</TITLE>
+
+<LINK HREF="../Style%20Sheet/manual.css" REL="stylesheet" TYPE="text/css">
+
+
+</HEAD>
+
+<BODY>
+
+<!-- #INCLUDE INCLPATH="maintop.html" -->
+
+<SCRIPT TYPE="text/javascript">
+<!--
+if (document.body.clientHeight) {
+	height = document.body.clientHeight - 50;
+} else {
+	height = window.innerHeight - 50 ;
+}
+document.write('<div class="main" style="height: ' + height + 'px;">');
+// -->
+</SCRIPT>
+
+
+<!-- /#INCLUDE -->
+
+
+<H1>Other editing features</H1>
+
+
+<P>
+<IMG SRC="../bilder/editingmenu.png" ALT="Editing menu" WIDTH="223"
+HEIGHT="276" CLASS="rightpic">
+The <SPAN CLASS="menu">Editing</SPAN> submenu contains many useful features 
+for basic editing of HTML code. 
+</P>
+
+<div CLASS="item">Select Container</div>
+<DIV CLASS="indent">Selects matching 
+tags which include the current position or selection.  Repeated, it expands 
+the selection.  Like the "Balance" item under the Edit menu.  All tags 
+without a corresponding closing tag are ignored. As a simple example let us 
+say you have the text
+
+<P CLASS="code">
+here is some text <SPAN CLASS="htmlcode">&lt;B&gt;</SPAN>blah| blah<SPAN
+CLASS="htmlcode">&lt;/B&gt;</SPAN> some more blah
+</P>
+
+<P>
+then <SPAN CLASS="item">Select Container</SPAN> will select 
+</P>
+
+<P CLASS="code">
+here is some text <SPAN CLASS="selectedcode"><SPAN 
+CLASS="htmlcode">&lt;B&gt;</SPAN>blah blah<SPAN 
+CLASS="htmlcode">&lt;/B&gt;</SPAN></SPAN> some more blah
+</P>
+
+</DIV>
+
+<div CLASS="itempara">Select in Container</div>
+
+<DIV CLASS="indent">
+Selects the content of matching tags which include the current position or 
+selection. As a simple example let us again
+say you have the text
+
+<P CLASS="code">
+here is some text <SPAN CLASS="htmlcode">&lt;B&gt;</SPAN>blah| blah<SPAN
+CLASS="htmlcode">&lt;/B&gt;</SPAN> some more blah
+</P>
+
+<P>
+then <SPAN CLASS="item">Select in Container</SPAN> will select 
+</P>
+
+<P CLASS="code">
+here is some text <SPAN 
+CLASS="htmlcode">&lt;B&gt;</SPAN><SPAN CLASS="selectedcode">blah blah</SPAN><SPAN 
+CLASS="htmlcode">&lt;/B&gt;</SPAN> some more blah
+</P>
+
+</DIV>
+
+
+<div CLASS="itempara">Select Tag</div>
+
+<DIV CLASS="indent">
+Selects the first tag at or to the left of the current position. Repeated, 
+it will jump to the next tag to the left. As a simple example let us again
+say you have the text
+
+<P CLASS="code">
+here is some text <SPAN CLASS="htmlcode">&lt;B&gt;</SPAN>blah| blah<SPAN
+CLASS="htmlcode">&lt;/B&gt;</SPAN> some more blah
+</P>
+
+<P>
+then <SPAN CLASS="item">Select Tag</SPAN> will select 
+</P>
+
+<P CLASS="code">
+here is some text <SPAN CLASS="selectedcode"><SPAN 
+CLASS="htmlcode">&lt;B&gt;</SPAN></SPAN>blah blah<SPAN 
+CLASS="htmlcode">&lt;/B&gt;</SPAN> some more blah
+</P>
+
+</DIV>
+
+
+<div CLASS="itempara">Untag</div>
+
+<DIV CLASS="indent">
+Removes a tag pair surrounding the current position or selection.  All tags 
+without a corresponding closing tag are ignored. As a simple example let us again
+say you have the text
+
+<P CLASS="code">
+here is some text <SPAN CLASS="htmlcode">&lt;B&gt;</SPAN>blah| blah<SPAN
+CLASS="htmlcode">&lt;/B&gt;</SPAN> some more blah
+</P>
+
+<P>
+then <SPAN CLASS="item">Untag</SPAN> will remove the tags to give you 
+</P>
+
+<P CLASS="code">
+here is some text blah| blah some more blah
+</P>
+
+</DIV>
+
+<div CLASS="itempara">Untag and Select</div>
+
+<DIV CLASS="indent">
+Removes a tag pair surrounding the current position or selection and 
+selects the content of the tag pair. All tags without a corresponding 
+closing tag are ignored. As a simple example let us again say you have the 
+text
+<P CLASS="code">
+here is some text <SPAN CLASS="htmlcode">&lt;B&gt;</SPAN>blah| blah<SPAN
+CLASS="htmlcode">&lt;/B&gt;</SPAN> some more blah
+</P>
+
+<P>
+then <SPAN CLASS="item">Untag and Select</SPAN> will remove the tags and 
+select the text to give you 
+</P>
+
+<P CLASS="code">
+here is some text <SPAN CLASS="selectedcode">blah blah</SPAN> some more blah
+</P>
+
+<P>
+In this example this would be useful if you want to change the B tags to I 
+tags. Then you have the text selected and can easily <A
+HREF="wrapping.html">wrap</A> it with I tags.
+</P>
+
+</DIV>
+
+
+<div CLASS="itempara">Remove Opening</div>
+<DIV CLASS="indent">If the first tag to 
+the left of the current position is a tag without a corresponding closing 
+tag, it is removed. As a simple example let us say you have the text
+
+<P CLASS="code">
+here is some text <SPAN CLASS="htmlcode">&lt;IMG </SPAN><SPAN
+CLASS="attrcode">SRC=</SPAN><SPAN CLASS="textcode">"pic.gif"</SPAN><SPAN
+CLASS="htmlcode">&gt;</SPAN> blah| blah
+</P>
+
+<P>
+then <SPAN CLASS="item">Remove Opening</SPAN> will remove the tag to give you 
+</P>
+
+<P CLASS="code">
+here is some text blah| blah
+</P>
+
+</DIV>
+
+
+<div CLASS="itempara"><A NAME="edit">Edit Tag...</A></div>
+
+<DIV CLASS="indent">
+To change the attributes of the tag above or to the left of the current 
+position. This is done in the way explained in the section <A 
+HREF="attributes.html">Giving attributes to HTML elements</A>, but this 
+time the dialog box (or status bar) contains the current attribute values 
+as default values.
+
+<P>
+If the element you want to change contains anything HTML mode does not 
+understand, a warning message will first be shown.  If you decide to insert 
+a new tag, everything HTML mode does not understand will be removed.
+</P>
+
+</DIV>
+
+
+<div CLASS="itempara">Change Choice</div>
+
+<DIV CLASS="indent">
+To change an attribute with predefined choices, without bringing up a 
+dialog box.  Put the insertion point at an attribute with predefined 
+choices. <SPAN CLASS="item">Change Choice</SPAN> will then change the 
+attribute to the next choice in the list of choices. Use <SPAN 
+CLASS="item">Change Choice</SPAN> several times to go through the list. As 
+a simple example <SPAN CLASS="code"> <SPAN CLASS="htmlcode">&lt;P 
+</SPAN><SPAN CLASS="attrcode">ALIGN=</SPAN><SPAN 
+CLASS="textcode">"CENTER"</SPAN><SPAN CLASS="htmlcode">&gt;</SPAN></SPAN> is 
+changed to <SPAN CLASS="code"> <SPAN CLASS="htmlcode">&lt;P 
+</SPAN><SPAN CLASS="attrcode">ALIGN=</SPAN><SPAN 
+CLASS="textcode">"RIGHT"</SPAN><SPAN CLASS="htmlcode">&gt;</SPAN></SPAN> 
+which is changed to <SPAN CLASS="code"> <SPAN CLASS="htmlcode">&lt;P 
+</SPAN><SPAN CLASS="attrcode">ALIGN=</SPAN><SPAN 
+CLASS="textcode">"LEFT"</SPAN><SPAN CLASS="htmlcode">&gt;</SPAN></SPAN> 
+etc.
+</DIV> 
+
+<div CLASS="itempara">Reveal Color</div>
+
+<DIV CLASS="indent">
+If you move the current position to, or select any part of, a color 
+attribute in the document and then choose <SPAN CLASS="item">Reveal 
+color</SPAN>, the number will be replaced with its name, and if you choose 
+<SPAN CLASS="item">Reveal color</SPAN> again, the number appears again. For 
+example "#0000FF" is changed to "blue" and back again. This is useful if 
+you want to know what a cryptic color number stands for.  Do not forget 
+that the browser only understands the number so do not leave the name in 
+the document.
+</DIV>
+
+<div CLASS="itempara"><A NAME="insert">Insert Attributes</A></div>
+
+<DIV CLASS="indent">
+To insert new attributes in a tag at the current position. Let's say that 
+the current position is at a TABLE tag. If you now use <SPAN CLASS="item">Insert Attributes</SPAN> 
+a window is opened where you can pick new attributes for TABLE. 
+Shift-click to select the ones you want. The new attributes are now 
+inserted like this:
+<P CLASS="code">
+<SPAN CLASS="htmlcode">&lt;TABLE </SPAN><SPAN CLASS="attrcode">CELLSPACING=</SPAN><SPAN
+CLASS="textcode">"</SPAN>|<SPAN CLASS="textcode">"</SPAN> <SPAN CLASS="attrcode">CELLPADDING=</SPAN><SPAN
+CLASS="textcode">"&#8226;"</SPAN><SPAN CLASS="htmlcode">&gt;</SPAN>&#8226;
+</P>
+
+<P>
+You can now type the attribute values and use tab to jump between the 
+attributes. The attributes are inserted exactly in the same way as when you 
+<A HREF="contextmenu.html">use the contextual menu</A>.
+</P>
+</DIV>
+
+<div CLASS="itempara">Tags to Uppercase</div>
+
+<DIV CLASS="indent">
+Transforms all tags to uppercase. If there is a selection, the code in the 
+selection is transformed, otherwise the whole document is transformed.
+</DIV>
+
+<div CLASS="itempara">Tags to Lowercase</div>
+
+<DIV CLASS="indent">
+Transforms all tags to lowercase. 
+</DIV>
+
+<div CLASS="itempara">Quote All Attributes</div>
+
+<DIV CLASS="indent">
+Puts quotes around all attribute values, changing <SPAN CLASS="code"><SPAN 
+CLASS="htmlcode">&lt;TAG </SPAN>ATTR=VAL<SPAN 
+CLASS="htmlcode">&gt;</SPAN></SPAN> to <SPAN CLASS="code"><SPAN 
+CLASS="htmlcode">&lt;TAG </SPAN><SPAN CLASS="attrcode">ATTR=</SPAN><SPAN
+CLASS="textcode">"VAL"</SPAN><SPAN 
+CLASS="htmlcode">&gt;</SPAN></SPAN>.
+This is intended to be used to make the <A 
+HREF="coloring.html">coloring</A> work better. If there is a selection, 
+this function applies to the selection, otherwise it applies to the whole 
+document.
+</DIV>
+
+<div CLASS="itempara">Remove Tags</div>
+
+<DIV CLASS="indent">
+Removes all tags from the text. If there is a selection the tags are 
+removed in that selection, otherwise they are removed in the whole 
+document. If tags are removed in the whole document, the text without tags 
+can optionally be put in a new window.
+</DIV>
+
+<!-- #INCLUDE INCLPATH="mainbottom.html" -->
+
+<DIV STYLE="height: 50px">
+</DIV>
+
+<SCRIPT TYPE="text/javascript">
+<!--
+document.write('<\/DIV>');
+// -->
+</SCRIPT>
+
+
+<!-- /#INCLUDE -->
+
+
+
+<!-- #INCLUDE INCLPATH="navigation.html" PREV="[manualPrevPage electrics.html]" 
+NEXT="[manualNextPage coloring.html]" -->
+
+<P>
+<script type="text/javascript">
+<!--
+document.write('<div class="navigation" style="top: ' + height + 'px; height: 50px">');
+// -->
+</script>
+<A HREF="electrics.html">Previous page</A>
+<A HREF="coloring.html">Next page</A>
+<SCRIPT TYPE="text/javascript">
+<!--
+document.write('<\/DIV>');
+// -->
+</SCRIPT>
+</P>
+
+<!-- /#INCLUDE -->
+
+
+</BODY>
+
+</HTML>

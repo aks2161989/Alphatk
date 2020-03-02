@@ -1,0 +1,1020 @@
+-*-Help-*-
+
+Help Files Help 
+
+                                               version: 8.1a4
+                                               created: 07/17/2000 {12:22:13 PM}
+                                           last update: 03/20/2006 {05:30:53 PM}
+
+
+	  	Abstract
+
+This document is intended for developers working on Alpha/tk/8/X/Tcl's
+documentation.  It describes some of the standard conventions used in all
+Help files, and explains AlphaTcl's auto-marking / hyperizing routines for
+Help files/windows.
+
+
+	  	Table Of Contents
+
+"# Help File Locations"
+"# Opening Help Files/Windows"
+"# Package 'help/description' arguments"
+"#   Text to be included in a window"
+"#   Pointers to installed Help files"
+"# Package 'description' arguments"
+"# Balloon help / Help tags"
+"# AlphaTcl Help File Conventions"
+"# Auto Marking Help Files"
+"#   Marks"
+"#   Help File Marking Exceptions"
+"#   Colors"
+"# Example/Tutorial Files"
+"# Hyperlinks"
+"#   Hyperlinks to Window Marks"
+"#   Hyperlinks to Installed Files"
+"#   Hyperlinks to Examples"
+"#   Hyperlinks to Prefs Files"
+"#   Hyperlinks to Preference Dialogs"
+"#   Hyperlinks to Hypertext"
+"#   Hyperlinks to Tcl Command-Double-Click"
+"#   Hyperlinks for Urls/Emails"
+"# Tools for Auto-Hyperizing Files"
+
+"# Opening Help Menu items"
+"#   Exceptions -- .tcl files"
+"#   Subdirectories in the Help folder"
+"# Help Menu Preferences"
+"# Persistent Urls (purls)"
+
+"# Copyright"
+
+<<floatNamedMarks>>
+
+
+	  	Help File Locations
+
+
+All of Alpha's documentation can be found in one of several different places.
+The first is the top-level "Help folder" :
+
+    <<file::showInFinder [file join $HOME Help]>>
+
+The second and third are in the SUPPORT folders:
+
+    <<file::showInFinder [file join $SUPPORT(local) Help]>>
+    <<file::showInFinder [file join $SUPPORT(user)  Help]>>
+
+The order of precedence here is actually reversed, so that the user's Help
+folder is the first one checked, followed by the "local" Help folder, and
+finally Alpha's Help folder.  $SUPPORT folders allow system administrators
+and users to add third-party AlphaTcl packages.  By default these folders are
+empty.  It is possible that a modified copy of a standard help file from
+"$HOME/Help/" will be placed in the local or user's Support Folders; when
+this is the case that is the file that will be opened.
+
+The last place that package documentation is located is in the individual
+source file of a given AlphaTcl extension, in the "help" argument of any
+[alpha::mode/menu/feature/extension/flag] declaration :
+
+    "fortranMode.tcl"
+    "colorsMenu.tcl"
+    "compare.tcl"
+    "bibEngine.tcl"
+    "indentation.tcl"
+
+The file marking/hyperizing/coloring routines described below apply to all 
+of the opened files or created windows in the help context.
+
+
+	  	Opening Help Files/Windows
+
+
+The menubar "Help" menu contains items that have been useful either for basic
+operation of the program (i.e. "Readme" "Alpha Manual" "Search Help") or for
+the most commonly used AlphaTcl modes/menus/features (i.e. "Electrics Help"
+"HTML Mode Help").
+
+Help windows for "minor" packages are accessed via various menu items or
+procedures, and via hyperlinks in the "Installed Packages" help file.  The
+menu items "More Modes Help" "More Menus Help" and "More Features Help" will
+open a list-pick dialog containing the names of appropriate options.
+
+The list of items presented in the Help menu is "hard-wired", and does not
+require an actual "$HOME/Help" file to be present.  Conversely, the presence
+of such a file does not ensure its inclusion in the Help menu.
+
+Any package can decide where the Help should be located, i.e. in its own file
+or in any one of the "# Package 'help' arguments".  If a package can be
+adequately described in 50 lines or less, it probably doesn't need its own
+separate Help file.  Beyond this rough guideline, however, the inclusion of
+"Help" folder files in standard Alpha distributions is a matter for the
+maintainer of an AlphaTcl package to determine.
+
+
+	  	Package 'help/description' arguments
+
+
+Every AlphaTcl package defined using
+
+	alpha::mode
+	alpha::menu
+	alpha::feature
+	alpha::extension
+	alpha::library
+	alpha::flag
+	alpha::declare
+
+can add an optional 'help' argument to provide useful information about how
+it is supposed to work, any optional preference settings, etc.  The contents
+of this argument can take one of two forms:
+
+	  	 	Text to be included in a window
+
+If the 'help' argument is a collection of text, this will be presented in a 
+new window.  Here's an example for the package: Igor , in "igorMode.tcl" :
+
+	alpha::mode Igor 1.1.1 igorMenu {*.igor *.ipf} {
+	    igorMenu
+	} {
+	    # Script to execute at Alpha startup
+	    addMenu igorMenu "¥284"
+	    set modeCreator(IGR0) Igor
+	} uninstall {
+	    catch {file delete [file join $HOME Tcl Modes igorMode.tcl]}
+	    catch {file delete [file join $HOME Tcl Completions IgorCompletions.tcl]}
+	} maintainer {
+	} description {
+	    Supports the editing of Igor programming files
+	} help {
+	    Igor Mode supplies a menu for easy switching between Igor and Alpha,
+	    and provides keyword coloring.
+
+        Click on this "Igor Example.igor" link for an example syntax file.
+	}
+
+It is best to maintain the AlphaTcl convention of Indent == 4 / Tabsize == 8
+in these files, and to indent all of the 'help' text by four spaces.  All of
+the "# Auto Marking Help Files" colorizing tricks will be employed when these
+help windows are created.
+
+Note that the string "ÇALPHAÈ" (without the quotes) will be converted to the
+variable "::alpha::application", such as "Alpha" "AlphaX" or "Alphatk".
+
+<<showVarValue ::alpha::application>>
+
+
+	  	 	Pointers to installed Help files
+
+If the package has an installed "$HOME/Help" file, then its 'help' argument
+should be a two item list, where the first item is the word "file" and the
+second is the name of the installed Help file.  For example, "bibtexMode.tcl" 
+can use this:
+
+	alpha::mode Bib 4.4 bibtexMode.tcl {
+	    *.bib *.inspec *.hollis *.isi *.marc *.oclc *.ovid *.refer 
+	} { 
+	    bibtexMenu bibtexConversions indentUsingSpacesOnly
+	} {
+	    # Script to be evaluated when Alpha is first launched.
+	    addMenu bibtexMenu "¥282" Bib
+	    ...
+	} help {
+		file {BibTeX Help}
+	}
+
+In this case, the name of the file must exactly match the name of the
+installed Help file.  Case-sensitivity is important.  The name can also be an 
+absolute path, so long as it can be determined based on its relation to the 
+AlphaTcl hierarchy, as in
+
+	} help {
+	    file [file join $HOME Help {BibTeX Help}]
+	}
+
+These items will be opened using the "# Opening Help Menu items" routines as
+described below.
+
+
+	  	Package 'description' arguments
+
+
+Each [alpha::package] declaration can also include an optional 'description'
+argument, as in the Igor example above.  These will be included in the
+"Installed Packages" help file, as well as in some dialogs like the Setup
+Assistant.
+
+The description should be brief (i.e. 3 lines, or at most 240 characters to
+fit in [alertnote] dialogs or balloon help) and explain some of the extra
+features provided by the package.  The first "sentence" should be a verb
+clause -- there is no need to start with "This package/feature provides..."
+-- assume that this text appears after a listing of the package's name, and
+that it appears in a listing context.
+
+
+	  	Balloon help / Help tags
+
+
+Balloon help is only available for given applications and platforms.  It is
+always available for Alphatk, for example, as well as Alpha8 in MacClassic.
+AlphaX is currently limited by the feature set of MacOSX. Balloon help might
+appear only in dialogs, or when the mouse passes over a menubar menu, and
+might be subject to a variety of AlphaTcl and System preferences.
+
+Given that, the text provided by any balloon help is created within AlphaTcl.
+There are currently two different methods for doing so.  
+
+First, all preferences defined using [newPref] can be preceded by a series of
+commented lines which will be stored in a special 'prefshelp' cache file
+located somewhere within the user's $PREFS folder.  Here's an example for the
+preference named "Double Spaces" :
+
+	# To place two spaces after the '.' at the end of each sentence when
+	# filling blocks of text, click this box|| To place only a single space
+	# after the '.' at the end of each sentence when
+	# filling blocks of text, click this box
+	newPref flag doubleSpaces 1
+
+This block of commented text is actually composed of four sections, each of 
+which is delimited by the character "|".  These sections are displayed when
+
+(1) Item is turned off, but can be enabled
+(2) Item is turned off, but is dimmed
+(3) Item is turned on, but can be disabled
+(4) Item is turned on, but is dimmed
+
+In practice, only the first and third blocks are used in any preference
+dialogs, which is why most of these balloon help comments have an empty
+second argument and separate (1) and (3) by "||".  In addition to balloon
+help, these blocks of text are presented when the user clicks on a "Help"
+button in a dialog.  Any trailing periods "."  will be automatically inserted
+when this is appropriate, so don't include them in the commented help text.
+
+The second method for creating balloon help is reserved for AlphaTcl
+packages, again those defined using [alpha::mode] [alpha::menu] etc.  as
+listed above.  These packages can define balloon help in their 'description' 
+arguments, as described above.
+
+Note: this "||" convention is subject to change...
+
+
+	  	AlphaTcl Help File Conventions
+
+
+Regardless of where the Help file/argument is located, some effort should be
+employed to write the documentation in some sort of canonical format.  Given
+the collaborative nature of AlphaTcl, and the fact that Help files have been
+written/updated by a wide variety of developers from different countries of
+origin, the creation of a single documentary voice or style is a challenging
+proposition.  We don't have any paid staff devoted to documentation, although
+a dedicated corps of volunteers will periodically comb through the various
+help files and update them appropriately.
+
+The following list of guidelines promote making individual Help files fit into
+a unified suite of documentation.  They are intended to both make writing help
+files easier for developers and aid the user in finding needed information.
+
+(1) Use the "Apple Publications Style Guidelines" when appropriate.
+
+While AlphaTcl is a cross-platform library, Apple has taken the lead in
+providing developers with consistent Human Interface Guidelines that include 
+documentation conventions.  Please download this .pdf file:
+
+<http://developer.apple.com/documentation/UserExperience/Conceptual/APStyleGuide/AppleStyleGuide2003.pdf>
+
+If this link expires, look for a link to the document here:
+
+<http://developer.apple.com/documentation/UserExperience/>
+
+Unless stated otherwise, Alpha's documentation has adopted these guidelines.  
+In particular, 
+
+¥ Menu commands should be written as "Menu Name > Menu Command", without any
+ellipses.
+
+¥ Users "select" menu commands (or menu items), they do not click on them or
+choose them.
+
+¥ The frontmost/current window is the "Active Window".
+
+¥ Key bindings should be referred to as "Keyboard Shortcuts".
+
+¥ Modifier keys should be written as capitalized words, as in
+
+	Command-F
+	Shift-Option-H
+
+or
+
+	Control-X O
+
+In the general AlphaTcl Help files, we point out that in the user should
+translate "Command" as "Alt" when appropriate -- unless the keyboard shortcut
+in question involves a different combination of modifiers for different OS
+platforms, it is not necessary to repeat this information in Help files for
+individual features.
+
+¥ All of "Return", "Enter", "Delete", "Tab" and "Space" are capitalized, no
+need to surround them with any sort of brackets.
+
+¥ Users "Press" keys on the keyboard, they "Type" text into a window or a
+dialog text editing field, and they "Click" on dialog buttons.  ("Press"
+refers to a mechanical action on the part of the user, whereas "Click" is a
+mouse action, and users "Hit" keys only when incredibly frustrated.)
+
+¥ "Alpha" refers to all of "Alpha8/X/tk" unless stated otherwise.
+
+(2) Use consistent Text Filling preferences.
+
+All Help files/arguments should have a "Fill Column" length of 77, and assume
+that the "Double Spaces" text filling preference has been turned on.  If all
+documentarians use these settings, then later changes that are committed to
+the CVS are less likely to list a lot of changes that are based merely on
+formatting due to the filling of paragraphs.  Assume that the Tab size in all
+Help windows will be "4".
+
+(3) Turn on the Document Projects feature when writing Help files.
+
+This feature allows for files to automatically update "save" dates in the
+header.  See the "Documentprojects Help" file for more information.
+
+(4) Include version numbers on all help files.
+
+Ideally, this number would correspond to the version number of the mode /
+feature / menu / extension etc.  explained in the Help file.  This way future
+programmers and users will have a much better idea of when a Help file might
+need to be updated
+
+If a help file is more general, related to all of AlphaTcl rather than a
+specific feature (such as the "Readme", "Alpha Manual" and "Alpha Commands"
+help files), these should take the current version number of AlphaTcl and be
+updated prior to any major releases.
+
+(5) Don't refer to "new" features"
+
+This is a subtle point, but Help documents that refer to new features without
+any frame of reference won't make sense later -- does "new" mean 
+
+	in the last two months
+
+or
+
+	two years ago
+
+??  (I've found such references in Help files that haven't been updated for a
+very long time.)  Instead, make references to version numbers, as in
+
+	New in version 2.0
+	Changes in version 3.1
+
+
+or to specific dates, as in
+
+	as of September 2003 ...
+
+so that "new" is placed in some context.
+
+(6) Include author / maintainer information for Help files.
+
+The author of the package is not necessarily the author of its associated Help
+file, and neither of these might be the person who is currently updating or
+maintaining the Help file.  Please give credit where it is due, and include
+information on where one can send suggestions on the Help file.  This will
+help encourage users to pass on suggestions to the appropriate documentarian.
+
+(7) Include any license and disclaimer notes somewhere in the file.
+
+Help documents are generally placed in the public domain, to remove any doubt
+about whether these can be placed on web sites or included in archives other
+than the Alpha releases.  AlphaTcl packages are usually licensed using
+Tcl/BSD/OpenSource style licenses, in which authors retain all rights but
+allow others to modify.  (Note that GNU licenses do place restrictions on the
+distribution of source code in products that require the purchase of licenses,
+products such as Alpha8/X/tk ...)
+
+
+	  	Auto Marking Help Files
+
+
+AlphaTcl v 7.4 introduced auto-marking / hyperizing capabilities for Help
+files.  If a file that contains no colors is opened through the Help Menu,
+AlphaTcl will go through a series of hyperizing / marking routines in
+"help.tcl".
+
+Auto-marking / hyperizing files must be "clean" before they are opened through
+the Help menu -- that is, they must not have any colors or hypers in them.  If
+this is the case, AlphaTcl will mark the file and perform a series of "search
+and hyperize" routines following the guidelines below.
+
+These routines makes writing Help files much easier -- no need to individually
+"Link To File" anymore !!  (This means that help files can also be marked and
+hyperized by Alphatk.)
+
+In the MacOS, Help files will only be auto-marked / hyperized once, and then
+the hypers will be saved in the resource fork.  (Note: This will not change
+the "save" date of the file.  Installation of future versions of AlphaTcl can
+still overwrite older existing files.)
+
+See these "Alpha Dev Menu > Help File Marking" menu item procedures for
+details on what these auto-marking / hyperizing routines actually do:
+
+¥ Mark Colour Hyper:
+
+    proc: help::markColourAndHyper
+    proc: help::confirmFileStamp
+    proc: help::sizeHelpWindow
+    proc: help::saveResourceChanges
+
+¥ Window Marks:
+
+    proc: help::markHelpFile
+    proc: help::markAsAlphaManual
+    proc: help::markAsReferenceManual
+    proc: help::markAsAlphaCommands
+
+¥ Window Colours:
+
+    proc: help::colourTitle
+    proc: help::colourMarks
+    proc: help::underlineMarks
+    proc: help::colourCodeInserts
+    proc: help::colourAlphaCommands
+    proc: help::colourAllCapLines
+    proc: help::chooseColour
+    proc: help::convertColour
+
+¥ Window Hypers:
+
+    proc: help::hyperiseUrls
+    proc: help::hyperiseEmails
+    proc: help::hyperiseExtras
+
+The operations called via the proc: help::openDirect uses these procedures,
+via the proc: help::markColourAndHyper , and sets some additional window
+information (read-only 1, dirty 0, tabsize 4).  The Help file is then closed
+and re-opened.
+
+The following sections describe the syntax required to achieve marks, hypers
+and colors in these files.  Note: there is an additional marking regime for
+"unix" style manuals (i.e. those created for troff), that might be used
+instead for particular files.  See the "# Help File Marking Exceptions"
+section below.
+
+
+	  	 	Marks
+
+
+To create a mark, start the line with 
+
+	<Tab><Space><Space><Tab>
+
+This string of whitespace will be stripped from the mark name.  Subsequent
+Spaces and Tabs will indent the mark's name, which is useful for sub-sections.
+(Note that a Tab will indent the name of the mark only one space.)  To insert
+a section divider, include a line that contains only = signs, optionally
+preceded by whitespace.
+
+Note that the proc: help::openDirect will automatically convert tab sizes to 4.
+
+
+	  	 	Help File Marking Exceptions
+
+
+There is an alternative marking routine, proc: help::markAsReferenceManual,
+that is used in place of help::markAsAlphaManual for certain files that are
+identified as being in a 'manual' format.  See the proc: help::markHelpFile to
+find out how this is determined.
+
+These files will still hyperize e-mails and urls and all 'extra', but marks
+are based on any word which follows the string NAME, where NAME is the first
+word encountered on a line.  (See "Error Help" for an example.)  Additional
+coloring is added for lines which contain ALL CAP WORDS.
+
+(The "Alpha Commands" file has it's own marking procedure as well, using the
+proc: help::markAsAlphaCommands, which is not be used for any other file.)
+
+Important: Both of these routines only apply to Help files in Text mode.
+
+
+	  	 	Colors
+
+
+Any line that begins with one (and only one) tab will be colored blue,
+
+	like this.  Subsequent lines that begin with a tab
+		will be colored blue as well.
+
+The string IMPORTANT: will be colored red, as will menu directions that
+include "Menu Name > Menu Command":
+
+    "File > Open"
+
+    "Config > Preferences > Suffix Mappings"
+
+    "Text > Fill Paragraph"
+
+    "Alpha Dev Menu > Help File Marking > Colour Headings Etc"
+
+While several variations are allowed (i.e. double vs single quotes, the use of
+"-->" instead of ">"), these examples demonstrate the format that should be
+used in all Help files.  Note that ellipses are never included in the names of
+the commands even if they are present in the menu.
+
+
+	  	Example/Tutorial Files
+
+
+Most of Alpha's help files are contained in the 'Help' directory.  Example
+files, however, are in the 'Examples' directory.  Feel free to contribute
+additional example files, which can be accessed by hyperlinks (see the section
+on "# Hyperlinks to Examples" below), menu items (as in the Filters and the
+Mac Menu packages), or by hyperlinks in the "Examples Help" file.  (This last
+has to be updated manually -- see the notes at the bottom of that file for
+more information.)
+
+'Completion' tutorials are kept in the 'Tcl:Completions' folder, and can be
+accessed by the "Config > Mode Prefs > Completions Tutorial" menu item,
+hyperlinks in the "Installed Packages" help file, or by hyperlinks created in
+other help files.  (See the "# Hyperlinks to Installed Files" section below.)
+
+A word about Example and Completion Tutorial filenames:
+
+Example files should use suffix mappings to properly open the window in the
+desired mode.  If the file has 'Smart Line', like this:
+
+	-*-Setx-*-
+
+then that will be used preferentially.  The actual filename doesn't matter as
+of this writing: "Setx-Example.stx" and "Setext-Example.stx" will be treated
+the same.  (Only the second file is actually installed, so the first hyperlink
+won't work.)
+
+Completion tutorials, however, must follow a different set of rules.  These
+files MUST begin with the exact name of the mode, followed by the string '
+Tutorial'.  The file suffix in this case doesn't matter.  Here are a few
+examples:
+
+	"M2 Tutorial.m2"
+	"Bib Tutorial.bib"
+	"C++ Tutorial.cc"
+
+Note that these file name syntax rules are subject to both debate and change
+as Alpha's Help files and routines undergo more extensive updating and
+revision -- watch this space for more details.
+
+
+	  	Hyperlinks
+
+
+Hyperlinks are created by the procs in "help.tcl".
+
+
+	  	 	Hyperlinks to Window Marks
+
+Any mark in the current window can be hyperlinked by using an 'anchor' syntax,
+preceding the mark's name by '#' and surrounding it with double quotes, as in
+"# Hyperlinks to Examples".  It is not necessary to compensate for any extra
+spacing that might occur in setting the actual mark name.
+
+
+	  	 	Hyperlinks to Installed Files
+
+To create a hyperlink to most .tcl files, include the file's name in quotes:
+
+    "htmlMode.tcl"
+
+To create a hyperlink to most Help files, include the file's name in quotes:
+
+    "Extending Alpha"    "Alpha Manual"    "Calculator Help"
+
+Help for specific packages can be hyperlinked in two ways.  The first is to
+precede the package's name with 'package: ', as in package: latexAccents .
+The second way is to surround the package's name in quotes, and add ' Help' as
+in "recentDirsMenu Help".  Thus the BibTeX help file could be hyperlinked with
+all of
+
+    "BibTeX Help"    package: Bib    "Bib Help" 
+    
+    package: bibtexMenu    "bibtexMenu Help"
+
+Completion files and Completion Tutorials can also be hyperlinked:
+
+    "TclCompletions.tcl"  "Text Tutorial"  "C Tutorial.r"  
+
+
+	  	 	Hyperlinks to Examples
+
+To include an 'example' hyperlink, which will open any file in the Mode
+Examples folder in read-only format, simply put the file's name in quotes:
+
+    "LaTeX-Example.tex"
+
+To open the example in a shell window, which will insert some explanatory
+comments at the top of the window and allow for any modifications without
+altering the original file, omit the dash preceding Example in the file's
+name:
+
+    "LaTeX Example.tex"
+
+Note that examples which are opened in shell windows do not technically exist
+as files, and the window will not have any file suffix.  This could disable
+some mode features that rely on file suffixes, and the window can not be sent
+to other applications.
+
+If you want to include an example that does something different than these two
+default routines, you must create a "<something>-Example.sfx.tcl" file.  The
+AlphaTcl-specific modes use such scripts (i.e. "Compare Example" sources
+"Compare-Example.tcl").  These can also be adapted for package-specific
+tutorials, such as the tutorials
+
+    "Filters Example"       "Filters-Example.tcl"    and
+    "ManipCols Example"     "ManipCols-Example.tcl"
+
+See some of the .tcl files in the 'Examples' folder for more examples.
+
+
+	  	 	Hyperlinks to Prefs Files
+
+The procs in "help.tcl" recognize "<mode>Prefs.tcl" strings.  Thus I can
+include the following lines in my "Statistical Modes Help" file:
+
+	----------------------------------------------------------------------
+
+To add keywords in a "SASPrefs.tcl" file, include the following commands:
+
+	set SASuserCommands {
+	    blah blahdity etc
+	}
+	
+	----------------------------------------------------------------------
+
+Clicking on the "SASPrefs.tcl" link will prompt the user to create the file if
+necessary.  The string "prefs.tcl" will similarly open the global preferences
+file.
+
+
+	  	 	Hyperlinks to Preference Dialogs
+
+You can also hyperlink to open prefs dialogs, by using the strings
+
+	preferences: <somePackage>
+	Preferences: <somePackage>
+
+Here's some examples:
+
+    preferences: Appearance
+    preferences: Help
+    Preferences: WWW
+    Preferences: InterfacePreferences
+
+    preferences: Menus
+    Preferences: Features
+    Preferences: SpecialKeys
+
+    preferences: Mode-Bib
+    Preferences: Mode-Tcl
+    Preferences: Mode-Menus
+    Preferences: Mode-Menus-Tcl
+    Preferences: Mode-Features
+    Preferences: Mode-Features-Tcl
+
+    Preferences: supersearch
+    Preferences: filtersMenu
+
+Note that there is a difference between
+
+    Preferences: Text        and
+    Preferences: Mode-Text
+
+The helper applications ("Config > Global Setup > Helper Applications")
+dialog can be opened with
+
+    Preferences: HelperApps
+
+Individual "X-service" (or external service) helpers can be set with
+
+    Preferences: Helpers-viewURL
+    Preferences: Helpers-ftpList
+    Preferences: Helpers-Compare
+
+The service name must be exact, i.e.
+
+    Preferences: Helpers-viewUrl
+
+will not work.
+
+See the proc: help::openPrefsDialog for more information about the syntax
+that this special procedure requires.
+
+
+	  	 	Hyperlinks to Hypertext
+
+Strings embedded in << >> will be treated as hypertext.  For example,
+
+    <<WWW::renderFile [file join $HOME Help "AppleScript Help.html"]>>
+
+will send the 'AppleScript Help.html' file to the WWW Menu for parsing.
+
+    <<suffixMappings>>
+
+will open the "Config > Preferences > Suffix Mappings" dialog.
+
+
+	  	 	Hyperlinks to Tcl Command-Double-Click
+
+When a file is in Tcl mode, Command-Double-Clicking on a defined procedure
+will open the file in which that proc is contained.  In Help files, the string
+proc: <something> will create a hyperlink which does the same, as in
+
+    proc: Tcl::DblClickHelper
+
+Very handy for AlphaTcl developer help files !  This will also work for
+AlphaTcl or Tcl commands, as in proc: regModeKeywords or proc: proc .
+
+(An alternative hyperlink "hint" is "command: ", as in command: append or
+command: abbrev .  Note that proc: <string> and command: <string> do the exact
+same thing, following the orders of precedence in Tcl::DblClickHelper.)
+
+A similar construction will display the current value for any defined
+AlphaTcl variable with
+
+    variable: ::alpha::application
+    variable: TextmodeVars
+    variable: dummyVariable
+
+
+	  	 	Hyperlinks for Urls/Emails
+
+Finally, email and url addresses surrounded by <> will be hyperized as well,
+as in <http://www.kelehers.org/alpha/> or <cupright@alumni.princeton.edu>.
+
+There is also a special case for creating hyperlinks to bugzilla bug reports,
+used in the "Known Bugs" file -- Bug# 875 will open bug report # 875 in your
+local browser.  Because "Requests For Enhancement" are also included in
+bugzilla, strings like RFE# 1228 will also work.
+
+
+
+	  	Tools for Auto-Hyperizing Files
+
+
+Using the guidelines outlined above, any "clean" Help file opened through the
+Help Menu will auto-mark / hyperize using the routines defined in the Alpha
+Developer's Menu.  In the MacOS, the window's "dirty" information for will
+then be set to "0", then the file will close and reopen.  (See the proc:
+help::openFile for details.)
+
+To color and mark files, or to remove hypers, use the menu items found in
+"Alpha Dev Menu > Help File Marking".  Note that any files uploaded to the
+AlphaTcl CVS will be distributed free of all hypers, marks and colors, so
+please check all of your auto-marking help files before releasing them!
+
+
+	====================================================================
+
+
+	  	Opening Help Menu items
+
+
+As of AlphaTcl 8.0b7, items in the Help menu are "hard-wired", and not based
+upon the presence of file in the "$HOME/Help" folder.  (Earlier versions
+simply added the name of any file found there to the bottom of the menu.)
+
+Whenever an item is passed through the proc: help::openFile , we check to see
+if there are any options available, i.e. files with similar root names but
+different extensions.  For example, if the Help folder includes
+
+	AppleScript Help
+	AppleScript Help.html
+
+and the mode's 'help' argument looks like
+
+	alpha::mode Scrp 2.2 appleScriptMenu {*.script *.scr *.scpt *.ascr} {
+	    appleScriptMenu
+	} {
+	    addMenu appleScriptMenu "¥331" Scrp
+	} help {
+	    file {AppleScript Help}
+    }
+
+
+then when the user tries to open the mode/menu's Help window a list-pick
+dialog opens with both of them, as in "AppleScript Help".  AlphaTcl can
+currently send .html .pdf and .tex files to the appropriate helper
+application, using the proc: help::openDirect .  AlphaTcl will also present
+the user with any available .html file viewing options.
+
+There are several "Help Menu" preferences that can help limit the options
+presented to the user, as described above.  If there is only one file, or if
+the preferences narrow down the options to only one format, it is sent
+automatically to the proc: help::openDirect.
+
+
+	  	 	Exceptions -- .tcl files
+
+If the Help folder contains a .tcl file associated with the Help menu item,
+such as the "TclAE Help.tcl" file, this file is immediately sourced.  It is up
+to the script to decide if more options will be presented to the user -- the
+script can choose to ignore the Help Menu preferences or not.  For more
+examples see the "HTML Help.tcl" or "LaTeX Help.tcl" files.
+
+
+	  	 	Subdirectories in the Help folder
+
+In versions of Alpha/tk prior to 8.0, the name of any subdirectory in the Help
+folder was simply listed as another menu item.  If there was no .tcl file
+associated with the menu item, selecting it would offer the user a list-pick
+dialog of all items within the subdirectory using the "Help Menu Options"
+preferences mentioned above.
+
+In versions >= 8.0, the name of the subdirectory will be inserted as a submenu
+listing the contents of the folder, unless there is an associated .tcl file
+present.  In this case, the item will simply appear as another option (as
+above), and selecting it will immediately source the file containing the .tcl
+script.
+
+So in both versions, if the help file for a particular feature / mode etc is a
+complex .html suite (like the HTML mode manual), including a subdirectory
+named (for example)
+
+	HTML Help
+
+as well as the script
+
+	HTML Help.tcl
+
+will simply insert "HTML Help" in the Help menu, but allow its selection to do
+whatever the script wants, including opening any of the files within the HTML
+Help subdirectory.
+
+(Note that as of this writing Bug# 891 is still outstanding, so the creation
+of Help menu submenus as described above is _not_ recommended -- they won't
+work in Alpha8/X !!)
+
+
+	  	Help Menu Preferences
+
+
+The 'helpMenu' package, defined in "help.tcl", defines some preferences that
+can be changed by the user to refine the type of help format that they want to
+use; see "Config > Preferences > SystemPreferences > Help" for the dialog that
+appears during the initial "Setup Assistant", or click on this hyperlink
+<<prefs::dialogs::menuProc preferences Help>>.
+
+These preferences include:
+
+	Prefered Help Format
+	Second Choice Help Format
+	Third Choice Help Format
+
+Some Help files are available in multiple formats, such as html, pdf, etc.
+This preference sets a default format to open, if available.  You shouldn't
+have to worry about these settings, the proc: help::getChoices will use them
+to deliver the prefered option.
+
+	Help File Window Size
+
+This preference only applies to 'text' Help files that are opened within
+Alpha.  It allows help files to be automatically 'shrunk' to the default size
+or moved about the screen so that they are out of the way of the current open
+windows.
+
+	Help Colours
+
+There is also a Help mode that sets the colours to use for hyperizing, etc.
+Click on this <<prefs::dialogs::modePrefs "Help">> hyperlink to change them.
+
+
+	--------------------------------------------------------------------
+
+
+	  	Persistent Urls (purls)
+
+
+Ever since the Alpha Cabal began taking over the maintenance of Alpha, the
+user community has benefitted from a variety of different internet sites that
+provided sites to download archived versions of the program, maintain the cvs
+repository, manage the "bugzilla" database of reported bugs, etc.  
+
+At present there is no single comprehensive web site devoted to the Alpha
+shareware software, nor are there any plans to create one.  While several
+AlphaTcl projects are currently housed at <http://www.sourceforge.net/>, even
+the specific Alpha urls associated with this site are subject to change.
+
+Fortunately, the Online Computer Library Center has been supporting the
+"PURL" service for "persistent urls" which simply redirect a web user to a
+particular address.  While the redirected url might change, the "purl" will
+remain constant.  See <http://www.purl.org/> for more information.
+
+The Alpha Cabal maintains a number of different purls that are used
+throughout AlphaTcl source files and documentation.  For example, this purl
+
+    <http://www.purl.org/net/Alpha/Keleher>
+
+will be redirected to Pete Keleher's current web site for Alpha.  Here are 
+some additional "home page" purls:
+
+    <http://www.purl.org/net/Alpha/Alpha8>
+    <http://www.purl.org/net/Alpha/AlphaX>
+    <http://www.purl.org/net/Alpha/AlphaTk>
+    <http://www.purl.org/net/Alpha/AlphaTcl>
+    <http://www.purl.org/net/Alpha/Bugzilla>
+
+Purls should _always_ be used whenever possible; you never know how long a
+distributed version of a given distribution will be out in the public, and
+there are few things more frustrating than a "help" hyperlink that points to
+a defunct web site.  Note that purls are not case sensitive: all of these
+
+    <http://www.purl.org/net/Alpha/Bugzilla>
+    <http://WWW.PURL.ORG/NET/ALPHA/BUGZILLA>
+    <http://www.purl.org/net/alpha/bugzilla>
+
+will open the Alpha-Bugzilla web page.  The top level domain ".org" can also 
+be ".net" or ".com" although ".org" is generally used in AlphaTcl.
+
+    <http://www.purl.org/net/Alpha/Bugzilla>
+    <http://www.purl.com/net/Alpha/Bugzilla>
+    <http://www.purl.net/net/Alpha/Bugzilla>
+
+Here are some other examples of purls that can have been created:
+
+    <http://www.purl.org/net/Alpha/cvs>
+    <http://www.purl.org/net/Alpha/Darley>
+    <http://www.purl.org/net/Alpha/faq>
+    <http://www.purl.org/net/Alpha/MacCvsPro>
+    <http://www.purl.org/net/Alpha/mail>
+    <http://www.purl.org/net/Alpha/mail/dev-archives>
+    <http://www.purl.org/net/Alpha/mail/user-archives>
+    <http://www.purl.org/net/Alpha/pre-release>
+    <http://www.purl.org/net/Alpha/TclTkDevelopers>
+    <http://www.purl.org/net/Alpha/TclWiki>
+    <http://www.purl.org/net/Alpha/updates>
+    <http://www.purl.org/net/Alpha/wiki>
+
+Many Wiki pages have their own purls so that they can be easily referenced in
+menu commands or documentation:
+
+    <http://www.purl.org/net/Alpha/WikiPages/changes>
+    <http://www.purl.org/net/Alpha/WikiPages/cvs-info>
+    <http://www.purl.org/net/Alpha/WikiPages/cvs-messages>
+    <http://www.purl.org/net/Alpha/WikiPages/fonts>
+    <http://www.purl.org/net/Alpha/WikiPages/formatting>
+    <http://www.purl.org/net/Alpha/WikiPages/mail-lists>
+    <http://www.purl.org/net/Alpha/WikiPages/new-packages>
+    <http://www.purl.org/net/Alpha/WikiPages/prefs-folder>
+    <http://www.purl.org/net/Alpha/WikiPages/sandbox>
+    <http://www.purl.org/net/Alpha/WikiPages/sandbox-edit>
+    <http://www.purl.org/net/Alpha/WikiPages/to-do-lists>
+    <http://www.purl.org/net/Alpha/WikiPages/typesetting-files>
+    <http://www.purl.org/net/Alpha/WikiPages/wiki-menu-default-projects>
+
+While many purls are simple redirections of one url to another, a purl can
+also be used in partial redirection, to find a particular page in a web site.
+For example, we not only have
+
+    <http://www.purl.org/net/Alpha/Bugzilla>
+
+for the main Alpha-Bugzilla home page, but these will open specific bugs:
+
+    <http://www.purl.org/net/Alpha/Bugzilla/show_bug.cgi?id=1000>
+    <http://www.purl.org/net/Alpha/Bugzilla/show_bug.cgi?id=1974>
+
+The same functionality works for AlphaTcl Wiki pages:
+
+    <http://www.purl.org/net/Alpha/wiki/pmwiki.php/Main/WikiSandbox>
+
+although this is less useful since the "pmwiki.php/Main/WikiSandbox" is quite
+specific to the "pmWiki" implementation; that is why we have created purls to
+specific wiki pages.
+
+This feature is more useful for searching e-mail archives:
+
+    <http://www.purl.org/net/Alpha/mail/dev-search/&words=test>
+    <http://www.purl.org/net/Alpha/mail/user-search/&words=test>
+
+Purls can only be created by members of the Alpha Cabal.  If you know of a 
+specific url that should have its own purl, please send a note to one of the 
+AlphaTcl mailing lists:
+
+    <http://www.purl.org/net/Alpha/mail>
+
+
+	
+	======================================================================
+
+
+	  	Copyright
+
+
+This document has been placed in the public domain.
+
+Feel free to send me any bugs, comments, or suggestions on this file.
+
+cheers,
+
+-- cbu
+
+Author: Craig Barton Upright
+E-mail: <cupright@alumni.princeton.edu>
+   www: <http://www.purl.org/net/cbu>
+

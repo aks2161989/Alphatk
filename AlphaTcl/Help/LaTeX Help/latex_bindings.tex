@@ -1,0 +1,148 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% File:      latex_bindings.tex
+% Author:    Tom Scavo <trscavo@syr.edu>
+% Requires:  graphics.sty, latex_defs.tex
+%            html.sty, htmllist.sty
+% Summary:   Commands (organized by command key) and key bindings defined 
+%            in latex.tcl, version 3.2t
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[titlepage]{article}
+\usepackage{hyperref}
+\usepackage{graphics}
+
+\input{latex_defs}
+
+% Page layout:
+% \setlength{\topmargin}{-0.6in}
+\setlength{\topmargin}{0in}
+\setlength{\headheight}{0in}
+\setlength{\headsep}{0in}
+\setlength{\textheight}{9.75in}
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\textwidth}{6.5in}
+\setlength{\marginparsep}{0in}
+\setlength{\marginparwidth}{0in}
+
+% Miscellaneous stuff:
+\renewcommand{\arraystretch}{1.5}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+% Definition of title page:
+\title{
+	\includegraphics{logo.eps}  \\[6ex]
+	\Alpha\ \LaTeX\ Key Bindings \\
+        {\large Version~5.0~early draft}
+}
+\author{
+Original manual by Tom Scavo \\
+Updates by the AlphaTcl community
+}
+\date{August 2003}
+\maketitle
+\thispagestyle{empty}
+
+Version~5.0 introduces some major changes.  The main one of these is
+the introduction of a much better way for users to define key
+bindings, via the new submenu "TeX Menu --> LaTeX Menu" which
+presents an easy to use dialog for defining bindings without having
+to know anything about Tcl or AlphaTcl.
+
+\begin{small}
+	\begin{center}
+		\begin{tabular}{|r||c|c||c|c||c|c|}
+			\multicolumn{1}{c}{} &
+				\multicolumn{2}{c}{\textbf{Text Commands}} & 
+				\multicolumn{2}{c}{\textbf{Math Commands}} & 
+				\multicolumn{2}{c}{\textbf{Other Commands}}  \\
+			\hline
+			& \key{Ctl Opt} & \key{Shf Ctl Opt} & \key{Ctl Cmd} & 
+			\key{Ctl Opt Cmd} & \key{Cmd} & \key{Shf Cmd}  \\
+			\hline\hline
+			\key{A} &  &  & \acmd{acute} &  &  &   \\
+			\hline
+			\key{B} & \acmd{textbf} & \acmd{bfseries} & \acmd{bar} & 
+			\acmd{mathbf} &  &  \\
+			\hline
+			\key{C} & \acmd{cite} & \acmd{nocite} & \acmd{check} & \acmd{mathcal} &  & 
+			\acmd{Choose Command}  \\
+			\hline
+			\key{D} &  &  & \acmd{dot} & \acmd{displaystyle} &  &  \\
+			\hline
+			\key{E} & \acmd{emph} & \acmd{em} &  &  &  &   \\
+			\hline
+			\key{F} & \acmd{footnote} &  & \acmd{frac} &  &  &  \\
+			\hline
+			\key{G} &  &  & \acmd{grave} &  &  &  \\
+			\hline
+			\key{H} & \acmd{textsc} & \acmd{scshape} & \acmd{hat} &  &  &  \\
+			\hline
+			\key{I} & \acmd{textit} & \acmd{itshape} & \acmd{int} & \acmd{mathit} &  &  \\
+			\hline
+			\key{J} & \acmd{item} &  &  &  &  &  \\
+			\hline
+			\key{K} &  &  &  &  &  &  \\
+			\hline
+			\key{L} & \acmd{label} &  & \acmd{lim} &  &  &  \\
+			\hline
+			\key{M} & \acmd{mbox} &  & \acmd{mathMode} & \acmd{displaymathMode} &  &  \\
+			\hline
+			\key{N} & \acmd{marginalNote} &  &  &  &  & \acmd{New Document}  \\
+			\hline
+			\key{O} &  &  & \acmd{overline} & \acmd{overbrace} &  & \acmd{Open Any TeX 
+			File}  \\
+			\hline
+			\key{P} & \acmd{pageref} &  & \acmd{prod} &  &  & \acmd{Print file.dvi}  \\
+			\hline
+			\key{Q} &  &  &  &  &  &  \\ \hline
+			\key{R} & \acmd{textrm} & \acmd{rmfamily} & \acmd{sqrt} & \acmd{mathrm} &  &  \\
+			\hline
+			\key{S} & \acmd{textsl} & \acmd{slshape} & \acmd{sum} & 
+			\acmd{scriptstyle} &  & \acmd{LaTeX}  \\
+			\hline
+			\key{T} &  &  & \acmd{tilde} & \acmd{textstyle} & \acmd{Typeset} & 
+			\acmd{Typeset Clipboard}  \\
+			\hline
+			\key{U} & \acmd{usepackage} &  & \acmd{underline} & \acmd{underbrace} &  &  \\
+			\hline
+			\key{V} & \acmd{verb} &  & \acmd{vec} &  &  & \acmd{View file.dvi}  \\
+			\hline
+			\key{W} & \acmd{textsf} & \acmd{sffamily} &  & \acmd{mathsf} &  &  \\
+			\hline
+			\key{X} & \acmd{ref} &  &  &  &  &  \\
+			\hline
+			\key{Y} & \acmd{texttt} & \acmd{ttfamily} &  & \acmd{mathtt} &  &  \\
+			\hline
+			\key{Z} &  &  &  &  &  &  \\
+			\hline\hline
+			\key{1} & \acmd{tiny} &  & \acmd{one parameter} &  &  &  \\
+			\hline
+			\key{2} & \acmd{scriptsize} &  & \acmd{two parameters} &  &  &  \\
+			\hline
+			\key{3} & \acmd{footnotesize} &  &  &  &  &  \\
+			\hline
+			\key{4} & \acmd{small} &  & \acmd{mathMode} & \acmd{displaymathMode} &  &  \\
+			\hline
+			\key{5} & \acmd{normalsize} &  &  &  &  &  \\
+			\hline
+			\key{6} & \acmd{large} &  &  &  &  &  \\
+			\hline
+			\key{7} & \acmd{Large} &  &  &  &  &  \\
+			\hline
+			\key{8} & \acmd{LARGE} &  &  &  &  &  \\
+			\hline
+			\key{9} & \acmd{huge} &  &  &  &  &  \\
+			\hline
+			\key{0} & \acmd{Huge} &  &  &  &  &  \\
+			\hline\hline
+			\key{\straightquote} & \acmd{quotes} & \acmd{double quotes} &  &  &  &  \\
+			\hline
+		\end{tabular}
+	\end{center}
+\end{small}
+
+\end{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

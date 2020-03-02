@@ -1,0 +1,68 @@
+!! This file : TexToAccents.flt 
+!! Convert accents to TeX macros (OT1 encoding).
+!! To be used with the Filters Menu in Alpha.
+!! Last modification : 8 avril 2000 - 19:47:11
+!! (c) Copyright : Bernard Desgraupes 2000
+
+
+\'a	á
+\^a	â
+\ae 	æ
+\`a	à
+\aa 	å
+\~a	ã
+\"a	ä
+\c{c}	ç
+\'e	é
+\^e	ê
+\`e	è
+\"e	ë
+\'{\i}	í
+\^{\i}	î
+\`{\i}	ì
+\"{\i}	ï
+\~n	ñ
+\'o	ó
+\^o	ô
+\`o	ò
+\~o	õ
+\"o	ö
+\ss	ß
+\'u	ú
+\^u	û
+\`u	ù
+\"u	ü
+\"y	ÿ
+\AE 	Æ
+\'A	Á
+\^A	Â
+\`A	À
+\AA 	Å
+\~A	Ã
+\"A	Ä
+\c{C}	Ç
+\'E	É
+\^E	Ê
+\`E	È
+\"E	Ë
+\'I	Í
+\^I	Î
+\`I	Ì
+\"I	Ï
+\~N	Ñ
+\'O	Ó
+\^O	Ô
+\`O	Ò
+\~O	Õ
+\"O	Ö
+\'U	Ú
+\^U	Û
+\`U	Ù
+\"U	Ü
+!! \O must come after \OE :
+\OE	Œ
+\O 	Ø
+!! \o must come after \oe :
+\oe	œ
+\o 	ø
+\"Y	Ÿ

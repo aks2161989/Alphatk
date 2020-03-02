@@ -1,0 +1,331 @@
+
+AlphaTcl Support Folders Help
+
+
+                                               version: 8.1a3
+                                               created: 01/04/2006 {05:06:04 PM}
+                                           last update: 02/20/2006 {06:27:42 PM}
+
+
+	  	Abstract
+
+The "Config > Support Folders" submenu provides support for access to the
+Support Folders used by AlphaTcl.  There are two possible Support Folders
+available: one for system administrators (referred to as "local") and one for
+individual users (referred to as "user").  Support Folders allow the user to
+create/edit files that will be stored outside of the AlphaX file hierarchy,
+so that they will be available when you upgrade AlphaX.  The contents of
+these Support Folders can also be copied and installed in other computers.
+
+
+	  	Table Of Contents
+
+"# Support Folder Locations"
+"# Possible Support Folder Uses"
+"# Standard AlphaTcl Packages"
+"# New AlphaTcl Packages"
+"# 'Smart Source' Support Folders"
+"#   'Smart Source' vs 'Smarter Source'"
+"#   Rebuilding Package Indices"
+"#   Trouble-shooting Smart Source Files"
+"# System Administrator Notes"
+
+"# AlphaTcl Developer Notes"
+
+<<floatNamedMarks>>
+
+
+	  	Support Folder Locations
+
+There are two possible Support Folder locations, referred to as "local" (for
+system administrators) and "user" (for the current user).  These names
+correspond to two of the "domains" used in the Mac OS X system, but Support
+Folders should be available no matter what operating system you are using.
+
+Click here:
+
+<<alphadev::support::supportFoldersStatus>>
+
+to find out the current Support Folders status on your system.  Click here:
+
+<<file::showInFinder [alphadev::support::chooseFolder 0 0]>>
+
+to locate them in the Finder.
+
+When the "local" Support Folder exists, all of its files will be available to
+all users of the system, but they won't have the "write" permissions to edit
+or remove them.  (Users will always be able to write to their "user" folder.)
+
+If you keep all of your AlphaTcl modifications in your Support Folder, you
+will be able to easily install them on other computers if desired; just
+locate it using the "Config > Support Folders > Show Support Folder" command,
+make a copy of the entire folder, and move it to the proper location on
+another machine.
+
+
+	  	Possible Support Folder Uses
+
+Support Folders provide a location for users or system administrators to
+place their own AlphaTcl files, such as "# 'Smart Source' Support Folders"
+files, new packages, Help files, or Examples.
+
+AlphaTcl packages can also use Support Folders to place copies of files that
+the user might want to edit, such as Filters, Macros, Templates, Notes,
+AppleScripts, or anything else that might be used during the course of an
+editing session.
+
+The "Config > Support Folders" menu allows you to easily open a file in a
+Support Folder, save the active window in a Support Folder, or show the
+Support Folder in the Finder.
+
+
+	  	Standard AlphaTcl Packages
+
+Some examples of AlphaTcl packages in the standard distribution which make
+use of Support Folders include:
+
+package: filtersMenu
+
+The Filters Menu is distributed with a default set of filter files.  System
+administrators can supplement the default set by placing new files in the
+"local" Support Folder directory.  They can also add new filters by placing
+them there.  Users can create their own filters, and these will be stored in
+the "user" Support Folder directory.  Users can also over-ride the default
+versions of installed filters by editing copies of them in their "user"
+Support Folder.
+
+package: licenseTemplates
+
+The License Templates package provides a default set of license templates
+(such as "All Rights Reserved" or "Gnu Public License") that can be inserted
+into the active window if you use the package: documentProjects or the
+package: electricMenu.  The user (and the system admininistrator) can
+re-define these templates, or add new ones.  All modified license template 
+files are stored in a ".../Templates/Licenses/" Support Folder.
+
+package: macros
+
+The Macros package allows users to save commonly used macros; these are
+automatically stored in their "user" Support Folder directory.
+
+package: notes
+
+The Notes package creates a folder in which users can store files easily
+accessed by the "File > Notes" menu.  The default location of these note
+files is in the "user" Support Folder directory.
+
+
+	  	New AlphaTcl Packages
+
+New AlphaTcl packages (i.e. those not included in the standard distribution) 
+should be automatically installed in one of the Support Folders.
+
+Both the "local" and "user" Support Folder directories include a folder named
+"Tcl", which in turn contains folders named
+
+	Completions
+	Menus
+	Modes
+	Packages
+
+These folders should be used to install third-party packages, i.e. those 
+which are not contained in the standard distribution.  Each Support Folder 
+will also include
+
+	Help
+	Examples
+
+directories; the contents of these folders are queried to determine which 
+help or example file should be presented to the user.
+
+Alpha does its best to detect that you have added new packages to your
+AlphaTcl library.  If you have added a package in the AlphaTcl hierarchy of
+your Support Folder and package indices were not automatically rebuilt, you
+must select "Config > Packages > Rebuild Package Indices" in order to ensure
+that the new packages are recognized.  This is especially true if you are
+copying a Support Folder from one computer to another.
+
+Developers Note: the current installer routines in "install.tcl" still need 
+to be updated to automatically install packages in Support Folders.
+
+
+	  	'Smart Source' Support Folders
+
+The Support Folders contain an "AlphaTcl" directory, which in turn contains
+several folders including
+
+	Examples
+	Help
+	Tcl
+
+As described in the "# New AlphaTcl Packages" section, these folders can be
+used to add new AlphaTcl packages.
+
+They can also serve as "Smart Source" folders for files in the standard
+distribution, allowing you to modify Alpha's default behavior.  In order to
+make use of this functionality, you need to know
+
+(1) the name of the file you wish to modify, and
+(2) how the AlphaTcl code directs certain behaviors.
+
+If you want to modify Alpha's behavior, you probably want to first post a
+question to one of the mailing lists described in the "Readme" file;
+hopefully somebody will tell you which file is responsible for the operation
+you want to enhance.  Once you know the name of the file, select the command
+"Config > Support Folders > Open AlphaTcl File" and navigate to the file you
+need to inspect.
+
+<<alphadev::support::openAlphaTclFile>>
+
+Sometimes you can use this item to just browse the hierarchy to view the
+contents of an AlphaTcl file.  The source code for the "Ada" mode will, for
+example, most likely be found in the
+
+	AlphaTcl
+	Tcl
+	Modes
+
+folder, and the file 'adaMode.tcl' would be a very good guess.
+
+Once you have selected a file name, a copy of this file will then be placed
+in your "user" Support Folder.  If you make no modifications to this file, it
+will be deleted when you close it.  Otherwise, this version of the file will
+be used the next time that you launch Alpha.  This file is considered a
+"Smart Source" version, and will be used as long as it resides in your
+Support Folder, even after you upgrade Alpha to a newer version.
+
+To stop using this as a Smart Source file, you can either delete it, or
+change it's name.  (One common practice to temporarily disable a Smart Source
+file is to change its extension from ".tcl" to ".txt".)
+
+
+	  	 	'Smart Source' vs 'Smarter Source'
+
+For most users who are only working with one installation of Alpha, the
+Support Folders "Smart Source" feature is sufficient.  There is also an
+AlphaTcl package: smarterSource which extends this type of over-ride
+functionality even further.  The difference between the two is somewhat
+subtle, but can be very important.
+
+You only have one Support Folder for Alpha that will be used by all versions
+of Alpha that you might have installed.  "Smarter Source Folders", on the
+other hand, are specific to the particular version of Alpha that you are
+using, because the location of the Smarter Source Folder is defined in your
+preferences, and each Alpha installation is allowed to define its own Prefs
+folder.  Smarter Source files are generally used by AlphaTcl developers who
+need to maintain the latest stable version of Alpha while they are also
+working on the latest, cutting-edge beta version of the application and its
+supporting AlphaTcl library.  See the "Smarter Source Help" file for
+additional information.
+
+A similar logic applies to the "User Packages" folder that is contained in
+your preferences folder.  This is an alternative location for new packages,
+again specific to each Alpha installation.  For most users new packages
+should simply be installed in Support Folders so that you only need to worry
+about one location that contains all of your AlphaTcl modifications.
+
+
+	  	 	Rebuilding Package Indices
+
+Alpha stores a cache of startup information for each package to make the
+process of launching Alpha and loading these packages more efficient.  The 
+information stored in [alpha::package] declarations, such as
+
+	alpha::mode
+	alpha::menu
+	alpha::feature
+	alpha::extension
+	alpha::library
+
+is included in this cache.  If you change any of the information in these
+package declaration scripts, your AlphaTcl "Package Indices" need to be
+rebuilt in order for the changes to take effect.  You can select the command
+"Config > Packages > Rebuild Package Indices" at any time to perform this
+operation.  After rebuilding package indices, you need to immediately quit
+Alpha and restart it.
+
+Alpha does its best to detect that you have added new packages to your
+AlphaTcl library.  If you have added a package in the AlphaTcl hierarchy of
+your Support Folder and package indices were not automatically rebuilt, you
+must select "Config > Packages > Rebuild Package Indices" in order to ensure
+that the new packages are recognized.  This is especially true if you are
+copying a Support Folder from one computer to another.
+
+
+	  	 	Trouble-shooting Smart Source Files
+
+While Tcl is a fairly easy language to learn, like any programming language
+it is easy to make a small mistake in the code which will completely disable
+some functionality.  You will be able to compare your Smart Source file 
+against the original at any time.
+
+Just select "Config > Support Folders > Open AlphaTcl File" and navigate to
+the name of the file in question.  If you have already created a Smart Source
+version of this file, you will be offered several choices, including one to
+open the original version.  Select this option, and then select the menu item
+"Utils > Compare > Windows" to view the windows side-by-side to see what is
+different between them.
+
+See also "Debugging Help" for more trouble-shooting tips.
+
+
+	  	System Administrator Notes
+
+Alpha maintains two different Support Folder locations.  Each user has one
+specific to his/her account, and there is a single "local" Support Folder.
+This local folder will be in play for all users, and this is where you can
+place new packages, or provide over-ride files for pre-existing ones in the
+standard AlphaTcl distribution.  The order of precedence is
+
+	$SUPPORT(user)
+	$SUPPORT(local)
+	$HOME
+
+If the package: smarterSource has been turned on, these files will take
+precedence over all others.
+
+The "Config > Support Folders > Open AlphaTcl File" command will always make
+a copy of either the $HOME (or if it exists, the $SUPPORT(local)) file in use
+and place it in the $SUPPORT(user) hierarchy.  If you, acting as the system
+administrator, decide to make your version the default one used for all
+users, you must copy it manually to your $SUPPORT(local) hierarchy.  Use the 
+"Config > Support Folders > Show Support Folder" to expose both locations in 
+the Finder, and then copy the files as needed.
+
+This helps ensure that your personal modifications will not be available by
+other users unless you take some explicit action to make this the case.
+
+
+	====================================================================
+
+
+	  	AlphaTcl Developer Notes
+
+"SUPPORT" is a global variable defined either by the core AlphaX application
+or (if necessary) by the AlphaTcl SystemCode.  The SUPPORT array will always
+exist, with "local" and "user" entries.  AlphaTcl code that wants to make use
+of these variables should always confirm that the directories referred to by
+the array entries are not the null string, as in
+
+	if {($SUPPORT(local) ne "")} {
+	    ...
+	} elseif {($SUPPORT(user) ne "")} {
+	    ...
+	} else {
+	    ...
+	}
+
+If the array entries have any value other than "", you can assume that the
+folders did in fact exist when Alpha was launched.  (Yes, if the user deletes
+these folders while Alpha is running there will probably be trouble, but
+normal error handling should take care of this.)
+
+See the files "filtersMenu.tcl" and "macros.tcl" for examples of how SUPPORT 
+folders are used in AlphaTcl.
+
+	--------------------------------------------------------------------
+
+Author: Craig Barton Upright
+
+This document has been placed in the public domain.
+

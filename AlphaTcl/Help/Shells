@@ -1,0 +1,359 @@
+
+Shells
+
+                                               version: 1.9.2
+                                               created: 07/26/1997 {03:50:06 PM}
+                                           last update: 02/26/2004 {09:35:04 PM}
+
+
+This file documents the Tcl shell and the Toolserver shell (the latter 
+is for MacOS only).
+
+
+	  	Table Of Contents
+
+
+"# Tcl Shell"
+
+"# Using ToolServer With Alpha"
+"#   Introduction"
+"#   Getting Started"
+"#   Miscellany"
+"# FAQ"
+
+<<floatNamedMarks>>
+
+
+	  	Tcl Shell
+
+
+The basic idea of the Tcl Shell is to provide an interactive way to
+access Tcl, it is *NOT* currently intended to serve as a
+pseudo-unix-shell.  However, it does contain a few very useful unix shell
+functions.
+
+All pathnames must be pathnames correct for your platform.  This means:
+
+For Alpha 8: mac pathnames; relative pathnames start with colons,
+absolute pathnames don't.  For instance, ':file1' specifies a file named
+'file1' in the current directory.  '::file2' specfies a file in the parent
+directory, and ':::file3' is a file in the parent's parent's directory.
+Additionally, hitting command-tab with a partial pathname invokes a
+filename-completion function that tries to fill in the rest of the characters
+of the name.
+
+For Alpha X and Alphatk on MacOS X/Unix: unix pathnames, with '/' as a
+separator, and '../' to specify a parent directory.
+
+For Alphatk on Windows: windows pathnames, with '/' or '\' as a separator.
+
+Complete documentation on acceptable filenames is in the 'filename'
+section of "Tcl 8.4 Commands".
+
+The supported functions are all valid Tcl commands and the following:
+
+	cat <file>...  
+
+Dump contents of files into shell window.
+
+	cd <relative or absolute pathname>
+
+	Change directory. If called with no arguments, go to home directory.
+
+	cp <file1> <file2>          or
+	cp <file1> .... <destDir>
+
+Basic unix functionality, recursive.
+
+	dirs
+
+show current directory stack. See 'pushd' and 'popd'.
+
+	grep <pat> <file>...
+
+Grep, reasonably slow.
+
+	mkdir <dirname>
+
+make a directory (folder)
+
+	ls [-F|l] [<file>]...
+
+Two, mutually exclusive flags.  '-F' just gives the normal display, with a
+'*' behind applications and a '/' behind directories (folders).  '-l'
+presents a long listing, including sizes of both forks, creator, file type,
+and last modification time.  "shellMode.tcl" includes functions 'l' and
+'ll' which serve as my Unix aliases to 'ls -F' and 'ls -l'.
+	
+	mv <file1> <file2>          or
+	mv <file1> .... <destDir>
+	
+Moves a file, potentially across volume boundaries. Recursive.
+
+	popd
+
+Pop top dir off dir stack and 'cd' to it.
+
+	pushd [<dir>]
+
+If 'dir' specified, push current folder into directory stack and 'cd' to
+dir.  Otherwise, swap current dir w/ top of dir stack.
+
+	ps
+
+Prints a list of active applications.
+	
+	rm [-r] <file>...
+
+Removes files and empty directories. "-r" allows recursive removal, but 
+
+DON'T BLAME ME IF YOU DELETE YOUR ENTIRE DRIVE!	
+
+	rmdir <dirname>
+
+remove a directory (folder)
+
+	setCreator <creator> <files>
+
+Changes the creator of given files, which can be glob expressions.
+
+	setType <type> <files>
+
+Changes the type of given files, which can be glob expressions.
+
+	wc <file>...
+
+'wc' primitive from unix, counts lines, words, characters.
+
+
+The file "shellMode.tcl" contains Tcl code implementing the shell interface.
+You can change this to suit your tastes.  One recent goody is that you can
+re-execute previous commands merely by moving the cursor to the line and
+hitting the return key.  If there is no '>' character on the line when you hit
+a carriage return, the return is an ordinary new line.
+
+A primitive history mechanism can be used to move up and down the last 20
+commands by using control-uparrow and control-downarrow at a prompt.
+
+	  	
+	======================================================================
+
+
+	  	Using ToolServer With Alpha
+
+
+Draft, March 16, 1999: Eric Petersen <epeterse@aem.umn.edu>
+
+
+	  	 	Introduction
+
+
+ToolServer is a complete tool and script execution environment extracted from
+the MPW Shell that you can use to execute time-consuming, noninteractive tools
+or scripts in the background or on a remote machine.  Thus ToolServer can run
+most of the tools and scripts in the MPW tool suite and most tools and scripts
+which are written for MPW. The major exceptions are editor and Projector
+commands.
+
+ToolServer is primarily designed to be run using Apple events.  As such, it
+can be run from MPW 3.3 or later using the built-in MPW RShell command and
+from third-party applications that include support for ToolServer.  You can
+also use ToolServer as a foreground application; you specify the scripts to be
+executed and obtain the status of executing scripts by choosing the
+appropriate File menu items.
+
+[From “ToolServer Reference”]
+
+	  	 	Getting Started
+
+Type control-command-Y to open the Toolserver Shell, an Alpha window titled
+“*Toolserver shell*”.  (This will also launch the ToolServer application.)
+You will see the following message and prompt:
+
+    Welcome to Alpha's MPW shell (using ToolServer via AppleEvents).
+	«mpw» |
+
+The cursor will be positioned as shown by the “|”.  You may now type a command
+and hit _return_ (MPW users will have to unlearn hitting _enter_ to execute a
+command).  The following commands are supported by ToolServer:
+
+	Alert          Directory      Exit           Newer          Shift
+	Alias          Duplicate      Export         NewFolder      ShutDown
+	Beep           Echo           Files          Parameters     Unalias
+	Begin...End    Eject          Flush          Quit           Unexport
+	Break          Else           For...         Quote          Unmount
+	Catenate       Equal          Help           Rename         Unset
+	Confirm        Erase          If...          Request        Version
+	Continue       Evaluate       Loop...End     RShell         Volumes
+	Date           Execute        Move           Set            Which
+	Delete         Exist          Mount          SetFile
+
+Additional tools and scripts may be placed in the “Scripts”, “Tools”, and
+“User Commands” folders.  These names are for your benefit only; tools may be
+placed in the “Scripts” folder, user-defined commands may be placed in the
+“Tools” folder, etc.  You should be aware that newer distributions of MPW have
+merged the “Tools” and “Scripts” folders into a single “Commands” folder.
+ToolServer also has access to environment variables, called MPW variables.
+The _value_ of these variables is obtained by enclosing the variable name in
+curly braces.  For example, the command [1]
+
+	«mpw» echo {commands}
+
+will return a comma-delimited list of the pathnames that ToolServer searches
+to find commands:
+
+	:,HD:MPW:User Commands:,HD:MPW:Tools:,HD:MPW:Scripts:
+
+Thus the current directory “:” is searched first, then “User Commands”,
+“Tools”, and “Scripts” in that order.
+
+* [1] You should be aware that MPW and ToolServer are not, by default, case
+sensitive.
+
+If you wish to save typing keystrokes---and time spent learning---by using
+Unix-style command names, you may execute commands such as
+
+	«mpw» alias cd     directory
+	«mpw» alias pwd    directory
+	«mpw» alias grep   search
+	«mpw» alias mkdir  newfolder
+	«mpw» alias mv     move
+	«mpw» alias cp     duplicate
+	«mpw» alias rm     delete
+	«mpw» alias ls     files
+	«mpw» alias source execute
+
+These aliases will be forgotten when ToolServer quits however.  It would be
+better to save these commands in a file in the “TS Startup Items” folder; all
+files in “TS Startup Items” are executed when ToolServer launches.  The items
+in the “TS Startup Items” folder do not have any special naming conventions,
+and will be executed in alphabetical order.  They can also be any type of
+executable entity, such as scripts, tools, and/or applications.  As we'll see
+later on, you might want to put an alias of the Key Caps utility in as well.
+
+To get started, make an alias of the Alpha application and place it in the
+“User Commands” folder.  Now the command (assuming that the alias is named
+“alpha”)
+
+	«mpw» alpha foo
+
+will open the file “foo” in the current directory with Alpha.  This is of
+little use until the current directory is set; the current directory is set to
+the location of the ToolServer application initially.  Obviously the
+“directory” command is needed here, but how does it work?  Type
+
+	«mpw» help directory
+
+to get the help text
+
+	Directory       # set or write the default directory
+	Directory [-q | directory]  > directory
+	    -q          # don't quote directories with special characters
+
+“Directory” by itself writes the full pathname of the current directory (hence
+the alias to “pwd” above), while “directory dir_pathname” sets the current
+directory to “dir_pathname” (as would be expected from the alias to “cd”).  To
+see an example, try
+
+	«mpw» directory
+	«mpw» directory :: ; directory
+
+which return “HD:MPW:” and “HD:”, respectively, in this example.  (The parent
+directory of “:” is “::”, “:::” is the grandparent directory, etc.  We also
+note the use of “;” to separate commands on a line.)  Now “files” will list
+the files _and_ folders in the current directory:
+
+	«mpw» files
+	:Applications:
+	':Desktop Folder:'
+	:MPW:
+	:Papers:
+	:Pictures:
+	:Trash:
+	Bookmarks.html
+	cholesky.tex
+	thesispage.sty
+
+Note that names with spaces or special characters must be quoted if they are
+to be used in commands.  You can now navigate to your desired folder all at
+once, or step-by-step:
+
+	«mpw» directory 'HD:Applications:Alpha ƒ:Tcl:Modes:'
+
+In this example, the “ƒ” (option-f) character was entered via the menu item
+"Utils > Ascii Etc > Insert Ascii", since _typing_ option-f will trigger the
+"Edit > Emacs > Forward Word" command in Alpha.  (Its ASCII code is decimal
+196.  You could also paste it from, say, the Key Caps utility.)  Now, to find
+all occurrances of the string “ToolServer” in the code, type
+
+	«mpw» search -i toolserver ≈.tcl  # -i is a case-insensitive search
+
+The MPW wildcard character “≈” (option-x) is ASCII code 197, and the “#”
+symbol starts a comment.
+
+As a final exercise, let's create a small, but useless, script to play a tune.
+We'll need the “beep” command, so let's find out how to use it.
+
+	«mpw» help beep
+	Beep            # generate tones
+	Beep [note [,duration [,level]]]…
+	    #   duration is given in sixtieths of a second (default is 15)
+	    #   sound level is given as a number from 0 to 255 (default is 128)
+
+So save the following pair of lines in a new file “Chimes” in the “User
+Commands” folder:
+
+	beep 2e,20,40  2c,20,60  2d,20,80  1g,40,100
+	beep 1g,20,120 2d,20,140 2e,20,160 2c,40,180
+
+When the file is saved, type
+
+	«mpw» chimes
+
+to hear the tune.
+
+
+	  	 	Miscellany
+
+
+• You should also note that ToolServer will not automatically come to the
+front when an interactive command, such as Alert, is executed.
+
+
+		Where to Download
+
+• ToolServer
+
+<ftp://ftp.apple.com/devworld/Tool_Chest/Core_Mac_OS_Tools/MPW_etc./MPW-GM/MPW/ToolServer.sit.hqx>
+
+• ToolServer Reference (PDF format)
+
+<ftp://ftp.apple.com/devworld/Tool_Chest/Core_Mac_OS_Tools/MPW_etc./Documentation/MPW_Reference/ToolServer_Reference.sit.hqx>
+
+• Introduction to MPW (PDF format)
+
+<ftp://ftp.apple.com/devworld/Tool_Chest/Core_Mac_OS_Tools/MPW_etc./Documentation/MPW_Reference/Introduction_to_MPW.sit.hqx>
+
+• MPW Tools for use with ToolServer
+
+<ftp://ftp.apple.com/devworld/Tool_Chest/Core_Mac_OS_Tools/MPW_etc./MPW-GM/MPW/Tools/>
+
+• MPW Command Reference (documentation for MPW Tools, PDF format)
+
+<ftp://ftp.apple.com/devworld/Tool_Chest/Core_Mac_OS_Tools/MPW_etc./Documentation/MPW_Reference/MPW_Command_Reference.sit.hqx>
+
+
+	  	FAQ
+
+• Q: My file in “TS Startup Items” doesn't get executed.  Why not?
+
+• A: You probably have a syntax error or are trying to use a command not
+supported by ToolServer.  Look in the file “StartupTS.err” in the directory
+with ToolServer.  It will probably contain something like
+
+	### ToolServer - Execution of HD:MPW:TS Startup Items:your_file terminated.
+	### ToolServer - Execution of StartupTS terminated.
+
+Unfortunately, you have to figure out the offending command or syntax on
+your own.
+

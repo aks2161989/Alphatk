@@ -1,0 +1,852 @@
+
+Electrics Help
+
+                                      help version: 9.1.3
+                                           created: 05/19/2002 {04:44:50 PM}
+                                       last update: 01/09/2006 {01:32:12 PM} 
+
+
+	  	Abstract
+
+
+This file provides information on "Electric" behavior in Alpha.
+
+The term "electric" is used throughout Alpha in the sense of
+
+	automatic, power assisted behavior
+
+which is intended to save time, keystrokes, and brainpower.  The basic idea is
+that any one of several different keyboard shortcuts will scan the current
+context surrounding the cursor and then insert the string that you really
+want.  Other shortcuts might allow you to navigate an "electric template" that
+might have been created.  You can specify which shortcuts are used for the
+specific functions.
+
+	  	Table Of Contents
+
+"# Abstract"
+"# Table Of Contents"
+"# Introduction"
+
+"# Electric Bindings"
+"#   Indent On Return"
+"#   Electric Braces"
+"#   Electric Semicolon"
+"# Electric Completions"
+"# Electric Expansions"
+"# Electric Corrections"
+"# Electric Preferences"
+
+"# Types Of Completions"
+"#   User Defined Completions"
+"#   Mode Specific Completions"
+"#   Word Completions"
+"# Possible Mode Completions"
+"#   Command Completions"
+"#   Code Templates"
+"#   Class Names"
+"#   File-names"
+"#   TeX References"
+"#   TeX Citations"
+"#   TeX Environments"
+"#   Tcl Variables, Procedures"
+"#   Tcl Ensemble Completions"
+"# Template Insertions"
+"# Completion Preferences"
+
+"# The Electric Menu"
+"#   Electric Menu Preferences"
+"#   Electric Menu Templates"
+
+"# Feedback"
+"# Copyright"
+
+<<floatNamedMarks>>
+
+
+	  	Introduction
+
+
+This help file describes all of the various packages that enable some sort of
+"electric" behavior.  The primary goal of all of these packages is to save you
+key strokes.
+
+For example, when you press your key binding for "Complete" Alpha looks at the
+text just prior to the cursor and attempts to determine if this 'hint' is an
+abbreviation for some other desired text.  This completion might just be a
+similar word found in the active window, or a special mode keyword that
+inserts an electric template.
+
+Another type of electric behavior is invoked by the "Expand" key binding.  In
+this case, the preceding 'hint' is considered to be an acronym for some other
+text that should be inserted, such as "sp --> someProcedure".
+
+The "Complete" and "Expand" keyboard shortcuts can be adjusted in the dialog
+created by selecting "Config > Special Keys".
+
+Preferences: SpecialKeys
+
+For the impatient reader: after determining your keyboard shortcut for
+"Complete" you can click on this "Text Tutorial" hyperlink.  This opens an
+interactive help window which explains the basic of electric completions.
+Note that the "Installed Packages" help file includes a section containing
+additional mode-specific completion tutorials -- these are also listed at the
+end of the Text Tutorial.  Tutorials for the mode of the active window are
+also available with "Config > Mode Prefs > Completions Tutorial".
+
+Additional 'electric' features include the package: elecExpansions and the
+package: elecCorrections, which have their own separate help.  In addition,
+Alpha's default electric behavior can be enhanced if you activate the package:
+betterTemplates, although you should probably read some of the sections below
+so that "Better Templates" help will make more sense.
+
+These hyperlinks:
+
+  <<package::activate elecCorrections>>  "elecCorrections Help"
+  <<package::activate betterTemplates>>  "betterTemplates Help"
+
+will also temporarily activate these features for this editing session, select
+"Config > Global Setup > Features" to turn them on permanently.
+
+Preferences: Features
+
+
+	====================================================================
+
+
+	  	Electric Bindings
+
+
+The "Config > Special Keys" dialog is used to define the keyboard shortcuts
+which invoke the electric completion and expansion operations, as well as the
+shortcuts used to jump between the template stops.
+
+Preferences: SpecialKeys
+
+This dialog includes items for the following functions:
+
+	Clear All Stops
+	Complete
+	Expand
+	Next Stop
+	Next Stop Or Indent
+	Prev Stop
+	nth Stop
+
+See the "# Template Insertions" section below for more information regarding
+the navigation of templates and the "Elec Stop Marker".
+
+The package: betterTemplates enhances these functions, treating all of the
+template stops as a 'ring' and allowing you to navigate them with greater
+precision.
+
+This dialog also includes items for
+
+	Real Tab
+	Typewriter Tab
+
+These are provided primarily because many users choose to use Tab to invoke
+some item in the first list, and thus need some shortcut to insert a 'real'
+tab!  The "Typewriter Tab" will just insert enough spaces to what would be the
+next 'column' stop indicated visually by a 'real' tab.
+
+
+	  	 	Indent On Return
+
+Many modes have defined sophisticated indentation routines that is often
+specific to the context surrounding the cursor position.  When this is the
+case, the mode will have an "Indent On Return" preference that can be turned
+on and off.  When it is turned on, pressing Return will automatically indent
+the new line that is created.
+
+Even if this preference is turned off, you can always indent the current line
+using the "Text > Indent Line/Selection" menu commands.  In addition, pressing
+Command-Return will always indent the new line, while Control-Return will
+always insert a new line without indentation.
+
+	  	 	Electric Braces
+
+In many modes (especially those for computer languages) right and left braces
+{} indicate some new block of code, and oftentimes this means that a new line
+should be immediately inserted and/or some special indentation procedure
+should take place.  When this is the case, the mode will have a preference
+named "Electric Braces" defined.  When this preference is turned on, pressing
+{ or } will perform some mode specific routine.  Pressing { or } with some
+modifier key will insert a "normal" brace -- the modifier is often Control but
+might vary according to your keyboard layout.
+
+	  	 	Electric Semicolon
+
+In many modes (especially those for computer languages) a semicolon indicates
+the termination of a command line, and oftentimes this means that a new line
+should be immediately inserted and/or some special indentation procedure
+should take place.  When this is the case, the mode will have a preference
+named "Electric Semicolon" defined.  When this preference is turned on,
+pressing ; will perform some mode specific routine.  Pressing ; with some
+modifier key will insert a "normal" semicolon -- the modifier is often Control
+but might vary according to your keyboard layout.
+
+
+	  	Electric Completions
+
+
+AlphaTcl contains a unified collection of procedures to address command
+completion, code indentation, electric-code generation, word completion and
+related facilities, described below in "# Types Of Completions".
+
+Here's a typical example from TeX mode.  You can type:
+
+	for an explanation of this phenomenon,
+	please refer to Fig
+	
+and then press "Complete".  This signifies that we should try to complete the
+currently typed text.  In this case the completion might be:
+
+	for an explanation of this phenomenon,
+	please refer to Figure~\ref{fig-
+	
+If you hit "Complete" again, the completion routines try to search for TeX
+'\labels' which begin with 'fig-' to insert the first such label it finds into
+the text:
+
+	for an explanation of this phenomenon,
+	please refer to Figure~\ref{fig-heat-vs-time}
+	
+If this is the wrong one, you can keep hitting "Complete" until you reach the
+correct completion:
+
+	for an explanation of this phenomenon,
+	please refer to Figure~\ref{fig-explanation}
+	
+Here's an example of using electric completions in C/C++ modes.  You type
+'for', press "Complete" and then you get:
+
+	for (;•;•){
+		•
+	}
+
+This works at any current level of indentation, and the bullet marks '•' are
+placemarkers.  You can just press the binding for "Next Stop" (or,
+alternatively, "Indent Or Next Stop") to jump from one to the next.  These are
+referred to as "template rings", and described in more detail in the section
+"# Template Insertion" below.
+
+
+	  	Electric Expansions
+
+
+This package provides a method for expanding acronyms into full words.  When
+you find yourself typing a lot of variable and function names over and over,
+and these names are word-combinations where the name is formed by either
+capitalizing each word or separating them with an underscore, you can type the
+initial letter of each word and use the 'Expansion' keyboard shortcut to
+invoke an acronym expansion.
+
+See the package: elecExpansions help file for more information.
+
+
+	  	Electric Corrections
+
+
+This package helps check for and correct spelling mistakes or typos as you
+type.  This is not a spell-checking extension -- instead it is more of a
+"misspell-checker": you must teach Alpha the common misspellings or typos to
+correct.  Whenever you press the return or space key, Alpha will then compare
+the previous word to the list of all typos, and correct it if necessary.  This
+package also includes a "Smart i" preference, which can automatically change
+"i" to "I" as you type.
+
+See the package: elecCorrections help file for more information.
+
+
+	  	Electric Preferences
+
+The "Config > Preferences > Interface Preferences > Electrics" dialog 
+allows you to change Alpha's electric behavior.
+
+Preferences: Electrics
+
+Note: when the package: autoWrapComments is turned on, text that is typed in
+in a commented line will be automatically wrapped even if the current "Wrap"
+setting is "None".  If you don't like this behavior, you should turn off
+"Auto Wrap Comments".
+
+(More to be added...)
+
+
+	====================================================================
+
+
+	  	Types Of Completions
+
+
+The "Complete" binding can perform a number of context specific routines to
+complete a single word, offer a list of possible completions, insert a mode
+specific template, etc.  which are explained below.
+
+Completions types are listed in order of precedence, although individual
+routines within the 'mode' specific completions will vary widely.
+
+
+	  	 	User Defined Completions 
+
+The "Config > Packages > Electric Completions" submenu contains several items
+that allow you to create global completions that will be in place no matter
+what mode you are in.  For example, you can turn
+
+	vmd
+
+into
+
+	Vince M. Darley
+
+automatically if desired or 
+
+	www
+
+into
+
+	<http://www.santafe.edu/~vince/>
+
+User completions are active in all modes, and take precedence over all other
+completion types.
+
+
+	  	 	Mode Specific Completions
+
+Each mode can define a specific set of completion routines to be followed in a
+specific order to create context specific completions.  The section below on
+"# Possible Mode Completions" below explains what some of these completion
+routines might do.
+
+In some modes you can tell relatively easily from the context whether a
+particular 'word' is a variable or procedure name or...  If different
+completion procedures are useful for different types of word, then they are
+checked next.  For instance, in Tcl mode, a word beginning with '$', or
+preceded by 'set' or 'global' is a variable name.  It should therefore
+preferentially be completed as a variable, rather than being expanded as a
+command.  E.g.
+
+	$str
+
+should normally not be expanded to 
+
+	$string ...
+
+since it's clearly not the command 'string' that you are trying to type.
+
+The variety of mode/context specific completions is unlimited.  Ideally, each
+mode that creates a set of such routines also provides a completions tutorial
+that explains them in more detail -- see the "Installed Packages" help file
+for a list of tutorials currently available.
+
+
+	  	 	Word Completions
+
+If none of the above succeeded then the current word is completed to copy
+nearby words (variable names) in the file.  Again, repeated presses will cycle
+through other possibilities.
+
+
+	  	Possible Mode Completions
+
+Each mode can create its own set of completion routines, which will be queried
+in whatever order the mode's maintainer thinks is most helpful.  Generally,
+these take the context of the current 'word' into account, and perform a
+series of tests to determine what you are attempting to accomplish.  If you
+are in TeX mode, e.g, relevant questions include
+
+  • Are we in the middle of 'contraction' ?
+  • Are we starting an environment?
+  • Is this a recognized TeX keyword?
+  • Are we trying to complete some sort of reference?
+  • Are we trying to complete some bibliographic citation?
+
+Similarly, in C/C++ modes, we might want to figure out if
+
+  • Is this the start of a recognized C/C++ keyword?
+  • Do we have a template for this keyword?
+  • Is this the start of a class?
+	
+The default completions package in the AlphaTcl core provide some of this
+functionality, other procedures have been painstakingly developed by various
+mode maintainers in the eternal process of spending an hour of programming in
+order to later save 10 seconds of keystrokes :) Their labor has been spent to
+make your text editing more efficient.
+
+In all of the examples below, the procedure which is used to create the
+completion is included mainly for developers that want to create mode specific
+creations, as well as sample code.
+
+Developers note: the array "completions" determines the order in which
+completion routines are queried for each mode, as in
+
+	ensureset completions(Tcl) {
+		contraction Proc Vvar completion::cmd Ensemble completion::electric Var
+	}
+
+Some of these procs are defined in the "completion" namespace, others will be
+specific to your mode.  See "TclCompletions.tcl" for examples.
+
+
+	  	 	Command Completions 
+
+Each mode can define a set of keywords that will always be completed first
+regardless of how many similar surrounding words might be found.  These
+commands might be then further completed with command templates.
+
+For instance: in Tcl mode ("Tcl Example.tcl") you can type
+
+	str
+
+and  it will be completed to 
+
+	string
+
+and you will then be offered additional options (i.e. 'length' 'index' etc) in
+a dialog that looks like <<Tcl::Completion::PickOption string>>.  If there are
+multiple possibilities for the completion then the longest unique prefix is
+inserted.
+    
+proc: completion::cmd
+
+The available completions of this type are mode dependent, and stored in the
+variable ${mode}cmds.  This variable must be a valid list, and must be stored
+alphabetically.
+
+
+	  	 	Code Templates
+
+You can test these in the "C++ Tutorial.cc" tutorial window.
+
+Type 
+
+	for
+
+in C mode and a complete template for code is generated:
+	
+	for (;•;•){
+		•
+	}
+
+You can move from one template mark '•' to the next using your binding for
+"Next Stop" or "Indent Or Next Stop".
+
+proc: completion::electric
+
+These are again mode dependent.  Each is stored individually as an element of
+the array ${mode}electrics, so, for instance the above electric code is
+generated by:
+
+	set Celectrics(for) " (••;••;••)\{\n\t••\n\}\n••"
+
+Note how the bullets are double in the definition.  You can actually place an
+explanatory bit of text between pairs of bullets.  This is then used as a hint
+to the user:
+
+	set Celectrics(for) " (•start•;•test•;•increment•)\{\n\t•body•\n\}\n••"
+
+
+	  	 	Class Names
+
+You can test these in the "C++ Tutorial.cc" tutorial window.
+
+In C++ mode, when entering a class definition, the class name occurs multiple
+times.  To save entering all of these, this completion will fill them all in
+for you.  For example, completing 'class' will insert:
+
+	class •<object name> : public •<parent> {
+	  public:
+		•<object name>(•<args>);
+		~•<object name>(void);
+	
+	};
+	•
+
+(Actual insertion might look different depending on whether you have activated
+the package: betterTemplates, and the value of various prefs set and used by
+that package.)
+
+Now IF the "betterTemplates" package is active, type the class name, say
+'toaster', followed by "Complete".  This will result in:
+
+	class toaster : public •<parent> {
+	  public:
+		toaster(•<args>);
+		~toaster(void);
+	
+	};
+	•
+
+i.e. each occurrence of the electric stop 'object name' has been filled in
+correctly.  This feature may be easily extended to more complex examples.
+This completion uses the proc: C::Completion::Class
+
+
+	  	 	File-names
+
+Useful for Shel mode, this allows you to type a partial directory or filename
+and hit "Complete" to have it extended as much as possible.
+
+proc: completion::filename
+
+
+	  	 	TeX References
+
+You can test these in the "TeX Tutorial v1.3.tex" tutorial window.
+
+Type 
+
+	\ref
+
+and the command is automatically completed with the name of a nearby \label{},
+as in
+
+	\ref{eq::someEquation}
+
+Repeated "Complete" keypresses will cycle through all \label's.  Further,
+these commands chain together, so typing
+
+	\eqr
+
+will complete the \eqref and continue to fill in a nearby label!
+
+Note that the reference completions can be instigated by command completion
+on, 'Fig' 'Chap' 'Eq.'  'Sec', ...  which insert the standard label prefix
+'fig:' 'chap:' 'eq:' 'sec:' as appropriate.  If you complete with no prefix,
+then any label will match; if you have a prefix then only those which match
+will be suggested.
+
+This is implemented by the proc: TeX::Completion::Reference
+
+
+	  	 	TeX Citations
+
+Type 
+
+	\cite{Darley19
+
+and the command is completed with a matching citation entry from one of your
+'.bib' database files.  If there are multiple possibilities, then you are
+prompted with a list from which to choose.  Depending upon the value of a TeX
+flag, the list can include the titles of each choice, making it more obvious
+to you which is correct.
+
+This is implemented by the proc: TeX::Completion::Cite
+
+
+	  	 	TeX Environments
+
+\begin{} \end{} pairs with synchronization of the parameter, and template
+generation of the body.
+
+You can complete 
+
+	\begin
+
+followed by 'equ' and another "Complete to insert the following:
+
+	\begin{equation}
+		•
+		\label{eq:•}
+	\end{equation}
+	•
+
+You have a choice between the double-completion, as above, or just 
+
+	\begin{equation}
+
+followed by "Complete" which will do the job in one go.
+
+This is implemented by the proc: TeX::Completion::Env
+
+Similar things work for 'itemize' 'enumerate' etc.  Of particular use are the
+completions for 'figure' environments, from which you can enter ordinary
+figures, floating figures, and a large number of sub-figure configurations (2
+figures side-by-side, a block of 4,...).  For instance, a handful of
+key-presses will give you this:
+
+	\begin{figure}
+		\centering
+		\subfigure[•“subfig caption”]{\label{fig:•}%
+			\includegraphics[width=\figstwo]{•“graphics file”}}\goodgaptwo
+		\subfigure[•“subfig caption”]{\label{fig:•}%
+			\includegraphics[width=\figstwo]{•“graphics file”}}\\
+		\subfigure[•“subfig caption”]{\label{fig:•}%
+			\includegraphics[width=\figstwo]{•“graphics file”}}\goodgaptwo
+		\subfigure[•“subfig caption”]{\label{fig:•}%
+			\includegraphics[width=\figstwo]{•“graphics file”}}%
+		\caption•“[short caption for t.o.f.]”{•“caption”}
+		\label{fig:•}
+	\end{figure}
+	•
+
+For these to work, you must use the correct LaTeX packages in the .tex file
+(graphics, floatingfigure or subfigure as appropriate, although the code will
+automatically insert the correct 'usepackage' specifications for you if
+desired), and you may need the following definitions in your LaTeX preamble:
+
+	\newlength{\goodspace}
+	\newlength{\goodspacethree}
+	\newlength{\goodspacefour}
+	\newlength{\figstwo}
+	\newlength{\figsthree}
+	\newlength{\figsfour}
+	
+	\setlength{\goodspace}{\subfigtopskip+\subfigbottomskip}
+	\setlength{\goodspacethree}{\goodspace}
+	\setlength{\goodspacefour}{\goodspace*\real{0.6}}
+	
+	\newcommand{\goodgap}{\hspace{\goodspace}}
+	\newcommand{\goodgaptwo}{\goodgap}
+	\newcommand{\goodgapthree}{\hspace{\goodspacethree}}
+	\newcommand{\goodgapfour}{\hspace{\goodspacefour}}
+	
+	\setlength{\figstwo}{(\linewidth-\goodspace)/2-1pt}
+	\setlength{\figsthree}{(\linewidth-\goodspace *2)/3-1pt}
+	\setlength{\figsfour}{(\linewidth-\goodspace *\real{1.8})/4-1pt}
+
+These allow good alignment and spacing for most subfigure combinations without
+the need for manual intervention.
+
+Some environments can contain an arbitrary number of items.  In this case,
+hitting use the "TeX Menu > Environments > Add Item" (or its key binding) to
+(surprise) add an item.  Here we turn this:
+
+	\begin{description}
+		\item[First one] here's the description
+		
+		\item[•“name”] •“description”
+		
+	\end{description}
+	•
+
+into:
+
+	\begin{description}
+		\item[First one] here's the description
+		\item[•] •
+		
+		\item[•“name”] •“description”
+		
+	\end{description}
+	•
+
+Similar entries work correctly for itemized, enumerated, aligned,...
+environments.
+
+
+	  	 	Tcl Variables, Procedures
+
+During Tcl completions, the context surrounding the 'hint' is checked to
+determine if you are attempting to complete a proc, array, or scalar variable.
+If this context can be determined, then you will be offered a list based on
+the procs/vars that are currently recognized by your Tcl interpreter.  These
+completions are also namespace aware, so that if the context looks like
+
+	proc alpha::testSomething {
+	    
+	    set specialVar [findAll
+		
+	}
+
+you will be offered a list of all procedures in the 'alpha' namespace that
+start with 'findAll'.  If no such completions exist, then all procedures in
+the global namespace starting with 'findAll' will be presented.
+
+proc: Tcl::Completion::Proc
+proc: Tcl::Completion::GlobalVar
+
+Tcl variables are often referenced with '$var' or just 'var' or '${var}'.  You
+can complete between any of these types.  A local search for a match is done
+and the closest match inserted.  Again you can cycle through other matches
+with "Complete".
+
+proc: Tcl::Completion::Var
+
+Take the "Tcl Tutorial.tcl" for more information.
+
+
+	  	 	Tcl Ensemble Completions 
+
+Type 
+
+	string co
+
+in Tcl mode and this is can be completed to 
+
+	string compare
+
+along with an electric template is inserted for the arguments of this two part
+command.  Useful for any case in which the word before last is the command,
+and the word just before is part of a refinement of that command, in any
+situation for which a number of further arguments will be filled in.
+
+(Note that in Tcl mode, all defined procedures currently recognized by your
+Tcl interpreter can be included as completions, and in this case 'co' will
+probably first be recognized as as standard 'co' completion and you will be
+offered a list of completions that have nothing to do with 'string'.)
+
+proc: completion::ensemble
+
+This procedure does a double-word check, and 
+
+
+	  	Template Insertions
+
+You'll notice in a lot of the above examples that only bullets '•' are
+inserted into the text.  You can set the 'Elec Stop Marker' preference to
+change this character if desired.
+
+Preferences: Completions
+
+Many of the routines in mode completion routines allow you to insert templates
+for 'for' loops, '\begin...\end environments', file headers, function
+comments, and even entire documents.  Once a template has been inserted, it
+will often contain several 'place-markers' or 'template-stops' at each of
+which you will most likely wish to enter some text/code.
+
+Here's an example of a 'for' template in C++ mode (created just by typing
+'for' and then pressing the "Complete" key):
+
+	for (•<init>;•<test>;•<increment>){
+		•<loop body>
+	}
+	•
+
+You can jump backwards and forwards amongst these stops using the keyboard
+shortcuts defined for these operations.  Consult the "# Electric Bindings"
+section above for more information.
+
+If the package: betterTemplates has been turned on, you have a choice between
+four different formats for the visual appearance of the template stops.  They
+are usually signified by a bullet '•', but more elaborate methods are
+supported.  These templates may be nested without any extra effort on your
+part.  You can also choose the colour of the bullets / prompts which are
+inserted.
+
+
+	  	Completion Preferences
+
+
+(to be added)
+
+Preferences: Completions
+
+
+	====================================================================
+
+
+	  	The Electric Menu
+
+
+The "Electric Menu" is has been designed to be globally activated -- you can
+turn it on using "Config > Global Setup > Menus".
+
+Preferences: Menus
+
+To temporarily activate it now in order to inspect its contents while reading
+this help file, click here <<package::activate electricMenu>>.  This will
+create the menu and insert it at the end of the main menu bar.  Click here
+<<package::deactivate electricMenu>> to remove it.
+
+
+	  	 	Electric Menu Preferences
+
+
+This menu create four new preferences -- that determine how the Electric menu
+will be built, depending on how it will be used.  The first three appear in
+the "Config > Preferences > Interface Prefs > Electrics" dialog:
+
+Preferences: Electrics
+
+	Put Templates In Main Menu
+
+To put all the templates into the main electric menu rather than in a submenu,
+turn this item on.  To place all templates in a sub-menu of the electric menu,
+turn this item off.
+
+The electric menu contains a 'Templates' sub-menu, which contains global
+templates stored in the variable 'univ::MenuTemplates', and mode-specific
+templates stored in variables ${mode}Templates.  The format of these variables
+is a list of names, which correspond to procedures when prepended with
+'file::'.  You can add new items by using the menu item.
+
+
+	Show Electric Keys In Menu
+
+To add the list of key-bindings to the bottom of the electric menu (these are
+the items you set using "Config > Special Keys" as described above in the
+section "# Special Keys") turn this item on.  To remove the list of
+key-bindings from the electric menu, once you've learned them all, you can
+turn this item off.
+
+Preferences: SpecialKeys
+
+	Add Template Manipulators
+
+To add a couple of menu items to let you create or delete new templates, turn
+this item on, otherwise leave it off.  Once you have activated the menu, use
+this hyperlink <<dialog::preferences preferences Electrics>> to change the
+value of these preferences to see how this changes the appearance of the menu.
+
+
+The last one appears in the "Interface Prefs > Completions" dialog:
+
+Preferences: Completions
+
+	Show Completions In Electric Menu
+
+To show mode-dependent electric completions in menu, i.e. include in the menu
+all items which when typed and followed by "Complete" will complete into some
+command, turn this item on.  By default all items in the ${mode}electrics
+array are inserted into a new menu.  This allows you to insert them, and get a
+feel for a small number of the completions which exist.  (The electric
+template inserted for any item appearing in this menu could also be created by
+typing the item name into the active window and using the "Complete" key
+bindings.)
+
+To remove all mode-dependent completions from the electric menu, once you've
+learned everything that's available, you can turn this item off.  Use this
+hyperlink <<dialog::preferences preferences Completions>> to change the value
+of this preference.  (You probably need to change modes in order to see the
+difference, try opening this "Perl Example.pl" window to see what happens.
+
+
+	  	 	Electric Menu Templates
+
+
+(to be added)
+
+
+	====================================================================
+
+
+	  	Feedback
+
+Help us to help you!
+
+Completions for some common items just don't currently exist.  So if you try
+to complete something and it doesn't work, why not write a completion for it?
+Once you have assembled a few, mail them to the current maintainer of the
+"Elec Completions" package.  (Suggestions should preferably archived in .sit
+or .zip files, since bullets '•' generally don't travel well by ASCII mail).
+We'd particularly like completions for other modes.
+
+
+	  	Copyright
+
+This document has been placed in the public domain.
+
+See the source files for "templates.tcl" "elecTemplates.tcl" for copyrights
+for package code.
+
+Author: Vince Darley
+E-mail: <vince@santafe.edu>
+  mail: 317 Paseo de Peralta
+		Santa Fe, NM 87501, USA
+   www: <http://www.santafe.edu/~vince/>
+
+Author: Craig Barton Upright
+
+Some pieces pasted from Alpha-D mailing list responses.

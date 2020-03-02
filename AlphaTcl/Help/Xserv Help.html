@@ -1,0 +1,256 @@
+<!-- -*-HTML-*- 
+
+ This is file `XservHelp.html',
+ generated with the docstrip utility.
+
+ The original source files were:
+
+ xserv.dtx  (with options: `help')
+ 
+
+ ===================================================================
+ AlphaTcl - core Tcl engine
+                                   created: 2002-11-25 12:23:32
+                               last update: 03/10/2006 {03:54:35 PM}
+ Author: Fr\'ed\'eric Boulanger
+ E-mail: Frederic.Boulanger@supelec.fr
+   mail: Sup\'elec - Service Informatique
+         Plateau de Moulon, 3 rue Joliot-Curie
+         F-91192 Gif-sur-Yvette cedex
+    www: http://wwwsi.supelec.fr/fb/
+
+ Description:
+
+   The xserv package manages the declaration of eXternal SERVices
+   and of implementations of these services with applications.
+
+   See xserv.dtx or its typeset form (xserv.pdf for instance) for the
+   documentation of this package.
+
+ History
+
+ modified   by  rev reason
+ _________________________
+
+ 2002-11-25 FBO 1.0 first version, starting from the api 1.1 package
+ 2003-01-20 FBO 1.1 changed executeApp to fix issue with Apple Events
+ 2003-04-01 FBO 1.2 fixed encoding issue, added end-exec hooks
+ 2003-06-16 FBO 1.3 added categories, validation of implementations
+ ===================================================================
+-->
+<!doctype html public "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+  <title>Xserv Help</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+  <LINK REV="MADE" HREF="mailto:Frederic.Boulanger@supelec.fr">
+  <META NAME="author" CONTENT="Fr&eacute;d&eacute;ric Boulanger">
+  <META NAME="date" CONTENT="2003-06-24">
+</head>
+
+<body>
+
+<h1 align="center">Xserv Help</h1>
+
+<p>Version 2.0.1</p>
+<p><a href="mailto:Frederic.Boulanger@supelec.fr">
+   Fr&eacute;d&eacute;ric Boulanger</a></p>
+
+<h2>Introduction</h2>
+
+<p>
+&#8220;Xserv&#8221; is an AlphaTcl package which introduces a new way to
+manage external applications.  Each operation that can be done by an
+application is called a service.  For instance, we may have a
+&#8220;viewURL&#8221; service, the effect of which is to display the
+contents of an URL. There may be several implementations of this service:
+one using &#8220;Internet Explorer&#8221;, another using
+&#8220;Safari&#8221; or yet another using &#8220;Netscape&#8221;.
+</p>
+
+<p>
+Xserv allows packages and modes to declare services and to use them in a
+uniform way, independent of the implementation used to provide the service.
+</p>
+
+<p>
+Xserv interacts with you only for choosing an implementation for a service.
+If a service is invoked and no implementation has been chosen for it yet,
+Xserv will display a dialog containing the list of all known
+implementations of the service. Once an implementation has been chosen, it
+is remembered until you decide to choose another implementation.
+</p>
+
+<h2>Xserv and Helper Applications</h2>
+
+<p>
+To set which application to use for different tasks for these parts of
+AlphaTcl, select the &#8220;<FONT COLOR="BF0D10">Config &gt; Global Setup
+&gt; Helper Applications</FONT>&#8221; command.  There are two versions of
+this dialog; if you cannot find the service you are looking for be sure to
+click on the &#8220;Advanced Options&#8221; button for the full set.
+</p>
+
+<p>
+Services are grouped into categories.  These Categories are defined by the
+developers when they declare services and should have inspired names&#8230;
+For instance, the &#8220;viewURL&#8221; service should be found in the
+&#8220;Internet&#8221; category.
+</p>
+
+<p>
+<strong>Note</strong>: This dialog shows only the categories, services and
+implementations that are known to Xserv. If a mode or package declares
+services but has not been loaded during the current editing session, those
+services and their implementations probably won't appear in the dialog.
+</p>
+
+<p>
+Once you have selected a category, you should see the list of the services
+in this category. Select the one for which you want to change or set the
+implementation. You should then see the list of all known implementations
+of this service. The name of an implementation is generally the name of the
+application used to provide the service.
+</p>
+
+<p>
+If you make an error or choose an implementation which is not the one you
+expected, you can always go back to this dialog and choose another
+implementation for the service.
+</p>
+
+<h2>Using &#8220;Old-style Helpers&#8221;</h2>
+
+If the &#8220;Helper Applications&#8220; dialog has a section named
+&#8220;Old-style Helpers&#8220;, this means that some AlphaTcl package has
+not been properly updated to use this Xserv package.  If you can't find the
+service you're looking for, or if for some reason a service is not
+responding as you expect it to, be sure to inspect this category to see if
+an &#8220;old-style helper&#8220; application preference is being defined.
+Until AlphaTcl is thoroughly updated, you'll have to live with this
+limitation.
+
+<h2>Using an application which is not in the list</h2>
+
+<p>
+If you don't see the name of your favorite application in the list of the
+implementations of a service, it may be that the implementation which uses
+this application has a weird name, or more probably that no one has told
+Xserv how to use this application for the service.
+</p>
+
+<p>
+If you can write Tcl code and read the programmer's manual of Xserv, you
+can register your application as an implementation of the service (tell
+Xserv how to use this application).  (Select &#8220;<FONT
+COLOR="BF0D10">Help &gt; More Features Help &gt; Xserv</FONT>&#8221; and
+look for the &#8220;Xserv API&#8221; hyperlink.)
+</p>
+
+<p>
+However, for simple services, Xserv can learn how to use your application
+if you know enough about Apple Events or command lines.  If the service is
+simple enough, you will see an button named &#8220;New Helper&#8221; in the
+dialog.  Choosing this item will open a new dialog allowing you to enter
+the information needed by Xserv to use your application.  From the top
+pop-up menu of this dialog, you choose whether your application understands
+Apple Events (like Mac OS applications), or receives arguments from a
+command line (like Unix programs).  If you're having trouble, please send a
+note to one of the AlphaTcl mailing lists explaining what service is
+missing and what you would like it to do.
+</p>
+
+<HR>
+
+<p>
+If you are still interested in defining your own implementation for a given
+service, keep reading.  
+</p>
+
+<h3>Using an Apple Event driven application</h3>
+
+<p>
+For Apple Events applications, you must give the name of the application in
+the &#8220;Application&#8221; text field.  If you prefer, you can give the
+creator code of the application between single quote (for instance, 'ttxt'
+for SimpleText or TextEdit).  Then, you must give the class and code of the
+Apple Event that will be sent to the application.  The default is an Apple
+Event of class aevt and of code odoc, which is the standard Apple Event to
+ask an application to open a document.
+</p>
+
+<p>
+If you want to print a document, you can try aevt and pdoc. To open a URL,
+the Apple Event has class GURL and code GURL or WWW! and OURL (for Internet
+Explorer).
+</p>
+
+<p>
+The last pop-up menu allows to choose the type of the argument: for an odoc
+Apple Event, the type is &#8221;file&#8221;, which means that the Apple
+Event will carry a reference to a file on your disk. For a GURL Apple
+Event, the type should be set to &#8220;text&#8221; since the URL is just a
+piece of text.
+</p>
+
+<h3>Using a command-line program</h3>
+
+<p>
+For command line programs, you must give the name of the program (for
+instance &#8220;gs&#8221; for ghostview).
+</p>
+
+<p>
+The mode is the way the program will be executed. The default is
+&#8220;InSh&#8221; which will execute the program in an interactive window:
+you will see the output of the program and you will be able to type text if
+the program needs some input. &#8220;Shell&#8221; and &#8220;Exec&#8221;
+are two non-interactive mode: the program will be executed but you won't
+see anything until Alpha gets the result and does something with it. In
+&#8220;Exec&#8221; mode, the program is executed directly by the operating
+system, while in &#8220;Shell&#8221; mode, the program is executed by a
+shell program (like the one that reads what you type in a terminal).
+</p>
+
+<p>
+The last item in the dialog allows you to give the general form of the
+command line. The default is to use the name of the program (represented by
+the &#8220;&lt;prog&gt;&#8221; string), followed by the argument
+(represented by the &#8220;#8220;$params(&#8230;)&#8221; string, in which
+the three dots are replaced by the actual name of the argument). For
+instance, if you want to use the program with the &#8220;-verbose&#8221;
+option, and if the argument must be prefixed by &#8220;-input=&#8221;, you
+should set the command line to:
+</p>
+
+<pre>
+     &lt;prog&gt; -verbose -input=$params(...)
+</pre>
+
+<p>
+where &#8220;&#8230;&#8221; is the name of the argument, as shown in the
+default value of the field.
+</p>
+
+<p>
+When you have entered all the necessary information, click
+&#8220;OK&#8221;. This will create and select a new implementation of the
+service. Such implementations are called &#8220;generic
+implementations&#8221; since they use simple and generic mechanisms to
+interact with an application. Their name is always in the form
+&#8220;generic-&lt;prog&gt;&#8221;, where &lt;prog&gt; is the name of the
+program or application used by the implementation.
+</p>
+
+<h3>Deleting Generic Implementations</h3>
+
+<p>
+If a generic implementation doesn't work or is no longer needed, it can be
+deleted.  Open the &#8220;<FONT COLOR="BF0D10">Config &gt; Global Setup
+&gt; Helper Applications</FONT>&#8221; dialog, select the service for which
+you defined the generic implementation, press &#8220;Set&#8221; and then
+click on the &#8220;Delete&#8221; button.
+</p>
+
+</body>
+</html>

@@ -1,0 +1,1092 @@
+Alpha's M2 Mode - The Mode For Modula-2 Programmers
+
+Help for M2 Mode Version 4.2                   af EHTZ 25/Jun/2005
+
+This M2 mode is designed for Alpha 7.6 or newer. Best with AlphaX, 
+AlphaTk, or Alpha 8.
+
+Maintainer: Andreas Fischlin, <andreas.fischlin@env.ethz.ch> 
+Systems Ecology, ETH Zurich, Switzerland 
+<http://www.sysecol.ethz.ch>
+
+
+	___________________________________________________________
+
+	  	About M2 Mode
+
+	___________________________________________________________
+
+This mode is for programming in Modula-2 using e.g. the RAMSES or MacMETH 
+shell.  M2 mode allows to comfortably switch between a shell, i.e.  the 
+application running the compiler, linker, your programs etc. and Alpha.  
+Compiler errors are shown in the status bar (bottom of screen) and with 
+CTRL-E you can locate easily any faulty location(s) in your source code.
+	
+Modula-2 for the Macintosh is available as FreeWare, courtesy ETH Zurich as 
+part of the software packages RAMSES or MacMETH, (see links below).
+
+To really make good use of this mode see topics "# Working with Modula-2 Files", 
+"# Keyboard bindings", "# Typing and Templates", "# Looking Up Information", and
+<<gotoMark "M-Button and {}-Button">>.  
+Have fun!
+
+
+¥ The mode comes preinstalled in Alpha (V >= 7.5) or download the latest M2
+mode from
+
+<http://www.sysecol.ethz.ch/SimSoftware/#RAMSES_Extras>
+
+or       <ftp://ftp.ucsd.edu/pub/alpha/>
+
+Mail bug reports or feature wishes to: <RAMSES@env.ethz.ch>
+
+
+¥ Get a Modula-2 language system for free from
+<http://www.sysecol.ethz.ch/SimSoftware/#RAMSES> 
+
+or (smaller, but less powerful)
+<http://www.sysecol.ethz.ch/SimSoftware/#MacMETH>  
+
+
+
+¥ The M2 mode works also with the commercially offered P1
+Modula-2 compiler in particular while using the RASS-OSX utilities.
+See <http://www.awiedemann.de/compiler/> and
+<http://www.sysecol.ethz.ch/SimSoftware/RAMSES/>.
+
+
+
+¥ Other links possibly of interest:
+<http://www.sysecol.ethz.ch>
+<http://www.sysecol.ethz.ch/SimSoftware/SimSoftware2.html>
+
+
+
+___________________________
+(*) RAMSES is an acronym for Research Aids for Modelling and Simulation of 
+Environmental Systems 
+<http://www.sysecol.ethz.ch/SimSoftware/RAMSES/>
+
+RAMSES is based on MacMETH "Fast Modula-2 Language System for the Apple 
+Macintosh" by N.  Wirth et al., the inventor of Pascal, Modula-2, and 
+Oberon, Swiss Federal Institute of Technology Zurich (ETHZ), Switzerland.
+<http://www.ethz.ch>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	___________________________________________________________
+
+	  	Working with Modula-2 Files
+
+	___________________________________________________________
+
+Alpha will automatically switch into "Modula-2 Mode" (abbreviated "M2") if
+you open a file with the extension .MOD, .mod, .DEF, .def, .PRJ, .prj,
+*.DTF, *.MOD.MSTR, *.M2 or *.m2.  It also switches into the M2 mode if
+press CTRL-0, a global key binding, or when Alpha is newly launched from a
+Modula-2 shell (Note: In later versions of this mode, CTRL-0 is only
+globally available if the user has initially configured the installation of
+the mode to work this way).  Then the M2 mode opens all so-called working
+files as listed in the file "err.ALPHA" (or M2_err.ALPHA if you use P1
+Modula-2).  The latter file is searched in the folder in which the Modula-2
+shell, i.e. the RAMSES or MacMETH shell, resides (in Alpha's cache folder
+if you use P1).  Uou have specified that folder during initial automatic or
+explicit configuration of the M2 mode.  The Modula-2 shell is the
+application which can execute the Modula-2 compiler, linker, debugger, and
+your own so-called subprograms.  They can all be executed from within the
+same application, since RAMSES and MacMETH feature a dynamic
+linking-loader!  BTW, for the record only: In the late eighties MetroWorks
+purchased from the Swiss Federal Institute the source code license for the
+MacMETH Modula-2 compiler and the "Dialog Machine" to offer a commercial
+Modula-2 development system.  Then they built CodeWarrior.  AFAIK
+MetroWerks no longer offers this Modula-2 development system.  However, the
+MacMETH language system or its superset RAMSES are still available as
+freeware, courtesy the Swiss Federal Institute of Technology Zurich ETHZ
+<http://www.ethz.ch> (notably <http://www.sysecol.ethz.ch>).
+
+As of M2 version 4.2 this mode also supports fully the use of the P1
+Modula-2 compiler in particular while using the RASS-OSX utilities.
+RASS-OSX is also available as freeware , courtesy the Swiss Federal
+Institute of Technology Zurich ETHZ <http://www.ethz.ch>.  For more
+information see <http://www.sysecol.ethz.ch/SimSoftware/RAMSES/> and
+<http://www.awiedemann.de/compiler/>.
+
+____________________________________________________________________________
+IMPORTANT: Here some basics which gets you started.  Press CTRL-0 (zero)
+and Alpha opens the current work file(s).  If none opens (maybe the case if
+neither MacMETH nor RAMSES present or you have turned this feature off), 
+choose "File -> New" and force M2 mode (choose M2 from lower right pop-up 
+menu button in status bar) and choose menu "M2 -> Templates -> New Program 
+MODULE".  Save it and press CTRL-1 to switch to the Modula-2 shell.  In the 
+latter compile with CMD-C and if the compiler reports errors press CMD-E
+(for AlphaEdit) to reenter Alpha.  Alpha will then automatically open for
+you all files lately compiled (implicit CTRL-0) and will display any
+possibly detected compiler errors (implicit first CTRL-E).  CTRL-E lets you
+scan through all errors in your source code(s) in a circular fashion.  That
+all really works as described, you need to properly configure your setup 
+"# Installation". The mode must be properly installed in Alpha and you 
+should have a functioning Modula-2 shell present, which has AlphaEdit
+installed and associated with CMD-E (AlphaEdit is in directory M2Tools). 
+By default the latter is the case only in the so-called big RAMSES shell
+(activate it by the student proof keyboard shortcut CMD-SHIFT-CAPSLOCK-B (B
+for big).
+____________________________________________________________________________
+
+As soon you are in the M2 mode an additional menu, named M2, is inserted in
+the menubar.  It offers essential functions and the support for programing
+in Modula-2 via menu commands.  For keyboard shortcuts (key bindings) see
+below ("# Keyboard bindings").  The latter make actually all the
+difference!
+
+Hint: If you start from scratch with menu command "File -> New" or with any
+other file having a different extension and you wish to activate the M2
+mode, you can always force the M2 mode by using the "Mode Pop-up" menu
+(button in lower right corner of the message/status bar).
+
+Related topics: "# Configuration and Customization", "# Installation",
+"# Keyboard bindings", "# Typing and Templates", "# Looking Up Information",
+<<gotoMark "M-Button and {}-Button">>, "# Known Bugs - Problems and Solutions"
+(should you encounter difficulties).
+
+
+
+
+
+
+
+
+
+
+
+
+
+	___________________________________________________________
+
+	  	Typing and Templates
+
+	___________________________________________________________
+
+In M2 mode Alpha examines every keystroke and expands automatically your typing.
+For example: FOR<Space bar>i<Tab>0<Tab>9<Tab> will give you
+
+	FOR i := 0 TO 9 DO
+	  |<- cursor will be placed here
+	END;(*FOR*)
+	
+and the cursor will be placed just below FOR, indented by the proper amount
+of spaces.  Note, the mode writes deliberately no real tabs, since this
+makes the code more readable in the debugger.  You may configure the number
+of spaces indents uses (see also "# Configuration and Customization"). 
+Instead of the last Tab you could have also used Shift-Return as an
+alternative to jump out of the current line and to position the cursor 
+in the line below with language specific indentation.  Typing
+
+	for<Control-Tab>...  
+
+works similarly.  Check it out for yourself.  There are many electric keys
+available in the M2 mode.  They are there for your convenience.  In
+particular some shortcuts are only available to make typing on NoteBooks
+less awkward (e.g. num keypad 1 can be typed on Apple NoteBooks by fn-1,
+which is quite a convenient shortcut).  Note also, if the mode specific
+completion does not give language specific support, these keys do always
+resort to Alpha's standard electric completion, e.g. completing a word
+according to one already somewhere above or below where you edit.  Watch
+the status bar at the bottom of the screen to learn about such actions.
+Please consult the "Alpha Manual" to make good use of completions. Please
+consult also the M2 mode's Completions Tutorial (available via menu 
+"Config -> Mode Prefs -> Completions Tutorial") or "M2 Tutorial.M2". 
+
+Note, the key <Return> breaks not only the current line, but does also
+indent on the next new line intelligently according to the current,
+Modula-2 language specific context.  Only <Shift-Control-Return> will break
+the line at the current position without any indentation.  For more nifty
+features offered by the M2 mode, e.g. check out <Option-Return> or
+<Command-Return>, see topic "# Keyboard bindings".
+
+<Control-Tab> (or ESC followed by space bar) will expand the current word,
+if there is an equivalent in the Modula-2 reserved word list or if you have
+defined a word (typically an identifier) in your program text which begins
+with what you have just typed.  The latter is searched above and then
+below.  Note, the M2 mode still supports CMD-TAB, given you have turned off
+or changed MacOS' default application switching (see also "Alpha Manual").
+
+For example, typing PROC<Control-Tab> (or PROC<ESC>) will result in
+PROCEDURE and typing a further blank will automatically trigger the
+insertion of the entire PROCEDURE template, e.g. resulting in
+
+	PROCEDURE MyProcedure;
+	BEGIN (* MyProcedure *)
+	END MyProcedure;
+
+after having entered in the dialog the procedure's name 'MyProcedure'.
+
+HINTS: There is a diffference between typing IF<Space bar> vs.  
+if<Space bar>, or if<Control-Tab>, check it out.  In DEFINITION modules,
+it is convenient to type proce<Space bar> to get an expansion to
+PROCEDURE. Did you know, once you've written an entire definition
+module, M2 offers automatic IMPLEMENTATION MODULE generation?  Use menu
+command "M2 -> Def To Mod" when DEFINITION is front window.  Note also
+the big templates for entire modules, see the menu commands 
+"M2 -> Templates -> New xyz MODULE".  In case you don't like a
+particular feature of these large templates, sorry, but you gonna have
+to modify the code of the file "m2Templates.tcl" yourself and to
+reinstall it afterwards.  Look for the procedures 'defBODY', and
+'modBODY'.  (see also sections "# Installation" and 
+"# Configuration and Customization").  To customize the completions edit
+"m2Completions.tcl" and correspondingly "M2 Tutorial.M2".
+
+For all details on electric completions see the Completions Tutorial
+(menu "Config -> Mode Prefs -> Completions Tutorial") or "M2 Tutorial.M2". 
+For general information on typing in Alpha see "Alpha Manual" 
+("Help -> Alpha Manual"), and Alpha's "Default Key Bindings" 
+("Help -> Default Key Bindings" in Alpha 7.6) or "Key Bindings" 
+("Help -> Key Bindings" in Alpha8 or AlphaX or AlphaTk).
+
+
+
+
+
+
+
+
+
+
+
+
+	___________________________________________________________
+
+	  	M-Button and {}-Button
+
+	___________________________________________________________
+
+The M2 mode supports the {}- and M-button of the upper right window corner 
+(thanks to Tom Featherstone!).  
+
+¥ M-Button ((Command-click title bar)
+
+The M-Button lists so-called structural marks, modules, and all procedures 
+and of course function procedures. There are several options (modes) which 
+let you control the actual appearance of the generated list. You can list:
+
+  - Main structural marks
+  - Section structural marks (nested within main structural marks)
+  - Modules (including local ones)
+  - Procedures
+
+Use the preferences, i.e. choose menu "Config -> Mode Prefs -> Preferences..." 
+(or F12) to define what is listed by the M-button. Normally items are listed in 
+order of occurrence, but flag 'sortListedItems' lets you sort the list alphabe- 
+tically.  Structural marks stand out.  Main ones are preceeded by a '¥', section 
+ones by a '-'.  Indentations of procedures and modules represent Modula-2 scopes. 
+If flag 'Mark Sees Comments' is off, procedures within comments are not marked.
+
+Structural marks are particular comments in your source code. 
+Main marks start with '(*#####', end with '#####*)', and are made by Control-3. 
+Section marks start with (*====, end with =====*), and are made by Control-4. Flag 
+'Boxed Section Marks' determines the format of section marks.  Ex.: To get a 
+main structural mark select some text like <My Header>, press Control-3 and you get
+
+	(***********************)        
+	(*##### My Header #####*)        
+	(***********************)	   
+
+Note, not selected parts of the current line or possibly present remainders
+of an older mark are discarded and replaced by the new mark!!
+
+
+¥ {}-Button
+The {}-button lists all Modula-2 procedures and function procedures in 
+alphabetical order.  The formal parameter list of each procedure is 
+analyzed and shown in an abbreviated form after its name within curly 
+braces.  Value parameters are listed with a '¥', variable (name) parameters 
+with a 'v'.  Function procedures are always listed with curly braces plus 
+the symbolic representation of the returned value as ': v'.  Ex.: 
+
+	PROCEDURE AParlessProcedure;
+	PROCEDURE VarProc (VAR c: Complex; n: INTEGER; VAR y: ARRAY OF REAL);
+	PROCEDURE LightIsOn(): BOOLEAN;
+	PROCEDURE Func(x: REAL; VAR y: Complex): REAL;
+  
+The {}-button lists above code as 	  	  
+
+	AParlessProcedure
+	Func {¥v}: v
+	LightIsOn {}: v
+	VarProc {v¥v}  
+
+Related topics: "# Configuration and Customization", "# Keyboard bindings"
+
+
+
+
+
+
+
+
+
+
+
+
+	___________________________________________________________
+
+	  	Looking Up Information
+
+	___________________________________________________________
+
+The M2 mode supports the looking up of marked information. Simply 
+Command-Doubleclick a particular identifier, typically you click on the 
+identifier of a particular procedure, and its declaration is searched in other 
+files like definition modules or so-called quick reference files.  The file in 
+which the declaration has been found is then opened and positioned such that the 
+found mark is displayed and the cursor placed at the procedure heading.
+
+¥ Command-Doubleclick on a procedure identifier
+_______________________________________________
+
+First the current file is searched and the cursor is placed at its declaration  
+in case it is a local one.  Otherwise, i.e. if the procedure is an imported one, 
+all currently open files and then finally all quick reference files are searched 
+and opened (read only mode) at the corresponding procedure declaration.
+
+
+¥ Control-Command-Doubleclick on a procedure identifier
+______________________________________________________
+
+The same as Command-Doubleclick, but the corresponding partner module is also 
+searched and opened.  For instance, if you currently work with the 
+IMPLEMENTATION MODULE of a module, the corresponding DEFINITION MODULE is also 
+positioned such that the procedure becomes visible; or vice versa.  With the 
+keyboard shortcut Control-Option-O you can conveniently flip back and forth 
+between the two files. If the procedure is not local, the DEFINITION MODULE of 
+the library module from which the procedure has been imported is opened 
+(read only mode) at the position of the declaration.
+
+Modules are searched at these places: 
+
+1) within the current folder
+
+2) if the current folder ends with ".MOD" within a folder ending with ".DEF" 
+   (but otherwise the same path)
+
+3) if the current folder ends with ".DEF" within a folder ending with ".MOD" 
+   (but otherwise the same path)
+
+4) within folder docuFolder (customizable via menu "Config > Current Mode > 
+   Preferences" (F12)) assuming within this folder reside folders named M2, DM, 
+   MW, or AuxLib wich contain again folders ending with ".DEF"
+
+Note: Searches can only succeed if the file has been marked with option 
+"List procedures" (see topics <<gotoMark "M-Button and {}-Button">> and 
+"# Configuration and Customization"); it's recommended to check "Auto Mark". 
+
+
+Related topics: "# Keyboard bindings" (for keyboard shortcuts)
+"# Installation", and "# Configuration and Customization"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	___________________________________________________________
+
+	  	Keyboard bindings
+
+	___________________________________________________________
+
+	  	  Launching shell & Compiler errors
+CTRL-0		     Open recently compiled work object file(s) and jump to 1st error
+CTRL-e           Jump to next compiler error (as detected by last compilation)
+CTRL-1		     Launch MacMETH or RAMSES Shell (depends on current configuration)
+		         and trigger a program execution (e.g. in RAMSES) (needs System 7)
+CTRL-2           Like CTRL-1 but without triggering program execution
+
+	  	  Modula-2 place holders & Moving around
+CTRL-g		     Jump to the next Placeholder ( = comment of form (*. text .*) )
+CTRL-OPTION-g	 Jump to the previous Placeholder (also CTRL-SHIFT-g)
+CTRL-HOME/END	 Jump to the beginning/end of the file
+CTRL-LEFT/RIGHT	 Backward/Forward one word
+
+	  	  Selections
+CTRL-SHIFT-DOWN	 Select entire current line; hint: to expand SHIFT-cursorUP/DOWN 
+CTRL-SHIFT-s	 Select surrounding comment (if present)            *)
+
+	  	  RETURN key
+RETURN           Breaks line & indents intelligently, e.g. if after BEGIN, inserts 
+                 new line and "indentation amount" of spaces (amount configurable) 
+SHIFT-RETURN     Jumps to end of current line (no break) and then performs RETURN 
+CMD-RETURN       Like SHIFT-RETURN but never indents in a language specific way
+CTRL-RETURN      Resume position before last jump caused e.g. by TAB, CMD-RET etc. 
+SHIFT-CTRL-RET   Breaks line and does no indentation
+OPTION-RETURN    New line and move cursor down (same position within line) 
+CMD-SHIFT-RET    Open new line above current
+CMD-CTRL-SH-RET  Skip next line and perform SHIFT-RETURN 
+		
+	  	  Electric completions
+CTRL-TAB/F1      Triggers electric completions (see "M2 Tutorial.M2" 
+                 and "# Typing and Templates")
+ESC/Numkeypad-1  On PowerBooks more convenient alternatives to CTRL-TAB
+CTRL-OPTION-TAB  Force electric completion even if you have already moved too far
+
+	  	  TAB key
+TAB		         Move cursor in a context specific way to next insertion point of 
+		         interest, e.g. as given by a bullet. Otherwise make indentation 
+OPTION-TAB       Force indentation (similar as TAB, but ignore subsequent bullets)
+SHIFT-TAB        Reverse of OPTION-TAB, i.e. unindent (configurable)
+CTRL-SHIFT-TAB   Adjust indentation to that of non-white line above 
+OPT-SHIFT-TAB    Adjust indentation to that of non-white line below 
+CTRL-OPT-CMD-TAB Inserts an actual ASCII TAB (use only if you really have to)
+		
+	  	  Editing helpers
+CTRL-r/OPT-]	 Shift lines in selection to the right (by indentation spaces)
+CTRL-l/OPT-[	 Shift lines in selection to the left (by half indentation spaces)
+CTRL-BACKSPACE	 Kills the entire current line
+OPT-BACKSPACE	 Kills the current line from the cursor position to the end
+CTRL-m           Minimize space surrounding cursor position to a single space
+CTRL-j           Jump to end of line & join it with next & minimize white-space 
+CTRL-SHIFT-j     Reverse/opposite of join (CTRL-J) by splitting line at 
+                 current cursor position
+CTRL-OPT-SH-f    List content of a directory in a new window 
+CMD-SHIFT-f      Filter entire source for current conditional compiler flag 
+CTRL-OPTION-o    Open other lib. module if in same folder (DEF->MOD or MOD->DEF)
+CMD-OPTION-n     Show path and file name of top window in status bar
+Numkeypad-2      Set default font (same as menu "M2 -> Set Default Font", CTRL-8)       
+
+	  	  Modula-2 comments
+CTRL-c           Comment selection (using configurable prefixString, suffixString)
+CTRL-OPTION-c	 Uncomment selection (revert CTRL-c; also CTRL-SHIFT-c)
+CTRL-k		     Comment selection to a place holder of form (*. selection .*)
+CTRL-OPTION-k	 Uncomment selected place holder (also CTRL-SHIFT-k)
+CTRL-a		     Wrap comment (configurable right margin) to form:  (*
+                                                                      text 
+                                                                    *)
+CTRL-SHIFT-a	 Wrap selected Text; top left char in selection is left margin
+
+These shortcuts are similar to the ones of MEdit (see RAMSES software package) or
+MPW. MEDIT users, simply think: "Command is now control". 
+
+Related topics: "# Typing and Templates", "M2 Tutorial.M2", 
+"# Working with Modula-2 Files"
+
+
+
+
+
+
+
+
+
+
+
+	___________________________________________________________
+
+	  	Installation
+
+	___________________________________________________________
+
+As of Alpha 7.5 the M2 mode forms part of the standard Alpha release. 
+There is no need to install the M2 mode anymore (albeit the mode is still
+available as a separate package from the RAMSES home or the easiest from
+<http://www.sysecol.ethz.ch/SimSoftware/SimSoftware2.html>).
+
+However, note, a smooth collaboration between the M2 mode and your Modula-2
+development system requires to observe a few rules.  Notably, it is
+recommended to have the home directory of Alpha to reside in the same
+directory where the RAMSES folder, or the MacMETH folder, respectively,
+resides.  In most cases this will already do.  In particular, if Control-1
+from within Alpha as well as Command-E from within the RAMSES or MacMETH shell
+switches smoothly between the two applications back and forth, your
+installation seems to be fine (see also "# Working with Modula-2 Files").  
+In all other cases, please read on.
+
+	  	 Modula-2 Development Environment Configuration
+
+If you enter the M2 mode and you get some alerts telling you that the mode
+had troubles finding some expected files or information, you need to alter
+slightly your current configuration.  These warnings or error messages try
+to help you and don't imply there is something wrong with the mode. 
+Instead, fix your installation and the benefit is a smoothly working
+programing environment at all times.  In this context you should understand
+the following points:
+
+	  	 	Configuring Alpha 
+
+¥ The M2 mode is designed to closely collaborate with a so-called Modula-2
+shell.  This is either the RAMSES shell or the MacMETH shell (Note, you
+need a Modula-2 shell in order to compile any Modula-2 source code).  When
+you launch for the first time the M2 mode, it will inspect your Macintosh
+and search for one of these shells (priority: 1st RAMSES, 2nd MacMETH). 
+Then it will try to remember where they reside or remind you of the fact
+that it failed to do so, for instance because they are absent from your
+computer system.  Note, the M2 mode makes sense fully only if it can
+collaborate with a Modula-2 shell.  Hence it will warn you if it could not
+successfully locate a Modula-2 shell.
+ 
+¥ If the Modula-2 compiler detected some source code errors, it won't
+display them.  It informs you only wether it encountered some errors or
+not.  That's where the M2 mode from Alpha comes in handy.
+
+¥ The M2 mode can open and display compiler errors in the source code.  For
+instance the command Control-0 (global key binding) tries to open the
+so-called working object (see also "# Working with Modula-2 Files").  In
+case there was a compilation error this command will also jump to the first
+error location and display the appropriate error message in the status bar
+at the bottom of the screen.  Control-E jumps to the next error etc.  (file
+after file, in a loop).  However, for this behavior the M2 mode needs
+possibly lots of information (possilby hundred of files with thousands of
+errors).  Wether it can find it depends on your current configuration of
+the Modula-2 development environment.
+
+¥ The M2 mode expects to find information about the current working object
+in the same directory where the current Modula-2 shell resides.  This
+information means the names of the lately compiled files and possibly
+encountered compiler errors (see note below).  More precisely, since you
+might have several Modula-2 shells on your system, e.g. RAMSES and MacMETH,
+the M2 mode searches at any time only in the shell directory it is
+currently associated with.  Simply use the menu command 
+"M2 -> Configure Launching" to specify with which Modula-2 shell you 
+wish the mode to collaborate.  Use this command, should you not be happy
+with the current settings, e.g. if you wish to switch between the RAMSES
+and the MacMETH shell (Of course, alternatively, you may also edit the mode
+preferences (F12) and there modify the item "M2_shell Name", cumbersome!).
+
+    Note: The working object is either a single file or consists of a set of
+    files.  In the first case it is a Modula-2 program module (extension .MOD). 
+    In the second case the work object consists of many source code files,
+    forming an entire project (listed in a file with extension .PRJ).  This may
+    consist of many library modules, i.e. DEFINITION (extension .DEF) and
+    IMPLEMENTATION plus program modules (extensions .MOD).
+
+    To really know all, note: Compiler errors are stored in the binary file
+    "err.DAT".  Each time you use the compiler, regardless of the Modula-2
+    shell from where you launch it, the compiler generates a new file "err.DAT"
+    in the same directory where the calling shell resides.  The name of the
+    files compiled lately are listed in the text file "err.ALPHA".  This file
+    is generated by the utility "AlphaEdit".  AlphaEdit is a little prelinked
+    Modula-2 subprogram stored in directory M2Tools within the RAMSES or
+    MacMETH folder.  Error messages to be displayed in the status bar are
+    stored in the simple text file "ErrList.DOK", again in directory M2Tools
+    (<<M2::openErrListFile>>).
+
+¥ For your convenience, the M2 mode can listen to Apple events sent to it
+by another application, e.g. the RAMSES or MacMETH shell.  It understands a
+single command, i.e. open the current work object.  It executes the same
+procedure as does the global key binding Control-0.  Typically there is rarely
+need to press Control-0, since the menu command "Edit (Alpha)..."  in the
+RAMSES or "AlphaEdit" in the MacMETH shell sends such a command to Alpha,
+where the M2 mode should pick it up and execute it.
+
+	  	 	Configuring RAMSES or MacMETH 
+
+Alas, having Alpha to open working objects as described above does NOT yet
+mean that your installation is really fine.  This is because the Modula-2
+shell you currently use needs also to know where Alpha is (or with which
+you wish to work).  This is where the recommendation matters to have Alpha,
+RAMSES, and MacMETH reside in the same directory.
+
+¥ When you get compiler errors while compiling from within the RAMSES or
+MacMETH shell the compiler will tell you about this fact.  In order to edit
+the source, remember, ALWAYS and ONLY use the menu command "Edit
+(Alpha)..."  from the RAMSES or "AlphaEdit" from the MacMETH shell (Command-E). 
+NEVER simply switch to Alpha by other means, e.g. via the Finder's
+application menu etc.  Otherwise you won't be able to display the compiler
+errors!  Why?
+
+¥ The menu command "Programing -> Edit (Alpha)..."  from the big RAMSES
+shell actually executes the M2 tool "AlphaEdit".  This is a little Modula-2
+subprogram, which does all you need to switch to Alpha for error display
+and editing.  More precisely, it reads the file "User.Profile" to read the
+name and location of Alpha, in order to launch the application Alpha and
+bring it to the foreground later on.  Then it generates the file
+"err.ALPHA" and sends the "open work object" command (Apple event) to Alpha
+(Avoid to have more than one Alpha running in such a situation).  This
+works also if Alpha si currently not running ad needs first to be launched. 
+Finally Alpha is brought to the foreground, where it should open the
+working object (one or more files) and jump to the source location of the
+first compiler error encountered.  Control-E will get you to the next error
+etc. This is the normal behavior when the installation is fine, i.e. the 
+RAMSES shell finds Alpha at its actual location on your computer.
+
+¥ Should you see any error messages instead of what is describeda above,
+simply open the file "User.Profile" within the RAMSES or MacMETH folder and
+edit the path and file name of the Alpha you wish to use.  Search for
+section "Alias" where you should have an entry similar to this (all quotes 
+etc. exactly as shown below):
+
+"Alias"
+  'Edit2'   is   ' MEdit 1.80'  
+  'Alpha'   is   '::Alpha Ä:Alpha'
+
+Note, above example assumes again you have Alpha's directory 'Alpha Ä' in
+the same parent directory as where your Modula-2 shell resides.  Your file
+system structure is similar to this, the recommended setup! 
+
+                   /-----\_________
+                   | parent folder |
+                   -----------------
+                  /        |        \
+                /          |          \
+              /            |            \
+       /---\_____      /---\_____      /---\_____
+       | Alpha Ä |     | MacMETH |     | RAMSES  |
+       -----------     -----------     -----------
+
+(Note, the relative path '::Alpha Ä:' is going first one level "upwards"
+then into directory 'Alpha Ä').  This flexible mechanism allows you also to
+choose among different Alphas, e.g. to use "Alpha 68k" instead of "Alpha",
+should you work on an 68K Mac.  IMPORTANT: Then you will need to edit the
+text file "User.Profile" in any case!
+
+You can find even more on this topic, e.g. hints on how to customize the 
+menu of the MacMETH shell, at
+<http://www.sysecol.ethz.ch/SimSoftware/RAMSES/READ_ME.RAMSES_Extras.html>
+or in the file " READ to AUTOINSTALL M2".  This is available at 
+<http://www.sysecol.ethz.ch/SimSoftware/SimSoftware2.html> as 
+part of the separately available M2 mode package (row "Alpha editor").
+
+	  	 Manual (Re)Installation
+
+In Alpha version 7.x and higher simply double-click file "OPEN-TO-INSTALL" and
+perform an easy installation and follow all recommendations.  That's all!  
+  
+You may obtain the M2 mode also separately from Alpha, as part of the 
+"RAMSES Extra" release from 
+
+<http://www.sysecol.ethz.ch/SimSoftware/#RAMSES_Extras>
+ 
+or
+
+<ftp://ftp.sysecol.ethz.ch/pub/mac/RAMSES/>
+
+or only the mode from
+
+<http://www.sysecol.ethz.ch/SimSoftware/SimSoftware2.html>
+
+or
+
+<ftp://ftp.ucsd.edu/pub/alpha/>
+
+All this software is freeware, courtesy ETH Zurich, Switzerland 
+<http://www.ethz.ch>.
+
+For links to get a Modula-2 language system (including compiler, loading-linker, 
+debugger, skeleton source code, huge libraries etc.) see topic 
+"# About M2 Mode".
+
+Once you have installed the M2 mode and you restart Alpha, Alpha will 
+prompt you to configure your Modula-2 environment as explained under 
+topic "# Configuration and Customization". 
+
+To learn about how to use your installation, see at least topics 
+"# Working with Modula-2 Files", "# Keyboard bindings", 
+and "# Typing and Templates".
+
+
+	  	 Deinstallation
+
+You should no longer attempt to deinstall the M2 mode.  However, should you
+really wish to do it you can force a deinstallation by choosing menu
+"Config -> Packages -> Uninstall Some Packages..."  and select mode M2 from
+the flip menu.  This will remove all involved files, in particular note,
+this removes also ALL configuration info!  However, some traces of the mode
+will remain, e.g. the hidden CVS folder will still be present inside
+"Tcl:Modes:M2 Mode:".
+
+
+
+
+
+
+	___________________________________________________________
+
+	  	Configuration and Customization
+
+	___________________________________________________________
+
+The first time you activate the M2 mode, it will try to configure itself by
+searching the desktop database for the presence of a RAMSES or MacMETH
+shell.  The purpose is to establish the links between the Modula-2 shell
+running the compiler, e.g. the MacMETH or RAMSES shell.  The M2 mode can
+display compiler errors properly in your source code only if the mode's
+settings match exactly the location of the Modula-2 shell you are using. 
+Once configured, you may then easily jump back and forth between the
+Modula-2 shell and Alpha via THE two essential keyboard shortcuts, i.e.
+CMD-E and CTRL-1 (see also "# Working with Modula-2 Files",
+"# Keyboard bindings", and "# Installation").
+
+
+	  	  Using several Modula-2 shells
+
+Use menu command "M2 -> Configure Launching" to configure the use of a
+particular Modula-2 shell.
+	"M2 -> Configure Launching" lets you select the shell to which 
+the shell launching commands (CTRL-1, CTRL-2) will transfer, and optionally
+to choose the file which contains the messages which help you to interpret
+the compiler generated error codes ("ErrList.DOK" in folder "M2Tools",
+residing in the same folder where you find the MacMETH or RAMSES shell). 
+"ErrList.DOK" is needed for displaying readable messages at the bottom in
+the status bar when you press CTRL-E while searching for error locations in
+your currently open Modula-2 working file.  Note, this command is
+automatically executing at very first M2 mode activation.
+   
+
+	  	  Alpha's global preferences and M2 mode
+
+Use menu command "Config -> Mode Prefs -> Preferences..."  (or F12)
+	"Config -> Mode Prefs -> Preferences..."  (or F12) lets you edit 
+all settings of the M2 mode while the mode is active.  The mode specific
+core settings are characterized by prefix "M2_ ...".  Partly their values
+are also configurable via the mode's menu M2.  This is now only the case
+for m2_errListDOK, m2_shellName (see above), in Alpha < 7.x this is also
+the case for a few other variables (see below)).
+
+To obtain best results recommended settings are all flags on except for these:
+- Auto Continue Comment      off    (M2 F12) - "Fatal" for free format Modula-2
+- Backup 	                 off    (M2 F12) - creates a mess (IMHO)
+- Mark Sees Comments         off    (M2 F12) - slows down marking considerably
+- Sort Listed Items          off    (M2 F12) - rarely of use
+- Smart Cut Paste            off    (M2 F12) - Was always a buggy Alpha feature
+
+To obtain best results it is recommended to set global Alpha settings as follows:
+- Backup 	                 off    ("Config -> Preferences -> Backups")
+- Emacs keyboard navigation  off    ("Config -> Preferences -> Features...")
+
+Other recommendations:
+- Set "Docu Folder" to the folder "Docu" within the RAMSES folder or
+  Command-Double-Clicks respectively Control-Double-Clicks won't have the 
+  desired effect!
+
+
+	  	  Customization of Alpha
+
+Editing Prefs.tcl: 
+Open prefs.tcl (see Alpha's menu "Config -> Mode Prefs -> Edit Prefs File" 
+(or even "Global") and add your optional customizations.  This techinque is
+of particular importance if you use a pre 7 Alpha.  E.g. add this line
+
+	set defaultFont Programmer
+
+for having that useful font ready for your Modula-2 programming (the font
+is available as part of the "RAMSES Extra" release,
+<http://www.sysecol.ethz.ch/SimSoftware/#RAMSES_Extras>
+see also "# Installation").
+
+
+	  	  Personalization and customization of M2 mode
+
+Use menu command "M2 -> Configure M2 Mode" (available only in Alpha < 7.x)
+	"M2 -> Configure M2 Mode" lets you enter your name used by defaults 
+in module templates, to set tab spaces (shift right, shift left
+respectively) and other parameters specific to the M2 mode.
+
+
+	  	  Customization of electric completions of M2 mode
+
+Customizing templates: If you don't like any of the templates you gonna
+have to modify them in the files "M2Completions.tcl" and correspondingly
+"M2 Tutorial.M2" or "m2Templates.tcl".  Especially you may wanna
+modify the procedures 'defBODY', or 'modBODY' in "m2Templates.tcl".
+   
+
+	  	  MacOS (notably OS X) and electric completions
+
+To use electric completions, i.e. the old fashioned keyboard shortcut
+<Command-Tab>, the MacOS default settings for application switching may get
+into your way.  An easy fix if you use MacOS 9.x is to customize your MacOS
+by choosing menu "Help --> Help Center" in the Finder and search for
+"Application switching".  There click onto "switching between open
+programs" and "Help me modify the keyboard shortcuts".  Turn the feature
+off or use another shortcut to free <Control-Tab> to be used by the M2
+mode.  In MacOS X I know unfortunately of no remedy for this problem.  The
+only solution is to abandon using <Command-Tab> and using Alpha's new
+alternative, i.e. <Control-Tab>.  For your convenience the M2 mode offers
+several more alternatives (see "# Typing and Templates", "M2 Tutorial.M2"
+("Config -> Mode Prefs -> Completions Tutorial"), "Alpha Manual" ("Help ->
+Alpha Manual"), and Alpha's "Default Key Bindings" ("Help -> Default Key
+Bindings" in Alpha 7.6) or "Key Bindings" ("Help -> Key Bindings" in 
+Alpha8 or AlphaX or AlphaTk) to learn all you need for efficient 
+typing in Alpha).
+
+Related topics: "# Installation", 
+"# Known Bugs - Problems and Solutions", 
+"# Typing and Templates", and <<gotoMark "M-Button and {}-Button">> 
+
+
+
+
+
+	___________________________________________________________
+
+	  	Known Bugs - Problems and Solutions
+
+	___________________________________________________________
+
+
+ ¥ Completions won't work when you press Command-Tab. Instead you end up in 
+   another application. You have the default MacOS application switching
+   active or are using MacOS X. See topic "# Configuration and Customization"
+   for hints on how to fix or circumvent this.
+   
+ ¥ You are using several Modula-2 shells at the same time, which reside not 
+   in the same folders.  Alpha opens working files only when launched from
+   one shell, but not if launched from the other, newly used one. 
+   Explanation: Mode M2 can support only one shell at a time.  You have to use
+   menu "M2 -> Configure Launching" to get a new shell communicating with
+   Alpha properly again.  To get the cooperation with the old one back,
+   reconfigure launching once again.
+
+ ¥ While writing comments you get additional, unwanted '(*' at the begin
+   of each line.  Uncheck the check box "Auto Continue Comment" in the dialog
+   offered by menu "Config -> Mode Prefs -> Preferences..."  (F12)!  This
+   feature is not only meaningless or a nuisance, but is dangerously
+   error-prone in a free-format, nested comment syntax as featured by Modula-2
+   (all code becomes a comment).
+
+ ¥ Oddly jagged source code when looked at from within the symbolic 
+   debugger of MacMETH or RAMSES.  You're source code probably contains 
+   horizontal tab characters (ASCII 11C).  Fix: Select all and choose menu 
+   command "Text -> Tabs To Spaces".  Note, M2 mode deliberately avoids 
+   inserting horizontal tabulations into the source code (e.g.  pressing key 
+   TAB in M2 mode inserts only blanks).  However, many predefined Alpha 
+   routines behave differently in this respect.  In particular you should also 
+   refrain from inserting tabs in your source code, e.g.  by calling menu 
+   command "Text -> Spaces To Tabs".
+
+ ¥ You wish to use another Alpha than the one the Modula-2 shell (MacMETH 
+   or RAMSES Shell) launches for you.  Make sure the last alias 'Alpha' in
+   "Alias" section of the User.Profile is the one you wish the Modula-2 shell
+   to launch.  E.g. that section in the User.Profile might look similar to
+   this
+
+  'Alpha'   is   '::Alpha7.6:Alpha7'
+  'Alpha'   is   '::Alpha:Alpha8'
+  'Alpha'   is   'HDX:Applications:Alpha:AlphaX.app'
+
+   Here it is AlphaX which will be launched by the Modula-2 shell.  (Note,
+   here it is also assumed that the boot volume for MacOS X is named HDX and
+   that you have isntalled AlphaX at the default location).  Wish the Modula-2
+   shell to launch another Alpha, move that line to the bottom.  Make also
+   sure to edit really the User.Profile which resides in the same folder where
+   your Modula-2 shell resides.
+
+ ¥ Alpha does not open the Modula-2 work files you have recently compiled. 
+   Check the configuration of the M2 mode.  It should be set such, that the
+   Modula-2 shell you wish to use is currently selected.  To ensure this use
+   use Alpha while the M2 mode is active and choose the menu command 
+   "M2 -> Configure Launching" and select the Modula-2 shell of your choice. 
+   Alternatively you can also look at the mode's preferences by pressing
+   function key F12.  On page 3 you find the path and name of the Modula-2
+   shell.  You may edit this directly to define the Modula-2 shell which the
+   M2 mode should recognize.  The path should also be the same as the one
+   shown on page 2 of the dialog for preference "M2_err List DOK".
+
+ ¥ Ctrl^0 is no longer opening the Modula-2 working files. Activate the
+   global feature "Global M2 Bindings" "Config -> Global Setup -> Features...".
+   Once activated it allows you to use the Ctrl^0 key anytime.  You no longer
+   need to have a file open, which activates the M2 mode.  Alternatively you
+   may control this feature also from within the M2 mode by using the
+   preference dialog (F12).  Either technique has the same effect and
+   activates or deactivates the global feature "Global M2 Bindings".
+
+   
+ Mode M2 3.8.x        See also "# Testing History" for more details!
+ -------------
+
+ ¥ When using Alpha8 or AlphaX (e.g. 8.0b8) the work objects may no 
+   longer be opened and compiler error messages are no longer shown. 
+   Solution: Install tclAE >= 2.0b14 or activate at least once the M2
+   mode, e.g. by opening the work object manually.  Subsequently work
+   objects should be opened again and encountered compiler errors shown
+   again automatically.
+
+ ¥ When using Alpha8 or AlphaX (e.g. 8.0b8) and a Command^double-click 
+   does open a quick reference file, the latter may be shown only in 
+   text mode. Fix: Activate the M2 mode using the pop-up menu in the 
+   status bar.                               fixed in M2 mode >=3.8.9
+
+ ¥ Under MacOS 9.x you crash your system when you try to switch from 
+   MacMETH or RAMSES shell to Alpha. Remedy: Please upgrade to latest  
+   MacMETH or RAMSES.     fixed in MacMETH >=3.2.7 or RAMSES 3.0.1 >=b5 
+
+ ¥ Word wrapping behavior (lower right corner of status bar menu) should be
+   controllable by a M2 mode specific preference called "Word Wrap". This 
+   seems not to work properly in the same way as this is the case for other 
+   global preferences. This means you won't find in the M2 preference
+   dialog the option "Word Wrap" albeit the mode supports this option
+   as a M2 specific preference (see "Config -> Mode Prefs -> Preferences..." 
+   or F12). I know of no fix and this seems to be an idiosynchracy of Alpha 
+   7.6, not a problem of the M2 mode. If you wish to control this option,
+   i.e. to have it turned on by default, you need to alter the preference
+   settings for wordWrap in m2Prefs.tcl.  Fortunately, of course, you can
+   always control this option on a case by case basis by using the pop-up 
+   menu in the status bar.
+
+ ¥ You get the message "There was BAD problem loading 'M2' mode: invalid
+   command name "M2::enterM2Mode"...  " etc.  This should only occur after a
+   partial deinstallation of the M2 mode.  Please reinstall the mode from
+   the separate package downloadable from various sites, notably those listed
+   under topic "# About M2 Mode".
+
+ ¥ Links in this help file won't work. This is a general problem of Alpha 7.6
+   tcl, not of this mode. Hopefully this will be fixed in a future release 
+   of Alpha.
+
+
+ Mode M2 3.6.x and older versions
+ --------------------------------
+
+ ¥ The menu command "Wrap Text" (Control-Shift-A) fails. Remedy: Run 
+   anywhere first "Wrap Comment" (Control-A), then try again "Wrap Text".
+   
+ ¥ You are using the MacMETH shell and Alpha opens the Modula-2 working files
+   only when launched, but afterwards no more.  Explanation: The MacMETH shell 
+   is not high level event aware.  Remedy: Either make the shell high level 
+   event aware (using ResEdit, resource 'SIZE' or use RMSMacMETH shell from 
+   "RAMSES Extras"; disadvantage: the shell ignores shut downs and needs to be 
+   quit manually) or press Control-0 each time you switch to Alpha.  The latter 
+   is the only means to open Modula-2 working files in case you are using a 
+   MacOS older than System 7, regardless of the shell (MacMETH, RMSMacMETH, or 
+   RAMSES) you are using.     fixed in MacMETH >=3.2.6 or RAMSES 2.2.3 >=b26 
+
+ Mode M2 3.2.x and older versions
+ --------------------------------
+ ¥ Slow entering into M2 mode. Fix: Disable copyRing (or leave it on all
+   the time) while in mode M2 "Config Prefs > Menus and Features..." and 
+   uncheck copyRing in 2nd dialog "Select features for mode M2". 
+
+ ¥ AlphaLite 6.5.2 wrongly reports "Your Preferences file 'Prefs.tcl contains 
+   an error" while closing windows.  Remedy: Ignore or use big Alpha
+
+ ¥ Sometimes Alpha won't open the most recent M2 work file(s), whatever 
+   you do in the RAMSES shell.  Simply throw away the files err.ALPHA and
+   token.ALPHA in the folder where the RAMSES (or MacMETH) shell resides
+   and proceed; that usually helps to get you going again.   fixed in V >= 1.0
+
+Related topics: "# Installation", "# Configuration and Customization", and
+"# Testing History".
+
+
+af ETHZ  27/May/2003
+
+
+
+
+	___________________________________________________________
+
+	  	Testing History
+
+	___________________________________________________________
+
+M2 mode 3.x tested with Alphas: 
+
+6.5.2      fine, but Alpha 7.x is REALLY recommended!
+7.0p2      not recommended 
+7.0p5      fine
+7.1b1      not recommended 
+7.1b2      fine 
+7.1b3      don't work well 
+...        ...
+7.1b5      see above 
+7.1b6      fine 
+7.1b7      not recommended
+7.1b8      recommended!
+7.1b10     works after trashing of Ä "System Folder:Preferences:Alpha-v7", 
+7.1fc1     same as for 7.1b10 or after adding Johand Linde's code at end of 
+           alpha::findAllExtensions, then its fine. Wait, not recommended, 
+           since file sets don't work properly
+7.1fc2     fine 
+7.1fc3     fine 
+7.1fc3-5   not tested
+7.1fc6     fine 
+7.1pre     fine
+7.1        fine
+7.1p2      fine
+7.1p3      fine
+7.1p4      fine (but requires M2 Mode >= 3.1.7)
+7.1.5      recommended (but requires M2 Mode >= 3.1.7)
+7.1.6      don't use it
+7.1.7      fine
+7.1.8      fine
+7.2b1      fine
+7.2b2      fine
+7.2b3      fine
+7.2b4      fine
+7.2fc3     fine (but requires M2 Mode >= 3.2.0 for proper installation)
+7.2fc4     fine (but requires M2 Mode >= 3.2.0 for proper installation)
+7.2fc5     fine (but requires M2 Mode >= 3.2.0 for proper installation)
+7.2fc6     fine (but requires M2 Mode >= 3.2.0 for proper installation)
+7.2fc7     fine (but requires M2 Mode >= 3.2.0 for proper installation)
+7.2fc8     fine (but requires M2 Mode >= 3.2.0 for proper installation)
+7.2fc9     fine (but requires M2 Mode >= 3.2.4 for full working)
+7.2fc10    fine (but requires M2 Mode >= 3.2.4 for full working)
+7.2fc11    fine (but requires M2 Mode >= 3.2.4 for full working)
+7.2        fine (but requires M2 Mode >= 3.3 and a non HFS+ startup disk)
+7.2.1b1-3  don't use if you work on a HFS+ startup disk machine
+7.2.1b4-9  fine (even on HFS+ startup disks and requires M2 Mode >= 3.3)
+7.2.1b10   fine (even on HFS+ startup disks and requires M2 Mode >= 3.3)
+7.2.2fc2-8 fine if M2 Mode >= 3.3b3
+7.2.2      fine
+7.3        fine
+7.3-7.4b14 fine
+7.4b17     fine
+7.4b19     fine
+7.4fc1-7   fine (fc5 not recommended)
+7.4		   recommended 
+7.4.1	   even better 
+7.4.2	   highly recommended 
+7.5a2      M2 mode is now released as part of Alpha (is buggy)
+7.5a3      M2 mode needs improvements
+7.5b1      M2 mode 3.7.0 needs improvements
+7.5b2      M2 mode 3.7.1, also Vince happened to use an older m2Mode.tcl,
+           works but needs more improvements
+7.5b3      M2 mode works fine except for Help menu
+7.5        M2 mode works fine
+7.6        The mode preinstalled in this version is NOT fully performing
+           to the specifications described in this help document.
+           It is recommended to install (overwrite) the M2 mode by
+           using the latest version (>= 3.8.1), e.g. downloadable from
+           the mode's "home page", i.e. actually the RAMSES Extras home page at
+           <http://www.sysecol.ethz.ch/SimSoftware/RAMSES/RAMSES_Extras.html>
+8.0b6      M2 mode works fine
+8.0b7      Stay away from this release; too buggy
+8.0b8      M2 mode works fine >= 3.8.7
+X 8.0b8    M2 mode works fine >= 3.9.0 and tclAE >= 2.0b14
+X 8.0b11   M2 mode works fine >= 3.9.3
+X 8.0b12   M2 mode works fine >= 3.9.5
+X 8.0b14   M2 mode works fine >= 3.9.6
+X 8.0b17   M2 mode works fine >= 3.9.6
+
+See also "# Known Bugs - Problems and Solutions"

@@ -1,0 +1,681 @@
+
+Title:			Filters Menu Help
+Project:               Filters menu doc
+Version:		1.7
+Author:		Bernard DESGRAUPES <bdesgraupes@easyconnect.fr>
+Homepage:		<http://webperso.easyconnect.fr/bdesgraupes/alpha.html>
+Created: 		2000-06-12 00:24:33
+Modified:	 	2002-11-21 13:07:23
+Keywords:		filters, search, replace 
+  
+					Abstract
+
+This is a help file for the Filters Menu in  Alpha.  This  file  should  be
+located in the Help subfolder of Alpha's folder to show up automatically in
+the Help menu when Alpha is loaded.
+
+
+
+----------------------------------------------------------------------
+1. Introduction
+2. Installation
+   2.1. Automatic installation
+   2.2. Manual installation
+   2.3. After installing
+3. Tutorial
+   3.1. First example
+   3.2. Second example
+   3.3. Third example: multi filters
+   3.4. Fourth example: temporary filter
+   3.5. More examples
+4. Filters syntax
+   4.1. Included filters
+   4.2. Caveat
+5. Contributions
+6. Description of the menu items
+7. Exporting procs
+8. Key Bindings
+9. Preferences
+10. Version History
+11. Known problems
+12. License and Disclaimer
+----------------------------------------------------------------------
+
+1. Introduction
+
+The  Filters  Menu  allows  you  to  do  successive  "Search  And  Replace"
+operations. All the operations are gathered in files called "filters"
+which you can apply to any text file opened in Alpha.
+
+• You can mix various kinds of "Search And Replace" in the same  filter:
+textual or regular  (i-e  with  grep  patterns),  case  sensitive  or  not,
+matching exact words or not.
+
+• You can write your own filters  and  collect  them  in  the  "Filters"
+folder. They are immediatly available. The syntax of the  filters  is  very
+simple (see below).
+
+• You can also combine filters and  build  a  Multi  Filter  :  all  the
+filters in the Multi Filter will be applied sequentially  to  your  current
+window. 
+
+• For temporary operations which you do not want to store in  a  filter,
+you can use the Temporary Filter.
+
+• All the "Search And Replace" operations can be applied to a whole file
+or to a selected region only.
+
+• Filters and Multi Filters can be applied to all the text  files  in  a
+same folder.
+
+This is a find-and-replace gizmo that works on  its  own,  using  just  the
+items in the Filters menu. One doesn't have  to  use  the  Find  window  or
+command line but uses filters instead.
+
+
+2. Installation
+
+2.1. Automatic installation
+
+Open the "OPEN TO INSTALL" file. Opening this file indicates to Alpha  that
+a new package has to be installed : the procedure is automatic. Alpha knows
+where to store the different elements of your Filters Menu package.
+
+2.2. Manual installation
+
+
+   1. put the "Filters Menu" folder in the "Menus" subfolder  of  the  "Tcl"
+folder which is located at the same level as your Alpha application :  this
+folder contains the file "filterMenu.tcl" and  a  folder  called  "Filters"
+where all the filters are stored. If there is no "Filters" folder there, it
+will be created automatically by the Filters Menu. 
+
+In versions of Filters Menu prior to 1.5, the Filters folder was located in
+the UserModifications folder : if you have personal filters stored there 
+you will have to move them to the new location.
+
+
+   2. put the "Filters Help" file in the "Help" folder located at  the  same
+level as your Alpha application. Next time you launch Alpha, you will  have
+a "Filters Help" item in the Help menu.
+
+
+   3. launch Alpha. You have to rebuild the  package  indices  and  the  Tcl
+indices. "Rebuild Package Indices" is  in  the  Config/Packages  menu,  and
+"Rebuild Tcl Indices" is in the Tcl menu (press cmd-Y to open a tcl shell).
+ 
+
+   4.   quit Alpha and relaunch it : that's all there is to it. 
+
+
+2.3. After installing
+Have a look at the Filters Menu preferences in the  "Packages"  submenu  of
+the "Config" menu. You can set various flags. More explanations below.
+
+Image : ../Images/filtersmenu.gif
+
+3. Tutorial
+
+For any conversion you want to do, you have to select an appropriate filter
+with the "Pick a filter" menu item. This  filter  contains  the  conversion
+instructions : it is a simple list of strings to find and  of  replacements
+for these strings. Then if you want to convert an entire  file,  this  file
+must be open in the current window : just select the "Apply to  file"  menu
+item and the conversion will be accomplished. If you want to convert only a
+part of your current file, hilite the corresponding region and  choose  the
+"Apply to selection" menu item.
+
+Note that the selected filter which you apply to your file or to  a  region
+does not have to be open. Once you picked it, it is the active filter.
+
+3.1. First example
+Suppose your file is full of accented letters and you want to strip all the
+accents (to send an e-mail for instance). You can select the filter  called
+"Strip The Accents". Once it is selected, you will  see  its  name  at  the
+bottom of the Filters menu. Bring your current file's window to  the  front
+and choose the "Apply to file" menu item.
+Alternatively you can use the following  key  binding  :  hit  'control-f',
+release, then hit the 'f' key. If you convert only a selected  region,  hit
+'control-f', release, then hit the 's' key. To pick a filter you  can  also
+use 'control-f p'.
+
+3.2. Second example
+Suppose no filter suits your needs. You'll have to write your own. This  is
+very easy. Choose the "New Filter" menu item  in  the  "Filters  Utilities"
+submenu. You'll be prompted for a name to give to  the  new  filter.  Let's
+call it "MyNewFilter" : this new filter is now the active  filter.  Suppose
+you want to change in a text all the occurences of  J.S.  Bach  in  L.  van
+Beethoven, then to delete all the occurences of the § character and finally
+to replace multiple tabulations by a single one. You have to type the three
+following lines (more about the filters syntax later) where  the  arguments
+are tab-separated :
+
+	 J.S. Bach	L. van Beethoven
+	 §
+	 \t+	\t	1
+
+Save your filter and apply it as in the preceding example.  You  can  check
+the syntax of your new filter thanks to the "Check Syntax" menu item in the
+Filters Utilities submenu (or hit control-f c).
+
+3.3. Third example: multi filters
+Suppose you want to apply several filters successively : for instance "Html
+To Accents" then "Accents To Rtf". This can be done in one run thanks to 
+the
+MultiFilter. The MultiFilter will be the list of filters you want to  apply
+(in the order you want them to be applied). To build such a list, hold  the
+option key down then open the Filters menu : instead of "Pick a filter" its
+first item will now be "Build a multifilter" which brings a list of all the
+filters available. This list will be brought to you  repeatedly  until  you
+have chosen all the filters you want and have finished  with  the  "cancel"
+button. To apply the Multifilter to a selection, a file or a  folder,  hold
+down the option key and select the corresponding item in the Filters menu.
+ 
+3.4. Fourth example: temporary filter
+If you want to do temporary conversions on the fly and do not want to  keep
+them in a filter, you have the Temporary Filter. You use  it  exactly  like
+any other filter. The only difference is that the instructions you write in
+it will not be saved. They will remain only as long  as  you  do  not  quit
+Alpha and do not close it.
+
+
+3.5. More examples
+See the filter called Example  (file  example.flt).  Most  of  the  filters
+provided with the Filters Menu deal with accents conversions  but  you  can
+imagine many kinds of conversions. A more advanced example is given in  the
+"Convert Html To Latex" filter which converts an Html document to  a  latex
+source file ready to process with LaTeX.
+
+
+4. Filters syntax
+
+Every "Search And Replace" operation is described by a line whose syntax is
+as follows :
+
+
+	 searchString    replacementString    [option]
+
+
+   where the three arguments are separated by one or more tabulations.
+The option is a (possibly empty) string containing 0 or 1 and/or one of the
+letters i and m with the following signification :
+0 (or nothing) for an ordinary textual search (this is the default)   
+1 for a search with regular expressions. In this case "searchString"  
+  and "replacementString" can be any regular expression.              
+i for a case insensitive search. If there is no i, the search will    
+  be case sensitive.                                                  
+m to match words exactly (not only a substring of a word).            
+  If there is no m, the search will match any substring.              
+
+The options can be combined (in any order) : 
+    0m, im1, i, 0m etc. (01 means 1).
+
+A line starting with two exclamation signs (!!) is considered a comment and
+not a filter instruction.
+
+All the filters are located in the Filters subfolder of the "Filters  Menu"
+folder included in the "Tcl:Menus" folder  of  Alpha's  distribution.  They
+have an extension ".flt" to identify them.
+
+
+4.1. Included filters
+There is the possibility (since version 1.6 of Filters Menu) of  calling  a
+filter from within a filter. The syntax for this is :
+
+	 !!includefilter  "name-of-filter"
+
+or
+
+	 !!inputfilter  "name-of-filter"
+
+The keywords 'includefilter' and 'inputfilter' are synonymous.  The  double
+exclamation point must be at the beginning of a line and no  space  follows
+it. The includefilter  command  is  followed  by  one  or  several  spacing
+characters (spaces or tabulations) and the name  of  the  filter  (with  or
+without the ".flt" extension). The double quotes are optional:  use  should
+use them if the name  of  the  filter  contains  spaces  for  the  sake  of
+legibility (but even in that case, they are not required).
+
+When an includefilter or inputfilter statement is encountered,  the  entire
+included filter is executed  before  continuing  with  the  next  line.  An
+included filter can  also  have  includefilter  or  inputfilter  statements
+itself: to avoid the risk of recursive calls resulting in an infinite loop,
+the depth of included filters is limited. The default value for the maximal
+depth is 2. This can be changed in the Filters Menu  Preferences  with  the
+variable "Max Include Depth".
+
+With a maximal depth of 2 you can have a structure of included filters like
+this 
+
+	                        Main filter
+	                           /   \
+	                          /     \
+	                         /       \
+	                        /         \
+	                      fltA       fltB
+	                      /  \       /  \
+	                     /    \     /    \
+	                   fltC  fltD  fltE  fltF 
+
+
+If filters fltC, fltD, fltE  or  fltF  contain  include  statements,  these
+statements will be ignored since they wil be at level 3 (unless  of  course
+you set the "Max Include Depth" to 3 or more). You can put as many includes
+as you want in a filter.
+
+This technique can replace the use of multi filters. A multi  filter  could
+be replaced by a main filter contain an includefilter command for  each  of
+its components. The advantage is that they can be stored for later reuse.
+
+The Temporary Filter can also be included as any other filter, like this:
+
+	 !!includefilter  Temporary Filter
+
+ 
+4.2. Caveat
+It is very important that the arguments be separated  by  tabulations.  The
+spaces, if any, will be considered as part of the strings. You can separate
+the arguments with several tabulations : this will not confuse the  Filters
+Menu and can be useful for a nice visual presentation of the filters.
+The replacement string  can,  of  course,  be  empty.  In  this  case,  the
+corresponding line in the filter will look like this
+
+	 searchString		[option]
+
+(note that there are two tabs here between searchString and [option]).
+If there is no option, the line will just be :
+
+	 searchString
+
+
+Beware of misinterpretations : if you write
+
+	 arg1  [tab]  [tab]  arg2
+
+i-e two arguments separated by a double   tabulation,    this    will    be
+interpreted as :
+
+• search String = arg1
+• replacement string is empty
+• options = arg2
+
+
+If this is NOT what you want you will have to precise the options and write
+arg1  [tab]  [tab]  arg2  [tab]  options
+which is equivalent to
+
+	 arg1  [tab]  arg2  [tab]  options
+
+
+
+Note that most of the built-in  filters  supplied  with  the  Filters  menu
+convert character  entities;  for  example,  the  HtmlToLaTeX  filter  will
+convert HTML entities such as 
+
+	 &euml;
+
+to their LaTeX equivalent 
+
+	 \"{e}
+
+These filters do not convert structural markup such as headers, paragraphs,
+or blockquotes. But a filter like  ConvertHtmlToLatex  DOES  this  kind  of
+things. 
+
+Here is now an example of filtering instructions
+(see also the Example.flt filter) :
+
+	 LaTeX		Plain TeX	im
+	 (oz|cmac)TeX	\\TeX		1
+	 !! The following suppresses empty lines :
+	 ^$\r		1
+	 !! Replace tea by coffee (the 0 option can be omitted) :
+	 tea	coffee	0m
+
+
+
+
+5. Contributions
+
+I hope that in the future there will be contributions and that new  general
+purpose filters will be added to the present collection. 
+ Send me  an  e-mail  if  you  want  me  to  add  your  filters  to  the
+distribution and/or to host them on my home   page    on    the    web    :
+<bdesgraupes@easyconnect.fr>. 
+
+
+6. Description of the menu items
+
+Here are the explanations for all the  menu  items  of  the  Filters  Menu.
+Certain items are obtained if you hold the Option Key  down  while  opening
+the menu.
+
+<Pick A Filter>
+   Will show you the list of the filters : select  the
+   one you want to  apply.  The  file  does  not  have
+   necessarily to be open. The name  of  the  selected
+   filter will be  indicated  at  the  bottom  of  the
+   Filters Menu
+ 
+• When holding the option key down :
+<Build A Multi Filter>
+   A dialog window allows you to build a Multi Filter.
+   Select any filter you want to include in the  Multi
+   Filter with the pop-up menu. The dialog  will  show
+   up repeatedly  until  you  click  on  the  "cancel"
+   button. This item is equivalent to the  "New  Multi
+   Filter" item (see below).
+
+<Apply Filter To Selection>
+   Apply the selected filter to a selected  region  in
+   the front window.
+ 
+• When holding the option key down :
+<Apply Multi To Selection>
+   Apply the Multi Filter to a selected region in  the
+   front window.
+
+<Apply Filter To Window>
+   Apply the selected filter to  the  current  window.
+   This is not undoable.
+ 
+• When holding the option key down :
+<Apply Multi To Window>
+   Apply the Multi Filter to the current window.  This
+   is undoable.
+
+<Apply Filter To Fileset...>
+   Prompts  you  for  a  fileset  to  which  apply  the
+   selected filter. The Filesets packages must be activated. 
+   This is not undoable.
+ 
+• When holding the option key down :
+<Apply Multi To Fileset...>
+   Prompts you for a fileset to which apply  the  Multi
+   Filter. This is not undoable.
+
+<Apply Filter To Folder...>
+   Prompts  you  for  a  folder  to  which  apply  the
+   selected filter. This is not undoable.
+ 
+• When holding the option key down :
+<Apply Multi To Folder...>
+   Prompts you for a folder to which apply  the  Multi
+   Filter. This is not undoable.
+
+<Temporary Filter>
+   Open a Temporary Filter window  in  which  you  can
+   type and apply filtering instructions that  you  do
+   not intend to save later. See the syntax above.
+<Apply Temp To Selection>
+   Apply the Temporary Filter to a selected region  in
+   the front window.
+<Apply Temp To Window>
+   Apply the Temporary Filter to the  current  window.
+   This is not undoable.
+<Apply Temp To Fileset...>
+   Prompts  you  for  a  fileset  to  which  apply  the
+   Temporary Filter. This is not undoable.
+<Apply Temp To Folder...>
+   Prompts  you  for  a  folder  to  which  apply  the
+   Temporary Filter. This is not undoable.
+<Current Filter / No Filter Selected>
+	Display a dialog window  indicating  the  name  of
+   the current filter and the contents  of  the  Multi
+   Filter.
+
+
+The "Filters Utilities" submenu has the following items :
+Image : ../Images/filtersutilities.gif
+
+
+<New Filter>
+	Create a new filter.
+ 
+• When holding the option key down :
+<New Multi Filter>
+	Build a new Multi Filter. The previous contents  of
+   the Multi  Filter  will  be  replaced  by  the  new
+   definition. This is  equivalent  to  the  
+   "Build A Multi Filter" item seen above.
+
+<Edit A Filter>
+	Will show you the list of the filters : select  the
+   one you want to edit.
+ 
+• When holding the option key down :
+<Edit Current Filter>
+	Edit the file defining the currently selected filter.
+    
+ 
+• When holding the shift key down :
+<Show Multi Filter>
+	Show the contents of the Multi Filter.
+    
+ 
+• When holding the control key down :
+<Edit Multi Filter>
+	Edit all the filters contained in the Multi Filter.
+    
+<Delete A Filter>
+	Will show you the list of the filters : select  the
+   one you want to delete
+   
+ 
+• When holding the option key down :
+      
+<Clear Multi Filter>
+	Empty the contents of the Multi Filter.
+
+<Check Syntax>
+   Check the syntax of a filter : this filter must  be
+   edited and be the current window.  This  will  look
+   for syntax errors concerning the structure of  each
+   line, the options, the validity   of    the    grep
+   patterns. There  is  a  maximum  number  of  errors
+   tolerated (see the preferences) : if more are to be
+   found, the syntax  checking  will  stop.  If  other
+   filters are included  using  the  !!inputfilter  or
+   !!includefilter keywords, Filters Menu will propose
+   to open these files for checking too: it  does  not
+   automatically checks the  syntax  of  the  included
+   filters.
+<Display Syntax>
+   Display, as a reminder, a short description of  the
+   filters syntax.
+<Filters Bindings>
+   Display in a window the key bindings  available  to
+   access  the  various  features.  See  section  "Key
+   Bindings" below.
+ 
+• When holding the option key down :
+<Reveal Filters Folder>
+   Switch to the Finder and open the folder  containing 
+   the '.flt' files defining the filters.
+
+<Filters Tutorial>
+	Open the tutorial.
+
+
+
+7. Exporting procs
+
+Since version 1.4 of Filters menu, two procs have  been  defined  to
+export the filtering capacity in other scripts. Just say
+
+	 alpha::package require filtersMenu 1.4
+
+at the beginning of your script and then  use  one  of  the  following
+commands 
+
+	     flt::filterThisFile $filtername $filename
+	     flt::filterThisSelection $filtername $selection
+
+"filtername" is the name of the filter you want to apply (without  the
+flt extension). If "filename" is not specified then it applies to  the
+current window. "selection" is the name  of  a  variable  :  the  proc
+flt::filterThisSelection returns the result of  filtering  applied  to
+the contents of this variable.
+
+8. Key Bindings
+
+There are a few easy to remember keybindings  "à  la  emacs".  For  all  of
+them you have to hit 'ctrl-f', release,  then  hit  one  of  the  following
+letters :
+'b' to show the key bindings          
+'c' to check the syntax               
+'d' to filter a folder (or directory) 
+'e' to edit a filter                  
+'f' to filter a fileset               
+'m' to build a multifilter            
+'n' to create a new filter            
+'p' to pick a filter                  
+'s' to filter the selection           
+'t' to call up the temporary filter   
+'w' to filter the current window      
+If you add the shift key with letters s, w, d,  f,  c  or  e  you  get  the
+equivalent actions but with a Multifilter instead of a Filter. For instance
+'ctrl-f shift-f' is equivalent to "apply multifilter to the  current  file"
+and 'ctrl-f shift-c' will clear the multifilter.
+
+'ctrl-f opt-e' edits the current filter.
+
+There are three more key bindings to use the Temporary  Filter.  First  hit
+'ctrl-t', release, then hit one of the letters s, w, d, f in order to apply
+the temporary filter to a selection, to the current window, to a  directory
+or to a fileset respectively.
+
+
+9. Preferences
+
+The "Filters Prefs…" item in the "Packages" submenu of  the  "Config"  menu
+allows you to make a few choices :
+
+• the "Warn Not Undoable" flag can be set to warn  you,  each  time
+you apply a filter to a whole file, that it is an action  which  can't
+be undone. Uncheck this box if you do not want to be warned.
+
+• if the "Show Filter Syntax"  flag  is  set,  there  will  be  a  short
+description of the filters syntax at the beginning of any new filter and of
+the Temporary Filter window. Uncheck this box if you do not want it.
+
+• the "Max Numb Err" variable designates the maximum  number  of  errors
+tolerated when checking the syntax of a filter. If there are  more,  syntax
+checking will be aborted after MaxNumbErr errors. Default value is 15.
+
+• the "Max Before Scrap" variable designates the  maximum  length  of  a
+selection above which filtering will be done  not  in  the  current  window
+directly but in a scrap window. Using a scrap window is much faster, so you
+should give this variable a small value. Default value is 70.
+
+• the "ToggleSupSearch" flag allows filtering to run much faster by
+deactivating superSearch (if present) during filtering operations  and
+then immediatly reactivating. If unchecked, filtering will  be  slowed
+down. This flag has no effect with Alpha8: it only applies to Alpha7.
+
+
+10. Version History
+
+• 0.1a -- 00/04/05 -- Created the Filters Menu. 
+• 0.1b -- 00/04/18 -- First beta release. 
+• 0.2b -- 00/04/19 -- Modified the procs to filter a selection: now 
+uses a scrap window which accelerates considerably the substitutions. 
+Added avariable in the menu preferences to decide which method to use 
+depending on the length of the selection. Corrected lots of minorbugs. 
+• 0.3b -- 00/04/27 -- Added new filters. Changed the uninstall 
+procedure. 
+• 0.4b -- 00/04/29 -- Added a warning to deactivate superSearch when 
+loading the Filters Menus. Corrected minor bugs in the syntax checking 
+proc. 
+• 0.5b -- 00/05/03 -- Added key bindings. 
+• 0.6b -- 00/05/04 -- Modified the code to reflect Vince's guidelines 
+concerning future versions of AlphaTcl or AlphaTk. Suppressed the warning 
+concerning superSearch since this latter has been modified. Made the scrap 
+window "invisible" (off screen). Made the flt::substitute proc compatible 
+with superSearch by toggling it forth and back (can't account for the 
+incompatibility). Added a flag to toggle supersearch 
+• 1.0 -- 00/05/08 -- Cosmetic changes and first release. 
+• 1.1 -- 00/08/15 -- Added an internal Fltr mode to improve filters 
+edition (coloring of comments, correct commenting/uncommenting procs, 
+option-click on title bar, file marking). 
+• 1.2 -- 00/09/20 -- Added a "Filters Tutorial" menu item. 
+• 1.2.1 -- 00/10/20 -- Made minor corrections. Corrected a bug in 
+flt::applyToFolderProc. 
+• 1.2.2 -- 00/11/16 -- Added an info window with the key bindings 
+available with the filter menu ('ctrl-f b' to bring it up). 
+• 1.2.3 -- 00/12/22 -- Introduced the menu icon (coming with AlphaTcl 
+version 7.4). 
+• 1.3 -- 01/02/21 -- Modified the code internally to put all the 
+filters global vars in specific arrays. Done some cleaning. Nothing is 
+changed from the user's side except for the dialog window to build a 
+multifilter which has been much improved. Changed license to BSD. 
+• 1.3.1 -- 01/04/08 -- Minor syntactic changes (procs renamed). 
+• 1.3.2/3.. -- 01/04/20.. -- Minor corrections concerning the filtering 
+of a selection. 
+• 1.3.5 -- 01/04/28 -- Changed date to ISOTime in new filters. Changed 
+to new color syntax. 
+• 1.4 -- 01/05/27 -- Added two exporting procs. Factored some pieces 
+with flt::filterCore.
+• 1.5 -- 01/07/31 -- Changed the location of the Filters folder to 
+facilitate the installing procedure.
+• 1.6 -- 02/10/12 -- Added the possibility of include'ing filters in a 
+filter. Split the distribution into several smaller files.
+• 1.7 -- 02/11/22 -- Changed the code for compatibility with Alpha8 
+which now uses supersearch as its default (and unique) search engine. 
+Streamlined the code. Added capacity of filtering a fileset. Filtering is 
+now processed off-screen.
+
+
+11. Known problems
+Note for Alpha7: 
+Filters menu is MUCH faster (6 times!) when superSearch is NOT  active
+due to the way each of them deals with its respective  tasks.  So  you
+should better temporarily deactivate superSearch :  this  is  done  by
+default with the "ToggleSupSearch" flag in the preferences. Unless you
+have a very good reason, leave this flag set. If you leave superSearch
+active, you should  then    unset,    in    its    preferences,    the
+"beepOnFailedSearch" flag (introduced 05/03/2000) unless you  want  to
+hear a beep symphony when applying a long filter to a file  containing
+many unmatched strings. These remarks do not apply to Alpha8.
+
+Please e-mail any problem or bug you encounter : 
+<bdesgraupes@easyconnect.fr>
+
+Visit my Web page for updates and other Alpha utilities :
+
+<http://webperso.easyconnect.fr/bdesgraupes/alpha.html>
+
+
+12. License and Disclaimer
+
+(c) Copyright : Bernard Desgraupes, 2000, 2001, 2002
+ All rights reserved.
+
+This software is free software and distributed under the terms of  the  new
+BSD license :
+
+• Redistribution and use in source and binary  forms,  with  or  without
+modification, are permitted provided that the following conditions are met:
+• Redistributions of source code must retain the above copyright notice,
+this list of conditions and the following disclaimer.
+• Redistributions in binary form  must  reproduce  the  above  copyright
+notice, this list  of  conditions  and  the  following  disclaimer  in  the
+documentation and/or other materials provided with the distribution.
+
+
+Neither the name of Bernard Desgraupes nor the names  of  its  contributors
+may be used to endorse or  promote  products  derived  from  this  software
+without specific prior written permission.
+
+This software is provided by the copyright holders and contributors "as is"
+and any express or implied warranties, including, but not limited  to,  the
+implied warranties of merchantability and fitness for a particular  purpose
+are disclaimed. In no event shall the regents or contributors be liable for
+any direct, indirect,  incidental,  special,  exemplary,  or  consequential
+damages (including, but not limited to, procurement of substitute goods  or
+services; loss of use, data, or profits; or business interruption)  however
+caused and  on  any  theory  of  liability,  whether  in  contract,  strict
+liability, or tort (including negligence or otherwise) arising in  any  way
+out of the use of this software, even if advised of the possibility of such
+damage. 
+

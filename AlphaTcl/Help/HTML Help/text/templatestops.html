@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+
+<HTML>
+
+<HEAD>
+
+<TITLE>Template stops</TITLE>
+
+<LINK HREF="../Style%20Sheet/manual.css" REL="stylesheet" TYPE="text/css">
+
+
+</HEAD>
+
+<BODY>
+
+<!-- #INCLUDE INCLPATH="maintop.html" -->
+
+<SCRIPT TYPE="text/javascript">
+<!--
+if (document.body.clientHeight) {
+	height = document.body.clientHeight - 50;
+} else {
+	height = window.innerHeight - 50 ;
+}
+document.write('<div class="main" style="height: ' + height + 'px;">');
+// -->
+</SCRIPT>
+
+
+<!-- /#INCLUDE -->
+
+
+<H1>How to use template stops</H1>
+
+<P>
+When you insert HTML elements via the HTML menu you will see bullet 
+characters (<SPAN CLASS="code">&#8226;</SPAN>), called template stops, being inserted after the 
+element.  These stops are supposed to be a feature. The way to use them is 
+the following: Suppose you want to insert a header H1.  First choose 
+"Header 1" from the menu.  In the document will now be inserted
+</P>
+
+<P CLASS="code">
+<SPAN CLASS="htmlcode">&lt;H1&gt;</SPAN>|<SPAN CLASS="htmlcode">&lt;/H1&gt;</SPAN>&#8226;
+</P>
+
+<P>
+with the insertion point between the H1 tags.  Now first type the header 
+text:
+</P>
+
+<P CLASS="code">
+<SPAN CLASS="htmlcode">&lt;H1&gt;</SPAN>My header|<SPAN CLASS="htmlcode">&lt;/H1&gt;</SPAN>&#8226;
+</P>
+
+<P>
+When you have done so, hit <SPAN CLASS="itemlight">tab</SPAN> and the insertion point will jump to the 
+stop and delete it.  You are now ready to continue typing.
+</P>
+
+<P CLASS="code">
+<SPAN CLASS="htmlcode">&lt;H1&gt;</SPAN>My header<SPAN CLASS="htmlcode">&lt;/H1&gt;</SPAN>|
+</P>
+
+<P>
+If your document has been cluttered with template stops, which you do not 
+want to use, you can remove them all with <SPAN 
+CLASS="item">shift-ctrl-tab</SPAN>. If you do not want to use template 
+stops at all, you can change Alpha's behavior in the <A 
+HREF="prefs.html">general preferences dialog</A>, so that the stops are not 
+inserted.
+</P>
+
+<P>
+You can customize which key takes you to the next template stop. This is 
+done using <SPAN CLASS="menuitem">Special Keys</SPAN> in the <SPAN
+CLASS="menu">Config</SPAN> menu. Both <SPAN CLASS="item">Next Stop</SPAN> 
+and <SPAN CLASS="item">Next Stop Or Indent</SPAN> can be used to define keys 
+which takes you to the next template stop.
+</P>
+
+<!-- #INCLUDE INCLPATH="mainbottom.html" -->
+
+<DIV STYLE="height: 50px">
+</DIV>
+
+<SCRIPT TYPE="text/javascript">
+<!--
+document.write('<\/DIV>');
+// -->
+</SCRIPT>
+
+
+<!-- /#INCLUDE -->
+
+
+<!-- #INCLUDE INCLPATH="navigation.html" PREV="[manualPrevPage doctype.html]" 
+NEXT="[manualNextPage wrapping.html]" -->
+
+<P>
+<script type="text/javascript">
+<!--
+document.write('<div class="navigation" style="top: ' + height + 'px; height: 50px">');
+// -->
+</script>
+<A HREF="doctype.html">Previous page</A>
+<A HREF="wrapping.html">Next page</A>
+<SCRIPT TYPE="text/javascript">
+<!--
+document.write('<\/DIV>');
+// -->
+</SCRIPT>
+</P>
+
+<!-- /#INCLUDE -->
+
+
+</BODY>
+
+</HTML>

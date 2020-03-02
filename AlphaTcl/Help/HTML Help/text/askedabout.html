@@ -1,0 +1,218 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+
+<HTML>
+
+<HEAD>
+
+<TITLE>Which attributes to be asked about</TITLE>
+
+<LINK HREF="../Style%20Sheet/manual.css" REL="stylesheet" TYPE="text/css">
+
+
+</HEAD>
+
+<BODY>
+
+<!-- #INCLUDE INCLPATH="maintop.html" -->
+
+<SCRIPT TYPE="text/javascript">
+<!--
+if (document.body.clientHeight) {
+	height = document.body.clientHeight - 50;
+} else {
+	height = window.innerHeight - 50 ;
+}
+document.write('<div class="main" style="height: ' + height + 'px;">');
+// -->
+</SCRIPT>
+
+
+<!-- /#INCLUDE -->
+
+
+<H1>Deciding which attributes to be asked about</H1>
+
+<P>
+Most HTML elements have very many attributes. Therefore you can select which 
+attributes to be asked about. This to reduce the cluttering of the dialog 
+boxes or to reduce the number of attributes to be asked about in the 
+status bar.
+</P>
+
+<P>
+There are several things which determine which attributes you are asked 
+about.
+</P>
+
+<UL>
+	<LI>The document type declaration in the file, if there is one. 
+	Alpha recognizes HTML 4.0, HTML 4.01, XHTML 1.0, and XHTML 1.1 document type declarations.
+	<LI>Preferences set using the menu item <SPAN 
+	CLASS="menuitem">Attributes Globally</SPAN> in the <SPAN 
+	CLASS="menu">Preferences</SPAN> submenu of the HTML menu.
+	<LI>Individual settings for each HTML element using the menu item <SPAN 
+	CLASS="menuitem">Use Attributes</SPAN> in the <SPAN 
+	CLASS="menu">Preferences</SPAN> submenu of the HTML menu.
+</UL>
+
+<P>
+The effect of the document type declaration will be discussed on the <A 
+HREF="doctype.html">next page</A>. Here we will discuss the global and the 
+individual settings for the attributes.
+</P>
+
+<H2>Individual settings</H2>
+
+<P>
+You select which attributes to be asked about for a certain HTML element 
+using the menu item <SPAN CLASS="menuitem">Use Attributes</SPAN> in the <SPAN 
+CLASS="menu">Preferences</SPAN> submenu of the HTML menu. First you choose from a list 
+which element you want to change the settings for.  In 
+this list 'LI IN UL' and 'LI IN OL' are the LI element for UL and OL lists 
+respectively. 'INPUT TYPE=xxx' is the INPUT element with the type xxx. 
+</P>
+
+<P>
+For each attribute you can specify one of the following:
+</P>
+
+<DIV>
+<IMG SRC="../bilder/useattrs.png" ALT="Use attributes" WIDTH="370" HEIGHT="78">
+</DIV>
+
+
+<DIV>
+<SPAN CLASS="item">Always ask about</SPAN>
+<DIV CLASS="indent">Attributes you always want to be asked about. They 
+always appear in the attribute dialog box or are always prompted for in the 
+status bar.</DIV>
+</DIV>
+
+
+<DIV CLASS="itempara">Don't ask about at first</DIV>
+<DIV CLASS="indent">Attributes you don't use so often but still want to be 
+able to be asked about.</DIV>
+
+
+<DIV CLASS="indent">
+
+<P>
+If you use dialog boxes the dialog box will first only contain the 
+attributes which you have told Alpha to <SPAN CLASS="item">Always ask 
+about</SPAN>. Then there will be a button <B>More...</B> in the dialog box. 
+Clicking this button will open a new larger dialog box which includes the 
+attributes for which you have told Alpha: <SPAN CLASS="item">Don't ask 
+about at first</SPAN>.
+</P>
+
+<P>
+If you use the status bar you are first asked about the attributes you have 
+told Alpha to <SPAN CLASS="item">Always ask about</SPAN>. Then you are 
+asked about the attributes you for which you have told Alpha: <SPAN 
+CLASS="item">Don't ask about at first</SPAN>. In this way you will be asked 
+about the attributes you use most first. Remember that you can always skip 
+all the subsequent attributes with <SPAN CLASS="item">ctrl-q</SPAN>.
+</P>
+
+</DIV>
+
+<DIV>
+<SPAN CLASS="item">Never ask about</SPAN>
+<DIV CLASS="indent">Attributes you never want to be asked about. They 
+never appear in the attribute dialogs or are prompted for in the status 
+bar. No attributes have this setting by default.</DIV>
+</DIV>
+
+
+<P>
+<STRONG>Note!</STRONG> There is an important special case. If there are no 
+attributes which you always want to be asked about, the tags for the 
+element is immediately inserted and no dialog window is opened. This is 
+very convenient as there are many elements which you rarely want any 
+attributes for. If you occasionally want some first insert the element and 
+then immediately use <A HREF="editing.html#edit"><SPAN CLASS="menuitem">Edit 
+tag</SPAN></A> in the <SPAN CLASS="menu">Editing</SPAN> submenu of the HTML 
+Utilities menu to give it attributes.
+</P>
+
+<H2>Global vs individual settings</H2>
+
+<P>
+Using the menu item <SPAN CLASS="item">Attributes Globally</SPAN> the 
+dialog box below is opened. Here you can categories some attributes 
+globally. These are attributes which are used by very many elements. 
+</P>
+
+<DIV>
+<IMG SRC="../bilder/attrsglobally.png" ALT="Attributes globally" WIDTH="404"
+HEIGHT="181">
+</DIV>
+
+<P>
+The effect of the two checkboxes at the top of the dialog window will be 
+discussed on the <A HREF="doctype.html">next page</A>. We now focus on the 
+popup menus.
+</P>
+
+<P>
+<SPAN CLASS="item">Use individual settings</SPAN> means that the setting 
+for each element apply individually, i.e. there is no global setting for 
+this attribute. The other three options are the same as can be used for the 
+individual settings. These global settings apply to these attributes 
+regardless of which element they belong to.
+</P>
+
+<P>
+In some cases you would like to use a global setting for some of these 
+attributes, but use another setting for only a few elements. There is then 
+a possibility to override the global setting. If there is a global setting 
+it will be shown in the individual setting which you open using <SPAN
+CLASS="menuitem">Use Attributes</SPAN>. Then there is a checkbox 
+<B>Override global setting</B>, which lets you use the individual setting 
+for this attribute.
+</P>
+
+<DIV>
+<IMG SRC="../bilder/attroverrideglobal.png" ALT="Override global setting"
+WIDTH="550" HEIGHT="72">
+</DIV>
+
+<!-- #INCLUDE INCLPATH="mainbottom.html" -->
+
+<DIV STYLE="height: 50px">
+</DIV>
+
+<SCRIPT TYPE="text/javascript">
+<!--
+document.write('<\/DIV>');
+// -->
+</SCRIPT>
+
+
+<!-- /#INCLUDE -->
+
+
+<!-- #INCLUDE INCLPATH="navigation.html" PREV="[manualPrevPage attributes.html]" 
+NEXT="[manualNextPage doctype.html]" -->
+
+<P>
+<script type="text/javascript">
+<!--
+document.write('<div class="navigation" style="top: ' + height + 'px; height: 50px">');
+// -->
+</script>
+<A HREF="attributes.html">Previous page</A>
+<A HREF="doctype.html">Next page</A>
+<SCRIPT TYPE="text/javascript">
+<!--
+document.write('<\/DIV>');
+// -->
+</SCRIPT>
+</P>
+
+<!-- /#INCLUDE -->
+
+
+</BODY>
+
+</HTML>

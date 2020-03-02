@@ -1,0 +1,100 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% File:      latex_defs.tex
+% Author:    Tom Scavo  <trscavo@syr.edu>
+% Requires:  html.sty, htmllist.sty
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Packages accompanying LaTeX2HTML:
+%\usepackage{html,htmllist}
+%\usepackage{htmllist}
+
+% Why isn't this in html.sty?
+% \newcommand{\latexhtml}[2]{\latex{#1}\html{#2}}
+
+% URLs and e-mail addresses:
+% \usepackage{url}  % defines a "smart" \url command
+%\newcommand{\url}[1]{\texttt{#1}}
+
+% Various logos:
+\newcommand{\AmS}{{\protect\usefont{OMS}{cmsy}{m}{n}%
+  A\kern-.1667em\lower.5ex\hbox{M}\kern-.125emS}}
+% \newcommand{\BibTeX}{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+%     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+\newcommand{\BibTeX}{\textrm{B\kern-.05em\textsc{i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+\newcommand{\MakeIndex}{\textsl{MakeIndex}}
+\newcommand{\Textures}{\textsl{Textures}}
+\newcommand{\OzTeX}{O\kern-.03em z\kern-.15em\TeX}
+\newcommand{\DirectTeX}{D\kern-.04em irect\kern-.10em\TeX}
+\newcommand{\CMacTeX}{C\kern-.08em M\kern-.07em ac\kern-.10em\TeX}
+% \newcommand{\TeXXeT}{T\kern-.1667em\lower.5ex\hbox{E}\kern-.125emX-\kern0pt%
+%     -X\kern-.1667em\lower.5ex\hbox{E}\kern-.125emT}
+% \newcommand{\emTeX}{e\kern-.03em m\kern-.15em\TeX}
+% \font\logo=logo10 scaled\magstephalf 
+% \newcommand{\MF}{{\logo META}\-{\logo FONT}}
+\newcommand{\twoe}{{2${}_{\textstyle\varepsilon}$}}
+\newcommand{\Alpha}{\textsl{Alpha}}
+\newcommand{\AlphaLite}{\textsl{AlphaLite}}
+
+% LaTeX environments:
+\newcommand{\env}[1]{\texttt{#1}}
+
+% LaTeX commands:
+\newcommand{\cmd}[1]
+	{\mbox{\texttt{\symbol{'134}#1}}}
+\newcommand{\bracedarg}[1]
+	{\symbol{'173}#1\symbol{'175}}  % {...}
+\newcommand{\cmdarg}[2]{\texttt{\cmd{#1}\bracedarg{#2}}}
+% \newcommand{\bracketedarg}[1]{\symbol{'133}#1\symbol{'135}}  % [...]
+% \newcommand{\cmdoptarg}[3]
+%   {\texttt{\cmd{#1}\bracketedarg{#2}\bracedarg{#3}}}
+\newcommand{\ttstar}{\texttt{\symbol{'52}}}
+% \newcommand{\starred}{\ttstar-ed}  % *-ed
+% \newcommand{\anewline}{\cmd{\symbol{'134}}}  % \\
+% \newcommand{\anewlinestar}{\cmd{\symbol{'134}\symbol{'52}}}  % \\*
+
+% Alpha commands:
+\newcommand{\acmd}[1]{\textsf{#1}}
+% \newcommand{\entrylabel}[1]{\acmd{#1}\hfill}
+% \newenvironment{commands}[1]
+%   {\begin{list}{}
+%   	{%
+%   	\renewcommand{\makelabel}{\entrylabel}%
+%     \settowidth{\labelwidth}{\acmd{#1}}%
+%     \setlength{\labelsep}{1em}%
+%     \setlength{\itemsep}{0em}%
+%     \setlength{\parsep}{0em}%
+%     \setlength{\rightmargin}{5em}%
+%     \setlength{\leftmargin}{\labelwidth}%
+%     \addtolength{\leftmargin}{\labelsep}%
+%     \addtolength{\leftmargin}{2em}%
+%     }%
+%   }%
+% 	{\end{list}}
+\newenvironment{commands}
+  {\begin{flushleft}\begin{tabular}{@{\hspace{1.5em}}ll@{}}}
+	{\end{tabular}\end{flushleft}}
+	
+% Alpha menus:
+\newcommand{\amenu}[1]{\textbf{\textsf{#1}}}
+
+% Alpha keys:
+\newcommand{\straightquote}{\texttt{\symbol{'015}}}  % '
+\newcommand{\key}[1]{$\langle\hbox{\textsc{#1}}\rangle$}
+%\begin{htmlonly}
+%	\newcommand{\key}[1]{<\textsc{#1}>}
+%\end{htmlonly}
+% \newcommand{\key}[1]
+% 	{\latex{$\langle$\mbox{\textsc{#1}}$\rangle$}\html{<\textsc{#1}>}}
+% \newcommand{\key}[1]
+% 	{\latex{$\langle\mbox{\textsc{#1}}\rangle$}\html{<\textsc{#1}>}}
+
+% Files:
+\newcommand{\filespec}[1]{\mbox{\texttt{#1}}}
+\newcommand{\pkg}[1]{\filespec{#1}}
+\newcommand{\filetype}[1]{\filespec{.#1}}
+
+% Small verbatim stuff:
+\makeatletter
+\renewcommand{\verbatim@font}{\normalfont\ttfamily\small}
+\makeatother

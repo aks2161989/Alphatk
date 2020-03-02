@@ -1,0 +1,390 @@
+
+Matlab Help
+
+                                            version: 2.0.7
+                                            created: 06/13/1995 {02:27:55 am}
+                                        last update: 02/27/2004 {08:17:35 PM}
+
+This help file describes the "MATL" (Matlab) mode.  MATLAB is an integrated
+technical computing environment that combines numeric computation, advanced
+graphics and visualization, and a high-level programming language.  MATLAB is
+a commercial product available at
+
+<http://www.mathworks.com/>
+
+This package allows Alpha to act as a front end for MATLAB for Macintosh
+version 5.0 or higher.  Some features will work with MATLAB 4.2c, but you
+should upgrade to MATLAB 5 to avoid the a serious bug in MATLAB 4.2c as
+described below.  As of this writing, there has been no known testing of this
+mode with MATLAB version 6.5.1 (or greater) in Mac OS X.
+
+
+	  	Table Of Contents
+
+
+"# Main Features"
+"# WARNING"
+"# Editing matlab files"
+"# Command window"
+"# Command history window"
+"# Command-Double-Clicking"
+"# Matlab Menu Items"
+"#   Matlab Menu"
+"#   Command Help Menu"
+"#   Workspace Menu"
+"#   Debug Menu"
+"#   Quick Options Menu"
+"#   Non-Menu Key Bindings"
+"#   Electric Completions"
+"# Customization"
+"# Version History"
+"# To Do:"
+"# Signature"
+
+<<floatNamedMarks>>
+
+
+	  	Main Features
+
+
+¥ Syntax coloring of keywords
+¥ Automatic line indentation
+¥ Shell like command window for typing in MATLAB commands
+¥ Command history window for easy reissuing of commands
+¥ "Save and Go" for executing m-files
+¥ Execute line or selection sends command(s) to MATLAB
+¥ Get help or open files by selecting or Cmd-double clicking commands
+¥ Debug menu for easy use of MATLAB debugging
+¥ Workspace menu for easy management of the MATLAB workspace
+¥ Can automatically clear old function from workspace when saving file
+¥ Utility to create HTML documentation of MATLAB files
+
+A "MATLAB Example" syntax file is available for exploring the MATLAB mode's
+features and menu.
+
+
+	  	WARNING
+
+
+There is a bug in MATLAB 4.2c that will cause MATLAB to crash if the return
+string from a dosc apple event is large.  Since MATLAB mode uses the dosc
+event to talk to MATLAB you should not execute MATLAB scripts from Alpha (or
+Apple Scripts for that matter) that will print large results to the screen.
+So, for example, don't do this
+
+È 1:1000
+
+As far as I know there is nothing I can do to prevent this from happening.  
+
+This bug has been fixed in MATLAB 5.
+
+	  	
+	----------------------------------------------------------------------
+
+
+	  	Editing matlab files
+
+
+If you open any text file with a .m extension, Alpha will automatically
+recognize it as a MATLAB file and set the current mode to be MATL. You type in
+your MATLAB code as you normally would, but matlabMode helps you in several
+ways.  It will color certain key words.  You can easily change the coloring
+scheme in the "Config > Mode Prefs > Preferences" menu item.
+
+Preferences: Mode-MATL
+
+As you type you may notice some strange behavior.  If you hit return, the next
+line will be automatically indented for you according to the previous lines
+indentation and the block structure.  You can turn off this feature by
+unselecting "Indent On Return" in the mode flags.  In addition if you type a
+Semicolon ";", matlabMode will automatically hit return for you.  You can turn
+off this feature by unselecting "Electric Semicolon" in the mode flags.
+
+Once you are finished editing the MATLAB file select "Save And Execute" from
+the MATLAB menu to send the file to MATLAB for execution.  The results will be
+shown in the command window within Alpha.  If you only want to execute part of
+the file simply select the code you want and then choose executeSelection from
+the MATLAB menu.
+
+If there is a matlab file in your code that you wish to edit you can easily
+open several ways.  One is to select the name and then choose "Open Selection"
+from the MATLAB menu.  Another way is to press the Command modifier and then
+Double-Click on the matlab command.  This will bring up help on that command.
+Hold down both the Command and Control modifiers and Double-Click to edit the
+m-files.  The mode variable "Dbl Click Edits" (which can be changed using the
+"Config > Mode Prefs > Preferences" menu item) will reverse this behavior.
+
+
+	  	Command window
+
+This acts similar to the command window in MATLAB. Simply type in a command at
+the prompt and hit return to have it executed in MATLAB. Use the Up and Down
+Arrow keys to recall previous commands.  Hit Control-U to cancel the current
+line.
+
+
+	  	Command history window
+
+This acts similar to the history window in MATLAB: it contains a list of all
+previous commands entered in the command window.  Commands sent from m-files
+are not added.  Use the arrow Keys to navigate Up or Down and press Return to
+reissue the command.
+
+
+	  	Command-Double-Clicking
+
+Press the Command modifier and Double-Click on a matlab command.  This will
+bring up help on that command.  Press both the Command and Control modifiers
+and Double-Click to edit the m-files depending.  The mode preference named
+"Dbl Click Edits" (see the "Config > Mode Prefs > Preferences" menu item) will
+reverse this behavior.
+
+Preferences: Mode-MATL
+
+	  	Matlab Menu Items
+			
+	  	 	Matlab Menu
+
+Switch To Matlab    Swap the process to matlab, launching if necessary
+
+Command Window       Open command window
+
+Command History     Open history window
+
+Edit In Matlab      Close and edit current window in Matlab
+
+Execute Selection    Execute selection in Matlab; if nothing is selected
+                     execute current line
+
+Save And Execute     Save and execute current window
+
+Open Selection       Open m-files of selection
+
+
+	  	 	Command Help Menu
+
+Normal Help          Presents a dialog box for entering in a command to ask
+                     MATLAB for help on.
+							
+Help Selection       Get help on selected command in current window
+
+Search Documentation Search for help on a keyword
+
+Make Documentation   Create HTML documentation for a folder of m-files
+
+
+	  	 	Workspace Menu
+
+Rebuild Path         Sends a "path(path)" to MATLAB
+
+Add To Path          Get the path of current window and add it to MATLAB's path
+
+Cd To Win            Set current directory to the folder of the current window
+
+Clear Workspace      Sends a "clear" to MATLAB
+
+Clear Procedure      Removes current window's function from the workspace
+                     ("clear m-file").
+							
+Close All            Closes all MATLAB figure windows ("close all")						
+
+	  	 	Debug Menu
+
+Debug In Matlab      Opens the debug window in MATLAB for current window
+
+Stop If Error        Sends "dbstop if error" to MATLAB
+
+Stop In File         Sends "dbstop in m-file" to MATLAB
+
+Stop At Current Line Sends  "dbstop at current-line in m-file" to MATLAB
+
+Step One Line        Sends "dbstep 1" to MATLAB
+
+Clear All Breakpoints Sends "dbclear all" to MATLAB
+
+File Breakpoints     Sends "dbstatus m-file" to MATLAB
+
+Open Error File      Opens the offending file if an error occurred on the 
+                     last command.
+
+	  	 	Quick Options Menu
+			
+Clear On Save        If selected sends a "clear functionName" to MATLAB when
+                     saving a file.  Useful when the function is a callback and 
+                     MATLAB doesn't check if it has changed.
+							
+Web Help             All help commands open up the HTML help file if available
+
+
+							
+	  	 	Non-Menu Key Bindings
+
+*All windows*
+
+Options-;     Electric semicolon with jump to next stop
+
+*Command Window Only*
+
+Return       Execute current command line in Matlab
+Up-Arrow     Recall Previous Command
+Down-Arrow   Recall Next Command
+Control-U    Cancel Line
+
+*m-files Window Only*
+
+Control-Return  Execute current line in Matlab
+
+
+	  	 	Electric Completions
+
+
+MATL supports Electric Completions for switch, while, and for.
+
+
+	----------------------------------------------------------------------
+
+	  	Customization
+
+
+Here are some things you can set via the "Config > Mode Prefs > Preferences"
+menu item:
+
+   1. Change the name of the command window
+   2. Change the name command history window
+   3. Toggle the behavior of Cmd-Double Clicking.
+   4. Set the color of the different kinds of keywords.
+   5. Turn off electric semicolon
+   6. Turn off auto-indentation (elecReturn)
+   7. Turn off warning that Matlab is busy (queEventsQuietly)
+   8. Use web browser to view help files or use normal Matlab help
+   9. Automatically send a clear function command to Matlab when saving a file
+   
+Preferences: Mode-MATL
+  
+In addition if you want to add menu items you can define a proc in a
+"MATLPrefs.tcl" file called matDummyMenuItem and then simply add items to the
+matlab menu without having to modify "matlabMode.tcl".  For example:
+
+	addMenuItem $MATLMenu 	"(-"
+	addMenuItem $MATLMenu  "stephen"
+	
+	proc matDummyMenuItem {menu item} {
+		global MATLMenu
+		switch -- $menu {
+			$MATLMenu {
+			    switch -- $item {
+				    stephen   {insertText "Smart guy"}
+			    }
+			}
+		}
+	}
+
+	  	
+	====================================================================
+
+
+	  	Version History
+
+
+	  	 	Changes in Version 2.0
+
+¥ sendURL changed back to sendURL
+¥ added debugInMatlab
+¥ added a few completions
+
+	  	 	Changes in Version 2.0b3
+
+¥ sendUrl changed to sendURL
+¥ Fixed mode setting for command and history windows
+
+	  	 	Changes in Version 2.0b2
+
+¥ Added a queue of events sent to Matlab
+¥ Removed waitForResults as events are now queued
+
+	  	 	Changes in Version 2.0b1
+
+¥ Made compatible with Alpha 7.0b2
+¥ Removed Electric Alias Support (no longer in Alpha)
+¥ Broke source into many files
+¥ Added makeDocumentation to make HTML docs from m-files
+
+	  	 	Changes in Version 1.4
+
+¥ Added MATLMarkFile
+¥ Added auto-indentation
+¥ Electric Alias Support
+¥ Electric Semicolon
+¥ Added MATLAB HTML help
+¥ Added option to clear function on save
+¥ Added option to not wait for results
+
+	  	 	Changes in Version 1.3
+
+¥ Changed mode installation for Alpha 6.2b6 Tcl reorganization.
+¥ Created command history window.
+¥ Renamed more procedures to be more consistent.
+¥ Created mode variables for special window names.
+¥ Added openErrorFile
+
+	  	 	Changes in Version 1.2
+
+¥ Added control option to DblClickEdits (Requires Alpha 6.04)
+¥ MATLMenu  "¥405" now an Alpha resource
+¥ Got rid of MATc mode
+¥ Added matHelp
+¥ Turned on shell flag of command window
+¥ Added matDummyMenuItem proc so users can add items easily to MATLMenu
+¥ Added workspace and debug submenus
+¥ Created matlabMode.tcl so tclIndexes can be used
+
+	  	 	Changes in Version 1.1
+
+¥ Added cmd-double clicking code by Tom Pollard
+¥ cleaned up prompting in command window
+¥ Removed "redundant" do's from menu
+¥ Open selection now opens associated m-files if selection is a .mex
+¥ Fixed up command line recall
+
+	  	 	Changes in Version 1.0.1
+
+¥ Fixed a bug in matlabCarriageReturn
+
+	  	 	Changes in Version 1.0
+
+¥ Added openSelection
+¥ Added command line recall in command window
+¥ Fixed doLine
+¥ Changed key bindings and put some in menu
+
+
+	----------------------------------------------------------------------
+
+	  	To Do:
+
+
+¥ Insert comment above command line for dbstep in command window
+¥ Add check for error from MATLAB on debugging procs
+¥ Workspace list window
+¥ Help Browser
+¥ "Word completion" in command window
+¥ Loop thru lines in multi-line sends
+  
+
+	----------------------------------------------------------------------
+
+	  	Signature
+
+
+This mode was written by Stephen Merkowitz.  Some code was stolen from other
+TCL files distributed with Alpha (mostly "shell.tcl").  Thanks to Tom Pollard
+who gave me cmd-double clicking code along with other fixes.  Comments,
+suggestions, and bug reports should be sent to Stephen at
+<Stephen.Merkowitz@lnf.infn.it>.
+
+You should be able to find the most recent version of MATLAB mode at 
+<http://phwave.phys.lsu.edu/~merkowitz/alpha/>
+
+If you would like to be notified of new releases of MATLAB mode send mail 
+to Stephen at <Stephen.Merkowitz@lnf.infn.it>.
+

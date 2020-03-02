@@ -1,0 +1,2115 @@
+================================================================================ 
+= Alpha change log						 
+================================================================================ 
+ 
+Please note that a large part of Alpha's functionality is implemented in
+the 'AlphaTcl' core libraries.  For changes to that code, please see
+the help file "Changes - AlphaTcl".
+
+Many known bugs are listed in the "Known Bugs" help file.  If you'd like to
+suggest new features etc for Alpha 8.0, please send a note to the
+"AlphaTcl-Users" or the "AlphaTcl-Developers" mailing lists.
+
+================================================================================
+= AlphaX 8.1a2                           last update: 3/2/06 {11:14:29 PM}
+================================================================================
+• Added -drop capability to -t/staticText, -listitem, and -l[istbox] of [dialog]
+• Restored Command-Arrow control of panes while in edittext
+• Added horizontal mouse wheel scrolling
+• Added "contents" to get/setControlInfo
+• Added -default and -cancel options to -b[utton] control of [dialog]
+• Added -geometryvariable to [dialog]
+• Better button sizing in [dialog]
+• Bugs fixed in this release:
+  ID 	Sev Summary
+1985	blo	Empty pop-up menu in dialog can lead to crash
+1824	nor	no mechanism to get or set a dialog position
+1982	nor	Confused "Set" buttons in a complex dialog
+ 930	enh	RFE: dialog '-action <cmd>' option for dialog items in Alpha8/X
+1604	enh	RFE: use bullets in dialog "password" text edit fields
+
+================================================================================
+= AlphaX 8.1a1                           last update: 2/11/06 {12:02:13 AM}
+================================================================================
+• Updated [dialog] command
+• Bugs fixed in this release:
+  ID 	Sev Summary
+ 868	min	Blinking cursor in dialog page without -e entries",
+1404	min	[AlphaX] No help tags (esp in dialogs)",
+
+================================================================================
+= Alpha8/X 8.0.1                           last update: 2005-10-27 15:09:58
+================================================================================
+• Final public releases of Alpha8/X 8.0.1.
+• Alpha8 will receive no further updates, and all future development will 
+  be devoted solely to AlphaX.
+• Bugs fixed in this release:
+  ID 	Sev Summary
+1929	nor	alphac too flexible with file arguments
+1932	nor	[print] argument syntax is inconsistent
+1933	nor	alpha Server: various -wait bugs
+1935	nor	scrollUpLine does not check for open window
+1936	tri	obsolete default browserSig MOSS in AlphaTcl 8.0
+1937	tri	Bad default download location in AlphaTcl 8.0
+
+================================================================================
+= Alpha8/X 8.0                             last update: 6/16/05 {9:22:07 AM}
+================================================================================
+• Final public releases of Alpha8/X 8.0 .
+• Alpha8 will receive no further updates, and all future development will 
+  be devoted solely to AlphaX.
+
+================================================================================
+= Alpha8/X 8.0b17                          last update: 05/12/2005 {10:26:46 AM}
+================================================================================
+• Bugs fixed in 8.0b17d1 (October 2004) :
+  ID 	Sev Summary
+  1412  nor [winNames] doesn't properly order the returned list
+  1427  nor brace matching unstable
+  1443  tri Strange message in "About AlphaX..."
+  1464  nor Spectacular display bugs with background colours and prefixChars
+  1492  nor encoding problem in 'getline'
+  1493  blo Crash while Print dialog open
+  1494  maj "File > Rename To" crashes AlphaX
+  1507  nor Alpha writes to screen in wrong place and in foreign font
+  1508  nor "Search > Find In Next File" throws error
+  1509  maj get_directory without -p arg crashes Alpha
+  1522  nor problem with TeX mode word definition for two-letter commands
+  1538  nor [activateHook] is called twice during window switching
+  1541  nor [activateHook] called before [closeHook]
+  1542  maj About Alpha leads to crash
+  1558  nor Undo of replace all operation fails with an error under some circumstances
+	--------------------------------------------------------------------
+• Bugs fixed in 8.0b17d2 (December 2004) :
+  ID 	Sev Summary
+   621  nor CM item 'Help' does nothing
+   953  blo AlphaX as front application Crashes with FruitMenu apple modified menu selections
+  1574  nor replace&FindAgain behaves differently from replaceAll
+  1586  cri Closing all windows leads to hook failure
+  1588  nor [getLine] returns result as one-item list instead of string
+  1622  enh Avoid use of the word Error in association with Cancel
+  1627  min [sizeWin] and [moveWin] confused by list argument
+  1639  nor goto crashes Alpha if not frontmost process
+• Bugs resolved as "invalid" or "won't fix" for 8.0b17d2 include:
+  1632  nor [getfile] should accept "-openAllFiles" switch
+  1638  nor 68 char limit for shell window titles
+• updated SearchCore to the latest revision from Tk HEAD (rev. 1.55). It
+  contains fixes for bug 1574.
+• added "--" switch to signal the end of options in [getfile]. This is an RFE
+  which was part of Bug 1632.
+• removed the wrapLow, wrapHigh, wrapBreak, wrapBreakPreface, and funcExpr
+  variables from the core. They are not linkvar's anymore.
+• the sequence of actions when killing a window has been reorganized to
+  streamline the order in which the hooks are executed (taking into account
+  the fact that killWindow does not necessarily apply to the front window).
+  When a window is killed:
+	- preCloseHook is executed
+	- deactivateHook is executed
+	- the window is disposed of in the Window Manager which implies that,
+	  at this point, it is not listed anymore by [winNames]
+	- closeHook is executed
+	- its internal struct in Alpha is deallocated
+	- then, if the killed window was at front, activateHook is executed on
+	  the underlying window (which is now the top window
+  This should mirror what is taking place in Alphatk as well.
+	--------------------------------------------------------------------
+• Bugs fixed in 8.0b17d3 (December 2004) :
+  ID 	Sev Summary
+   893  min Core commands need more informative "Cancel ..." error strings
+  1367  nor Install files are initially displayed blank
+  1611  nor insertText and replaceText treat LF differently
+  1644  nor Blank windows in connection with hiding and switching
+• [getModifiers] has been modified in order to cope with event handling
+  issues.  It does not "consume" an event anymore.  On OSX it queries the
+  keyboard's state directly.
+  --------------------------------------------------------------------
+• Bugs fixed in 8.0b17d4 (December 2004) :
+  ID 	Sev Summary
+   682  nor [Menu] interprets item names starting with "-" as dividers
+   683  nor [Alpha8] Calling [Menu] > 256 times leads to extreme dementi
+   719  maj "Delete/Escape" in [statusPrompt] returns empty string
+   892  nor Menu item named "Menu <someText>" is not recognized
+  1226  cri 'browse::lookDownToInfinity' crashes or gives infinite loop
+  1308  cri Clicking the "About AlphaX..." window crashes AlphaX at Disp
+  1322  nor No immediate effect of [refresh]
+  1343  nor Opening "Alpha Manual" crashes Alpha
+  1346  nor Hierarchical filesets confused by subfolders containing only
+  1348  blo dead-key accented letters crash D5
+  1371  nor Keyboard Shortcut glyphs missing from menus
+  1397  nor More "Global Setup > Helper Applications" problems
+  1461  min [AlphaX] Pressing "Escape" doesn't cancel "Print" dialog
+  1596  min Ghost cursor after line wrap
+  1659  nor Unicode clipboard handling
+  1664  min "Projector Aware" vs "Version Control Aware" pref name
+  1669  nor wrapping and undo fail to combine properly
+  1671  blo Crash with [text::color]
+  1677  nor Failure to Detect Inconsistent Line Terminations
+	--------------------------------------------------------------------
+• Bugs fixed in 8.0b17d5 (March 2005) :
+  ID    Sev Summary
+   893  nor Core commands need more informative "Cancel ..." error strings.
+			(the RFE concerning [balance] and [closeFloat] in case of failure)
+  1583  maj [matchIt] is dead slow
+  1663  min Is the "tempMem" preference still used in the core?
+  1781  nor [getScrap] throws error with "empty" Clipboard after system reboot
+  1787  blo Starting in background while creating a Tcl Shell window crashes AlphaX
+  1749  blo Search crashes AlphaX if the search pattern is a \
+  1814  blo crash with [deleteText] in minimised window
+• Bug 1701 ("tests in Developer/Tests/hooks.test should pass") has been
+  partially solved.  AlphaX now passes hook tests 3.1 and 3.2 successfully.
+  (No crash anymore when calling killWindow from preCloseHook or closeHook.)
+• Bug 1522 ("problem with Dbl-clicking juxtaposed words") had been fixed in
+  8.0b17d1 but the fix got lost in 8.0b17d4.  It has been reintroduced here.
+• A small icon of the Unicode logo has been added in the resource fork
+  (ics#/ics4/ics8 ID 309).
+	--------------------------------------------------------------------
+• 8.0b17d6 (April 2005) was released with an embedded Tcl interpreter, 
+  following discussion on the developers list inspired by bug# 1830.
+	--------------------------------------------------------------------
+• 8.0b17d7 (April 2005) was released with AlphaTcl embedded.  This scheme
+  will not be used for the 8.0 final release, but possibly for 8.1.
+	--------------------------------------------------------------------
+• 8.0b17 released 06 May 2005, compiled by Daniel.  This is the final- 
+  release candidate for AlphaX 8.0.
+• Three different disk images were created, for Jaguar, Panther, and Tiger.
+• The Jaguar AlphaX has Tcl 8.4.6.1 embedded (built on Jaguar), but has the
+  extension binaries from 8.4.9.1 (built on Panther).
+• This needs to be tested by users on Jaguar, all the extensions appear to
+  load fine, but none any of their functionality have been tested.  If there
+  are issues with these, we'll have to take the extension binaries from the
+  Jaguar 8.4.6.1 BI instead.
+• The Panther AlphaX has Tcl 8.4.9.1 embedded and the extensions from the
+  8.4.9.1 BI
+  • The Tiger AlphaX is linked against the Tiger 
+  /System/Library/Framework/Tcl.framework (8.4.7) and only has extensions
+  Tcladdressbook and Tclresource (the latter because Tiger contains the
+  slightly buggy resource 1.1)
+• Added missing cAlphaControlList.h, fixes for Panther deployment build
+• Fixed all the Jaguar build issues in Jon's code by #ifdef or implementing
+  an alternative; and added a number of fixes to allow building with gcc 4 on
+  Tiger, and a new Xcode2 project.
+• Implemented the strategy for $HOME lookup discussed previously (first
+  look for AlphaX.app/Contents/Resources/Scripts/AlphaTcl, then
+  AlphaX.app/Contents/Resources/Scripts/Alpha, then fallback to current
+  strategy of taking the parent of the app bundle)
+• AlphaTcl has not been embedded in the app bundle currently, but this
+  change will allow people to experiment with AlphaTcl embedding with the
+  final 8.0 binary (and it costs us nothing to have this already in 8.0)
+• Synced up the extensions in Info.plist with Alpha's $filepats, and
+  removed the problematic .1 .3 and .n extensions.
+  --------------------------------------------------------------------
+• Bugs fixed somewhere along the way
+  ID 	Sev Summary
+   405  nor file writable fails on remote volumes
+  1264  blo Multiple files search crashes with Regexp combinations like
+  1328  blo Saving Wiki page crashes Alpha
+
+================================================================================
+= Alpha8/X 8.0b16                         last update: 09/09/2004 {11:32:37 AM}
+================================================================================
+• Fourth public beta release of AlphaX; known issues:
+ - balloon help not implemented.
+ - Aqua application menu preference item inactive.
+• This beta release will expire 270 days after its build date (as displayed
+  in the startup splash dialog and the finder info version field).
+• AlphaTcl 8.0b7 or later is required.
+
+================================================================================
+= Alpha8/X 8.0b15                         last update: 08/31/2004 {12:20:40 PM}
+================================================================================
+• Bugs fixed in 8.0b15-D4 (February 2004) :
+  ID 	Sev Summary
+   429  enh Alpha8/X should call [preCloseHook] before killing window
+   608  nor screen drawing unreliable
+  1276  cri [zapInvisibles] in read-only mode causes an infinite loop
+  1094  nor Win menu items persist for deleted files
+  1255  nor Closing a window whose file has been deleted
+  1313  nor [removeColorEscapes] requires colors to be added
+  1270  nor Initial text is always black in empty first line of new window
+  1301  nor [getTextDimensions] returns garbage
+• the [launch] command now returns the PSN (Process serial number) as a 
+  16-hex-digits number.
+• The latest version (2.0b15) of the tclAE extension allows this PSN to
+  be used in the tclAE::send command.
+• the [processes] command now returns more info as a list of sublists. 
+  Each sublist contains six items:
+  (0) name
+  (1) creator 
+  (2) type
+  (3) LaunchDate 
+  (4) ProcessSerialNumber
+  (5) fullpath of the executable (if the application is bundled, it is the
+      executable itself, inside the bundle)
+  The previous third and fourth items of the sublists (ProcessSize, ActiveTime)
+  have been removed. Note also that the sublists are true Tcl lists (rather
+  than artificially built flattened lists with items enclosed in double quotes).
+• Drag and Drop implementation has been modified and now calls the [dndWinHook].
+  This allows for all kinds of customizations, mode specific behaviors etc.
+  (See "alphaHooks.tcl").
+• [removeColorEscapes] and [insertColorEscape] commands have been modified so
+  that they accept the ?-w <window>? flag. (RFE 1313)
+• The [search] command uses the latest version of the searchCore() function
+  from the Tk Text widget. This should fix rare cases of missed matches due
+  to overlapping.
+• Removal of Think support: the "Save As" dialog now has two radio-buttons
+  replace the previous three (None, MPW, Think). They are named "Text Only"
+  and "Remember Window State". The Window state popup now has a single item
+  "Remember Window State" replacing the none/think/mpw trio.
+• [preCloseHook] called before window is destroyed. (RFE 429)
+	--------------------------------------------------------------------
+• Bugs fixed in 8.0b15-D5 (February 2004) :
+  ID 	Sev Summary
+   998  nor Copy/Cut/Paste of dialog text fails in AlphaX
+  1177  nor Contextual Menus, split pane windows
+  1276  cri Executing "zap invisibles" in read-only mode causes an infinite loop
+  1319  nor Drag and Drop encoding issue
+  1321  nor [upcaseWord] and friends fail in connection with word boundaries
+  1318  nor [regModeKeywords] not case-insensitive to accented letters
+• Cross-pane Drag&Drop fixed (was broken in the recent [dndHook] scheme)
+	--------------------------------------------------------------------
+• Bugs fixed in 8.0b15-D6 (March 2004) :
+  ID 	Sev Summary
+   754  nor replaceText cursor preservation is confused by the pin
+   884  nor binding problems with ø and dead keys
+   889  nor The binding of LaTeX accents doesn't work
+   973  nor Alpha8/X should call [characterInsertedHook] for all wrapping needs
+  1146  nor inconsistent name of CRLF
+  1163  nor balance and <>
+  1261  nor [search] finds \r after [maxPos]
+  1348  blo Dead-key combinations or other high-bit letters crash AlphaX 8.0b15_D5.
+  1358  blo Set Window Geometry dialog calls itself again, crashes.
+• text wrapping is now handled via [characterInsertedHook].
+• a "paneNum" key has been added to the array returned by [getWinInfo]. It tells
+  which is the active pane of a divided window (0 for top, 1 for bottom).
+• removed the support for <> pairs from [balance]. (bug 1163) OTOH, double-clicking
+  on one of the symbols of a <> pair still selects the enclosed region and the
+  [matchIt] command still supports the <> pair.
+• concerning bug 1358, only the crash issue has been solved. The reentrancy
+  problems still have to be addressed.
+	--------------------------------------------------------------------
+• Bugs fixed in 8.0b15-D7 (April 2004) :
+  ID 	Sev Summary
+  1361  nor [listpick] doesn't like "-" to be first item in list of options
+  1362  nor [listpick] does sloppy "-L <list>" parsing
+   552  nor 'saveAs -f $f' still requires 'close [open ...]' in Alpha8
+• this new development release introduces fundamental modifications. 
+  You MUST update your AlphaTcl library from the CVS to use it.
+• new core commands: [displayWrap <wrapMode>] [displayPlatform <platformName>]
+  Use them to set respectively the Wrap popup and the Window State popup
+  _titles_ in the status bar.  These commands only have a visual effect on
+  the title of the popup, they do not mess with internal values, nor do
+  they set the type of eols etc.
+• fixed problems relative to the [fileMovedHook] hook. If a file with a window
+  opened in Alpha is renamed from the Finder, Alpha will update the related
+  data next time the window is activated. (A very rare case with multiple
+  copies and an already existing window with the _new_ name still has to
+  be addressed.)
+• the text metrics problems encountered with the -font option in 8.0b15-D6
+  [getTextDimensions] should have been fixed by Jon's recent modifications.
+• the 4-chars limitation for the modes has been relaxed. A mode's name can
+  now have up to 20 letters. Several parts of the core had to be updated (the
+  [bind] and [ascii] commands for instance, as well as anything dealing with
+  mode's names): please report any problem you notice.
+• (Bug/RFE 1334) A major step towards the implementation of minor modes has 
+  been accomplished with the implementation of bindtags, colortags and 
+  wordbreak window properties. These properties can be set using the 
+  [setWinInfo] command. Their value is a Tcl list in the case of bindtags and
+  colortags, a simple regexp in the case of wordbreak. For instance:
+	setWinInfo -w $someWindow bindtags [list TeX Mf Mp]
+	setWinInfo -w $someWindow colortags [list Tcl TclShell]
+	setWinInfo -w $someWindow wordbreak {\d+}
+  One can retrieve the current value using the [getWinInfo] command:
+	getWinInfo -w $someWindow arr
+	set theListOfBindTags $arr(bindtags)
+  Bindtags are lists of modes among which to search an appropriate binding.
+  Colortags are defined using the new [colorTagKeywords] command (see
+  below).  The first element in the colortags list must be a mode whose
+  coloring functionality has been defined with [regModeKeywords]; the
+  following items are colortags defined with colorTagKeywords. Please read 
+  the new sections about minor modes in "Extending Alpha". You have to update
+  to the most recent version of AlphaTcl from the cvs repository.
+• there is a new core command called [colorTagKeywords] to define colortags.
+  It is analogous to regModeKeywords but with less options since it can only
+  be used to define colored keywords. Its syntax is
+	colorTagKeywords [options] <colortag> <keyword list>
+	Set keywords to color for the given tag. Valid options are:
+	  -a         Keywords will be *added* to existing colortag
+	             keywords.  The new keywords can be a different
+	             color than older keywords.
+	  -k <color> Keyword color.
+	  -C         Keywords are case sensitive.
+  For instance, one can write:
+	colorTagKeywords -k red TclShell [list bar foo franny zooey]
+• the "autoSave" and "changesLim" linked variables are not used anymore by
+  the core. They will be removed as soon as AlphaTcl stops declaring them as
+  linkvars.  This is also true for "fillColumn" and "leftFillColumn".
+• word wrapping is now handled by AlphaTcl: [wrapText] is not a core command
+  anymore but a proc (defined in "textFill.tcl").
+• two new icon resources added on Craig's request (ics4 #520 and 521).
+• the Open File dialog now lets you look inside packages (you must also
+  choose "All Documents").
+	--------------------------------------------------------------------
+• Bugs fixed in 8.0b15-D8 (April 2004) :
+  ID 	Sev Summary
+  1365  nor [listpick] doesn't recognize abbreviated keystrokes
+• fix for the  "invalid tab or resource information" message reported on the
+  Alpha-Developers list which can cause crashes. I hope this is solved now.
+	--------------------------------------------------------------------
+• Bugs fixed in 8.0b15-D10 (April 2004) :
+   608  nor  screen drawing unreliable
+  1155  enh  zapInvisibles should be zapNonPrintables
+  1391  nor  Window tags not set correctly and are partially ignored
+• also refixed a bug when wrong region was hilited after a drag and drop across
+  panes in a divided window with the option key being pressed.
+• two new global variables have been added to customize the behaviour of the   
+  Open File dialogs:
+  * the showInvisibleFiles variable indicates whether invisible files
+    should be displayed in Open File dialogs.
+  * the openPackages variable indicates whether the contents of packages
+    (like bundled applications for instance) should be accessible in Open File
+    dialogs. If the variable is set to 0, packages are displayed as ordinary
+    files; if it is set to 1, they are displayed as folders.
+  Until they are incorporated in AlphaTcl (as global preferences ?), you can
+  try these new features like this:
+  * first declare the variables as linked variables
+	linkVar showInvisibleFiles
+	linkVar openPackages
+  * then set their value to 0 or 1
+	set showInvisibleFiles 1
+	set openPackages 1
+• preliminary support for AlphaX Carbon printing ; requires AlphaTcl changes.
+	--------------------------------------------------------------------
+• Bugs fixed in 8.0b15-D11 (May 2004) :
+  ID 	Sev  Summary
+  1175  nor  Undocumented  Alpha8/X core commands (see below)
+  1368  nor  Faulty behavior of dead-keys in AlphaX.
+  1407  nor  typing backslashes aborts macro recording
+• As requested in Bug 1175, the following core commands have been removed
+	alloced                   isearch    
+	fileMenu                  restoreVars
+	getPathName               rsearch    
+	init                      saveVars   
+	insertPathName            winFuncTitle
+• Modified the [getfile] command which now has two additional options:
+  -showInvisibleFiles and -openPackages
+  The syntax is:
+	getfile ?-types <typeslist>? ?-openPackages <num>? \
+	  ?-showInvisibleFiles <num>?  [<prompt>] [<path>] 
+  These options let you override the default values of the corresponding
+  "showInvisibleFiles" and "openPackages" global preferences introduced in
+  D9.  Note that you must choose "All Documents" in the Format popup of the
+  Nav dialog.  <num> is 0 or 1.
+• The core Alpha command [get_directory] takes the -openPackages and the
+  -showInvisibleFiles options just like the [getfile] command above.
+  Furthermore, the default location argument now works in Alpha8/X. The
+  syntax is:
+	get_directory ?-p <prompt>? ?-openPackages <num>? \
+	  ?-showInvisibleFiles <num>? [<default>]
+• The "openPackages" global preference is taken into account by [SaveAs] and
+  [get_directory] too (not only by [getFile])
+• Fixed the problem of dead-key followed by non combining character:
+  "circumflex + m" gave only ^ instead of yielding "^m" directly and you
+  had to type the "m" again.
+• Added new command [windowVisibility]
+	windowVisibility [-w <win>] ?<hidden|normal|minimized>?
+  to get or set the visibility state of a window: it is one of hidden,
+  normal, or minimized.  If the last argument is not specified, the command
+  returns the current state.  This is experimental: to test this make sure
+  you have the most recent version of the [registerWindowWithAlphaTcl]
+  proc.  You can now create a window but not display it: this could be used
+  to execute some marking and coloring before displaying the window.  You
+  can hide an already existing window.
+• The [winNames] command has been reverted to its original behaviour: it
+  lists windows in the stacking order.  Since now some windows can be
+  hidden, it is important to note that [winNames] returns the list of _ALL_
+  the windows (visible or not).  One must be aware that many parts of the
+  code use [winNames]: the new behaviour might affect some of them.  On the
+  other hand, a "win::Active" variable has been available in AlphaTcl which
+  keeps the list of active windows.
+• Added a property called "hidden" to the Get/SetFileInfo commands to get
+  or set the visibility property of a file or a folder. For instance:
+	«» getFileInfo [file join $HOME .DS_Store] att
+	«» set att(hidden)
+	1
+  To make a file invisible:
+	«» setFileInfo $somefile hidden 1
+  (Note that due to a bug of the Finder itself, you don't see the effect of
+  the change until the next login or restart.  Tcl will also have this
+  property available via [file attributes] but this will be in 8.5 and the
+  Finder bug holds there too).
+• Added a property called "bundle" to [getFileInfo] to tell if the item is
+  a bundle (doc, app or bundle package). Only for AlphaX.
+• Other modifications in the [getFileInfo] command include:
+  * previously it reported an inaccurate information for the creator and
+    type of a bundled application: some parts of xserv relied on this info,
+    which means that they were broken.  It now does the right thing when
+    called on a bundled application.  Only for AlphaX.
+  * in the case of a folder, [getFileInfo] will not report "datalen",
+    "resourcelen", "creator" and "type" keys since they do not make sense for
+    a directory (the info previously reported was garbage).
+	--------------------------------------------------------------------
+• Bugs fixed in 8.0b15-D13 (August 2004) :
+  ID 	Sev  Summary
+   552  nor  'saveAs -f $f' still requires 'close [open ...]'
+  1239  nor  [search] becomes non-greedy after \n in pattern
+  1373  nor  [getTextDimensions] in Alpha8 throws error with new dialogs code
+  1454  enh  RFE: -indices flag to [listpick]
+• RFE 1454 ("-indices flag to [listpick]") is implemented. If the -indices
+  option is used, the index of the selected item is returned rather than the
+  item itself (or a list of indices if several items have been selected using
+  the -l option). For example:
+	«» listpick -indices [list orange lemon grapefruit]
+	2
+	«» listpick -indices -l [list orange lemon grapefruit]
+	0 2
+  In the first case "orange" was selected; in the second, "orange" and
+  "grapefruit".
+• Fixed a bug in saveAs when the file does not already exist and
+  its name contains spaces. This should definitely close bug 552 I hope.
+• A new property called "flags" has been added to the get/setFileInfo
+  commands to get or set the Finder's flags for an item.
+• Finally I thought I had fixed the problem of cursor beam being written at
+  start of line when the Return key is pressed (reported by Joachim in the
+  message "cursor leaves trace at <return>" on AlphaDev list). The code
+  dealing with this was dependent on soft wrapping had been removed
+  (disabled). I restored it but unfortunately I still see the beam from
+  time to time. Not a major issue anyway.
+• the [getColors] command accepts the -w option
+• the [icon] command accepts the -w option. This was documented in "Alpha
+  Commands" but in fact not implemented.
+	--------------------------------------------------------------------
+• A few more bugs at least partially addressed in 8.0b15-D14 (August 2004) :
+• Bug 1453 - Regexp problems not handled properly by [search]
+  Now the result will be more informative in case of a malformed regexp. For
+  instance:
+	«» search -r 1 A++ 0
+	Error: couldn't compile regular expression pattern: quantifier operand invalid
+  Concerning the -n flag, it now works as advertized, i-e it won't throw an
+  error whatever happens and the result will be an empty string if no match
+  was found.  This is the second of the two interpretations suggested by
+  Joachim for this flag.
+• Bug 1473 - Crash with shell windows (and resources)
+  This bug hopefully has been fixed.
+• The AlphaX binary embeds Tcl 8.4.7 and not 8.4.4.
+• Note that Bug 1463 ("can't go from batchbrowser win to same file twice")
+  has been dealt with in AlphaTcl (in the file browserMode.tcl).  Please
+  update from CVS HEAD. The issue revealed in [editDocument] has not been
+  addressed yet: I'd like to have a very precise specification of what is
+  expected from the -c option in [edit -c].
+  --------------------------------------------------------------------
+• Minor changes in 8.0b15-D15 (September 2004) :
+• Modified the definition of [nameFromAppl] which failed in AlphaX on
+  Classic-only applications.
+  --------------------------------------------------------------------
+• Fix for bug 1478: "Crash with [killWindow]"
+• Fix for Bug 1463 ("can't go from batchbrowser win to same file twice").
+  The [editDocument] proc should not be confused by duplicate windows anymore 
+  when used with the -c option.
+
+================================================================================
+= Alpha8/X 8.0b14                         last update: 12/09/03 20:01:05
+================================================================================
+• Third public beta release of AlphaX; known issues:
+ - printing not implemented.
+ - balloon help not implemented.
+ - Aqua application menu preference item inactive.
+• This beta release will expire 270 days after its build date (as displayed
+  in the startup splash dialog and the finder info version field).
+• AlphaTcl 8.0b6 or later is required.
+• Bugs fixed:
+  ID 	Sev Summary
+  1215 	nor	backwardDeleteWord does not always work 
+
+================================================================================
+= Alpha8/X 8.0b13                         last update: 11/13/03 23:38:28
+================================================================================
+• final candidate testing release with limited distribution.
+• ensured all tcl code is evaluated in global context.
+• Bugs fixed:
+  ID 	Sev Summary
+  1230 	nor	problem in 'TeX::newLaTeXDocument' 
+
+================================================================================
+= Alpha8/X 8.0b12                         last update: 11/06/03 2:07:24
+================================================================================
+• major speed improvements and many fixes to new [search] implementation.
+• window creation/activation/preOpening hook fixes & cleanup.
+• many improvements to [Menu] and related procs: fully implemented dynamic
+  menus on OS X, enabled extra meta-syntax, increased length limits of menu
+  names and menu item names to 255, menu proc names can have unlimited
+  length.
+• added mouse wheel scrolling on Mac OS X.
+• cut from read-only window copies.
+• made showInvisible a window specific property.
+• added optional -s flag to [getGeometry] to retrieve window structure rect.
+• added menubarHeight global like on Alphatk.
+• screenWidth & screenHeight constrained to screen size minus dock on OS X.
+• new core proc [saveResources] allows saving of resource fork without
+  forcing window closure.
+• fixes to saving/restoring of window sizes in resource fork.
+• various drag&drop fixes.
+• autosave & dirty button fixes.
+• Mac OS X 10.3 fixes.
+• Bugs fixed:
+  ID 	Sev Summary
+   222 	nor	finger wheel does not work
+   514 	nor	Autosave behaves strange (saves after every typed character)
+   784 	nor	'Save' throws error when duplicate window names exist
+   849 	nor	[new -fontsize 24] (not respected)
+   921 	cri	Conflict between Autosave and Backup leads to crash
+   961 	maj	duplicate 'batch' searches crash Alpha 
+   979 	nor	delayed window positioning 
+   986 	nor	Alpha confused with filenames like 'Report on the <2> bug' 
+   933 	nor	Complete winName not sent to filePreOpeningHook
+  1003 	nor	[dialog::setValue] doesn't update dialog info (AlphaX, OSX 1 
+  1035 	min	Status bar "File Info > Show Invisibles" changes global pref
+  1084 	cri	[search -f 0 ... $p] might search forward 
+  1085 	nor	"File > Save" throws error with high-bit filenames 
+  1090  nor setWinInfo fails in winCreatedHook
+  1091 	nor	Accented characters makes start position of searches wrong 
+  1096 	nor	markMenuItem syntax change ?
+  1098 	nor	Search doesn't find \r
+  1099 	nor	[search -f 0 -- $pat $pos] doesn't capture $pat at $pos
+  1104 	nor	Cancelling "Save" dialog opens error window 
+  1118 	nor	Alpha doesn't remember window state if window is full height
+  1119 	nor	"Function" coloring is present in all modes
+  1123 	nor	drag and drop editing does not work across the border of a s 
+  1131 	min	'cut' in read-only files throw an error
+  1135 	nor	"Save" unavailable after using "Revert"
+  1154 	nor	bringToFront does not always work 
+  1162 	nor	Window name truncation? 
+  1189 	nor	windows cannot be dragged to top of screen in OS X 10.3 
+  1201 	nor	Drag and Drop editing is disabled in AlphaX, OSX 10.3 
+  1205 	nor	Non breakable spaces fool [dialog] command 
+  1208 	cri	Floating marks + scrolling wheel crash AlphaX 
+  1210 	nor	Menu names have 40 character limit 
+
+===============================================================================
+= Alpha8/X 8.0b12                         last update: 09/25/03 19:54:52
+================================================================================
+• Second public beta release of AlphaX; known issues:
+ - printing not implemented.
+ - balloon help not implemented.
+ - menu icons not fully implemented.
+ - Aqua application menu preference item inactive.
+• This beta release will expire 180 days after its build date (as displayed
+  in he startup splash dialog and the finder info version field).
+• fixed UTF8 offset in exact searches.
+• fixed error on save dialog cancellation. 
+
+================================================================================
+= Alpha8/X 8.0b10                         last update: 09/24/2003 {10:09:58 AM}
+================================================================================
+• an optional ?mode? argument restricts the list to bindings for that 
+mode. ?mode? can be "global".
+• fixed line ending issues when opening or saving a file. Alpha should not 
+generate anymore files with inconsistent line endings.
+• no crlf is added anymore at the end of a file when saved in IBM mode.
+• redefined the [search] command to support the same advanced regular 
+expressions syntax as Tcl and multilines matching. 
+• the [search] command has a new flag -all to return all the matches as a 
+list. Flag -a has been renamed -wrap (-a is still accepted).  The new 
+'search' implementation makes use of code from 'Tk' under a BSD license.
+• enclosing symbols now include the < > pair. Supported by the balance and 
+matchIt Tcl commands and by double-clicking: double-clicking on < or on > 
+will hilite the entire region enclosed in the <> pair.
+• [new] correctly numbers duplicate windows when the title of the window 
+contains file separators.
+• [getPos -w] and similar commands do not call the file system anymore, 
+resulting in an increased speed.
+• double-clicking on words containing high-bit chars (accented european 
+letters) to hilite them now working.
+• search with high-bit chars now working.
+• \w in searches matches high-bit chars.
+• the [revert] command accepts a <-w win> option.
+• [gotoMark ?-w win?] does not bring <win> to the front anymore and can 
+operate in the background.
+• setPin <value> now working.
+• the [save] command accepts a <win> argument.
+• highbit chars recognized on words boundaries (eg when searching with the 
+matchWord option).
+• backward regexp searches find longest match
+• readonly windows are not killed anymore when pressing the space bar in 
+the last part of the file.
+• a Tclapplescript extension for OSX is included in the release. 
+AppleScript menu now working in AlphaX.
+• a Tclresource extension is included in the release to provide the 
+[resource] command in AlphaX
+• new Tclextensions folder in the Alpha folder to store compiled extensions
+• Hopefully the following bugs have been fixed:
+  ID 	Sev Summary
+   221 	nor	Search doesn't find uppercase accented letters 
+   452 	nor	Space bar twice closes read only windows 
+   495 	nor	Clicking the vcs read-only pen doesn't make the window edita 
+   543 	enh	RFE: font/size conversion of a text string to pixel length i 
+   590 	nor	backward search finds \r in position -1 0 
+   697 	nor	search uses different regexp to Tcl 
+   735 	nor	'moveInsertion' == 0, read-only window killed immediately 
+   769 	nor	Two-strokes binding prevents correct screen redraw 
+   785 	nor	[bindingList] doesn't properly wrap scripts in {} 
+   791 	nor	A crlf is added at end of file if saving in IBM mode 
+   818 	nor	non-regexp search problems 
+   826 	nor	[clear] throws unknown error 
+   831 	nor	Words end at non-ASCII letters 
+   832 	maj	Backward search does not find high-bit letter 
+   851 	nor	[activateHook] called before window is actually created ?? 
+   926 	nor	nextLineSelect misses last char 
+   938 	blo	Unstable Alpha8 8.0b8 on G4 machines 
+   939 	nor	AlphaX binary doesn't understand Tcl's \w 
+   954 	nor	accented letters break word selection 
+   980 	nor	Save throws ALPHA_ASSERT in io.cline #3894 
+  1023 	nor	Trouble making AlphaX AlphaTcl files un-read-only
+  1027 	nor	Revert doesn't take the -w argument 
+  1037 	blo	[edit ...] in "prefs.tcl" file crashes AlphaX 
+  1040 	nor	core commands using ?-w window? args; full path vs tail 
+  1041 	nor	[pos::_getWPos] use of [win::Current] vs [win::CurrentTail] 
+  1042 	cri	Window title with colons can crash Alpha 
+  1043 	nor	-w param ambiguity 
+  1053 	nor	[display] doesn't always work as advertised 
+  1063 	nor	[setNamedMark ?-w win?] ignores window argument 
+  1064 	nor	[gotoMark ?-w win?] brings "$win" to the front 
+  1069 	cri	[enableMenuItem] without argument crashes Alpha 
+  1077 	nor	[save $win] doesn't save "$win" unless it is in front 
+
+================================================================================
+= Alpha8 8.0b9 / AlphaX 8.0b9	   	      last update: 06/29/03 {9:49:57 AM}
+================================================================================
+• Drag&Drop improvements.
+• New commands [getTextDimensions] and [getThemeMetrics].
+• Many changes to as-yet-unfinished [movableModal] dialogs.
+• AlphaTcl 8.0b3 or later is required.
+• Bugs fixed:
+  ID 	Sev Summary
+  867   blo Marking files while opening crashes Alpha8 under Classic
+  646   nor 'prompt::getAKey' gives wrong code with <tab>
+  686   nor 'float' with no args doesn't return proper list
+  729   nor [status::prompt] doesn't allow <return> to select default
+  778   nor Alert should take the -- option
+  785   nor [bindingList] doesn't properly wrap scripts in {}
+  787   nor [getPos] with no window throws error in Alpha7, "" in Alpha8
+  791   nor A crlf is added at end of file if saving in IBM mode
+  851   nor [activateHook] called before window is actually created ??
+  880   nor menu::fileProc File save creates inconsistent line endings
+  911   nor print problem
+  926   nor nextLineSelect misses last char
+ 
+================================================================================
+= Alpha8 8.0b8 / AlphaX 8.0b8	   	      last update: 03/29/03 2:08:00
+================================================================================
+• First public beta release of AlphaX; known issues:
+ - printing not implemented.
+ - balloon help not implemented.
+ - menu icons not fully implemented.
+ - Aqua application menu preference item inactive.
+• This beta release will expire 180 days after its build date (as displayed
+  in he startup splash dialog and the finder info version field).
+• AlphaTcl 8.0b1 or later is required.
+• made window to be closed topmost before calling AskSaveChanges().
+• removed calls to obsolete "controlClickHook".
+• fixed potential display glitches after [execute].
+• Bugs fixed:
+  ID 	Sev Summary
+  504 	nor	'Nav Services' ignores 'Open All Files'
+  696 	nor	Editing commands throw error at beginning or end of window
+  839 	nor	'Marks' menu includes temp marks
+  853 	nor	New location of 'Don't Save|Cancel|Save' dialog ?
+  863 	nor	getScrap [putScrap ""] throws an error
+  866 	nor	<control>-<command>-double-click no longer works
+  869 	nor	TeX::escapeSmartStuff is not working properly
+
+================================================================================
+= Alpha8 8.0b7 / AlphaX 8.0a8	   	      last update: 03/24/03 10:58:47
+================================================================================
+• This beta release will expire 90 days after its build date (as displayed
+  in the startup splash dialog and the finder info version field).
+• AlphaTcl 8.0d2 or later is required.
+• various leak fixes & performance improvements.
+• use Nav Services AskSaveChanges dialog instead of our own.
+• AlphaX: window iconification collapses to dock.
+• AlphaX: implemented small menu font & tear-off menus, choose topmost item
+  to tear off a menu.
+• enabled use of more than 255 hierarchical menus on Carbon. (bug 683)
+  Unfortunately this can't be fixed on classic, as the mercutio MDEF is
+  incompatible with hierarchical menu IDs > 256; on Mac OS 8.5 or higher,
+  we could use appearance mgr menus instead of mercutio, but would loose
+  dynamic menus and tear-offs, so this isn't enabled for now.
+• hook processing in [new] & [openFile] revised to be like in Alphatk:
+  call "filePreOpeningHook", "winCreatedHook" and "registerWindowWithAlphaTcl"
+  instead of "openHook".
+• [setFontsTabs] expanded to take optional -font -fontsize -tabsize
+  arguments like in Alphatk.
+• renamed the following core commands to modern AlphaTcl names:
+	[setMark]				->	[setPin]
+	[getMark]				->	[getPin]
+	[markHilite]			->	[hiliteToPin]
+	[exchangePointAndMark]	->	[exchangePointAndPin]
+	[rectMarkHilite]		->	[rectangularHiliteToPin]
+	[start_keyboard_macro]	->	[macro::__startRecording]
+	[end_keyboard_macro]	->	[macro::__endRecording]
+	[keyboardMacro]			->	[macro::__current]
+	[copy]					->	[alpha::copyRegion]
+	[cut]					->	[alpha::cutRegion]
+	[message]				->	[status::msg]
+• removed obsolete & unused core commands:
+	[findFile]
+	[tabsToSpaces]
+	[spacesToTabs]
+	[getAscii]
+	[executeKeyboardMacro]
+• reenabled core command [getTMarks] made obsolete prematurely.
+• no longer throw error when trying to go past the end/start of window in
+  the following core commands:
+	[forwardChar]
+	[backwardChar]
+	[forwardCharSelect]
+	[backwardCharSelect]
+	[forwardWordSelect]
+	[backwardWordSelect]
+	[prevLineSelect]
+• Bugs fixed:
+  ID 	Sev Summary
+  314 	cri	'killWindow' from 'openHook' can crash 
+  503 	enh	'Small Menu Font' expanded use request 
+  508* 	nor	Modification date updated even if no changes made 
+  582* 	blo	File search batch windows confuse the window ordering 
+  588* 	nor	findFile/getfile not compatible with Default Folder 
+  652 	nor	Wrong display of ellipses in listpick 
+  658* 	nor	AlphaX crashes when OSX changing color palette is operated 
+  667 	nor	colorTriple title has wrong encoding 
+  671* 	cri	Save dialog crashes when file name isn't usascii 
+  677 	nor	closeAll can't be cancelled 
+  683 	nor	Calling [Menu] > 256 times leads to extreme dementia 
+  694 	nor	Navigation commands throw error at beginning or end of window 
+  695 	nor	Redo throws an error when there is nothing to redo 
+  699 	nor	killWindow throws internal error when cancelling 
+  702* 	cri	Save as when there is no window crashes Alpha X 
+  714 	nor	Split window throws an error 
+  720 	nor	deleteMenuItem doesn't unbind the corresponding keybinding 
+  726 	enh	RFE for 'cancel' string leniency in errors 
+  754 	nor	replaceText cursor preservation is confused by the pin 
+  775 	nor	Alpha8 cannot read MacOS X files 
+  779* 	nor	Return in Open file dialog doesn't open the file 
+  782* 	nor	prompt reuses the old popup menu 
+  810 	nor	Canceling titlebar dialog twice crashes Alpha8 
+  814 	nor	mode specific fontSize not respected 
+  825 	nor	[forwardChar], [createTMark] don't accept ?-w window? in Alpha8 
+  826 	nor	[clear] throws unknown error 
+  827 	nor	[removeNamedMark] presents an odd dialog 
+
+================================================================================
+= Alpha8 8.0b6	   	                      last update: 02/08/03 17:38:05
+================================================================================
+• intermediate release with no changes except for the extension of the
+  beta expiry period to another 90 days.
+
+================================================================================
+= Alpha7 7.6	   	      			      last update: 01/28/03 22:41:03
+================================================================================
+• Bundled release of version 7.6 of the AlphaTcl library and an unchanged
+  Alpha7 7.5 binary.  This is going to be the last release of Alpha7.  The
+  AlphaTcl 7.x library is put in a maintainance state and all further
+  development effort is now oriented towards use of AlphaTcl with
+  Alpha8/X/Tk.
+
+================================================================================
+= Alpha8 8.0b5 / AlphaX 8.0a7	   	      last update: 11/11/02 21:55:16
+================================================================================
+• This beta release will expire 90 days after its build date (displayed in
+  the startup splash dialog and the finder info version field).
+• AlphaTcl 7.6d9 or later is required.
+• moved to Tcl 8.4 (and Tcl framework build for AlphaX).
+• [replaceText] now really fixed (bug 555).
+• fixed nasty memory leak in [putScrap] (bug 636).
+• changed SaveAs sequence of operations to be equivalent to what AlphaTk uses, 
+  in particular now call "winChangeNameHook" instead of obsolete "saveasHook".
+• removed all remaining old-style internal file I/O routines.
+• drag&drop file receive handler fix: don't try to undirty the dragged-in file.
+• removed numerous obsolete core commands related to find, trace, tags etc:
+	find findAgainBackward findAgain enterReplaceString enterSearchString
+	findInNextFile replaceAllOld replaceAll replace replace&FindAgain
+	replaceString searchString createTagFile findTag traceDump traceFunc
+	dumpDebug getTMarks fileInfo fileRemove insertFile
+• removed many obsolete resources, mainly of dialogs no longer used due to
+  the core find removal.
+• aquafied spacing of all remaining dialog & alert resources.
+• increased Alpha8 heap sizes by 2M: min app size now 12M, suggested size 17M.
+• new AlphaX artwork (icons and about dialog).
+• [version] returns "AlphaX" application name in AlphaX
+• added AlphaX specific linkvar "useAntialiasedText" to allow control of
+  quickdraw anti-aliasing via Appearance Pref.  No effect on most text
+  drawing at present (except in about dialog).
+• AlphaX/TclAE on X deal properly with decomposed utf8.
+• Bugs fixed:
+  ID 	Sev Summary
+  50    nor insertToTop doesn't display line number 
+  66    cri certain scroll-up functions crash in lower part of split window 
+  397  	nor title bar open dialogue 
+  524  	nor 'posToRowCol' should accept '-w <window>' option 
+  525  	nor 'rowColToPos' doesn't pay attention to tabs 
+  541  	nor 'goto' doesn't update status bar window line position 
+  555  	nor 'replaceText' should preserve selection 
+  563*  maj typing accented letters crashes Alpha 
+  566  	cri invoking nextLineStart (when no next line) crashes alpha 
+  572  	cri getfile crashes when nav services isn't used 
+  573  	nor putfile creates empty file with the given name 
+  574  	cri Dialog crash 
+  578*  nor Double-clicking Alpha(X) documents does not open them. 
+  582*  blo File search batch windows confuse the window ordering 
+  583*  maj [titlebar] hook hard-codes ':' as item separator 
+  587*  nor Can't open files when path contains 8-bit characters 
+  607  	nor macros capture 'end recording' 
+  609  	nor nextLine doesn't remeber positions 
+  636  	nor Alpha8 eating up RAM 
+  648*  nor Window close button has no effect 
+
+================================================================================
+= 8.0b4	   	                              last update: 09/09/02 15:40:00
+================================================================================
+• intermediate release with no changes except for the extension of the
+  beta expiry period to another 90 days.
+
+================================================================================
+= 8.0b3	   	                              last update: 06/11/02 23:55:11
+================================================================================
+• This beta release will expire 90 days after its build date (displayed in the
+  startup splash dialog and the finder info version field).
+• AlphaTcl 7.6d3 or later is required.
+• [replaceText] preserves selection (bug 555).
+• hooked up Tcl event processing; now [after], [vwait] & packages http, ftp etc.
+  all work as expected (bug 530).
+• [getfile] has optional '-types' argument giving a list of MacOS filetypes
+  (with any creator) that will be accepted (only used with NavServices).
+  If '-types' is absent, _all_ filetypes will be accepted (bug 493).
+• NavServices dialog fixes:
+  - no longer select parent of default location (bug 473).
+  - 'All Readable Documents' is default type selection (bug 504).
+  - can now choose bundles.
+• [saveAs -f] can save non-existing files (bug 552).
+• crashing bug fix in [setFileInfo].
+• truncate status string to maximal display width (bug 554).
+• cleanup of potential buffer overflow errors due to sprintf().
+• key event handling uses carbon events (unicode input ready), slow typing 
+  and 'menu highlight while typing' fixed (bug 469). [AlphaX]
+• carbon event window activation/deactivation fixed (bug 466). [AlphaX]
+• Bugs fixed:
+  ID 	Sev Summary
+  466  	nor highlight in normal text does not show 
+  469  	nor typing highlights menu names 
+  473  	nor 'findFile' default folder different behavior 
+  478  	nor Menu -c shouldn't strip ellipses when passing item name 
+  492  	nor getline returns nothing 
+  493  	nor getfile is too restrictive 
+  496  	nor Encoding problem with glob, file, getfile etc. 
+  498  	nor coreKeyPrompt can't handle modifier keys 
+  504  	nor 'Nav Services' ignores 'Open All Files' 
+  530  	nor ftpList (etc) fails with "Use Tcl Service For Ftp" 
+  552  	nor 'saveAs -f $f' still requires 'close [open ...]' in 
+  554  	maj Long hyperlinks crash Alpha 
+  555  	nor 'replaceText' should preserve selection
+
+================================================================================
+= 8.0b2	   	                              last update: 05/19/02 21:17:39
+================================================================================
+• This beta release will expire 90 days after its build date (displayed in the
+  startup splash dialog and the finder info version field).
+• AlphaTcl 7.6d2 or later is _required_.
+• we are now using standard tclIndex files, you can get rid of the old-style
+  tclIndexx files if you're not sharing your AlphaTcl tree with Alpha7.
+• reorganized AlphaTcl startup sequence into three part process, we now only
+  explicitly source one file: Tcl/SystemCode/Init/initialize.tcl and call procs
+  defined therein for further initialization.
+  c.f. <http://alphatcl.sourceforge.net/wikit/76.html>
+• reenabled [buttonAlert].
+• commands w/o '-w' arg now return silently if there is no front window.
+• internal tcl evaluator rawEval() can now take input of any length.
+• system encoding set to 'utf-8' on OSX so that tcl file cmds work with
+  non-ascii filenames.
+• fixed bug in [version] that caused problems with alphatcl index rebuild
+  in AlphaX.
+• [nameFromAppl] uses LaunchServices on OSX, cleaned up non carbon
+  implementation as well.
+• use system encoding in ConsoleOutput.
+• objectified return value handling in [listpick].
+• set list item background to white on OSX to improve appearance.
+• internal path handling procs FSpLocationFromPath() & FSpPathFromLocation():
+  removed path length limitation to 255, fixed encoding problems
+  (FSRefMakePath et al use utf-8 on X).
+• updated to latest MoreIsBetter - MoreCodeFragments sample code
+• TclAE: bufputfloat fix
+• Bugs fixed:
+  ID	Sev	Summary
+  459 	cri listpick returns nothing 
+  475 	nor dialog::edit in dialog has 256 char limit
+  460 	maj incompatibility between nameFromAppl and file in AlphaX
+  458 	nor AlphaX Help crashes alpha
+  465 	nor unable to set helper applications
+  367 	cri statusPrompt crashes Alpha when helper func throws an error
+  486 	nor "new -g left top width height" changes default size of windo
+  476 	nor refresh doesn't refresh
+  505 	nor Wild ERROR windows
+  484 	min "exec ls &" crashes AlphaX
+  517 	enh Filename for "Save as..." is always "untitled"
+  518 	tri Save as doesn't change state of file
+  516 	nor Cannot set 'search paths' preferences
+  502 	min Creator icon in title bar not updated
+  513 	tri Saving using the disc-icon fails
+  512 	tri Move window-area to cursor-position on open-file
+
+================================================================================
+= 8.0b1	   	                              last update: 02/10/2002 {21:52:22 PM}
+================================================================================
+• This beta release will expire 90 days after its build date (displayed in
+  the startup splash dialog and the finder info version field).
+• Mac OS 8.5 is no longer required.
+• Navigation Services are used throughout if the UseNavServices preference
+  is set (on by default).
+• Changes to the dialog filter: multi-line edit fields now use <opt><return>
+  to enter a literal carriage return; both <enter> and <return> again click
+  the dialog's default button.
+• Split up AlphaTcl startup process like in AlphaTk: first source
+  initAlphaTcl.tcl then bring up GUI (i.e. status bar), and finally source
+  AlphaBits.tcl. This allows for early pref reading before the GUI is brought
+  up, in particular a new pref for status bar position: locationOfStatusBar.
+• Status bar snaps to bottom or top of screen when moved close, and sets
+  the locationOfStatusBar pref.
+• Windows are constrained to (screen area minus status bar area) on
+  zoom & resize, changing locationOfStatusBar will try to maintain those
+  constraints on all windows as closely as possible.
+  Window dragging is constrained vertically to prevent window titlebars
+  from being moved under the status bar.
+  The tile* window position vars are now linkvars; tile* and def* window pos
+  vars are constrained to screen in the same way as window resize/move.
+• Tear off popup menus from windows and status bar are updated dynamically
+  when their corresponding controls are clicked.
+• Added -C option to regModeKeywords for case sensitive keyword coloring.
+• Changed kill_window to save all resources, not just MPSR.
+• The Tcl shared library is now weak linked and potentially imported late
+  to workaround the Mac OS 9 bug causing aliased shared libraries in the
+  CFM search path not to be found (Classic MacOS PPC only).
+• Bugs fixed:
+  ID	Sev	Summary
+  416 	enh Coloring of long words would be nice 
+  404 	nor Text is not redrawn in dialogs using -set 
+  383 	nor string toupper/tolower returns ? for some characters 
+  381 	nor Show invisibles doesn't redraw the window 
+  382 	nor NLCK button doesn't react to toggleNumLock calls 
+  362 	nor Horizontal scrollbar is always dimmed when a window is opened 
+  142 	nor quickFind is broken 
+  415 	nor Optional args of "prompt" are ignored 
+  414 	nor Listpick options -w and -h doesn't resize the list 
+  394 	nor "setWinInfo read-only 0" doesn't work for pseudo-read-only windows 
+  393 	nor Making a file MRO makes Alpha think it's modified 
+  380 	nor Describe Binding uses wrong encoding 
+  379 	nor Key bindings with 8-bit characters defined by menus don't work 
+  385 	nor -n argument of dialog does not match 8-bit characters 
+  392 	nor regModeKeywords has encoding problems 
+  403 	nor Key binding dialog opened from other multipage dialog with -set 
+  386 	nor dialog sometimes returns unexpectedly 
+  173 	nor Interface Dialog Incorrectly handles mouse clicks 
+  160 	nor Blinking cursor in hidden text fields in multipage dialogs. 
+  430 	cri Cmd-S with no open window crashes Alpha 
+  276 	nor SaveAs command shows weird characters 
+  413 	nor Filename copied from Finder can't be pasted in dialogs 
+  374 	nor Popup blinks too fast in save dialog 
+  171 	nor strange behavior of saveAs dialog 
+  212 	enh getfile should be enhanced to support the features of findFile 
+  431 	cri Balance freezes Alpha when there's nothing to balance 
+  364 	nor Item remains sunken in torn-off submenu 
+  375 	nor nowrap attempts to wrap anyway 
+  384 	nor Wrap dialog always appears for Windows files 
+  147 	min Opening new doc leaves Text and Edit dimmed in the menubar 
+  398 	cri Opening large files with Windows line endings freezes Alpha 
+  275 	nor Key bindings won't work when no window open 
+  125 	nor Color escapes and redraw of Multi-line insertText 
+  150 	nor redrawing window leaves incomplete character shapes 
+  149 	min resize corner can be moved to behind status bar 
+  279 	nor Horizontal scroll bar vanishes in upward dragging 
+  139 	nor search doesn't work for 8-bit characters 
+  286 	nor some garbled text in dialog text entry fields 
+  288 	nor Carriage return/enter inconsistencies in text entry fields 
+  263 	enh float marks as tear-off alternative 
+  146 	nor Beginning of lines lost when cursor moves right offscreen 
+  387 	nor stationery pad doesn't open in untitled window 
+  292 	min Status Bar does not lock 
+  434 	nor Balloon help has encoding problems 
+  445 	nor Document window does not redraw correctly after cols::columnizeText 
+  441 	nor Horizontal position not updated when commenting a line 
+  448 	nor keywords containing underscores are not coloring 
+  449 	nor Alpha commands are coloring when in a colon'd word 
+  451 	nor Enter Search String enters nothing 
+  450 	nor SetFontsTabs changes not recorded 
+  454 	nor supersearch and search problems 
+  457 	nor Clicking the title bar of minimized window destroys it 
+
+================================================================================
+= 8.0a4	   	                              last update: 10/19/01 {9:27:48 PM}
+================================================================================
+• Mac OS 8.5 or greater is required for this release. No, that's not a 
+  permanant condition.
+• More sophisticated dialog filter. Edit fields in dialogs support:
+  - multi-line edit fields now accept literal carriage returns (use <enter>
+    to click the default button).
+  - <option><tab> inserts literal tab character instead of advancing focus.
+  - <opt><left|right-arrow> moves to word boundary.
+  - <cmd><left|right-arrow>, <home>, and <end> moves to end of text.
+  - <shift><arrow> extends selection (<up> and <down> are a bit kludgy).
+  - Popup menus now cycled with <cmd><up|down-arrow>; 
+    this allows <up|down-arrow> to work in edit fields.
+• Complete rewrite of the Status Bar. Appearance compliant and less modal.
+• All popup menus from windows and Status Bar can be torn off.
+• bugs fixed:
+  ID	Sev	Summary
+  258 	cri	Alpha8 fatal error 
+  101 	maj	'Menu' command fails when first menu item starts with '-' 
+  26 	nor	Tear-off menu is created instead of menu action being taken 
+  137 	nor	Content of menus are messed up 
+  157 	nor	error in lock menu 
+  172	nor	Close Float inappropriately enabled 
+  179 	nor	Encoding problem of script for key bindings 
+  197 	nor	Right arrow at EOF reports error 
+  115 	nor	Menu corruption 
+  187 	nor	Rebuild tcl index for win fails 
+  252 	nor	Search and Replace problem 
+  313 	enh	provide more hooks 
+
+  [addMenuItem -l ""] bug
+  yellow and cyan definitions
+  dead-key/delete bug
+
+• These old bugs were fixed in earlier versions of Alpha8, but not 
+  recorded until now:
+  ID	Sev	Summary
+  213 	maj	Diff::View fails with files of different last line 
+  16 	nor	scroll bar thumb jumps 
+  87 	nor	replaceText -w draws text in wrong window 
+  189 	nor	tear-off menus have a wide, white column on the side 
+  204 	nor	cols::sortColumns crashes Alpha8 
+  247 	nor	glob with file type and asterisk in directory name 
+  307 	nor	menu oddities 
+  92 	nor	scroll-thumb moved wrong pane for split screen 
+  243 	nor	Wrong indentation of 2nd line of document 
+  193 	min	The First Menu entry, VCS System has wrong items 
+  259 	tri	Window-Handling-Bug 
+  267 	enh	RegExp-Pattern-Menu in Find-Dialog 
+
+================================================================================
+= 8.0a3	29-Apr-2001
+================================================================================
+• More consistent memory allocation.
+• Internal changes to Contextual Menus, includes disentagling of Alpha and TclAE.
+• bugs fixed:
+  ID	Sev	Summary
+  140 	cri	Find freezes Alpha 
+  174 	cri	Context Menu crash if non-Alpha item selected 
+  176 	cri	binding to accented characters crashes Alpha 
+  202 	cri	Closing some windows causes crash 
+  141 	cri	statusPrompt freezes Alpha 
+  117 	nor	Help menu broken 
+  121 	nor	Hyperlinking broken 
+  134 	nor	Undo when there's nothing to undo throws an error 
+  144 	nor	mtime returns weird date in Sweden (and perhaps elsewhere) 
+  151 	nor	find next: internal error in command 
+  162 	nor	No icon in HoverBar palettes 
+  166 	nor	setFileInfo does nothing 
+  167 	nor	fileInfo doesn't work 
+  170 	nor	clicking on the window title does not work as in Alpha7 
+  175 	nor	[alert] command doesn't properly handle empty alert message 
+  182 	nor	tclAE::send -Q returns error message
+  188 	nor	Opt-Cmd-G works but reports error 
+  190 	nor	No accents in mtime 
+  191 	nor	get_directory should return trailing : for disks 
+  205 	nor	putScrap and getScrap garble accented letters 
+  207 	nor	Last items are dimmed in log torn off menus 
+  208 	nor	Command 'new' won't create a second window 
+  203 	nor	Misplaced switch item crashes Alpha 
+  180 	enh	Placement of "dialog" dialogs 
+
+================================================================================
+= 8.0a2	6-Feb-2001
+================================================================================
+• rudimentary Contextual Menu support. See contextual.tcl for 
+  simple examples. Not supported on 68k (yet, anyway).
+• major rework of tearoff menus.
+• bugs fixed:
+  ID	Sev	Summary
+  116 	enh	Dirty and VCS popups should be disabled in shell windows 
+  118 	nor	open document on launch is ignored 
+  124 	nor	Mark menu draw 
+  127 	nor	Filters menu icon missing & other rsrc diffs 
+  128 	cri	PPC read-only memory exception at CopyCStringToPascal 
+  132 	nor	prompt doesn't handle 8-bit characters 
+  133 	nor	Menu items with 8-bit characters doesn't work 
+  135 	nor	Window menu get 8-bit characters wrong 
+  136 	nor	Shutting down the mac produces error alert 
+  138 	nor	enableMenuItem and markMenuItem doesn't work for 8-bit chara 
+  143 	nor	Lock icon isn't synchronized with file state 
+  164 	min	How to disable HAL message? 
+  169 	nor	close won't close a window if window is dirty   
+  
+================================================================================
+= 8.0a1 17-Jan-2001
+================================================================================
+See the end of the 'Known Bugs' file for a list of bugs
+fixed so far.  Of course a few new features have been added as well.
+
+================================================================================
+= 7.4.2 released
+================================================================================
+• added new icon resourecs
+• added new dialog resources to make some dialogs use the appearance manager
+
+================================================================================
+= 7.0-7.4.1 12/8/2000
+================================================================================
+• added numerous icon resources to Alpha
+• renamed a few internal commands to avoid clashes with Tcl/Tk
+• fixed the resources in some dialogs
+• updated Mercutio resource
+• minor other changes
+================================================================================ 
+= 6.52 Released!
+================================================================================ 
+• Incompatibility w/ Kaleidescope fixed.
+
+================================================================================ 
+= 6.51 5-9-97
+================================================================================ 
+• New java mode.
+	
+================================================================================ 
+= 6.51b14 5-2-96
+================================================================================ 
+• Fixes some problems introduced w/ filesets in last version.
+
+================================================================================ 
+= 6.51b13 4-13-96
+================================================================================ 
+• Fixes to fortran and perl modes.
+• The updated java mode should be in this version...
+• Updates to fileset procs. You may need to remove your preferences...
+
+================================================================================ 
+= 6.51b12 4-3-96
+================================================================================ 
+• 'showInvisibles' now available from mode popup in status bar.
+• can again drag to end of buffer.
+• Java mode updated.
+• FTP'd files no longer give the "Wrap?" dialog.
+• Directory scan in find dialog easier to use.
+• word-match works w/ non-multi batch
+
+================================================================================ 
+= 6.51b11 3-31-96
+================================================================================ 
+• Many of the bug fixes hadn't gotten copied into the release dir for b10. 
+  They are here now.
+
+================================================================================ 
+= 6.51b10 3-31-96
+================================================================================ 
+• 'rebuildFtpMenu' now works correctly out of the box.
+• fix for 'endLineSelect'.
+• Removed latex palette item and added help item.
+• Easier to decide not to tearoff menus.
+• HTML fixes.
+• Perl filters work again.
+
+================================================================================ 
+= 6.51b9 3-31-96
+================================================================================ 
+• Command-click on a URL now selects it and sends off to internet config.
+• regular expression search bug introduced in 6.21 fixed.
+• 'insertText' now properly preserves the "mark".
+
+================================================================================ 
+= 6.51b8 3-31-96
+================================================================================ 
+• Alpha now knows that the Internet Explorer understands open-URL events.
+• "Keyboard" macros can now be named and saved.
+• 'recentProc' now exists again.
+• Bug w/ menu floats not always opening fixed.
+• Up-to-date html docs.
+
+================================================================================ 
+= 6.51b7 3-31-96
+================================================================================ 
+• Floating point precision problem fixed in calculator.
+• Innumerable Tcl bug fixes by Vince Darley.
+• HTML mode 1.4.
+• "Helper Apps" on Config menu allows helper apps to be reconfigured.
+• 'search' now works w/ 'searchStart'.
+• added 'tearoffMenus' flag.
+• brace blink problem corrected.
+
+================================================================================ 
+= 6.51b5 11-26-96
+================================================================================ 
+• IC Menu now has a telnet item, works w/ NCSA telnet.
+• 'coloring' now affects color-while-you-type.
+• New HTML mode and docs.
+• A myriad of other small changes.
+• Includes new version of Mercutio MDEF, internet config.
+• Cache of temporary ftp mounts points.
+• Can turn off all caching of mount points.
+• Can now create new files at ftp mount points.
+• setFileInfo has new 'pathname' type.
+
+================================================================================ 
+= 6.51b3 8-26-96
+================================================================================ 
+• 'sendUrl' again works from the menu.
+• 'matchIt' has optional param
+• 'eventHandler' w/ no new proc returns current handler
+• HTML menu can now be torn off.
+• Torn-off mode menus automatically hide and reappear.
+
+================================================================================ 
+= 6.51b2 8-26-96
+================================================================================ 
+• IC Menu now contains a 'finger' item. Works w/ Peter Lewis's finger 
+  program.
+• New version of MDEF. Hopefully, this version won't crash.
+• 'Move files' in HTML mode no longer remove empty lines in the moved files.
+
+================================================================================ 
+= 6.51 8-26-96
+================================================================================ 
+• Menus tear off!
+• 'gotoFunc' added to Text menus, assigned old gotoMark key binding.
+• 'cd' once again silently supplies the leading colon on relative 
+  pathnames.
+• Problem of loading 'prefs.tcl' a second time fixed.
+• 'findFile' and 'getfile' now accept an optional argument that specifies a 
+  default directory or file. 
+• Titlebar popup now brings up findfile to correct dir or file.
+• wordCompletion enhanced to allow underlines, and bound to F1.  
+• includeFiles menu fixed.
+• C/C++ func menu now includes include files.
+• Documented 'setCreator' and 'setType' in shell help file.
+  
+================================================================================ 
+= 6.5 Released - 8-23-96
+================================================================================ 
+
+================================================================================ 
+= 6.22 8-19-96
+================================================================================ 
+• Another change to the C mode 'parseExpr'.
+
+================================================================================ 
+= 6.21 8-18-96
+================================================================================ 
+• 'regexp' now handles perl extensions such as \w in square brackets
+• C, C++, and Java func expr fixes.
+• C++ now default mode for .c and .h files. CodeWarrior and ThinkRef 
+  default C/C++ menus.
+
+================================================================================ 
+= 6.2b17 7-31-96
+================================================================================ 
+• 'Recent' submenu added to AlphaLite.
+• CW 10 will support extern apps! See here, young man.
+
+================================================================================ 
+= 6.2b16 7-31-96
+================================================================================ 
+• Fixed screwup in the latex funcs menu.
+
+================================================================================ 
+= 6.2b15 7-31-96
+================================================================================ 
+• Drag in read-only window no longer messes up hiliting.
+• Triple-clicking is back.
+• "Latex Guide" html version is back in full Alpha version.
+• Codewarrior menu 'touch's file w/ IDE, so "Modification Date Caching" 
+  *can* be enabled in the project preferences.
+• The "Funcs" menu is back, and has now been reassigned the curly braces
+  icon. The marks menu has been moved to the icon w/ the big 'M'.
+  
+================================================================================ 
+= 6.2b14 7-31-96
+================================================================================ 
+• Electric left at end of buffer fix.
+• Palette crasher fixed.
+• Some attempt to fix the intermittent problems w/ menu font sizes that some 
+  people has been made. If it doesn't do it for you, you can turn them off 
+  via the global variable 'smallMenuFont'.
+• Workaround for some of the color problems w/ the status window. 
+• Closed hand appears immediately on drag.
+
+================================================================================ 
+= 6.2b13 7-31-96
+================================================================================ 
+• *Now* 'puts' to stdout is transparently ignored.
+• The name of the 'Trash' eudora folder can now be changed.
+• 'fillText' (and hence soft wrapping) now also respect the 'doubleSpaces' 
+  flag.
+• HTML 1.2 changes.
+• Global config dialog smaller.
+• The crash when opening and then closing an empty window on 68ks seems to 
+  have disappeared.
+  
+================================================================================ 
+= 6.2b12 7-18-96
+================================================================================ 
+• FTP and Fileset menus are back to where they should be.
+• Help and palette menu items added for perl menu.
+• Mail messages now show dates.
+• Electric braces, returns, and semicolons now work in perl 
+  mode. Added hierarchical help menu and palette to perl menu.
+• electricC-blah routines are now just 'electric', and live in electric.tcl, 
+  which used to be indentLine.tcl.
+• HTML send-window can now tolerate windows w/ ' <n>' appended.
+• Word-wrap crash w/ very long lines now fixed.
+• Skew of Marks menu in dialog fixed.
+  
+================================================================================ 
+= 6.2b11 7-18-96
+================================================================================ 
+• Changed 'winNames' back. 
+• Fixed redraw problem when backspacing w/ palette visible.
+• Changed bindings for (sendtence|paragraph)Region.
+• 'puts' now null proc.
+• Annoying flicker when selecting text gone.
+
+================================================================================ 
+= 6.2b10 7-17-96
+================================================================================ 
+• Added wdef w/ border for pre-system-7.5 users.
+• Floats can now be bound to mode w/ -z.
+• Date routines fixed for year 2000 :-)
+• winNames -f will no longer have ' <n>' appended.
+• Removing 'All' from the popup marks menu now only removes the front 
+  window's marks.
+• Various fileset and html fixes.
+  
+================================================================================ 
+= 6.2b9 7-7-96
+================================================================================ 
+• More latex changes, improvements, and documentation.
+• Alpha can now be "deconstructed". See here.
+
+
+================================================================================ 
+= 6.2b8 7-7-96
+================================================================================ 
+• Floaters close if their menu is redefined.
+• "Suffix Mapping" menu item under Config allows suffixes to be reassigned 
+  among modes.
+• ftpMode listing name formed differently
+• New latex mode. 2.09 support is back.
+
+
+================================================================================ 
+= 6.2b7 6-29-96
+================================================================================ 
+• fixed diff mechanism
+• a couple of fixes for html
+• "Rebuild Tcl Indices" no longer picks up commented-out procs.
+
+================================================================================ 
+= 6.2b6 6-28-96
+================================================================================ 
+• faster scrolling behind floating windows.
+• added '-n' option for floats.
+• Big reorganization of Tcl code. See here.
+• Fixed batch dir searches.
+
+================================================================================ 
+= 6.2b5 6-23-96
+================================================================================ 
+• fixed scrolling behind floating windows, although still slow.
+• added 'float' and 'unfloat'.
+
+
+================================================================================ 
+= 6.2b4 6-23-96
+================================================================================ 
+• New latex changes.
+• fixes for carriage return problem introduced in b3.
+
+================================================================================ 
+= 6.2b3 6-13-96
+================================================================================ 
+• Added new 'substituteWindow' as alternate to 'chooseWindow' in menu.
+• Changed dynamic loading mechanism, saves memory, should work the same 
+  unless you access auto_index or the 'tclIndex' file.
+• added a call to 'savePostHook'.
+• added ftp (Anarchy) menu. No docs yet.
+
+================================================================================ 
+= 6.2b2 6-8-96
+================================================================================ 
+• Function-call colorizing fixes.
+• Changed windows menu a bit.
+• sendUrl didn't work if HTML mode hadn't been used. Fixed.
+• 68k 'eventHandler' finally fixed!!
+• Remove marks handles metachars.
+• Latex 3.2b9.
+
+================================================================================ 
+= 6.2b1 6-8-96
+================================================================================ 
+• Fixed new-fileset menu item from find dialog.
+• Function-call coloring available for C and C++ modes. 
+
+================================================================================ 
+= 6.2a6 6-7-96
+================================================================================ 
+• Fixed glob on other volumes bug.
+• Mercutio 1.3b9.
+
+================================================================================ 
+= 6.2a5 6-7-96
+================================================================================ 
+• Fixed blank chars if typing as new window opened.
+• Coloring bug with multiple-line colorized hunks of text fixed.
+• 'printHeaderProc' replaced w/ 'printLeftHeader' and 'printRightHeader'.
+• Fixed mode suffix bugs introduced in a4.
+
+================================================================================ 
+= 6.2a4 6-6-96
+================================================================================ 
+• Moved to CW8.
+• Moved to Mercutio 1.3b6
+• Added listpick interface to IC menu urls.
+• 'immediateSend' now menu flag for eudora mode.
+• Current mode can be changed via "Config:Current Mode:Change…"
+• Current mode suffixes can be changed via the "Config:Current Mode:Flags…" 
+  dialog.
+• Added all of Vince's fileset stuff.
+• HTML mode changes.
+
+================================================================================ 
+= 6.2a3 2-15-96
+================================================================================ 
+• '-c' option added to menu command tells menu routines to ignore 
+  meta-chars.
+• Added 'pushd', 'popd', and 'dirs' shell commands.
+• String-coloring bug fixed.
+• New LaTeX version.
+
+================================================================================ 
+= 6.2a2 2-15-96
+================================================================================ 
+• Memory corruption problem fixed.
+• Changed html.tcl htmlMode.tcl sendUrl to use 'browserSig' var instead of 
+  path.
+• getWinInfo gets 'currline'.
+• Enter key now sort of emulates what I'm told it does in Brief.
+• Added HTML table row to tab-delimited format and back.
+• 'dialog's popup menus no longer are scanned for command equivalents.
+• searching for reg expr '\\reg' will now match '\reg'.
+• Batch search now works for single-file searches as well.
+
+================================================================================ 
+= 6.2a1 2-15-96
+================================================================================ 
+• 'OpenHeader' added to CodeWarrior menu.
+• option-mouse-down in code-warrior files now pops up a headers menu.
+• "Find In Next File" now command-M in AlphaLite as well.
+• Added 'nameFromAppl', which allows path to be found from creator.
+• Many pathvars tossed.
+• Added 'doubleSpaces' flag.
+• 'addAlphaChars' allows characters to be added to definition of 'isalpha' and 
+  'isalnum'. 
+• Regular expressions can now use '\w', '\W', '\s', '\S', '\b', '\B', '\d', 
+  and '\D'. All but '\b' and '\B' can also be used inside of character classes.
+• Delete filesets now works on enumerated filesets as well as non-enumerated.
+• Improved HTML mode.
+• Global variable substitution now performed on 'backDir'.
+• Holding down the shift key during startup tells Alpha to skip 
+  preferences files.
+• 'edit' now accepts '-c' option that tells is to bring existing files to 
+  front without asking if duplicate needed.
+• glob bug fixed.
+
+================================================================================ 
+= 6.12 2-15-96
+================================================================================ 
+• Bad regular expression no longer complains for every file in fileset.
+• Eudora alert annoyance removed.
+• Support for Java syntax coloring and editing added.
+• "Edit Nicknames" bug fixed.
+
+================================================================================ 
+= 6.11 2-11-96
+================================================================================ 
+• grep multi-file search/replace bug fixed
+• 'special chars' color fix
+• global menus
+• nicknames w/ eudora
+• Alpha now has its very own calculator.
+• 'shell' param for setWinInfo
+• thumb can no longer be dragged past max size of win (problem for win length
+  greater than 32k).
+• 'killWindowStatus' default now front window.
+• 'moveInsertionHere' now deselects first.
+
+
+================================================================================ 
+= 6.1 2-1-96
+================================================================================ 
+• Added '.' and '\' to list of chars escaped for non-grep batch searches.
+• String-coloring draw problem fixed (sometimes printed chars from next line on 
+  current line).
+• Another IC tweak.
+• Another Fortran mode tweak by the many Toms.
+
+
+================================================================================ 
+= 6.098 2-1-96
+================================================================================ 
+• Fixed non-grep batch searching problem.
+• Typing in strings now colored.
+• TeX prefs split into two pages.
+• Potentially evil bug fixed for modes that don't color strings.
+• CodeWarrior flag problem fixed.
+• Internet Config clients on other volumes should open now.
+
+================================================================================ 
+= 6.097 1-20-96
+================================================================================ 
+• Changed bindings for 'Iconify'.
+• 'noShiftBinding' gone.
+• 'removeSavedSetting' now saves modifed vars first.
+• new scheme mode
+• regModeKeywords can now color strings.
+• Coloring for keywords, strings, comments can be changed in mode dialog.
+• Version 3.1 of Tom Scavo's TeX mode.
+
+================================================================================ 
+= 6.0963 1-19-96
+================================================================================ 
+• Change in the preferences dialog.
+• Back to caret to denote control modifiers in menus.
+• Changed command equiv for searchNextFile.
+
+================================================================================ 
+= 6.0962 1-18-96
+================================================================================ 
+• Fixes 'Find' crasher.
+
+================================================================================ 
+= 6.096 1-15-96
+================================================================================ 
+• 3.1 beta TeX mode by Tom Scavo.
+• radio buttons and gray outlines added to 'dialog'.
+• 'Escape' selects Cancel button again.
+• Hopefully, the crashing w/ simple key sequences on international 
+  keyboards is fixed.
+
+================================================================================ 
+= 6.095 1-7-96
+================================================================================ 
+• Non-alphanumeric mailbox names handled.
+• "Revert To Backup" added to file menu.
+• Replace-all can now be aborted w/ command-.
+• multi-line comment coloring problem fixed.
+• Eudora and config menus continue to evolve. The eudora mode, especially, I 
+  think is especially slick. Opening mailboxes large is still slow, but 
+  everything else works pretty well.
+• Improved CodeWarrior error reporting from John Dunning.
+• New icons for function keys in menus. The 'control' icon is now 
+  different (looks like a picnic table).
+• 'wordWrap' and 'softWrap' subsumed into a single variable ('wordWrap'), and 
+  accessed via a menu in the status bar.
+• Non-regular-expression batch searches now work correctly.
+• Config menu re-arranged. Flags and vars now set using dialog.
+• New 'dialog' function.
+
+
+================================================================================ 
+= 6.094 1-7-96
+================================================================================ 
+• Row-col indicator changes again.
+• Drag bar problems fixed.
+• Eudora mode significantly improved.
+
+================================================================================ 
+= 6.093 1-6-96
+================================================================================ 
+• Row-col indicator works for >10000 lines again.
+• Fixed open-file bug recently introduced.
+
+================================================================================ 
+= 6.092 1-6-96
+================================================================================ 
+• Command-click on title now gives enabled menu, result is sent to tcl proc
+  'titlebar', currently opens the folder in the Finder.
+• A few Eudora mode changes, now we have docs! 
+• Other random, assorted minor fixes.
+
+================================================================================ 
+= 6.091 1-4-96
+================================================================================ 
+• region modifiers now taken notice of read-only status
+• text menu alternation problem fixed.
+• space and delete work intelligently in browser and mail modes.
+
+================================================================================ 
+= 6.09 1-4-96
+================================================================================ 
+• File and mode-selection popup are now in the status window.
+• 'showPlatform', 'showRowCol', and 'showMode' are gone, in effect always on.
+
+
+================================================================================ 
+= 6.08 1-2-96
+================================================================================ 
+• Another menu re-configuration. Help menu gone, everything now under system 
+   help menu.
+• "Quick Start" doc added.
+• The "Sort Lines" menu item (under Text) now alternates w/ "Reverse Sort".
+• "Mode Info" and "File Info" popups separated. "File Info" still popup, 
+  "Mode Info" now under Config.
+• You can no longer bring a window to the front and drag it in one click. 
+  Let me know if you disagree w/ this. I had several complaints about the 
+  current setup.
+  
+================================================================================ 
+= 6.07 1-2-96
+================================================================================ 
+• Internet Config warning (on startup) removed.
+• drag warning narrowed.
+• obscure 'addAppPaths' bug fixed.
+• defaults for color picker added.
+• Slight menu re-configuration.
+• Command-click and command-double-click differentiated a bit better.
+
+================================================================================ 
+= 6.06 1-2-96
+================================================================================ 
+• Redraw bug w/ split panes fixed.
+• Bugs w/ command-double-clicking and slow file loads (both added in 6.05) 
+  fixed. 
+
+================================================================================ 
+= 6.05 1-1-96
+================================================================================ 
+• 'colorTriple' now takes an initial color.
+• new routine icURL <URL> that passes arg to Internet Config, if present.
+• command-clicking passes the text to Internet Config (doesn't yet work for 
+  68k version).  
+• New Internet Config menu. 
+• New soft-wrapping feature.  Vars 'wrapLow', and 'wrapHigh'.
+• 'Push' and 'pop' marks moved up a level in Search menu. Hypertext jumps 
+  now call 'pushMark' before performing the action.
+
+================================================================================ 
+= 6.04 12-25-95
+================================================================================ 
+• Cmd-double-clicking procs can now notice a "control"
+  modifier of the basic command-double-clicking. No mode yet uses this.
+• Red and blue colors changed slightly.
+
+• Eudora mode subject display glitch fixed.
+• Fixed nastly little memory bug (which usually showed up while pasting 
+  large chunks of text).
+• XTCLs are gone. They will be replaced in the near future by the standard 
+  Tcl extension mechanism. See Ray Johnson at SunLabs for more details.
+• Bug inserting literals ampersands fixed.
+• Discrepancy between two versions of 'menu' command fixed. Menuprocs are 
+  called w/ two arguments, return value ignored.
+• Tag files now always created type mac, prompt for wrapping tagwin no 
+  longer occurs.
+• If the first line of a file contains the text 'nowrap' anywhere in it, 
+  the wrap prompt is not displayed, regardless of the line lengths.
+
+================================================================================ 
+= 6.03 12-11-95
+================================================================================ 
+• Including Pete Gontier's ClickWarrior, an init that vectors clicks in 
+  CodeWarrior's project window to Alpha. See here for details.
+• Fixed HTML display problem.
+• Enhanced Fortran mode, mode-specific indentLine, fileset-specific 
+  'cTAGS' from Tom Pollard. Also an 'emacs' smartMode in :Tcl:UserCode.
+
+================================================================================ 
+= 6.02 11-11-95
+================================================================================ 
+• Command-double-clicking on a URL now sends it to your web browser. See 
+  here to customize.
+• More of Vince Darley's Tcl code, new marking routines for C, C++, Tcl. 
+  New rebuildTclIndices. (un)Commentbox(paragraph).
+• Inserting text in keyboard macro doesn't mess up mark.
+• Alpha menu icons don't pop up when other apps frontmost.
+• "Recent Files" list can now be reset. Only one instance of a given 
+  filename can now be in list.
+• Added "Redefine colors…" submenu off Mode. See manual.
+• Added Vince Darley's fillParagraph and smarterSource code. 
+• Added mode-specific prefs (not Vince's).
+• Mail mode allows you to tell Eudora to quit notifying Alpha.
+
+================================================================================ 
+= 6.01 7-21-95
+================================================================================ 
+• 'repeatSearchBackward' and 'repeatSearchForward' now work correctly in 
+  macros
+• added/changed 'searchString'/'replaceString'.
+
+================================================================================ 
+= 6.01 7-21-95
+================================================================================ 
+• MacPerl mode fixes, new help files for MacPerl and BibTeX.
+• Patterns menu from the find dialog now gets updated.
+• "Drop•PS" is now selectable from the print menu.
+• Very rudimentary eudora interface added. Install via the 'Utils' menu.
+• Added 'tileMargin' var so that different win styles, such as those of 
+  'Aaron', look right.
+• Added 'eventHandler' hook to allow Tcl scripts to respond to incoming 
+  Apple Events.
+• Latex bug fixed.
+    
+================================================================================ 
+= 6.0 7-16-95! 
+================================================================================ 
+• Added 'Bib' to modes 'commentBox' recognizes.
+
+================================================================================ 
+= 6.0b28 7-16-95 
+================================================================================ 
+• Fixed some distribution problems.
+
+================================================================================ 
+= 6.0b28 7-16-95 
+================================================================================ 
+• Added 'Send Url' to Utils menu, moved emacs menu over to Mode.
+• Fixed DOS-file crash.
+• Fixed top-level HTML menu problem.
+• New mode definitions for ADA flex/yacc
+• New fixes/additions to Perl and BibTeX modes.
+
+================================================================================ 
+= 6.0b27 7-11-95 
+================================================================================ 
+• New (and final, for a while) latex mode.
+• "Remove Saved Setting" no longer unsets the variable.
+• Changed HTML mode icon to Netscape, added a "Send URL to Netscape" item 
+  under the HTML URLs submenu.
+
+================================================================================ 
+= 6.0b26 7-4-95 
+================================================================================ 
+• Lock icon now redraws after resume.
+• Another try at alleviating the annoying dialogs when using TPM 7.0.4.
+• Another try at word-wrapping.
+• A couple of drag-scrolling bugs in split-pane windows fixed.
+
+
+================================================================================ 
+= 6.0b25 7-4-95 
+================================================================================ 
+• New HTML version
+• 'indentOnCR' now respected during word wrapping.
+• bug fix in bibtex mode.
+• Crashing bug w/ split windows fixed.
+• Read-only 'lock' icon now above vertical scrollbar.
+
+
+================================================================================ 
+= 6.0b24 7-3-95 
+================================================================================ 
+• word-wrapping now uses vars 'wrapBreak' and 'wrapBreakPreface'.
+• flags now work in C++ mode.
+• New LaTeX version.
+• "Find Options" dialog problems fixed.
+
+
+================================================================================ 
+= 6.0b23 7-3-95 
+================================================================================ 
+• 'Win Sets' are gone. However, you can entirely duplicate their behavior 
+  by using 'Create Fileset From Wins' and 'Open Entire Fileset' under the 
+  "FileSets:Utilities" submenu.
+• Nasty little (real old) bug that caused the cursor to appear only briefly 
+  after a command executed finally fixed.
+• Moved 'hilite' out of a Search submenu.
+• "Replace in Fileset" moved to control alternate of "Replace All".
+• Bug w/ queued replies (usually seen w/ think project manager) fixed.
+• Fortran comment coloring bug fixed.
+• Split pane bug fix.
+• Word-wrapping bug. 
+• Fixed some hiliting bugs. In doing so, I broke scrolling when covered by 
+  floating windows. For those of you that this affects, for right now I 
+  say, "Don't Do That."
+• Fixed "Goto Tab Stop" problem in TeX mode.
+• 3D buttons have gone away. If you liked them, I suggest you get the "
+  Aaron" init. This should also fix the problem w/ crashing on the original 
+  portables.
+
+================================================================================ 
+= 6.0b22 7-1-95 
+================================================================================ 
+• Redraw fixes w/ multiple panes.
+• Enable/disable emacs persists across executions.
+• Changed buttons, etc.
+• New version of latex code.
+• Added 'Replace In Fileset" proc.
+• Can now create filesets on the fly from the find window.
+
+
+================================================================================ 
+= 6.0b21 6-12-95 
+================================================================================ 
+• Addition of underline keywords for latex mode (not in place yet).
+• 'word match' works w/ batch searches.
+• Multi-file directory scans have option of text-only. 
+• Final latex mode nearing completion.
+• Small html and bibtex mode changes.
+• Bindings w/ a shift, but not a command, control, or option, now work.
+• 'latex' 2.09 proc works again....
+
+================================================================================ 
+= 6.0b20 6-11-95 
+================================================================================ 
+• Fix in 'showVarValue'.
+• 'editMark' now creates marks if they don't exist.
+• Print submenu changed, can now set default printer app.
+• Clicking on drag bar of inactive window makes active and then continues 
+  to drag.
+• indentLine/indentRegion and lineToParagraph/paragraphToLine added to 
+  Convert menu.
+• sendOpenEvent takes an option that tells it to not wait for a reply.
+• Comment colorizing better.
+• Files w/ Projector's "ModifyReadOnly" flag set can now be modified.
+• LaTeX mode almost finished…
+
+================================================================================ 
+= 6.0b19 6-5-95 
+================================================================================ 
+• Popup menus from the 'prompt' command now correctly display spacers.
+• Lots of new latex and perl changes/fixes. 'latex' in the 2.09 version 
+  works now.
+• 'alpharc.tcl' has been renamed 'prefs.tcl'. Probably the last name change
+  in a while :-).
+• Directory comparisons seem to be working on my machine...
+• Printing through various apps allowed.
+  
+================================================================================ 
+= 6.0b18 6-3-95 
+================================================================================ 
+• Added docs for the new preferences routines ('addDef', 'addArrDef', 
+  'removeDef', and 'removeArrDef', fixed some problems, added 
+  a menu item to open up the new alpharc.tcl file, addUserLine now writes 
+  to alpharc instead of userStartup.
+• Slightly re-organized the Filesets menu.
+• 'menu' now takes a "mode" flag.
+
+================================================================================ 
+= 6.0b17 6-3-95 
+================================================================================ 
+• Added new user preferences system, use addDef/removeDef and 
+  addArrDef/removeArrDef pairs. In prefs.tcl. 'userStartup.tcl' is no 
+  longer sourced! However, there is now a new file called "alpharc.tcl" 
+  that is sourced from the prefs folder. No tcl routines add text to
+  this file.
+• Added new "recent files" sub-menu to File menu. "Recent" files can also
+  be opened via the 'editFile' dialog.
+
+================================================================================ 
+= 6.0b16 6-2-95 
+================================================================================ 
+• cleaned up some messes put in w/ b15
+
+
+================================================================================ 
+= 6.0b15 5-29-95 
+================================================================================ 
+• ordinary deletions after rectangular deletions work better.
+• PPC scrollbar problem gone
+• Text buffers now allocated via mac routines vs unix, hopefully giving 
+  low memory behavior.
+
+================================================================================ 
+= 6.0b14 5-29-95 
+================================================================================ 
+• "Mode:App Paths" a bit easier to use
+• pathnames longer than 128 chars work
+• bindings from non-active menus are not active either
+• some split-pane redrawing problems fixed
+• 'statusPrompt' no longer appends a space to the prompt
+• shift no longer works as a binding modifier except for alpha-numerics
+• command-shift-dash for "Switch to" for compilers now command-shift-s
+• Nasty bug w/ get_directory and get_file fixed.
+• All function keys/arrow keys now terminate incremental searches.
+• 'get_directory' now accepts a prompt argument.
+• 'statusPrompt' doesn't have problems w/ activate events any more
+• 'prompt' no longer interprets slashes as command equivalents in menu
+• command-v now 'paste's from within 'statusPrompt'
+• 8-bit chars handled better.
+• Repeat searches now always move at least one char before matching. Let 
+  me know what you think.
+• Some fixes for search-replacements w/ null patterns or replacement 
+  strings. '&' in a grep replacement string now works correctly.
+
+================================================================================ 
+= 6.0b13 3-25-95 
+================================================================================ 
+• Scrolling vertically through window correctly redraws when obscured by a
+  single floating window.
+• 'addUserLine' now uses curly braces instead of parens.
+• Cmd-double-clicking now works for "C" tags, Tcl procs in UserCode or 
+  SystemCode, and words in the Tcl language. Can also access by selecting 
+  a word and using the "Modes:Lookup Name" menu item.
+• 68k on primitive 68ks better :-)
+• Bug w/ hiliting on split windows fixed.
+• Emacs menu can be turned on and off.
+• Double-clicking on split-window bar toggles split window.
+
+================================================================================ 
+= 6.0b12 3-20-95 
+================================================================================ 
+• New price structure, new registration system.
+• Command-. works again.
+• 'puts' spits carriage returns again.
+• better replaceAll behavior
+• Added '<E' extend style to menu items, forces new dynamic item 
+  alternate group. 
+• Added 'getColors' command.
+• Added hyperText ability.
+• 'saveAs' changed.
+• cmd-double-clicking in the window no longer brings up the mark menu, 
+  but clicking on the curly braces and command-clicking on the titlebar both
+  still do. cmd-double-clicking now tries to find the definition of a C 
+  function (See here).
+  
+================================================================================ 
+= 6.0b11 3-17-95 
+================================================================================ 
+• powerThumb back.
+• filesets menu now responds to changes in file system if rebuilt. 
+  However, this only works for filesets created this by this version or 
+  higher. If you want to manually hack your userStartup.tcl to use your 
+  old filesets, look at how the 'System' etc. filesets are defined in 
+  fileSets.tcl.
+• AEBuild works for 68k again.
+• numlock is displayed on the statusbar
+
+================================================================================ 
+= 6.0b10 3-15-95 
+================================================================================ 
+• 68k scrollbar thumb, titlebar popup crashes fixed
+• 'numLock' flag added to remove bindings from keypad and use as keypad. 
+  The "clear" or numlock keypad key now toggles this binding.
+• 'scanfile' (and hence the grep procs) handle unix and ibm files better.
+
+================================================================================ 
+= 6.0b9 3-1-95 
+================================================================================ 
+• Alpha correctly creates startup file and directory now.
+• Keybinding and lookup done differently. Hopefully, the new scheme will 
+  allow will better for international users. Please send me mail on 
+  whether this is true. Also, handling of the CapsLock key should be much 
+  better.
+• Crashing when dragging thumb gone, but had to temporarily kill 
+  powerThumb feature.
+• Changed 'Csh' mode to 'Shel' mode.
+  
+================================================================================ 
+= 6.0b8 3-1-95 		Switched to CodeWarrior, introduced many problems…
+================================================================================ 
+• INCOMPATIBILITY! "userStartup.tcl" must now be in a "Alpha" folder 
+  within your system preferences directory. Alpha will no longer find the 
+  old preferences, and WILL NOT copy it over for you.
+• command-click on window title now give popup menu showing location
+• cleaner proc now copies instead of moving
+• isearch doesn't quit when encountering bound characters unless with 
+  command, control, or option.
+• no longer support option modifed US KCHR resource that gets rid of dead 
+  keys.
+• Holding down control (sorry, option unavailable because of rectangular 
+  editing) while clicking on paren selects paren in addition to contained 
+  expression. 
+• Toolbox Assistant support added. By default, this has been added to the 
+  C, C++, and Pascal modes. YOU MAY NOT SEE THIS IF YOU HAVE ALREADY MODIFIED 
+  WHICH MENUS THESE MODES DISPLAY. If this is the case, just use the 
+  'setModeMenus' option under the bottom popup menu above the vertical 
+  scrollbar.
+• "Mode:App Paths" allows Alpha's paths to various other applications to
+  be viewed, changed, or reset.
+• Added commands 'splitWindow' and 'otherPane'. Not quite complete.
+• Added postscript mode.
+• Several colorizing bugs fixed, most having to do w/ comments.
+• 'optionIsMeta' gone completely
+• added 'forceMainScreen' flag. When set, all windows are forced to be 
+  completely visible on the main screen. Otherwise, they just stay 
+  whereever they open.
+• 'suppressHeader' phased out in favor of 'printHeader', 
+  'printHeaderTime', and 'printHeaderFullPath'.
+• 'maskCapsLock' is gone, and capslock is handled more intelligently, at 
+  least for US keyboards. This *will* be getting better in future versions.
+  
+================================================================================ 
+= 6.0b7 11-14-94 
+================================================================================ 
+• CodeWarrior fixes:
+	- create warrior fileset now notices more than one segment
+	- timeouts are longer
+
+================================================================================ 
+= 6.0b6 11-14-94 
+================================================================================ 
+• Added a few things to support CodeWarrior.
+• 'edit' now has -w option.
+
+
+================================================================================ 
+= 6.0b4 11-11-94 
+================================================================================ 
+• added 'openTexWindow' to "Latex Utilities" submenu.
+• fixed bugs in 'newModeVar', 'display'.
+• slightly changed next/prev(sub)section latex commands to display 
+  selected line at top of window
+• 'userStartup.tcl' moved to "Internal:System Folder:Preferences:Alpha userStartup.tcl"
+• GNU diff now works for directories other than the startup disk
+• display bug fixed
+
+================================================================================ 
+= 6.0b3 11-11-94 
+================================================================================ 
+• 'replaceText' bug fixed
+• userStartup cleaner added at quit 
+• Compare directories is here!
+• text clippings can now be imported via drag and drop
+• Now check for drag-n-drop init...
+
+================================================================================ 
+= 6.0b2 10-26-94 
+================================================================================ 
+• 'posActivate' gone
+• Alpha now defines 'screenWidth' and 'screenHeight' variables.
+• Alpha now checks for windows off screen
+• Apple drag-n-drop of text and files supported.
+
+================================================================================ 
+= 5.98 10-26-94 
+================================================================================ 
+• Fancy new menus!
+• added Pascal mode. By default, this only recognizes files with .p suffixes.
+• '-s' search option now saves 	'forward', 'regExpr', 'matchWords', and 
+  'ignoreCase'. 
+• menus now dynamically sourced.
+• if '&' last char in menu item, no special chars interpreted.
+• 'regModeKeywords' now allows additional keywords to be added, possible 
+  of a different color than older keywords.
+• 'largestPrefix' returns largest common prefix of a list of strings.
+• 'getNamedMarks' changed behavior.
+• 'regModeKeywords' has been changed.
+• "File:Win Sets" submenu.
+• Assorted color improvements.
+• 'listpick' now returns an error if "Cancel" is selected.
+• double-clicking on parens, square brackets, and curly brances selects 
+  entire expression.
+  
+================================================================================ 
+= 5.97 9-26-94 
+================================================================================ 
+• ReplaceAll now notices and complains about regular expressions that 
+  match zero-length pieces of text.
+• Included GNU Diff w/ distribution. I forgot it w/ the previous two 
+  distributions. 
+  
+================================================================================ 
+= 5.96 9-25-94 
+================================================================================ 

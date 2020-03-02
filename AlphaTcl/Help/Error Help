@@ -1,0 +1,316 @@
+
+Alpha Error Handlers
+
+                                            version: 1.1
+                                            created: 04/09/1998 {10:32:09 pm}
+                                        last update: 10/03/2003 {02:20:22 PM}
+
+_________________________________________________________________
+
+INTRODUCTION
+
+This package provides a uniform mechanism for catching, handling, and
+displaying errors.  The key to all this functionality is the try construct,
+similar to that available in C++ or AppleScript.  The default error handler
+will display any errors in accordance with the current user preferences, in
+"Config > Preferences > SystemPrefs > Errors".  See the file "error.tcl" for
+the actual procedures.
+
+Preferences: Errors
+
+Errors can be reported in one of four levels of detail:
+
+    taciturn: display the error message in the message bar.
+    
+    terse: display the error message in a dialog.
+    
+    verbose: display the error message and the error code in
+        a dialog.
+    
+    pedantic: display the error message, the error code, and
+        whatever context is available through errorInfo in
+        a window.
+    
+A fifth option is available only through the -reporting parameter 
+to try, and is primarily for use by Alpha's startup code:
+
+    log: display the error message, the error code, and
+        whatever context is available through errorInfo in
+        either the startup log or the in the Tcl shell, if
+        available, after alerting the user to the error.
+        
+
+_________________________________________________________________
+
+EXAMPLES
+
+    The script
+
+        try {
+            error "this is the error" "" "this is the code"
+        }
+    
+    will be reported as follows, depending on the value of 
+    errorReporting:
+    
+        taciturn: reports "this is the error" in the message bar.
+        
+        terse: reports "this is the error" in a dialog.
+        
+        verbose: reports
+        
+                Message: "this is the error"
+                Error Code: this is the code 
+                
+            in a dialog.
+            
+        pedantic: reports
+        
+                Message: "this is the error"
+                Error Code: this is the code
+                    # while executing
+                error "this is the error" "" "this is the code"
+                    # invoked from within
+                try {error "this is the error" "" "this is the code"}
+                
+            in a window (the window is displayed in Tcl mode for better 
+            readability). Pedantic reports can get, well, pedantic very 
+            quickly, but can be useful guides for debug tracing.
+            
+        log: reports
+        
+                =======================
+                try  error "this is the error" "" "this is the code" error
+                this is the error
+                    invoked from within
+                try {error "this is the error" "" "this is the code"}
+                
+            in the Tcl shell (or in the startup log).
+            
+
+In the event that there are errors that you don't wish to display or which to
+handle in some special fashion, supply one or more -onError scripts:
+
+    try {
+        eval $script
+    } -onError {
+        -34 {error::alertnote "Aughh!!! The disk is full!!!"}
+        12* {error::alertnote "VOODOO error: $errorMsg"}
+        default {}
+    }
+    
+will display a dialog reporting "Aughh!!!  The disk is full!!!", if you've
+executed
+
+    set script {error "this is an error" "" "-34"}
+
+a dialog reporting "VOODOO error: this is an error" if you've executed
+
+    set script {error "this is an error" "" "12005"}
+    
+and does nothing at all for any other errors; in fact, 
+
+    try {
+        eval $script
+    } -onError {
+        default {}
+    }
+    
+is identical to
+
+    catch $script
+    
+(and is, hence, a pretty stupid use of try, since it's noticeably slower). 
+Another pointless use of try is
+
+    try {
+        eval $script
+    } -onError {
+        default error::rethrow
+    }
+
+which is identical to
+
+    eval $script
+
+(not to say that error::rethrow isn't handy, though).
+
+Unless explicitly overridden, the default script will display all errors not
+accounted for by other -onError scripts.  Always be sure to put the default
+script last or none of the other onError scripts will be executed.
+
+The above case is OK, but rather than just catching 12000 series VOODOO
+errors, it will also catch errorCodes of “123”, “12x”, “12 buckle my shoe”,
+and so on.  Better, in this instance, would be to use the -regexp option
+
+    try {
+        eval $script
+    } -onError {
+        -34 {error::alertnote "Aughh!!! The disk is full!!!"}
+        {12[0-9][0-9][0-9]} {error::alertnote "VOODOO error: $errorMsg"}
+        default {}
+    } -regexp
+    
+As usual, the default behavior is clearer; the -regexp behavior is more
+powerful.
+
+        
+A note about alertnotes: I have encountered an intermittent crashing bug,
+which arises when an alertnote is displayed while Alpha is in the background. 
+As a result, an option is available, both as a user preference and to
+individual try calls, to display alertnote messages (terse and verbose
+reports) in a small window instead.  Display options are “alertnote always”,
+“alertnote preferred”, and “window always”.  Taciturn and pedantic reports
+are unaffected by this setting.
+
+_________________________________________________________________
+
+NAME
+    try - Try to execute 'script'. 
+SYNOPSIS
+    try script ?options?
+_________________________________________________________________
+
+DESCRIPTION
+    The try command executes its script argument in the stack frame that 
+    called it.  In the event of an error, try matches the global 
+    errorCode against each of any pattern arguments, specified by the 
+    -onError parameter, in order.  As soon as it finds a pattern that 
+    matches errorCode it evaluates the following body argument by 
+    passing it recursively to the Tcl interpreter and returns the 
+    result of that evaluation.  The last pattern argument is always a 
+    default to display the error (you may explicitly define a default 
+    argument if this behavior is not desired). Optionally, the errorMsg 
+    can be used for comparison, instead of errorCode.
+
+    The syntax is largely that of switch, although the options follow 
+    script for both syntactic and performance reasons.  The default 
+    comparison mode for try is -glob, instead of -exact.  Unlike 
+    switch, try does not support separate pattern/command arguments; 
+    all must be provided as a list argument to the -onError optional 
+    parameter.  The following options are currently supported:
+    
+    -onError {pattern body ?pattern body ...?}: errorCode is compared to 
+        each pattern in order.  When a match is found, body is 
+        executed in the stack frame that called try.  If this option 
+        is missing, all errors will be displayed by the default 
+        routine.
+        
+    -exact: Use exact matching when comparing errorCode to a pattern.
+
+    -glob: When matching errorCode to the patterns, use glob-style 
+        matching (i.e. the same as implemented by the string match 
+        command). This is the default.
+        
+    -regexp: When matching errorCode to the patterns, use regular
+        expression matching (i.e. the same as implemented by the regexp 
+        command).
+        
+    -display: Override the user's setting for errorDisplay.
+        Options are 'alertnote always', 'alertnote preferred', 
+        and 'window always'.
+    
+    -reporting: Override the user's setting for errorReporting.
+        Options are taciturn, terse, verbose, pedantic, and log.
+                
+    -while: Short phrase to describe action taking place in event of an 
+        error.
+    
+    -code: Match errorCode against the -onError patterns. This is the 
+        default.
+        
+    -message: Match the errorMsg against the -onError patterns.
+
+    The -onError scripts execute in the frame that calls try, so 
+    all variables local to that frame are available, as are the global 
+    variables errorCode, errorInfo, and errorMsg (without having 
+    to declare them global).
+    
+    If a body is specified as “-” it means that the  body  for
+    the  next  pattern  should also be used as the body for this
+    pattern (if the next pattern also has a body of  “-”  then
+    the body after that is used, and so on).  This feature makes
+    it possible to share a single body among several patterns.
+
+    Below are some examples of try commands:
+
+         try {
+             error "" "" aaab
+         } -onError {
+           ^a.*b$ -
+           b {format 1}
+           a* {format 2}
+           default {format 3}
+         } -regexp
+    will return 1, and
+
+         try {
+             error "" "" xyz
+         } -onError {
+           a
+             -
+           b
+             {format 1}
+           a*
+             {format 2}
+           default
+             {format 3}
+         }
+    will return 3.
+    
+    NOTE: The old -depth option has been eliminated to allow delayed argument
+    processing, resulting in an 80% speed increase for error-free scripts. 
+    Instead of 
+
+        try {script} -depth n
+
+    now use
+
+        try::level n {script}
+
+    to achieve the same result.
+    
+    NOTE:
+    A 'try' block adds about 0.6 ticks to the execution of an error-free
+    script on my 7100/66 so, judiciously applied, there's not much of a penalty 
+    in using it. 
+_________________________________________________________________
+
+NAME
+    try::level - Try to execute 'script' at specified 'level'.
+SYNOPSIS
+    try::level level args
+_________________________________________________________________
+
+DESCRIPTION
+
+    Try to execute a script at a specified level in the execution stack (see 
+    uplevel). The remaining arguments are those of try.
+_________________________________________________________________
+
+NAME
+    error::rethrow - Rethrow a caught error
+SYNOPSIS
+    error::rethrow
+_________________________________________________________________
+
+DESCRIPTION
+
+    In the event that you catch an error you don't wish to handle, call 
+    this routine to send the error back to the caller. 
+
+
+
+_________________________________________________________________
+
+LICENSE AND DISCLAIMER
+
+This package is free software; you can redistribute it and/or modify it under
+the terms of the GNU General Public License.
+ 
+Author: Jonathan Guyer
+E-mail: <jguyer@his.com>
+   www: <http://www.his.com/~jguyer/>
+ 
+ Copyright (c) 1998-2000  Jonathan Guyer
+ 

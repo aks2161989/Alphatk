@@ -1,0 +1,167 @@
+BODY {
+	background: #FFFFFF;
+	color: black;
+}
+
+A:link {
+	color: blue;
+}
+
+A:visited {
+	color: blue;
+}
+
+.navigation {
+	position: fixed;
+	left: 0px; 
+	width: 100%; 
+	background: white;
+	padding-top: 10px;
+	border-top: dashed thin;
+}
+
+.navigation A {
+	border: outset navy medium;
+	background: navy;
+	padding: 0.3em 1em;
+	margin-left: 2em;
+	float: left;
+	color: white;
+}
+
+.navigation A + A {
+	margin-right: 2em;
+	float: right;
+}
+
+.navigation A:hover {
+	background: yellow;
+	color: black;
+}
+
+H1 {
+	text-align: center;
+}
+	
+.center {
+	text-align: center;	
+}
+
+IMG.rightpic {
+	float: right;
+}
+
+IMG.navpicleft {
+	border: none;
+	padding-left: 20px;
+	float: left;
+}
+
+IMG.navpicright {
+	border: none;
+	padding-right: 20px;
+	float: right;
+}
+
+IMG.iconpic {
+	vertical-align: sub;
+	border: solid black 1px;
+}
+
+.main {
+	padding-right: 1em;
+	padding-left: 1em;
+}
+
+.toc {
+	font: 10px Geneva, monospace;
+}
+
+.tochead {
+	font-weight: bold;
+}
+
+.tocbighead {
+	font-weight: bold;
+	font-size: large;
+}
+
+.itemlight {
+	color: maroon;
+}
+
+UL.features {
+	padding: 1em 1em 1em 2em;
+	border: solid thin;
+	background: #CCFFFF;
+	margin-left: 1em;
+	margin-right: 1em;
+}
+
+.indent {
+	margin-left: 3em;
+}
+
+.htmlcode {
+	color: blue;
+}
+
+.attrcode {
+	color: purple;
+}
+
+.textcode {
+	color: green;
+}
+
+.commentcode {
+	color: red;
+}
+
+.code {
+	font: 9px Monaco, Courier, monospace;
+}
+
+.inlinecode {
+	font: 9px Monaco, Courier, monospace;
+	color: blue;
+	white-space: nowrap;
+}
+
+.selectedcode {
+	background: aqua;
+}
+
+.codeindent {
+	margin-left: 3em;
+	font: 9px Monaco, Courier, monospace;
+}
+
+.item {
+	color: maroon;
+	font-weight: bold;
+}
+
+.itempara {
+	color: maroon;
+	font-weight: bold;
+	margin-top: 1em;
+}
+
+.menuitem {
+	font-weight: bold;
+}
+
+.menu {
+	font-weight: bold;
+}
+
+.leftcolumn {
+	float: left;
+	margin-right: 1em;
+}
+
+TABLE, TH, TD {
+	border: solid 1px;
+	border-collapse: collapse;
+}

@@ -1,0 +1,304 @@
+
+Diff Help
+
+                                               version: 3.4.1
+                                               created: 09/04/1994 {02:48:19 pm}
+                                           last update: 2005-09-24 01:34
+
+_________________________________________________________________
+
+INTRODUCTION
+
+The diff mode for Alpha implements powerful side-by-side file comparison,
+including the ability to patch differences back and forth between the two
+files.  Diff mode also copes with context-sensitive diffs (using the -C N
+option).
+
+_________________________________________________________________
+
+BASIC USAGE
+
+(1) Examine the submenu "Utils > Compare".  
+
+(2) Use compare 'windows' 'selections' 'filesÉ' or 'directoriesÉ' to
+compare two things.  When comparing windows, the two topmost windows will 
+be compared, the topmost window being considered the old file.
+The Compare submenu is dynamical: holding down the Alt key gives two new
+menu items: Compare Windows Word By Word and Compare Selections Word By 
+Word, which give you more fine-grained differences and ignores changes
+which amount to differences in line breaking.
+
+Use the cursor keys Up and Down to move around and compare the files.
+
+(3) Use the Control-Left and Control-Right arrow keys to patch changes from
+one window to the other.
+
+You can rerun the diff using the "Diff Menu > Rerun Diff" menu command.
+
+Click on this "Compare Example" hyperlink, which compares two versions of a
+.tcl file found in the Examples folder.
+
+Click on this "CompareWordByWord Example" hyperlink which compares two text
+word by word.
+
+Inspect the preferences: Mode-Diff for various options that can be set to 
+control the behavior of performing diff operations.
+
+WHICH HELPER APPLICATION?
+
+The diff mode resorts to a helper application to accomplish the actual
+comparison.  This takes place in the background.  In case of troubles, make
+sure your helper applications are configured correctly.  To check or change
+the configuration select the "Config > Global Setup > Helper Applications"
+menu item and choose a "Diff" helper application.
+
+Preferences: HelperApplications
+
+Alpha is distributed with several Helper Applications that are in the folder
+"Tools" within the Alpha folder.  Depending on the platform there may be
+several helper applications available.  For instance, using AlphaX, you should
+best use the application DiffBOA (Diff Background Only Application).  It is
+available at <http://webperso.easyconnect.fr/bdesgraupes/tools.html#diffboa>.
+On the windows platform, you'll find "diff.exe" in the "Tools" folder.
+
+ADVANCED USAGE
+
+Open any .diff file, locate either the left or right file and you can patch in
+changes from the diff window using Control-Left or Control-Right as
+appropriate.
+
+TECHNICAL ISSUES AND LIMITATIONS
+
+Do not attempt to perform more than one diff at the same time.  The arrays
+which are used to store information will probably conflict.  This will
+ultimately be fixed.
+
+The main feature which is lacking is an 'unpatch' feature.  You will have
+to make do with Alpha's 'Undo' facility for the moment.  (Basically the
+problem is if you patch section 'a', then patch section 'b', you can't undo
+'a' without undoing 'b' first).
+
+The source code can be examined in the file "diffMode.tcl".
+
+More detailed documentation on 'diff' can be found at:
+
+  <http://www.gnu.org/manual/diffutils-2.7/html_chapter/diff_3.html>
+
+UNIX MAN PAGE
+
+  The unix man entry for Diff follows:
+
+_________________________________________________________________
+
+NAME
+     diff - display line-by-line  differences  between  pairs  of
+     text files
+
+SYNOPSIS
+     diff [ -bitw ] [ -c [ # ] | -e | -f | -n | -h  ]   filename1
+     filename2
+     diff [ -bitw ] [ -Dstring ]  filename1 filename2
+     diff [ -bitw ] [ -c [ # ] | -e | -f | -n | -h ] [ -l ] [  -r
+     ] [ -s ] [ -Sname ]  directory1 directory2
+_________________________________________________________________
+
+DESCRIPTION
+     diff is a differential file comparator.  When run on regular
+     files,  and  when  comparing  text  files that differ during
+     directory comparison  (see  the  notes  below  on  comparing
+     directories),  diff  tells what lines must be changed in the
+     files to bring them into agreement.   Except  in  rare  cir-
+     cumstances,  diff finds a smallest sufficient set of differ-
+     ences.  If neither filename1 nor filename2 is  a  directory,
+     either may be given as `-', in which case the standard input
+     is used.  If filename1 is a directory, a file in that direc-
+     tory whose filename is the same as the filename of filename2
+     is used (and vice versa).
+
+     There are several options for  output  format;  the  default
+     output format contains lines of these forms:
+
+          n1 a n3,n4
+          n1,n2 d n3
+          n1,n2 c n3,n4
+
+     These lines resemble ed(1)  commands  to  convert  filename1
+     into  filename2.   The  numbers after the letters pertain to
+     filename2.  In fact, by exchanging a for d and reading back-
+     ward one may ascertain equally how to convert filename2 into
+     filename1.  As in ed(1), identical pairs, where n1 =  n2  or
+     n3 = n4, are abbreviated as a single number.
+
+     Following each of these lines come all the  lines  that  are
+     affected  in  the  first  file  flagged by `<', then all the
+     lines that are affected in the second file flagged by `>'.
+
+     If both arguments are directories, diff sorts  the  contents
+     of  the  directories by name, and then runs the regular file
+     diff program as described above on text files which are dif-
+     ferent.   Binary  files which differ, common subdirectories,
+     and files which appear in only one directory are listed.
+
+OPTIONS
+     -b   Ignore trailing blanks (SPACE and TAB  characters)  and
+          treat all other strings of blanks as equivalent.
+
+     -i   Ignore the case of letters; for example, `A' will  com-
+          pare equal to `a'.
+
+     -t   Expand TAB characters in output lines.   Normal  or  -c
+          output  adds  character(s)  to  the  front of each line
+          which may alter the indentation of the original  source
+          lines  and  make the output listing difficult to inter-
+          pret.  This option will preserve the original  source's
+          indentation.
+
+     -w   Ignore all blanks (SPACE and TAB characters); for exam-
+          ple, `if ( a == b )' will compare equal to `if(a==b)'.
+
+     The following four options are mutually exclusive:
+
+     -c[#]
+          Produce a listing of differences with lines of context.
+          The default is to present 3 lines of context and may be
+          changed, (to 10, for example), by -c10.   With  -c  the
+          output format is modified slightly:  output begins with
+          identification of the files involved and their creation
+          dates,  then  each change is separated by a line with a
+          dozen *s.  The lines removed from filename1 are  marked
+          with  `-  ';  those added to filename2 are marked `+ '.
+          Lines which are changed from one file to the other  are
+          marked in both files with `! '.
+
+          Changes which lie within <context> lines of each  other
+          are  grouped together on output.  This is a change from
+          the previous `diff -c' but the resulting output is usu-
+          ally much easier to interpret.
+
+     -e   Produce a script of a, c, and d commands for the editor
+          ed, which will recreate filename2 from filename1.
+
+          In connection with -e, the following shell program  may
+          help  maintain  multiple  versions  of a file.  Only an
+          ancestral file ($1) and a chain  of  version-to-version
+          ed scripts ($2,$3,...) made by diff need be on hand.  A
+          `latest version' appears on the standard output.
+
+               (shift; cat $*; echo '1,$p') | ed - $1
+
+          Extra commands are added to the output  when  comparing
+          directories  with -e, so that the result is a sh script
+          for converting text files which are common to  the  two
+          directories  from  their  state  in directory1 to their
+          state in directory2.
+
+     -f   Produce a script similar to that of -e, not useful with
+          ed, which is in the opposite order.
+
+     -n   Produce a script similar to that  of  -e,  but  in  the
+          opposite  order  and  with  a count of changed lines on
+          each insert or delete command.
+
+     -h   Do a  fast,  half-hearted  job.   It  works  only  when
+          changed  stretches  are  short  and well separated, but
+          does work on files of unlimited length.
+
+     Options for the second form of diff are as follows:
+
+     -Dstring
+          Create a merged version of filename1 and  filename2  on
+          the  standard  output,  with  C  preprocessor  controls
+          included so that a compilation of  the  result  without
+          defining  string  is equivalent to compiling filename1,
+          while defining string will yield filename2.
+
+     Options when comparing directories are:
+
+     -l   Long output  format;  each  text  file  diff  is  piped
+          through  pr(1V)  to  paginate it, other differences are
+          remembered and summarized after all text  file  differ-
+          ences are reported.
+
+     -r   Apply diff recursively to common subdirectories encoun-
+          tered.
+
+     -s   Report files which are the same,  which  are  otherwise
+          not mentioned.
+
+     -Sname
+          Start a directory diff in the  middle,  beginning  with
+          file name.
+
+ENVIRONMENT
+     The environment variables  LC_CTYPE,  LANG,  and  LC_default
+     control  the  character  classification throughout diff.  On
+     entry to diff, these environment variables  are  checked  in
+     the following order: LC_CTYPE, LANG, and LC_default.  When a
+     valid value is found, remaining  environment  variables  for
+     character  classification  are  ignored.  For example, a new
+     setting for LANG does not override the current valid charac-
+     ter  classification  rules  of  LC_CTYPE.   When none of the
+     values is valid, the shell character classification defaults
+     to the POSIX.1 "C" locale.
+
+FILES
+     /tmp/d?????
+     /usr/lib/diffh      for -h
+
+SEE ALSO
+     cc(1V), cmp(1), comm(1), cpp(1), diff3(1V),  ed(1),  pr(1V),
+     locale(5), iso_8859_1(7)
+
+DIAGNOSTICS
+     Exit status is 0 for no differences, 1 for some differences,
+     2 for trouble.
+
+     Missing newline at end of fileX
+          Indicates that the last line of file X did not  have  a
+          NEWLINE.  If  the  lines  are  different,  they will be
+          flagged and output, although the output  will  seem  to
+          indicate they are the same.
+
+BUGS
+     Editing scripts produced under the -e or -f option are naive
+     about creating lines consisting of a single `.'.
+
+     When comparing directories with the -b, -w,  or  -i  options
+     specified,  diff first compares the files (as in cmp(1), and
+     then runs the regular diff algorithm if they are not  equal.
+     This  may  cause  a  small  amount of spurious output if the
+     files then turn out to be identical because the only differ-
+     ences are insignificant blank string or case differences.
+
+     The -D option ignores existing preprocessor controls in  the
+     source  files,  and  can generate #ifdefs's with overlapping
+     scope.  The output should be checked by hand, or run through
+     `cc  -E'  (see  cc(1V))  and  then  diffed with the original
+     source files.  Discrepancies revealed  should  be  corrected
+     before compilation.
+
+
+Enter Unix command line:
+
+Usage: diff [-#] [-abBcdefhHilnNprstTuvw] [-C lines] [-F regexp] [-I regexp]
+       [-L label [-L label]] [-S file] [-D symbol] [+ignore-blank-lines]
+       [+context[=lines]] [+unified[=lines]] [+ifdef=symbol]
+       [+show-function-line=regexp]
+       [+speed-large-files] [+ignore-matching-lines=regexp] [+new-file]
+       [+initial-tab] [+starting-file=file] [+text] [+all-text] [+ascii]
+       [+minimal] [+ignore-space-change] [+ed] [+reversed-ed] [+ignore-case]
+       [+print] [+rcs] [+show-c-function] [+binary] [+brief] [+recursive]
+       [+report-identical-files] [+expand-tabs] [+ignore-all-space]
+       [+file-label=label [+file-label=label]] [+version] path1 path2
+
+
+_________________________________________________________________
+
+Author: Vince Darley
+
+E-mail: <vince@santafe.edu>
+  mail: 317 Paseo de Peralta
+        Santa Fe, NM 87501, USA
+   www: <http://www.santafe.edu/~vince/>
+
+

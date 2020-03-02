@@ -1,0 +1,190 @@
+MIRLYN: Saved Records Display
+
+6 Records Currently Saved
+
+ (Resize this window to see your search results page) [My saved records]
+
+========================================
+Record #1.
+Source: UM Library (MCAT)
+Search Query: au= "centeno m" (5 of 11)
+
+000    mam  4a
+001    BBP2038
+008    010717s2002    pauab    b   s001 0 eng
+015    $a GBA2-Y7171
+020    $a 0271021659 (cloth : alk. paper)
+042    $a pcc
+100 1  $a Centeno, Miguel Angel, $d 1957-
+245 10 $a Blood and debt : $b war and the nation-state in Latin America
+  / $c Miguel Angel Centeno.
+260    $a University Park : $b Pennsylvania State University Press, $c
+  c2002.
+300    $a xiv, 329 p. : $b ill., map ; $c 24 cm.
+504    $a Includes bibliographical references (p. 281-314) and index.
+650  0 $a War and society $z Latin America.
+650  0 $a Politics and war.
+651  0 $a Latin America $x History, Military.
+651  0 $a Latin America $x Politics and government.
+651  0 $a Latin America $x Military policy.
+998    $c mcp jb
+========================================
+Record #2.
+Source: UM Library (MCAT)
+Search Query: au= "centeno m" (6 of 11)
+
+000    mam   a
+001    APT5570
+008    930426s1994    paua     b   s001 0 eng
+020    $a 0271010207 (alk. paper) :
+020    $a 0271010215 (pbk. : alk. paper) :
+100 1  $a Centeno, Miguel Angel, $d 1957-
+245 10 $a Democracy within reason : $b technocratic revolution in Mexico
+  / $c Miguel Angel Centeno.
+260    $a University Park, Pa. : $b Pennsylvania State University Press,
+  $c 1994.
+263    $a 9404
+300    $a xvi, 272 p. : $b ill. ; $c 24 cm.
+504    $a Includes bibliographical references and index.
+600 10 $a Salinas de Gortari, Carlos.
+650  0 $a Government executives $z Mexico.
+650  0 $a Political leadership $z Mexico.
+651  0 $a Mexico $x Politics and government $y 1988-
+998    $c aut2
+========================================
+Record #3.
+Source: UM Library (MCAT)
+Search Query: au= "centeno m" (8 of 11)
+
+000    mam   a
+001    ARQ7058
+008    920417s1991    cauab        s000 0 eng d
+020    $a 1878367013
+100 1  $a Centeno, Miguel Angel, $d 1957-
+245 10 $a Mexico in the 1990s : $b government and opposition speak out /
+  $c Miguel Angel Centeno.
+260    $a [La Jolla, Calif.] : $b Center for U.S-Mexican Studies,
+  University of California, $c 1991.
+300    $a ix, 37 p. : $b ill., maps ; $c 23 cm.
+490 1  $a Current issue brief ; $v no. 1
+500    $a "Printed with the assistance of the Tinker
+  Foundation."
+651  0 $a Mexico $x Politics and government $y 1970-
+830  0 $a Current issue brief (La Jolla (San Diego, Calif.)) ; $v no. 1.
+
+998    $c aut3
+========================================
+Record #4.
+Source: UM Library (MCAT)
+Search Query: au= "centeno m" (9 of 11)
+
+000    mam  4a
+001    BBC5535
+008    000421s2001    njua     b    001 0 eng
+020    $a 0691050163 (alk. paper)
+020    $a 0691050171 (pbk. : alk. paper)
+042    $a pcc
+245 04 $a The other mirror : $b grand theory through the lens of Latin
+  America / $c Miguel Angel Centeno and Fernando López-Alves, editors.
+260    $a Princeton, N.J. : $b Princeton University Press, $c c2001.
+300    $a viii, 372 p. : $b ill. ; $c 24 cm.
+504    $a Includes bibliographical references and index.
+505 0  $a Institutions, property, and economic development in Latin
+  America / Jeremy Adelman -- Hijos of Dr. Gerschenkron:
+  "latecomer" conceptions in Latin American economic history /
+  Paul Gootenberg -- Karl Polanyi and the creation of the "market
+  society" / Steven Topik -- From the power of economic ideas to
+  the power of economists / Verónica Montecinos and John Markoff -- The
+  transatlantic bridge: mirrors, Charles Tilly, and state formation in
+  the river plate / Fernando López-Alves -- The modern Mexican state:
+  theory and practice / Alan Knight -- Samuel Huntingdon and the Latin
+  American state / Jorge I. Domínguez -- Class relations and
+  democratization: a reassessment of Barrington Moore's model / J.
+  Samuel Valenzuela -- The disciplinary society in Latin America /
+  Miguel Angel Centeno -- Michel de Certeau and Latin America / Robert
+  M. Levine -- Nationalism as a practical system: Benedict Anderson's
+  theory of nationalism from the vantage point of Spanish America /
+  Claudio Lomnitz.
+650  0 $a Social sciences $z Latin America $x Philosophy.
+650  0 $a Social sciences $x Philosophy.
+651  0 $a Latin America $x Politics and government.
+651  0 $a Latin America $x Economic conditions.
+700 1  $a Centeno, Miguel Angel, $d 1957-
+700 1  $a López-Alves, Fernando.
+998    $c mcp apd
+========================================
+Record #5.
+Source: UM Library (MCAT)
+Search Query: au= "centeno m" (10 of 11)
+
+000    mam   a
+001    BAJ3528
+008    980706s1998    enk      b    001 0 eng d
+020    $a 0333694465
+020    $a 0312210264
+245 04 $a The politics of expertise in Latin America / $c edited by
+  Miguel A. Centeno and Patricio Silva.
+260    $a Houndmills, Basingstoke, Hampshire : $b Macmillan Press ; $a
+  New York, N.Y. : $b St. Martin's Press, $c 1998.
+300    $a x, 238 p. ; $c 23 cm.
+490 1  $a Latin American studies series
+500    $a Proceedings of the International Conference "Technocrats
+  and the Politics of Expertise in Latin America," organized by the
+  Center for Latin American Research and Documentation (CEDLA), and held
+  in Amsterdam Sept. 14-15, 1995.
+504    $a Includes bibliographical references (p. 214-233) and index.
+650  0 $a Technocracy $x Congresses.
+650  0 $a Democracy $z Latin America $x Congresses.
+650  0 $a Expertise $x Political aspects $x Congresses.
+651  0 $a Latin America $x Politics and government $y 1980- $x
+  Congresses.
+651  0 $a Latin America $x Economic policy $x Congresses.
+700 1  $a Centeno, Miguel Angel, $d 1957-
+700 1  $a Silva, Patricio.
+710 2  $a Centrum voor Studie en Documentatie van Latijns Amerika
+  (Amsterdam, Netherlands)
+711 2  $a International Conference "Technocrats and the Politics of
+  Expertise in Latin America" $d (1995 : $c Amsterdam, Netherlands)
+
+830  0 $a Latin American studies series (New York, N.Y.)
+998    $c aut5
+========================================
+Record #6.
+Source: UM Library (MCAT)
+Search Query: au= "centeno m" (11 of 11)
+
+000    mam   a
+001    ARJ1287
+008    960701s1997    cou      b    001 0 eng
+020    $a 1555876323 (hardcover : alk. paper)
+245 00 $a Toward a new Cuba? : $b legacies of a revolution / $c edited
+  by Miguel Angel Centeno and Mauricio Font.
+260    $a Boulder, Colo. : $b L. Rienner Publishers, $c 1997.
+300    $a ix, 245 p. ; $c 24 cm.
+504    $a Includes bibliographical references (p. 221-235) and index.
+505 0  $a  Introduction / Miguel Angel Centeno and Mauricio Font. --
+  Cuba's search for alternatives / Miguel Angel Centeno. -- The
+  invisible crisis: the exhaustion of politics in 1900s Cuba / Marifeli
+  Pérez-Stable. -- Socialism and sociolismo: social actors and economic
+  change in 1990s Cuba / Francisco Léon. -- Are blacks "getting out
+  of control"? racial attitudes, revolution, and political
+  transistion in Cuba / Alejandro de la Fuente and Laurence Glasco. --
+  Cuba-U.S. relations and the process of transition: possible
+  consequences of covert agendas / Gillian Gunn Clissold. -- Transition
+  and the ideology of exile / Max J. Castro. -- Crisis and reform in
+  Cuba / Mauricio Font. -- The limits of socialism in a capitalist world
+  economy: Cuba since the collapse of the Soviet Bloc / Susan Eckstein.
+  -- The cuban economy in the mid-1990s: structural/monetary pathology
+  and public policy / Arichibald R.M. Ritter. -- Cuba's second economy
+  and the market transition / Jorge F. Pérez-López. -- Economic changes
+  in cuba: problems
+505 0  $a and challenges / Julio Carranza Valdés. -- The economics of
+  the present monent / Pedro Monreal. -- Transition to what? / Manuel
+  Moreno Fraginals. -- Reflections: May 1, 1996 / Miguel Angel Centeno
+  and Mauricio Font.
+651  0 $a Cuba $x Politics and government $y 1959-
+651  0 $a Cuba $x Economic conditions $y 1959-1990
+700 1  $a Centeno, Miguel Angel, $d 1957-
+700 1  $a Font, Maurício.
+998    $c aut3
+

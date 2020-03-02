@@ -1,0 +1,191 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+
+<HTML>
+
+<HEAD>
+
+<TITLE>FTP</TITLE>
+
+<LINK HREF="../Style%20Sheet/manual.css" REL="stylesheet" TYPE="text/css">
+
+
+</HEAD>
+
+<BODY>
+
+<!-- #INCLUDE INCLPATH="maintop.html" -->
+
+<SCRIPT TYPE="text/javascript">
+<!--
+if (document.body.clientHeight) {
+	height = document.body.clientHeight - 50;
+} else {
+	height = window.innerHeight - 50 ;
+}
+document.write('<div class="main" style="height: ' + height + 'px;">');
+// -->
+</SCRIPT>
+
+
+<!-- /#INCLUDE -->
+
+
+<H1>Uploading files with FTP</H1>
+
+
+<P>
+<IMG SRC="../bilder/ftpmenu.png" ALT="FTP menu" WIDTH="204" HEIGHT="86"
+CLASS="rightpic">
+The <SPAN CLASS="menu">FTP</SPAN> menu contains functions for uploading your 
+home page to an ftp server. In order to do so 
+Alpha needs a helper application to do the uploading. Fetch, Interarchy, and 
+NetFinder are the three ftp applications Alpha can talk to. <STRONG>Note!</STRONG> 
+If you use NetFinder together with Alpha, NetFinder 2.1.2 or later is 
+strongly recommended. 
+</P>
+
+<P>
+In order to use HTML mode's ftp functions you must provide information 
+about the ftp server of your home pages. See the page about <A 
+HREF="config.html">configuring HTML mode</A>.
+</P>
+
+
+<div CLASS="item">Save to FTP Server</div>
+
+<DIV CLASS="indent">
+This is the basic function for uploading files. It first saves the current 
+window to the disk and then uploads it to your ftp server.
+
+<P>
+If Alpha doesn't know your password you are asked for it. (The text box is 
+made so narrow that it is impossible to see what you type.)
+</P>
+<img src="../bilder/password.png" alt="Password" width="324" height="114">
+</DIV>
+
+<div CLASS="itempara">Forget Passwords</div>
+
+<DIV CLASS="indent">
+Makes Alpha forget all passwords, except those which you specified when you 
+<A HREF="config.html">configured HTML mode</A>.
+</DIV>
+
+<div CLASS="itempara">Upload Home Page...</div> 
+
+<DIV CLASS="indent">
+This function lets you 
+intelligently upload all files in a home page folder by uploading only 
+those which are locally modified.
+This function works a little differently depending on which ftp application 
+you use together with Alpha.
+
+<P>
+<B>Uploading with Interarchy</B>
+</P>
+
+
+<P>
+This works in the same way as using the <SPAN CLASS="menuitem">FTP Mirror</SPAN> 
+item in Interarchy's <SPAN CLASS="menu">File</SPAN> menu and choosing your 
+home page folder as source folder. See Interarchy's documentation for 
+details how the mirror upload works with Interarchy. Note that Interarchy 
+deletes remote files not found locally.
+</P>
+
+<P>
+<B>Uploading with Fetch</B>
+</P>
+
+<P>
+Fetch does not have a built in mirror function and therefore uploading with 
+Fetch is more primitive. You have to specify yourself which files to upload 
+by telling it to upload those files which have been modified within a 
+certain period of time. When using Fetch a dialog box is first opened asking 
+you about this before the upload starts.
+</P>
+
+<P>
+<img src="../bilder/fetchmirror.png" alt="Fetch mirror" width="354"
+height="124">
+</P>
+
+<P>
+<B>Uploading with NetFinder</B>
+</P>
+
+<P>
+This works in the same way as NetFinder's built in mirror functionality, 
+but there are some technicalities you need to be aware of. NetFinder uses 
+mirror lists to do the mirroring. Therefore Alpha needs to know which 
+mirror list file to use when telling NetFinder to start uploading. There 
+are two options:
+</P>
+
+<UL>
+	<LI>To each home page folder you can select a mirror list file which 
+	contain a mirror item for this home page. <STRONG>Note!</STRONG> This 
+	mirror list file may only contain one single item, because I have only 
+	been able to make Alpha tell NetFinder to simultaneously mirror all items in a mirror list.
+	<LI>You can let HTML mode create a mirror list file each time you upload. 
+	This file contains the server, user name, password, and path, and otherwise 
+	uses the default settings that NetFinder use when you create a new mirror 
+	item.
+</UL>
+
+</DIV>
+
+<div CLASS="item">NetFinder Mirror Files...</div>
+
+<DIV CLASS="indent">
+To select a mirror list file for a home page folder. If none is selected 
+when you use <SPAN CLASS="item">Upload Home Page</SPAN> with NetFinder, you 
+will be asked for one. You can choose to use a generic one, which 
+means that Alpha creates a mirror file each time you want to upload, or 
+select a mirror list file you have created in NetFinder.
+
+<P>
+<img src="../bilder/mirror.png" alt="Mirror file" width="424" height="216">
+</P>
+
+</DIV>
+
+<!-- #INCLUDE INCLPATH="mainbottom.html" -->
+
+<DIV STYLE="height: 50px">
+</DIV>
+
+<SCRIPT TYPE="text/javascript">
+<!--
+document.write('<\/DIV>');
+// -->
+</SCRIPT>
+
+
+<!-- /#INCLUDE -->
+
+
+<!-- #INCLUDE INCLPATH="navigation.html" PREV="[manualPrevPage includes.html]" 
+NEXT="[manualNextPage homepagewins.html]" -->
+
+<P>
+<script type="text/javascript">
+<!--
+document.write('<div class="navigation" style="top: ' + height + 'px; height: 50px">');
+// -->
+</script>
+<A HREF="includes.html">Previous page</A>
+<A HREF="homepagewins.html">Next page</A>
+<SCRIPT TYPE="text/javascript">
+<!--
+document.write('<\/DIV>');
+// -->
+</SCRIPT>
+</P>
+
+<!-- /#INCLUDE -->
+
+
+</BODY>
+
+</HTML>

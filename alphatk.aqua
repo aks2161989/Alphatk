@@ -1,0 +1,2 @@
+#!/bin/sh
+"/Applications/Wish Shell.app/Contents/MacOS/Wish Shell" alphatk.tcl

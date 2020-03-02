@@ -1,0 +1,329 @@
+
+Www Menu Help
+
+                                            version: 2.5
+                                            created: 03/18/1991 {10:22:14 AM}
+                                        last update: 01/26/2006 {12:48:45 PM}
+
+	  	Abstract
+
+The WWW Menu provides a simple text based (Lynx-like) web browser, for
+reading both local HTML files and remote urls via HTTP.
+    
+The rendering handles most common html tags, and the menu maintains a history
+list (the "Go To" submenu) with a back/forward capability.  The menu can
+handle mailto, ftp and java applets itself; all other stuff is optionally
+shipped off to Internet Config -- see "# Navigating Links" below for more
+information.
+
+First insert the WWW Menu into the menu bar by selecting it in the prefs
+dialog "Config > Preferences > Menus".  Then open a local HTML file (that is
+a file on your own harddrive) and select "View This File" from the WWW Menu.
+The page is rerendered in a new locked window.  Note that the WWW Menu has
+many dynamic menu items, press any of the modifier keys to see all that's
+available.
+    
+Preferences: Menus
+
+See the "WWW Example" for a rendering of the introductory page for Alpha's
+HTML mode manual or the home page for the AlphaTcl Wiki.
+    
+Note that Alpha has two global WWW preferences that are used by many other
+packages in AlphaTcl to optionally use the WWW Menu for opening local or
+remote web pages, "View Html Using" and "View Url Using".  If these are set
+to "text-only viewer/parser" then they are directed here.  
+
+The services defined in your 
+
+    preferences: Helpers-viewURL
+    preferences: Helpers-viewHTML
+
+determines how the files will be viewed.
+    
+
+	  	Table Of Contents
+    
+The rest of this manual is divided into the following sections:
+
+"# Appearance of Rendered Windows"
+"#   Default WWW Window Sizes"
+"#   Multiple WWW Windows"
+"#   Frameset Windows"
+"#   Marks (M) Menu"
+
+"# Navigating Links"
+"#   Handling Various Link Types"
+"#   Forms"
+"#   Images"
+"#   Parse Funcs Menu"
+
+"# History Cache"
+"# Additional Key Bindings"
+"# To Do:"
+"# Copyright"
+
+<<floatNamedMarks>>
+
+Note that the WWW Menu provides an optional "Go To Url" window, much like the
+'location' or 'address' text box on web browsers, in which you can type in a
+url and press Return to open the new web page.  See the help window found
+here <<WWWsh::help>> for more information.
+
+
+	  	Appearance of Rendered Windows
+
+The appearance of the rendered page can be adjusted by setting any of the WWW
+mode preferences, described here: <<mode::describe WWW>>.  
+
+Some of the more common 'flag' preferences can be toggled directly via the
+submenu "WWW Menu > WWW Menu Options", others can be adjusted using the menu
+item "Config > Mode Prefs > Preferences" when the mode of the active window
+is "WWW".  Note that the window size parameters can not be set using the
+prefs dialog, see the "# Default WWW Window Sizes" section below for more
+information.
+    
+Preferences: Mode-WWW
+    
+Web pages that rely on 'cookies' or extensive javascripts will not be
+rendered well, if at all.  (We not only don't accept cookies, we have no idea
+what to do with them.)  Similarly, any style sheets will be ignored, and
+images can optionally be rendered with a hyperlink but will not be downloaded
+-- when a url is rendered, we really are limited to fetching just that single
+file.  This is a feature, not a bug :)
+
+	  	 	Default WWW Window Sizes
+
+The default window size for all WWW windows is that set by the global
+preferences for 'Def Height' 'Def Left' etc.  However, if you resize a window
+and then 'refresh' or 'reload' it, the current settings will be retained and
+used for all future WWW windows.
+    
+If you don't like this feature, and would rather use the default "global"
+window geometry for all WWW windows, turn the "Remember Window Geometry"
+preference off.  Then the previous window's parameters will ONLY be used if
+you are navigating frameset windows as described below.
+
+Each window will attempt to render the text to fill the entire available
+width.  If this behavior is not desired, toggle the 'Auto Adjust Width'
+preference, and then the 'Fill Column' preference for WWW mode will always be
+used instead.
+    
+	  	 	Multiple WWW Windows
+    
+By default, each hyperlink will open a new window -- toggle the WWW mode
+preference 'Links Open New Windows' in order to only have one WWW window open
+at a time, killing the previous window if it is in front.  This preference
+will only kill the active window when opening pages via hyperlinks or the "Go
+To" menu.
+  
+Even with this preference turned off, when navigating frameset web sites the
+'sidebar' window will remain open, but the window serving as the 'target'
+will be closed and its active window geometry will be used for the creation
+of the new window.
+    
+The WWW menu includes several functions for creating additional WWW windows
+even if this preference is turned off, i.e. "View Url Or File" or "Link In
+New Window".  Opening Alpha .html Help files will always open a new window as
+well.
+    
+You can use the semicolon ';' key to switch between WWW windows.
+    
+Clicking on the window's name in the title bar will display the url of the
+active window, selecting this url with the mouse will place it into the
+clipboard.  Clicking on the Title Bar while pressing the Option key will
+offer a menu containing all of the items in the 'Go To' menu.
+
+	  	 	Frameset Windows
+
+Web pages that are composed using 'frames' will render each frame as a
+separate browsing window, and attempt to resize them according to the file's
+source code.  In general, selecting a hyperlink in a sidebar frame will open
+the new page in the other frame's window.  (The window geometry of frameset
+windows is always remembered in case the initial calculation of where they
+should be place was off, though these parameters will never be set as the
+default WWW size.)
+    
+Usually you have no idea that a web site uses frames unless you've visited it
+before.  By default, all frameset frames will be rendered, but if you want to
+be first be asked about which frames to render turn off the "Always Render
+Frames" preference -- you will then be presented with a dialog giving you the
+option to render all, some, or none of the frameset windows.  (Note that
+these are identified only by the name of the .html file, since they haven't
+actually been downloaded yet.)
+    
+	  	 	Marks (M) Menu
+    
+Each window has a set of marks corresponding the section headings found in
+the web page.
+
+
+	  	Navigating Links
+
+Navigation between links is accomplished with the Arrow keys or you can click
+with your mouse.  When a link is selected you can press Return to render the
+link in a new window.  WWW Menu maintains a browse history.  You can use the
+"Go To Page" cascade menu to select a page to view from your recent browsing
+history.  You can also select 'view source' from the menu.  Many keys are
+also bound to imitate the browser 'lynx'.
+
+Use the cursor keys, mouse or Command-[] to move from web page to web page as
+follows:
+    
+	Command-< or Command-[    go to previous page     
+	Command-> or Command-]    go to next page
+	> or Return               go to current link      
+	Up/Down Arrow             highlight previous/next link
+	Mouse-Click               go to clicked-upon link
+	;                         bring other WWW windows to the front
+
+Note that the forward/back menu items and key bindings only refer to the
+position relative to the 'current' window marked in the 'Go To Page' menu.
+
+	  	 	Handling Various Link Types
+
+Using the WWW mode preferences you can ask Alpha to handle some URL types
+internally (currently mailto: ftp: and http: are supported).  Also Java
+applets may be sent to your javaviewer application (for example the 'Apple
+Applet Runner' which is free from Apple <http://www.apple.com>).
+
+While in WWW mode, select Mode Prefs from the Config menu (F12) and set the
+flags appropriately -- or use the "WWW Menu > WWW Menu Options" submenu.
+Checking "WWW Send Remote Links" will automatically redirect any unlisted
+item to the application designated in Internet Config.
+    
+http links can be retrieved and rendered by the WWW Menu.  As of this
+writing, 'https' redirection links are not handled.
+
+	  	 	Forms
+
+Interactive forms can be rendered using a combination of text in the window
+and hyperlinks to change field values.  Here's an example of how a form might
+appear in the window:
+    
+	The Inter-university Consortium for 
+	Political and Social Research (ICPSR)
+	
+	    <enter textÉ> <select optionÉ> [search ICPSR archives] [reset] 
+	    Search in:  (¥) Study Titles ( ) Investigators ( ) Abstracts 
+	
+Here's one that contains checkboxes instead of radio buttons.
+
+	Sociological Abstracts (formerly Sociofile) 
+	
+	   <enter textÉ> [Search] [reset] 
+	   [ ] Words Anywhere [X] Title [X] Author [ ] Subject 
+
+Radio buttons and checkboxes will be hyperlinked -- clicking on them will
+change the setting which will be reflected in the window.
+    
+Text and pop-up menus will also appear as hyperlinks -- clicking on them will
+open the appropriate dialog including any default settings set by the web
+form.
+    
+Submit buttons will be surrounded by [square brackets].  Clicking on them
+will open a dialog containing all of text and pop-up menu fields for the form
+allowing you to confirm their values one last time before submitting the
+information.  In most cases submitting a form will open up a new browser
+page.
+    
+Note that this browser does NOT use a secure server for transmitting
+information over the internet, and you will never be warned about this.  Web
+pages containing forms that ask for password or credit card information are
+best viewed using a different browser.  (Just press 'S' to send the source
+url of the active window to your browser.)
+    
+Toggle the "Ignore Forms" preference to never include form hyperlinks when
+rendering the window.
+
+	  	 	Images
+
+Alpha cannot include any images in its text windows.  Rendered windows of web
+pages that include images will include [image] hyperlinks -- clicking on the
+hyperlink will send the source url of the image to the application designated
+in the Internet Config settings so that you can view it there.
+
+Toggle the "Ignore Images" preference to never include image hyperlinks when
+rendering the window.
+
+	  	 	Parse Funcs Menus
+    
+The {} 'funcs' menu contains an alphabetical list of all text in the active
+window that contains a hyperlink.  Selecting any item will move the cursor to
+the hypertext.
+    
+
+	================================================================
+
+	  	History Cache
+
+The urls of visited web pages are retained in a "History Cache".  You can use
+the "WWW Menu > History" menu item to open a new window listing all of the
+urls currently in the history cache.  Two different preferences will help you
+manage this list: "History Limit" and "History Days".  Note that all items in
+the History Cache will be rendered as "visited" links.
+    
+The "limit" pref is the maximum number of items remembered -- as this limit
+is exceeded, older items are forgotten.  A limit greater than 500 might
+severely delay the opening and hyperlinking of the History Window, but feel
+free to experiment with larger limits.
+    
+The "days" pref determines how many days the items will be retained in the
+History Cache.  If this preference is empty, then items will be retained so
+long as the "limit" is not exceeded.
+    
+
+	  	Additional Key Bindings
+
+The Return key has several different functions attached to it, depending on
+the whether any modifiers are pressed.  All of these operate on the currently
+selected link.
+    
+  Option-Return:        edits the link in the original source file.
+  Control-Return:       modifies the link in the rendered window.
+  Shift-Return:         opens the link in a new WWW window.
+  Shift-Control-Return: sends the link to your local browser.
+
+Additional key bindings include:
+    
+  'a'             add the active window to the bookmarks menu.
+  'b'             go back one item in the 'Go To' menu.
+  'c'             copy the current link location to the clipboard.
+  'e'             edit the source file of the current rendered window
+  'f'             go forward one item in the 'Go To' menu.
+  'g'             open a dialog with the 'Go To Page' menu items.
+  'h'             open the History page.
+  'o'             open the source file in Alpha/tk.
+  'r'             reload the active window.
+  's'             send the source file of the active window to browser.
+  'u'             open a <<WWW::goToUrlWindow>> shell window.
+  'v'             open a dialog to view a url/file.
+      
+Use this hyperlink <<mode::describe WWW>> to get a list of the procedures to
+which various other keys are bound.
+
+
+	  	To Do:
+
+Could be faster (i.e. it's probably useless on MacOS 680x0 machines), recent
+versions have made rendering much faster, especially for reloading pages that
+you've already seen.  At this point it seems to be optimized, but we've
+thought that before ...
+    
+It renders remote urls fairly well and fast enough to use on a regular basis.
+The parsing engine will always need improvement -- if you run across a url
+that the WWW menu handles poorly, please send that url to the WWW Menu's
+current maintainer, listed in the "Installed Packages" help file.  The main
+parsing engine is the proc: html::parseBody, so if you have any suggestions
+for improvement let us know !!
+
+
+	  	Copyright
+
+Copyright 1997-2005 Vince Darley, Craig Barton Upright.
+All rights reserved.
+
+This package is distributed under a "Tcl/BSD" style license, see the
+"wwwVersionHistory.tcl" file for more information and credits.
+
+This Help document has been placed in the public domain.
+

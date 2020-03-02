@@ -1,0 +1,341 @@
+# -*-tcl-*- nowrap
+
+This is one of four example files for the Dictionary Package for Alpha.
+The other three files are
+   Tcl-commands
+   man
+   Whisky-distillers
+
+A dictionary file ideally has three sectors: The first sector is a header
+with a description for human beings --- this is what you are reading now. 
+The third sector is the main one: it is the raw data in alphabetical order. 
+The second sector is a description for the Dictionary Programme, referred
+to as the boot sector.  Here the programme learns how the file is
+structured: how the alphabetical order is defined, and how the result 
+should be presented on the screen.  As illustrated by the example 
+'Whisky-distillers', the two first sectors are not mandatory, if just 
+the file is in standard alphabetical order.  (In this case fallback 
+definitions stand in.  These are defined in the file dictionary.tcl)
+
+This example implements a dictionary where one can look up country codes:
+international phone codes, official abbreviations (as used on cars), and
+internet domain extensions.
+
+Each line in the main sector has four tab-separated fields: the name of
+the country, the dial code, the 'car code', and the .dot code.
+
+<!-- BEGIN TCL
+
+# This proc takes the first word of the input string
+# strips all accents,
+# and then removes all non-alpha letters
+proc normalForm { chunk } {
+  #just take the first word:
+  regexp {[^\t]+} $chunk chunk
+  
+  regsub -all {[áÁàÀâÂãÃåÅ]} $chunk {a} chunk
+  regsub -all {[çÇ]} $chunk {c} chunk
+  regsub -all {[éÉèÈêÊëË]} $chunk {e} chunk
+  regsub -all {[íÍìÌîÎïÏ]} $chunk {i} chunk
+  regsub -all {[ñÑ]} $chunk {n} chunk
+  regsub -all {[óÓòÒôÔõÕøØöÖ]} $chunk {o} chunk
+  regsub -all {[úÚùÙûÛüÜ]} $chunk {u} chunk
+  regsub -all {[ÿŸ]} $chunk {y} chunk
+  regsub -all {[æÆäÄ]} $chunk {ae} chunk
+  regsub -all {[Œœ]} $chunk {oe} chunk
+
+  regsub -all {[^A-Za-z ]} $chunk {} chunk
+  return [string tolower $chunk]
+}
+
+# The raw output from the lookup proc is a tab-separated list with
+# four entries.  The entries may be empty...
+proc formatOutput { linje } {
+  set L [split $linje \t]
+  variable currentHeadword [lindex $L 0]
+  set dial [lindex $L 1]
+  set symb [lindex $L 2]
+  set dot [lindex $L 3]
+  set res [string toupper $currentHeadword]
+  append res "\r"
+  if { $dial != "" } {
+    append res "\r   International calling code:  $dial"
+  }
+  if { $symb != "" } {
+    append res "\r        Official abbreviation:  $symb"
+  }
+  if { $dot != "" } {
+    append res "\r    Internet domain extension:  $dot"
+  }
+  # The following is for the sake of tutorial...
+  append res "\r\r$::Dico::gvars(sep)"
+  append res {
+This is just an example dictionary.
+Type cmd-alt-ctrl-shift-O to see how the data file is structured.
+
+(There are three other examples: "Whisky-distillers" illustrates how
+simple a dictionary file can be: it's just a plain text file, whose lines
+are sorted in alphabetical order.  "Tcl-commands" and "man" are fancy
+examples with index file and retrieval of external data.)
+
+You can find plain text dictionaries on the internet.  To get started, you
+can take a ready-to-install version of the Unabridged Webster (1913) from
+http://www.mat.uab.es/~kock/alpha-tcl/Webster-1913.gz\
+  }
+  regsub -all -- {\n} $res \r res 
+
+  return $res
+}
+
+END TCL -->
+  
+Afghanistan	93	AFG	.af
+Albania	355	AL	.al
+Algeria	213	DZ	.dz
+American Samoa	684	ASA	.as
+Andorra	376	AND	.ad
+Angola	244	ANG	.ao
+Anguilla	1264	AIA	.ai
+Antarctica	672	ATA	.aq
+Antigua	1268	ATG	.ag
+Argentina	54	RA	.ar
+Armenia	374	ARM	.am
+Aruba	297	ARU	.aw
+Ascension Island	247		.ac
+Australia	61	AUS	.au
+Austria	43	A	.at
+Azerbaijan	994	AZE	.az
+Bahamas	1242	BS	.bs
+Bahrain	973	BRN	.bh
+Bangladesh	880	BD	.bd
+Barbados	1246	BDS	.bb
+Belarus	375	BY	.by
+Belgium	32	B	.be
+Belize	501	BH	.bz
+Benin	229	DY	.bj
+Bermuda	1441	BER	.bm
+Bhutan	975	BHU	.bt
+Bolivia	591	BOL	.bo
+Bosnia & Herzegovina	387	BIH	.ba
+Botswana	267	RB	.bw
+Bouvet Island		BTV	.bv
+Brazil	55	BR	.br
+British Indian Ocean Territory		IOT	.io
+British Virgin Islands	1284	VGB	.vg
+Brunei	673	BRU	.bn
+Bulgaria	359	BG	.bg
+Burkina Faso	226	BF	.bf
+Burundi	257	BU	.bi
+Cambodia	855	K	.kh
+Cameroon	237	CAM	.cm
+Canada	1	CDN	.ca
+Cape Verde	238	CVP	.cv
+Cayman Islands	1345	CAY	.ky
+Central African Republic	236	RCA	.cf
+Chad	235	CHA	.td
+Chile	56	RCH	.cl
+China (People's Republic)	86	TJ	.cn
+Christmas Island	672	CXR	.cx
+Cocos-Keeling Islands	672	CCK	.cc
+Colombia	57	CO	.co
+Comoros	269	COM	.km
+Congo [Brazzaville]	242	RCB	.cg
+Congo, Dem. Rep. of (formerly Zaire) [Kinshasa]	243		.cd
+Cook Islands	682	COK	.ck
+Costa Rica	506	CR	.cr
+Cote D'ivoire (Ivory Coast)	225	CI	.ci
+Croatia	385	HR	.hr
+Cuba	53	C	.cu
+Cyprus	357	CY	.cy
+Czech Republic	420	CZ	.cz
+Denmark	45	DK	.dk
+Djibouti	253	DH	.dj
+Dominica	1767	WD	.dm
+Dominican Republic	1809	DOM	.do
+East Timor	670	TMP	.tp
+Ecuador	593	EC	.ec
+Egypt	20	ET	.eg
+El Salvador	503	ES	.sv
+England (United Kingdom)	44	ENG	.uk
+Equatorial Guinea	240	GEQ	.gq
+Eritrea	291	ERI	.er
+Estonia	372	EST	.ee
+Ethiopia	251	ETH	.et
+Falkland Islands, Malvinas	500	FLK	.fk
+Faroe Islands (Denmark)	298	FRO	.fo
+Fiji	679	FJI	.fj
+Finland	358	FIN (SF)	.fi
+France	33	F	.fr
+French Antilles (Martinique)	596	MTQ	.mq
+French Guiana	594		.gf
+French Polynesia (Moorea & Tahiti)	689	PYF	.pf
+French Southern Territories		ATF	.tf
+Gabon	241	GAB	.ga
+Gambia	220	WAG	.gm
+Georgia	995	GEO	.ge
+Germany	49	D	.de
+Ghana	233	GH	.gh
+Gibraltar	350	GIB	.gi
+Great Britain (United Kingdom)	44	GB	.uk (and .gb)
+Greece	30	GR	.gr
+Greenland (Denmark)	299	GRL	.gl
+Grenada	1473	WG	.gd
+Guadeloupe	590	GLP	.gp
+Guam	1671	GUM	.gu
+Guatemala	502	GCA	.gt
+Guinea	224	GUI	.gn
+Guinea-Bissau	245	GBS	.gw
+Guyana	592	GUY	.gy
+Haiti	509	RH	.ht
+Heard & McDonald Islands		HMD	.hm
+Honduras	504	HON	.hn
+Hong Kong	852	HKG	.hk
+Hungary	36	H	.hu
+Iceland	354	IS	.is
+India	91	IND	.in
+Indonesia	62	RI	.id
+Iran	98	IR	.ir
+Iraq	964	IRQ	.iq
+Ireland	353	IRL	.ie
+Israel	972	IL	.il
+Italy	39	I	.it
+Jamaica	1876	JA	.jm
+Japan	81	J	.jp
+Jordan	962	JOR	.jo
+Kazakhstan	7		.kz
+Kenya	254	EAK	.ke
+Kiribati (Gilbert Islands)	686	KIR	.ki
+Korea, People's Republic of (North Korea)	850	PRK	.kp
+Korea, Republic of (South Korea)	82	ROK	.kr
+Kuwait	965	KWT	.kw
+Kyrgyzstan	996	KGZ	.kg
+Laos	856	LAO	.la
+Latvia	371	LV	.lv
+Lebanon	961	RL	.lb
+Lesotho	266	LS	.ls
+Liberia	231	LB	.lr
+Libya (Libyan Arab Jamahiriya)	218	LAR	.ly
+Liechtenstein	423	FL	.li
+Lithuania	370	LT	.lt
+Luxembourg	352	L	.lu
+Macau	853	MAC	.mo 
+Macedonia	389	MK	.mk
+Madagascar	261	RM	.mg
+Malawi	265	MW	.mw
+Malaysia	60	MAL	.my
+Maldives	960	MDV	.mv
+Mali	223	RMM	.ml
+Malta	356	M	.mt
+Marshall Islands	692	MHL	.mh
+Martinique (French Antilles)	596	MTQ	.mq
+Mauritania	222	RIM	.mr
+Mauritius	230	MS	.mu
+Mayotte, Mahore	269	MYT	.yt
+Mexico	52	MEX	.mx
+Micronesia (Federal States of Polynesia)	691	FSM	.fm
+Moldova	373	MD	.md
+Monaco	377	MC	.mc
+Mongolia	976	MGL	.mn
+Montserrat	1664	MSR	.ms
+Morocco	212	MA	.ma
+Mozambique	258	MOZ	.mz
+Myanmar (former Burma)	95	MYA	.mm
+Namibia	264	NAM	.na
+Nauru	674	NRU	.nr
+Nepal	977	NEP	.np
+Netherlands	31	NL	.nl
+Netherlands Antilles	599	ANT	.an
+New Caledonia	687	NCL	.nc
+New Zealand	64	NZ	.nz
+Nicaragua	505	NIC	.ni
+Niger	227	RN	.ne
+Nigeria	234	WAN	.ng
+Niue	683	NIU	.nu
+Norfolk Island	672	NFK	.nf
+North Korea (People's Republic)	850	PRK	.kp
+North Mariana Islands (Saipan)	1670	MNP	
+Northern Ireland (United Kingdom)	44	NIR	.uk
+Norway	47	N	.no
+Oman	968	OM	.om
+Pakistan	92	PAK	.pk
+Palau	680	PLW	.pw
+Palestine	970	PLE	
+Panama	507	PA	.pa
+Papua New Guinea	675	PNG	.pg
+Paraguay	595	PY	.py
+Peru	51	PE	.pe
+Philippines	63	RP	.ph
+Pitcairn		PCN	.pn
+Poland	48	PL	.pl
+Portugal	351	P	.pt
+Puerto Rico	1787	PUR	.pr
+Qatar	974	Q	.qa
+Reunion (France)	262	REU	.re
+Romania	40	R	.ro
+Russia	7	RUS	.ru
+Rwanda	250	RWA	.rw
+Saint Helena	290	SHN	.sh
+Saint Kitts & Nevis	1869	KNA	.kn
+Saint Lucia	1758	WL	.lc
+Saint Pierre & Miquélon (France)	508	SPM	.pm
+Saint Vincent & Grenadine	1784	WV	.vc
+Saipan (North Mariana Islands)	1670	MNP	
+San Marino	378	RSM	.sm
+Sao Tome & Principe	239	STP	.st
+Saudi Arabia	966	SA	.sa
+Scotland (United Kingdom)	44	SCO	.uk
+Senegal	221	SN	.sn
+Serbia & Montenegro	381		
+Seychelles	248	SY	.sc
+Sierra Leone	232	WAL	.sl
+Singapore	65	SGP	.sg
+Slovakia	421	SK	.sk
+Slovenia	386	SLO	.si
+Solomon Islands	677	SOL	.sb
+Somalia	252	SP	.so
+South Africa	27	ZA	.za
+South Georgia & South Sandwich Islands		SGS	.gs
+South Korea (Republic of)	82	ROK	.kr
+Spain	34	E	.es
+Sri Lanka	94	CL	.lk
+Sudan	249	SUDAN	.sd
+Suriname	597	SME	.sr
+Swaziland	268	SD	.sz
+Sweden	46	S	.se
+Switzerland	41	CH	.ch
+Syrian Arab Republic (Syria)	963	SYR	.sy
+Tahiti (French Polynesia)	689	PYF	.pf
+Taiwan	886	RC	.tw
+Tajikistan	992	TD	.tj
+Tanzania	255	EAT	.tz
+Thailand	66	T	.th
+Togo	228	RT	.tg
+Tokelau, Union Islands	690	TKL	.tk
+Tonga	676	TGA	.to
+Trinidad & Tobago	1868	TT	.tt
+Tunisia	216	TN	.tn
+Turkey	90	TR	.tr
+Turkmenistan	993	TMN	.tm
+Turks & Caicos Islands	1649	TCA	.tc
+Tuvalu	688	TUV	.tv
+U.S. Virgin Islands	1340	VIR	.vi
+Uganda	256	EAU	.ug
+Ukraine	380	UA	.ua
+United Arab Emirates	971	UAE	.ae
+United Kingdom	44	GB	.uk
+United States Minor Outlying Islands		UMI	.um
+United States of America	1	USA	.us (.gov, .edu)
+Uruguay	598	ROU	.uy
+Uzbekistan	998	UZ	.uz
+Vanuatu (New Hebrides)	678	VAN	.vu
+Vatican City	39	V	.va
+Venezuela	58	YV	.ve
+Vietnam	84	VN	.vn
+Wallis & Futuna Island	681	WLF	.wf
+Western Sahara		WSA	.eh
+Western Samoa	685	WS	.ws
+Yemen	967	AI	.ye
+Yugoslavia (discontinued)	381	YU	.yu
+Zaire	243	ZRE	.zr
+Zambia	260	Z	.zm
+Zimbabwe	263	ZW	.zw

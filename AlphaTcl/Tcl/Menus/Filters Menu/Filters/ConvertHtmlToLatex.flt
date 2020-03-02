@@ -1,0 +1,147 @@
+!! Filter : ConvertHtmlToLatex.flt
+!! Description : convert an Html document
+!! to a Latex source file (document class : article)
+!! To be used with the Filter Menu in Alpha.
+!! Created : 26 avril 2000 - 19:39:08
+!! Last modification : 26 avril 2000 - 23:25:37
+!! (c) Copyright : Bernard Desgraupes 2000
+
+
+!! Convert comments :
+<!--	% 
+-->
+
+!! Preambule instructions
+<HTML>	\documentclass{article}
+<TITLE>		\title{		0
+</TITLE>	}		0
+<HEAD>
+</HEAD>
+
+!! Delete the META declaration :
+<META.*		1
+<X-SAS-WINDOW.*		1
+
+!! Body of the document :
+<BODY>	\begin{document}
+</BODY>	\end{document}
+</HTML>
+
+
+!! Convert the headers :
+<H1>	\part{
+<H2>	\section{
+<H3>	\subsection{
+<H4>	\subsubsection{
+<H5>	\paragraph{
+<H6>	\subparagraph{
+</H1>	}
+</H2>	}
+</H3>	}
+</H4>	}
+</H5>	}
+</H6>	}
+
+
+!! Convert alignment of titles. We cancel it since
+!! it is very complicated to change Latex behaviour on this point :
+<H\d ALIGN=CENTER>	{		1
+<H\d ALIGN=RIGHT>	{		1
+
+
+!! Convert font sizes :
+<FONT SIZE=1>	{\footnotesize 
+<FONT SIZE=2>	{\small 
+<FONT SIZE=3>	{\normalsize 
+<FONT SIZE=4>	{\large 
+<FONT SIZE=5>	{\Large 
+<FONT SIZE=6>	{\LARGE 
+<FONT SIZE=7>	{\Huge 
+</FONT>		}	0
+
+
+!! Paragraphs :
+<P>
+&nbsp;	\\ 	1
+</P>	\\par 	1
+
+
+!! Enumeration lists. For the ordered lists, it is difficult to reproduce 
+!! the same style of numbering. A real proc would be necessary. Here only the lists 
+!! at first level will be handled correctly. The others will be left to Latex :
+<OL>\r[ \t]*<LI TYPE="a">	\{\\renewcommand\{\\theenumi\}\{\\alph\{enumi\}\}\\begin\{enumerate\}\r\\item 		1
+<OL>\r[ \t]*<LI TYPE="A">	\{\\renewcommand\{\\theenumi\}\{\\Alph\{enumi\}\}\\begin\{enumerate\}\r\\item 		1
+<OL>\r[ \t]*<LI TYPE="i">	\{\\renewcommand\{\\theenumi\}\{\\roman\{enumi\}\}\\begin\{enumerate\}\r\\item 		1
+<OL>\r[ \t]*<LI TYPE="I">	\{\\renewcommand\{\\theenumi\}\{\\Roman\{enumi\}\}\\begin\{enumerate\}\r\\item 		1
+<OL>\r[ \t]*<LI>		\{\\begin\{enumerate\}\r\\item 		1
+<UL>\r[ \t]*<LI>		\\begin\{itemize\}\r\\item 		1
+<DL>\r[ \t]*<DD>		\\begin\{description\}\r\\item\[\] 	1
+<MENU>\r[ \t]*<LI>		\{\\begin\{itemize\}\r\\item 		1
+<DIR>\r[ \t]*<LI>		\{\\begin\{itemize\}\r\\item 		1
+<LI>				\item 					0
+<DD>				\item[]  				0
+<DT>				\item[]  				0
+</OL>				\end{enumerate}}			0
+</UL>				\end{itemize}				0
+</DL>				\end{description}			0
+</MENU>
+</DIR>
+
+<BLOCKQUOTE>	\\indent 		1
+</BLOCKQUOTE>	\\par 			1
+
+!! Convert style {\slshape commands} :
+<B>	{\bfseries 
+<CITE>	\begin{quote}
+<EM>	{\itshape 
+<I>	{\itshape 
+<SUB>	$_{
+<SUP>	$^{
+<TT>	{\ttfamily 
+<U>	\underline{ 
+</B>	}
+</CITE>	\end{quote}
+</EM>	}
+</I>	}
+</SUB>	}$
+</SUP>	}$
+</TT>	}
+</U>	}
+
+!!  What to do with the following ? Until we have a better idea, let's 
+!!  cancel them.
+<CODE>
+<DEL>
+<INS>
+<KBD>
+<SAMP>
+<STRIKE>
+<STRONG>
+<VAR>
+</CODE>
+</DEL>
+</INS>
+</KBD>
+</SAMP>
+</STRIKE>
+</STRONG>
+</VAR>
+
+!! Convert colors to nothing (this could be changed if you use the 
+!! Latex package color.sty :
+<FONT COLOR="\#[A-F0-9]+">	\{	1
+
+
+!! Convert anchors and links to anchors as labels and refs :
+<A NAME="(.*)">(.*)</A>		\\label\{\1\}\2			1
+<A HREF="#(.*)">(.*)</A>	\2 \(see~\\ref\{\1\}\)		1
+
+!! Links to files, URLS, mailtos will come in typewriter font and enclosed
+!! between parentheses _after_ the text:
+<A HREF="([^\#<]*)">(.*)</A>			\2 \(\{\\ttfamily <\1>\}\)		1
+
+
+
+!! There are certainly other HTML codes which I forgot to deal with.
+!! Please let me know :
+!!      <berdesg@easynet.fr>

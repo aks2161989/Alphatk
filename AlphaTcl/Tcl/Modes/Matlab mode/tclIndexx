@@ -1,0 +1,13 @@
+# Tcl autoload index file: each line identifies a file (nowrap)
+
+set "Matlab mode_index" {
+{matlabComm.tcl matlabComm.tcl matlabLaunch matlabDoScript matlab isMatlabRunning MATL::saveHook matlabWhichFile editInMatlab debugInMatlab matlabSaveAndExecute matlabDoLine matlabDoSelectionOrLine matlabOpenSelection MATL::ReplyHandler MATL::NullReplyHandler MATL::DocReplyHandler MATL::queNextEvent MATL::DoEvent MATL::clearEventQue }
+{matlabCompletions.tcl matlabCompletions.tcl }
+{matlabDoc.tcl matlabDoc.tcl getMatlabHelp matlabHelpDir findMatlabHelpFile matlabSearchHelp matlabShowDefinition matlabHelpSelection matlabHelp matlabSearchHelpDialog }
+{matlabEngine.tcl matlabEngine.tcl bind::MATLcarriageReturn matlabUp matlabDown MATL::DblClick MATL::indentLine MATL::electricSemi MATL::electricSemiJump MATL::MarkFile MATL::editMfile }
+{matlabHTML.tcl matlabHTML.tcl makeMatlabHTML makeMatlabEmptyHTML makeMatlabHtmlFile parceMatlabSeeAlso }
+{matlabMacros.tcl matlabMacros.tcl matlabRebuildPath matlabClearProcedure matlabClear matlabCloseAll matlabAddToPath matlabCdToWin matlabStopIfError matlabDbClear matlabStopInFile matlabStopAtCurrentLine matlabDebugStep matlabDebugStatus matlabOpenErrorFile }
+{matlabMenu.tcl matlabMenu.tcl matlabMenuItem matlabMenuSwap }
+{matlabMode.tcl dummyMATL MATLMenu }
+{matlabWindows.tcl matlabWindows.tcl matlabCmdWindow matlabResults matlabIsShell matlabIsHist matlabDoShellLine matlabPrevCommand matlabNextCommand matlabCancelLine matlabPrompt matlabCmdHistWindow matlabAddCommandHistory }
+}

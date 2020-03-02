@@ -1,0 +1,387 @@
+
+Title:			Postscript Help
+Version:		O.6
+Author:			Bernard DESGRAUPES <berdesg@easynet.fr>
+Homepage:		<http://perso.easynet.fr/~berdesg/alpha.html>
+Created: 		2001-05-23 09:16:18
+Modified:	 	2001-08-06 12:20:33
+  
+----------------------------------------------------------------------
+1. Introduction
+2. Installation
+   2.1. Automatic installation
+   2.2. Manual installation
+   2.3. After installing
+3. Description
+   3.1. Main menu
+   3.2. "Postscript Utilities" submenu
+      3.2.1. psutils suite
+      3.2.2. t1utils suite
+   3.3. "Ps Scripts" submenu
+4. The Mark pop-up menu
+5. The Functions pop-up menu
+6. Command double clicking a word
+7. Option clicking the title bar
+8. Completions
+9. Key bindings
+10. Postscript Mode preferences
+11. Version History
+12. Known problems
+13. License and Disclaimer
+----------------------------------------------------------------------
+
+
+			Abstract
+
+This is a help file for the Postscript mode in Alpha.
+This file should be located in the Help subfolder of Alpha's folder to
+show up automatically in the Help menu when Alpha is loaded.
+Version 0.5 (et sq.) requires Alpha 7.4 or greater.
+
+
+
+1. Introduction
+
+Postscript mode is a mode for the text editor Alpha: it is designed to
+facilitate editing, processing, viewing of internal commands for  both
+PostScript (.ps) and Portable Document Format (.pdf)  files.  You  can
+convert Postscript files to PDF format,    manipulate    and    modify
+Postscript files with the PsUtils tools, convert Type 1 fonts with the
+T1Utils tools with all their options directly from Alpha. You can also
+easily edit and execute command lines with ghostscript.
+
+Once you are in Postscript mode, there is a new menu  (called  PS)  in
+the menu bar enabling all the features described below.
+
+By default PostScript mode is  designed  to  work  together  with  the
+CMacTeX distribution's programs (ghostview, gs, psutils, t1utils)  but
+this can be changed in the preferences.  Version  3.5  of  CMacTeX  or
+greater is prefered (but not required; see below). CMacTeX's site is :
+<http://www.kiffe.com/cmactex.html>
+
+
+2. Installation
+
+2.1. Automatic installation
+
+Open the "OPEN TO INSTALL" file. Opening this file indicates to Alpha  that
+a new package has to be installed : the procedure is automatic. Alpha knows
+where to store the different elements of your Postscript Mode package.
+ 
+2.2. Manual installation
+
+• put the "postscriptMode.tcl" file in the "Modes" subfolder of the  "Tcl"
+folder which is located at the same level as your Alpha application
+
+• put the "Postscript Help" file in the "Help" folder located at the  same
+level as your Alpha application. Next time you launch Alpha, you will  have
+a "Postscript Help" item in the Help menu to edit this file.
+
+• launch Alpha. You have to rebuild the package indices and the Tcl  ones.
+"Rebuild Package Indices" is in the Config--"Packages  menu,  and  "Rebuild
+Tcl Indices" is in the Tcl menu.
+ 
+• quit Alpha and relaunch it : that's all there is to it. 
+
+
+2.3. After installing
+
+Have a look  at  the  mode  specific  preferences  :  create  or  open  any
+Postscript source file  and  choose  "Preferences…"  in  the  "Mode  Prefs"
+submenu of the "Config" menu (or simply hit F12).
+
+
+3. Description
+
+Description of the Postscript Menu items :
+
+3.1. Main menu
+
+
+<Process The Buffer>
+          Send a PostScript file to the ghostscript interpreter.
+<Process The Selection>
+          Send a selected region with  PostScript    code    to    the
+          ghostscript interpreter.
+<Process A File...>
+          Open a Postscript  file  and  send  it  to  the  ghostscript
+          interpreter.
+<Send To Viewer>
+          View the current window. The proc distinguishes ps  and  pdf
+          files : by default PostScript files    are    viewed    with
+          GhostView and pdf files with Acrobat  Reader.  This  can  be
+          changed in the preferences.
+<Send To Printer>
+          Print the current "file" : if it is a PostScript  file,  the
+          code is sent to the printer  (you  must  have  a  PostScript
+          printer of course). If it is a  pdf  file,  it  is  sent  to
+          Acrobat Reader and printed from there.
+<Convert Ps To Pdf>
+          Just as it says.
+<Build Gs Command>
+          This items brings up a window and two floating palettes. You
+          can write a Ghostscript command  line  :  the  long  palette
+          helps you to insert the options of your command line  ;  the
+          short palette contains three buttons :
+
+<File Path>
+	Allows you to insert the complete path  of  a  file  in  the
+          command line.
+<Close>
+	Closes the 'Build  Command'  window  and  the  two  floating
+          palettes.
+<Execute>
+	Sends the contents of the 'Build    Command'    window    to
+          Ghostscript. If a region is selected, only the selection  is
+          sent, otherwise the whole contents of the window are sent.
+
+<Send To Ghostscript>
+          This is the same as the "Execute" button above.
+
+
+
+3.2. "Postscript Utilities" submenu
+          This submenu  contains    various    utilities    concerning
+          PostScript files and PostScript fonts.
+
+<epstopdf>
+          Converts an encapsulated PostScript  file  to  a  Pdf  file.
+          Works with the 'epstopdf' included with CMacTeX.
+<afm2tfm>
+          Converts Adobe metrics files to Tex metrics  files.  Can  be
+          used alos to build elementary virtual fonts.
+
+3.2.1. psutils suite
+          The 'psutils'  suite  contains  four  programs  designed  to
+          select, manipulate, rearrange  the  pages  of  a  PostScript
+          file. All these four items display a window in which you can
+          easily specify any option. A default command line is written
+          in the edit field in which you can make modification.  Press
+          OK to send the command from Alpha.
+
+• psbook
+• psnup
+• psselect
+• pstops
+
+3.2.2. t1utils suite
+          The  'T1utils'  suite  contains  six  programs  designed  to
+          convert PostScript font files. An Open  Dialog  Window  asks
+          you to locate an input file. The output file will be in  the
+          same folder as the input file.
+
+• lwfn2pfa
+• pfa2lwfn
+• pfa2pfb
+• pfb2pfa
+• t1asm
+• t1disasm
+
+
+3.3. "Ps Scripts" submenu
+          This submenu will contain a list of PostScript  files  in  a
+          chosen folder. In the PostScript mode preferences, check the
+          "Build Scripts List" flag  and  choose  a  folder  with  the
+          "Scripts Folder" preference.
+
+		  
+4. The Mark pop-up menu
+
+Marking is different in PostScript source files and  in  AFM  (Adobe  Fonts
+Metrics) metrics files.
+
+• in PostScript source files :  mark  the  dictionaries  declarations,  the
+%%BeginFont and %%Page DSC (Document Structured Comments)
+
+• in Adobe metrics files '.afm' :  mark  the  main  sections  of  the  file
+(StartFontMetrics,   StartCharMetrics,    StartKernData,    StartKernPairs,
+StartTrackKern) and all the characters whose metrics are defined.
+
+If the  'Auto  Mark'  checkbox  is  checked  in  the  Prefs,  the  file  is
+automatically marked at opening.
+
+
+5. The Functions pop-up menu
+
+The "{}" pop-up menu (top right of your editing window) contains the  'def'
+statements in your source file.
+
+WARNING: there are so many 'def' statements in a PostScript file that  this
+functionality could possibly exceed Alpha's memory and cause a crash.
+
+
+6. Command double clicking a word
+
+If you Command-Double-Click on a keyword you access  its  definition.  This
+procedure looks first for a definition in the current file itself, then  in
+the list of Postscript primitives.
+
+
+7. Option clicking the title bar
+
+If you Option-Click on a the title bar, you get a list of all the 'ps'  and
+'pdf' files located :
+
+• in the "local" folder (folder of your current window). 
+• in the "scripts" folder (selected in the preferences)
+
+Selecting any item in this list will open it in a window or bring its
+window to front if it is already open.
+
+
+8. Completions
+
+There is a set of completion procedures in Postscript Mode. 
+To  enable  them,  you  must  activate  the  "elecCompletion"  package  (in
+"Config--" Preferences--" Features") and choose   your    completion    key
+(default is F1).
+
+There is a set of abbreviations. Just type  the  following  abbreviations
+and hit the completion key to have them expanded to a complete structure :
+def    /•name• {•proc•} def                     
+for    •start• •incr• •end• { •proc• } for      
+forall •obj• { •proc• } for                     
+if     •bool• { •proc• } if                     
+ifelse •bool• { •procyes• } { •procno• } ifelse 
+loop   {•proc•} loop                            
+repeat •number• {•proc•} repeat                 
+You can also type the first letters of a word and hit the completion key.
+If it is recognized as a keyword,  it  will  be  completed.  If  there  are
+different possible completions, they will be listed in the status bar : hit
+the completion key again and you will have a list of all the  possibilities
+from which you can select the one you want.
+
+
+9. Key bindings
+
+A few key bindings are defined in Postscript mode :
+
+• "option-command-P" to process the current window.
+
+• "control-option-G" to call the ghostscript command line window with the 
+associated floating palettes.
+
+• "command-return", "enter" and "command-enter" are bound to the 
+execution of a Ghostscript command line.
+
+
+10. Postscript Mode preferences
+
+The "Preferences…" item in the "Mode Prefs" submenu of  the  "Config"  menu
+allows you to edit specific preferences for the Postscript Mode.
+You can specify there :
+
+• if the "Build Scripts List" checkbox is  checked,  the  contents  of  the
+Scripts Folder will be listed in the "Ps Scripts" submenu.
+
+• the "Scripts Folder" preference allows you to specify a folder containing
+ps files whose contents will be listed in the "Ps Scripts"
+submenu if the "Build Scripts List" preference is set on.
+
+• the "Default Paper Size" is used by the -sPAPERSIZE option in Ghostscript
+command lines and by the "Ps To Pdf" item.
+
+• various programs signatures.
+"Sig Pdf Reader" signature of the Pdf reader. Default : CARO 
+"Sig Afm2tfm"    signature of Afm2tfm. Default : CMTa        
+"Sig Epstopdf"   signature of Epstopdf. Default : CMte       
+"Sig Ghostview"  signature of Ghostview. Default : CMTJ      
+"Sig Gs"         signature of Gs. Default : CMTA             
+"Sig Lwfn2pfa"   signature of Lwfn2pfa. Default : CMTD       
+"Sig Pfa2lwfn"   signature of Pfa2lwfn. Default : CMTD       
+"Sig Pfa2pfb"    signature of Pfa2pfb. Default : CMTD        
+"Sig Pfb2pfa"    signature of Pfb2pfa. Default : CMTD        
+"Sig Printps"    signature of Printps. Default : PSP*        
+"Sig Psbook"     signature of Psbook. Default : CMTo         
+"Sig Psnup"      signature of Psnup. Default : CMTo          
+"Sig Psselect"   signature of Psselect. Default : CMTo       
+"Sig Pstops"     signature of Pstops. Default : CMTo         
+"Sig Psutils"    signature of Psutils. Default : CMTo        
+"Sig T1asm"      signature of T1asm. Default : CMTD          
+"Sig T1disasm"   signature of T1disasm. Default : CMTD       
+"Sig T1utils"    signature of T1utils. Default : CMTD        
+
+Note that in versions of CMacTeX earlier than  3.5,  all  the  Psutils  and
+T1utils programs had different signatures. If you have  one  of  them,  you
+must set its signature accordingly in the PostScript mode preferences. Here
+is a table of the old signatures :
+
+Program  old  new  
+________ ____ ____ _________
+lwfn2pfa CMTC CMTD 
+pfa2lwfn CMTK CMTD 
+pfa2pfb  CMTD CMTD unchanged 
+pfb2pfa  CMTE CMTD 
+psbook   CMTp CMTo 
+psnup    CMTq CMTo 
+psselect CMTo CMTo unchanged 
+pstops   CMTr CMTo 
+t1asm    CMTP CMTD 
+t1disasm CMTN CMTD 
+
+
+11. Version History
+
+• 0.3 01/03/31 The previous versions of PostScript mode contained only
+support for keyword coloring and completion.  This new version introduces
+lots of new features : a PS menu, processing of Postscript code, Ps to Pdf,
+Ghostscript syntax, PsUtils tools, T1Utils tools, file marking,
+command-double-click, electrics etc.
+
+• 0.4 01/04/04 Two improvements from Craig (thanks) : sig prefs tupe changed
+from 'v' to 'sig' ; better handling of color prefs changes.  Removed two
+unused signatures.
+
+• 0.5 01/04/07 Minor change in MarkFile to mark pages with any pagination.
+
+• 0.6 01/07/31 Added file extensions in the proc PS::fileToViewer.  Modified
+the AE to convert ps to pdf.  Enlarged field in psutils dialogs.
+
+
+12. Known problems
+
+• The Functions pop-up menu listing the 'def' statements can exceed Alpha's 
+memory and cause a crash. Don't use it with a huge file.
+• As a rule, the Apple Events with CMacTeX do not like spaces  in  the
+pathnames. Apparently there is nothing  to  do  to  work  around  this
+problem : so try to avoid using spaces in the names  of  your  folders
+and files.
+
+
+Please e-mail any problem or bug you encounter : <berdesg@easynet.fr>
+
+Goto the Alpha utilities page :
+ <http://perso.easynet.fr/~berdesg/alpha.html>
+
+
+13. License and Disclaimer
+
+(c) Copyright : Bernard Desgraupes, 2000, 2001
+        All rights reserved.
+
+This software is free software and distributed under the terms of  the  new
+BSD license :
+Redistribution and  use  in  source  and  binary  forms,  with  or  without
+modification, are permitted provided that the following conditions are met:
+
+• Redistributions of source code must retain the  above  copyright  notice,
+this list of conditions and the following disclaimer.
+• Redistributions in binary form must reproduce the above copyright notice,
+this list of conditions and the following disclaimer in  the  documentation
+and/or other materials provided with the distribution.
+• Neither the name of Bernard Desgraupes nor the names of its  contributors
+may be used to endorse or  promote  products  derived  from  this  software
+without specific prior written permission.
+
+This software is provided by the copyright holders and contributors "as is"
+and any express or implied warranties, including, but not limited  to,  the
+implied warranties of merchantability and fitness for a particular  purpose
+are disclaimed. In no event shall the regents or contributors be liable for
+any direct, indirect,  incidental,  special,  exemplary,  or  consequential
+damages (including, but not limited to, procurement of substitute goods  or
+services; loss of use, data, or profits; or business interruption)  however
+caused and  on  any  theory  of  liability,  whether  in  contract,  strict
+liability, or tort (including negligence or otherwise) arising in  any  way
+out of the use of this software, even if advised of the possibility of such
+damage. 
+

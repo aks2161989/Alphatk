@@ -1,0 +1,46 @@
+!! Filter : Example.flt
+!! Created : 18 avril 2000 - 0:17:56
+!! Description : example filter file
+!!    for Alpha's Filters Menu.
+
+!! SYNTAX :
+!! searchString    replacementString    [option]
+!!    where the three arguments are separated by one or more tabulations.
+!!    The option is a (possibly empty) string containing 0 or 1 and/or one of the letters i and m
+!!    with the following signification :
+!!        0 (or nothing) for an ordinary textual search (this is the default)
+!!        1 for a search with regular expressions.
+!!        i for a case insensitive search.
+!!        m to match words exactly (not only a substring of a word).
+!!    A line starting with two exclamation signs is considered a comment and not a filter instruction.
+
+
+!! Textual search example (case insensitive and matching words exactly) :
+LaTeX		Plain TeX	im
+
+!! Regular search example  :
+(oz|cmac)TeX	\\TeX		1i
+([a-z]+)(\d+)	\2--\1		1m
+
+!! The following suppresses empty lines (two tabs exactly between the left 
+!! argument and the option) :
+^$\r		1
+
+!! Replace tea by coffee : no steam, no tears, just plain tea
+!! which we turn into coffee (the 0 option can be omitted) :
+tea	coffee	0m
+
+!! Change the subdivision levels in a LaTeX document :
+\section			\chapter
+\subsection			\section
+\subsubsection			\subsection
+\paragraph			\subsubsection
+\subparagraph			\paragraph
+(\\documentclass.*)\{article\}	\1\{book\}		1
+
+!! Suppress links to anchors (#) in an html doc ::
+<A HREF="#.*">(.*)</A>		\1	1
+
+!! Then suppress the anchors (two tabulations only : null string in 
+!! between) :
+<A NAME=".*"></A>		1

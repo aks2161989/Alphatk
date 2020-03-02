@@ -1,0 +1,1371 @@
+
+<HTML>
+<HEAD>
+   <TITLE>MPW Help</TITLE>
+   <META NAME=GENERATOR CONTENT="Claris Home Page 1.0">
+   <X-SAS-WINDOW TOP=114 BOTTOM=574 LEFT=16 RIGHT=546>
+</HEAD>
+<BODY background="../Images/vertpale.jpg">
+
+<P ALIGN=CENTER><A HREF="../index.html">Main page</A> 
+| <A HREF="../alpha.html">Alpha Page</A></P>
+
+<P>&nbsp;</P>
+
+<P><HR></P>
+
+<UL>
+   <LI><A HREF="#anchor1">Description</A>
+   
+   <LI><A HREF="#anchor2">Installation</A>
+   
+   <UL>
+      <LI><A HREF="#anchor3">Automatic installation</A>
+      
+      <LI><A HREF="#anchor4">Manual installation</A>
+      
+      <LI><A HREF="#anchor5">Installing the menu icon for the MPW
+      mode</A>
+      
+      <LI><A HREF="#anchor6">After installing</A>
+   </UL>
+   
+   <LI><A HREF="#anchor7">About MPW and Tool Server</A>
+   
+   <LI><A HREF="#anchor8">How to set MPW mode</A>
+   
+   <LI><A HREF="#anchor9">How to execute command lines</A>
+   
+   <UL>
+      <LI><A HREF="#anchor10">Executing a single line</A>
+      
+      <LI><A HREF="#anchor11">Choosing the destination of the result
+      of a command</A>
+      
+      <LI><A HREF="#anchor12">Building and executing a command with a
+      Commando Box</A>
+      
+      <LI><A HREF="#anchor13">Executing multiple lines</A>
+   </UL>
+   
+   <LI><A HREF="#anchor14">How to execute a script</A>
+   
+   <UL>
+      <LI><A HREF="#anchor15">Executing a script from the menu</A>
+      
+      <LI><A HREF="#anchor16">Executing a script from the command
+      line</A>
+   </UL>
+   
+   <LI><A HREF="#anchor17">How to set the value of a variable</A>
+   
+   <UL>
+      <LI><A HREF="#anchor18">Selecting an item while pressing the
+      option key</A>
+      
+      <LI><A HREF="#anchor19">Selecting an item while pressing the
+      control key</A>
+   </UL>
+   
+   <LI><A HREF="#anchor20">Completions</A>
+   
+   <UL>
+      <LI><A HREF="#anchor21">Abbreviations</A>
+   </UL>
+   
+   <LI><A HREF="#anchor22">Getting help about a command</A>
+   
+   <LI><A HREF="#anchor23">Key bindings</A>
+   
+   <LI><A HREF="#anchor24">Complete description of the menu items</A>
+   
+   <LI><A HREF="#anchor25">File Marking</A>
+   
+   <LI><A HREF="#anchor26">Commands History</A>
+   
+   <LI><A HREF="#anchor27">The Functions pop-up menu</A>
+   
+   <LI><A HREF="#anchor28">MPW Mode preferences</A>
+   
+   <LI><A HREF="#anchor29">Version History</A>
+   
+   <LI><A HREF="#anchor30">Known Problems</A>
+   
+   <LI><A HREF="#anchor31">License and Disclaimer</A>
+</UL>
+
+<P><HR></P>
+
+<P><HR></P>
+
+<BLOCKQUOTE><P><I>This is MPW Mode Help documenting the MPWS
+(Macintosh Programmer's Workshop and Shell) Mode in Alpha. For Alpha
+to find it, you must move this file to the Help folder located at the
+same level as the Alpha application itself. </I></P></BLOCKQUOTE>
+
+<P><HR></P>
+
+<H2>Description<A NAME="anchor1"></A></H2>
+
+<P>MPW mode allows you to use Alpha as a frontend to MPW (Macintosh
+Programmer's Workshop) in order to write and to process scripts and
+commands written in the MPW language. It adds a new menu in the menu
+bar with all the necessary functionalities.</P>
+
+<P>Main features are: syntax coloring, elaborate system of
+abbreviations and word completion, immediate help, executing command
+lines and scripts from within Alpha, retrieving the results in your
+script or in a separate window, getting or setting the value of all
+MPW variables and paths, browsing easily in the commands history etc.
+</P>
+
+<P>MPW mode relies entirely on the capacities of the Tool Server
+application for communicating with MPW through Apple Events.
+ToolServer is a complete tool and script execution environment
+extracted from the MPW Shell that you can use to execute
+time-consuming, non interactive tools or scripts in the background or
+on a remote machine. Thus ToolServer can run most of the tools and
+scripts in the MPW tool suite and most tools and scripts which are
+written for MPW. The major exceptions are editor and Projector
+commands. ToolServer is primarily designed to be run using Apple
+events. As such, it can be run from Alpha.</P>
+
+<P>For this mode to work properly, you must have installed MPW 3.3 or
+later and the ToolServer software. These programs can be found at
+</P>
+
+<P><A HREF="ftp://ftp.apple.com/devworld/Tool_Chest/Core_Mac_OS_Tools/MPW_etc./">ftp://ftp.apple.com/devworld/Tool_Chest/Core_Mac_OS_Tools/MPW_etc./</A>
+</P>
+
+<P>Note that the mode here defined is refered to internally as MPWS.
+We will call it MPW mode in this document though. The reason for
+naming it MPWS is to avoid conflicts with an already declared MPW
+mode which is not, though, a standalone mode but is defined in the
+shellMode.tcl file apparently for technical reasons.</P>
+
+<H2>Installation<A NAME="anchor2"></A></H2>
+
+<H3>Automatic installation<A NAME="anchor3"></A></H3>
+
+<P>Open the OPEN TO INSTALL file. Opening this file indicates to
+Alpha that a new package has to be installed: the procedure is
+automatic. Alpha knows where to store the different elements of your
+MPW Mode package. The icon though has to be installed manually using
+ResEdit (see below).</P>
+
+<H3>Manual installation<A NAME="anchor4"></A></H3>
+
+<OL>
+   <LI>put the mpwMode.tcl file in the Modes subfolder of the Tcl
+   folder which is located at the same level as your Alpha
+   application
+   
+   <LI>put the MPW Mode Help file in the Help folder located at the
+   same level as your Alpha application. Next time you launch Alpha,
+   you will have a MPW Mode Help item in the Help menu to edit this
+   file.
+   
+   <LI>you have to install the MPW icon as an icon resource in Alpha.
+   Use ResEdit to do that. The icon has ID number 146. See below.
+   
+   <LI>launch Alpha. It will detect the presence of a new mode and
+   ask you if you want to rebuild the indices: the answer is 'yes'.
+</OL>
+
+<P>&nbsp;</P>
+
+<H3>Installing the menu icon for the MPW mode<A NAME="anchor5"></A>
+</H3>
+
+<P><IMG SRC="../Images/mpwicon.gif" X-SAS-UseImageWidth
+X-SAS-UseImageHeight ALIGN=bottom></P>
+
+<P>In versions of Alpha prior to 7.5, there is no MPW icon so the
+icon of the MPW application must be added to Alpha's resource fork:
+to do so, you must have a program to manipulate resources such as
+'ResEdit' or 'Resorcerer'. ResEdit is a free software distributed by
+Apple. Resorcerer is a commercial product.</P>
+
+<P>With ResEdit, open the mpwMode.rsrc file included in the
+distribution of mpwMode and open, also with ResEdit, the Alpha
+application (quit it before if it is running): copy and paste the
+icon resources ics#, ics4 and ics8 from mpwMode.rsrc to Alpha. All
+these resources have ID number 146 which is normally free.</P>
+
+<P>If you do not fell like installing this icon, you will have to
+edit the mpwMode.tcl file and replace in the code all the occurences
+of '&#8226;146' (without the quotes) by the word MPW. It occurs only
+in three places.</P>
+
+<H3>After installing<A NAME="anchor6"></A></H3>
+
+<P>You can install this menu permanently from "Config - Preferences -
+Menus".</P>
+
+<P>Once the installion is completed, have a look at the mode specific
+preferences: see below.</P>
+
+<H2>About MPW and Tool Server<A NAME="anchor7"></A></H2>
+
+<P>For Tool Server to answer correctly to the requests sent by MPW
+mode, it is very important that it can find the various scripts and
+tools it needs: there is a user configureable variable called
+"Commands" which contains a list of all the directories searched for
+commands. The usual installation puts the 'Scripts' and 'Tools'
+folders as well as the ToolServer program itself in the 'MPW_Shell
+Folder' i-e at the same level as the MPW Shell program. In that case
+the "Commands" variable would have the following value:</P>
+
+<PRE>        :,{MPW}User Commands:,{MPW}Tools:,{MPW}Scripts:
+&nbsp;</PRE>
+
+<P>where {MPW} designates the full pathname of the Macintosh
+Programmer's Workshop.</P>
+
+<P>To check the current value of the "Commands" variable or to modify
+it, see below 'How to set the value of a variable'. If Tool Server
+complains that it cannot find a certain command, it generally means
+that the "Commands" variable is not set correctly. If you do not want
+to get involved in these settings, an easy workaround is to make
+aliases of the 'Tools' and of the 'Scripts' folders and put them
+(with the same name) in the same folder as the Tool Server
+application itself .</P>
+
+<P>Another important point is the location of the 'MPW.Help' file: if
+Tool Server does not find it, the help requests will not work. If
+Tool Server complains that it can't find the MPW.Help file, put a
+copy (or an alias) of this file in the same folder as the Tool Server
+application itself. Another possible location for the MPW.Help file
+is in the MPW Preference folder (in the System Folder). Once again
+the best location for the Tool Server application and for the 'Tools'
+subfolder is at the same level as the MPW Shell itself.</P>
+
+<P>Please also note that:</P>
+
+<OL>
+   <LI>the variable {MPW} contains the full pathname of the directory
+   in which the MPW Shell is stored.
+   
+   <LI>the variable {Boot} contains the name of the volume where the
+   system software is stored.
+   
+   <LI>the so called "current directory" is the directory in which
+   you create and save files. As you work with the MPW Shell, you can
+   have many files from different directories open at once. The
+   current directory is not necessarily the directory that contains
+   the file you are working on. The current directory is the
+   directory you set with the "Directory" command.
+   
+   <P>When you first start MPW, the current directory is {MPW} i-e
+   MPW Shell's directory. To check which directory is presently the
+   current directory, choose "Command Line..." in Alpha's MPW menu,
+   type "directory", then press the "Execute" button.</P>
+   
+   <LI>to use the Desktop Folder in a pathname, you use the variable
+   {Boot}, which contains the name of the volume on which your system
+   software is stored. The Desktop Folder is a subdirectory of
+   {Boot}.
+</OL>
+
+<P>&nbsp;</P>
+
+<H2>How to set MPW mode<A NAME="anchor8"></A></H2>
+
+<P>There exists already an MPW mode in Alpha which is related to the
+Toolserver Shell (called with ctrl-cmd-Y). So the present MPW mode is
+in fact identified by the four letters 'MPWS' which stand for
+Macintosh Programmer's Workshop and Shell.</P>
+
+<P>Now there are different ways of setting MPW mode:</P>
+
+<UL>
+   <LI>the opening of a source file with extension .mpw will
+   automatically invoke the MPW Mode and the corresponding menu. You
+   can add other suffices in Config &gt; Preferences &gt; Suffix
+   mapping...
+   
+   <LI>using the "Open a Worksheet" item in MPW's menu opens a new
+   window called "MPW Worksheet" in MPW mode.
+   
+   <LI>the opening of a source file with no extension will invoke MPW
+   Mode only if the first line of your file is as follows:
+   
+   <PRE> 		%-*-MPWS-*- 
+&nbsp;</PRE>
+   
+   <P>There is a menu item to insert this magic line automatically.
+   See "Set MPW Mode" in the MPW menu.</P>
+   
+   <LI>you can also switch between MPW and other modes with the
+   little pop up menu bottom right of the status bar (the rightmost
+   one before the line indicator).
+</UL>
+
+<P>&nbsp;</P>
+
+<P>The MPW menu in the menu bar gives you full control on all the
+features of the MPW mode.</P>
+
+<H2>How to execute command lines<A NAME="anchor9"></A></H2>
+
+<H3>Executing a single line<A NAME="anchor10"></A></H3>
+
+<P>There are several ways of executing a command line. Your current
+window must be in MPW mode (see above). Put the cursor anywhere in
+the line you want to execute and hit the 'Enter' key or the
+'Command-Return' combination (not Return alone which inserts a simple
+carriage return).</P>
+
+<P>For instance, type the following line in your source file</P>
+
+<PRE>     date -s4 
+&nbsp;</PRE>
+
+<P>leave the cursor on the line and press Enter. A window named "*
+date -s4 *" is opened displaying the answer: for instance 4/07/2000
+19:47:23. (Oh dear, I forgot to tell that today is the fourth of July
+and that it is now 7:47 pm).</P>
+
+<P>You can also hilite the line you want to execute. If no region is
+hilited, MPW mode will take the entire line. On some PowerBooks,
+there is no Enter key, so use Command-Return instead.</P>
+
+<P>Another possibility is to use the "Command Line..." menu item. It
+brings a window in which you can type a command line and execute it
+with the Execute button. This comes in handy when you want to execute
+a command but don't want to write it in your source file. Next time
+you call the "Command Line..." window, it will display the last
+command you typed. To experiment, type in for instance:</P>
+
+<PRE> 	echo {SystemFolder}
+&nbsp;</PRE>
+
+<P>The answer will be the location of the system folder on your
+installation. You can call the "Command Line..." window by just
+pressing the F5 key if you are already in MPW mode.</P>
+
+<P>Choosing "Execute Lines" in the menu is equivalent to pressing
+Enter or Command-Return.</P>
+
+<H3>Choosing the destination of the result of a
+command<A NAME="anchor11"></A></H3>
+
+<P>The result of the execution of a command line (if any) can be
+either displayed in a separate window or inserted at the cursor's
+current position in your script: there is a preference setting to
+choose between these two possibilities (see preferences below).</P>
+
+<P>You can toggle the destination set in the preferences by holding
+the control key down. If the 'Send Result To Buffer' flag is set then
+the result is normally sent to the buffer: if you hold the control
+key down, it will be sent to a separate window instead. And
+vice-versa.</P>
+
+<P>Similarly if you open the MPW menu with the control key down, the
+item "Execute Lines" is changed to "Execute and Toggle Target".</P>
+
+<H3>Building and executing a command with a Commando
+Box<A NAME="anchor12"></A></H3>
+
+<P>MPW users know the Commando Boxes. You can use Commando Boxes to
+execute a single command with all possible options in a very user
+friendly way. Use the "Commando Box..." menu item: you are prompted
+for the name of an MPW command. MPW mode switches to Tool Server and
+opens the corresponding 'Commando Box'. You can build there your
+command with all the options you wish: the result of the command is
+sent back to Alpha.</P>
+
+<P>You can invoke the "Commando Box..." menu item by pressing the F4
+key if you are already in MPW mode.</P>
+
+<P>There is a third method to call a Commando Box which is
+traditionnaly implemented in the MPW application: type a word, then
+press option-Enter (or option-command-Return). It works here as well.
+Fourth method ; type your keyword followed by an ellipsis and press
+Enter.</P>
+
+<H3>Executing multiple lines<A NAME="anchor13"></A></H3>
+
+<P>In your source file you can also execute several lines
+consecutively: hilite them and press Enter or Command-Return. Beware
+that there is a size limitation for Apple Events: if you select too
+many instructions in a very long script (more than 32k), there might
+be an overflow. On the other hand, if the answer is too big, you
+might loose a part of it. In that case, you should consider using the
+"Execute the Buffer" or "Execute a Script..." menu items as explained
+below.</P>
+
+<P>The "Built-in Commands" menu item contains a list of the main
+commands understood by MPW.</P>
+
+<P>You can also launch any application on your hard disk by entering
+the application’s name as a command. For example, if you have an
+application named BBEdit stored in the HD volume (or whatever its
+name is), you can start it by entering</P>
+
+<PRE> HD:BBEdit
+&nbsp;</PRE>
+
+<P>in the "Command Line..." window. If the application is in the MPW
+folder, you don't even have to write its full path name.</P>
+
+<H2>How to execute a script<A NAME="anchor14"></A></H2>
+
+<H3>Executing a script from the menu<A NAME="anchor15"></A></H3>
+
+<P>If your suite of instructions is too big or generates too big an
+output, the preceding methods might not work due to the limitations
+in data exchange through Apple Events (32k). The good method in that
+case is to have it executed as a script, i-e a separate file
+containing all the instructions you want to execute. To execute the
+current window, select "Execute the Buffer" in the MPW mode menu. To
+execute any script, select "Execute a Script..." in the MPW mode
+menu. You will be asked about parameters, options or flags to add: a
+script may require some parameters and accept some options or flags.
+If you choose 'Yes', you will have a window in which you type the
+additional information.</P>
+
+<P>One should know that Tool Server doesn't have any console to show
+its output: its default behavior is to send its output to a file. For
+instance, if your current window is called Myscript, the output of
+your script will be sent to a file called Myscript.out. If there are
+any error messages, they are sent to a file called Myscript.err.
+These files are located normally in the same folder as your script
+Myfile.</P>
+
+<P>There is however a possibility to write the .out and the .err
+files in different folders: the destination folder for these two
+files is contained in the variables 'BackgroundOut' and
+'BackgroundErr'. MPW mode is aware of that and checks the value of
+these two variables to be able to open the .out or .err files when
+you use the "Open Out File" or "Open Err File" menu items. If your
+script doesn't generate any output, there will be of course no .out
+file. If there is no error in your script, there will be no .err
+file.</P>
+
+<H3>Executing a script from the command line<A NAME="anchor16"></A>
+</H3>
+
+<P>Note that you can also execute a script using a simple command
+line. Call the "Command Line..." menu item and type the full path
+name of your script with the necessary options: if you do not want to
+bother with typing an entire path name, there is a "script" button
+which allows you to navigate in the files hierarchy and designate the
+script you want to execute: its full pathname will be automatically
+inserted in the command line (with double quotes to avoid problems
+with whitespaces). Add any required options and press the Execute
+button.</P>
+
+<P>When you execute a script like this, the output is sent directly
+to Alpha in a separate window: there is no issue about .out or .err
+files.</P>
+
+<H2>How to set the value of a variable<A NAME="anchor17"></A></H2>
+
+<P>The MPW menu has submenus named "Built in Commands", "Internal
+Variables", "User Variables" and "Libraries Variables".</P>
+
+<P>The former contains the names of the built-in commands: clicking
+on any of them inserts their name at the cursor's position in the
+current window. The other three menus contain respectively the
+variables defined by the MPW Shell (whose values are maintained
+dynamically by the MPW application), the variables used by the MPW
+Shell which are all configureable and the variables used for
+libraries and include files (they contain the pathname of the
+directory containing the corresponding libraries: their value can be
+set by the user).</P>
+
+<P>Concerning the dynamic variables, when you select them from the
+submenu, they are included in the source file and enclosed with
+braces. This is because, since they are not configureable, you shall
+always use them to get their value. Enclosing a variable name with
+braces has the same meaning in MPW's syntax than the $ sign in Tcl:
+it returns the current value of the variable.</P>
+
+<P>In these submenus you can make use of the option and control keys.
+The signification is as follows:</P>
+
+<H3>Selecting an item while pressing the option
+key<A NAME="anchor18"></A></H3>
+
+<P>In that case, all the menu items in the submenus are prefixed with
+'get '. This means that you want to know their current value. The
+answer is given in a separate info window or inserted in your script
+(see preferences below). For instance, 'MPWVersion' in the Internal
+Variables will be changed to 'get MPWVersion' if you hold the option
+key down. The answer could be '3.5' if you are using version 3.5 of
+MPW.</P>
+
+<H3>Selecting an item while pressing the control
+key<A NAME="anchor19"></A></H3>
+
+<P>In that case, all the menu items in the submenus are prefixed with
+'set '. This means that you want to give a new value to a certain
+variable. For instance, 'FontSize' in the "User Variables" submenu
+will be changed to 'set FontSize' if you hold the control key down.
+You will be prompted in a special dialog window to set the new value.
+For instance type '12' to fix a 12pt size used for new windows (note
+that this affects the font size in MPW, not in Alpha). If the value
+of a variable is a path, there will be a Browse button in the dialog
+window to help you navigate to the folder you want to choose so that
+you don't have to bother about typing a full path name.</P>
+
+<P>For the 'Commands' and 'DirectoryPath' variables, the dialog
+window is more elaborate since they can contain a list of directories
+(not a single one). You can add or remove paths to these lists.</P>
+
+<H2>Completions<A NAME="anchor20"></A></H2>
+
+<P>A very handy feature of MPW mode (like in many other modes in
+Alpha) is word completion. To enable it, you must load the
+elecCompletion package (in Config - Preferences - Features) and
+choose your completion key (default is F1). You can then type the
+first letters of a command or a keyword and then hit the F1 key: MPW
+mode will complete automatically.</P>
+
+<P>For instance, type 'Scre' and hit the F1 key: it is completed
+immediately to 'ScreenUpdateDelay'.</P>
+
+<P>Now type just 'All' then hit the F1 key: 'All' will become
+'Allow'. Hit the F1 key again ; a window shows up with a list of all
+possible completions:</P>
+
+<PRE> "AllowCmdsOnlyInWorkSheet" "AllowColorizing"
+ "AllowColorUserExperience" "AllowDraggingOut"
+ "AllowMultipleUndo" "AllowWhiteSpaceDelimiter".
+&nbsp;</PRE>
+
+<P>Pick up the one you want to be inserted in the current window.
+</P>
+
+<P>Note that, the MPW language being case insensitive, you can type
+everything in lowercase. Thus 'scre' will yield 'screenupdatedelay'.
+</P>
+
+<H3>Abbreviations<A NAME="anchor21"></A></H3>
+
+<P>Another aspect of completion is the use of abbreviations. If you
+type 'bg' and hit the F1 key, you get:</P>
+
+<PRE> 		Begin
+ 			&#8226;
+ 		End
+ 		&#8226;
+&nbsp;</PRE>
+
+<P>the cursor being positioned at the place of the first bullet
+&#8226;: use the Tab key to jump to the next bullet. This works with
+'for', 'loop', 'if' and 'ifel'. The latter expands to:</P>
+
+<PRE> 		If
+ 			&#8226;
+ 			Else
+ 			&#8226;
+ 		End
+ 		&#8226;
+&nbsp;</PRE>
+
+<P>There are four contractions concerning the output redirections:
+</P>
+
+<PRE>   d'so		Dev:StdOut
+   d'se		Dev:StdErr
+   d'n		Dev:Null
+   d'c		Dev:Console
+&nbsp;</PRE>
+
+<P>Finally there is a very intuitive system of abbreviations for long
+variable names which are compound names, like 'ScreenUpdateDelay'.
+You can just type the initial letters (initials of the words
+composing the variable name): for instance here just type 'sud' and
+then hit the F1 key to get 'ScreenUpdateDelay'. There are only two
+ambiguous situations:</P>
+
+<UL>
+   <LI>'sd' could be ShellDirectory, SuppressDialogs or ShutDown. MPW
+   mode defines 'sd', 'sdg', 'sdn' resp.
+   
+   <LI>'tf' could be TempFolder or TraceFailures. MPW mode defines
+   'tf' and 'tfs' resp.
+</UL>
+
+<P>&nbsp;</P>
+
+<P>Here is the complete list of abbreviations:</P>
+
+<PRE>   ac    		AllowColorizing         
+   acoiws		AllowCmdsOnlyInWorkSheet
+   acue  		AllowColorUserExperience
+   ado   		AllowDraggingOut        
+   ai    		AutoIndent              
+   amu   		AllowMultipleUndo       
+   awsd  		AllowWhiteSpaceDelimiter
+   be    		BackgroundErr           
+   bo    		BackgroundOut           
+   bs    		BackgroundShell         
+   cfd   		CursorForDragging       
+   cod   		CheckOutDir             
+   cs    		CaseSensitive           
+   dcl   		DeleteCharLeft          
+   dcr   		DeleteCharRight         
+   deof  		DeleteEndOfFile         
+   deol  		DeleteEndOfLine         
+   dfs   		DontFlushServers        
+   dfv   		DontFlushVolumes        
+   dnr   		DuplicateNameRevisions  
+   dp    		DirectoryPath           
+   ds    		DynaScroll              
+   dsof  		DeleteStartOfFile       
+   dsol  		DeleteStartOfLine       
+   dwl   		DeleteWordLeft          
+   dwr   		DeleteWordRight         
+   ews   		ExtendWordSet           
+   fs    		FontSize                
+   get   		GetErrorText            
+   gfn   		GetFileName             
+   gli   		GetListItem             
+   hc    		HeapCheck               
+   hhk   		HideHelpKey             
+   icp   		IgnoreCmdPeriod         
+   imc   		InhibitMarkCopy         
+   lnr   		LockNameRevisions       
+   mcl   		MoveCharLeft            
+   mcr   		MoveCharRight           
+   mef   		MakeErrorFile           
+   meof  		MoveEndOfFile           
+   meol  		MoveEndOfLine           
+   mld   		MoveLineDown            
+   mlu   		MoveLineUp              
+   mpd   		MovePageDown            
+   mpu   		MovePageUp              
+   mro   		ModifyReadOnly          
+   msof  		MoveStartOfFile         
+   msol  		MoveStartOfLine         
+   mwl   		MoveWordLeft            
+   mwr   		MoveWordRight           
+   nkl   		NewKeyboardLayout       
+   nkm   		NewKeyMap               
+   nwr   		NewWindowRect           
+   onr   		ObsoleteNameRevisions   
+   opf   		ObsoleteProjectorFile   
+   pf    		PrefsFolder             
+   po    		PrintOptions            
+   pv    		ProjectorVersion        
+   rpf   		RenameProjectorFile     
+   sb    		SearchBackward          
+   scl   		SelectCharLeft          
+   scr   		SelectCharRight         
+   sd    		ShellDirectory          
+   sdg   		SuppressDialogs         
+   sdn   		ShutDown                
+   seof  		SelectEndOfFile         
+   seol  		SelectEndOfLine         
+   sf    		SystemFolder            
+   sld   		SelectLineDown          
+   slu   		SelectLineUp            
+   so    		StackOptions            
+   soc   		SaveOnClose             
+   spd   		SelectPageDown          
+   spu   		SelectPageUp            
+   ssof  		SelectStartOfFile       
+   ssol  		SelectStartOfLine       
+   sss   		SetShellSize            
+   st    		SearchType              
+   stf   		SysTempFolder           
+   sud   		ScreenUpdateDelay       
+   sw    		SearchWrap              
+   swl   		SelectWordLeft          
+   swr   		SelectWordRight         
+   tf    		TempFolder              
+   tfs   		TraceFailures           
+   to    		TileOptions             
+   tst   		ToolSleepTime           
+   twc   		TabWidthChar            
+   unr   		UnlockNameRevisions     
+   uonr  		UnObsoleteNameRevisions 
+   uopf  		UnObsoleteProjectorFile 
+   upd   		UpdateProjectorDatabase 
+   usf   		UseStandardFile         
+   usk   		UnSetKey                
+   ws    		WordSet                 
+   zh    		ZoomHeight              
+   zw    		ZoomWidth               
+   zwr   		ZoomWindowRect          
+&nbsp;</PRE>
+
+<H2>Getting help about a command<A NAME="anchor22"></A></H2>
+
+<P>To get help about any built-in MPW command and about its syntax,
+you just have to command-double-click on its name: that is to say,
+double-click while pressing the command key down. For instance,
+command-double-clicking on the word 'date' will display a separate
+window with the following information (or insert the information at
+the cursor's location):</P>
+
+<PRE> Date            # write the date and time
+ Date ([-a | -s | -s4 | -u] [-st] [-d | -t] 
+           [-c seconds | -utc]) | ([-n] [-utc]) | [-x date]
+     -a           # abbreviated date (e.g. Wed, Jun 14, 1995)
+     -s           # short date (e.g. 6/14/95)
+     -s4          # short date, using 4-digit year (e.g. 6/14/1995)
+     -u           # uniform output format, "YYYY MM DD HH:MM:SS"
+     -st          # omit seconds from time format
+     -d           # write date only
+     -t           # write time only
+     -c seconds   # write date corresponding to seconds
+     -x date      # write seconds corresponding to date
+     -n           # write seconds since January 1, 1904
+     -utc         # write output converted to Universal
+                  # Time Coordinates
+&nbsp;</PRE>
+
+<H2>Key bindings<A NAME="anchor23"></A></H2>
+
+<P>As explained above, the Enter key and the Command-Return
+combination are used to execute a command line. If you press the
+Shift key simultaneously, the result will be inserted in the current
+window.</P>
+
+<P>Use Ctrl-Cmd-Return to execute the buffer.</P>
+
+<P>To enclose a variable name in braces, place the cursor anywhere in
+the word and use ctrl-( . To remove any encloser around a word or a
+region, hilite it and use ctrl-) .</P>
+
+<P>Call the "Command Line..." window with the F5 key.</P>
+
+<P>Call the "Commando Box..." window with the F4 key. Alternatively,
+type a keyword, then press Option-Enter or Option-Command-Return, to
+call up the Commando Box corresponding to this keyword.</P>
+
+<P>The "Show Bindings" menu item displays a window with a summary of
+all the existing key bindings in MPW mode. Some of these
+functionalities are not accessible from the menu, only with the
+corresponding key binding.</P>
+
+<P>&nbsp;</P>
+
+<P><TABLE BORDER=0 CELLPADDING=1 WIDTH="100%">
+   <TR>
+      <TD>
+         <P>Key combination
+      </TD><TD>
+         <P>Signification
+      </TD></TR>
+   <TR>
+      <TD>
+         <P>cmd-return or enter
+      </TD><TD>
+         <P>execute a line or a selection
+      </TD></TR>
+   <TR>
+      <TD>
+         <P>ctrl-cmd-return or ctrl-enter
+      </TD><TD>
+         <P>execute and toggle result's destination
+      </TD></TR>
+   <TR>
+      <TD>
+         <P>ctrl-cmd-enter
+      </TD><TD>
+         <P>execute the buffer as script
+      </TD></TR>
+   <TR>
+      <TD>
+         <P>opt-ctrl-cmd-return
+      </TD><TD>
+         <P>execute a script...
+      </TD></TR>
+   <TR>
+      <TD>
+         <P>opt-enter or opt-cmd-return
+      </TD><TD>
+         <P>open command's commando box
+      </TD></TR>
+   <TR>
+      <TD>
+         <P>F4 or ctrl-opt-k
+      </TD><TD>
+         <P>ask for commando box...
+      </TD></TR>
+   <TR>
+      <TD>
+         <P>F5
+      </TD><TD>
+         <P>open command line window
+      </TD></TR>
+   <TR>
+      <TD>
+         <P>F6
+      </TD><TD>
+         <P>open special chars palette
+      </TD></TR>
+   <TR>
+      <TD>
+         <P>ctrl-up
+      </TD><TD>
+         <P>browse up in commands history
+      </TD></TR>
+   <TR>
+      <TD>
+         <P>ctrl-down
+      </TD><TD>
+         <P>browse down in commands history
+      </TD></TR>
+   <TR>
+      <TD>
+         <P>ctrl-"
+      </TD><TD>
+         <P>surround with " "
+      </TD></TR>
+   <TR>
+      <TD>
+         <P>ctrl-'
+      </TD><TD>
+         <P>surround with ' '
+      </TD></TR>
+   <TR>
+      <TD>
+         <P>ctrl-`
+      </TD><TD>
+         <P>surround with ` `
+      </TD></TR>
+   <TR>
+      <TD>
+         <P>ctrl-(
+      </TD><TD>
+         <P>surround with ( )
+      </TD></TR>
+   <TR>
+      <TD>
+         <P>ctrl-opt-(
+      </TD><TD>
+         <P>surround with { }
+      </TD></TR>
+   <TR>
+      <TD>
+         <P>shift-ctrl-opt-(
+      </TD><TD>
+         <P>surround with [ ]
+      </TD></TR>
+   <TR>
+      <TD>
+         <P>ctrl-&lt;
+      </TD><TD>
+         <P>surround with &lt; &gt;
+      </TD></TR>
+   <TR>
+      <TD>
+         <P>ctrl-opt-&lt;
+      </TD><TD>
+         <P>surround with &lt;&lt; &gt;&gt;
+      </TD></TR>
+   <TR>
+      <TD>
+         <P>ctrl-)
+      </TD><TD>
+         <P>remove any encloser
+      </TD></TR>
+</TABLE></P>
+
+<H2>Complete description of the menu items<A NAME="anchor24"></A>
+</H2>
+
+<P>Explanations for the MPW menu items:</P>
+
+<DL>
+   <B>&nbsp;</B>
+   
+   <DT><B>Switch To MPW</B>
+   
+   <DL>
+      <DT>Launch the MPW application in front.
+   </DL>
+   
+   <DT><B>Execute Lines</B>
+   
+   <DL>
+      <DT>Send the text selected (hilited) in the current window to
+      Tool Server as instructions to process. If no text is hilited,
+      send the entire line at the cursor's position. Equivalent
+      keybinding: Enter or Command-Return.
+   </DL>
+</DL>
+
+<P>&nbsp;</P>
+
+<UL>
+   <LI>When pressing the control key down, the previous item becomes:
+   
+   <DL>
+      <DT><B>Execute and Toggle Target</B>
+      
+      <DL>
+         <DT>Executes the selection and changes the destination of
+         the result set in the preferences with the flag
+         'sendResultToBuffer'. If the flag is set, then the result is
+         sent to a separate window instead of the buffer and
+         vice-versa. Equivalent keybinding: Control-Enter or
+         Control-Command-Return.
+      </DL>
+   </DL>
+   
+   <P>&nbsp;</P>
+</UL>
+
+<P>&nbsp;</P>
+
+<DL>
+   <B>&nbsp;</B>
+   
+   <DT><B>Execute the Buffer</B>
+   
+   <DL>
+      <DT>Send the entire current window to Tool Server as a script
+      to execute. Tool Server's standard output and errors are
+      written in a .out and a .err file. Equivalent keybinding:
+      Control-Command-Enter.
+   </DL>
+   
+   <DT><B>Execute a Script...</B>
+   
+   <DL>
+      <DT>Prompts for a script file to open and send to Tool Server.
+   </DL>
+   
+   <DT><B>Open Out File</B>
+   
+   <DL>
+      <DT>Open the output file written by Tool Server while executing
+      a script. This command opens the output of the last executed
+      script. If no script has been recently executed, you are
+      prompted directly for a file to open. If the script generates
+      no output, there won't be any .out file. See above the
+      discussion concerning the destination folder which can be set
+      with the 'BackgroundOut' variable.
+   </DL>
+   
+   <DT><B>Open Err File</B>
+   
+   <DL>
+      <DT>Open the errors file written by Tool Server during the
+      execution of a script. If no script has been recently executed,
+      you are prompted directly for a file to open. If there was no
+      error, there won't be any .err file. See above the discussion
+      concerning the destination folder which can be set with the
+      'BackgroundErr' variable.
+   </DL>
+   
+   <DT><B>Command Line...</B>
+   
+   <DL>
+      <DT>Open a small window to type a Unix-like command line in and
+      have it executed. Equivalent key binding: F5
+   </DL>
+   
+   <DT><B>Commando Box...</B>
+   
+   <DL>
+      <DT>Prompts for the name of an MPW command, then switch to Tool
+      Server and open the Commando Box corresponding to this command.
+      The result of the command executed in the Commando Box is sent
+      back to Alpha. Equivalent key binding: F4
+   </DL>
+   
+   <DT><B>Open a Worksheet</B>
+   
+   <DL>
+      <DT>Open a window called "MPW Worksheet" in MPW mode. You can
+      open as many windows as you want, enter your commands, execute
+      them etc.
+   </DL>
+   
+   <DT><B>Set MPW Mode</B>
+   
+   <DL>
+      <DT>Inserts a magic line at the beginning of the current window
+      to turn in MPW mode. Next time you open this file, it will
+      automatically be in MPW mode whatever its extension is.
+   </DL>
+   
+   <DT><B>ToolServer Shell</B>
+   
+   <DL>
+      <DT>Open a shell window to interact with ToolServer: the only
+      difference with the Worksheet is that you have a prompt and can
+      enter only single line commands. This is exactly the same as
+      the ToolServer Shell menu item in the Utils menu (when you open
+      it with the control key down)
+   </DL>
+   
+   <DT><B>Enclose with...</B>
+   
+   <DL>
+      <DT>Enclose the current word in a pair of delimiters. You are
+      prompted in the status bar for a delimiter. If you enter a left
+      parenthese, brace or bracket, or a &lt; or &lt;&lt; symbol, MPW
+      mode will automatically select the corresponding right
+      delimiter.You can also choose single delimiters, like single,
+      double or back quotes.
+      
+      <P>If there is no selection, the word around the current
+      cursor's position is enclosed. Otherwise, the entire selection
+      is enclosed.</P>
+      
+      <P>Equivalent key binding: ctrl-(. There are also several other
+      key bindings to automatically insert some of the delimiters,
+      shortcutting the status bar prompt. See key bindings above.
+      </P>
+   </DL>
+   
+   <DT><B>Remove enclosers</B>
+   
+   <DL>
+      <DT>Remove any of the above mentioned delimiters around a word
+      or a selection. Equivalent key binding: ctrl-)
+   </DL>
+   
+   <DT><B>MPW Special Chars</B>
+   
+   <DL>
+      <DT>Submenu to insert the special characters used by the MPW
+      scripts for regular expressions, redirections etc. Very useful
+      if you forgot how to get them from the keyboard.
+      
+      <DT><B>Characters Palette</B>
+      
+      <DL>
+         <DT>Display a floating palette of MPW Shell special
+         characters. Click on any of them to insert it at the
+         cursor's position. Equivalent key binding: F6
+      </DL>
+   </DL>
+   
+   <P><B>&nbsp;</B></P>
+   
+   <DT><B>MPW Help</B>
+   
+   <DL>
+      <DT>Submenu providing help about various matters and
+      categories. General help can be obtained with the "Help
+      Summary" item. Help summaries are available for each of the MPW
+      commands catgories: Editing, Languages, Resources etc.
+      Command-double-click on any of these words (colored by default
+      in magenta) to bring a more specific help summary.
+      Command-double-click on any syntax word to bring a complete
+      description of its syntax, available options etc.. If the
+      frontmost window is in MPW mode, the results of these commands
+      are inserted at the end of the window ; otherwise a separate
+      window is opened. Available categories are:
+      
+      <P><TABLE BORDER=0 CELLPADDING=1 WIDTH="100%">
+         <TR>
+            <TD>
+               <P>CFM-68K
+            </TD><TD>
+               <P>Launch
+            </TD><TD>
+               <P>Scripting
+            </TD></TR>
+         <TR>
+            <TD>
+               <P>Characters
+            </TD><TD>
+               <P>Miscellaneous
+            </TD><TD>
+               <P>Selections
+            </TD></TR>
+         <TR>
+            <TD>
+               <P>Commands
+            </TD><TD>
+               <P>Patterns
+            </TD><TD>
+               <P>Shortcuts
+            </TD></TR>
+         <TR>
+            <TD>
+               <P>Editing
+            </TD><TD>
+               <P>PowerMacintosh
+            </TD><TD>
+               <P>System
+            </TD></TR>
+         <TR>
+            <TD>
+               <P>Expressions
+            </TD><TD>
+               <P>Projector
+            </TD><TD>
+               <P>Variables
+            </TD></TR>
+         <TR>
+            <TD>
+               <P>FileSystem
+            </TD><TD>
+               <P>Resources
+            </TD><TD>
+               <P>Window
+            </TD></TR>
+         <TR>
+            <TD>
+               <P>Languages
+            </TD><TD>
+               <P>
+            </TD><TD>
+               <P>
+            </TD></TR>
+      </TABLE></P>
+      
+      <DT><B>Variables</B>
+      
+      <DL>
+         <DT>Display a summary of the standard MPW shell variables
+      </DL>
+      
+      <DT><B>Expressions</B>
+      
+      <DL>
+         <DT>Display a summary of MPW expressions
+      </DL>
+      
+      <DT><B>Selections</B>
+      
+      <DL>
+         <DT>Display a summary of MPW selections
+      </DL>
+      
+      <DT><B>Patterns</B>
+      
+      <DL>
+         <DT>Display a summary of patterns (regular expressions)
+      </DL>
+      
+      <DT><B>Shortcuts</B>
+      
+      <DL>
+         <DT>Display a summary of MPW Shell shortcuts
+      </DL>
+   </DL>
+   
+   <P><B>&nbsp;</B></P>
+   
+   <DT><B>Show Bindings</B>
+   
+   <DL>
+      <DT>Display in a separate window all the key bindings available
+      in MPW mode.
+   </DL>
+   
+   <DT><B>Show Defined Variables</B>
+   
+   <DL>
+      <DT>Display the currently defined variables with their value.
+      Those displayed with a -e flag are exported variables.
+   </DL>
+   
+   <DT><B>Built-in Commands</B>
+   
+   <DL>
+      <DT>Brings a pick-up list of all the MPW built in commands.
+      Enter any initial letter from the keyboard to navigate rapidly
+      in this window.
+   </DL>
+   
+   <DT><B>Internal Variables</B>
+   
+   <DL>
+      <DT>Submenu containing the name of all the internal variables
+      maintained by MPW. If you choose an item, it is included at the
+      cursor's position enclosed in braces.
+      
+      <P>When pressing the option key down, each item becomes: 'get
+      item' to get the value of the corresponding variable.</P>
+   </DL>
+   
+   <DT><B>User Variables</B>
+   
+   <DL>
+      <DT>Submenu containing the name of all the user configureable
+      shell variables. If you choose an item, it is included at the
+      cursor's position.
+      
+      <P>When pressing the option key down, each item becomes: 'get
+      item' to get the value of the corresponding variable.</P>
+      
+      <P>When pressing the control key down, each item becomes: 'set
+      item' to set the value of the corresponding variable. See
+      description above.</P>
+   </DL>
+   
+   <DT><B>Librairies Variables</B>
+   
+   <DL>
+      <DT>Submenu containing the name of all the path variables used
+      by MPW to locate the librairy and include files. If you choose
+      an item, it is included at the cursor's position.
+      
+      <P>When pressing the option key down, each item becomes: 'get
+      item' to get the value of the corresponding variable.</P>
+      
+      <P>When pressing the control key down, each item becomes: 'set
+      item' to set the value of the corresponding variable. A
+      navigation window lets you designate the folder. See
+      description above.</P>
+   </DL>
+</DL>
+
+<P>&nbsp;</P>
+
+<H2>File Marking<A NAME="anchor25"></A></H2>
+
+<P>There is no specific file marking for MPW mode.</P>
+
+<H2>Commands History<A NAME="anchor26"></A></H2>
+
+<P>The list of all the commands previously executed is called the
+commands history: you can access this list by option-clicking on the
+title bar of your current window (if it is in MPW mode of course).
+This will show you a list of the last used command lines: you can
+choose any of them and have it inserted in the current window. The
+Reset History List item allows you to empty this command history.
+There is a maximum number of command lines which can be stored in the
+history. By default, this number is equal to 20 but you can modify
+this value in the mode specific preferences. Long commands (more than
+50 chars) are not included in the history.</P>
+
+<P>Alternatively you can navigate through the history of commands
+using the two key combinations ctrl-UpArrow or ctrl-DownArrow: this
+will insert at the cursor's position, one after the other, the
+various commands that have been stored in the history.</P>
+
+<H2>The Functions pop-up menu<A NAME="anchor27"></A></H2>
+
+<P>The Functions pop-up menu (symbolized by '{}' at the top right of
+the current window) contains a list of all the variable names used
+(with a 'set' command) in your script.</P>
+
+<H2>MPW Mode preferences<A NAME="anchor28"></A></H2>
+
+<P>Remember that the abbreviation for MPW Mode is 'MPWS'. The
+Preferences... item in the Mode prefs submenu of the Config menu
+allows you to edit specific preferences for the MPW Mode (if you are
+in already in MPW Mode; if not, switch to MPW Mode). Most of them
+should be self-explanatory:</P>
+
+<UL>
+   <LI>'Hist Buffer Size' is the size of the commands history buffer
+   showed when you option-click on the title bar of the current
+   window.
+   
+   <LI>colors for keywords, strings, comments etc. as usual. The
+   "Variables Color" preference allows to choose a different color
+   for MPW variable names (default is magenta). There is also a color
+   called "Categories Color" used for words such as 'Projector',
+   'Resources', 'Scripting', 'System' etc. which are neither built-in
+   commands, nor MPW variables (default is cyan).
+   
+   <LI>alternative key bindings to those defined by default (see Key
+   Bindings above) in case they conflict on your installation with
+   other Alpha software.
+   
+   <LI>with the 'Send Result To Buffer' flag you can decide
+   permanently that the result of the execution of command lines be
+   sent to the current window rather than to a separate window.
+   Whatever you choose, you still can occasionaly get the opposite
+   behaviour by using the "Execute and Toggle Target" menu item
+   (press the control key down when opening the MPW menu or see key
+   bindings). When you use the "Command Line..." window, there is
+   also a checkbox called 'Insert result in buffer' to redirect the
+   output to the current window.
+   
+   <LI>the 'Echo From Menu' preference means that 'get' and 'set'
+   commands executed from one of the submenus (Internal Variables
+   etc.) is echoed in the current window.
+</UL>
+
+<P>&nbsp;</P>
+
+<H2>Version History<A NAME="anchor29"></A></H2>
+
+<UL>
+   <LI>0.1 -- 27/06/2000 -- Created the MPW Mode including the
+   following features: new MPW menu, submenus to insert MPW macros,
+   syntax coloring, file marking, completion routines...
+   
+   <LI>0.2 -- 09/08/2000 -- Added menu items to enclose words in
+   various quotes. Added mechanism to send the results of command
+   lines either to the current window or to a separate window (new
+   pref). Implemented the 'option-enter' combination to call a
+   Commando box (like in MPW itself). Implemented ctrl-arrow (up and
+   down) to navigate through the commands history.
+   
+   <LI>0.3 -- 25/06/2001 -- Modified for Alpha8 compatibility. Added
+   Worksheets, improved command history, added a special chars
+   palette, show bindings window, improved the enclosing procs.
+   
+   <LI>0.4 -- 05/07/2001 -- Corrected a bug with menu bindings in the
+   "Special Chars" submenu. Added Dev::StdIn. Added a "Show Defined
+   Variables" menu item. Re-arranged help in a submenu.
+   
+   <LI>0.4.1 -- 16/07/2001 -- Added shift-opt-L menu binding for pipe
+   char.
+   
+   <LI>0.5 -- 18/07/2001 -- Changed some keybindings for consistency.
+   Added a menu item "Execute and Toggle Target" to toggle the
+   destination of the result of a command (hold the ctrl key down).
+   It replaces the item "Execute Lines in Buffer". Changed "Open
+   Out/Err" to call getFile when no script processed.
+</UL>
+
+<P>&nbsp;</P>
+
+<H2>Known Problems<A NAME="anchor30"></A></H2>
+
+<P>Please e-mail any problem or bug you encounter:
+<A HREF="mailto:bdesgraupes@easyconnect.fr">bdesgraupes@easyconnect.fr</A>
+</P>
+
+<P>&nbsp;</P>
+
+<H2>License and Disclaimer<A NAME="anchor31"></A></H2>
+
+<P>Copyright Bernard Desgraupes, 2001 All rights reserved. This
+software is free software distributed under the terms of the new BSD
+license : Redistribution and use in source and binary forms, with or
+without modification, are permitted provided that the following
+conditions are met:</P>
+
+<UL>
+   <LI>Redistributions of source code must retain the above copyright
+   notice, this list of conditions and the following disclaimer.
+   
+   <LI>Redistributions in binary form must reproduce the above
+   copyright notice, this list of conditions and the following
+   disclaimer in the documentation and/or other materials provided
+   with the distribution.
+   
+   <LI>Neither the name of Bernard Desgraupes nor the names of its
+   contributors may be used to endorse or promote products derived
+   from this software without specific prior written permission.
+</UL>
+
+<P>This software is provided by the copyright holders and
+contributors "as is" and any express or implied warranties,
+including, but not limited to, the implied warranties of
+merchantability and fitness for a particular purpose are disclaimed.
+In no event shall the regents or contributors be liable for any
+direct, indirect, incidental, special, exemplary, or consequential
+damages (including, but not limited to, procurement of substitute
+goods or services; loss of use, data, or profits; or business
+interruption) however caused and on any theory of liability, whether
+in contract, strict liability, or tort (including negligence or
+otherwise) arising in any way out of the use of this software, even
+if advised of the possibility of such damage.</P>
+
+<P ALIGN=CENTER>&nbsp;</P>
+
+<P ALIGN=CENTER><A HREF="../index.html">Main page</A> 
+| <A HREF="../alpha.html">Alpha Page</A></P>
+</BODY>
+</HTML>

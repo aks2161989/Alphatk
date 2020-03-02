@@ -1,0 +1,6 @@
+#!/usr/bin/perl
+
+@lines = <>;                # Read in all the lines.
+
+print sort(@lines);
+
